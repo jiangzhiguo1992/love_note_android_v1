@@ -150,6 +150,7 @@ public class WhisperListActivity extends BaseActivity<WhisperListActivity> {
                 onCommentInput(s.toString());
             }
         });
+        // input
         commentShow(false);
         etComment.setText("");
     }
@@ -297,12 +298,12 @@ public class WhisperListActivity extends BaseActivity<WhisperListActivity> {
 
     // 评论视图
     private void commentShow(boolean show) {
+        //if (!show) InputUtils.hideSoftInput(etComment);
         if (behaviorComment == null) {
             behaviorComment = BottomSheetBehavior.from(rlComment);
         }
         int state = show ? BottomSheetBehavior.STATE_COLLAPSED : BottomSheetBehavior.STATE_HIDDEN;
         behaviorComment.setState(state);
-        if (!show) InputUtils.hideSoftInput(etComment);
     }
 
     private void commitText() {

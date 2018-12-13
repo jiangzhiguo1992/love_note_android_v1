@@ -9,6 +9,7 @@ import android.text.Editable;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -52,10 +53,8 @@ public class AwardEditActivity extends BaseActivity<AwardEditActivity> {
     CardView cvRule;
     @BindView(R.id.tvRule)
     TextView tvRule;
-    @BindView(R.id.cvHappenAt)
-    CardView cvHappenAt;
-    @BindView(R.id.tvHappenAt)
-    TextView tvHappenAt;
+    @BindView(R.id.btnHappenAt)
+    Button btnHappenAt;
     @BindView(R.id.rgHappenUser)
     RadioGroup rgHappenUser;
     @BindView(R.id.rbHappenMe)
@@ -139,13 +138,13 @@ public class AwardEditActivity extends BaseActivity<AwardEditActivity> {
         onContentInput(s.toString());
     }
 
-    @OnClick({R.id.cvRule, R.id.cvHappenAt})
+    @OnClick({R.id.cvRule, R.id.btnHappenAt})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.cvRule: // 规则
                 AwardRuleListActivity.goActivityBySelect(mActivity);
                 break;
-            case R.id.cvHappenAt: // 日期
+            case R.id.btnHappenAt: // 日期
                 showDatePicker();
                 break;
         }
@@ -195,7 +194,7 @@ public class AwardEditActivity extends BaseActivity<AwardEditActivity> {
     private void refreshDateView() {
         if (award == null) return;
         String happen = TimeHelper.getTimeShowLocal_HM_MDHM_YMDHM_ByGo(award.getHappenAt());
-        tvHappenAt.setText(happen);
+        btnHappenAt.setText(happen);
     }
 
     private void onContentInput(String input) {

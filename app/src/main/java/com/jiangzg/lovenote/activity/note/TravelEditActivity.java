@@ -11,8 +11,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -71,10 +71,8 @@ public class TravelEditActivity extends BaseActivity<TravelEditActivity> {
     Toolbar tb;
     @BindView(R.id.etTitle)
     EditText etTitle;
-    @BindView(R.id.cvHappenAt)
-    CardView cvHappenAt;
-    @BindView(R.id.tvHappenAt)
-    TextView tvHappenAt;
+    @BindView(R.id.btnHappenAt)
+    Button btnHappenAt;
     @BindView(R.id.rvPlace)
     RecyclerView rvPlace;
     @BindView(R.id.cvPlaceAdd)
@@ -411,10 +409,13 @@ public class TravelEditActivity extends BaseActivity<TravelEditActivity> {
         return super.onOptionsItemSelected(item);
     }
 
-    @OnClick({R.id.cvPlaceAdd, R.id.cvAlbumAdd, R.id.cvVideoAdd, R.id.cvFoodAdd,
-            R.id.cvMovieAdd, R.id.cvDiaryAdd, R.id.cvHappenAt})
+    @OnClick({R.id.btnHappenAt, R.id.cvPlaceAdd, R.id.cvAlbumAdd, R.id.cvVideoAdd,
+            R.id.cvFoodAdd, R.id.cvMovieAdd, R.id.cvDiaryAdd})
     public void onViewClicked(View view) {
         switch (view.getId()) {
+            case R.id.btnHappenAt: // 日期
+                showDatePicker();
+                break;
             case R.id.cvPlaceAdd: // 足迹
                 TravelPlaceEditActivity.goActivity(mActivity);
                 break;
@@ -432,9 +433,6 @@ public class TravelEditActivity extends BaseActivity<TravelEditActivity> {
                 break;
             case R.id.cvDiaryAdd: // 日记
                 DiaryListActivity.goActivityBySelect(mActivity);
-                break;
-            case R.id.cvHappenAt: // 日期
-                showDatePicker();
                 break;
         }
     }
@@ -558,7 +556,7 @@ public class TravelEditActivity extends BaseActivity<TravelEditActivity> {
     private void refreshDateView() {
         if (travel == null) return;
         String happen = TimeHelper.getTimeShowLocal_HM_MD_YMD_ByGo(travel.getHappenAt());
-        tvHappenAt.setText(happen);
+        btnHappenAt.setText(happen);
     }
 
     private void showDeleteDialogNoApi(final BaseQuickAdapter adapter, final int position, @StringRes int contentRes) {

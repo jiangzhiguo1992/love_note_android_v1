@@ -383,12 +383,12 @@ public class SuggestDetailActivity extends BaseActivity<SuggestDetailActivity> {
 
     // 评论视图
     private void commentShow(boolean show) {
+        //if (!show) InputUtils.hideSoftInput(etComment);
         if (behaviorComment == null) {
             behaviorComment = BottomSheetBehavior.from(rlComment);
         }
         int state = show ? BottomSheetBehavior.STATE_COLLAPSED : BottomSheetBehavior.STATE_HIDDEN;
         behaviorComment.setState(state);
-        if (!show) InputUtils.hideSoftInput(etComment);
     }
 
     // 关注

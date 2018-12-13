@@ -3,17 +3,16 @@ package com.jiangzg.lovenote.activity.note;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.widget.CardView;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.TextView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.jiangzg.base.common.StringUtils;
@@ -55,10 +54,8 @@ public class GiftEditActivity extends BaseActivity<GiftEditActivity> {
     Toolbar tb;
     @BindView(R.id.etTitle)
     EditText etTitle;
-    @BindView(R.id.cvHappenAt)
-    CardView cvHappenAt;
-    @BindView(R.id.tvHappenAt)
-    TextView tvHappenAt;
+    @BindView(R.id.btnHappenAt)
+    Button btnHappenAt;
     @BindView(R.id.rgReceive)
     RadioGroup rgReceive;
     @BindView(R.id.rbReceiveMe)
@@ -194,10 +191,10 @@ public class GiftEditActivity extends BaseActivity<GiftEditActivity> {
         return super.onOptionsItemSelected(item);
     }
 
-    @OnClick({R.id.cvHappenAt})
+    @OnClick({R.id.btnHappenAt})
     public void onViewClicked(View view) {
         switch (view.getId()) {
-            case R.id.cvHappenAt: // 日期
+            case R.id.btnHappenAt: // 日期
                 showDatePicker();
                 break;
         }
@@ -266,7 +263,7 @@ public class GiftEditActivity extends BaseActivity<GiftEditActivity> {
     private void refreshDateView() {
         if (gift == null) return;
         String happen = TimeHelper.getTimeShowLocal_HM_MD_YMD_ByGo(gift.getHappenAt());
-        tvHappenAt.setText(happen);
+        btnHappenAt.setText(happen);
     }
 
     private void checkPush() {

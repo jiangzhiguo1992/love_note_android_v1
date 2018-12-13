@@ -3,12 +3,12 @@ package com.jiangzg.lovenote.activity.note;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -46,10 +46,8 @@ public class AngryEditActivity extends BaseActivity<AngryEditActivity> {
 
     @BindView(R.id.tb)
     Toolbar tb;
-    @BindView(R.id.cvHappenAt)
-    CardView cvHappenAt;
-    @BindView(R.id.tvHappenAt)
-    TextView tvHappenAt;
+    @BindView(R.id.btnHappenAt)
+    Button btnHappenAt;
     @BindView(R.id.rgHappenUser)
     RadioGroup rgHappenUser;
     @BindView(R.id.rbHappenMe)
@@ -121,10 +119,10 @@ public class AngryEditActivity extends BaseActivity<AngryEditActivity> {
         onContentInput(s.toString());
     }
 
-    @OnClick({R.id.cvHappenAt})
+    @OnClick({R.id.btnHappenAt})
     public void onViewClicked(View view) {
         switch (view.getId()) {
-            case R.id.cvHappenAt: // 日期
+            case R.id.btnHappenAt: // 日期
                 showDatePicker();
                 break;
         }
@@ -157,7 +155,7 @@ public class AngryEditActivity extends BaseActivity<AngryEditActivity> {
     private void refreshDateView() {
         if (angry == null) return;
         String happen = TimeHelper.getTimeShowLocal_HM_MD_YMD_ByGo(angry.getHappenAt());
-        tvHappenAt.setText(happen);
+        btnHappenAt.setText(happen);
     }
 
     private void onContentInput(String input) {

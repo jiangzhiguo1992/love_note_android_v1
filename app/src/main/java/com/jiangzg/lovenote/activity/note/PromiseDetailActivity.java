@@ -299,12 +299,12 @@ public class PromiseDetailActivity extends BaseActivity<PromiseDetailActivity> {
     }
 
     private void breakShow(boolean show) {
+        //if (!show) InputUtils.hideSoftInput(etBreakContent);
         if (behaviorBreak == null) {
             behaviorBreak = BottomSheetBehavior.from(rlBreak);
         }
         int state = show ? BottomSheetBehavior.STATE_COLLAPSED : BottomSheetBehavior.STATE_HIDDEN;
         behaviorBreak.setState(state);
-        if (!show) InputUtils.hideSoftInput(etBreakContent);
     }
 
     private void showDelDialog() {
@@ -364,6 +364,7 @@ public class PromiseDetailActivity extends BaseActivity<PromiseDetailActivity> {
             ToastUtils.show(etBreakContent.getHint());
             return;
         }
+        InputUtils.hideSoftInput(etBreakContent);
         PromiseBreak promiseBreak = ApiHelper.getPromiseBreakBody(promise.getId(), breakHappen, content);
         MaterialDialog loading = getLoading(getString(R.string.are_deleting), true);
         callBreakAdd = new RetrofitHelper().call(API.class).notePromiseBreakAdd(promiseBreak);

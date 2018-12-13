@@ -3,7 +3,6 @@ package com.jiangzg.lovenote.activity.note;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.widget.CardView;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -11,6 +10,7 @@ import android.text.Editable;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -49,10 +49,8 @@ public class DiaryEditActivity extends BaseActivity<DiaryEditActivity> {
 
     @BindView(R.id.tb)
     Toolbar tb;
-    @BindView(R.id.cvHappenAt)
-    CardView cvHappenAt;
-    @BindView(R.id.tvHappenAt)
-    TextView tvHappenAt;
+    @BindView(R.id.btnHappenAt)
+    Button btnHappenAt;
     @BindView(R.id.rv)
     RecyclerView rv;
     @BindView(R.id.etContent)
@@ -183,10 +181,10 @@ public class DiaryEditActivity extends BaseActivity<DiaryEditActivity> {
         onContentInput(s.toString());
     }
 
-    @OnClick({R.id.cvHappenAt})
+    @OnClick({R.id.btnHappenAt})
     public void onViewClicked(View view) {
         switch (view.getId()) {
-            case R.id.cvHappenAt: // 日期
+            case R.id.btnHappenAt: // 日期
                 showDatePicker();
                 break;
         }
@@ -231,7 +229,7 @@ public class DiaryEditActivity extends BaseActivity<DiaryEditActivity> {
     private void refreshDateView() {
         if (diary == null) return;
         String happen = TimeHelper.getTimeShowLocal_HM_MD_YMD_ByGo(diary.getHappenAt());
-        tvHappenAt.setText(happen);
+        btnHappenAt.setText(happen);
     }
 
     private void onContentInput(String input) {

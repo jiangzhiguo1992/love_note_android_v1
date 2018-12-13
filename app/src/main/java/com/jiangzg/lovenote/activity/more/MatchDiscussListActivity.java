@@ -321,12 +321,12 @@ public class MatchDiscussListActivity extends BaseActivity<MatchDiscussListActiv
     }
 
     private void addShow(boolean show) {
+        //if (!show) InputUtils.hideSoftInput(etComment);
         if (behaviorAdd == null) {
             behaviorAdd = BottomSheetBehavior.from(rlAdd);
         }
         int state = show ? BottomSheetBehavior.STATE_COLLAPSED : BottomSheetBehavior.STATE_HIDDEN;
         behaviorAdd.setState(state);
-        if (!show) InputUtils.hideSoftInput(etContent);
     }
 
     private void onContentInput(String input) {
@@ -362,6 +362,8 @@ public class MatchDiscussListActivity extends BaseActivity<MatchDiscussListActiv
         RetrofitHelper.enqueue(callAdd, loading, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
+                etContent.setText("");
+                addShow(false);
             }
 
             @Override

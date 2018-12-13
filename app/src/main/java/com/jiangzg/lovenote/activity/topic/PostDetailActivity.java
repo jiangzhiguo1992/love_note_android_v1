@@ -745,12 +745,12 @@ public class PostDetailActivity extends BaseActivity<PostDetailActivity> {
     }
 
     private void commentShow(boolean show) {
+        //if (!show) InputUtils.hideSoftInput(etComment);
         if (behaviorComment == null) {
             behaviorComment = BottomSheetBehavior.from(rlComment);
         }
         int state = show ? BottomSheetBehavior.STATE_COLLAPSED : BottomSheetBehavior.STATE_HIDDEN;
         behaviorComment.setState(state);
-        if (!show) InputUtils.hideSoftInput(etComment);
     }
 
     private void onCommentInput(String input) {
