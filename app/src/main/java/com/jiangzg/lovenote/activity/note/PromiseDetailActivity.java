@@ -4,12 +4,12 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.BottomSheetBehavior;
-import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -73,10 +73,8 @@ public class PromiseDetailActivity extends BaseActivity<PromiseDetailActivity> {
     ImageView ivBreakClose;
     @BindView(R.id.ivAddCommit)
     ImageView ivAddCommit;
-    @BindView(R.id.tvBreakHappen)
-    TextView tvBreakHappen;
-    @BindView(R.id.cvBreakHappen)
-    CardView cvBreakHappen;
+    @BindView(R.id.btnBreakHappen)
+    Button btnBreakHappen;
     @BindView(R.id.tvBreakContentLimit)
     TextView tvBreakContentLimit;
     @BindView(R.id.etBreakContent)
@@ -194,7 +192,7 @@ public class PromiseDetailActivity extends BaseActivity<PromiseDetailActivity> {
     }
 
     @OnClick({R.id.llDel, R.id.llEdit, R.id.llAdd,
-            R.id.ivBreakClose, R.id.cvBreakHappen, R.id.ivAddCommit})
+            R.id.ivBreakClose, R.id.btnBreakHappen, R.id.ivAddCommit})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.llDel:
@@ -210,7 +208,7 @@ public class PromiseDetailActivity extends BaseActivity<PromiseDetailActivity> {
             case R.id.ivBreakClose:
                 breakShow(false);
                 break;
-            case R.id.cvBreakHappen:
+            case R.id.btnBreakHappen:
                 showBreakTimePicker();
                 break;
             case R.id.ivAddCommit:
@@ -356,7 +354,7 @@ public class PromiseDetailActivity extends BaseActivity<PromiseDetailActivity> {
             breakHappen = TimeHelper.getGoTimeByJava(DateUtils.getCurrentLong());
         }
         String happen = TimeHelper.getTimeShowLocal_HM_MDHM_YMDHM_ByGo(breakHappen);
-        tvBreakHappen.setText(happen);
+        btnBreakHappen.setText(happen);
     }
 
     private void commitBreak() {

@@ -16,60 +16,71 @@
 
         <include layout="@layout/view_top_bar"/>
 
-        <LinearLayout
+        <android.support.v7.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/shape_gradient_primary_back"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/tvCurrentChannel"
-                style="@style/FontWhiteBigBold"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:gravity="center"
-                android:maxLines="1"
-                android:singleLine="true"
-                tools:text="当前频道：我爱你"/>
+            android:layout_margin="10dp"
+            android:background="?attr/selectableItemBackground"
+            android:foreground="?attr/selectableItemBackground"
+            app:cardBackgroundColor="?attr/colorPrimary"
+            app:cardCornerRadius="@dimen/radius_normal"
+            app:cardElevation="@dimen/elevation_normal"
+            app:cardMaxElevation="@dimen/elevation_big">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:orientation="horizontal">
+                android:orientation="vertical">
 
-                <EditText
-                    android:id="@+id/etChannel"
-                    style="@style/FontGreyNormal"
-                    android:layout_width="0dp"
+                <TextView
+                    android:id="@+id/tvCurrentChannel"
+                    style="@style/FontWhiteBigBold"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginEnd="5dp"
-                    android:layout_marginBottom="10dp"
-                    android:layout_weight="1"
-                    android:background="@drawable/shape_solid_white_r3"
+                    android:layout_margin="10dp"
                     android:gravity="center"
-                    android:hint="@string/in_here_input_channel"
                     android:maxLines="1"
-                    android:padding="7dp"
                     android:singleLine="true"
-                    android:textColorHint="@color/font_hint"/>
+                    tools:text="当前频道：我爱你"/>
 
-                <Button
-                    android:id="@+id/btnChangeChannel"
-                    style="@style/FontWhiteNormal"
-                    android:layout_width="wrap_content"
-                    android:layout_height="33dp"
-                    android:layout_marginStart="5dp"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginEnd="10dp"
-                    android:layout_marginBottom="10dp"
-                    android:background="@drawable/selector_enable_press_solid_light_primary_dark_r3"
-                    android:text="@string/change_channel"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <EditText
+                        android:id="@+id/etChannel"
+                        style="@style/FontGreyNormal"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginEnd="5dp"
+                        android:layout_marginBottom="10dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/shape_solid_white_r3"
+                        android:gravity="center"
+                        android:hint="@string/in_here_input_channel"
+                        android:maxLines="1"
+                        android:padding="7dp"
+                        android:singleLine="true"
+                        android:textColorHint="@color/font_hint"/>
+
+                    <Button
+                        android:id="@+id/btnChangeChannel"
+                        style="@style/FontPrimaryNormal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="33dp"
+                        android:layout_marginStart="5dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginEnd="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:background="@drawable/shape_solid_white_r100"
+                        android:text="@string/change_channel"/>
+                </LinearLayout>
             </LinearLayout>
-        </LinearLayout>
+        </android.support.v7.widget.CardView>
 
         <com.jiangzg.lovenote.view.GSwipeRefreshLayout
             android:id="@+id/srl"

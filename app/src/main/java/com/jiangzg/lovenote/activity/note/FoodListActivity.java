@@ -97,7 +97,7 @@ public class FoodListActivity extends BaseActivity<FoodListActivity> {
                 .initLayoutManager(new LinearLayoutManager(mActivity))
                 .initRefresh(srl, false)
                 .initAdapter(new FoodAdapter(mActivity))
-                .viewEmpty(mActivity, R.layout.list_empty_white, true, true)
+                .viewEmpty(mActivity, R.layout.list_empty_grey, true, true)
                 .viewLoadMore(new RecyclerHelper.MoreGreyView())
                 .setAdapter()
                 .listenerRefresh(() -> getData(false))

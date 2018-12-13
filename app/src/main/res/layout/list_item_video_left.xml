@@ -90,20 +90,18 @@
 
     <TextView
         android:id="@+id/tvAddress"
-        style="@style/FontWhiteSmall"
-        android:layout_width="match_parent"
+        style="@style/FontGreySmall"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/cvVideo"
         android:layout_alignStart="@+id/cvVideo"
-        android:layout_alignEnd="@+id/cvVideo"
         android:layout_marginTop="5dp"
-        android:drawableStart="@mipmap/ic_location_on_white_18dp"
+        android:drawableStart="@mipmap/ic_location_on_grey_18dp"
         android:drawablePadding="6dp"
         android:gravity="start|center_vertical"
         android:maxLines="1"
         android:singleLine="true"
         android:visibility="gone"
-        tools:text="北京市 房山区 西坪小学 5号楼 二年级 3班北京市 房山区 西坪小学 5号楼 二年级 3班"
-        tools:textColor="@color/black"
+        tools:text="北京市 房山区 西坪小学 "
         tools:visibility="visible"/>
 </RelativeLayout>

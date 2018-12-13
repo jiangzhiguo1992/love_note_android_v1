@@ -12,7 +12,7 @@
 
     <TextView
         android:id="@+id/tvTitle"
-        style="@style/FontWhiteNormal"
+        style="@style/FontGreyNormal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/llContent"
@@ -20,8 +20,7 @@
         android:layout_alignEnd="@id/llContent"
         android:layout_marginTop="5dp"
         android:gravity="end"
-        tools:text="录音介绍"
-        tools:textColor="@color/black"/>
+        tools:text="录音介绍"/>
 
     <com.jiangzg.lovenote.view.FrescoAvatarView
         android:id="@+id/ivAvatar"
