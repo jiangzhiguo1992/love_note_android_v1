@@ -1292,7 +1292,7 @@ public class ListHelper {
             }
         }
         if (top) showList.add(MyApp.get().getString(R.string.top));
-        if (official) showList.add(MyApp.get().getString(R.string.official));
+        if (official) showList.add(MyApp.get().getString(R.string.administrators));
         if (well) showList.add(MyApp.get().getString(R.string.well));
         if (hot) showList.add(MyApp.get().getString(R.string.hot));
         if (mine) showList.add(MyApp.get().getString(R.string.me_de));

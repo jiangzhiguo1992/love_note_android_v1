@@ -284,7 +284,7 @@ public class SuggestDetailActivity extends BaseActivity<SuggestDetailActivity> {
             wvTag.addChild(tagTop);
         }
         if (official) {
-            View tagOfficial = ViewHelper.getWrapTextView(mActivity, mActivity.getString(R.string.official));
+            View tagOfficial = ViewHelper.getWrapTextView(mActivity, mActivity.getString(R.string.administrators));
             wvTag.addChild(tagOfficial);
         }
         View tagStatus = ViewHelper.getWrapTextView(mActivity, statusShow);

@@ -45,7 +45,7 @@ public class SuggestAdapter extends BaseQuickAdapter<Suggest, BaseViewHolder> {
         formatFollow = mActivity.getString(R.string.follow);
         formatComment = mActivity.getString(R.string.comment);
         formatTop = mActivity.getString(R.string.top);
-        formatOfficial = mActivity.getString(R.string.official);
+        formatOfficial = mActivity.getString(R.string.administrators);
         formatMine = mActivity.getString(R.string.me_de);
         // color
         int rId = ViewHelper.getColorPrimary(activity);
