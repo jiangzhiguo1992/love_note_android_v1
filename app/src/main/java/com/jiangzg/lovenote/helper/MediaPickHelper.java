@@ -61,9 +61,14 @@ public class MediaPickHelper {
                 .forResult(ConsHelper.REQUEST_PICTURE); // 请求码
     }
 
-    public static File getResultFile(Intent data) {
-        if (data == null) {
-            LogUtils.w(MediaPickHelper.class, "getResultFile", "data == null");
+    public static File getResultFile(Activity activity, Intent data) {
+        if (activity == null || data == null) {
+            LogUtils.w(MediaPickHelper.class, "getResultFile", "activity == null || data == null");
+            return null;
+        }
+        boolean permissionOK = PermUtils.isPermissionOK(activity, PermUtils.appInfo);
+        if (!permissionOK) {
+            PermUtils.requestPermissions(activity, ConsHelper.REQUEST_APP_INFO, PermUtils.appInfo, null);
             return null;
         }
         List<Uri> uris = Matisse.obtainResult(data);
@@ -86,14 +91,19 @@ public class MediaPickHelper {
         return file;
     }
 
-    public static List<File> getResultFileList(Intent data) {
-        if (data == null) {
-            LogUtils.w(MediaPickHelper.class, "getResultFile", "data == null");
-            return new ArrayList<>();
+    public static List<File> getResultFileList(Activity activity, Intent data) {
+        if (activity == null || data == null) {
+            LogUtils.w(MediaPickHelper.class, "getResultFileList", "activity == null || data == null");
+            return null;
+        }
+        boolean permissionOK = PermUtils.isPermissionOK(activity, PermUtils.appInfo);
+        if (!permissionOK) {
+            PermUtils.requestPermissions(activity, ConsHelper.REQUEST_APP_INFO, PermUtils.appInfo, null);
+            return null;
         }
         List<Uri> uris = Matisse.obtainResult(data);
         if (uris == null || uris.size() <= 0) {
-            LogUtils.w(MediaPickHelper.class, "getResultFile", "uris == null");
+            LogUtils.w(MediaPickHelper.class, "getResultFileList", "uris == null");
             return new ArrayList<>();
         }
         List<File> fileList = new ArrayList<>();
@@ -102,7 +112,7 @@ public class MediaPickHelper {
             if (uri != null) {
                 file = ProviderUtils.getFileByUri(uri);
             } else {
-                LogUtils.w(IntentResult.class, "getResultFile", "uri == null");
+                LogUtils.w(IntentResult.class, "getResultFileList", "uri == null");
                 long time = new Date().getTime();
                 file = new File(AppInfo.get().getInCacheDir(), time + ".jpeg");
                 FileUtils.createFileByDeleteOldFile(file);
@@ -116,8 +126,8 @@ public class MediaPickHelper {
         return fileList;
     }
 
-    public static List<String> getResultFilePathList(Intent data) {
-        List<File> fileList = getResultFileList(data);
+    public static List<String> getResultFilePathList(Activity activity, Intent data) {
+        List<File> fileList = getResultFileList(activity, data);
         if (fileList == null || fileList.size() <= 0) return new ArrayList<>();
         return ListHelper.getPathListByFile(fileList);
     }

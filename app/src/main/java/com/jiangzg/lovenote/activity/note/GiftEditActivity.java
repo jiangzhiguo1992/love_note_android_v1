@@ -166,7 +166,7 @@ public class GiftEditActivity extends BaseActivity<GiftEditActivity> {
         if (resultCode != RESULT_OK) return;
         if (requestCode == ConsHelper.REQUEST_PICTURE) {
             // 相册
-            List<String> pathList = MediaPickHelper.getResultFilePathList(data);
+            List<String> pathList = MediaPickHelper.getResultFilePathList(mActivity, data);
             if (pathList == null || pathList.size() <= 0) {
                 ToastUtils.show(getString(R.string.file_no_exits));
                 return;

@@ -190,7 +190,7 @@ public class WhisperListActivity extends BaseActivity<WhisperListActivity> {
         if (resultCode != RESULT_OK) return;
         if (requestCode == ConsHelper.REQUEST_PICTURE) {
             // 相册
-            File pictureFile = MediaPickHelper.getResultFile(data);
+            File pictureFile = MediaPickHelper.getResultFile(mActivity, data);
             if (FileUtils.isFileEmpty(pictureFile)) {
                 ToastUtils.show(getString(R.string.file_no_exits));
                 return;

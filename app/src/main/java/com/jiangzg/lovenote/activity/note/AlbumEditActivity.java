@@ -138,7 +138,7 @@ public class AlbumEditActivity extends BaseActivity<AlbumEditActivity> {
         if (resultCode != RESULT_OK) return;
         if (requestCode == ConsHelper.REQUEST_PICTURE) {
             // 相册
-            pictureFile = MediaPickHelper.getResultFile(data);
+            pictureFile = MediaPickHelper.getResultFile(mActivity, data);
             if (FileUtils.isFileEmpty(pictureFile)) {
                 ToastUtils.show(getString(R.string.file_no_exits));
                 pictureFile = null;
