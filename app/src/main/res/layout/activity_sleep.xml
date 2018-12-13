@@ -13,7 +13,8 @@
     <com.jiangzg.lovenote.view.GSwipeRefreshLayout
         android:id="@+id/srl"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="?attr/colorPrimary">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -22,8 +23,7 @@
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="?attr/colorPrimary">
+                android:layout_height="wrap_content">
 
                 <TextView
                     android:id="@+id/tvDateShow"
@@ -49,43 +49,56 @@
                     android:text="@string/back_current"/>
             </RelativeLayout>
 
-            <com.haibin.calendarview.CalendarView
-                android:id="@+id/cvSleep"
+            <android.support.v7.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/shape_gradient_primary_back"
-                app:current_day_lunar_text_color="?attr/colorPrimary"
-                app:current_day_text_color="?attr/colorPrimary"
-                app:current_month_lunar_text_color="@color/white_alpha_75"
-                app:current_month_text_color="@color/white"
-                app:day_text_size="@dimen/font_big"
-                app:lunar_text_size="9sp"
-                app:month_view_show_mode="mode_all"
-                app:other_month_lunar_text_color="?attr/colorAccent"
-                app:other_month_text_color="@color/white_alpha_75"
-                app:scheme_lunar_text_color="@color/white_alpha_75"
-                app:scheme_text_color="?attr/colorPrimaryDark"
-                app:select_mode="default_mode"
-                app:selected_lunar_text_color="@color/white_alpha_75"
-                app:selected_text_color="@color/white"
-                app:selected_theme_color="?attr/colorPrimary"
-                app:week_background="@color/alpha_00"
-                app:week_start_with="sun"
-                app:week_text_color="@color/white"
-                app:week_text_size="@dimen/font_small"
-                app:week_view_scrollable="true"
-                app:year_view_background="@color/white"
-                app:year_view_day_text_color="?attr/colorAccent"
-                app:year_view_day_text_size="9sp"
-                app:year_view_month_text_color="?attr/colorPrimary"
-                app:year_view_month_text_size="@dimen/font_normal"
-                app:year_view_scheme_color="?attr/colorPrimaryDark"
-                app:year_view_scrollable="true"/>
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                app:cardBackgroundColor="@color/white"
+                app:cardCornerRadius="@dimen/radius_normal"
+                app:cardElevation="@dimen/elevation_normal"
+                app:cardMaxElevation="@dimen/elevation_big">
+
+                <com.haibin.calendarview.CalendarView
+                    android:id="@+id/cvSleep"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:background="@color/white"
+                    app:current_day_lunar_text_color="?attr/colorPrimaryDark"
+                    app:current_day_text_color="?attr/colorPrimaryDark"
+                    app:current_month_lunar_text_color="?attr/colorAccent"
+                    app:current_month_text_color="?attr/colorAccent"
+                    app:day_text_size="@dimen/font_big"
+                    app:lunar_text_size="7sp"
+                    app:month_view_show_mode="mode_all"
+                    app:other_month_lunar_text_color="?attr/colorControlNormal"
+                    app:other_month_text_color="?attr/colorControlNormal"
+                    app:scheme_lunar_text_color="?attr/colorPrimary"
+                    app:scheme_text_color="?attr/colorPrimary"
+                    app:select_mode="default_mode"
+                    app:selected_lunar_text_color="@color/white"
+                    app:selected_text_color="@color/white"
+                    app:selected_theme_color="?attr/colorPrimary"
+                    app:week_background="@color/alpha_00"
+                    app:week_start_with="sun"
+                    app:week_text_color="?attr/colorPrimary"
+                    app:week_text_size="@dimen/font_small"
+                    app:week_view_scrollable="true"
+                    app:year_view_background="@color/white"
+                    app:year_view_day_text_color="?attr/colorAccent"
+                    app:year_view_day_text_size="9sp"
+                    app:year_view_month_text_color="?attr/colorPrimary"
+                    app:year_view_month_text_size="@dimen/font_normal"
+                    app:year_view_scheme_color="?attr/colorPrimaryDark"
+                    app:year_view_scrollable="true"/>
+            </android.support.v7.widget.CardView>
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_marginStart="10dp"
+                android:layout_marginTop="5dp"
                 android:layout_marginEnd="10dp"
                 android:layout_weight="1">
 
@@ -139,7 +152,7 @@
 
                     <TextView
                         android:id="@+id/tvStateLeft"
-                        style="@style/FontPrimaryNormal"
+                        style="@style/FontWhiteNormal"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         tools:text="已睡着8小时"/>
@@ -153,14 +166,14 @@
                     android:layout_margin="10dp"
                     android:background="?attr/selectableItemBackground"
                     android:foreground="?attr/selectableItemBackground"
-                    app:cardBackgroundColor="?attr/colorPrimary"
+                    app:cardBackgroundColor="@color/white"
                     app:cardCornerRadius="40dp"
                     app:cardElevation="@dimen/elevation_big"
                     app:cardMaxElevation="@dimen/elevation_huge">
 
                     <TextView
                         android:id="@+id/tvPush"
-                        style="@style/FontWhiteHuge"
+                        style="@style/FontPrimaryHuge"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:gravity="center"
@@ -185,7 +198,7 @@
 
                     <TextView
                         android:id="@+id/tvStateRight"
-                        style="@style/FontPrimaryNormal"
+                        style="@style/FontWhiteNormal"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         tools:text="已睡着8小时"/>

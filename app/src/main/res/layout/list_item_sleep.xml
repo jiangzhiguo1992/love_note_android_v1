@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/tvTime"
-    style="@style/FontPrimaryNormal"
+    style="@style/FontWhiteNormal"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="?attr/selectableItemBackground"
@@ -11,5 +11,4 @@
     android:gravity="center"
     android:paddingTop="2dp"
     android:paddingBottom="2dp"
-    tools:background="@color/black_alpha_25"
     tools:text="撒飒飒撒飒飒撒飒飒撒飒飒撒飒飒"/>
