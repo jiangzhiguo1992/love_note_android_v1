@@ -264,6 +264,7 @@ public class CoupleFragment extends BasePagerFragment<CoupleFragment> {
 
     // 视图刷新 所有cp的更新都要放到sp里，集中存放
     private void refreshView() {
+        if (mActivity == null || !mFragment.isAdded()) return; // 防止已经脱离后加载
         ivBg.setVisibility(View.GONE);
         vpWallPaper.setVisibility(View.GONE);
         btnPair.setVisibility(View.GONE);
@@ -320,6 +321,7 @@ public class CoupleFragment extends BasePagerFragment<CoupleFragment> {
 
     // 墙纸
     private void refreshWallPaperView() {
+        if (mActivity == null || !mFragment.isAdded()) return; // 防止已经脱离后加载
         WallPaper wallPaper = SPHelper.getWallPaper();
         // 无图显示
         if (wallPaper == null || wallPaper.getContentImageList() == null || wallPaper.getContentImageList().size() <= 0) {
@@ -352,7 +354,7 @@ public class CoupleFragment extends BasePagerFragment<CoupleFragment> {
     }
 
     private void refreshPlaceView() {
-        if (mActivity == null) return;
+        if (mActivity == null || !mFragment.isAdded()) return; // 防止已经脱离后加载
         String addressDef = mActivity.getString(R.string.now_no_address_info);
         // myAddress
         String myAddress = (myPlace == null) ? "" : myPlace.getAddress();
@@ -380,7 +382,7 @@ public class CoupleFragment extends BasePagerFragment<CoupleFragment> {
     }
 
     private void refreshWeatherView() {
-        if (mActivity == null) return;
+        if (mActivity == null || !mFragment.isAdded()) return; // 防止已经脱离后加载
         int colorIcon = ContextCompat.getColor(mActivity, ViewHelper.getColorPrimary(mActivity));
         String weatherDef = mActivity.getString(R.string.now_no_weather_info);
         // myWeather

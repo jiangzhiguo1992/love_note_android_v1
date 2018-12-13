@@ -263,6 +263,7 @@ public class MoreFragment extends BasePagerFragment<MoreFragment> {
     }
 
     private void initBroadcast(List<Broadcast> broadcastList) {
+        if (mActivity == null || !mFragment.isAdded()) return; // 防止已经脱离后加载
         if (broadcastList == null || broadcastList.size() <= 0) {
             tvBroadcast.setVisibility(View.VISIBLE);
             bb.setVisibility(View.GONE);
@@ -274,6 +275,7 @@ public class MoreFragment extends BasePagerFragment<MoreFragment> {
     }
 
     private void initPay(Vip vip, Coin coin, Sign sign) {
+        if (mActivity == null || !mFragment.isAdded()) return; // 防止已经脱离后加载
         // vip
         String vipInfo;
         if (vip == null || TimeHelper.getJavaTimeByGo(vip.getExpireAt()) <= DateUtils.getCurrentLong()) {
@@ -301,6 +303,7 @@ public class MoreFragment extends BasePagerFragment<MoreFragment> {
     }
 
     private void initMatch() {
+        if (mActivity == null || !mFragment.isAdded()) return; // 防止已经脱离后加载
         if (wifePeriod == null || wifePeriod.getId() <= 0) {
             tvWife.setText(R.string.now_no_activity);
         } else {
