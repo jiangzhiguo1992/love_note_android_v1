@@ -34,7 +34,7 @@ public class CalendarMonthView extends MonthView {
         mSchemeBasicPaint.setAntiAlias(true);
         mSchemeBasicPaint.setStyle(Paint.Style.FILL);
         mSchemeBasicPaint.setTextAlign(Paint.Align.CENTER);
-        mSchemeBasicPaint.setColor(0xffed5353);
+        //mSchemeBasicPaint.setColor(0xffed5353);
         mSchemeBasicPaint.setFakeBoldText(true);
         mRadio = ConvertUtils.dp2px(7);
         mPadding = ConvertUtils.dp2px(4);
