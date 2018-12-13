@@ -140,7 +140,7 @@ public class CoupleInfoActivity extends BaseActivity<CoupleInfoActivity> {
         recyclerHelper = new RecyclerHelper(rv)
                 .initLayoutManager(new LinearLayoutManager(mActivity))
                 .initAdapter(new CoupleStateAdapter(mActivity))
-                .viewEmpty(mActivity, R.layout.list_empty_primary, true, true)
+                .viewEmpty(mActivity, R.layout.list_empty_white, true, true)
                 .viewLoadMore(new RecyclerHelper.MoreTransView())
                 .setAdapter()
                 .listenerMore(currentCount -> getCoupleStateList(true));
