@@ -9,6 +9,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -53,10 +54,8 @@ public class AudioEditActivity extends BaseActivity<AudioEditActivity> {
     Toolbar tb;
     @BindView(R.id.etTitle)
     EditText etTitle;
-    @BindView(R.id.cvHappenAt)
-    CardView cvHappenAt;
-    @BindView(R.id.tvHappenAt)
-    TextView tvHappenAt;
+    @BindView(R.id.btnHappenAt)
+    Button btnHappenAt;
     @BindView(R.id.cvAudio)
     CardView cvAudio;
     @BindView(R.id.tvAudio)
@@ -144,10 +143,10 @@ public class AudioEditActivity extends BaseActivity<AudioEditActivity> {
         return super.onOptionsItemSelected(item);
     }
 
-    @OnClick({R.id.cvHappenAt, R.id.cvAudio})
+    @OnClick({R.id.btnHappenAt, R.id.cvAudio})
     public void onViewClicked(View view) {
         switch (view.getId()) {
-            case R.id.cvHappenAt: // 日期
+            case R.id.btnHappenAt: // 日期
                 showDateTimePicker();
                 break;
             case R.id.cvAudio: // 音频
@@ -167,7 +166,7 @@ public class AudioEditActivity extends BaseActivity<AudioEditActivity> {
     private void refreshDateView() {
         if (audio == null) return;
         String happen = TimeHelper.getTimeShowLine_HM_MDHM_YMDHM_ByGo(audio.getHappenAt());
-        tvHappenAt.setText(happen);
+        btnHappenAt.setText(happen);
     }
 
     private void selectAudio() {

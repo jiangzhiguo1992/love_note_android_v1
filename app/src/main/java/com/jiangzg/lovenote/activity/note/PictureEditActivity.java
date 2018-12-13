@@ -10,6 +10,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
@@ -52,10 +53,8 @@ public class PictureEditActivity extends BaseActivity<PictureEditActivity> {
 
     @BindView(R.id.tb)
     Toolbar tb;
-    @BindView(R.id.cvAlbum)
-    CardView cvAlbum;
-    @BindView(R.id.tvAlbum)
-    TextView tvAlbum;
+    @BindView(R.id.btnAlbum)
+    Button btnAlbum;
     @BindView(R.id.rv)
     RecyclerView rv;
     @BindView(R.id.cvHappenAt)
@@ -223,10 +222,10 @@ public class PictureEditActivity extends BaseActivity<PictureEditActivity> {
         return super.onOptionsItemSelected(item);
     }
 
-    @OnClick({R.id.cvAlbum, R.id.cvHappenAt, R.id.cvAddress})
+    @OnClick({R.id.btnAlbum, R.id.cvHappenAt, R.id.cvAddress})
     public void onViewClicked(View view) {
         switch (view.getId()) {
-            case R.id.cvAlbum: // 相册选取
+            case R.id.btnAlbum: // 相册选取
                 AlbumListActivity.goActivityBySelectAlbum(mActivity);
                 break;
             case R.id.cvHappenAt: // 时间
@@ -245,10 +244,10 @@ public class PictureEditActivity extends BaseActivity<PictureEditActivity> {
 
     private void refreshAlbum() {
         if (album == null || album.getId() == 0 || StringUtils.isEmpty(album.getTitle())) {
-            tvAlbum.setText(R.string.please_select_album);
+            btnAlbum.setText(R.string.please_select_album);
         } else {
             String title = String.format(Locale.getDefault(), getString(R.string.album_colon_space_holder), album.getTitle());
-            tvAlbum.setText(title);
+            btnAlbum.setText(title);
         }
     }
 
