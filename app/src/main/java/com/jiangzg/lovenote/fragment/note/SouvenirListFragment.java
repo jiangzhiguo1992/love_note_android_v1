@@ -63,7 +63,7 @@ public class SouvenirListFragment extends BasePagerFragment<SouvenirListFragment
                 .initLayoutManager(new LinearLayoutManager(mActivity))
                 .initRefresh(srl, false)
                 .initAdapter(new SouvenirAdapter(mFragment, done))
-                .viewEmpty(mActivity, R.layout.list_empty_white, true, true)
+                .viewEmpty(mActivity, R.layout.list_empty_grey, true, true)
                 .setAdapter()
                 .listenerRefresh(() -> getData(false))
                 .listenerMore(currentCount -> getData(true))
