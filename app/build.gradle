@@ -19,14 +19,14 @@ android {
     }
     signingConfigs { // 签名信息
         jzg_01 {
-            // MD5 = 76:52:5C:1C:8E:17:3B:45:B0:BF:17:01:C9:AD:24:5C
-            // MD5 = 76525c1c8e173b45b0bf1701c9ad245c
-            // SHA1 = B5:1B:D6:6B:B5:C0:7A:8A:D3:EC:E1:6B:08:A0:F4:7C:C3:0C:27:DA
-            // SHA256 = 9C:65:BE:24:EC:6A:4D:9B:9A:5B:A0:32:0A:87:2E:67:3C:73:17:AA:E9:73:A4:FE:AD:2D:DF:56:48:A5:57:25
             storeFile file('./key/jzg_01')
             storePassword 'laojiang1'
             keyAlias 'jzg_01'
             keyPassword 'laojiang1'
+            // MD5 = 76:52:5C:1C:8E:17:3B:45:B0:BF:17:01:C9:AD:24:5C
+            // MD5 = 76525c1c8e173b45b0bf1701c9ad245c
+            // SHA1 = B5:1B:D6:6B:B5:C0:7A:8A:D3:EC:E1:6B:08:A0:F4:7C:C3:0C:27:DA
+            // SHA256 = 9C:65:BE:24:EC:6A:4D:9B:9A:5B:A0:32:0A:87:2E:67:3C:73:17:AA:E9:73:A4:FE:AD:2D:DF:56:48:A5:57:25
         }
     }
     buildTypes { // 打包选项
