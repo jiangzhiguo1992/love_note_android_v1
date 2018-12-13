@@ -805,7 +805,7 @@
                         </android.support.v7.widget.CardView>
 
                         <android.support.v7.widget.CardView
-                            android:id="@+id/cvRecycle"
+                            android:id="@+id/cvGarbage"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="3dp"
@@ -819,13 +819,14 @@
                             app:cardBackgroundColor="@color/alpha_00"
                             app:cardCornerRadius="@dimen/radius_normal"
                             app:cardElevation="0dp"
-                            app:cardMaxElevation="@dimen/elevation_normal">
+                            app:cardMaxElevation="@dimen/elevation_normal"
+                            tools:visibility="visible">
 
                             <TextView
                                 style="@style/FontGreyNormal"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:drawableTop="@drawable/ic_recycle_bin_grey_dark"
+                                android:drawableTop="@mipmap/ic_note_garbage_24dp"
                                 android:drawablePadding="5dp"
                                 android:gravity="center"
                                 android:paddingTop="10dp"

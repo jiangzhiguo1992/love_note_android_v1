@@ -132,8 +132,6 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
                         android:layout_marginEnd="10dp"
-                        android:drawableStart="@drawable/ic_photo_15_grey"
-                        android:drawablePadding="6dp"
                         android:gravity="center"
                         android:text="@string/album"/>
 
@@ -172,8 +170,6 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
                         android:layout_marginEnd="10dp"
-                        android:drawableStart="@drawable/ic_video_15_grey"
-                        android:drawablePadding="6dp"
                         android:gravity="center"
                         android:text="@string/video"/>
 
@@ -212,8 +208,6 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
                         android:layout_marginEnd="10dp"
-                        android:drawableStart="@drawable/ic_food_15_grey"
-                        android:drawablePadding="6dp"
                         android:gravity="center"
                         android:text="@string/food"/>
 
@@ -252,8 +246,6 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
                         android:layout_marginEnd="10dp"
-                        android:drawableStart="@drawable/ic_movie_15_grey"
-                        android:drawablePadding="6dp"
                         android:gravity="center"
                         android:text="@string/movie"/>
 
@@ -292,8 +284,6 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
                         android:layout_marginEnd="10dp"
-                        android:drawableStart="@drawable/ic_diary_15_grey"
-                        android:drawablePadding="6dp"
                         android:gravity="center"
                         android:text="@string/diary"/>
 

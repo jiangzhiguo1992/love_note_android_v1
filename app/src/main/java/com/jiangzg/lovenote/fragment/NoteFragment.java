@@ -124,8 +124,8 @@ public class NoteFragment extends BasePagerFragment<NoteFragment> {
     CardView cvTotal;
     @BindView(R.id.cvTrends)
     CardView cvTrends;
-    @BindView(R.id.cvRecycle)
-    CardView cvRecycle;
+    @BindView(R.id.cvGarbage)
+    CardView cvGarbage;
 
     private Lock lock; // 默认没锁 + 没解开
     private Souvenir souvenirLatest;
@@ -199,7 +199,7 @@ public class NoteFragment extends BasePagerFragment<NoteFragment> {
             R.id.cvWord, R.id.cvWhisper, R.id.cvDiary, R.id.cvAward,
             R.id.cvDream, R.id.cvMovie, R.id.cvFood, R.id.cvTravel,
             R.id.cvAngry, R.id.cvGift, R.id.cvPromise,
-            R.id.cvTrends, R.id.cvTotal, R.id.cvRecycle})
+            R.id.cvTrends, R.id.cvTotal, R.id.cvGarbage})
     public void onViewClicked(View view) {
         if (UserHelper.isCoupleBreak(SPHelper.getCouple())) {
             // 无效配对
@@ -276,7 +276,7 @@ public class NoteFragment extends BasePagerFragment<NoteFragment> {
             case R.id.cvTrends: // 动态
                 TrendsListActivity.goActivity(mFragment);
                 break;
-            case R.id.cvRecycle: // 回收箱
+            case R.id.cvGarbage: // 回收箱
                 ToastUtils.show(mActivity.getString(R.string.function_no_open_please_wait));
                 break;
         }
