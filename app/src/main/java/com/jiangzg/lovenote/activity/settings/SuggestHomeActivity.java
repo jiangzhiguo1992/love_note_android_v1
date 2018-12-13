@@ -6,7 +6,6 @@ import android.content.res.ColorStateList;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -19,6 +18,7 @@ import android.widget.Button;
 import android.widget.HorizontalScrollView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
@@ -164,17 +164,17 @@ public class SuggestHomeActivity extends BaseActivity<SuggestHomeActivity> {
     private void initHead() {
         if (recyclerHelper == null) return;
         View head = recyclerHelper.getViewHead();
-        CardView cvMy = head.findViewById(R.id.cvMy);
-        CardView cvFollow = head.findViewById(R.id.cvFollow);
-        CardView cvAdd = head.findViewById(R.id.cvAdd);
+        TextView tvMy = head.findViewById(R.id.tvMy);
+        TextView tvFollow = head.findViewById(R.id.tvFollow);
+        TextView tvAdd = head.findViewById(R.id.tvAdd);
         HorizontalScrollView hsvStatus = head.findViewById(R.id.hsvStatus);
         HorizontalScrollView hsvKind = head.findViewById(R.id.hsvKind);
         RadioGroup rgKind = head.findViewById(R.id.rgKind);
         RadioGroup rgStatus = head.findViewById(R.id.rgStatus);
         Button btnSearch = head.findViewById(R.id.btnSearch);
-        cvMy.setOnClickListener(v -> SuggestListActivity.goActivity(mActivity, SuggestListActivity.ENTRY_MINE));
-        cvFollow.setOnClickListener(v -> SuggestListActivity.goActivity(mActivity, SuggestListActivity.ENTRY_FOLLOW));
-        cvAdd.setOnClickListener(v -> SuggestAddActivity.goActivity(mActivity));
+        tvMy.setOnClickListener(v -> SuggestListActivity.goActivity(mActivity, SuggestListActivity.ENTRY_MINE));
+        tvFollow.setOnClickListener(v -> SuggestListActivity.goActivity(mActivity, SuggestListActivity.ENTRY_FOLLOW));
+        tvAdd.setOnClickListener(v -> SuggestAddActivity.goActivity(mActivity));
         btnSearch.setOnClickListener(v -> recyclerHelper.dataRefresh());
         // 动态组件拼装
         hsvStatus.setHorizontalScrollBarEnabled(false);

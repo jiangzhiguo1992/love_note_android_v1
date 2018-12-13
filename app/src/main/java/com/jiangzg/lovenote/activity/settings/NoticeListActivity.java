@@ -62,7 +62,7 @@ public class NoticeListActivity extends BaseActivity<NoticeListActivity> {
                 .initLayoutManager(new LinearLayoutManager(mActivity))
                 .initRefresh(srl, false)
                 .initAdapter(new NoticeAdapter(mActivity))
-                .viewEmpty(mActivity, R.layout.list_empty_white, true, true)
+                .viewEmpty(mActivity, R.layout.list_empty_grey, true, true)
                 .viewLoadMore(new RecyclerHelper.MoreGreyView())
                 .setAdapter()
                 .listenerRefresh(() -> getData(false))
