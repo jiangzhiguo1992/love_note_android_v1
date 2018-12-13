@@ -43,19 +43,23 @@
                     <TextView
                         android:id="@+id/tvCoinCount"
                         style="@style/FontWhiteBigBold"
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="5dp"
+                        android:drawableStart="@mipmap/ic_monetization_on_white_18dp"
+                        android:drawablePadding="5dp"
+                        android:ellipsize="middle"
                         android:gravity="center"
+                        android:singleLine="true"
                         tools:text="10000"/>
 
                     <Button
                         android:id="@+id/btnBuy"
                         style="@style/FontWhiteSmall"
                         android:layout_width="wrap_content"
-                        android:layout_height="25dp"
+                        android:layout_height="30dp"
                         android:layout_marginTop="5dp"
-                        android:background="@drawable/selector_enable_press_solid_light_primary_dark_r3"
+                        android:background="@drawable/selector_enable_press_solid_light_primary_dark_r100"
                         android:text="@string/go_to_buy"/>
                 </LinearLayout>
 

@@ -84,10 +84,10 @@
 
                 <ImageView
                     android:id="@+id/ivCoin"
-                    android:layout_width="15dp"
-                    android:layout_height="15dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_marginEnd="6dp"
-                    android:src="@drawable/ic_coin_yellow_dark"/>
+                    android:src="@mipmap/ic_monetization_on_grey_18dp"/>
 
                 <TextView
                     android:id="@+id/tvCoinCount"

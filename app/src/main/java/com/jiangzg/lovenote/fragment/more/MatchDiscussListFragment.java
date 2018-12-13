@@ -55,7 +55,7 @@ public class MatchDiscussListFragment extends BasePagerFragment<MatchDiscussList
                 .initLayoutManager(new LinearLayoutManager(mActivity))
                 .initRefresh(srl, false)
                 .initAdapter(new MatchDiscussAdapter(mActivity))
-                .viewEmpty(mActivity, R.layout.list_empty_white, true, true)
+                .viewEmpty(mActivity, R.layout.list_empty_grey, true, true)
                 .viewLoadMore(new RecyclerHelper.MoreGreyView())
                 .setAdapter()
                 .listenerRefresh(() -> getData(false))
