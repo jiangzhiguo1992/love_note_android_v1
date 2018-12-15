@@ -111,9 +111,9 @@ public class MapHelper {
         if (aMap == null || (longitude == 0 && latitude == 0)) return null;
         LatLng latLng = new LatLng(latitude, longitude);
         // icon
-        VectorDrawableCompat vectorDrawable = VectorDrawableCompat.create(MyApp.get().getResources(), R.mipmap.ic_location_on_grey_24dp, MyApp.get().getTheme());
-        Bitmap bitmap = ConvertUtils.drawable2Bitmap(vectorDrawable);
-        BitmapDescriptor icon = BitmapDescriptorFactory.fromBitmap(bitmap);
+        //VectorDrawableCompat vectorDrawable = VectorDrawableCompat.create(MyApp.get().getResources(), R.mipmap.ic_location_on_grey_24dp, MyApp.get().getTheme());
+        //Bitmap bitmap = ConvertUtils.drawable2Bitmap(vectorDrawable);
+        BitmapDescriptor icon = BitmapDescriptorFactory.fromResource(R.mipmap.ic_location_on_grey_24dp);
         // options
         MarkerOptions markerOptions = new MarkerOptions()
                 .position(latLng)
