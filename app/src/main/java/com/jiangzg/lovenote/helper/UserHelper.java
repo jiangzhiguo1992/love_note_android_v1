@@ -109,8 +109,8 @@ public class UserHelper {
         CoupleState coupleState = couple.getState();
         if (coupleState == null) return true;
         int state = coupleState.getState();
-        if (state == CoupleState.STATUS_INVITE || state == CoupleState.STATUS_INVITE_CANCEL ||
-                state == CoupleState.STATUS_INVITE_REJECT || state == CoupleState.STATUS_BREAK_ACCEPT) {
+        if (state == CoupleState.STATUS_INVITE || state == CoupleState.STATUS_INVITE_CANCEL
+                || state == CoupleState.STATUS_INVITE_REJECT || state == CoupleState.STATUS_BREAK_ACCEPT) {
             return true;
         } else if (state == CoupleState.STATUS_BREAK) {
             return !isCoupleBreaking(couple);
