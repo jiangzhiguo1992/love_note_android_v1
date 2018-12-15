@@ -97,6 +97,9 @@ public class HomeActivity extends BaseActivity<HomeActivity> {
     @Override
     protected void initData(Intent intent, Bundle state) {
         ossInfoUpdate();
+        // init
+        UserFragment userFragment = UserFragment.newFragment();
+        FragmentTrans.replace(mActivity.mFragmentManager, userFragment, R.id.rlContent);
     }
 
     @Override

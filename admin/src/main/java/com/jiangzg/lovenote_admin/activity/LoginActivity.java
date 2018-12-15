@@ -74,14 +74,14 @@ public class LoginActivity extends BaseActivity<LoginActivity> {
         etPhone.setText(phone);
         etPwd.setText(password);
         // cache
-        MyApp.get().getThread().execute(new Runnable() {
-            @Override
-            public void run() {
-                String cachesSizeFmt = ResHelper.getCachesSizeFmt();
-                ResHelper.clearCaches();
-                ToastUtils.show("清理缓存大小：" + cachesSizeFmt);
-            }
-        });
+        //MyApp.get().getThread().execute(new Runnable() {
+        //    @Override
+        //    public void run() {
+        //        String cachesSizeFmt = ResHelper.getCachesSizeFmt();
+        //        ResHelper.clearCaches();
+        //        ToastUtils.show("清理缓存大小：" + cachesSizeFmt);
+        //    }
+        //});
         // login
         if (!StringUtils.isEmpty(phone) && !StringUtils.isEmpty(password)) {
             login();

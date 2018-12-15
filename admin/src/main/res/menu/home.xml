@@ -7,7 +7,7 @@
             android:title="user"/>
         <item
             android:id="@+id/menuCouple"
-            android:title="couple"/>
+            android:title="social"/>
         <item
             android:id="@+id/menuVersion"
             android:title="version"/>
