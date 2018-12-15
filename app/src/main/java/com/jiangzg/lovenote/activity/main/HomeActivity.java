@@ -1,4 +1,4 @@
-package com.jiangzg.lovenote.activity;
+package com.jiangzg.lovenote.activity.main;
 
 import android.app.Activity;
 import android.content.Intent;

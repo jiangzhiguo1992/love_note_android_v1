@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:gravity="center_horizontal"
     android:orientation="vertical"
-    tools:context="com.jiangzg.lovenote.activity.HomeActivity">
+    tools:context="com.jiangzg.lovenote.activity.main.HomeActivity">
 
     <com.jiangzg.lovenote.view.HomePaper
         android:id="@+id/vpContent"

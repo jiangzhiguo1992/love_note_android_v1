@@ -1,4 +1,4 @@
-package com.jiangzg.lovenote.activity.user;
+package com.jiangzg.lovenote.activity.main;
 
 import android.app.Activity;
 import android.content.ComponentName;
@@ -15,6 +15,8 @@ import com.jiangzg.base.component.ActivityStack;
 import com.jiangzg.base.component.ActivityTrans;
 import com.jiangzg.base.view.BarUtils;
 import com.jiangzg.lovenote.R;
+import com.jiangzg.lovenote.activity.user.LoginActivity;
+import com.jiangzg.lovenote.activity.user.RegisterActivity;
 import com.jiangzg.lovenote.adapter.PagerLayoutAdapter;
 import com.jiangzg.lovenote.base.BaseActivity;
 

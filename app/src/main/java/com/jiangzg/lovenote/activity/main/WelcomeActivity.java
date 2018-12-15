@@ -1,4 +1,4 @@
-package com.jiangzg.lovenote.activity;
+package com.jiangzg.lovenote.activity.main;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -15,7 +15,6 @@ import com.jiangzg.base.time.DateUtils;
 import com.jiangzg.base.view.BarUtils;
 import com.jiangzg.base.view.ScreenUtils;
 import com.jiangzg.lovenote.R;
-import com.jiangzg.lovenote.activity.user.SplashActivity;
 import com.jiangzg.lovenote.base.BaseActivity;
 import com.jiangzg.lovenote.helper.ApiHelper;
 import com.jiangzg.lovenote.helper.OssResHelper;

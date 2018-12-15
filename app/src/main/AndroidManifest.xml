@@ -109,23 +109,23 @@
             android:exported="true"
             android:launchMode="singleTop"/>
 
-        <!-- activity -->
-        <activity android:name=".activity.WelcomeActivity">
+        <!-- main -->
+        <activity android:name=".activity.main.WelcomeActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+        <activity android:name=".activity.main.HomeActivity"/>
+        <activity android:name=".activity.main.SplashActivity"/>
         <!-- common -->
-        <activity android:name=".activity.HomeActivity"/>
         <activity android:name=".activity.common.WebActivity"/>
         <activity android:name=".activity.common.BigImageActivity"/>
         <activity android:name=".activity.common.MapShowActivity"/>
         <activity android:name=".activity.common.MapSelectActivity"/>
         <activity android:name=".activity.common.MapSearchActivity"/>
         <!-- user -->
-        <activity android:name=".activity.user.SplashActivity"/>
         <activity android:name=".activity.user.LoginActivity"/>
         <activity android:name=".activity.user.RegisterActivity"/>
         <activity android:name=".activity.user.ForgetActivity"/>

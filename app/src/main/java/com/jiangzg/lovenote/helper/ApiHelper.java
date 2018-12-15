@@ -22,7 +22,7 @@ import com.jiangzg.base.system.LanguageUtils;
 import com.jiangzg.base.system.LocationInfo;
 import com.jiangzg.base.time.DateUtils;
 import com.jiangzg.lovenote.R;
-import com.jiangzg.lovenote.activity.HomeActivity;
+import com.jiangzg.lovenote.activity.main.HomeActivity;
 import com.jiangzg.lovenote.activity.couple.CoupleInfoActivity;
 import com.jiangzg.lovenote.base.BaseActivity;
 import com.jiangzg.lovenote.main.MyApp;
