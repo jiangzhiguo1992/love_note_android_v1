@@ -9,6 +9,7 @@ import android.provider.MediaStore;
 
 import com.jiangzg.base.application.AppBase;
 import com.jiangzg.base.common.LogUtils;
+import com.jiangzg.base.system.PermUtils;
 
 import java.io.File;
 
@@ -26,6 +27,9 @@ public class BroadcastUtils {
             return;
         }
         AppBase app = AppBase.getInstance();
+        // 权限检查
+        boolean permissionOK = PermUtils.isPermissionOK(app, PermUtils.appInfo);
+        if (!permissionOK) return;
         // 获取多媒体文件的标识
         Uri uri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
         ContentResolver mContentResolver = app.getContentResolver();
@@ -46,6 +50,9 @@ public class BroadcastUtils {
             return;
         }
         AppBase app = AppBase.getInstance();
+        // 权限检查
+        boolean permissionOK = PermUtils.isPermissionOK(app, PermUtils.appInfo);
+        if (!permissionOK) return;
         // 就不往照片里插入了
         //try {
         //    MediaStore.Images.Media.insertImage(app.getContentResolver(), file.getAbsolutePath(), file.getName(), null);
