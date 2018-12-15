@@ -32,10 +32,10 @@ import com.jiangzg.lovenote.helper.ListHelper;
 import com.jiangzg.lovenote.helper.RecyclerHelper;
 import com.jiangzg.lovenote.helper.RetrofitHelper;
 import com.jiangzg.lovenote.helper.RxBus;
-import com.jiangzg.lovenote.helper.SuggestHelper;
 import com.jiangzg.lovenote.helper.ViewHelper;
 import com.jiangzg.lovenote.model.api.API;
 import com.jiangzg.lovenote.model.api.Result;
+import com.jiangzg.lovenote.model.engine.SuggestInfo;
 import com.jiangzg.lovenote.model.entity.Suggest;
 import com.jiangzg.lovenote.view.GSwipeRefreshLayout;
 
@@ -67,7 +67,7 @@ public class SuggestHomeActivity extends BaseActivity<SuggestHomeActivity> {
     private int page;
     private int searchStatus;
     private int searchKind;
-    private SuggestHelper suggestHelper;
+    private SuggestInfo suggestInfo;
 
     public static void goActivity(Activity from) {
         Intent intent = new Intent(from, SuggestHomeActivity.class);
@@ -85,10 +85,10 @@ public class SuggestHomeActivity extends BaseActivity<SuggestHomeActivity> {
     protected void initView(Intent intent, Bundle state) {
         ViewHelper.initTopBar(mActivity, tb, getString(R.string.suggest_feedback), true);
         // init
-        suggestHelper = SuggestHelper.getInstance();
-        List<SuggestHelper.SuggestStatus> suggestStatusList = suggestHelper.getStatusList();
+        suggestInfo = SuggestInfo.getInstance();
+        List<SuggestInfo.SuggestStatus> suggestStatusList = suggestInfo.getStatusList();
         searchStatus = suggestStatusList.get(0).getStatus();
-        List<SuggestHelper.SuggestKind> suggestKindList = suggestHelper.getKindList();
+        List<SuggestInfo.SuggestKind> suggestKindList = suggestInfo.getKindList();
         searchKind = suggestKindList.get(0).getKind();
         // recycler
         recyclerHelper = new RecyclerHelper(rv)
@@ -183,15 +183,15 @@ public class SuggestHomeActivity extends BaseActivity<SuggestHomeActivity> {
         dp4 = ConvertUtils.dp2px(4);
         dp5 = ConvertUtils.dp2px(5);
         dp14 = ConvertUtils.dp2px(14);
-        List<SuggestHelper.SuggestKind> suggestKindList = suggestHelper.getKindList();
-        List<SuggestHelper.SuggestStatus> suggestStatusList = suggestHelper.getStatusList();
+        List<SuggestInfo.SuggestKind> suggestKindList = suggestInfo.getKindList();
+        List<SuggestInfo.SuggestStatus> suggestStatusList = suggestInfo.getStatusList();
         for (int i = 0; i < suggestKindList.size(); i++) {
-            SuggestHelper.SuggestKind kind = suggestKindList.get(i);
+            SuggestInfo.SuggestKind kind = suggestKindList.get(i);
             RadioButton rb = getKindRadioButton(kind);
             rgKind.addView(rb, i);
         }
         for (int i = 0; i < suggestStatusList.size(); i++) {
-            SuggestHelper.SuggestStatus status = suggestStatusList.get(i);
+            SuggestInfo.SuggestStatus status = suggestStatusList.get(i);
             RadioButton rb = getStatusRadioButton(status);
             rgStatus.addView(rb, i);
         }
@@ -201,7 +201,7 @@ public class SuggestHomeActivity extends BaseActivity<SuggestHomeActivity> {
         child2.setChecked(true);
     }
 
-    private RadioButton getKindRadioButton(final SuggestHelper.SuggestKind kind) {
+    private RadioButton getKindRadioButton(final SuggestInfo.SuggestKind kind) {
         RadioButton button = new RadioButton(mActivity);
         RadioGroup.LayoutParams layoutParams = new RadioGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         layoutParams.bottomMargin = dp5;
@@ -230,7 +230,7 @@ public class SuggestHomeActivity extends BaseActivity<SuggestHomeActivity> {
         return button;
     }
 
-    private RadioButton getStatusRadioButton(final SuggestHelper.SuggestStatus status) {
+    private RadioButton getStatusRadioButton(final SuggestInfo.SuggestStatus status) {
         RadioButton button = new RadioButton(mActivity);
         RadioGroup.LayoutParams layoutParams = new RadioGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         layoutParams.bottomMargin = dp5;

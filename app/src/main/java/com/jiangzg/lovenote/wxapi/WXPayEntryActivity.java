@@ -8,6 +8,7 @@ import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.helper.ConsHelper;
 import com.jiangzg.lovenote.helper.PayHelper;
 import com.jiangzg.lovenote.helper.RxBus;
+import com.jiangzg.lovenote.model.engine.PayWxResult;
 import com.tencent.mm.opensdk.constants.ConstantsAPI;
 import com.tencent.mm.opensdk.modelbase.BaseReq;
 import com.tencent.mm.opensdk.modelbase.BaseResp;
@@ -42,11 +43,11 @@ public class WXPayEntryActivity extends Activity implements IWXAPIEventHandler {
     @Override
     public void onResp(BaseResp resp) {
         // 支付回调
-        PayHelper.PayWxResult result = new PayHelper.PayWxResult();
+        PayWxResult result = new PayWxResult();
         result.setRespType(resp.getType());
         result.setErrCode(resp.errCode);
         if (result.getRespType() == ConstantsAPI.COMMAND_PAY_BY_WX) {
-            RxBus.Event<PayHelper.PayWxResult> event = new RxBus.Event<>(ConsHelper.EVENT_PAY_WX_RESULT, result);
+            RxBus.Event<PayWxResult> event = new RxBus.Event<>(ConsHelper.EVENT_PAY_WX_RESULT, result);
             RxBus.post(event);
             finish();
         }

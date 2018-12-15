@@ -3,8 +3,6 @@ package com.jiangzg.lovenote.activity.settings;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Parcel;
-import android.os.Parcelable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -21,10 +19,10 @@ import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.adapter.HelpContentAdapter;
 import com.jiangzg.lovenote.adapter.HelpSubAdapter;
 import com.jiangzg.lovenote.base.BaseActivity;
-import com.jiangzg.lovenote.base.BaseObj;
 import com.jiangzg.lovenote.helper.RecyclerHelper;
 import com.jiangzg.lovenote.helper.SPHelper;
 import com.jiangzg.lovenote.helper.ViewHelper;
+import com.jiangzg.lovenote.model.engine.Help;
 import com.jiangzg.lovenote.model.entity.Limit;
 
 import java.util.ArrayList;
@@ -823,115 +821,4 @@ public class HelpActivity extends BaseActivity<HelpActivity> {
         return help;
     }
 
-    public static class Help extends BaseObj implements Parcelable {
-
-        private int index;
-        private String title;
-        private String desc;
-        private List<HelpContent> contentList;
-        private List<Help> subList;
-
-        public int getIndex() {
-            return index;
-        }
-
-        public void setIndex(int index) {
-            this.index = index;
-        }
-
-        public String getTitle() {
-            return title;
-        }
-
-        public void setTitle(String title) {
-            this.title = title;
-        }
-
-        public String getDesc() {
-            return desc;
-        }
-
-        public void setDesc(String desc) {
-            this.desc = desc;
-        }
-
-        public List<HelpContent> getContentList() {
-            return contentList;
-        }
-
-        public void setContentList(List<HelpContent> contentList) {
-            this.contentList = contentList;
-        }
-
-        public List<Help> getSubList() {
-            return subList;
-        }
-
-        public void setSubList(List<Help> subList) {
-            this.subList = subList;
-        }
-
-        public static class HelpContent {
-
-            private String question;
-            private String answer;
-
-            public String getQuestion() {
-                return question;
-            }
-
-            public void setQuestion(String question) {
-                this.question = question;
-            }
-
-            public String getAnswer() {
-                return answer;
-            }
-
-            public void setAnswer(String answer) {
-                this.answer = answer;
-            }
-
-            public HelpContent() {
-            }
-        }
-
-        public Help() {
-        }
-
-        protected Help(Parcel in) {
-            super(in);
-            index = in.readInt();
-            title = in.readString();
-            desc = in.readString();
-            subList = in.createTypedArrayList(Help.CREATOR);
-        }
-
-        @Override
-        public void writeToParcel(Parcel dest, int flags) {
-            super.writeToParcel(dest, flags);
-            dest.writeInt(index);
-            dest.writeString(title);
-            dest.writeString(desc);
-            dest.writeTypedList(subList);
-        }
-
-        @Override
-        public int describeContents() {
-            return 0;
-        }
-
-        public static final Creator<Help> CREATOR = new Creator<Help>() {
-            @Override
-            public Help createFromParcel(Parcel in) {
-                return new Help(in);
-            }
-
-            @Override
-            public Help[] newArray(int size) {
-                return new Help[size];
-            }
-        };
-
-    }
 }

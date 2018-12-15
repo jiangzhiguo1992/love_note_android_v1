@@ -31,10 +31,10 @@ import com.jiangzg.lovenote.helper.OssHelper;
 import com.jiangzg.lovenote.helper.RetrofitHelper;
 import com.jiangzg.lovenote.helper.RxBus;
 import com.jiangzg.lovenote.helper.SPHelper;
-import com.jiangzg.lovenote.helper.SuggestHelper;
 import com.jiangzg.lovenote.helper.ViewHelper;
 import com.jiangzg.lovenote.model.api.API;
 import com.jiangzg.lovenote.model.api.Result;
+import com.jiangzg.lovenote.model.engine.SuggestInfo;
 import com.jiangzg.lovenote.model.entity.Suggest;
 import com.jiangzg.lovenote.view.FrescoNativeView;
 
@@ -68,7 +68,7 @@ public class SuggestAddActivity extends BaseActivity<SuggestAddActivity> {
 
     private int kind = 0;
     private File pictureFile;
-    private List<SuggestHelper.SuggestKind> suggestKindList;
+    private List<SuggestInfo.SuggestKind> suggestKindList;
     private int limitTitleLength;
     private int limitContentLength;
     private Call<Result> call;
@@ -131,8 +131,8 @@ public class SuggestAddActivity extends BaseActivity<SuggestAddActivity> {
 
     @Override
     protected void initData(Intent intent, Bundle state) {
-        SuggestHelper suggestHelper = SuggestHelper.getInstance();
-        suggestKindList = suggestHelper.getKindList();
+        SuggestInfo suggestInfo = SuggestInfo.getInstance();
+        suggestKindList = suggestInfo.getKindList();
     }
 
     @Override
@@ -240,7 +240,7 @@ public class SuggestAddActivity extends BaseActivity<SuggestAddActivity> {
     private void showKindDialog() {
         CharSequence[] items = new CharSequence[suggestKindList.size() - 1];
         for (int i = 1; i < suggestKindList.size(); i++) {
-            SuggestHelper.SuggestKind kind = suggestKindList.get(i);
+            SuggestInfo.SuggestKind kind = suggestKindList.get(i);
             // 第一个是全部，不要
             items[i - 1] = kind.getShow();
         }
@@ -252,7 +252,7 @@ public class SuggestAddActivity extends BaseActivity<SuggestAddActivity> {
                 .items(items)
                 .itemsCallbackSingleChoice(kindIndex - 1, (dialog1, view, which, text) -> {
                     // 第一个忽略
-                    SuggestHelper.SuggestKind suggestKind = suggestKindList.get(which + 1);
+                    SuggestInfo.SuggestKind suggestKind = suggestKindList.get(which + 1);
                     kind = suggestKind.getKind();
                     tvKind.setText(suggestKind.getShow());
                     DialogUtils.dismiss(dialog1);
@@ -321,11 +321,11 @@ public class SuggestAddActivity extends BaseActivity<SuggestAddActivity> {
     }
 
     private int getKindIndex(int kind) {
-        SuggestHelper info = SuggestHelper.getInstance();
-        List<SuggestHelper.SuggestKind> kindList = info.getKindList();
+        SuggestInfo info = SuggestInfo.getInstance();
+        List<SuggestInfo.SuggestKind> kindList = info.getKindList();
         // 不要全部
         for (int i = 1; i < kindList.size(); i++) {
-            SuggestHelper.SuggestKind s = kindList.get(i);
+            SuggestInfo.SuggestKind s = kindList.get(i);
             if (s.getKind() == kind) {
                 return i;
             }

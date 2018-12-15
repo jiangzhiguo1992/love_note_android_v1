@@ -1,4 +1,4 @@
-package com.jiangzg.lovenote.helper;
+package com.jiangzg.lovenote.model.engine;
 
 import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.base.BaseObj;
@@ -12,13 +12,13 @@ import java.util.List;
  * Created by JZG on 2018/4/12.
  * suggestInfo
  */
-public class SuggestHelper extends BaseObj {
+public class SuggestInfo extends BaseObj {
 
     private List<SuggestStatus> statusList;
     private List<SuggestKind> kindList;
 
-    public static SuggestHelper getInstance() {
-        SuggestHelper info = new SuggestHelper();
+    public static SuggestInfo getInstance() {
+        SuggestInfo info = new SuggestInfo();
         // status
         List<SuggestStatus> statusList = new ArrayList<>();
         statusList.add(new SuggestStatus(STATUS_VISIBLE, MyApp.get().getString(R.string.all)));
@@ -41,7 +41,7 @@ public class SuggestHelper extends BaseObj {
     }
 
     public static String getStatusShow(int status) {
-        SuggestHelper info = getInstance();
+        SuggestInfo info = getInstance();
         List<SuggestStatus> statusList = info.getStatusList();
         // 不要全部
         for (int i = 1; i < statusList.size(); i++) {
@@ -54,7 +54,7 @@ public class SuggestHelper extends BaseObj {
     }
 
     public static String getKindShow(int kind) {
-        SuggestHelper info = getInstance();
+        SuggestInfo info = getInstance();
         List<SuggestKind> kindList = info.getKindList();
         // 不要全部
         for (int i = 1; i < kindList.size(); i++) {

@@ -26,6 +26,8 @@ import com.jiangzg.lovenote.helper.SPHelper;
 import com.jiangzg.lovenote.helper.ViewHelper;
 import com.jiangzg.lovenote.model.api.API;
 import com.jiangzg.lovenote.model.api.Result;
+import com.jiangzg.lovenote.model.engine.PayAliResult;
+import com.jiangzg.lovenote.model.engine.PayWxResult;
 import com.jiangzg.lovenote.model.entity.Bill;
 import com.jiangzg.lovenote.model.entity.Limit;
 import com.jiangzg.lovenote.model.entity.OrderBefore;
@@ -183,7 +185,7 @@ public class VipBuyActivity extends BaseActivity<VipBuyActivity> {
             //String memo = result.getMemo();
             String resultStatus = result.getResultStatus();
             //PayAliResult.Result result1 = result.getResult();
-            if (resultStatus.equals(String.valueOf(PayHelper.PayAliResult.RESULT_STATUS_OK))) {
+            if (resultStatus.equals(String.valueOf(PayAliResult.RESULT_STATUS_OK))) {
                 checkPayResult();
             }
         });
@@ -193,7 +195,7 @@ public class VipBuyActivity extends BaseActivity<VipBuyActivity> {
     private void startWeChatPay(WXOrder wxOrder) {
         PayHelper.payByWX(mActivity, wxOrder, result -> {
             if (result == null) return;
-            if (result.getErrCode() == PayHelper.PayWxResult.CODE_OK) {
+            if (result.getErrCode() == PayWxResult.CODE_OK) {
                 checkPayResult();
             }
         });

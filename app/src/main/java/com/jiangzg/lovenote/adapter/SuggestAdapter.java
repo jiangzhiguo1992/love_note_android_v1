@@ -12,9 +12,9 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.activity.settings.SuggestDetailActivity;
 import com.jiangzg.lovenote.helper.CountHelper;
-import com.jiangzg.lovenote.helper.SuggestHelper;
 import com.jiangzg.lovenote.helper.TimeHelper;
 import com.jiangzg.lovenote.helper.ViewHelper;
+import com.jiangzg.lovenote.model.engine.SuggestInfo;
 import com.jiangzg.lovenote.model.entity.Suggest;
 import com.jiangzg.lovenote.view.GWrapView;
 
@@ -61,8 +61,8 @@ public class SuggestAdapter extends BaseQuickAdapter<Suggest, BaseViewHolder> {
         boolean top = item.isTop();
         boolean official = item.isOfficial();
         boolean mine = item.isMine();
-        String statusShow = SuggestHelper.getStatusShow(item.getStatus());
-        String kindShow = SuggestHelper.getKindShow(item.getKind());
+        String statusShow = SuggestInfo.getStatusShow(item.getStatus());
+        String kindShow = SuggestInfo.getKindShow(item.getKind());
         String title = item.getTitle();
         String contentText = item.getContentText();
         long createdAt = item.getCreateAt();
