@@ -6,6 +6,7 @@ import com.jiangzg.base.time.DateUtils;
 import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.main.MyApp;
 import com.jiangzg.lovenote.model.entity.Couple;
+import com.jiangzg.lovenote.model.entity.CoupleState;
 import com.jiangzg.lovenote.model.entity.User;
 
 /**
@@ -30,17 +31,15 @@ public class UserHelper {
 
     public static long getTaId(User user) {
         if (isEmpty(user)) return 0;
-        Couple couple = user.getCouple();
-        return UserHelper.getTaId(couple, user.getId());
+        return UserHelper.getTaId(user.getCouple(), user.getId());
     }
 
     public static long getTaId(Couple couple, long mid) {
         if (isEmpty(couple)) return 0;
         if (mid == couple.getCreatorId()) {
             return couple.getInviteeId();
-        } else {
-            return couple.getCreatorId();
         }
+        return couple.getCreatorId();
     }
 
     // sexAvatar
@@ -50,36 +49,34 @@ public class UserHelper {
             return R.mipmap.img_boy_circle;
         } else if (user.getSex() == User.SEX_GIRL) {
             return R.mipmap.img_girl_circle;
-        } else {
-            return R.mipmap.ic_account_circle_grey_48dp;
         }
+        return R.mipmap.ic_account_circle_grey_48dp;
     }
 
     // 昵称
     public static String getMyName(User user) {
-        if (isEmpty(user)) return "";
+        if (isEmpty(user)) return MyApp.get().getString(R.string.now_null_nickname);
         return getName(user, user.getId());
     }
 
     public static String getTaName(User user) {
-        if (isEmpty(user)) return "";
+        if (isEmpty(user)) return MyApp.get().getString(R.string.now_null_nickname);
         return getName(user, getTaId(user));
     }
 
     public static String getName(User user, long uid) {
-        if (isEmpty(user)) return "";
+        if (isEmpty(user)) return MyApp.get().getString(R.string.now_null_nickname);
         return UserHelper.getName(user.getCouple(), uid);
     }
 
     public static String getName(Couple couple, long uid) {
-        if (isEmpty(couple)) return "";
+        if (isEmpty(couple)) return MyApp.get().getString(R.string.now_null_nickname);
         if (uid == couple.getCreatorId()) {
             String creatorName = couple.getCreatorName();
             return StringUtils.isEmpty(creatorName) ? MyApp.get().getString(R.string.now_null_nickname) : creatorName;
-        } else {
-            String inviteeName = couple.getInviteeName();
-            return StringUtils.isEmpty(inviteeName) ? MyApp.get().getString(R.string.now_null_nickname) : inviteeName;
         }
+        String inviteeName = couple.getInviteeName();
+        return StringUtils.isEmpty(inviteeName) ? MyApp.get().getString(R.string.now_null_nickname) : inviteeName;
     }
 
     // 头像
@@ -102,31 +99,31 @@ public class UserHelper {
         if (isEmpty(couple)) return "";
         if (uid == couple.getCreatorId()) {
             return couple.getCreatorAvatar();
-        } else {
-            return couple.getInviteeAvatar();
         }
+        return couple.getInviteeAvatar();
     }
 
     // couple
     public static boolean isCoupleBreak(Couple couple) {
         if (isEmpty(couple)) return true;
-        Couple.State coupleState = couple.getState();
+        CoupleState coupleState = couple.getState();
         if (coupleState == null) return true;
         int state = coupleState.getState();
-        if (state == Couple.State.STATUS_INVITE || state == Couple.State.STATUS_INVITE_CANCEL ||
-                state == Couple.State.STATUS_INVITE_REJECT || state == Couple.State.STATUS_BREAK_ACCEPT) {
+        if (state == CoupleState.STATUS_INVITE || state == CoupleState.STATUS_INVITE_CANCEL ||
+                state == CoupleState.STATUS_INVITE_REJECT || state == CoupleState.STATUS_BREAK_ACCEPT) {
             return true;
-        } else if (state == Couple.State.STATUS_BREAK) {
+        } else if (state == CoupleState.STATUS_BREAK) {
             return !isCoupleBreaking(couple);
-        } else return state != Couple.State.STATUS_TOGETHER;
+        }
+        return state != CoupleState.STATUS_TOGETHER;
     }
 
     public static boolean isCoupleBreaking(Couple couple) {
         if (isEmpty(couple)) return false;
-        Couple.State coupleState = couple.getState();
+        CoupleState coupleState = couple.getState();
         if (coupleState == null) return false;
         int state = coupleState.getState();
-        if (state == Couple.State.STATUS_BREAK) {
+        if (state == CoupleState.STATUS_BREAK) {
             return getCoupleBreakCountDown(couple) > 0;
         }
         return false;
@@ -134,7 +131,7 @@ public class UserHelper {
 
     public static long getCoupleBreakCountDown(Couple couple) {
         if (isEmpty(couple)) return -1;
-        Couple.State state = couple.getState();
+        CoupleState state = couple.getState();
         if (state == null) return -1;
         long breakAt = state.getCreateAt() + SPHelper.getLimit().getCoupleBreakSec();
         long currentAt = DateUtils.getCurrentLong() / ConstantUtils.SEC;

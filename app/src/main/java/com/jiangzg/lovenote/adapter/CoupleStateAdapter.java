@@ -11,6 +11,7 @@ import com.jiangzg.lovenote.helper.TimeHelper;
 import com.jiangzg.lovenote.helper.UserHelper;
 import com.jiangzg.lovenote.main.MyApp;
 import com.jiangzg.lovenote.model.entity.Couple;
+import com.jiangzg.lovenote.model.entity.CoupleState;
 import com.jiangzg.lovenote.model.entity.User;
 import com.jiangzg.lovenote.view.FrescoAvatarView;
 
@@ -20,7 +21,7 @@ import java.util.Locale;
  * Created by JZG on 2018/3/12.
  * 配对状态适配器
  */
-public class CoupleStateAdapter extends BaseQuickAdapter<Couple.State, BaseViewHolder> {
+public class CoupleStateAdapter extends BaseQuickAdapter<CoupleState, BaseViewHolder> {
 
     private Activity mActivity;
     private User me;
@@ -34,7 +35,7 @@ public class CoupleStateAdapter extends BaseQuickAdapter<Couple.State, BaseViewH
     }
 
     @Override
-    protected void convert(BaseViewHolder helper, Couple.State item) {
+    protected void convert(BaseViewHolder helper, CoupleState item) {
         String avatar = UserHelper.getAvatar(couple, item.getUserId());
         String createAt = TimeHelper.getTimeShowLine_HM_MDHM_YMDHM_ByGo(item.getCreateAt());
         String state = getCoupleStateShow(item.getState());
@@ -57,17 +58,17 @@ public class CoupleStateAdapter extends BaseQuickAdapter<Couple.State, BaseViewH
 
     private String getCoupleStateShow(int state) {
         switch (state) {
-            case Couple.State.STATUS_INVITE_CANCEL:
+            case CoupleState.STATUS_INVITE_CANCEL:
                 return MyApp.get().getString(R.string.couple_state_110_show);
-            case Couple.State.STATUS_INVITE_REJECT:
+            case CoupleState.STATUS_INVITE_REJECT:
                 return MyApp.get().getString(R.string.couple_state_120_show);
-            case Couple.State.STATUS_BREAK:
+            case CoupleState.STATUS_BREAK:
                 return MyApp.get().getString(R.string.couple_state_210_show);
-            case Couple.State.STATUS_BREAK_ACCEPT:
+            case CoupleState.STATUS_BREAK_ACCEPT:
                 return MyApp.get().getString(R.string.couple_state_220_show);
-            case Couple.State.STATUS_TOGETHER:
+            case CoupleState.STATUS_TOGETHER:
                 return MyApp.get().getString(R.string.couple_state_520_show);
-            case Couple.State.STATUS_INVITE:
+            case CoupleState.STATUS_INVITE:
             default:
                 return MyApp.get().getString(R.string.couple_state_0_show);
         }

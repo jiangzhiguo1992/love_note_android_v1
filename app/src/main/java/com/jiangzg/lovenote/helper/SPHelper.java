@@ -9,6 +9,7 @@ import com.jiangzg.base.time.DateUtils;
 import com.jiangzg.lovenote.model.entity.CommonConst;
 import com.jiangzg.lovenote.model.entity.CommonCount;
 import com.jiangzg.lovenote.model.entity.Couple;
+import com.jiangzg.lovenote.model.entity.CoupleState;
 import com.jiangzg.lovenote.model.entity.Diary;
 import com.jiangzg.lovenote.model.entity.Dream;
 import com.jiangzg.lovenote.model.entity.Limit;
@@ -878,7 +879,7 @@ public class SPHelper {
         editor.putLong(FIELD_CP_INVITEE_ID, couple.getInviteeId());
         editor.putString(FIELD_CP_INVITEE_NAME, couple.getInviteeName());
         editor.putString(FIELD_CP_INVITEE_AVATAR, couple.getInviteeAvatar());
-        Couple.State state = couple.getState();
+        CoupleState state = couple.getState();
         if (state != null) {
             editor.putLong(FIELD_CP_STATE_ID, state.getId());
             editor.putLong(FIELD_CP_STATE_CREATE_AT, state.getCreateAt());
@@ -904,7 +905,7 @@ public class SPHelper {
         if (couple.getId() == 0 || couple.getCreatorId() == 0 || couple.getInviteeId() == 0) {
             return null;
         }
-        Couple.State state = new Couple.State();
+        CoupleState state = new CoupleState();
         state.setId(sp.getLong(FIELD_CP_STATE_ID, 0));
         state.setCreateAt(sp.getLong(FIELD_CP_STATE_CREATE_AT, 0));
         state.setUpdateAt(sp.getLong(FIELD_CP_STATE_UPDATE_AT, 0));

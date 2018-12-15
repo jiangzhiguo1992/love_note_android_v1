@@ -11,6 +11,7 @@ import com.jiangzg.lovenote.model.entity.Coin;
 import com.jiangzg.lovenote.model.entity.CommonConst;
 import com.jiangzg.lovenote.model.entity.CommonCount;
 import com.jiangzg.lovenote.model.entity.Couple;
+import com.jiangzg.lovenote.model.entity.CoupleState;
 import com.jiangzg.lovenote.model.entity.Diary;
 import com.jiangzg.lovenote.model.entity.Dream;
 import com.jiangzg.lovenote.model.entity.Food;
@@ -130,7 +131,7 @@ public class Result implements Serializable {
         private List<SuggestComment> suggestCommentList;
         // couple
         private Couple couple;
-        private List<Couple.State> coupleStateList;
+        private List<CoupleState> coupleStateList;
         private PairCard pairCard;
         private int togetherDay;
         private WallPaper wallPaper;
@@ -226,11 +227,11 @@ public class Result implements Serializable {
         private MatchPoint matchPoint;
         private MatchCoin matchCoin;
 
-        public List<Couple.State> getCoupleStateList() {
+        public List<CoupleState> getCoupleStateList() {
             return coupleStateList;
         }
 
-        public void setCoupleStateList(List<Couple.State> coupleStateList) {
+        public void setCoupleStateList(List<CoupleState> coupleStateList) {
             this.coupleStateList = coupleStateList;
         }
 

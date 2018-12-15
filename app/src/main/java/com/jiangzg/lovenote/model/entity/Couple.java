@@ -3,7 +3,6 @@ package com.jiangzg.lovenote.model.entity;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import com.jiangzg.lovenote.base.BaseCP;
 import com.jiangzg.lovenote.base.BaseObj;
 
 /**
@@ -19,65 +18,13 @@ public class Couple extends BaseObj implements Parcelable {
     private String inviteeName;
     private String creatorAvatar;
     private String inviteeAvatar;
-    private State state;
+    private CoupleState state;
 
-    public static class State extends BaseCP implements Parcelable {
-
-        public static final int STATUS_INVITE = 0; // 正在邀请(SelfVisible)
-        public static final int STATUS_INVITE_CANCEL = 110; // 邀请者撤回(NoVisible)
-        public static final int STATUS_INVITE_REJECT = 120; // 被邀请者拒绝(NoVisible)
-        public static final int STATUS_BREAK = 210; // 正在分手(Visible)/已分手(NoVisible)
-        public static final int STATUS_BREAK_ACCEPT = 220; // 被分手者同意(NoVisible)
-        public static final int STATUS_TOGETHER = 520; // 在一起(Visible)
-
-        private int state;
-
-        public State() {
-        }
-
-        protected State(Parcel in) {
-            super(in);
-            state = in.readInt();
-        }
-
-        @Override
-        public void writeToParcel(Parcel dest, int flags) {
-            super.writeToParcel(dest, flags);
-            dest.writeInt(state);
-        }
-
-        @Override
-        public int describeContents() {
-            return 0;
-        }
-
-        public static final Creator<State> CREATOR = new Creator<State>() {
-            @Override
-            public State createFromParcel(Parcel in) {
-                return new State(in);
-            }
-
-            @Override
-            public State[] newArray(int size) {
-                return new State[size];
-            }
-        };
-
-        public int getState() {
-            return state;
-        }
-
-        public void setState(int state) {
-            this.state = state;
-        }
-
-    }
-
-    public State getState() {
+    public CoupleState getState() {
         return state;
     }
 
-    public void setState(State state) {
+    public void setState(CoupleState state) {
         this.state = state;
     }
 
@@ -140,7 +87,7 @@ public class Couple extends BaseObj implements Parcelable {
         inviteeName = in.readString();
         creatorAvatar = in.readString();
         inviteeAvatar = in.readString();
-        state = in.readParcelable(State.class.getClassLoader());
+        state = in.readParcelable(CoupleState.class.getClassLoader());
     }
 
     @Override
