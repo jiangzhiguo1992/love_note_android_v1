@@ -19,6 +19,7 @@
     <color name="foreground_color">#DDDDDD</color>
     <color name="line_grey">@color/foreground_color</color>
     <color name="icon_grey">@color/foreground_color</color>
+    <color name="img_grey">#EEEEEE</color>
 
     <!-- 字体颜色 -->
     <color name="font_white">@color/white</color>

@@ -22,7 +22,7 @@ public class SuggestInfo extends BaseObj {
         // status
         List<SuggestStatus> statusList = new ArrayList<>();
         statusList.add(new SuggestStatus(STATUS_VISIBLE, MyApp.get().getString(R.string.all)));
-        statusList.add(new SuggestStatus(Suggest.STATUS_REPLY_NO, MyApp.get().getString(R.string.no_reply)));
+        //statusList.add(new SuggestStatus(Suggest.STATUS_REPLY_NO, MyApp.get().getString(R.string.no_reply)));
         statusList.add(new SuggestStatus(Suggest.STATUS_REPLY_YES, MyApp.get().getString(R.string.already_reply)));
         statusList.add(new SuggestStatus(Suggest.STATUS_ACCEPT_NO, MyApp.get().getString(R.string.no_accept)));
         statusList.add(new SuggestStatus(Suggest.STATUS_ACCEPT_YES, MyApp.get().getString(R.string.already_accept)));
@@ -43,8 +43,11 @@ public class SuggestInfo extends BaseObj {
     public static String getStatusShow(int status) {
         SuggestInfo info = getInstance();
         List<SuggestStatus> statusList = info.getStatusList();
-        // 不要全部
-        for (int i = 1; i < statusList.size(); i++) {
+        // 不要全部，加上未回复
+        statusList.remove(0);
+        statusList.add(0, new SuggestStatus(Suggest.STATUS_REPLY_NO, MyApp.get().getString(R.string.no_reply)));
+        // 开始遍历
+        for (int i = 0; i < statusList.size(); i++) {
             SuggestStatus s = statusList.get(i);
             if (s.getStatus() == status) {
                 return s.getShow();
@@ -57,7 +60,9 @@ public class SuggestInfo extends BaseObj {
         SuggestInfo info = getInstance();
         List<SuggestKind> kindList = info.getKindList();
         // 不要全部
-        for (int i = 1; i < kindList.size(); i++) {
+        kindList.remove(0);
+        // 开始遍历
+        for (int i = 0; i < kindList.size(); i++) {
             SuggestKind s = kindList.get(i);
             if (s.getKind() == kind) {
                 return s.getShow();
