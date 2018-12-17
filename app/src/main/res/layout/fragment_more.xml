@@ -570,7 +570,7 @@
                     </android.support.v7.widget.CardView>
 
                     <android.support.v7.widget.CardView
-                        android:id="@+id/cvPlane"
+                        android:id="@+id/cvPostcard"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="5dp"
@@ -598,7 +598,7 @@
                             <ImageView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:src="@mipmap/ic_more_plane_24dp"/>
+                                android:src="@mipmap/ic_more_postcard_24dp"/>
 
                             <LinearLayout
                                 android:layout_width="match_parent"
@@ -614,10 +614,10 @@
                                     android:gravity="center"
                                     android:maxLines="1"
                                     android:singleLine="true"
-                                    android:text="@string/nav_plane"/>
+                                    android:text="@string/nav_postcard"/>
 
                                 <TextView
-                                    android:id="@+id/tvPlane"
+                                    android:id="@+id/tvPostcard"
                                     style="@style/FontGreySmall"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"

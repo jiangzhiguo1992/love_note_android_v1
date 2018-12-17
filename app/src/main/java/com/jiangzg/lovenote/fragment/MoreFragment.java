@@ -102,10 +102,10 @@ public class MoreFragment extends BasePagerFragment<MoreFragment> {
     CardView cvWish;
     @BindView(R.id.tvWish)
     TextView tvWish;
-    @BindView(R.id.cvPlane)
-    CardView cvPlane;
-    @BindView(R.id.tvPlane)
-    TextView tvPlane;
+    @BindView(R.id.cvPostcard)
+    CardView cvPostcard;
+    @BindView(R.id.tvPostcard)
+    TextView tvPostcard;
 
     private Call<Result> call;
     private List<Broadcast> broadcastList;
@@ -191,7 +191,7 @@ public class MoreFragment extends BasePagerFragment<MoreFragment> {
 
     @OnClick({R.id.cvVip, R.id.cvCoin, R.id.cvSign,
             R.id.cvWife, R.id.cvLetter, R.id.cvDiscuss,
-            R.id.cvWish, R.id.cvPlane})
+            R.id.cvWish, R.id.cvPostcard})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.cvVip: // 会员
@@ -227,7 +227,7 @@ public class MoreFragment extends BasePagerFragment<MoreFragment> {
             case R.id.cvWish: // 许愿树
                 ToastUtils.show(mActivity.getString(R.string.function_no_open_please_wait));
                 break;
-            case R.id.cvPlane: // 明信片
+            case R.id.cvPostcard: // 明信片
                 ToastUtils.show(mActivity.getString(R.string.function_no_open_please_wait));
                 break;
         }

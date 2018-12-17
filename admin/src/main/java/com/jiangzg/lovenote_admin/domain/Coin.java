@@ -19,7 +19,7 @@ public class Coin extends BaseCP implements Parcelable {
     public static final int COIN_KIND_ADD_BY_MATCH_POST = 300; // +参加比拼
     public static final int COIN_KIND_SUB_BY_MATCH_UP = -300; // -比拼投币
     public static final int COIN_KIND_SUB_BY_WISH_UP = -410; // -许愿投币
-    public static final int COIN_KIND_SUB_BY_PLANE_UP = -420; // -飞机投币
+    public static final int COIN_KIND_SUB_BY_CARD_UP = -420; // -卡片投币
 
     private int kind;
     private long billId;
@@ -40,8 +40,8 @@ public class Coin extends BaseCP implements Parcelable {
                 return MyApp.get().getString(R.string.nav_match);
             case COIN_KIND_SUB_BY_WISH_UP:
                 return MyApp.get().getString(R.string.nav_wish);
-            case COIN_KIND_SUB_BY_PLANE_UP:
-                return MyApp.get().getString(R.string.nav_plane);
+            case COIN_KIND_SUB_BY_CARD_UP:
+                return MyApp.get().getString(R.string.nav_postcard);
         }
         return MyApp.get().getString(R.string.unknown_kind);
     }

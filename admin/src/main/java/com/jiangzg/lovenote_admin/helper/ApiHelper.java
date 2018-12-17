@@ -125,7 +125,7 @@ public class ApiHelper {
             Coin.COIN_KIND_ADD_BY_MATCH_POST,
             Coin.COIN_KIND_SUB_BY_MATCH_UP,
             Coin.COIN_KIND_SUB_BY_WISH_UP,
-            Coin.COIN_KIND_SUB_BY_PLANE_UP,
+            Coin.COIN_KIND_SUB_BY_CARD_UP,
     };
     public static final String[] COIN_KIND_SHOW = new String[]{
             "全部",
@@ -135,7 +135,7 @@ public class ApiHelper {
             Coin.getKindShow(Coin.COIN_KIND_ADD_BY_MATCH_POST),
             Coin.getKindShow(Coin.COIN_KIND_SUB_BY_MATCH_UP),
             Coin.getKindShow(Coin.COIN_KIND_SUB_BY_WISH_UP),
-            Coin.getKindShow(Coin.COIN_KIND_SUB_BY_PLANE_UP),
+            Coin.getKindShow(Coin.COIN_KIND_SUB_BY_CARD_UP),
     };
     // trends
     public static final int[] TRENDS_ACT_TYPE = new int[]{

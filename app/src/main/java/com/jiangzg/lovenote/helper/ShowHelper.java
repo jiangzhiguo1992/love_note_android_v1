@@ -24,8 +24,8 @@ public class ShowHelper {
                 return MyApp.get().getString(R.string.nav_match);
             case Coin.KIND_SUB_BY_WISH_UP:
                 return MyApp.get().getString(R.string.nav_wish);
-            case Coin.KIND_SUB_BY_PLANE_UP:
-                return MyApp.get().getString(R.string.nav_plane);
+            case Coin.KIND_SUB_BY_CARD_UP:
+                return MyApp.get().getString(R.string.nav_postcard);
         }
         return MyApp.get().getString(R.string.unknown_kind);
     }

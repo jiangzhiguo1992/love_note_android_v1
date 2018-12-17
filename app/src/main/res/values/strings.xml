@@ -20,31 +20,6 @@
     <string name="month">月</string>
     <string name="year">年</string>
 
-    <string-array name="week_label">
-        <item>日</item>
-        <item>一</item>
-        <item>二</item>
-        <item>三</item>
-        <item>四</item>
-        <item>五</item>
-        <item>六</item>
-    </string-array>
-
-    <string-array name="month_label">
-        <item>1月</item>
-        <item>2月</item>
-        <item>3月</item>
-        <item>4月</item>
-        <item>5月</item>
-        <item>6月</item>
-        <item>7月</item>
-        <item>8月</item>
-        <item>9月</item>
-        <item>10月</item>
-        <item>11月</item>
-        <item>12月</item>
-    </string-array>
-
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
@@ -70,6 +45,7 @@
     <string name="month_space">月 </string>
     <string name="girl">女</string>
     <string name="boy">男</string>
+    <string name="ci">次</string>
     <string name="nil">无</string>
     <string name="prompt">提示</string>
     <string name="confirm">确定</string>
@@ -114,6 +90,7 @@
     <string name="we_de">我们的</string>
     <string name="me_de">我的</string>
     <string name="ta_de">TA的</string>
+    <string name="administrators">管理员</string>
     <string name="brutal_refuse">残忍拒绝</string>
     <string name="after_say">以后再说</string>
     <string name="set_ok">设置好了</string>
@@ -179,7 +156,6 @@
     <string name="master_no_hurry_quick_ok">主人莫急，马上就好…</string>
     <string name="online_can_entry">联网才可以进入哦</string>
     <string name="please_input_search_address_remeber_get_province">请输入搜索地址，记得带上省份！</string>
-    <string name="app_start_err_detail_please_ask_official_contact_method_qq">app启动发生异常状况，详情请咨询官方客服。联系方式 QQ:727918130</string>
 
     <!-- file -->
     <string name="are_upload">正在上传</string>
@@ -240,9 +216,18 @@
     <string name="nav_topic">恋爱吧</string>
     <string name="nav_more">步行街</string>
 
+    <!-- splash -->
+    <string name="splash_sub_title_1">专为异地恋打造</string>
+    <string name="splash_sub_title_2">记录生活点点滴滴</string>
+    <string name="splash_sub_title_3">分享恋爱是是非非</string>
+    <string name="splash_sub_title_4">各种形式的秀恩爱</string>
+    <string name="splash_content_1">不仅可以查看双方位置，更有历史位置信息！\n\n不仅可以查看双方天气，还能看天气预报哦！\n\n更有App启动图设置，让《鱼笙》成为你的私人订制！</string>
+    <string name="splash_content_2">丰富的记录功能，满足你们所有的要求！\n\n上到生活状态，下到多媒体，中到纪念日、约会、游记、留言、日记、礼物、电影、美食、生气、承诺、梦境，我们这统统都有！\n\n更有其他新颖功能，帮助大家记录爱、发现爱！</string>
+    <string name="splash_content_3">不管是搞笑的、悲伤的，什么事都可以在这里诉说！\n\n丰富的类别划分，满足你任何方面的吐槽！\n\n保密的区域隔离，让你随时随地说个不停！</string>
+    <string name="splash_content_4">独乐乐不如众乐乐，来这里和大家一起秀恩爱吧！\n\n各种形式的比拼活动，让你在这里秀个不停！\n\n多种许愿活动，让所有人见证你的真心！</string>
+
     <!-- settings -->
     <string name="settings">设置</string>
-    <string name="administrators">管理员</string>
     <string name="base_settings">基本设置</string>
     <string name="clear_cache">清除缓存</string>
     <string name="confirm_del_cache">确认清除缓存？</string>
@@ -448,11 +433,9 @@
     <string name="award">奖励</string>
     <string name="movie">电影</string>
     <string name="award_rule">奖励规则</string>
-    <string name="casual_note">随笔</string>
     <string name="live">生活</string>
-    <string name="media">多媒体</string>
     <string name="note">笔记</string>
-    <string name="eat_drink_play_happy">吃喝玩乐</string>
+    <string name="media">多媒体</string>
     <string name="add_track">添加足迹</string>
     <string name="add_gift">添加礼物</string>
     <string name="add_travel">添加游记</string>
@@ -560,7 +543,6 @@
     <string name="in_here_input_channel">在这里输入频道</string>
     <string name="change_channel">切换频道</string>
     <string name="current_channel_colon_space_holder" formatted="false">当前频道《%s》</string>
-    <string name="save_channel_colon_space_holder" formatted="false">保存频道《%s》</string>
     <string name="add_image">添加图片</string>
     <string name="add_text">添加文本</string>
     <string name="please_input_album_name">请输入相册名称</string>
@@ -568,7 +550,6 @@
     <string name="take_camera_in_colon_space_holder" formatted="false">拍摄于: %s</string>
     <string name="album_colon_space_holder" formatted="false">相册: %s</string>
     <string name="picture_where">照片呢？</string>
-    <string name="on_space_holder_space_send_to" formatted="false">与 %s 送给</string>
     <string name="time_colon_space_holder" formatted="false">时间: %s</string>
     <string name="send_to_me">送给我的</string>
     <string name="send_to_ta">送给TA的</string>
@@ -576,7 +557,6 @@
     <string name="ta_s_promise">TA的承诺</string>
     <string name="me_s_angry">我生气了</string>
     <string name="ta_s_angry">TA生气了</string>
-    <string name="ci">次</string>
     <string name="violate">违反</string>
     <string name="promise_user_colon_space_holder" formatted="false">承诺者: %s</string>
     <string name="promise_time_colon_space_holder" formatted="false">承诺时间: %s</string>
@@ -627,7 +607,7 @@
     <string name="nav_letter">情书展</string>
     <string name="nav_discuss">讨论会</string>
     <string name="nav_wish">许愿树</string>
-    <string name="nav_plane">明信片</string>
+    <string name="nav_postcard">明信片</string>
     <string name="no_sign">未签到</string>
     <string name="yes_sign">已签到</string>
     <string name="now_no_broadcast">暂无广播</string>
@@ -678,16 +658,6 @@
     <string name="work_already_be_delete">作品已被删除</string>
     <string name="confirm_del_this_work">确定要删除这个作品吗？</string>
     <string name="input_coin_count">输入投币数量</string>
-
-    <!-- splash -->
-    <string name="splash_sub_title_1">专为异地恋打造</string>
-    <string name="splash_sub_title_2">记录生活点点滴滴</string>
-    <string name="splash_sub_title_3">分享恋爱是是非非</string>
-    <string name="splash_sub_title_4">各种形式的秀恩爱</string>
-    <string name="splash_content_1">不仅可以查看双方位置，更有历史位置信息！\n\n不仅可以查看双方天气，还能看天气预报哦！\n\n更有App启动图设置，让《鱼笙》成为你的私人订制！</string>
-    <string name="splash_content_2">丰富的记录功能，满足你们所有的要求！\n\n上到生活状态，下到多媒体，中到纪念日、约会、游记、留言、日记、礼物、电影、美食、生气、承诺、梦境，我们这统统都有！\n\n更有其他新颖功能，帮助大家记录爱、发现爱！</string>
-    <string name="splash_content_3">不管是搞笑的、悲伤的，什么事都可以在这里诉说！\n\n丰富的类别划分，满足你任何方面的吐槽！\n\n保密的区域隔离，让你随时随地说个不停！</string>
-    <string name="splash_content_4">独乐乐不如众乐乐，来这里和大家一起秀恩爱吧！\n\n各种形式的比拼活动，让你在这里秀个不停！\n\n多种许愿活动，让所有人见证你的真心！</string>
 
     <!-- help -->
     <string name="help_home_d">《帮助文档》旨在让大家快速理解这个app，如有不明白的地方，就来这里找找答案吧</string>

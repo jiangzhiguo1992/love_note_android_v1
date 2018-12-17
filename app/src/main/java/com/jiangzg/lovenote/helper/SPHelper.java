@@ -180,7 +180,7 @@ public class SPHelper {
     private static final String FIELD_LIMIT_COIN_SIGN_MAX_COUNT = "coin_sign_max_count";
     private static final String FIELD_LIMIT_COIN_SIGN_INCREASE_COUNT = "coin_sign_increase_count";
     private static final String FIELD_LIMIT_COIN_WISH_PER_DAY_COUNT = "coin_wish_per_day_count";
-    private static final String FIELD_LIMIT_COIN_PLANE_PER_DAY_COUNT = "coin_plane_per_day_count";
+    private static final String FIELD_LIMIT_COIN_CARD_PER_DAY_COUNT = "coin_card_per_day_count";
     private static final String FIELD_LIMIT_MATCH_WORK_SCREEN_REPORT_COUNT = "match_work_screen_report_count";
     private static final String FIELD_LIMIT_MATCH_WORK_TITLE_LENGTH = "match_work_title_length";
     private static final String FIELD_LIMIT_MATCH_WORK_CONTENT_LENGTH = "match_work_content_length";
@@ -621,7 +621,7 @@ public class SPHelper {
         editor.putInt(FIELD_LIMIT_COIN_SIGN_MAX_COUNT, limit.getCoinSignMaxCount());
         editor.putInt(FIELD_LIMIT_COIN_SIGN_INCREASE_COUNT, limit.getCoinSignIncreaseCount());
         editor.putInt(FIELD_LIMIT_COIN_WISH_PER_DAY_COUNT, limit.getCoinWishPerDayCount());
-        editor.putInt(FIELD_LIMIT_COIN_PLANE_PER_DAY_COUNT, limit.getCoinPlanePerDayCount());
+        editor.putInt(FIELD_LIMIT_COIN_CARD_PER_DAY_COUNT, limit.getCoinCardPerDayCount());
         editor.putInt(FIELD_LIMIT_MATCH_WORK_SCREEN_REPORT_COUNT, limit.getMatchWorkScreenReportCount());
         editor.putInt(FIELD_LIMIT_MATCH_WORK_TITLE_LENGTH, limit.getMatchWorkTitleLength());
         editor.putInt(FIELD_LIMIT_MATCH_WORK_CONTENT_LENGTH, limit.getMatchWorkContentLength());
@@ -699,7 +699,7 @@ public class SPHelper {
         limit.setCoinSignMaxCount(sp.getInt(FIELD_LIMIT_COIN_SIGN_MAX_COUNT, 10));
         limit.setCoinSignIncreaseCount(sp.getInt(FIELD_LIMIT_COIN_SIGN_INCREASE_COUNT, 1));
         limit.setCoinWishPerDayCount(sp.getInt(FIELD_LIMIT_COIN_WISH_PER_DAY_COUNT, 0));
-        limit.setCoinPlanePerDayCount(sp.getInt(FIELD_LIMIT_COIN_PLANE_PER_DAY_COUNT, 0));
+        limit.setCoinCardPerDayCount(sp.getInt(FIELD_LIMIT_COIN_CARD_PER_DAY_COUNT, 0));
         limit.setMatchWorkScreenReportCount(sp.getInt(FIELD_LIMIT_MATCH_WORK_SCREEN_REPORT_COUNT, 10));
         limit.setMatchWorkTitleLength(sp.getInt(FIELD_LIMIT_MATCH_WORK_TITLE_LENGTH, 100));
         limit.setMatchWorkContentLength(sp.getInt(FIELD_LIMIT_MATCH_WORK_CONTENT_LENGTH, 200));

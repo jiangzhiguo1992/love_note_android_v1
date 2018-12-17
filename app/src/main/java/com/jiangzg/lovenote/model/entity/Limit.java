@@ -80,7 +80,7 @@ public class Limit {
     private int coinSignMaxCount;
     private int coinSignIncreaseCount;
     private int coinWishPerDayCount;
-    private int coinPlanePerDayCount;
+    private int coinCardPerDayCount;
     private int matchWorkScreenReportCount;
     private int matchWorkTitleLength;
     private int matchWorkContentLength;
@@ -309,12 +309,12 @@ public class Limit {
         this.coinWishPerDayCount = coinWishPerDayCount;
     }
 
-    public int getCoinPlanePerDayCount() {
-        return coinPlanePerDayCount;
+    public int getCoinCardPerDayCount() {
+        return coinCardPerDayCount;
     }
 
-    public void setCoinPlanePerDayCount(int coinPlanePerDayCount) {
-        this.coinPlanePerDayCount = coinPlanePerDayCount;
+    public void setCoinCardPerDayCount(int coinCardPerDayCount) {
+        this.coinCardPerDayCount = coinCardPerDayCount;
     }
 
     public long getCoupleInviteIntervalSec() {
