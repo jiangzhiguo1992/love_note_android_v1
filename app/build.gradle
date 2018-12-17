@@ -63,85 +63,31 @@ android {
         }
     }
     productFlavors { // 发布渠道
-        official { // 官方
-            dimension "release"
-            manifestPlaceholders = [MARKET_CHANNEL_VALUE: "official"]
-        }
+        official {} // 官方
         //---------------------第一梯队----------------------
-//        google { // 谷歌
-//            dimension "release"
-//            manifestPlaceholders = [MARKET_CHANNEL_VALUE: "google"]
-//        }
-        huawei { // 华为
-            dimension "release"
-            manifestPlaceholders = [MARKET_CHANNEL_VALUE: "huawei"]
-        }
-        oppo { // oppo
-            dimension "release"
-            manifestPlaceholders = [MARKET_CHANNEL_VALUE: "oppo"]
-        }
-        vivo { // vivo
-            dimension "release"
-            manifestPlaceholders = [MARKET_CHANNEL_VALUE: "vivo"]
-        }
-        xiaomi { // 小米
-            dimension "release"
-            manifestPlaceholders = [MARKET_CHANNEL_VALUE: "xiaomi"]
-        }
-        tencent { // 应用宝
-            dimension "release"
-            manifestPlaceholders = [MARKET_CHANNEL_VALUE: "tencent"]
-        }
+//        google {} // 谷歌
+        huawei {} // 华为
+        oppo {} // oppo
+        vivo {} // vivo
+        xiaomi {} // 小米
         //---------------------第二梯队----------------------
-        samsung { // 三星
-            dimension "release"
-            manifestPlaceholders = [MARKET_CHANNEL_VALUE: "samsung"]
-        }
-        meizu { // 魅族
-            dimension "release"
-            manifestPlaceholders = [MARKET_CHANNEL_VALUE: "meizu"]
-        }
-        qh360 { // 360
-            dimension "release"
-            manifestPlaceholders = [MARKET_CHANNEL_VALUE: "qh360"]
-        }
-        ali { // 阿里
-            dimension "release"
-            manifestPlaceholders = [MARKET_CHANNEL_VALUE: "ali"]
-        }
-        baidu { // 百度
-            dimension "release"
-            manifestPlaceholders = [MARKET_CHANNEL_VALUE: "baidu"]
-        }
+        tencent {} // 应用宝
+        qh360 {} // 360
+        meizu {} // 魅族
+        ali {} // 阿里
+        baidu {} // 百度
+        samsung {} // 三星
         //---------------------第三梯队----------------------
-//        kuan { // 酷安
-//            dimension "release"
-//            manifestPlaceholders = [MARKET_CHANNEL_VALUE: "kuan"]
-//        }
-//        nubia { // 努比亚
-//            dimension "release"
-//            manifestPlaceholders = [MARKET_CHANNEL_VALUE: "nubia"]
-//        }
-//        smaritsan { // 锤子
-//            dimension "release"
-//            manifestPlaceholders = [MARKET_CHANNEL_VALUE: "smaritsan"]
-//        }
-//        jinli { // 金立
-//            dimension "release"
-//            manifestPlaceholders = [MARKET_CHANNEL_VALUE: "jinli"]
-//        }
-//        kupai { // 酷派
-//            dimension "release"
-//            manifestPlaceholders = [MARKET_CHANNEL_VALUE: "kupai"]
-//        }
-//        lenovo { // 联想
-//            dimension "release"
-//            manifestPlaceholders = [MARKET_CHANNEL_VALUE: "lenovo"]
-//        }
-//        sougou { // 搜狗
-//            dimension "release"
-//            manifestPlaceholders = [MARKET_CHANNEL_VALUE: "sougou"]
-//        }
+//        kuan {} // 酷安
+//        sougou {} // 搜狗
+//        nubia {} // 努比亚
+//        smaritsan {} // 锤子
+//        jinli {} // 金立
+//        kupai {} // 酷派
+//        lenovo {} // 联想
+    }
+    productFlavors.all { // 发布渠道
+        flavor -> flavor.manifestPlaceholders = [MARKET_CHANNEL_VALUE: name]
     }
     sourceSets { // 源码设置
         main {
