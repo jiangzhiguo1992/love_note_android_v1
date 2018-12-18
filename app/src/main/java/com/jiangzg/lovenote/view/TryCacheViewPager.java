@@ -29,7 +29,7 @@ public class TryCacheViewPager extends ViewPager {
         try {
             return super.onInterceptTouchEvent(ev);
         } catch (IllegalArgumentException | ArrayIndexOutOfBoundsException e) {
-            LogUtils.e(TryCacheViewPager.class, "onInterceptTouchEvent", e);
+            LogUtils.w(TryCacheViewPager.class, "onInterceptTouchEvent", e.getMessage());
         }
         return false;
     }

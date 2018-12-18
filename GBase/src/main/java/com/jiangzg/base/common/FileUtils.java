@@ -189,6 +189,7 @@ public class FileUtils {
         // 目标目录不存在返回false
         if (!createOrExistsDir(destDir)) return false;
         File[] files = srcDir.listFiles();
+        if (files == null || files.length <= 0) return false;
         for (File file : files) {
             File oneDestFile = new File(destPath + file.getName());
             if (file.isFile()) {
@@ -255,6 +256,7 @@ public class FileUtils {
         if (!dir.isDirectory()) return false;
         // 现在文件存在且是文件夹
         File[] files = dir.listFiles();
+        if (files == null || files.length <= 0) return dir.delete();
         for (File file : files) {
             if (file.isFile()) {
                 if (!deleteFile(file)) return false;
@@ -300,13 +302,12 @@ public class FileUtils {
         if (!dir.isDirectory()) return false;
         // 现在文件存在且是文件夹
         File[] files = dir.listFiles();
-        if (files != null && files.length != 0) {
-            for (File file : files) {
-                if (file.isFile()) {
-                    if (!deleteFile(file)) return false;
-                } else if (file.isDirectory()) {
-                    if (!deleteDir(file)) return false;
-                }
+        if (files == null || files.length <= 0) return true;
+        for (File file : files) {
+            if (file.isFile()) {
+                if (!deleteFile(file)) return false;
+            } else if (file.isDirectory()) {
+                if (!deleteDir(file)) return false;
             }
         }
         return true;
@@ -345,6 +346,7 @@ public class FileUtils {
         if (!isDir(dir)) return new ArrayList<>();
         List<File> list = new ArrayList<>();
         File[] files = dir.listFiles();
+        if (files == null || files.length <= 0) return new ArrayList<>();
         for (File file : files) {
             list.add(file);
             if (file.isDirectory()) {
@@ -373,6 +375,7 @@ public class FileUtils {
         }
         List<File> list = new ArrayList<>();
         File[] files = dir.listFiles();
+        if (files == null || files.length <= 0) return new ArrayList<>();
         for (File file : files) {
             if (file.getName().toUpperCase().endsWith(suffix.toUpperCase())) {
                 list.add(file);
@@ -389,6 +392,7 @@ public class FileUtils {
         }
         List<File> list = new ArrayList<>();
         File[] files = dir.listFiles();
+        if (files == null || files.length <= 0) return new ArrayList<>();
         for (File file : files) {
             if (file.getName().toUpperCase().endsWith(suffix.toUpperCase())) {
                 list.add(file);
@@ -419,6 +423,7 @@ public class FileUtils {
         }
         List<File> list = new ArrayList<>();
         File[] files = dir.listFiles();
+        if (files == null || files.length <= 0) return new ArrayList<>();
         for (File file : files) {
             if (filter.accept(file.getParentFile(), file.getName())) {
                 list.add(file);
@@ -435,6 +440,7 @@ public class FileUtils {
         }
         List<File> list = new ArrayList<>();
         File[] files = dir.listFiles();
+        if (files == null || files.length <= 0) return new ArrayList<>();
         for (File file : files) {
             if (filter.accept(file.getParentFile(), file.getName())) {
                 list.add(file);
@@ -464,6 +470,7 @@ public class FileUtils {
         }
         List<File> list = new ArrayList<>();
         File[] files = dir.listFiles();
+        if (files == null || files.length <= 0) return new ArrayList<>();
         for (File file : files) {
             if (file.getName().toUpperCase().equals(fileName.toUpperCase())) {
                 list.add(file);

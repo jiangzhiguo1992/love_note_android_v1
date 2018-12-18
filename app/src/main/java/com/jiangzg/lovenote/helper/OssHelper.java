@@ -328,7 +328,7 @@ public class OssHelper {
                     if (toast) {
                         ToastUtils.show(MyApp.get().getString(R.string.upload_fail_please_check_native_net));
                     }
-                    LogUtils.e(OssHelper.class, "uploadFile", clientException);
+                    LogUtils.w(OssHelper.class, "uploadFile", clientException.getMessage());
                     ApiHelper.ossInfoUpdate();
                 }
                 // 服务异常
@@ -336,7 +336,7 @@ public class OssHelper {
                     if (toast) {
                         ToastUtils.show(MyApp.get().getString(R.string.upload_fail_tell_we_this_bug));
                     }
-                    LogUtils.e(OssHelper.class, "uploadFile", serviceException);
+                    LogUtils.w(OssHelper.class, "uploadFile", serviceException.getRawMessage());
                     LogUtils.w(OssHelper.class, "uploadFile", "serviceException = " + serviceException.toString());
                     ApiHelper.ossInfoUpdate();
                 }
@@ -575,13 +575,13 @@ public class OssHelper {
                 // 本地异常如网络异常等
                 if (clientException != null) {
                     ToastUtils.show(MyApp.get().getString(R.string.upload_fail_please_check_native_net));
-                    LogUtils.e(OssHelper.class, "uploadJpegList", clientException);
+                    LogUtils.w(OssHelper.class, "uploadJpegList", clientException.getMessage());
                     refreshOssClient();
                 }
                 // 服务异常
                 if (serviceException != null) {
                     ToastUtils.show(MyApp.get().getString(R.string.upload_fail_tell_we_this_bug));
-                    LogUtils.e(OssHelper.class, "uploadJpegList", serviceException);
+                    LogUtils.w(OssHelper.class, "uploadJpegList", serviceException.getRawMessage());
                     LogUtils.w(OssHelper.class, "uploadJpegList", "serviceException = " + serviceException.toString());
                 }
                 // 回调
@@ -698,7 +698,7 @@ public class OssHelper {
                 if (clientException != null) {
                     if (toast) {
                         ToastUtils.show(MyApp.get().getString(R.string.download_fail_please_check_native_net));
-                        LogUtils.e(OssHelper.class, "downloadObject", clientException);
+                        LogUtils.w(OssHelper.class, "downloadObject", clientException.getMessage());
                     }
                     refreshOssClient();
                 }
@@ -707,7 +707,7 @@ public class OssHelper {
                     if (toast) {
                         ToastUtils.show(MyApp.get().getString(R.string.download_fail_tell_we_this_bug));
                     }
-                    LogUtils.e(OssHelper.class, "downloadObject", serviceException);
+                    LogUtils.w(OssHelper.class, "downloadObject", serviceException.getRawMessage());
                     LogUtils.w(OssHelper.class, "downloadObject", "serviceException = " + serviceException.toString());
                 }
                 // 回调
