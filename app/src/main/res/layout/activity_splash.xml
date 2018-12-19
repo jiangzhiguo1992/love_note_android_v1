@@ -16,8 +16,7 @@
         android:id="@+id/llBottom"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="30dp">
+        android:layout_alignParentBottom="true">
 
         <Button
             android:id="@+id/btnLogin"
@@ -26,8 +25,9 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="30dp"
             android:layout_marginEnd="15dp"
+            android:layout_marginBottom="30dp"
             android:layout_weight="1"
-            android:background="@drawable/shape_solid_white_r3"
+            android:background="@drawable/shape_solid_white_r100"
             android:foreground="?attr/selectableItemBackground"
             android:text="@string/login"/>
 
@@ -38,8 +38,9 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="15dp"
             android:layout_marginEnd="30dp"
+            android:layout_marginBottom="30dp"
             android:layout_weight="1"
-            android:background="@drawable/shape_solid_white_r3"
+            android:background="@drawable/shape_solid_white_r100"
             android:foreground="?attr/selectableItemBackground"
             android:text="@string/register"/>
     </LinearLayout>
