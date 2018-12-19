@@ -5,6 +5,7 @@ import android.content.ComponentName;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.widget.Button;
@@ -71,13 +72,11 @@ public class SplashActivity extends BaseActivity<SplashActivity> {
         layoutParams.bottomMargin += height;
         llBottom.setLayoutParams(layoutParams);
         // color
-        int c1 = Color.rgb(224, 123, 143);
-        int c2 = Color.rgb(87, 212, 204);
-        int c3 = Color.rgb(250, 135, 61);
-        int c4 = Color.rgb(143, 102, 120);
-        int c5 = Color.rgb(227, 171, 192);
-        int c6 = Color.rgb(166, 208, 240);
-        final int[] colorList = new int[]{c1, c2, c3, c4, c5, c6};
+        final int[] colorList = new int[]{ContextCompat.getColor(mActivity, R.color.theme_red_dark),
+                ContextCompat.getColor(mActivity, R.color.theme_teal_dark),
+                ContextCompat.getColor(mActivity, R.color.theme_orange_dark),
+                ContextCompat.getColor(mActivity, R.color.theme_blue_dark),
+                ContextCompat.getColor(mActivity, R.color.theme_brown_dark)};
         // bg
         currentItem = 0;
         root.setBackgroundColor(colorList[currentItem]);
