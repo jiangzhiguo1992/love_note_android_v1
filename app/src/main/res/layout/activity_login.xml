@@ -145,7 +145,7 @@
 
     <Button
         android:id="@+id/btnLogin"
-        style="@style/FontWhiteNormal"
+        style="@style/FontWhiteBig"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="30dp"
@@ -157,7 +157,7 @@
 
     <Button
         android:id="@+id/btnRegister"
-        style="@style/FontPrimarySmall"
+        style="@style/FontPrimaryNormal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="?attr/selectableItemBackground"
