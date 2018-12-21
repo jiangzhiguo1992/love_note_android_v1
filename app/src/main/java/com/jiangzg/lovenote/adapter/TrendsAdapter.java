@@ -5,6 +5,7 @@ import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseMultiItemQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
+import com.jiangzg.base.view.ViewUtils;
 import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.activity.note.AlbumListActivity;
 import com.jiangzg.lovenote.activity.note.AngryDetailActivity;
@@ -39,7 +40,6 @@ import com.jiangzg.lovenote.helper.SPHelper;
 import com.jiangzg.lovenote.helper.ShowHelper;
 import com.jiangzg.lovenote.helper.TimeHelper;
 import com.jiangzg.lovenote.helper.UserHelper;
-import com.jiangzg.lovenote.helper.ViewHelper;
 import com.jiangzg.lovenote.model.entity.Couple;
 import com.jiangzg.lovenote.model.entity.Trends;
 import com.jiangzg.lovenote.view.FrescoAvatarView;
@@ -78,24 +78,24 @@ public class TrendsAdapter extends BaseMultiItemQuickAdapter<Trends, BaseViewHol
         mActivity = activity;
         couple = SPHelper.getCouple();
         // conDrawable
-        dSouvenir = ViewHelper.getDrawable(mActivity, R.mipmap.ic_note_souvenir_24dp);
-        dMenses = ViewHelper.getDrawable(mActivity, R.mipmap.ic_note_menses_24dp);
-        dShy = ViewHelper.getDrawable(mActivity, R.mipmap.ic_note_shy_24dp);
-        dSleep = ViewHelper.getDrawable(mActivity, R.mipmap.ic_note_sleep_24dp);
-        dWord = ViewHelper.getDrawable(mActivity, R.mipmap.ic_note_word_24dp);
-        dWhisper = ViewHelper.getDrawable(mActivity, R.mipmap.ic_note_whisper_24dp);
-        dDiary = ViewHelper.getDrawable(mActivity, R.mipmap.ic_note_diary_24dp);
-        dPhoto = ViewHelper.getDrawable(mActivity, R.mipmap.ic_note_album_24dp);
-        dAudio = ViewHelper.getDrawable(mActivity, R.mipmap.ic_note_audio_24dp);
-        dVideo = ViewHelper.getDrawable(mActivity, R.mipmap.ic_note_video_24dp);
-        dFood = ViewHelper.getDrawable(mActivity, R.mipmap.ic_note_food_24dp);
-        dTravel = ViewHelper.getDrawable(mActivity, R.mipmap.ic_note_travel_24dp);
-        dGift = ViewHelper.getDrawable(mActivity, R.mipmap.ic_note_gift_24dp);
-        dPromise = ViewHelper.getDrawable(mActivity, R.mipmap.ic_note_promise_24dp);
-        dAngry = ViewHelper.getDrawable(mActivity, R.mipmap.ic_note_angry_24dp);
-        dDream = ViewHelper.getDrawable(mActivity, R.mipmap.ic_note_dream_24dp);
-        dAward = ViewHelper.getDrawable(mActivity, R.mipmap.ic_note_award_24dp);
-        dMovie = ViewHelper.getDrawable(mActivity, R.mipmap.ic_note_movie_24dp);
+        dSouvenir = ViewUtils.getDrawable(mActivity, R.mipmap.ic_note_souvenir_24dp);
+        dMenses = ViewUtils.getDrawable(mActivity, R.mipmap.ic_note_menses_24dp);
+        dShy = ViewUtils.getDrawable(mActivity, R.mipmap.ic_note_shy_24dp);
+        dSleep = ViewUtils.getDrawable(mActivity, R.mipmap.ic_note_sleep_24dp);
+        dWord = ViewUtils.getDrawable(mActivity, R.mipmap.ic_note_word_24dp);
+        dWhisper = ViewUtils.getDrawable(mActivity, R.mipmap.ic_note_whisper_24dp);
+        dDiary = ViewUtils.getDrawable(mActivity, R.mipmap.ic_note_diary_24dp);
+        dPhoto = ViewUtils.getDrawable(mActivity, R.mipmap.ic_note_album_24dp);
+        dAudio = ViewUtils.getDrawable(mActivity, R.mipmap.ic_note_audio_24dp);
+        dVideo = ViewUtils.getDrawable(mActivity, R.mipmap.ic_note_video_24dp);
+        dFood = ViewUtils.getDrawable(mActivity, R.mipmap.ic_note_food_24dp);
+        dTravel = ViewUtils.getDrawable(mActivity, R.mipmap.ic_note_travel_24dp);
+        dGift = ViewUtils.getDrawable(mActivity, R.mipmap.ic_note_gift_24dp);
+        dPromise = ViewUtils.getDrawable(mActivity, R.mipmap.ic_note_promise_24dp);
+        dAngry = ViewUtils.getDrawable(mActivity, R.mipmap.ic_note_angry_24dp);
+        dDream = ViewUtils.getDrawable(mActivity, R.mipmap.ic_note_dream_24dp);
+        dAward = ViewUtils.getDrawable(mActivity, R.mipmap.ic_note_award_24dp);
+        dMovie = ViewUtils.getDrawable(mActivity, R.mipmap.ic_note_movie_24dp);
     }
 
     @Override

@@ -30,6 +30,7 @@ import com.jiangzg.base.component.ActivityTrans;
 import com.jiangzg.base.system.InputUtils;
 import com.jiangzg.base.view.DialogUtils;
 import com.jiangzg.base.view.ToastUtils;
+import com.jiangzg.base.view.ViewUtils;
 import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.adapter.PostCommentAdapter;
 import com.jiangzg.lovenote.base.BaseActivity;
@@ -295,7 +296,7 @@ public class PostSubCommentListActivity extends BaseActivity<PostSubCommentListA
         // color
         int colorFontGrey = ContextCompat.getColor(mActivity, R.color.font_grey);
         int colorIconGrey = ContextCompat.getColor(mActivity, R.color.icon_grey);
-        int colorPrimary = ContextCompat.getColor(mActivity, ViewHelper.getColorPrimary(mActivity));
+        int colorPrimary = ContextCompat.getColor(mActivity, ViewUtils.getColorPrimary(mActivity));
         ColorStateList colorStateIconGrey = ColorStateList.valueOf(colorIconGrey);
         ColorStateList colorStatePrimary = ColorStateList.valueOf(colorPrimary);
         // data

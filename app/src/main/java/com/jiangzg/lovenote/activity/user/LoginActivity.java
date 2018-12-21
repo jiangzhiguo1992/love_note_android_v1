@@ -22,6 +22,7 @@ import com.afollestad.materialdialogs.MaterialDialog;
 import com.jiangzg.base.common.ConstantUtils;
 import com.jiangzg.base.component.ActivityTrans;
 import com.jiangzg.base.view.ToastUtils;
+import com.jiangzg.base.view.ViewUtils;
 import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.activity.settings.UserProtocolActivity;
 import com.jiangzg.lovenote.base.BaseActivity;
@@ -95,7 +96,7 @@ public class LoginActivity extends BaseActivity<LoginActivity> {
     @Override
     protected void initView(Intent intent, Bundle state) {
         ViewHelper.initTopBar(mActivity, tb, getString(R.string.login), true);
-        ViewHelper.setLineBottom(tvProtocol);
+        ViewUtils.setLineBottom(tvProtocol);
         // loginType
         rgLoginType.setOnCheckedChangeListener((group, checkedId) -> toggleLoginType());
         // 默认密码登录

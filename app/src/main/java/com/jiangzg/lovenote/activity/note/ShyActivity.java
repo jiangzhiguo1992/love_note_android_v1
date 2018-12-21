@@ -20,6 +20,7 @@ import com.haibin.calendarview.CalendarView;
 import com.haibin.calendarview.WeekView;
 import com.jiangzg.base.component.ActivityTrans;
 import com.jiangzg.base.time.DateUtils;
+import com.jiangzg.base.view.ViewUtils;
 import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.adapter.ShyAdapter;
 import com.jiangzg.lovenote.base.BaseActivity;
@@ -225,7 +226,7 @@ public class ShyActivity extends BaseActivity<ShyActivity> {
                 } else {
                     countArray.put(day, ++count);
                 }
-                calendar.setSchemeColor(ContextCompat.getColor(mActivity, ViewHelper.getColorDark(mActivity)));
+                calendar.setSchemeColor(ContextCompat.getColor(mActivity, ViewUtils.getColorDark(mActivity)));
                 calendar.setScheme(String.valueOf(count));
                 schemeMap.put(calendar.toString(), calendar);
             }

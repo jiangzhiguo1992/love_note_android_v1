@@ -25,6 +25,7 @@ import com.jiangzg.lovenote.activity.note.GiftListActivity;
 import com.jiangzg.lovenote.activity.note.LockActivity;
 import com.jiangzg.lovenote.activity.note.MensesActivity;
 import com.jiangzg.lovenote.activity.note.MovieListActivity;
+import com.jiangzg.lovenote.activity.note.NoteCustomActivity;
 import com.jiangzg.lovenote.activity.note.NoteTotalActivity;
 import com.jiangzg.lovenote.activity.note.PromiseListActivity;
 import com.jiangzg.lovenote.activity.note.ShyActivity;
@@ -186,6 +187,9 @@ public class NoteFragment extends BasePagerFragment<NoteFragment> {
             case R.id.menuHelp: // 帮助
                 HelpActivity.goActivity(mFragment, HelpActivity.INDEX_NOTE_HOME);
                 return true;
+            case R.id.menuCustom: // 功能定制
+                NoteCustomActivity.goActivity(mFragment);
+                return true;
             case R.id.menuLock: // 密码锁
                 LockActivity.goActivity(mFragment);
                 return true;
@@ -320,7 +324,7 @@ public class NoteFragment extends BasePagerFragment<NoteFragment> {
     private void refreshMenu() {
         boolean isLock = lock == null || lock.isLock();
         tb.getMenu().clear();
-        tb.inflateMenu(isLock ? R.menu.help_lock_on : R.menu.help_lock_off);
+        tb.inflateMenu(isLock ? R.menu.help_custom_lock_on : R.menu.help_custom_lock_off);
     }
 
     private void refreshNoteView() {

@@ -6,7 +6,7 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.ViewConfiguration;
 
-import com.jiangzg.lovenote.helper.ViewHelper;
+import com.jiangzg.base.view.ViewUtils;
 
 /**
  * Created by JiangZhiGuo on 2016/8/11.
@@ -32,10 +32,10 @@ public class GSwipeRefreshLayout extends SwipeRefreshLayout {
         // 触发移动事件的最短距离，如果小于这个距离就不触发移动控件
         mTouchSlop = ViewConfiguration.get(context).getScaledTouchSlop();
         // 设置颜色
-        int colorDark = ViewHelper.getColorDark(context);
-        int colorPrimary = ViewHelper.getColorPrimary(context);
-        int colorAccent = ViewHelper.getColorAccent(context);
-        int colorLight = ViewHelper.getColorLight(context);
+        int colorDark = ViewUtils.getColorDark(context);
+        int colorPrimary = ViewUtils.getColorPrimary(context);
+        int colorAccent = ViewUtils.getColorAccent(context);
+        int colorLight = ViewUtils.getColorLight(context);
         this.setColorSchemeResources(colorDark, colorPrimary, colorAccent, colorLight, colorAccent, colorPrimary);
     }
 

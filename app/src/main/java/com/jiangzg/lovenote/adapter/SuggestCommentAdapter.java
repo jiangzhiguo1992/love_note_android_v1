@@ -6,6 +6,7 @@ import android.widget.TextView;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
+import com.jiangzg.base.view.ViewUtils;
 import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.base.BaseActivity;
 import com.jiangzg.lovenote.helper.ConsHelper;
@@ -13,7 +14,6 @@ import com.jiangzg.lovenote.helper.DialogHelper;
 import com.jiangzg.lovenote.helper.RetrofitHelper;
 import com.jiangzg.lovenote.helper.RxBus;
 import com.jiangzg.lovenote.helper.TimeHelper;
-import com.jiangzg.lovenote.helper.ViewHelper;
 import com.jiangzg.lovenote.model.api.API;
 import com.jiangzg.lovenote.model.api.Result;
 import com.jiangzg.lovenote.model.entity.Suggest;
@@ -39,8 +39,8 @@ public class SuggestCommentAdapter extends BaseQuickAdapter<SuggestComment, Base
         mActivity = activity;
 
         colorGrey = ContextCompat.getColor(mActivity, R.color.font_grey);
-        colorDark = ContextCompat.getColor(mActivity, ViewHelper.getColorDark(mActivity));
-        colorPrimary = ContextCompat.getColor(mActivity, ViewHelper.getColorPrimary(mActivity));
+        colorDark = ContextCompat.getColor(mActivity, ViewUtils.getColorDark(mActivity));
+        colorPrimary = ContextCompat.getColor(mActivity, ViewUtils.getColorPrimary(mActivity));
     }
 
     @Override

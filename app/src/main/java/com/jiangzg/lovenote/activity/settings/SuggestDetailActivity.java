@@ -29,6 +29,7 @@ import com.jiangzg.base.component.ActivityTrans;
 import com.jiangzg.base.system.InputUtils;
 import com.jiangzg.base.view.ScreenUtils;
 import com.jiangzg.base.view.ToastUtils;
+import com.jiangzg.base.view.ViewUtils;
 import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.activity.common.BigImageActivity;
 import com.jiangzg.lovenote.adapter.SuggestCommentAdapter;
@@ -341,7 +342,7 @@ public class SuggestDetailActivity extends BaseActivity<SuggestDetailActivity> {
         if (follow) {
             Drawable visibility = ContextCompat.getDrawable(mActivity, R.mipmap.ic_visibility_grey_18dp);
             if (visibility != null) {
-                visibility.setTint(ContextCompat.getColor(mActivity, ViewHelper.getColorPrimary(mActivity)));
+                visibility.setTint(ContextCompat.getColor(mActivity, ViewUtils.getColorPrimary(mActivity)));
                 ivFollow.setImageDrawable(visibility);
             }
         } else {
@@ -357,7 +358,7 @@ public class SuggestDetailActivity extends BaseActivity<SuggestDetailActivity> {
         // view
         tvComment.setText(commentCount);
         if (isComment) {
-            int colorPrimary = ContextCompat.getColor(mActivity, ViewHelper.getColorPrimary(mActivity));
+            int colorPrimary = ContextCompat.getColor(mActivity, ViewUtils.getColorPrimary(mActivity));
             ivComment.setImageTintList(ColorStateList.valueOf(colorPrimary));
         } else {
             int colorGrey = ContextCompat.getColor(mActivity, R.color.icon_grey);

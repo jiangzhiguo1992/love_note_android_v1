@@ -6,6 +6,7 @@ import com.jiangzg.base.common.LogUtils;
 import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.base.system.SPUtils;
 import com.jiangzg.base.time.DateUtils;
+import com.jiangzg.lovenote.model.engine.NoteCustom;
 import com.jiangzg.lovenote.model.entity.CommonConst;
 import com.jiangzg.lovenote.model.entity.CommonCount;
 import com.jiangzg.lovenote.model.entity.Couple;
@@ -30,6 +31,7 @@ public class SPHelper {
 
     // 存储集合
     private static final String SHARE_COMMON = "share_common";
+    private static final String SHARE_NOTE_CUSTOM = "note_custom";
     private static final String SHARE_OSS_INFO = "share_oss_info";
     private static final String SHARE_PUSH_INFO = "share_push_info";
     private static final String SHARE_MODEL_SHOW = "model_show";
@@ -50,6 +52,27 @@ public class SPHelper {
     private static final String FIELD_COMMON_NOTICE_SYSTEM = "notice_system";
     private static final String FIELD_COMMON_NOTICE_SOCIAL = "notice_social";
     private static final String FIELD_COMMON_NOTICE_DISTURB = "notice_disturb";
+    // noteCustom
+    private static final String FIELD_NOTE_CUSTOM_SOUVENIR = "souvenir";
+    private static final String FIELD_NOTE_CUSTOM_SHY = "shy";
+    private static final String FIELD_NOTE_CUSTOM_MENSES = "menses";
+    private static final String FIELD_NOTE_CUSTOM_SLEEP = "sleep";
+    private static final String FIELD_NOTE_CUSTOM_WORD = "word";
+    private static final String FIELD_NOTE_CUSTOM_WHISPER = "whisper";
+    private static final String FIELD_NOTE_CUSTOM_DIARY = "diary";
+    private static final String FIELD_NOTE_CUSTOM_AWARD = "award";
+    private static final String FIELD_NOTE_CUSTOM_DREAM = "dream";
+    private static final String FIELD_NOTE_CUSTOM_MOVIE = "movie";
+    private static final String FIELD_NOTE_CUSTOM_FOOD = "food";
+    private static final String FIELD_NOTE_CUSTOM_TRAVEL = "travel";
+    private static final String FIELD_NOTE_CUSTOM_ANGRY = "angry";
+    private static final String FIELD_NOTE_CUSTOM_GIFT = "gift";
+    private static final String FIELD_NOTE_CUSTOM_PROMISE = "promise";
+    private static final String FIELD_NOTE_CUSTOM_AUDIO = "audio";
+    private static final String FIELD_NOTE_CUSTOM_VIDEO = "video";
+    private static final String FIELD_NOTE_CUSTOM_ALBUM = "album";
+    private static final String FIELD_NOTE_CUSTOM_TOTAL = "total";
+    private static final String FIELD_NOTE_CUSTOM_TRENDS = "trends";
     // commonConst
     private static final String FIELD_COMMON_CONST_COMPANY_NAME = "company_name";
     private static final String FIELD_COMMON_CONST_CUSTOMER_QQ = "customer_qq";
@@ -339,6 +362,64 @@ public class SPHelper {
     public static boolean getSettingsNoticeDisturb() {
         SharedPreferences sp = SPUtils.getSharedPreferences(SHARE_COMMON);
         return sp.getBoolean(FIELD_COMMON_NOTICE_DISTURB, true);
+    }
+
+    /**
+     * ***********************************NoteCustom***********************************
+     */
+    public static void setNoteCustom(NoteCustom noteCustom) {
+        if (noteCustom == null) {
+            LogUtils.i(SPHelper.class, "setNoteCustom", "noteCustom == null");
+            return;
+        }
+        SharedPreferences.Editor editor = SPUtils.getSharedPreferences(SHARE_NOTE_CUSTOM).edit();
+        editor.putBoolean(FIELD_NOTE_CUSTOM_SOUVENIR, noteCustom.isSouvenir());
+        editor.putBoolean(FIELD_NOTE_CUSTOM_SHY, noteCustom.isShy());
+        editor.putBoolean(FIELD_NOTE_CUSTOM_MENSES, noteCustom.isMenses());
+        editor.putBoolean(FIELD_NOTE_CUSTOM_SLEEP, noteCustom.isSleep());
+        editor.putBoolean(FIELD_NOTE_CUSTOM_WORD, noteCustom.isWord());
+        editor.putBoolean(FIELD_NOTE_CUSTOM_WHISPER, noteCustom.isWhisper());
+        editor.putBoolean(FIELD_NOTE_CUSTOM_DIARY, noteCustom.isDiary());
+        editor.putBoolean(FIELD_NOTE_CUSTOM_AWARD, noteCustom.isAward());
+        editor.putBoolean(FIELD_NOTE_CUSTOM_DREAM, noteCustom.isDream());
+        editor.putBoolean(FIELD_NOTE_CUSTOM_MOVIE, noteCustom.isMovie());
+        editor.putBoolean(FIELD_NOTE_CUSTOM_FOOD, noteCustom.isFood());
+        editor.putBoolean(FIELD_NOTE_CUSTOM_TRAVEL, noteCustom.isTravel());
+        editor.putBoolean(FIELD_NOTE_CUSTOM_ANGRY, noteCustom.isAngry());
+        editor.putBoolean(FIELD_NOTE_CUSTOM_GIFT, noteCustom.isGift());
+        editor.putBoolean(FIELD_NOTE_CUSTOM_PROMISE, noteCustom.isPromise());
+        editor.putBoolean(FIELD_NOTE_CUSTOM_AUDIO, noteCustom.isAudio());
+        editor.putBoolean(FIELD_NOTE_CUSTOM_VIDEO, noteCustom.isVideo());
+        editor.putBoolean(FIELD_NOTE_CUSTOM_ALBUM, noteCustom.isAlbum());
+        editor.putBoolean(FIELD_NOTE_CUSTOM_TOTAL, noteCustom.isTotal());
+        editor.putBoolean(FIELD_NOTE_CUSTOM_TRENDS, noteCustom.isTrends());
+        editor.apply();
+    }
+
+    public static NoteCustom getNoteCustom() {
+        SharedPreferences sp = SPUtils.getSharedPreferences(SHARE_NOTE_CUSTOM);
+        NoteCustom noteCustom = new NoteCustom();
+        noteCustom.setSouvenir(sp.getBoolean(FIELD_NOTE_CUSTOM_SOUVENIR, true));
+        noteCustom.setShy(sp.getBoolean(FIELD_NOTE_CUSTOM_SHY, true));
+        noteCustom.setMenses(sp.getBoolean(FIELD_NOTE_CUSTOM_MENSES, true));
+        noteCustom.setSleep(sp.getBoolean(FIELD_NOTE_CUSTOM_SLEEP, true));
+        noteCustom.setWord(sp.getBoolean(FIELD_NOTE_CUSTOM_WORD, true));
+        noteCustom.setWhisper(sp.getBoolean(FIELD_NOTE_CUSTOM_WHISPER, true));
+        noteCustom.setDiary(sp.getBoolean(FIELD_NOTE_CUSTOM_DIARY, true));
+        noteCustom.setAward(sp.getBoolean(FIELD_NOTE_CUSTOM_AWARD, true));
+        noteCustom.setDream(sp.getBoolean(FIELD_NOTE_CUSTOM_DREAM, true));
+        noteCustom.setMovie(sp.getBoolean(FIELD_NOTE_CUSTOM_MOVIE, true));
+        noteCustom.setFood(sp.getBoolean(FIELD_NOTE_CUSTOM_FOOD, true));
+        noteCustom.setTravel(sp.getBoolean(FIELD_NOTE_CUSTOM_TRAVEL, true));
+        noteCustom.setAngry(sp.getBoolean(FIELD_NOTE_CUSTOM_ANGRY, true));
+        noteCustom.setGift(sp.getBoolean(FIELD_NOTE_CUSTOM_GIFT, true));
+        noteCustom.setPromise(sp.getBoolean(FIELD_NOTE_CUSTOM_PROMISE, true));
+        noteCustom.setAudio(sp.getBoolean(FIELD_NOTE_CUSTOM_AUDIO, true));
+        noteCustom.setVideo(sp.getBoolean(FIELD_NOTE_CUSTOM_VIDEO, true));
+        noteCustom.setAlbum(sp.getBoolean(FIELD_NOTE_CUSTOM_ALBUM, true));
+        noteCustom.setTotal(sp.getBoolean(FIELD_NOTE_CUSTOM_TOTAL, true));
+        noteCustom.setTrends(sp.getBoolean(FIELD_NOTE_CUSTOM_TRENDS, true));
+        return noteCustom;
     }
 
     /**

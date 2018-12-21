@@ -9,6 +9,7 @@ import android.widget.ImageView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
+import com.jiangzg.base.view.ViewUtils;
 import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.activity.settings.SuggestDetailActivity;
 import com.jiangzg.lovenote.helper.CountHelper;
@@ -48,7 +49,7 @@ public class SuggestAdapter extends BaseQuickAdapter<Suggest, BaseViewHolder> {
         formatOfficial = mActivity.getString(R.string.administrators);
         formatMine = mActivity.getString(R.string.me_de);
         // color
-        int rId = ViewHelper.getColorPrimary(activity);
+        int rId = ViewUtils.getColorPrimary(activity);
         int colorPrimary = ContextCompat.getColor(activity, rId);
         int colorGrey = ContextCompat.getColor(activity, R.color.icon_grey);
         colorPrimaryStateList = ColorStateList.valueOf(colorPrimary);
@@ -115,7 +116,7 @@ public class SuggestAdapter extends BaseQuickAdapter<Suggest, BaseViewHolder> {
         if (follow) {
             Drawable visibility = ContextCompat.getDrawable(mActivity, R.mipmap.ic_visibility_grey_18dp);
             if (visibility != null) {
-                visibility.setTint(ContextCompat.getColor(mActivity, ViewHelper.getColorPrimary(mActivity)));
+                visibility.setTint(ContextCompat.getColor(mActivity, ViewUtils.getColorPrimary(mActivity)));
                 helper.setImageDrawable(R.id.ivFollow, visibility);
             }
         } else {

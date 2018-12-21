@@ -408,6 +408,7 @@
 
     <!-- note -->
     <string name="pwd_lock">密码锁</string>
+    <string name="func_custom">功能定制</string>
     <string name="trends">动态</string>
     <string name="statistics">统计</string>
     <string name="recycle_bin">回收箱</string>

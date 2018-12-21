@@ -7,6 +7,7 @@ import android.widget.ImageView;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.chad.library.adapter.base.BaseMultiItemQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
+import com.jiangzg.base.view.ViewUtils;
 import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.activity.topic.PostSubCommentListActivity;
 import com.jiangzg.lovenote.base.BaseActivity;
@@ -16,7 +17,6 @@ import com.jiangzg.lovenote.helper.DialogHelper;
 import com.jiangzg.lovenote.helper.RetrofitHelper;
 import com.jiangzg.lovenote.helper.RxBus;
 import com.jiangzg.lovenote.helper.TimeHelper;
-import com.jiangzg.lovenote.helper.ViewHelper;
 import com.jiangzg.lovenote.model.api.API;
 import com.jiangzg.lovenote.model.api.Result;
 import com.jiangzg.lovenote.model.entity.Couple;
@@ -49,7 +49,7 @@ public class PostCommentAdapter extends BaseMultiItemQuickAdapter<PostComment, B
         this.subComment = subComment;
         formatFloor = mActivity.getString(R.string.holder_floor);
         // color
-        colorPrimary = ContextCompat.getColor(mActivity, ViewHelper.getColorPrimary(mActivity));
+        colorPrimary = ContextCompat.getColor(mActivity, ViewUtils.getColorPrimary(mActivity));
         int colorGrey = ContextCompat.getColor(mActivity, R.color.icon_grey);
         colorFontGrey = ContextCompat.getColor(mActivity, R.color.font_grey);
         colorStatePrimary = ColorStateList.valueOf(colorPrimary);

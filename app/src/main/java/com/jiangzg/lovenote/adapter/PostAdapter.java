@@ -12,6 +12,7 @@ import com.afollestad.materialdialogs.MaterialDialog;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.jiangzg.base.common.StringUtils;
+import com.jiangzg.base.view.ViewUtils;
 import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.activity.topic.PostDetailActivity;
 import com.jiangzg.lovenote.helper.CountHelper;
@@ -52,7 +53,7 @@ public class PostAdapter extends BaseQuickAdapter<Post, BaseViewHolder> {
         this.kindShow = kindShow;
         this.subKindShow = subKindShow;
         // color
-        int rId = ViewHelper.getColorPrimary(activity);
+        int rId = ViewUtils.getColorPrimary(activity);
         int colorIconGrey = ContextCompat.getColor(activity, R.color.icon_grey);
         colorPrimary = ContextCompat.getColor(activity, rId);
         colorFontGrey = ContextCompat.getColor(activity, R.color.font_grey);

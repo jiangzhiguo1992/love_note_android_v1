@@ -20,6 +20,7 @@ import com.jiangzg.base.common.ConvertUtils;
 import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.base.view.ScreenUtils;
 import com.jiangzg.base.view.ToastUtils;
+import com.jiangzg.base.view.ViewUtils;
 import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.activity.common.BigImageActivity;
 import com.jiangzg.lovenote.activity.common.MapShowActivity;
@@ -31,7 +32,6 @@ import com.jiangzg.lovenote.helper.ListHelper;
 import com.jiangzg.lovenote.helper.RetrofitHelper;
 import com.jiangzg.lovenote.helper.RxBus;
 import com.jiangzg.lovenote.helper.TimeHelper;
-import com.jiangzg.lovenote.helper.ViewHelper;
 import com.jiangzg.lovenote.model.api.API;
 import com.jiangzg.lovenote.model.api.Result;
 import com.jiangzg.lovenote.model.entity.Album;
@@ -66,7 +66,7 @@ public class PictureAdapter extends BaseQuickAdapter<Picture, BaseViewHolder> {
         int dp5 = ConvertUtils.dp2px(5);
         imageWidth = imageHeight = (int) (screenWidth / 2) - dp5 * 2;
         operationPosition = -1;
-        colorPrimary = ContextCompat.getColor(activity, ViewHelper.getColorPrimary(mActivity));
+        colorPrimary = ContextCompat.getColor(activity, ViewUtils.getColorPrimary(mActivity));
     }
 
     // 切换显示模式

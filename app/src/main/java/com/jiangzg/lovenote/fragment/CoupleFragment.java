@@ -18,6 +18,7 @@ import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.base.system.LocationInfo;
 import com.jiangzg.base.view.BarUtils;
 import com.jiangzg.base.view.ToastUtils;
+import com.jiangzg.base.view.ViewUtils;
 import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.activity.couple.CoupleInfoActivity;
 import com.jiangzg.lovenote.activity.couple.CouplePairActivity;
@@ -37,7 +38,6 @@ import com.jiangzg.lovenote.helper.RetrofitHelper;
 import com.jiangzg.lovenote.helper.RxBus;
 import com.jiangzg.lovenote.helper.SPHelper;
 import com.jiangzg.lovenote.helper.UserHelper;
-import com.jiangzg.lovenote.helper.ViewHelper;
 import com.jiangzg.lovenote.helper.WeatherHelper;
 import com.jiangzg.lovenote.main.MyApp;
 import com.jiangzg.lovenote.model.api.API;
@@ -383,7 +383,7 @@ public class CoupleFragment extends BasePagerFragment<CoupleFragment> {
 
     private void refreshWeatherView() {
         if (mActivity == null || !mFragment.isAdded()) return; // 防止已经脱离后加载
-        int colorIcon = ContextCompat.getColor(mActivity, ViewHelper.getColorPrimary(mActivity));
+        int colorIcon = ContextCompat.getColor(mActivity, ViewUtils.getColorPrimary(mActivity));
         String weatherDef = mActivity.getString(R.string.now_no_weather_info);
         // myWeather
         int myTemp = 520;
@@ -391,7 +391,7 @@ public class CoupleFragment extends BasePagerFragment<CoupleFragment> {
         Drawable myIcon = null;
         if (myWeatherToday != null && !StringUtils.isEmpty(myWeatherToday.getTemp())) {
             int weatherIcon = WeatherHelper.getWeatherIconById(myWeatherToday.getIcon());
-            myIcon = ViewHelper.getDrawable(mActivity, weatherIcon);
+            myIcon = ViewUtils.getDrawable(mActivity, weatherIcon);
             if (myIcon != null) {
                 myIcon.setTint(colorIcon);
             }
@@ -408,7 +408,7 @@ public class CoupleFragment extends BasePagerFragment<CoupleFragment> {
         Drawable taIcon = null;
         if (taWeatherToday != null && !StringUtils.isEmpty(taWeatherToday.getTemp())) {
             int weatherIcon = WeatherHelper.getWeatherIconById(taWeatherToday.getIcon());
-            taIcon = ViewHelper.getDrawable(mActivity, weatherIcon);
+            taIcon = ViewUtils.getDrawable(mActivity, weatherIcon);
             if (taIcon != null) {
                 taIcon.setTint(colorIcon);
             }

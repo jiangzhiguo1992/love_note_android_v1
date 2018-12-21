@@ -21,6 +21,7 @@ import com.haibin.calendarview.WeekView;
 import com.jiangzg.base.component.ActivityTrans;
 import com.jiangzg.base.time.DateUtils;
 import com.jiangzg.base.time.TimeUnit;
+import com.jiangzg.base.view.ViewUtils;
 import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.adapter.SleepAdapter;
 import com.jiangzg.lovenote.base.BaseActivity;
@@ -266,7 +267,7 @@ public class SleepActivity extends BaseActivity<SleepActivity> {
                 } else {
                     countArray.put(day, ++count);
                 }
-                calendar.setSchemeColor(ContextCompat.getColor(mActivity, ViewHelper.getColorDark(mActivity)));
+                calendar.setSchemeColor(ContextCompat.getColor(mActivity, ViewUtils.getColorDark(mActivity)));
                 calendar.setScheme(String.valueOf(count));
                 schemeMap.put(calendar.toString(), calendar);
             }

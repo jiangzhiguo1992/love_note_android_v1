@@ -18,6 +18,7 @@ import com.jiangzg.base.common.ConstantUtils;
 import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.base.component.ActivityTrans;
 import com.jiangzg.base.time.DateUtils;
+import com.jiangzg.base.view.ViewUtils;
 import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.activity.couple.CouplePairActivity;
 import com.jiangzg.lovenote.activity.settings.HelpActivity;
@@ -239,7 +240,7 @@ public class SignActivity extends BaseActivity<SignActivity> {
                 // scheme
                 com.haibin.calendarview.Calendar calendar = CalendarMonthView.getCalendarView(sign.getYear(), sign.getMonthOfYear(), sign.getDayOfMonth());
                 String scheme = mine ? meShow : (ta == null ? taShow : (ta.getSex() == User.SEX_BOY ? heShow : sheShow));
-                calendar.setSchemeColor(ContextCompat.getColor(mActivity, ViewHelper.getColorDark(mActivity)));
+                calendar.setSchemeColor(ContextCompat.getColor(mActivity, ViewUtils.getColorDark(mActivity)));
                 calendar.setScheme(String.valueOf(scheme));
                 schemeMap.put(calendar.toString(), calendar);
             }

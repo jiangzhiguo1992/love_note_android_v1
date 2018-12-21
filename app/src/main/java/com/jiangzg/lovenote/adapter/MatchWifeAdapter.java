@@ -9,10 +9,10 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.jiangzg.base.common.ConvertUtils;
 import com.jiangzg.base.view.ScreenUtils;
+import com.jiangzg.base.view.ViewUtils;
 import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.activity.common.BigImageActivity;
 import com.jiangzg.lovenote.helper.CountHelper;
-import com.jiangzg.lovenote.helper.ViewHelper;
 import com.jiangzg.lovenote.model.entity.MatchWork;
 import com.jiangzg.lovenote.view.FrescoView;
 
@@ -32,7 +32,7 @@ public class MatchWifeAdapter extends BaseQuickAdapter<MatchWork, BaseViewHolder
         width = ScreenUtils.getScreenWidth(activity) / 2;
         height = ConvertUtils.dp2px(250);
         // color
-        int rId = ViewHelper.getColorPrimary(activity);
+        int rId = ViewUtils.getColorPrimary(activity);
         int colorPrimary = ContextCompat.getColor(activity, rId);
         int colorWhite = ContextCompat.getColor(activity, R.color.white);
         colorPrimaryStateList = ColorStateList.valueOf(colorPrimary);

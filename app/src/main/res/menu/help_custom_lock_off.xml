@@ -9,6 +9,12 @@
         app:showAsAction="ifRoom"/>
 
     <item
+        android:id="@+id/menuCustom"
+        android:icon="@mipmap/ic_border_outer_white_24dp"
+        android:title="@string/func_custom"
+        app:showAsAction="ifRoom"/>
+
+    <item
         android:id="@+id/menuLock"
         android:icon="@mipmap/ic_lock_open_white_24dp"
         android:title="@string/pwd_lock"

@@ -16,6 +16,7 @@ import com.afollestad.materialdialogs.MaterialDialog;
 import com.jiangzg.base.common.ConstantUtils;
 import com.jiangzg.base.component.ActivityTrans;
 import com.jiangzg.base.view.ToastUtils;
+import com.jiangzg.base.view.ViewUtils;
 import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.activity.settings.UserProtocolActivity;
 import com.jiangzg.lovenote.base.BaseActivity;
@@ -75,7 +76,7 @@ public class RegisterActivity extends BaseActivity<RegisterActivity> {
     @Override
     protected void initView(Intent intent, Bundle state) {
         ViewHelper.initTopBar(mActivity, tb, getString(R.string.register), true);
-        ViewHelper.setLineBottom(tvProtocol);
+        ViewUtils.setLineBottom(tvProtocol);
     }
 
     @Override

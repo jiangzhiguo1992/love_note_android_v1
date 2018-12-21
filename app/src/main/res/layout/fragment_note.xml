@@ -104,9 +104,10 @@
                                 <TextView
                                     android:id="@+id/tvSouvenirEmpty"
                                     style="@style/FontGreyBigBold"
-                                    android:layout_width="wrap_content"
+                                    android:layout_width="0dp"
                                     android:layout_height="wrap_content"
-                                    android:gravity="center_vertical"
+                                    android:layout_weight="1"
+                                    android:gravity="center"
                                     android:text="@string/per_day_is_souvenir"
                                     android:visibility="gone"
                                     tools:visibility="gone"/>

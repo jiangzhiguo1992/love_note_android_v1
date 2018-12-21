@@ -30,6 +30,7 @@ import com.jiangzg.base.component.ActivityTrans;
 import com.jiangzg.base.system.InputUtils;
 import com.jiangzg.base.view.DialogUtils;
 import com.jiangzg.base.view.ToastUtils;
+import com.jiangzg.base.view.ViewUtils;
 import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.activity.settings.HelpActivity;
 import com.jiangzg.lovenote.adapter.ImgSquareShowAdapter;
@@ -382,7 +383,7 @@ public class PostDetailActivity extends BaseActivity<PostDetailActivity> {
         } else {
             postRead(post.getId());
         }
-        int colorPrimary = ContextCompat.getColor(mActivity, ViewHelper.getColorPrimary(mActivity));
+        int colorPrimary = ContextCompat.getColor(mActivity, ViewUtils.getColorPrimary(mActivity));
         int colorFontGrey = ContextCompat.getColor(mActivity, R.color.font_grey);
         // data
         boolean isOur = post.isOur();
@@ -619,7 +620,7 @@ public class PostDetailActivity extends BaseActivity<PostDetailActivity> {
         // view
         tvPoint.setText(pointCount);
         if (point) {
-            int colorPrimary = ContextCompat.getColor(mActivity, ViewHelper.getColorPrimary(mActivity));
+            int colorPrimary = ContextCompat.getColor(mActivity, ViewUtils.getColorPrimary(mActivity));
             ivPoint.setImageTintList(ColorStateList.valueOf(colorPrimary));
         } else {
             int colorGrey = ContextCompat.getColor(mActivity, R.color.icon_grey);
@@ -635,7 +636,7 @@ public class PostDetailActivity extends BaseActivity<PostDetailActivity> {
         // view
         tvCollect.setText(collectCount);
         if (collect) {
-            int colorPrimary = ContextCompat.getColor(mActivity, ViewHelper.getColorPrimary(mActivity));
+            int colorPrimary = ContextCompat.getColor(mActivity, ViewUtils.getColorPrimary(mActivity));
             ivCollect.setImageTintList(ColorStateList.valueOf(colorPrimary));
         } else {
             int colorGrey = ContextCompat.getColor(mActivity, R.color.icon_grey);
@@ -653,7 +654,7 @@ public class PostDetailActivity extends BaseActivity<PostDetailActivity> {
         // view
         tvComment.setText(commentCount);
         if (comment) {
-            int colorPrimary = ContextCompat.getColor(mActivity, ViewHelper.getColorPrimary(mActivity));
+            int colorPrimary = ContextCompat.getColor(mActivity, ViewUtils.getColorPrimary(mActivity));
             ivComment.setImageTintList(ColorStateList.valueOf(colorPrimary));
         } else {
             int colorGrey = ContextCompat.getColor(mActivity, R.color.icon_grey);

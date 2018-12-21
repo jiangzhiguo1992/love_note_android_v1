@@ -9,8 +9,8 @@ import com.amap.api.services.core.PoiItem;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.jiangzg.base.system.LocationInfo;
+import com.jiangzg.base.view.ViewUtils;
 import com.jiangzg.lovenote.R;
-import com.jiangzg.lovenote.helper.ViewHelper;
 
 import java.util.Locale;
 
@@ -31,7 +31,7 @@ public class MapSelectAdapter extends BaseQuickAdapter<PoiItem, BaseViewHolder> 
     public MapSelectAdapter(Activity activity) {
         super(R.layout.list_item_map_select);
         //mActivity = activity;
-        colorPrimary = ContextCompat.getColor(activity, ViewHelper.getColorPrimary(activity));
+        colorPrimary = ContextCompat.getColor(activity, ViewUtils.getColorPrimary(activity));
         colorFontBlack = ContextCompat.getColor(activity, R.color.font_black);
         colorFontWhite = ContextCompat.getColor(activity, R.color.font_white);
         colorFontGrey = ContextCompat.getColor(activity, R.color.font_grey);

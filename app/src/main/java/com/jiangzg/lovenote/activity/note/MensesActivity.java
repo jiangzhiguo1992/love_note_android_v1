@@ -21,6 +21,7 @@ import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.base.component.ActivityTrans;
 import com.jiangzg.base.time.DateUtils;
 import com.jiangzg.base.time.TimeUnit;
+import com.jiangzg.base.view.ViewUtils;
 import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.base.BaseActivity;
 import com.jiangzg.lovenote.helper.DialogHelper;
@@ -235,7 +236,7 @@ public class MensesActivity extends BaseActivity<MensesActivity> {
             for (Menses menses : mensesList) {
                 if (menses == null) continue;
                 com.haibin.calendarview.Calendar calendar = CalendarMonthView.getCalendarView(menses.getYear(), menses.getMonthOfYear(), menses.getDayOfMonth());
-                calendar.setSchemeColor(ContextCompat.getColor(mActivity, ViewHelper.getColorDark(mActivity)));
+                calendar.setSchemeColor(ContextCompat.getColor(mActivity, ViewUtils.getColorDark(mActivity)));
                 calendar.setScheme(menses.isStart() ? come : gone);
                 schemeMap.put(calendar.toString(), calendar);
             }

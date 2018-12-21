@@ -7,9 +7,9 @@ import android.widget.ImageView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
+import com.jiangzg.base.view.ViewUtils;
 import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.helper.CountHelper;
-import com.jiangzg.lovenote.helper.ViewHelper;
 import com.jiangzg.lovenote.model.entity.MatchWork;
 
 /**
@@ -25,7 +25,7 @@ public class MatchDiscussAdapter extends BaseQuickAdapter<MatchWork, BaseViewHol
         super(R.layout.list_item_match_discuss);
         //mActivity = activity;
         // color
-        int rId = ViewHelper.getColorPrimary(activity);
+        int rId = ViewUtils.getColorPrimary(activity);
         int colorPrimary = ContextCompat.getColor(activity, rId);
         int colorGrey = ContextCompat.getColor(activity, R.color.icon_grey);
         colorPrimaryStateList = ColorStateList.valueOf(colorPrimary);

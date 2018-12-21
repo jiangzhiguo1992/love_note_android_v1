@@ -11,8 +11,8 @@ import android.widget.EditText;
 import android.widget.NumberPicker;
 
 import com.jiangzg.base.common.LogUtils;
+import com.jiangzg.base.view.ViewUtils;
 import com.jiangzg.lovenote.R;
-import com.jiangzg.lovenote.helper.ViewHelper;
 
 import java.lang.reflect.Field;
 
@@ -37,7 +37,7 @@ public class BirthPicker extends NumberPicker {
 
     private void init(Context context, AttributeSet attrs) {
         TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.BirthPicker);
-        int color = ViewHelper.getColorPrimary(context);
+        int color = ViewUtils.getColorPrimary(context);
         // 获取参数
         mTextColor = a.getColor(R.styleable.BirthPicker_custom_text_color, color);
         mDividerColor = a.getColor(R.styleable.BirthPicker_custom_divider_color, color);
