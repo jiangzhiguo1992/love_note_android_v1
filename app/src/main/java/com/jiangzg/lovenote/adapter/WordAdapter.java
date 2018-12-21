@@ -3,6 +3,8 @@ package com.jiangzg.lovenote.adapter;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.chad.library.adapter.base.BaseMultiItemQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
+import com.jiangzg.base.common.ConstantUtils;
+import com.jiangzg.base.time.DateUtils;
 import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.base.BaseActivity;
@@ -36,10 +38,12 @@ public class WordAdapter extends BaseMultiItemQuickAdapter<Word, BaseViewHolder>
     @Override
     protected void convert(BaseViewHolder helper, Word item) {
         // data
-        String createAt = TimeHelper.getTimeShowLine_HM_MD_YMD_ByGo(item.getCreateAt());
+        String timeDay = TimeHelper.getTimeShowLine_MD_YMD_ByGo(item.getCreateAt());
+        String timeClock = DateUtils.getString(TimeHelper.getJavaTimeByGo(item.getCreateAt()), ConstantUtils.FORMAT_H_M);
         String content = item.getContentText();
         // view
-        helper.setText(R.id.tvCreateAt, createAt);
+        helper.setText(R.id.tvCreateAt, timeDay);
+        helper.setText(R.id.tvClock, timeClock);
         helper.setText(R.id.tvContent, content);
         // click
         helper.addOnLongClickListener(R.id.cvContent);
