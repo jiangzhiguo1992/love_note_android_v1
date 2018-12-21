@@ -331,8 +331,7 @@ public class PromiseDetailActivity extends BaseActivity<PromiseDetailActivity> {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 // event
-                RxBus.Event<Promise> event = new RxBus.Event<>(ConsHelper.EVENT_PROMISE_LIST_ITEM_DELETE, promise);
-                RxBus.post(event);
+                RxBus.post(new RxBus.Event<>(ConsHelper.EVENT_PROMISE_LIST_ITEM_DELETE, promise));
                 mActivity.finish();
             }
 
@@ -378,8 +377,7 @@ public class PromiseDetailActivity extends BaseActivity<PromiseDetailActivity> {
                 promise.setBreakCount(promise.getBreakCount() + 1);
                 initHead();
                 // event
-                RxBus.Event<Promise> event = new RxBus.Event<>(ConsHelper.EVENT_PROMISE_LIST_ITEM_REFRESH, promise);
-                RxBus.post(event);
+                RxBus.post(new RxBus.Event<>(ConsHelper.EVENT_PROMISE_LIST_ITEM_REFRESH, promise));
             }
 
             @Override

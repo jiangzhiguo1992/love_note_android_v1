@@ -154,11 +154,9 @@ public class PostCommentAdapter extends BaseMultiItemQuickAdapter<PostComment, B
             public void onResponse(int code, String message, Result.Data data) {
                 remove(position);
                 // event
-                RxBus.Event<Long> eventPostDetail = new RxBus.Event<>(ConsHelper.EVENT_POST_DETAIL_REFRESH, item.getPostId());
-                RxBus.post(eventPostDetail);
+                RxBus.post(new RxBus.Event<>(ConsHelper.EVENT_POST_DETAIL_REFRESH, item.getPostId()));
                 if (subComment) {
-                    RxBus.Event<Long> eventPostCommentDetail = new RxBus.Event<>(ConsHelper.EVENT_POST_COMMENT_DETAIL_REFRESH, item.getToCommentId());
-                    RxBus.post(eventPostCommentDetail);
+                    RxBus.post(new RxBus.Event<>(ConsHelper.EVENT_POST_COMMENT_DETAIL_REFRESH, item.getToCommentId()));
                 }
             }
 

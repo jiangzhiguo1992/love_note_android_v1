@@ -86,8 +86,7 @@ public class AlbumAdapter extends BaseQuickAdapter<Album, BaseViewHolder> {
     public void selectAlbum(int position) {
         mActivity.finish(); // 必须先关闭
         Album item = getItem(position);
-        RxBus.Event<Album> event = new RxBus.Event<>(ConsHelper.EVENT_ALBUM_SELECT, item);
-        RxBus.post(event);
+        RxBus.post(new RxBus.Event<>(ConsHelper.EVENT_ALBUM_SELECT, item));
     }
 
     public void selectPicture(int position) {

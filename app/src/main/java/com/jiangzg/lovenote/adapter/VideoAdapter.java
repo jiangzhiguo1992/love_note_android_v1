@@ -151,8 +151,7 @@ public class VideoAdapter extends BaseMultiItemQuickAdapter<Video, BaseViewHolde
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 // event
-                RxBus.Event<Video> event = new RxBus.Event<>(ConsHelper.EVENT_VIDEO_LIST_ITEM_DELETE, item);
-                RxBus.post(event);
+                RxBus.post(new RxBus.Event<>(ConsHelper.EVENT_VIDEO_LIST_ITEM_DELETE, item));
             }
 
             @Override
@@ -164,7 +163,6 @@ public class VideoAdapter extends BaseMultiItemQuickAdapter<Video, BaseViewHolde
     public void selectGift(int position) {
         mActivity.finish(); // 必须先关闭
         Video item = getItem(position);
-        RxBus.Event<Video> event = new RxBus.Event<>(ConsHelper.EVENT_VIDEO_SELECT, item);
-        RxBus.post(event);
+        RxBus.post(new RxBus.Event<>(ConsHelper.EVENT_VIDEO_SELECT, item));
     }
 }

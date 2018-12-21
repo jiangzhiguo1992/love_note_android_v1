@@ -365,8 +365,7 @@ public class PostDetailActivity extends BaseActivity<PostDetailActivity> {
                 // comment
                 if (comment) recyclerHelper.dataRefresh();
                 // event
-                RxBus.Event<Post> event = new RxBus.Event<>(ConsHelper.EVENT_POST_LIST_ITEM_REFRESH, post);
-                RxBus.post(event);
+                RxBus.post(new RxBus.Event<>(ConsHelper.EVENT_POST_LIST_ITEM_REFRESH, post));
             }
 
             @Override
@@ -680,8 +679,7 @@ public class PostDetailActivity extends BaseActivity<PostDetailActivity> {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 // event
-                RxBus.Event<Post> event = new RxBus.Event<>(ConsHelper.EVENT_POST_LIST_ITEM_REFRESH, post);
-                RxBus.post(event);
+                RxBus.post(new RxBus.Event<>(ConsHelper.EVENT_POST_LIST_ITEM_REFRESH, post));
             }
 
             @Override
@@ -709,8 +707,7 @@ public class PostDetailActivity extends BaseActivity<PostDetailActivity> {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 // event
-                RxBus.Event<Post> event = new RxBus.Event<>(ConsHelper.EVENT_POST_LIST_ITEM_REFRESH, post);
-                RxBus.post(event);
+                RxBus.post(new RxBus.Event<>(ConsHelper.EVENT_POST_LIST_ITEM_REFRESH, post));
             }
 
             @Override
@@ -735,8 +732,7 @@ public class PostDetailActivity extends BaseActivity<PostDetailActivity> {
                 // refresh
                 recyclerHelper.dataRefresh();
                 // event
-                RxBus.Event<Post> event = new RxBus.Event<>(ConsHelper.EVENT_POST_LIST_ITEM_REFRESH, post);
-                RxBus.post(event);
+                RxBus.post(new RxBus.Event<>(ConsHelper.EVENT_POST_LIST_ITEM_REFRESH, post));
             }
 
             @Override
@@ -792,8 +788,7 @@ public class PostDetailActivity extends BaseActivity<PostDetailActivity> {
                 // refresh
                 recyclerHelper.dataRefresh();
                 // event
-                RxBus.Event<Post> event = new RxBus.Event<>(ConsHelper.EVENT_POST_LIST_ITEM_REFRESH, post);
-                RxBus.post(event);
+                RxBus.post(new RxBus.Event<>(ConsHelper.EVENT_POST_LIST_ITEM_REFRESH, post));
             }
 
             @Override
@@ -826,8 +821,7 @@ public class PostDetailActivity extends BaseActivity<PostDetailActivity> {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 // event
-                RxBus.Event<Post> event = new RxBus.Event<>(ConsHelper.EVENT_POST_LIST_ITEM_DELETE, post);
-                RxBus.post(event);
+                RxBus.post(new RxBus.Event<>(ConsHelper.EVENT_POST_LIST_ITEM_DELETE, post));
                 mActivity.finish();
             }
 
@@ -848,8 +842,7 @@ public class PostDetailActivity extends BaseActivity<PostDetailActivity> {
             public void onResponse(int code, String message, Result.Data data) {
                 // event
                 post.setReport(true);
-                RxBus.Event<Post> event = new RxBus.Event<>(ConsHelper.EVENT_POST_LIST_ITEM_REFRESH, post);
-                RxBus.post(event);
+                RxBus.post(new RxBus.Event<>(ConsHelper.EVENT_POST_LIST_ITEM_REFRESH, post));
             }
 
             @Override

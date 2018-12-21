@@ -223,8 +223,7 @@ public class DiaryDetailActivity extends BaseActivity<DiaryDetailActivity> {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 // event
-                RxBus.Event<Diary> event = new RxBus.Event<>(ConsHelper.EVENT_DIARY_LIST_ITEM_DELETE, diary);
-                RxBus.post(event);
+                RxBus.post(new RxBus.Event<>(ConsHelper.EVENT_DIARY_LIST_ITEM_DELETE, diary));
                 // finish
                 mActivity.finish();
             }

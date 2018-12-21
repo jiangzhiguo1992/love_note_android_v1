@@ -191,8 +191,7 @@ public class CoupleWallPaperActivity extends BaseActivity<CoupleWallPaperActivit
                 SPHelper.setWallPaper(data.getWallPaper());
                 viewRefresh(data);
                 // event
-                RxBus.Event<WallPaper> event = new RxBus.Event<>(ConsHelper.EVENT_WALL_PAPER_REFRESH, data.getWallPaper());
-                RxBus.post(event);
+                RxBus.post(new RxBus.Event<>(ConsHelper.EVENT_WALL_PAPER_REFRESH, data.getWallPaper()));
             }
 
             @Override

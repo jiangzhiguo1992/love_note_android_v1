@@ -239,10 +239,8 @@ public class PromiseEditActivity extends BaseActivity<PromiseEditActivity> {
             public void onResponse(int code, String message, Result.Data data) {
                 // event
                 Promise promise = data.getPromise();
-                RxBus.Event<Promise> eventList = new RxBus.Event<>(ConsHelper.EVENT_PROMISE_LIST_ITEM_REFRESH, promise);
-                RxBus.post(eventList);
-                RxBus.Event<Promise> eventSingle = new RxBus.Event<>(ConsHelper.EVENT_PROMISE_DETAIL_REFRESH, promise);
-                RxBus.post(eventSingle);
+                RxBus.post(new RxBus.Event<>(ConsHelper.EVENT_PROMISE_LIST_ITEM_REFRESH, promise));
+                RxBus.post(new RxBus.Event<>(ConsHelper.EVENT_PROMISE_DETAIL_REFRESH, promise));
                 // finish
                 mActivity.finish();
             }
@@ -261,8 +259,7 @@ public class PromiseEditActivity extends BaseActivity<PromiseEditActivity> {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 // event
-                RxBus.Event<ArrayList<Promise>> event = new RxBus.Event<>(ConsHelper.EVENT_PROMISE_LIST_REFRESH, new ArrayList<>());
-                RxBus.post(event);
+                RxBus.post(new RxBus.Event<>(ConsHelper.EVENT_PROMISE_LIST_REFRESH, new ArrayList<>()));
                 // finish
                 mActivity.finish();
             }

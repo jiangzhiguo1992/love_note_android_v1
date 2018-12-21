@@ -191,8 +191,7 @@ public class DreamDetailActivity extends BaseActivity<DreamDetailActivity> {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 // event
-                RxBus.Event<Dream> event = new RxBus.Event<>(ConsHelper.EVENT_DREAM_LIST_ITEM_DELETE, dream);
-                RxBus.post(event);
+                RxBus.post(new RxBus.Event<>(ConsHelper.EVENT_DREAM_LIST_ITEM_DELETE, dream));
                 // finish
                 mActivity.finish();
             }

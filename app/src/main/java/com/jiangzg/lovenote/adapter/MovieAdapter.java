@@ -74,8 +74,7 @@ public class MovieAdapter extends BaseQuickAdapter<Movie, BaseViewHolder> {
     public void selectMovie(int position) {
         mActivity.finish(); // 必须先关闭
         Movie item = getItem(position);
-        RxBus.Event<Movie> event = new RxBus.Event<>(ConsHelper.EVENT_MOVIE_SELECT, item);
-        RxBus.post(event);
+        RxBus.post(new RxBus.Event<>(ConsHelper.EVENT_MOVIE_SELECT, item));
     }
 
     public void goEditActivity(int position) {

@@ -297,8 +297,7 @@ public class AngryDetailActivity extends BaseActivity<AngryDetailActivity> {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 // event
-                RxBus.Event<Angry> event = new RxBus.Event<>(ConsHelper.EVENT_ANGRY_LIST_ITEM_DELETE, angry);
-                RxBus.post(event);
+                RxBus.post(new RxBus.Event<>(ConsHelper.EVENT_ANGRY_LIST_ITEM_DELETE, angry));
                 // finish
                 mActivity.finish();
             }
@@ -347,8 +346,7 @@ public class AngryDetailActivity extends BaseActivity<AngryDetailActivity> {
                 // view
                 refreshView();
                 // event
-                RxBus.Event<Angry> event = new RxBus.Event<>(ConsHelper.EVENT_ANGRY_LIST_ITEM_REFRESH, angry);
-                RxBus.post(event);
+                RxBus.post(new RxBus.Event<>(ConsHelper.EVENT_ANGRY_LIST_ITEM_REFRESH, angry));
             }
 
             @Override
@@ -369,8 +367,7 @@ public class AngryDetailActivity extends BaseActivity<AngryDetailActivity> {
                 // view
                 refreshView();
                 // event
-                RxBus.Event<Angry> event = new RxBus.Event<>(ConsHelper.EVENT_ANGRY_LIST_ITEM_REFRESH, angry);
-                RxBus.post(event);
+                RxBus.post(new RxBus.Event<>(ConsHelper.EVENT_ANGRY_LIST_ITEM_REFRESH, angry));
             }
 
             @Override

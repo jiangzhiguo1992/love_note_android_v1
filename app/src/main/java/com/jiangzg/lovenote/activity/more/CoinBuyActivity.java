@@ -207,8 +207,7 @@ public class CoinBuyActivity extends BaseActivity<CoinBuyActivity> {
         RetrofitHelper.enqueue(callAfter, loading, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
-                RxBus.Event<Coin> event = new RxBus.Event<>(ConsHelper.EVENT_COIN_INFO_REFRESH, new Coin());
-                RxBus.post(event);
+                RxBus.post(new RxBus.Event<>(ConsHelper.EVENT_COIN_INFO_REFRESH, new Coin()));
             }
 
             @Override

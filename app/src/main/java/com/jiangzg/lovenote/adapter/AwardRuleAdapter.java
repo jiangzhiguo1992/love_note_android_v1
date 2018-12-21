@@ -78,8 +78,7 @@ public class AwardRuleAdapter extends BaseQuickAdapter<AwardRule, BaseViewHolder
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 // event
-                RxBus.Event<AwardRule> event = new RxBus.Event<>(ConsHelper.EVENT_AWARD_RULE_LIST_ITEM_DELETE, item);
-                RxBus.post(event);
+                RxBus.post(new RxBus.Event<>(ConsHelper.EVENT_AWARD_RULE_LIST_ITEM_DELETE, item));
             }
 
             @Override
@@ -91,8 +90,7 @@ public class AwardRuleAdapter extends BaseQuickAdapter<AwardRule, BaseViewHolder
     public void selectAwardRule(int position) {
         mActivity.finish(); // 必须先关闭
         AwardRule item = getItem(position);
-        RxBus.Event<AwardRule> event = new RxBus.Event<>(ConsHelper.EVENT_AWARD_RULE_SELECT, item);
-        RxBus.post(event);
+        RxBus.post(new RxBus.Event<>(ConsHelper.EVENT_AWARD_RULE_SELECT, item));
     }
 
 }

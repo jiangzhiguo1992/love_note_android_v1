@@ -245,10 +245,8 @@ public class SouvenirEditActivity extends BaseActivity<SouvenirEditActivity> {
             public void onResponse(int code, String message, Result.Data data) {
                 // event
                 Souvenir souvenir = data.getSouvenir();
-                RxBus.Event<Souvenir> eventRefresh = new RxBus.Event<>(ConsHelper.EVENT_SOUVENIR_DETAIL_REFRESH, souvenir);
-                RxBus.post(eventRefresh);
-                RxBus.Event<Souvenir> eventListRefresh = new RxBus.Event<>(ConsHelper.EVENT_SOUVENIR_LIST_ITEM_REFRESH, souvenir);
-                RxBus.post(eventListRefresh);
+                RxBus.post(new RxBus.Event<>(ConsHelper.EVENT_SOUVENIR_DETAIL_REFRESH, souvenir));
+                RxBus.post(new RxBus.Event<>(ConsHelper.EVENT_SOUVENIR_LIST_ITEM_REFRESH, souvenir));
                 // finish
                 mActivity.finish();
             }
@@ -267,8 +265,7 @@ public class SouvenirEditActivity extends BaseActivity<SouvenirEditActivity> {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 // event
-                RxBus.Event<ArrayList<Souvenir>> event = new RxBus.Event<>(ConsHelper.EVENT_SOUVENIR_LIST_REFRESH, new ArrayList<>());
-                RxBus.post(event);
+                RxBus.post(new RxBus.Event<>(ConsHelper.EVENT_SOUVENIR_LIST_REFRESH, new ArrayList<>()));
                 // finish
                 mActivity.finish();
             }

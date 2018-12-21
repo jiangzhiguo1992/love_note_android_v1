@@ -280,8 +280,7 @@ public class PostSubCommentListActivity extends BaseActivity<PostSubCommentListA
                 // subComment
                 if (subComment) recyclerHelper.dataRefresh();
                 // event
-                RxBus.Event<PostComment> event = new RxBus.Event<>(ConsHelper.EVENT_POST_COMMENT_LIST_ITEM_REFRESH, postComment);
-                RxBus.post(event);
+                RxBus.post(new RxBus.Event<>(ConsHelper.EVENT_POST_COMMENT_LIST_ITEM_REFRESH, postComment));
             }
 
             @Override
@@ -462,8 +461,7 @@ public class PostSubCommentListActivity extends BaseActivity<PostSubCommentListA
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 // event
-                RxBus.Event<PostComment> event = new RxBus.Event<>(ConsHelper.EVENT_POST_COMMENT_LIST_ITEM_REFRESH, postComment);
-                RxBus.post(event);
+                RxBus.post(new RxBus.Event<>(ConsHelper.EVENT_POST_COMMENT_LIST_ITEM_REFRESH, postComment));
             }
 
             @Override
@@ -487,8 +485,7 @@ public class PostSubCommentListActivity extends BaseActivity<PostSubCommentListA
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 // event
-                RxBus.Event<PostComment> event = new RxBus.Event<>(ConsHelper.EVENT_POST_COMMENT_LIST_ITEM_REFRESH, postComment);
-                RxBus.post(event);
+                RxBus.post(new RxBus.Event<>(ConsHelper.EVENT_POST_COMMENT_LIST_ITEM_REFRESH, postComment));
             }
 
             @Override
@@ -513,10 +510,8 @@ public class PostSubCommentListActivity extends BaseActivity<PostSubCommentListA
                 // refresh
                 recyclerHelper.dataRefresh();
                 // event
-                RxBus.Event<Long> eventPostDetail = new RxBus.Event<>(ConsHelper.EVENT_POST_DETAIL_REFRESH, postComment.getPostId());
-                RxBus.post(eventPostDetail);
-                RxBus.Event<PostComment> eventPostCommentItem = new RxBus.Event<>(ConsHelper.EVENT_POST_COMMENT_LIST_ITEM_REFRESH, postComment);
-                RxBus.post(eventPostCommentItem);
+                RxBus.post(new RxBus.Event<>(ConsHelper.EVENT_POST_DETAIL_REFRESH, postComment.getPostId()));
+                RxBus.post(new RxBus.Event<>(ConsHelper.EVENT_POST_COMMENT_LIST_ITEM_REFRESH, postComment));
             }
 
             @Override
@@ -572,10 +567,8 @@ public class PostSubCommentListActivity extends BaseActivity<PostSubCommentListA
                 // refresh
                 recyclerHelper.dataRefresh();
                 // event
-                RxBus.Event<Long> eventPostDetail = new RxBus.Event<>(ConsHelper.EVENT_POST_DETAIL_REFRESH, postComment.getPostId());
-                RxBus.post(eventPostDetail);
-                RxBus.Event<PostComment> eventPostCommentItem = new RxBus.Event<>(ConsHelper.EVENT_POST_COMMENT_LIST_ITEM_REFRESH, postComment);
-                RxBus.post(eventPostCommentItem);
+                RxBus.post(new RxBus.Event<>(ConsHelper.EVENT_POST_DETAIL_REFRESH, postComment.getPostId()));
+                RxBus.post(new RxBus.Event<>(ConsHelper.EVENT_POST_COMMENT_LIST_ITEM_REFRESH, postComment));
             }
 
             @Override
@@ -605,10 +598,8 @@ public class PostSubCommentListActivity extends BaseActivity<PostSubCommentListA
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 // event
-                RxBus.Event<Long> eventPostDetail = new RxBus.Event<>(ConsHelper.EVENT_POST_DETAIL_REFRESH, postComment.getPostId());
-                RxBus.post(eventPostDetail);
-                RxBus.Event<PostComment> eventPostCommentItem = new RxBus.Event<>(ConsHelper.EVENT_POST_COMMENT_LIST_ITEM_DELETE, postComment);
-                RxBus.post(eventPostCommentItem);
+                RxBus.post(new RxBus.Event<>(ConsHelper.EVENT_POST_DETAIL_REFRESH, postComment.getPostId()));
+                RxBus.post(new RxBus.Event<>(ConsHelper.EVENT_POST_COMMENT_LIST_ITEM_DELETE, postComment));
                 mActivity.finish();
             }
 

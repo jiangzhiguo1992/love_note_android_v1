@@ -642,10 +642,8 @@ public class TravelEditActivity extends BaseActivity<TravelEditActivity> {
             public void onResponse(int code, String message, Result.Data data) {
                 // event
                 Travel travel = data.getTravel();
-                RxBus.Event<Travel> eventList = new RxBus.Event<>(ConsHelper.EVENT_TRAVEL_LIST_ITEM_REFRESH, travel);
-                RxBus.post(eventList);
-                RxBus.Event<Travel> eventSingle = new RxBus.Event<>(ConsHelper.EVENT_TRAVEL_DETAIL_REFRESH, travel);
-                RxBus.post(eventSingle);
+                RxBus.post(new RxBus.Event<>(ConsHelper.EVENT_TRAVEL_LIST_ITEM_REFRESH, travel));
+                RxBus.post(new RxBus.Event<>(ConsHelper.EVENT_TRAVEL_DETAIL_REFRESH, travel));
                 // finish
                 mActivity.finish();
             }
@@ -664,8 +662,7 @@ public class TravelEditActivity extends BaseActivity<TravelEditActivity> {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 // event
-                RxBus.Event<ArrayList<Travel>> event = new RxBus.Event<>(ConsHelper.EVENT_TRAVEL_LIST_REFRESH, new ArrayList<>());
-                RxBus.post(event);
+                RxBus.post(new RxBus.Event<>(ConsHelper.EVENT_TRAVEL_LIST_REFRESH, new ArrayList<>()));
                 // finish
                 mActivity.finish();
             }

@@ -357,8 +357,7 @@ public class FoodEditActivity extends BaseActivity<FoodEditActivity> {
             public void onResponse(int code, String message, Result.Data data) {
                 // event
                 Food food = data.getFood();
-                RxBus.Event<Food> eventList = new RxBus.Event<>(ConsHelper.EVENT_FOOD_LIST_ITEM_REFRESH, food);
-                RxBus.post(eventList);
+                RxBus.post(new RxBus.Event<>(ConsHelper.EVENT_FOOD_LIST_ITEM_REFRESH, food));
                 // finish
                 mActivity.finish();
             }
@@ -378,8 +377,7 @@ public class FoodEditActivity extends BaseActivity<FoodEditActivity> {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 // event
-                RxBus.Event<ArrayList<Food>> event = new RxBus.Event<>(ConsHelper.EVENT_FOOD_LIST_REFRESH, new ArrayList<>());
-                RxBus.post(event);
+                RxBus.post(new RxBus.Event<>(ConsHelper.EVENT_FOOD_LIST_REFRESH, new ArrayList<>()));
                 // finish
                 mActivity.finish();
             }
@@ -410,8 +408,7 @@ public class FoodEditActivity extends BaseActivity<FoodEditActivity> {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 // event
-                RxBus.Event<Food> event = new RxBus.Event<>(ConsHelper.EVENT_FOOD_LIST_ITEM_DELETE, food);
-                RxBus.post(event);
+                RxBus.post(new RxBus.Event<>(ConsHelper.EVENT_FOOD_LIST_ITEM_DELETE, food));
                 // finish
                 mActivity.finish();
             }

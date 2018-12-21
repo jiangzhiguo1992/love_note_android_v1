@@ -164,8 +164,7 @@ public class PictureAdapter extends BaseQuickAdapter<Picture, BaseViewHolder> {
     public void selectPicture(int position) {
         mActivity.finish(); // 必须先关闭
         Picture item = getItem(position);
-        RxBus.Event<Picture> event = new RxBus.Event<>(ConsHelper.EVENT_PICTURE_SELECT, item);
-        RxBus.post(event);
+        RxBus.post(new RxBus.Event<>(ConsHelper.EVENT_PICTURE_SELECT, item));
     }
 
     // 点击跳转地图
@@ -312,8 +311,7 @@ public class PictureAdapter extends BaseQuickAdapter<Picture, BaseViewHolder> {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 // event
-                RxBus.Event<Picture> event = new RxBus.Event<>(ConsHelper.EVENT_PICTURE_LIST_ITEM_DELETE, item);
-                RxBus.post(event);
+                RxBus.post(new RxBus.Event<>(ConsHelper.EVENT_PICTURE_LIST_ITEM_DELETE, item));
             }
 
             @Override

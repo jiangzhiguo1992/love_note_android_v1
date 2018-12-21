@@ -290,8 +290,7 @@ public class AlbumEditActivity extends BaseActivity<AlbumEditActivity> {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 // event
-                RxBus.Event<ArrayList<Album>> event = new RxBus.Event<>(ConsHelper.EVENT_ALBUM_LIST_REFRESH, new ArrayList<>());
-                RxBus.post(event);
+                RxBus.post(new RxBus.Event<>(ConsHelper.EVENT_ALBUM_LIST_REFRESH, new ArrayList<>()));
                 mActivity.finish();
             }
 
@@ -310,8 +309,7 @@ public class AlbumEditActivity extends BaseActivity<AlbumEditActivity> {
             public void onResponse(int code, String message, Result.Data data) {
                 // event
                 Album album = data.getAlbum();
-                RxBus.Event<Album> event = new RxBus.Event<>(ConsHelper.EVENT_ALBUM_LIST_ITEM_REFRESH, album);
-                RxBus.post(event);
+                RxBus.post(new RxBus.Event<>(ConsHelper.EVENT_ALBUM_LIST_ITEM_REFRESH, album));
                 mActivity.finish();
             }
 

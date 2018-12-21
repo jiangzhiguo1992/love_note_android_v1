@@ -95,8 +95,7 @@ public class SouvenirListFragment extends BasePagerFragment<SouvenirListFragment
                 ListHelper.refreshObjInAdapter(recyclerHelper.getAdapter(), souvenir);
             } else {
                 // 改变done则刷新list,两个fragment都要刷
-                RxBus.Event<ArrayList<Souvenir>> event = new RxBus.Event<>(ConsHelper.EVENT_SOUVENIR_LIST_REFRESH, new ArrayList<>());
-                RxBus.post(event);
+                RxBus.post(new RxBus.Event<>(ConsHelper.EVENT_SOUVENIR_LIST_REFRESH, new ArrayList<>()));
             }
         });
         // refresh

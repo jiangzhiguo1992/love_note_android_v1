@@ -74,8 +74,7 @@ public class WordAdapter extends BaseMultiItemQuickAdapter<Word, BaseViewHolder>
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 // event
-                RxBus.Event<Word> event = new RxBus.Event<>(ConsHelper.EVENT_WORD_LIST_ITEM_DELETE, item);
-                RxBus.post(event);
+                RxBus.post(new RxBus.Event<>(ConsHelper.EVENT_WORD_LIST_ITEM_DELETE, item));
             }
 
             @Override

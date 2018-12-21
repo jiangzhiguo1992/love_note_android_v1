@@ -18,9 +18,9 @@ import com.jiangzg.base.system.NotificationUtils;
 import com.jiangzg.base.view.DialogUtils;
 import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.lovenote.R;
+import com.jiangzg.lovenote.activity.main.SplashActivity;
 import com.jiangzg.lovenote.activity.user.PasswordActivity;
 import com.jiangzg.lovenote.activity.user.PhoneActivity;
-import com.jiangzg.lovenote.activity.main.SplashActivity;
 import com.jiangzg.lovenote.base.BaseActivity;
 import com.jiangzg.lovenote.helper.ConsHelper;
 import com.jiangzg.lovenote.helper.DialogHelper;
@@ -31,7 +31,6 @@ import com.jiangzg.lovenote.helper.SPHelper;
 import com.jiangzg.lovenote.helper.ViewHelper;
 import com.jiangzg.lovenote.main.MyApp;
 import com.jiangzg.lovenote.model.entity.PushInfo;
-import com.jiangzg.lovenote.model.entity.User;
 
 import java.util.Locale;
 
@@ -262,8 +261,7 @@ public class SettingsActivity extends BaseActivity<SettingsActivity> {
                 .onPositive((dialog1, which) -> {
                     SPHelper.clearAll();
                     PushHelper.unBindAccount();
-                    RxBus.Event<User> event = new RxBus.Event<>(ConsHelper.EVENT_USER_REFRESH, null);
-                    RxBus.post(event);
+                    RxBus.post(new RxBus.Event<>(ConsHelper.EVENT_USER_REFRESH, null));
                     SplashActivity.goActivity(mActivity);
                 })
                 .build();

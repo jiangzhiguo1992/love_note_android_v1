@@ -70,8 +70,7 @@ public class GiftAdapter extends BaseQuickAdapter<Gift, BaseViewHolder> {
     public void selectGift(int position) {
         mActivity.finish(); // 必须先关闭
         Gift item = getItem(position);
-        RxBus.Event<Gift> event = new RxBus.Event<>(ConsHelper.EVENT_GIFT_SELECT, item);
-        RxBus.post(event);
+        RxBus.post(new RxBus.Event<>(ConsHelper.EVENT_GIFT_SELECT, item));
     }
 
 }

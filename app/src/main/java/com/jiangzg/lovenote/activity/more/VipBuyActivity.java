@@ -207,8 +207,7 @@ public class VipBuyActivity extends BaseActivity<VipBuyActivity> {
         RetrofitHelper.enqueue(callAfter, loading, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
-                RxBus.Event<Vip> event = new RxBus.Event<>(ConsHelper.EVENT_VIP_INFO_REFRESH, new Vip());
-                RxBus.post(event);
+                RxBus.post(new RxBus.Event<>(ConsHelper.EVENT_VIP_INFO_REFRESH, new Vip()));
             }
 
             @Override

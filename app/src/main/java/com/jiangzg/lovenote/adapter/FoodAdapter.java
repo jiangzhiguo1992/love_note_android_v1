@@ -74,8 +74,7 @@ public class FoodAdapter extends BaseQuickAdapter<Food, BaseViewHolder> {
     public void selectFood(int position) {
         mActivity.finish(); // 必须先关闭
         Food item = getItem(position);
-        RxBus.Event<Food> event = new RxBus.Event<>(ConsHelper.EVENT_FOOD_SELECT, item);
-        RxBus.post(event);
+        RxBus.post(new RxBus.Event<>(ConsHelper.EVENT_FOOD_SELECT, item));
     }
 
     public void goEditActivity(int position) {

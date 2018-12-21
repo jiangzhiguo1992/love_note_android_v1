@@ -201,8 +201,7 @@ public class LockActivity extends BaseActivity<LockActivity> {
                 lock = data.getLock();
                 refreshView();
                 // event
-                RxBus.Event<Lock> event = new RxBus.Event<>(ConsHelper.EVENT_LOCK_REFRESH, lock);
-                RxBus.post(event);
+                RxBus.post(new RxBus.Event<>(ConsHelper.EVENT_LOCK_REFRESH, lock));
             }
 
             @Override
@@ -269,8 +268,7 @@ public class LockActivity extends BaseActivity<LockActivity> {
                 lock = data.getLock();
                 refreshView();
                 // event
-                RxBus.Event<Lock> event = new RxBus.Event<>(ConsHelper.EVENT_LOCK_REFRESH, lock);
-                RxBus.post(event);
+                RxBus.post(new RxBus.Event<>(ConsHelper.EVENT_LOCK_REFRESH, lock));
                 // finish
                 if (lock != null && !lock.isLock()) {
                     mActivity.finish();
@@ -342,8 +340,7 @@ public class LockActivity extends BaseActivity<LockActivity> {
                 lock = data.getLock();
                 refreshView();
                 // event
-                RxBus.Event<Lock> event = new RxBus.Event<>(ConsHelper.EVENT_LOCK_REFRESH, lock);
-                RxBus.post(event);
+                RxBus.post(new RxBus.Event<>(ConsHelper.EVENT_LOCK_REFRESH, lock));
             }
 
             @Override
@@ -368,8 +365,7 @@ public class LockActivity extends BaseActivity<LockActivity> {
                 lock = data.getLock();
                 refreshView();
                 // event
-                RxBus.Event<Lock> event = new RxBus.Event<>(ConsHelper.EVENT_LOCK_REFRESH, lock);
-                RxBus.post(event);
+                RxBus.post(new RxBus.Event<>(ConsHelper.EVENT_LOCK_REFRESH, lock));
             }
 
             @Override

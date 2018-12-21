@@ -179,8 +179,7 @@ public class TravelPlaceEditActivity extends BaseActivity<TravelPlaceEditActivit
             return;
         }
         // event
-        RxBus.Event<TravelPlace> event = new RxBus.Event<>(ConsHelper.EVENT_TRAVEL_EDIT_ADD_PLACE, place);
-        RxBus.post(event);
+        RxBus.post(new RxBus.Event<>(ConsHelper.EVENT_TRAVEL_EDIT_ADD_PLACE, place));
         mActivity.finish();
     }
 

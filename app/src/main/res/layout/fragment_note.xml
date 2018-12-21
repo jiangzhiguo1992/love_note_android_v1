@@ -31,15 +31,20 @@
 
                     <!-- 纪念日 -->
                     <RelativeLayout
+                        android:id="@+id/rootSouvenir"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:background="@drawable/shape_gradient_primary_back">
+                        android:background="@drawable/shape_gradient_primary_back"
+                        tools:visibility="visible">
 
                         <android.support.v7.widget.CardView
                             android:id="@+id/cvSouvenir"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_margin="10dp"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginEnd="10dp"
+                            android:layout_marginBottom="5dp"
                             android:background="?attr/selectableItemBackground"
                             android:foreground="?attr/selectableItemBackground"
                             app:cardBackgroundColor="@color/white"
@@ -115,11 +120,13 @@
                         </android.support.v7.widget.CardView>
                     </RelativeLayout>
 
+                    <!-- 生活 -->
                     <LinearLayout
+                        android:id="@+id/lineLive"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
-                        android:layout_marginTop="5dp"
+                        android:layout_marginTop="10dp"
                         android:layout_marginEnd="10dp"
                         android:layout_marginBottom="5dp"
                         android:gravity="center_vertical"
@@ -143,103 +150,19 @@
                             android:layout_weight="1"/>
                     </LinearLayout>
 
-                    <!-- 生活 -->
-                    <LinearLayout
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/rvLive"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:weightSum="4">
+                        tools:listitem="@layout/list_item_note_model"/>
 
-                        <android.support.v7.widget.CardView
-                            android:id="@+id/cvShy"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="10dp"
-                            android:layout_marginTop="5dp"
-                            android:layout_marginEnd="3dp"
-                            android:layout_marginBottom="5dp"
-                            android:layout_weight="1"
-                            android:background="?attr/selectableItemBackground"
-                            android:foreground="?attr/selectableItemBackground"
-                            app:cardBackgroundColor="@color/alpha_00"
-                            app:cardCornerRadius="@dimen/radius_normal"
-                            app:cardElevation="0dp"
-                            app:cardMaxElevation="@dimen/elevation_normal">
-
-                            <TextView
-                                style="@style/FontGreyNormal"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:drawableTop="@mipmap/ic_note_shy_24dp"
-                                android:drawablePadding="5dp"
-                                android:gravity="center"
-                                android:paddingTop="10dp"
-                                android:paddingBottom="10dp"
-                                android:text="@string/shy"/>
-                        </android.support.v7.widget.CardView>
-
-                        <android.support.v7.widget.CardView
-                            android:id="@+id/cvMenses"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="3dp"
-                            android:layout_marginTop="5dp"
-                            android:layout_marginEnd="3dp"
-                            android:layout_marginBottom="5dp"
-                            android:layout_weight="1"
-                            android:background="?attr/selectableItemBackground"
-                            android:foreground="?attr/selectableItemBackground"
-                            app:cardBackgroundColor="@color/alpha_00"
-                            app:cardCornerRadius="@dimen/radius_normal"
-                            app:cardElevation="0dp"
-                            app:cardMaxElevation="@dimen/elevation_normal">
-
-                            <TextView
-                                style="@style/FontGreyNormal"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:drawableTop="@mipmap/ic_note_menses_24dp"
-                                android:drawablePadding="5dp"
-                                android:gravity="center"
-                                android:paddingTop="10dp"
-                                android:paddingBottom="10dp"
-                                android:text="@string/menses"/>
-                        </android.support.v7.widget.CardView>
-
-                        <android.support.v7.widget.CardView
-                            android:id="@+id/cvSleep"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="3dp"
-                            android:layout_marginTop="5dp"
-                            android:layout_marginEnd="16dp"
-                            android:layout_marginBottom="5dp"
-                            android:layout_weight="1"
-                            android:background="?attr/selectableItemBackground"
-                            android:foreground="?attr/selectableItemBackground"
-                            app:cardBackgroundColor="@color/alpha_00"
-                            app:cardCornerRadius="@dimen/radius_normal"
-                            app:cardElevation="0dp"
-                            app:cardMaxElevation="@dimen/elevation_normal">
-
-                            <TextView
-                                style="@style/FontGreyNormal"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:drawableTop="@mipmap/ic_note_sleep_24dp"
-                                android:drawablePadding="5dp"
-                                android:gravity="center"
-                                android:paddingTop="10dp"
-                                android:paddingBottom="10dp"
-                                android:text="@string/sleep"/>
-                        </android.support.v7.widget.CardView>
-                    </LinearLayout>
-
+                    <!-- 笔记 -->
                     <LinearLayout
+                        android:id="@+id/lineNote"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
-                        android:layout_marginTop="15dp"
+                        android:layout_marginTop="10dp"
                         android:layout_marginEnd="10dp"
                         android:layout_marginBottom="5dp"
                         android:gravity="center_vertical"
@@ -263,342 +186,19 @@
                             android:layout_weight="1"/>
                     </LinearLayout>
 
-                    <!-- 笔记 -->
-                    <LinearLayout
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/rvNote"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:orientation="horizontal"
-                        android:weightSum="4">
+                        tools:listitem="@layout/list_item_note_model"/>
 
-                        <android.support.v7.widget.CardView
-                            android:id="@+id/cvWord"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="10dp"
-                            android:layout_marginTop="5dp"
-                            android:layout_marginEnd="3dp"
-                            android:layout_marginBottom="5dp"
-                            android:layout_weight="1"
-                            android:background="?attr/selectableItemBackground"
-                            android:foreground="?attr/selectableItemBackground"
-                            app:cardBackgroundColor="@color/alpha_00"
-                            app:cardCornerRadius="@dimen/radius_normal"
-                            app:cardElevation="0dp"
-                            app:cardMaxElevation="@dimen/elevation_normal">
-
-                            <TextView
-                                style="@style/FontGreyNormal"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:drawableTop="@mipmap/ic_note_word_24dp"
-                                android:drawablePadding="5dp"
-                                android:gravity="center"
-                                android:paddingTop="10dp"
-                                android:paddingBottom="10dp"
-                                android:text="@string/word"/>
-                        </android.support.v7.widget.CardView>
-
-                        <android.support.v7.widget.CardView
-                            android:id="@+id/cvWhisper"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="3dp"
-                            android:layout_marginTop="5dp"
-                            android:layout_marginEnd="3dp"
-                            android:layout_marginBottom="5dp"
-                            android:layout_weight="1"
-                            android:background="?attr/selectableItemBackground"
-                            android:foreground="?attr/selectableItemBackground"
-                            app:cardBackgroundColor="@color/alpha_00"
-                            app:cardCornerRadius="@dimen/radius_normal"
-                            app:cardElevation="0dp"
-                            app:cardMaxElevation="@dimen/elevation_normal">
-
-                            <TextView
-                                style="@style/FontGreyNormal"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:drawableTop="@mipmap/ic_note_whisper_24dp"
-                                android:drawablePadding="5dp"
-                                android:gravity="center"
-                                android:paddingTop="10dp"
-                                android:paddingBottom="10dp"
-                                android:text="@string/whisper"/>
-                        </android.support.v7.widget.CardView>
-
-                        <android.support.v7.widget.CardView
-                            android:id="@+id/cvDiary"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="3dp"
-                            android:layout_marginTop="5dp"
-                            android:layout_marginEnd="3dp"
-                            android:layout_marginBottom="5dp"
-                            android:layout_weight="1"
-                            android:background="?attr/selectableItemBackground"
-                            android:foreground="?attr/selectableItemBackground"
-                            app:cardBackgroundColor="@color/alpha_00"
-                            app:cardCornerRadius="@dimen/radius_normal"
-                            app:cardElevation="0dp"
-                            app:cardMaxElevation="@dimen/elevation_normal">
-
-                            <TextView
-                                style="@style/FontGreyNormal"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:drawableTop="@mipmap/ic_note_diary_24dp"
-                                android:drawablePadding="5dp"
-                                android:gravity="center"
-                                android:paddingTop="10dp"
-                                android:paddingBottom="10dp"
-                                android:text="@string/diary"/>
-                        </android.support.v7.widget.CardView>
-
-                        <android.support.v7.widget.CardView
-                            android:id="@+id/cvAward"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="3dp"
-                            android:layout_marginTop="5dp"
-                            android:layout_marginEnd="10dp"
-                            android:layout_marginBottom="5dp"
-                            android:layout_weight="1"
-                            android:background="?attr/selectableItemBackground"
-                            android:foreground="?attr/selectableItemBackground"
-                            app:cardBackgroundColor="@color/alpha_00"
-                            app:cardCornerRadius="@dimen/radius_normal"
-                            app:cardElevation="0dp"
-                            app:cardMaxElevation="@dimen/elevation_normal">
-
-                            <TextView
-                                style="@style/FontGreyNormal"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:drawableTop="@mipmap/ic_note_award_24dp"
-                                android:drawablePadding="5dp"
-                                android:gravity="center"
-                                android:paddingTop="10dp"
-                                android:paddingBottom="10dp"
-                                android:text="@string/award"/>
-                        </android.support.v7.widget.CardView>
-                    </LinearLayout>
-
+                    <!-- 多媒体 -->
                     <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:weightSum="4">
-
-                        <android.support.v7.widget.CardView
-                            android:id="@+id/cvDream"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="10dp"
-                            android:layout_marginTop="5dp"
-                            android:layout_marginEnd="3dp"
-                            android:layout_marginBottom="5dp"
-                            android:layout_weight="1"
-                            android:background="?attr/selectableItemBackground"
-                            android:foreground="?attr/selectableItemBackground"
-                            app:cardBackgroundColor="@color/alpha_00"
-                            app:cardCornerRadius="@dimen/radius_normal"
-                            app:cardElevation="0dp"
-                            app:cardMaxElevation="@dimen/elevation_normal">
-
-                            <TextView
-                                style="@style/FontGreyNormal"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:drawableTop="@mipmap/ic_note_dream_24dp"
-                                android:drawablePadding="5dp"
-                                android:gravity="center"
-                                android:paddingTop="10dp"
-                                android:paddingBottom="10dp"
-                                android:text="@string/dream"/>
-                        </android.support.v7.widget.CardView>
-
-                        <android.support.v7.widget.CardView
-                            android:id="@+id/cvMovie"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="3dp"
-                            android:layout_marginTop="5dp"
-                            android:layout_marginEnd="3dp"
-                            android:layout_marginBottom="5dp"
-                            android:layout_weight="1"
-                            android:background="?attr/selectableItemBackground"
-                            android:foreground="?attr/selectableItemBackground"
-                            app:cardBackgroundColor="@color/alpha_00"
-                            app:cardCornerRadius="@dimen/radius_normal"
-                            app:cardElevation="0dp"
-                            app:cardMaxElevation="@dimen/elevation_normal">
-
-                            <TextView
-                                style="@style/FontGreyNormal"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:drawableTop="@mipmap/ic_note_movie_24dp"
-                                android:drawablePadding="5dp"
-                                android:gravity="center"
-                                android:paddingTop="10dp"
-                                android:paddingBottom="10dp"
-                                android:text="@string/movie"/>
-                        </android.support.v7.widget.CardView>
-
-                        <android.support.v7.widget.CardView
-                            android:id="@+id/cvFood"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="3dp"
-                            android:layout_marginTop="5dp"
-                            android:layout_marginEnd="3dp"
-                            android:layout_marginBottom="5dp"
-                            android:layout_weight="1"
-                            android:background="?attr/selectableItemBackground"
-                            android:foreground="?attr/selectableItemBackground"
-                            app:cardBackgroundColor="@color/alpha_00"
-                            app:cardCornerRadius="@dimen/radius_normal"
-                            app:cardElevation="0dp"
-                            app:cardMaxElevation="@dimen/elevation_normal">
-
-                            <TextView
-                                style="@style/FontGreyNormal"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:drawableTop="@mipmap/ic_note_food_24dp"
-                                android:drawablePadding="5dp"
-                                android:gravity="center"
-                                android:paddingTop="10dp"
-                                android:paddingBottom="10dp"
-                                android:text="@string/food"/>
-                        </android.support.v7.widget.CardView>
-
-                        <android.support.v7.widget.CardView
-                            android:id="@+id/cvTravel"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="3dp"
-                            android:layout_marginTop="5dp"
-                            android:layout_marginEnd="10dp"
-                            android:layout_marginBottom="5dp"
-                            android:layout_weight="1"
-                            android:background="?attr/selectableItemBackground"
-                            android:foreground="?attr/selectableItemBackground"
-                            app:cardBackgroundColor="@color/alpha_00"
-                            app:cardCornerRadius="@dimen/radius_normal"
-                            app:cardElevation="0dp"
-                            app:cardMaxElevation="@dimen/elevation_normal">
-
-                            <TextView
-                                style="@style/FontGreyNormal"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:drawableTop="@mipmap/ic_note_travel_24dp"
-                                android:drawablePadding="5dp"
-                                android:gravity="center"
-                                android:paddingTop="10dp"
-                                android:paddingBottom="10dp"
-                                android:text="@string/travel"/>
-                        </android.support.v7.widget.CardView>
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:weightSum="4">
-
-                        <android.support.v7.widget.CardView
-                            android:id="@+id/cvAngry"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="10dp"
-                            android:layout_marginTop="5dp"
-                            android:layout_marginEnd="3dp"
-                            android:layout_marginBottom="5dp"
-                            android:layout_weight="1"
-                            android:background="?attr/selectableItemBackground"
-                            android:foreground="?attr/selectableItemBackground"
-                            app:cardBackgroundColor="@color/alpha_00"
-                            app:cardCornerRadius="@dimen/radius_normal"
-                            app:cardElevation="0dp"
-                            app:cardMaxElevation="@dimen/elevation_normal">
-
-                            <TextView
-                                style="@style/FontGreyNormal"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:drawableTop="@mipmap/ic_note_angry_24dp"
-                                android:drawablePadding="5dp"
-                                android:gravity="center"
-                                android:paddingTop="10dp"
-                                android:paddingBottom="10dp"
-                                android:text="@string/angry"/>
-                        </android.support.v7.widget.CardView>
-
-                        <android.support.v7.widget.CardView
-                            android:id="@+id/cvGift"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="3dp"
-                            android:layout_marginTop="5dp"
-                            android:layout_marginEnd="3dp"
-                            android:layout_marginBottom="5dp"
-                            android:layout_weight="1"
-                            android:background="?attr/selectableItemBackground"
-                            android:foreground="?attr/selectableItemBackground"
-                            app:cardBackgroundColor="@color/alpha_00"
-                            app:cardCornerRadius="@dimen/radius_normal"
-                            app:cardElevation="0dp"
-                            app:cardMaxElevation="@dimen/elevation_normal">
-
-                            <TextView
-                                style="@style/FontGreyNormal"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:drawableTop="@mipmap/ic_note_gift_24dp"
-                                android:drawablePadding="5dp"
-                                android:gravity="center"
-                                android:paddingTop="10dp"
-                                android:paddingBottom="10dp"
-                                android:text="@string/gift"/>
-                        </android.support.v7.widget.CardView>
-
-                        <android.support.v7.widget.CardView
-                            android:id="@+id/cvPromise"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="3dp"
-                            android:layout_marginTop="5dp"
-                            android:layout_marginEnd="16dp"
-                            android:layout_marginBottom="5dp"
-                            android:layout_weight="1"
-                            android:background="?attr/selectableItemBackground"
-                            android:foreground="?attr/selectableItemBackground"
-                            app:cardBackgroundColor="@color/alpha_00"
-                            app:cardCornerRadius="@dimen/radius_normal"
-                            app:cardElevation="0dp"
-                            app:cardMaxElevation="@dimen/elevation_normal">
-
-                            <TextView
-                                style="@style/FontGreyNormal"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:drawableTop="@mipmap/ic_note_promise_24dp"
-                                android:drawablePadding="5dp"
-                                android:gravity="center"
-                                android:paddingTop="10dp"
-                                android:paddingBottom="10dp"
-                                android:text="@string/promise"/>
-                        </android.support.v7.widget.CardView>
-                    </LinearLayout>
-
-                    <LinearLayout
+                        android:id="@+id/lineMedia"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
-                        android:layout_marginTop="15dp"
+                        android:layout_marginTop="10dp"
                         android:layout_marginEnd="10dp"
                         android:layout_marginBottom="5dp"
                         android:gravity="center_vertical"
@@ -622,103 +222,19 @@
                             android:layout_weight="1"/>
                     </LinearLayout>
 
-                    <!-- 多媒体 -->
-                    <LinearLayout
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/rvMedia"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:weightSum="4">
+                        tools:listitem="@layout/list_item_note_model"/>
 
-                        <android.support.v7.widget.CardView
-                            android:id="@+id/cvAudio"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="10dp"
-                            android:layout_marginTop="5dp"
-                            android:layout_marginEnd="3dp"
-                            android:layout_marginBottom="5dp"
-                            android:layout_weight="1"
-                            android:background="?attr/selectableItemBackground"
-                            android:foreground="?attr/selectableItemBackground"
-                            app:cardBackgroundColor="@color/alpha_00"
-                            app:cardCornerRadius="@dimen/radius_normal"
-                            app:cardElevation="0dp"
-                            app:cardMaxElevation="@dimen/elevation_normal">
-
-                            <TextView
-                                style="@style/FontGreyNormal"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:drawableTop="@mipmap/ic_note_audio_24dp"
-                                android:drawablePadding="5dp"
-                                android:gravity="center"
-                                android:paddingTop="10dp"
-                                android:paddingBottom="10dp"
-                                android:text="@string/audio"/>
-                        </android.support.v7.widget.CardView>
-
-                        <android.support.v7.widget.CardView
-                            android:id="@+id/cvVideo"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="3dp"
-                            android:layout_marginTop="5dp"
-                            android:layout_marginEnd="3dp"
-                            android:layout_marginBottom="5dp"
-                            android:layout_weight="1"
-                            android:background="?attr/selectableItemBackground"
-                            android:foreground="?attr/selectableItemBackground"
-                            app:cardBackgroundColor="@color/alpha_00"
-                            app:cardCornerRadius="@dimen/radius_normal"
-                            app:cardElevation="0dp"
-                            app:cardMaxElevation="@dimen/elevation_normal">
-
-                            <TextView
-                                style="@style/FontGreyNormal"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:drawableTop="@mipmap/ic_note_video_24dp"
-                                android:drawablePadding="5dp"
-                                android:gravity="center"
-                                android:paddingTop="10dp"
-                                android:paddingBottom="10dp"
-                                android:text="@string/video"/>
-                        </android.support.v7.widget.CardView>
-
-                        <android.support.v7.widget.CardView
-                            android:id="@+id/cvAlbum"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="3dp"
-                            android:layout_marginTop="5dp"
-                            android:layout_marginEnd="16dp"
-                            android:layout_marginBottom="5dp"
-                            android:layout_weight="1"
-                            android:background="?attr/selectableItemBackground"
-                            android:foreground="?attr/selectableItemBackground"
-                            app:cardBackgroundColor="@color/alpha_00"
-                            app:cardCornerRadius="@dimen/radius_normal"
-                            app:cardElevation="0dp"
-                            app:cardMaxElevation="@dimen/elevation_normal">
-
-                            <TextView
-                                style="@style/FontGreyNormal"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:drawableTop="@mipmap/ic_note_album_24dp"
-                                android:drawablePadding="5dp"
-                                android:gravity="center"
-                                android:paddingTop="10dp"
-                                android:paddingBottom="10dp"
-                                android:text="@string/album"/>
-                        </android.support.v7.widget.CardView>
-                    </LinearLayout>
-
+                    <!-- 其他 -->
                     <LinearLayout
+                        android:id="@+id/lineOther"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
-                        android:layout_marginTop="15dp"
+                        android:layout_marginTop="10dp"
                         android:layout_marginEnd="10dp"
                         android:layout_marginBottom="5dp"
                         android:gravity="center_vertical"
@@ -742,99 +258,12 @@
                             android:layout_weight="1"/>
                     </LinearLayout>
 
-                    <!-- 其他 -->
-                    <LinearLayout
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/rvOther"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:weightSum="4">
+                        tools:listitem="@layout/list_item_note_model"/>
 
-                        <android.support.v7.widget.CardView
-                            android:id="@+id/cvTotal"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="10dp"
-                            android:layout_marginTop="5dp"
-                            android:layout_marginEnd="3dp"
-                            android:layout_marginBottom="10dp"
-                            android:layout_weight="1"
-                            android:background="?attr/selectableItemBackground"
-                            android:foreground="?attr/selectableItemBackground"
-                            app:cardBackgroundColor="@color/alpha_00"
-                            app:cardCornerRadius="@dimen/radius_normal"
-                            app:cardElevation="0dp"
-                            app:cardMaxElevation="@dimen/elevation_normal">
-
-                            <TextView
-                                style="@style/FontGreyNormal"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:drawableTop="@mipmap/ic_note_total_24dp"
-                                android:drawablePadding="5dp"
-                                android:gravity="center"
-                                android:paddingTop="10dp"
-                                android:paddingBottom="10dp"
-                                android:text="@string/statistics"/>
-                        </android.support.v7.widget.CardView>
-
-                        <android.support.v7.widget.CardView
-                            android:id="@+id/cvTrends"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="3dp"
-                            android:layout_marginTop="5dp"
-                            android:layout_marginEnd="22dp"
-                            android:layout_marginBottom="10dp"
-                            android:layout_weight="1"
-                            android:background="?attr/selectableItemBackground"
-                            android:foreground="?attr/selectableItemBackground"
-                            app:cardBackgroundColor="@color/alpha_00"
-                            app:cardCornerRadius="@dimen/radius_normal"
-                            app:cardElevation="0dp"
-                            app:cardMaxElevation="@dimen/elevation_normal">
-
-                            <TextView
-                                style="@style/FontGreyNormal"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:drawableTop="@mipmap/ic_note_trends_24dp"
-                                android:drawablePadding="5dp"
-                                android:gravity="center"
-                                android:paddingTop="10dp"
-                                android:paddingBottom="10dp"
-                                android:text="@string/trends"/>
-                        </android.support.v7.widget.CardView>
-
-                        <android.support.v7.widget.CardView
-                            android:id="@+id/cvGarbage"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="3dp"
-                            android:layout_marginTop="5dp"
-                            android:layout_marginEnd="16dp"
-                            android:layout_marginBottom="10dp"
-                            android:layout_weight="1"
-                            android:background="?attr/selectableItemBackground"
-                            android:foreground="?attr/selectableItemBackground"
-                            android:visibility="gone"
-                            app:cardBackgroundColor="@color/alpha_00"
-                            app:cardCornerRadius="@dimen/radius_normal"
-                            app:cardElevation="0dp"
-                            app:cardMaxElevation="@dimen/elevation_normal"
-                            tools:visibility="visible">
-
-                            <TextView
-                                style="@style/FontGreyNormal"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:drawableTop="@mipmap/ic_note_garbage_24dp"
-                                android:drawablePadding="5dp"
-                                android:gravity="center"
-                                android:paddingTop="10dp"
-                                android:paddingBottom="10dp"
-                                android:text="@string/recycle_bin"/>
-                        </android.support.v7.widget.CardView>
-                    </LinearLayout>
                 </LinearLayout>
 
                 <!--爱心-->

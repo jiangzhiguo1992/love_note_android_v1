@@ -62,8 +62,7 @@ public class DiaryAdapter extends BaseQuickAdapter<Diary, BaseViewHolder> {
     public void selectDiary(int position) {
         mActivity.finish(); // 必须先关闭
         Diary item = getItem(position);
-        RxBus.Event<Diary> event = new RxBus.Event<>(ConsHelper.EVENT_DIARY_SELECT, item);
-        RxBus.post(event);
+        RxBus.post(new RxBus.Event<>(ConsHelper.EVENT_DIARY_SELECT, item));
     }
 
 }

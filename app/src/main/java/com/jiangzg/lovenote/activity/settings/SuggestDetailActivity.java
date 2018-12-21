@@ -244,8 +244,7 @@ public class SuggestDetailActivity extends BaseActivity<SuggestDetailActivity> {
                 // data
                 if (recyclerHelper != null) recyclerHelper.dataRefresh();
                 // event
-                RxBus.Event<Suggest> event = new RxBus.Event<>(ConsHelper.EVENT_SUGGEST_LIST_ITEM_REFRESH, suggest);
-                RxBus.post(event);
+                RxBus.post(new RxBus.Event<>(ConsHelper.EVENT_SUGGEST_LIST_ITEM_REFRESH, suggest));
             }
 
             @Override
@@ -409,8 +408,7 @@ public class SuggestDetailActivity extends BaseActivity<SuggestDetailActivity> {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 // event
-                RxBus.Event<Suggest> event = new RxBus.Event<>(ConsHelper.EVENT_SUGGEST_LIST_ITEM_REFRESH, suggest);
-                RxBus.post(event);
+                RxBus.post(new RxBus.Event<>(ConsHelper.EVENT_SUGGEST_LIST_ITEM_REFRESH, suggest));
             }
 
             @Override
@@ -468,8 +466,7 @@ public class SuggestDetailActivity extends BaseActivity<SuggestDetailActivity> {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 // event
-                RxBus.Event<Suggest> event = new RxBus.Event<>(ConsHelper.EVENT_SUGGEST_LIST_ITEM_DELETE, suggest);
-                RxBus.post(event);
+                RxBus.post(new RxBus.Event<>(ConsHelper.EVENT_SUGGEST_LIST_ITEM_DELETE, suggest));
                 mActivity.finish();
             }
 

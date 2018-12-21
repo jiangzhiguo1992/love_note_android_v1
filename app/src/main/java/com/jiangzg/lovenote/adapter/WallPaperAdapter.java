@@ -85,8 +85,7 @@ public class WallPaperAdapter extends BaseQuickAdapter<String, BaseViewHolder> {
                 WallPaperAdapter.this.remove(position);
                 SPHelper.setWallPaper(data.getWallPaper());
                 // event
-                RxBus.Event<WallPaper> event = new RxBus.Event<>(ConsHelper.EVENT_WALL_PAPER_REFRESH, data.getWallPaper());
-                RxBus.post(event);
+                RxBus.post(new RxBus.Event<>(ConsHelper.EVENT_WALL_PAPER_REFRESH, data.getWallPaper()));
             }
 
             @Override

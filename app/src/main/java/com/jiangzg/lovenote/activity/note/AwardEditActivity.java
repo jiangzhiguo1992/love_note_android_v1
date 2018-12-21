@@ -230,8 +230,7 @@ public class AwardEditActivity extends BaseActivity<AwardEditActivity> {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 // event
-                RxBus.Event<ArrayList<Award>> event = new RxBus.Event<>(ConsHelper.EVENT_AWARD_LIST_REFRESH, new ArrayList<>());
-                RxBus.post(event);
+                RxBus.post(new RxBus.Event<>(ConsHelper.EVENT_AWARD_LIST_REFRESH, new ArrayList<>()));
                 // finish
                 mActivity.finish();
             }

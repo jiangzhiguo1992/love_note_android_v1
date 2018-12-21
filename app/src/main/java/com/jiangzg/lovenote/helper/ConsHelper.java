@@ -50,6 +50,7 @@ public class ConsHelper {
     public static final int EVENT_COUPLE_REFRESH = 3000; // 配对
     public static final int EVENT_WALL_PAPER_REFRESH = 3100; // 墙纸
     public static final int EVENT_LOCK_REFRESH = 4010; // 密码锁
+    public static final int EVENT_CUSTOM_REFRESH = 4020; // 功能定制
     public static final int EVENT_SHY_LIST_ITEM_DELETE = 4030; // 羞羞
     public static final int EVENT_MENSES_ = 4040; // 羞羞
     public static final int EVENT_SLEEP_LIST_ITEM_DELETE = 4050; // 睡眠

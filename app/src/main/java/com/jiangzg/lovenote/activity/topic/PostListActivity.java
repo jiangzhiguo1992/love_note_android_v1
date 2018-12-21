@@ -152,8 +152,7 @@ public class PostListActivity extends BaseActivity<PostListActivity> {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.llTop: // 置顶
-                RxBus.Event<Boolean> event = new RxBus.Event<>(ConsHelper.EVENT_POST_GO_TOP, true);
-                RxBus.post(event);
+                RxBus.post(new RxBus.Event<>(ConsHelper.EVENT_POST_GO_TOP, true));
                 break;
             case R.id.llSearch: // 搜索
                 showSearchDialog();

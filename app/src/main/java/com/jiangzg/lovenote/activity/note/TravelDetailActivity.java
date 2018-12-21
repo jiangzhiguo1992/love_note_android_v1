@@ -425,8 +425,7 @@ public class TravelDetailActivity extends BaseActivity<TravelDetailActivity> {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 // ListItemDelete
-                RxBus.Event<Travel> event = new RxBus.Event<>(ConsHelper.EVENT_TRAVEL_LIST_ITEM_DELETE, travel);
-                RxBus.post(event);
+                RxBus.post(new RxBus.Event<>(ConsHelper.EVENT_TRAVEL_LIST_ITEM_DELETE, travel));
                 mActivity.finish();
             }
 

@@ -3,43 +3,31 @@ package com.jiangzg.lovenote.fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.CardView;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.jiangzg.base.common.ConstantUtils;
 import com.jiangzg.base.time.DateUtils;
-import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.activity.couple.CouplePairActivity;
-import com.jiangzg.lovenote.activity.note.AlbumListActivity;
-import com.jiangzg.lovenote.activity.note.AngryListActivity;
-import com.jiangzg.lovenote.activity.note.AudioListActivity;
-import com.jiangzg.lovenote.activity.note.AwardListActivity;
-import com.jiangzg.lovenote.activity.note.DiaryListActivity;
-import com.jiangzg.lovenote.activity.note.DreamListActivity;
-import com.jiangzg.lovenote.activity.note.FoodListActivity;
-import com.jiangzg.lovenote.activity.note.GiftListActivity;
 import com.jiangzg.lovenote.activity.note.LockActivity;
-import com.jiangzg.lovenote.activity.note.MensesActivity;
-import com.jiangzg.lovenote.activity.note.MovieListActivity;
 import com.jiangzg.lovenote.activity.note.NoteCustomActivity;
-import com.jiangzg.lovenote.activity.note.NoteTotalActivity;
-import com.jiangzg.lovenote.activity.note.PromiseListActivity;
-import com.jiangzg.lovenote.activity.note.ShyActivity;
-import com.jiangzg.lovenote.activity.note.SleepActivity;
 import com.jiangzg.lovenote.activity.note.SouvenirListActivity;
-import com.jiangzg.lovenote.activity.note.TravelListActivity;
-import com.jiangzg.lovenote.activity.note.TrendsListActivity;
-import com.jiangzg.lovenote.activity.note.VideoListActivity;
-import com.jiangzg.lovenote.activity.note.WhisperListActivity;
-import com.jiangzg.lovenote.activity.note.WordListActivity;
 import com.jiangzg.lovenote.activity.settings.HelpActivity;
+import com.jiangzg.lovenote.adapter.NoteModelAdapter;
 import com.jiangzg.lovenote.base.BaseFragment;
 import com.jiangzg.lovenote.base.BasePagerFragment;
 import com.jiangzg.lovenote.helper.ConsHelper;
+import com.jiangzg.lovenote.helper.RecyclerHelper;
 import com.jiangzg.lovenote.helper.RetrofitHelper;
 import com.jiangzg.lovenote.helper.RxBus;
 import com.jiangzg.lovenote.helper.SPHelper;
@@ -49,11 +37,13 @@ import com.jiangzg.lovenote.helper.ViewHelper;
 import com.jiangzg.lovenote.main.MyApp;
 import com.jiangzg.lovenote.model.api.API;
 import com.jiangzg.lovenote.model.api.Result;
+import com.jiangzg.lovenote.model.engine.NoteCustom;
 import com.jiangzg.lovenote.model.entity.Lock;
 import com.jiangzg.lovenote.model.entity.Souvenir;
 import com.jiangzg.lovenote.view.GSwipeRefreshLayout;
 import com.jiangzg.lovenote.view.MultiLoveUpLayout;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Locale;
 
@@ -71,6 +61,8 @@ public class NoteFragment extends BasePagerFragment<NoteFragment> {
     @BindView(R.id.loveSouvenir)
     MultiLoveUpLayout loveSouvenir;
 
+    @BindView(R.id.rootSouvenir)
+    RelativeLayout rootSouvenir;
     @BindView(R.id.cvSouvenir)
     CardView cvSouvenir;
     @BindView(R.id.tvSouvenirEmpty)
@@ -84,55 +76,30 @@ public class NoteFragment extends BasePagerFragment<NoteFragment> {
     @BindView(R.id.tvSouvenirCountDown)
     TextView tvSouvenirCountDown;
 
-    @BindView(R.id.cvShy)
-    CardView cvShy;
-    @BindView(R.id.cvMenses)
-    CardView cvMenses;
-    @BindView(R.id.cvSleep)
-    CardView cvSleep;
-
-    @BindView(R.id.cvAudio)
-    CardView cvAudio;
-    @BindView(R.id.cvVideo)
-    CardView cvVideo;
-    @BindView(R.id.cvAlbum)
-    CardView cvAlbum;
-
-    @BindView(R.id.cvWord)
-    CardView cvWord;
-    @BindView(R.id.cvWhisper)
-    CardView cvWhisper;
-    @BindView(R.id.cvDiary)
-    CardView cvDiary;
-    @BindView(R.id.cvAward)
-    CardView cvAward;
-    @BindView(R.id.cvDream)
-    CardView cvDream;
-    @BindView(R.id.cvGift)
-    CardView cvGift;
-    @BindView(R.id.cvFood)
-    CardView cvFood;
-    @BindView(R.id.cvTravel)
-    CardView cvTravel;
-    @BindView(R.id.cvAngry)
-    CardView cvAngry;
-    @BindView(R.id.cvPromise)
-    CardView cvPromise;
-    @BindView(R.id.cvMovie)
-    CardView cvMovie;
-
-    @BindView(R.id.cvTotal)
-    CardView cvTotal;
-    @BindView(R.id.cvTrends)
-    CardView cvTrends;
-    @BindView(R.id.cvGarbage)
-    CardView cvGarbage;
+    @BindView(R.id.lineLive)
+    LinearLayout lineLive;
+    @BindView(R.id.rvLive)
+    RecyclerView rvLive;
+    @BindView(R.id.lineMedia)
+    LinearLayout lineMedia;
+    @BindView(R.id.rvMedia)
+    RecyclerView rvMedia;
+    @BindView(R.id.lineNote)
+    LinearLayout lineNote;
+    @BindView(R.id.rvNote)
+    RecyclerView rvNote;
+    @BindView(R.id.lineOther)
+    LinearLayout lineOther;
+    @BindView(R.id.rvOther)
+    RecyclerView rvOther;
 
     private Lock lock; // 默认没锁 + 没解开
     private Souvenir souvenirLatest;
     private Observable<Lock> obLockRefresh;
+    private Observable<NoteCustom> obCustomRefresh;
     private Runnable souvenirCountDownTask;
     private String souvenirCountDownFormat;
+    private RecyclerHelper rhLive, rhNote, rhMedia, rhOther;
     private Call<Result> call;
 
     public static NoteFragment newFragment() {
@@ -153,6 +120,49 @@ public class NoteFragment extends BasePagerFragment<NoteFragment> {
         souvenirCountDownFormat = mActivity.getString(R.string.count_down_space_holder);
         // srl
         srl.setOnRefreshListener(this::refreshData);
+        // rv
+        rhLive = new RecyclerHelper(rvLive)
+                .initLayoutManager(new GridLayoutManager(mActivity, 4, LinearLayoutManager.VERTICAL, false))
+                .initAdapter(new NoteModelAdapter(mFragment))
+                .setAdapter()
+                .listenerClick(new OnItemClickListener() {
+                    @Override
+                    public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
+                        goActivity(adapter, position);
+                    }
+                });
+        rhNote = new RecyclerHelper(rvNote)
+                .initLayoutManager(new GridLayoutManager(mActivity, 4, LinearLayoutManager.VERTICAL, false))
+                .initAdapter(new NoteModelAdapter(mFragment))
+                .setAdapter()
+                .listenerClick(new OnItemClickListener() {
+                    @Override
+                    public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
+                        goActivity(adapter, position);
+                    }
+                });
+        rhMedia = new RecyclerHelper(rvMedia)
+                .initLayoutManager(new GridLayoutManager(mActivity, 4, LinearLayoutManager.VERTICAL, false))
+                .initAdapter(new NoteModelAdapter(mFragment))
+                .setAdapter()
+                .listenerClick(new OnItemClickListener() {
+                    @Override
+                    public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
+                        goActivity(adapter, position);
+                    }
+                });
+        rhOther = new RecyclerHelper(rvOther)
+                .initLayoutManager(new GridLayoutManager(mActivity, 4, LinearLayoutManager.VERTICAL, false))
+                .initAdapter(new NoteModelAdapter(mFragment))
+                .setAdapter()
+                .listenerClick(new OnItemClickListener() {
+                    @Override
+                    public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
+                        goActivity(adapter, position);
+                    }
+                });
+        // custom
+        customView();
         // souvenir
         refreshNoteView();
     }
@@ -163,6 +173,7 @@ public class NoteFragment extends BasePagerFragment<NoteFragment> {
             NoteFragment.this.lock = lock;
             refreshData();
         });
+        obCustomRefresh = RxBus.register(ConsHelper.EVENT_CUSTOM_REFRESH, custom -> customView());
         // data
         refreshData();
     }
@@ -171,7 +182,12 @@ public class NoteFragment extends BasePagerFragment<NoteFragment> {
     protected void onFinish(Bundle state) {
         RetrofitHelper.cancel(call);
         RxBus.unregister(ConsHelper.EVENT_LOCK_REFRESH, obLockRefresh);
+        RxBus.unregister(ConsHelper.EVENT_CUSTOM_REFRESH, obCustomRefresh);
         stopSouvenirCountDownTask();
+        RecyclerHelper.release(rhLive);
+        RecyclerHelper.release(rhNote);
+        RecyclerHelper.release(rhMedia);
+        RecyclerHelper.release(rhOther);
     }
 
     @Override
@@ -197,13 +213,7 @@ public class NoteFragment extends BasePagerFragment<NoteFragment> {
         return super.onOptionsItemSelected(item);
     }
 
-    @OnClick({R.id.cvSouvenir,
-            R.id.cvMenses, R.id.cvShy, R.id.cvSleep,
-            R.id.cvAudio, R.id.cvVideo, R.id.cvAlbum,
-            R.id.cvWord, R.id.cvWhisper, R.id.cvDiary, R.id.cvAward,
-            R.id.cvDream, R.id.cvMovie, R.id.cvFood, R.id.cvTravel,
-            R.id.cvAngry, R.id.cvGift, R.id.cvPromise,
-            R.id.cvTrends, R.id.cvTotal, R.id.cvGarbage})
+    @OnClick({R.id.cvSouvenir})
     public void onViewClicked(View view) {
         if (UserHelper.isCoupleBreak(SPHelper.getCouple())) {
             // 无效配对
@@ -223,67 +233,75 @@ public class NoteFragment extends BasePagerFragment<NoteFragment> {
             case R.id.cvSouvenir: // 纪念日
                 SouvenirListActivity.goActivity(mFragment);
                 break;
-            case R.id.cvShy: // 羞羞
-                ShyActivity.goActivity(mFragment);
-                break;
-            case R.id.cvMenses: // 姨妈
-                MensesActivity.goActivity(mFragment);
-                break;
-            case R.id.cvSleep: // 睡眠
-                SleepActivity.goActivity(mFragment);
-                break;
-            case R.id.cvAudio: // 音频
-                AudioListActivity.goActivity(mFragment);
-                break;
-            case R.id.cvVideo: // 视频
-                VideoListActivity.goActivity(mFragment);
-                break;
-            case R.id.cvAlbum: // 相册
-                AlbumListActivity.goActivity(mFragment);
-                break;
-            case R.id.cvWord: // 留言
-                WordListActivity.goActivity(mFragment);
-                break;
-            case R.id.cvWhisper: // 耳语
-                WhisperListActivity.goActivity(mFragment);
-                break;
-            case R.id.cvDiary: // 日记
-                DiaryListActivity.goActivity(mFragment);
-                break;
-            case R.id.cvAward: // 奖励
-                AwardListActivity.goActivity(mFragment);
-                break;
-            case R.id.cvDream: // 梦里
-                DreamListActivity.goActivity(mFragment);
-                break;
-            case R.id.cvMovie: // 电影
-                MovieListActivity.goActivity(mFragment);
-                break;
-            case R.id.cvFood: // 美食
-                FoodListActivity.goActivity(mFragment);
-                break;
-            case R.id.cvTravel: // 游记
-                TravelListActivity.goActivity(mFragment);
-                break;
-            case R.id.cvAngry: // 生气
-                AngryListActivity.goActivity(mFragment);
-                break;
-            case R.id.cvGift: // 礼物
-                GiftListActivity.goActivity(mFragment);
-                break;
-            case R.id.cvPromise: // 承诺
-                PromiseListActivity.goActivity(mFragment);
-                break;
-            case R.id.cvTotal: // 统计
-                NoteTotalActivity.goActivity(mFragment);
-                break;
-            case R.id.cvTrends: // 动态
-                TrendsListActivity.goActivity(mFragment);
-                break;
-            case R.id.cvGarbage: // 回收箱
-                ToastUtils.show(mActivity.getString(R.string.function_no_open_please_wait));
-                break;
         }
+    }
+
+    private void goActivity(BaseQuickAdapter adapter, int position) {
+        if (adapter == null) return;
+        if (UserHelper.isCoupleBreak(SPHelper.getCouple())) {
+            // 无效配对
+            CouplePairActivity.goActivity(mFragment);
+            return;
+        }
+        if (lock == null) {
+            // 锁信息没有返回
+            refreshData(); // 防止没配对前就来过这里，配对后这里不刷新
+            return;
+        } else if (lock.isLock()) {
+            // 上锁且没有解开
+            LockActivity.goActivity(mFragment);
+            return;
+        }
+        NoteModelAdapter noteModelAdapter = (NoteModelAdapter) adapter;
+        noteModelAdapter.goActivity(position);
+    }
+
+    private void customView() {
+        NoteCustom custom = SPHelper.getNoteCustom();
+        // souvenir
+        rootSouvenir.setVisibility(custom.isSouvenir() ? View.VISIBLE : View.GONE);
+        // live
+        boolean isLive = custom.isShy() || custom.isMenses() || custom.isSleep();
+        lineLive.setVisibility(isLive ? View.VISIBLE : View.GONE);
+        rvLive.setVisibility(isLive ? View.VISIBLE : View.GONE);
+        ArrayList<Integer> dataLive = new ArrayList<>();
+        if (custom.isShy()) dataLive.add(NoteModelAdapter.SHY);
+        if (custom.isMenses()) dataLive.add(NoteModelAdapter.MENSES);
+        if (custom.isSleep()) dataLive.add(NoteModelAdapter.SLEEP);
+        rhLive.dataNew(dataLive);
+        // note
+        boolean isNote = custom.isWord() || custom.isWhisper() || custom.isDiary() || custom.isAward()
+                || custom.isDream() || custom.isMovie() || custom.isFood() || custom.isTravel()
+                || custom.isAngry() || custom.isGift() || custom.isPromise();
+        lineNote.setVisibility(isNote ? View.VISIBLE : View.GONE);
+        ArrayList<Integer> dataNote = new ArrayList<>();
+        if (custom.isWord()) dataNote.add(NoteModelAdapter.WORD);
+        if (custom.isWhisper()) dataNote.add(NoteModelAdapter.WHISPER);
+        if (custom.isDiary()) dataNote.add(NoteModelAdapter.DIARY);
+        if (custom.isAward()) dataNote.add(NoteModelAdapter.AWARD);
+        if (custom.isDream()) dataNote.add(NoteModelAdapter.DREAM);
+        if (custom.isMovie()) dataNote.add(NoteModelAdapter.MOVIE);
+        if (custom.isFood()) dataNote.add(NoteModelAdapter.FOOD);
+        if (custom.isTravel()) dataNote.add(NoteModelAdapter.TRAVEL);
+        if (custom.isAngry()) dataNote.add(NoteModelAdapter.ANGRY);
+        if (custom.isGift()) dataNote.add(NoteModelAdapter.GIFT);
+        if (custom.isPromise()) dataNote.add(NoteModelAdapter.PROMISE);
+        rhNote.dataNew(dataNote);
+        // media
+        boolean isMedia = custom.isAudio() || custom.isVideo() || custom.isAlbum();
+        lineMedia.setVisibility(isMedia ? View.VISIBLE : View.GONE);
+        ArrayList<Integer> dataMedia = new ArrayList<>();
+        if (custom.isAudio()) dataMedia.add(NoteModelAdapter.AUDIO);
+        if (custom.isVideo()) dataMedia.add(NoteModelAdapter.VIDEO);
+        if (custom.isAlbum()) dataMedia.add(NoteModelAdapter.ALBUM);
+        rhMedia.dataNew(dataMedia);
+        // other
+        boolean isOther = custom.isTotal() || custom.isTrends();
+        lineOther.setVisibility(isOther ? View.VISIBLE : View.GONE);
+        ArrayList<Integer> dataOther = new ArrayList<>();
+        if (custom.isTotal()) dataOther.add(NoteModelAdapter.TOTAL);
+        if (custom.isTrends()) dataOther.add(NoteModelAdapter.TRENDS);
+        rhOther.dataNew(dataOther);
     }
 
     private void refreshData() {

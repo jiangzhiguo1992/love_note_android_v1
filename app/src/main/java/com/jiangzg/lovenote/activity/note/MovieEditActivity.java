@@ -357,8 +357,7 @@ public class MovieEditActivity extends BaseActivity<MovieEditActivity> {
             public void onResponse(int code, String message, Result.Data data) {
                 // event
                 Movie movie = data.getMovie();
-                RxBus.Event<Movie> eventList = new RxBus.Event<>(ConsHelper.EVENT_MOVIE_LIST_ITEM_REFRESH, movie);
-                RxBus.post(eventList);
+                RxBus.post(new RxBus.Event<>(ConsHelper.EVENT_MOVIE_LIST_ITEM_REFRESH, movie));
                 // finish
                 mActivity.finish();
             }
@@ -378,8 +377,7 @@ public class MovieEditActivity extends BaseActivity<MovieEditActivity> {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 // event
-                RxBus.Event<ArrayList<Movie>> event = new RxBus.Event<>(ConsHelper.EVENT_MOVIE_LIST_REFRESH, new ArrayList<>());
-                RxBus.post(event);
+                RxBus.post(new RxBus.Event<>(ConsHelper.EVENT_MOVIE_LIST_REFRESH, new ArrayList<>()));
                 // finish
                 mActivity.finish();
             }
@@ -410,8 +408,7 @@ public class MovieEditActivity extends BaseActivity<MovieEditActivity> {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 // event
-                RxBus.Event<Movie> event = new RxBus.Event<>(ConsHelper.EVENT_MOVIE_LIST_ITEM_DELETE, movie);
-                RxBus.post(event);
+                RxBus.post(new RxBus.Event<>(ConsHelper.EVENT_MOVIE_LIST_ITEM_DELETE, movie));
                 // finish
                 mActivity.finish();
             }

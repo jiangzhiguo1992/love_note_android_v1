@@ -450,8 +450,7 @@ public class CoupleFragment extends BasePagerFragment<CoupleFragment> {
                     Couple couple = SPHelper.getCouple();
                     long breakCountDown = UserHelper.getCoupleBreakCountDown(couple);
                     if (breakCountDown <= 0) {
-                        RxBus.Event<Couple> event = new RxBus.Event<>(ConsHelper.EVENT_COUPLE_REFRESH, new Couple());
-                        RxBus.post(event);
+                        RxBus.post(new RxBus.Event<>(ConsHelper.EVENT_COUPLE_REFRESH, new Couple()));
                         stopCoupleCountDownTask();
                     } else {
                         String breakCountDownShow = getBreakCountDownShow(couple);

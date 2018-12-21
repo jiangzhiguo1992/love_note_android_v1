@@ -77,8 +77,7 @@ public class TravelAdapter extends BaseQuickAdapter<Travel, BaseViewHolder> {
     public void selectTravel(int position) {
         mActivity.finish(); // 必须先关闭
         Travel item = getItem(position);
-        RxBus.Event<Travel> event = new RxBus.Event<>(ConsHelper.EVENT_TRAVEL_SELECT, item);
-        RxBus.post(event);
+        RxBus.post(new RxBus.Event<>(ConsHelper.EVENT_TRAVEL_SELECT, item));
     }
 
     public void goTravelDetail(int position) {

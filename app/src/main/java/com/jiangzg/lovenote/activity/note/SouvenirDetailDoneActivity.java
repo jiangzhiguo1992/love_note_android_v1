@@ -282,8 +282,7 @@ public class SouvenirDetailDoneActivity extends BaseActivity<SouvenirDetailDoneA
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 // event
-                RxBus.Event<Souvenir> event = new RxBus.Event<>(ConsHelper.EVENT_SOUVENIR_LIST_ITEM_DELETE, souvenir);
-                RxBus.post(event);
+                RxBus.post(new RxBus.Event<>(ConsHelper.EVENT_SOUVENIR_LIST_ITEM_DELETE, souvenir));
                 // finish
                 mActivity.finish();
             }

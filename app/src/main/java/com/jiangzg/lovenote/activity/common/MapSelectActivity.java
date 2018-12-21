@@ -233,8 +233,7 @@ public class MapSelectActivity extends BaseActivity<MapSelectActivity> {
                     ToastUtils.show(getString(R.string.please_select_address));
                     return true;
                 }
-                RxBus.Event<LocationInfo> event = new RxBus.Event<>(ConsHelper.EVENT_MAP_SELECT, locationSelect);
-                RxBus.post(event);
+                RxBus.post(new RxBus.Event<>(ConsHelper.EVENT_MAP_SELECT, locationSelect));
                 //mActivity.finish();
                 return true;
         }

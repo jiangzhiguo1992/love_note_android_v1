@@ -50,8 +50,7 @@ public class MapSearchAdapter extends BaseQuickAdapter<PoiItem, BaseViewHolder> 
         select.setAddress(item.getTitle());
         select.setCityId(item.getCityCode());
         // 传输数据
-        RxBus.Event<LocationInfo> event = new RxBus.Event<>(ConsHelper.EVENT_MAP_SELECT, select);
-        RxBus.post(event);
+        RxBus.post(new RxBus.Event<>(ConsHelper.EVENT_MAP_SELECT, select));
         mActivity.finish();
     }
 

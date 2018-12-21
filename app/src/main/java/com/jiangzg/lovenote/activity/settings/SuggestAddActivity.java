@@ -309,8 +309,7 @@ public class SuggestAddActivity extends BaseActivity<SuggestAddActivity> {
         RetrofitHelper.enqueue(call, loading, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
-                RxBus.Event<ArrayList<Suggest>> event = new RxBus.Event<>(ConsHelper.EVENT_SUGGEST_LIST_REFRESH, new ArrayList<>());
-                RxBus.post(event);
+                RxBus.post(new RxBus.Event<>(ConsHelper.EVENT_SUGGEST_LIST_REFRESH, new ArrayList<>()));
                 mActivity.finish();
             }
 

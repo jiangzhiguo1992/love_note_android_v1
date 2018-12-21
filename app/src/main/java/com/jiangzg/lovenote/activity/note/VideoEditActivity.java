@@ -329,8 +329,7 @@ public class VideoEditActivity extends BaseActivity<VideoEditActivity> {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 // event
-                RxBus.Event<ArrayList<Video>> event = new RxBus.Event<>(ConsHelper.EVENT_VIDEO_LIST_REFRESH, new ArrayList<>());
-                RxBus.post(event);
+                RxBus.post(new RxBus.Event<>(ConsHelper.EVENT_VIDEO_LIST_REFRESH, new ArrayList<>()));
                 mActivity.finish();
             }
 

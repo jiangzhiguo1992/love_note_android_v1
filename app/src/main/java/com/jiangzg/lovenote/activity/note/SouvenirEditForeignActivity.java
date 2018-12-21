@@ -627,8 +627,7 @@ public class SouvenirEditForeignActivity extends BaseActivity<SouvenirEditForeig
             public void onResponse(int code, String message, Result.Data data) {
                 // event
                 Souvenir souvenir = data.getSouvenir();
-                RxBus.Event<Souvenir> eventSingle = new RxBus.Event<>(ConsHelper.EVENT_SOUVENIR_DETAIL_REFRESH, souvenir);
-                RxBus.post(eventSingle);
+                RxBus.post(new RxBus.Event<>(ConsHelper.EVENT_SOUVENIR_DETAIL_REFRESH, souvenir));
                 // finish
                 mActivity.finish();
             }

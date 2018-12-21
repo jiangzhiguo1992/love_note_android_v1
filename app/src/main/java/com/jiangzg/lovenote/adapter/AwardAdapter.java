@@ -87,8 +87,7 @@ public class AwardAdapter extends BaseQuickAdapter<Award, BaseViewHolder> {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 // event
-                RxBus.Event<Award> event = new RxBus.Event<>(ConsHelper.EVENT_AWARD_LIST_ITEM_DELETE, item);
-                RxBus.post(event);
+                RxBus.post(new RxBus.Event<>(ConsHelper.EVENT_AWARD_LIST_ITEM_DELETE, item));
             }
 
             @Override

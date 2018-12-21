@@ -208,10 +208,8 @@ public class DreamEditActivity extends BaseActivity<DreamEditActivity> {
             public void onResponse(int code, String message, Result.Data data) {
                 // event
                 Dream dream = data.getDream();
-                RxBus.Event<Dream> eventList = new RxBus.Event<>(ConsHelper.EVENT_DREAM_LIST_ITEM_REFRESH, dream);
-                RxBus.post(eventList);
-                RxBus.Event<Dream> eventSingle = new RxBus.Event<>(ConsHelper.EVENT_DREAM_DETAIL_REFRESH, dream);
-                RxBus.post(eventSingle);
+                RxBus.post(new RxBus.Event<>(ConsHelper.EVENT_DREAM_LIST_ITEM_REFRESH, dream));
+                RxBus.post(new RxBus.Event<>(ConsHelper.EVENT_DREAM_DETAIL_REFRESH, dream));
                 // finish
                 mActivity.finish();
             }
@@ -230,8 +228,7 @@ public class DreamEditActivity extends BaseActivity<DreamEditActivity> {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 // event
-                RxBus.Event<ArrayList<Dream>> event = new RxBus.Event<>(ConsHelper.EVENT_DREAM_LIST_REFRESH, new ArrayList<>());
-                RxBus.post(event);
+                RxBus.post(new RxBus.Event<>(ConsHelper.EVENT_DREAM_LIST_REFRESH, new ArrayList<>()));
                 // sp
                 SPHelper.setDraftDream(null);
                 // finish

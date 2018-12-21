@@ -177,8 +177,7 @@ public class AwardRuleEditActivity extends BaseActivity<AwardRuleEditActivity> {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 // event
-                RxBus.Event<ArrayList<AwardRule>> event = new RxBus.Event<>(ConsHelper.EVENT_AWARD_RULE_LIST_REFRESH, new ArrayList<>());
-                RxBus.post(event);
+                RxBus.post(new RxBus.Event<>(ConsHelper.EVENT_AWARD_RULE_LIST_REFRESH, new ArrayList<>()));
                 // finish
                 mActivity.finish();
             }

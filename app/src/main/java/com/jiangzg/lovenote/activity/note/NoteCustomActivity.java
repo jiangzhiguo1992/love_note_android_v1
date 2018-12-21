@@ -15,6 +15,8 @@ import com.jiangzg.base.component.ActivityTrans;
 import com.jiangzg.base.view.ViewUtils;
 import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.base.BaseActivity;
+import com.jiangzg.lovenote.helper.ConsHelper;
+import com.jiangzg.lovenote.helper.RxBus;
 import com.jiangzg.lovenote.helper.SPHelper;
 import com.jiangzg.lovenote.helper.ViewHelper;
 import com.jiangzg.lovenote.model.engine.NoteCustom;
@@ -254,6 +256,8 @@ public class NoteCustomActivity extends BaseActivity<NoteCustomActivity> {
         }
         SPHelper.setNoteCustom(custom);
         updateView();
+        // event
+        RxBus.post(new RxBus.Event<>(ConsHelper.EVENT_CUSTOM_REFRESH, custom));
     }
 
     private void updateView() {
@@ -302,7 +306,7 @@ public class NoteCustomActivity extends BaseActivity<NoteCustomActivity> {
         ivFood.setImageResource(custom.isFood() ? R.mipmap.ic_check_circle_grey_24dp : R.mipmap.ic_brightness_1_grey_24dp);
         ivFood.setImageTintList(custom.isFood() ? colorPrimaryStateList : colorGreyStateList);
         ivTravel.setImageResource(custom.isTravel() ? R.mipmap.ic_check_circle_grey_24dp : R.mipmap.ic_brightness_1_grey_24dp);
-        ivTravel.setImageTintList(custom.isSouvenir() ? colorPrimaryStateList : colorGreyStateList);
+        ivTravel.setImageTintList(custom.isTravel() ? colorPrimaryStateList : colorGreyStateList);
         ivAngry.setImageResource(custom.isAngry() ? R.mipmap.ic_check_circle_grey_24dp : R.mipmap.ic_brightness_1_grey_24dp);
         ivAngry.setImageTintList(custom.isAngry() ? colorPrimaryStateList : colorGreyStateList);
         ivGift.setImageResource(custom.isGift() ? R.mipmap.ic_check_circle_grey_24dp : R.mipmap.ic_brightness_1_grey_24dp);

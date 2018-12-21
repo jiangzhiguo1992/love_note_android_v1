@@ -91,8 +91,7 @@ public class SuggestCommentAdapter extends BaseQuickAdapter<SuggestComment, Base
             public void onResponse(int code, String message, Result.Data data) {
                 remove(position);
                 // event
-                RxBus.Event<Suggest> event = new RxBus.Event<>(ConsHelper.EVENT_SUGGEST_DETAIL_REFRESH, new Suggest());
-                RxBus.post(event);
+                RxBus.post(new RxBus.Event<>(ConsHelper.EVENT_SUGGEST_DETAIL_REFRESH, new Suggest()));
             }
 
             @Override
