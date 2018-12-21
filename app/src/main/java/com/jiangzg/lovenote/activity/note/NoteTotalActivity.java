@@ -23,6 +23,7 @@ import com.jiangzg.lovenote.model.entity.NoteTotal;
 import com.jiangzg.lovenote.view.GSwipeRefreshLayout;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 import retrofit2.Call;
 
 public class NoteTotalActivity extends BaseActivity<NoteTotalActivity> {
@@ -158,4 +159,52 @@ public class NoteTotalActivity extends BaseActivity<NoteTotalActivity> {
         tvMovie.setText(String.valueOf(noteTotal.getTotalMovie()));
     }
 
+    @OnClick({R.id.cvSouvenir, R.id.cvWord, R.id.cvDiary, R.id.cvAward, R.id.cvDream, R.id.cvMovie, R.id.cvFood,
+            R.id.cvTravel, R.id.cvAngry, R.id.cvGift, R.id.cvPromise, R.id.cvAudio, R.id.cvVideo, R.id.cvPhoto})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.cvSouvenir:
+                SouvenirListActivity.goActivity(mActivity);
+                break;
+            case R.id.cvWord:
+                WordListActivity.goActivity(mActivity);
+                break;
+            case R.id.cvDiary:
+                DiaryListActivity.goActivity(mActivity);
+                break;
+            case R.id.cvAward:
+                AwardListActivity.goActivity(mActivity);
+                break;
+            case R.id.cvDream:
+                DreamListActivity.goActivity(mActivity);
+                break;
+            case R.id.cvMovie:
+                MovieListActivity.goActivity(mActivity);
+                break;
+            case R.id.cvFood:
+                FoodListActivity.goActivity(mActivity);
+                break;
+            case R.id.cvTravel:
+                TravelListActivity.goActivity(mActivity);
+                break;
+            case R.id.cvAngry:
+                AngryListActivity.goActivity(mActivity);
+                break;
+            case R.id.cvGift:
+                GiftListActivity.goActivity(mActivity);
+                break;
+            case R.id.cvPromise:
+                PromiseListActivity.goActivity(mActivity);
+                break;
+            case R.id.cvAudio:
+                AudioListActivity.goActivity(mActivity);
+                break;
+            case R.id.cvVideo:
+                VideoListActivity.goActivity(mActivity);
+                break;
+            case R.id.cvPhoto:
+                AlbumListActivity.goActivity(mActivity);
+                break;
+        }
+    }
 }
