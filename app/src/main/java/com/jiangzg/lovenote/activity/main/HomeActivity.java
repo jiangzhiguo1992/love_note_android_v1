@@ -22,6 +22,8 @@ import com.jiangzg.lovenote.fragment.NoteFragment;
 import com.jiangzg.lovenote.fragment.TopicFragment;
 import com.jiangzg.lovenote.helper.SPHelper;
 import com.jiangzg.lovenote.model.entity.ModelShow;
+import com.jiangzg.lovenote.model.entity.Version;
+import com.jiangzg.lovenote.service.UpdateService;
 import com.jiangzg.lovenote.view.HomePaper;
 
 import java.util.ArrayList;
@@ -89,6 +91,13 @@ public class HomeActivity extends BaseActivity<HomeActivity> {
 
     @Override
     protected void initData(Intent intent, Bundle state) {
+        // 更新
+        Version version = SPHelper.getVersion();
+        if (version != null) {
+            ArrayList<Version> list = new ArrayList<>();
+            list.add(version);
+            UpdateService.showUpdateDialog(list);
+        }
     }
 
     @Override
