@@ -317,7 +317,9 @@ public class MatchWifeListActivity extends BaseActivity<MatchWifeListActivity> {
         OssHelper.uploadMoreMatch(mActivity, file, new OssHelper.OssUploadCallBack() {
             @Override
             public void success(File source, String ossPath) {
-                MatchWork body = ApiHelper.getMatchWifeBody(period.getId(), ossPath);
+                MatchWork body = new MatchWork();
+                body.setMatchPeriodId(period.getId());
+                body.setContentImage(ossPath);
                 api(body);
             }
 

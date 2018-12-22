@@ -7,7 +7,6 @@ import com.jiangzg.base.view.ScreenUtils;
 import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.activity.common.BigImageActivity;
 import com.jiangzg.lovenote.base.BaseActivity;
-import com.jiangzg.lovenote.helper.ApiHelper;
 import com.jiangzg.lovenote.helper.ConsHelper;
 import com.jiangzg.lovenote.helper.DialogHelper;
 import com.jiangzg.lovenote.helper.RetrofitHelper;
@@ -76,9 +75,11 @@ public class WallPaperAdapter extends BaseQuickAdapter<String, BaseViewHolder> {
         if (data.size() <= position) return;
         List<String> objects = new ArrayList<>(data);
         objects.remove(position);
-        WallPaper body = ApiHelper.getWallPaperUpdateBody(objects);
-        Call<Result> call = new RetrofitHelper().call(API.class).coupleWallPaperUpdate(body);
+        WallPaper body = new WallPaper();
+        body.setContentImageList(objects);
+        // api
         MaterialDialog loading = mActivity.getLoading(true);
+        Call<Result> call = new RetrofitHelper().call(API.class).coupleWallPaperUpdate(body);
         RetrofitHelper.enqueue(call, loading, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {

@@ -22,15 +22,14 @@ import com.jiangzg.base.system.LanguageUtils;
 import com.jiangzg.base.system.LocationInfo;
 import com.jiangzg.base.time.DateUtils;
 import com.jiangzg.lovenote.R;
-import com.jiangzg.lovenote.activity.main.HomeActivity;
 import com.jiangzg.lovenote.activity.couple.CoupleInfoActivity;
+import com.jiangzg.lovenote.activity.main.HomeActivity;
 import com.jiangzg.lovenote.base.BaseActivity;
 import com.jiangzg.lovenote.main.MyApp;
 import com.jiangzg.lovenote.model.api.API;
 import com.jiangzg.lovenote.model.api.Result;
 import com.jiangzg.lovenote.model.entity.CommonConst;
 import com.jiangzg.lovenote.model.entity.CommonCount;
-import com.jiangzg.lovenote.model.entity.Couple;
 import com.jiangzg.lovenote.model.entity.Entry;
 import com.jiangzg.lovenote.model.entity.Limit;
 import com.jiangzg.lovenote.model.entity.Lock;
@@ -40,20 +39,13 @@ import com.jiangzg.lovenote.model.entity.MatchReport;
 import com.jiangzg.lovenote.model.entity.MatchWork;
 import com.jiangzg.lovenote.model.entity.ModelShow;
 import com.jiangzg.lovenote.model.entity.OssInfo;
-import com.jiangzg.lovenote.model.entity.Picture;
 import com.jiangzg.lovenote.model.entity.Place;
 import com.jiangzg.lovenote.model.entity.PostComment;
-import com.jiangzg.lovenote.model.entity.PromiseBreak;
 import com.jiangzg.lovenote.model.entity.PushInfo;
 import com.jiangzg.lovenote.model.entity.Sms;
-import com.jiangzg.lovenote.model.entity.Suggest;
-import com.jiangzg.lovenote.model.entity.SuggestComment;
 import com.jiangzg.lovenote.model.entity.User;
 import com.jiangzg.lovenote.model.entity.Version;
 import com.jiangzg.lovenote.model.entity.VipLimit;
-import com.jiangzg.lovenote.model.entity.WallPaper;
-import com.jiangzg.lovenote.model.entity.Whisper;
-import com.jiangzg.lovenote.model.entity.Word;
 import com.jiangzg.lovenote.receiver.OssRefreshReceiver;
 
 import java.io.File;
@@ -424,50 +416,6 @@ public class ApiHelper {
         return user;
     }
 
-    public static User getUserInfoBody(int sex, long birthday) {
-        User user = new User();
-        user.setSex(sex);
-        user.setBirthday(birthday);
-        return user;
-    }
-
-    public static Suggest getSuggestAddBody(String title, int kind, String contentText, String contentImg) {
-        Suggest suggest = new Suggest();
-        suggest.setTitle(title);
-        suggest.setKind(kind);
-        suggest.setContentText(contentText);
-        suggest.setContentImage(contentImg);
-        return suggest;
-    }
-
-    public static SuggestComment getSuggestCommentAddBody(long suggestId, String content) {
-        SuggestComment suggestComment = new SuggestComment();
-        suggestComment.setSuggestId(suggestId);
-        suggestComment.setContentText(content);
-        return suggestComment;
-    }
-
-    public static Couple getCoupleUpdateInfo(String avatar, String name) {
-        User user = SPHelper.getMe();
-        if (user == null) return null;
-        Couple couple = user.getCouple();
-        if (couple == null) return null;
-        if (couple.getCreatorId() == user.getId()) {
-            couple.setInviteeAvatar(avatar);
-            couple.setInviteeName(name);
-        } else {
-            couple.setCreatorAvatar(avatar);
-            couple.setCreatorName(name);
-        }
-        return couple;
-    }
-
-    public static WallPaper getWallPaperUpdateBody(List<String> imgList) {
-        WallPaper wallPaper = new WallPaper();
-        wallPaper.setContentImageList(imgList);
-        return wallPaper;
-    }
-
     public static Lock getLockBody(String pwd) {
         Lock lock = new Lock();
         if (!StringUtils.isEmpty(pwd)) {
@@ -494,40 +442,6 @@ public class ApiHelper {
         return place;
     }
 
-    public static Word getWordBody(String content) {
-        Word word = new Word();
-        word.setContentText(content);
-        return word;
-    }
-
-    public static Whisper getWhisperBody(String channel, boolean isImage, String content) {
-        Whisper whisper = new Whisper();
-        whisper.setChannel(channel);
-        whisper.setImage(isImage);
-        whisper.setContent(content);
-        return whisper;
-    }
-
-    public static Picture getPictureBody(long aid, long happenAt, String content, double longitude, double latitude, String address, String cityId) {
-        Picture picture = new Picture();
-        picture.setAlbumId(aid);
-        picture.setHappenAt(happenAt);
-        picture.setContentImage(content);
-        picture.setLongitude(longitude);
-        picture.setLatitude(latitude);
-        picture.setAddress(address);
-        picture.setCityId(cityId);
-        return picture;
-    }
-
-    public static PromiseBreak getPromiseBreakBody(long pid, long happenAt, String content) {
-        PromiseBreak promiseBreak = new PromiseBreak();
-        promiseBreak.setPromiseId(pid);
-        promiseBreak.setHappenAt(happenAt);
-        promiseBreak.setContentText(content);
-        return promiseBreak;
-    }
-
     public static PostComment getPostCommentTextBody(long pid, long tcid, String content) {
         PostComment postComment = new PostComment();
         postComment.setPostId(pid);
@@ -544,27 +458,6 @@ public class ApiHelper {
         postComment.setKind(PostComment.KIND_JAB);
         postComment.setContentText("");
         return postComment;
-    }
-
-    public static MatchWork getMatchWifeBody(long mpid, String image) {
-        MatchWork work = new MatchWork();
-        work.setMatchPeriodId(mpid);
-        work.setContentImage(image);
-        return work;
-    }
-
-    public static MatchWork getMatchLetterBody(long mpid, String title) {
-        MatchWork work = new MatchWork();
-        work.setMatchPeriodId(mpid);
-        work.setTitle(title);
-        return work;
-    }
-
-    public static MatchWork getMatchDiscussBody(long mpid, String content) {
-        MatchWork work = new MatchWork();
-        work.setMatchPeriodId(mpid);
-        work.setContentText(content);
-        return work;
     }
 
 }

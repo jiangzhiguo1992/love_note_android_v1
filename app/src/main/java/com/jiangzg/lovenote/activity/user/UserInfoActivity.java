@@ -162,7 +162,9 @@ public class UserInfoActivity extends BaseActivity<UserInfoActivity> {
     }
 
     private void pushUserInfo(int sex, long birth) {
-        User user = ApiHelper.getUserInfoBody(sex, birth);
+        User user = new User();
+        user.setSex(sex);
+        user.setBirthday(birth);
         SPHelper.setMe(me); // api要用token
         // api调用
         call = new RetrofitHelper().call(API.class).userModify(ApiHelper.MODIFY_INFO, "", "", user);

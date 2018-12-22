@@ -374,10 +374,19 @@ public class CoupleInfoActivity extends BaseActivity<CoupleInfoActivity> {
 
     // api 修改couple
     private void apiCoupleInfo(String avatar, String name) {
-        MaterialDialog loading = getLoading(true);
-        Couple body = ApiHelper.getCoupleUpdateInfo(avatar, name);
+        User user = SPHelper.getMe();
+        if (user == null) return;
+        Couple body = user.getCouple();
         if (body == null) return;
+        if (body.getCreatorId() == user.getId()) {
+            body.setInviteeAvatar(avatar);
+            body.setInviteeName(name);
+        } else {
+            body.setCreatorAvatar(avatar);
+            body.setCreatorName(name);
+        }
         // api
+        MaterialDialog loading = getLoading(true);
         callUpdateInfo = new RetrofitHelper().call(API.class).coupleUpdate(ApiHelper.COUPLE_UPDATE_INFO, body);
         RetrofitHelper.enqueue(callUpdateInfo, loading, new RetrofitHelper.CallBack() {
             @Override

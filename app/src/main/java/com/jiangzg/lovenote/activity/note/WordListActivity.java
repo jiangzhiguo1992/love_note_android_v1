@@ -24,7 +24,6 @@ import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.activity.settings.HelpActivity;
 import com.jiangzg.lovenote.adapter.WordAdapter;
 import com.jiangzg.lovenote.base.BaseActivity;
-import com.jiangzg.lovenote.helper.ApiHelper;
 import com.jiangzg.lovenote.helper.ConsHelper;
 import com.jiangzg.lovenote.helper.ListHelper;
 import com.jiangzg.lovenote.helper.RecyclerHelper;
@@ -201,8 +200,9 @@ public class WordListActivity extends BaseActivity<WordListActivity> {
     }
 
     private void wordPush() {
-        String content = etContent.getText().toString();
-        Word body = ApiHelper.getWordBody(content);
+        Word body = new Word();
+        body.setContentText(etContent.getText().toString());
+        // api
         MaterialDialog loading = mActivity.getLoading(true);
         callAdd = new RetrofitHelper().call(API.class).noteWordAdd(body);
         RetrofitHelper.enqueue(callAdd, loading, new RetrofitHelper.CallBack() {

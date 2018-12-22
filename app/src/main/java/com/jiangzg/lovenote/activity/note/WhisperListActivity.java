@@ -30,7 +30,6 @@ import com.jiangzg.lovenote.activity.more.VipActivity;
 import com.jiangzg.lovenote.activity.settings.HelpActivity;
 import com.jiangzg.lovenote.adapter.WhisperAdapter;
 import com.jiangzg.lovenote.base.BaseActivity;
-import com.jiangzg.lovenote.helper.ApiHelper;
 import com.jiangzg.lovenote.helper.ConsHelper;
 import com.jiangzg.lovenote.helper.ListHelper;
 import com.jiangzg.lovenote.helper.MediaPickHelper;
@@ -312,7 +311,10 @@ public class WhisperListActivity extends BaseActivity<WhisperListActivity> {
             ToastUtils.show(etComment.getHint());
             return;
         }
-        Whisper body = ApiHelper.getWhisperBody(channel, false, content);
+        Whisper body = new Whisper();
+        body.setChannel(channel);
+        body.setImage(false);
+        body.setContent(content);
         api(body);
     }
 
@@ -330,7 +332,10 @@ public class WhisperListActivity extends BaseActivity<WhisperListActivity> {
         OssHelper.uploadWhisper(mActivity, file, new OssHelper.OssUploadCallBack() {
             @Override
             public void success(File source, String ossPath) {
-                Whisper body = ApiHelper.getWhisperBody(channel, true, ossPath);
+                Whisper body = new Whisper();
+                body.setChannel(channel);
+                body.setImage(true);
+                body.setContent(ossPath);
                 api(body);
             }
 

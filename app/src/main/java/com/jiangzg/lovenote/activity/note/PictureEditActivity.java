@@ -23,7 +23,6 @@ import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.activity.common.MapSelectActivity;
 import com.jiangzg.lovenote.adapter.ImgSquareEditAdapter;
 import com.jiangzg.lovenote.base.BaseActivity;
-import com.jiangzg.lovenote.helper.ApiHelper;
 import com.jiangzg.lovenote.helper.ConsHelper;
 import com.jiangzg.lovenote.helper.DialogHelper;
 import com.jiangzg.lovenote.helper.MediaPickHelper;
@@ -332,7 +331,14 @@ public class PictureEditActivity extends BaseActivity<PictureEditActivity> {
         if (ossPathList == null || ossPathList.size() <= 0) return;
         List<Picture> pictureList = new ArrayList<>();
         for (String ossPath : ossPathList) {
-            Picture body = ApiHelper.getPictureBody(picture.getAlbumId(), picture.getHappenAt(), ossPath, picture.getLongitude(), picture.getLatitude(), picture.getAddress(), picture.getCityId());
+            Picture body = new Picture();
+            body.setAlbumId(picture.getAlbumId());
+            body.setHappenAt(picture.getHappenAt());
+            body.setContentImage(ossPath);
+            body.setLongitude(picture.getLongitude());
+            body.setLatitude(picture.getLatitude());
+            body.setAddress(picture.getAddress());
+            body.setCityId(picture.getCityId());
             pictureList.add(body);
         }
         Album body = new Album();

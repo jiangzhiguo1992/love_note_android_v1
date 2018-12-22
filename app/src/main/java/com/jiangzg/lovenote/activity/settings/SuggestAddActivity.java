@@ -23,7 +23,6 @@ import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.activity.common.BigImageActivity;
 import com.jiangzg.lovenote.base.BaseActivity;
-import com.jiangzg.lovenote.helper.ApiHelper;
 import com.jiangzg.lovenote.helper.ConsHelper;
 import com.jiangzg.lovenote.helper.DialogHelper;
 import com.jiangzg.lovenote.helper.MediaPickHelper;
@@ -301,9 +300,12 @@ public class SuggestAddActivity extends BaseActivity<SuggestAddActivity> {
 
     // 发布
     private void pushSuggest(String imgPath) {
-        String title = etTitle.getText().toString();
-        String content = etContent.getText().toString();
-        Suggest body = ApiHelper.getSuggestAddBody(title, kind, content, imgPath);
+        Suggest body = new Suggest();
+        body.setTitle(etTitle.getText().toString());
+        body.setKind(kind);
+        body.setContentText(etContent.getText().toString());
+        body.setContentImage(imgPath);
+        // api
         MaterialDialog loading = mActivity.getLoading(false);
         call = new RetrofitHelper().call(API.class).setSuggestAdd(body);
         RetrofitHelper.enqueue(call, loading, new RetrofitHelper.CallBack() {

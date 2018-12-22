@@ -355,10 +355,13 @@ public class MatchLetterListActivity extends BaseActivity<MatchLetterListActivit
             ToastUtils.show(etContent.getHint());
             return;
         }
+        MatchWork body = new MatchWork();
+        body.setMatchPeriodId(period.getId());
+        body.setTitle(content);
+        // api
         InputUtils.hideSoftInput(etContent);
-        MatchWork body = ApiHelper.getMatchLetterBody(period.getId(), content);
-        callAdd = new RetrofitHelper().call(API.class).moreMatchWorkAdd(body);
         MaterialDialog loading = getLoading(true);
+        callAdd = new RetrofitHelper().call(API.class).moreMatchWorkAdd(body);
         RetrofitHelper.enqueue(callAdd, loading, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {

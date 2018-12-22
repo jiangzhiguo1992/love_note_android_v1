@@ -27,7 +27,6 @@ import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.adapter.PromiseBreakAdapter;
 import com.jiangzg.lovenote.base.BaseActivity;
-import com.jiangzg.lovenote.helper.ApiHelper;
 import com.jiangzg.lovenote.helper.ConsHelper;
 import com.jiangzg.lovenote.helper.DialogHelper;
 import com.jiangzg.lovenote.helper.RecyclerHelper;
@@ -363,8 +362,12 @@ public class PromiseDetailActivity extends BaseActivity<PromiseDetailActivity> {
             ToastUtils.show(etBreakContent.getHint());
             return;
         }
+        PromiseBreak promiseBreak = new PromiseBreak();
+        promiseBreak.setPromiseId(promise.getId());
+        promiseBreak.setHappenAt(breakHappen);
+        promiseBreak.setContentText(content);
+        // api
         InputUtils.hideSoftInput(etBreakContent);
-        PromiseBreak promiseBreak = ApiHelper.getPromiseBreakBody(promise.getId(), breakHappen, content);
         MaterialDialog loading = getLoading(getString(R.string.are_deleting), true);
         callBreakAdd = new RetrofitHelper().call(API.class).notePromiseBreakAdd(promiseBreak);
         RetrofitHelper.enqueue(callBreakAdd, loading, new RetrofitHelper.CallBack() {

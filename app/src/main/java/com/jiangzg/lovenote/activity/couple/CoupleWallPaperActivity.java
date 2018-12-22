@@ -20,7 +20,6 @@ import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.activity.more.VipActivity;
 import com.jiangzg.lovenote.adapter.WallPaperAdapter;
 import com.jiangzg.lovenote.base.BaseActivity;
-import com.jiangzg.lovenote.helper.ApiHelper;
 import com.jiangzg.lovenote.helper.ConsHelper;
 import com.jiangzg.lovenote.helper.MediaPickHelper;
 import com.jiangzg.lovenote.helper.OssHelper;
@@ -182,9 +181,11 @@ public class CoupleWallPaperActivity extends BaseActivity<CoupleWallPaperActivit
         WallPaperAdapter adapter = recyclerHelper.getAdapter();
         List<String> objects = new ArrayList<>(adapter.getData());
         objects.addAll(ossPathList);
-        WallPaper body = ApiHelper.getWallPaperUpdateBody(objects);
-        callUpdate = new RetrofitHelper().call(API.class).coupleWallPaperUpdate(body);
+        WallPaper body = new WallPaper();
+        body.setContentImageList(objects);
+        // api
         MaterialDialog loading = getLoading(getString(R.string.are_upload), true);
+        callUpdate = new RetrofitHelper().call(API.class).coupleWallPaperUpdate(body);
         RetrofitHelper.enqueue(callUpdate, loading, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {

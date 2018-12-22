@@ -34,7 +34,6 @@ import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.activity.common.BigImageActivity;
 import com.jiangzg.lovenote.adapter.SuggestCommentAdapter;
 import com.jiangzg.lovenote.base.BaseActivity;
-import com.jiangzg.lovenote.helper.ApiHelper;
 import com.jiangzg.lovenote.helper.ConsHelper;
 import com.jiangzg.lovenote.helper.DialogHelper;
 import com.jiangzg.lovenote.helper.RecyclerHelper;
@@ -426,9 +425,12 @@ public class SuggestDetailActivity extends BaseActivity<SuggestDetailActivity> {
             ToastUtils.show(etComment.getHint());
             return;
         }
+        SuggestComment body = new SuggestComment();
+        body.setSuggestId(suggest.getId());
+        body.setContentText(content);
+        // api
         InputUtils.hideSoftInput(etComment);
         MaterialDialog loading = getLoading(true);
-        SuggestComment body = ApiHelper.getSuggestCommentAddBody(suggest.getId(), content);
         callCommentAdd = new RetrofitHelper().call(API.class).setSuggestCommentAdd(body);
         RetrofitHelper.enqueue(callCommentAdd, loading, new RetrofitHelper.CallBack() {
             @Override
