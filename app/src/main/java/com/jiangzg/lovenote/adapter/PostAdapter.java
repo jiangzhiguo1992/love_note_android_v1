@@ -135,7 +135,6 @@ public class PostAdapter extends BaseQuickAdapter<Post, BaseViewHolder> {
         } else {
             helper.setVisible(R.id.llCouple, true);
             helper.setVisible(R.id.llCoupleName, false);
-            helper.setVisible(R.id.rlCoupleAvatar, false);
             String creatorName = couple.getCreatorName();
             String inviteeName = couple.getInviteeName();
             if (!StringUtils.isEmpty(creatorName) || !StringUtils.isEmpty(inviteeName)) {
@@ -152,15 +151,10 @@ public class PostAdapter extends BaseQuickAdapter<Post, BaseViewHolder> {
                     }
                 }
             }
-            String creatorAvatar = couple.getCreatorAvatar();
-            String inviteeAvatar = couple.getInviteeAvatar();
-            if (!StringUtils.isEmpty(creatorAvatar) || !StringUtils.isEmpty(inviteeAvatar)) {
-                helper.setVisible(R.id.rlCoupleAvatar, true);
-                FrescoAvatarView ivAvatarLeft = helper.getView(R.id.ivAvatarLeft);
-                FrescoAvatarView ivAvatarRight = helper.getView(R.id.ivAvatarRight);
-                ivAvatarLeft.setData(couple.getCreatorAvatar());
-                ivAvatarRight.setData(couple.getInviteeAvatar());
-            }
+            FrescoAvatarView ivAvatarLeft = helper.getView(R.id.ivAvatarLeft);
+            FrescoAvatarView ivAvatarRight = helper.getView(R.id.ivAvatarRight);
+            ivAvatarLeft.setData(couple.getCreatorAvatar());
+            ivAvatarRight.setData(couple.getInviteeAvatar());
         }
         // count
         helper.setText(R.id.tvPoint, pointCount);

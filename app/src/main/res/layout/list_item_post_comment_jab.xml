@@ -64,12 +64,10 @@
             android:layout_marginBottom="5dp"
             android:background="?attr/selectableItemBackground"
             android:foreground="?attr/selectableItemBackground"
-            android:visibility="gone"
             app:cardBackgroundColor="@color/white"
             app:cardCornerRadius="20dp"
             app:cardElevation="@dimen/elevation_normal"
-            app:cardMaxElevation="@dimen/elevation_big"
-            tools:visibility="visible">
+            app:cardMaxElevation="@dimen/elevation_big">
 
             <com.jiangzg.lovenote.view.FrescoAvatarView
                 android:id="@+id/ivAvatarLeft"
@@ -97,12 +95,10 @@
             android:layout_marginBottom="5dp"
             android:background="?attr/selectableItemBackground"
             android:foreground="?attr/selectableItemBackground"
-            android:visibility="gone"
             app:cardBackgroundColor="@color/white"
             app:cardCornerRadius="20dp"
             app:cardElevation="@dimen/elevation_normal"
-            app:cardMaxElevation="@dimen/elevation_big"
-            tools:visibility="visible">
+            app:cardMaxElevation="@dimen/elevation_big">
 
             <com.jiangzg.lovenote.view.FrescoAvatarView
                 android:id="@+id/ivAvatarRight"

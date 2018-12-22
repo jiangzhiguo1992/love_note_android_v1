@@ -83,17 +83,10 @@ public class PostCommentAdapter extends BaseMultiItemQuickAdapter<PostComment, B
         helper.setText(R.id.tvTime, create);
         if (item.getItemType() == PostComment.KIND_TEXT) {
             // text
-            if (couple == null) {
-                helper.setVisible(R.id.ivAvatarLeft, false);
-                helper.setVisible(R.id.ivAvatarRight, false);
-            } else {
-                helper.setVisible(R.id.ivAvatarLeft, true);
-                helper.setVisible(R.id.ivAvatarRight, true);
-                FrescoAvatarView ivAvatarLeft = helper.getView(R.id.ivAvatarLeft);
-                FrescoAvatarView ivAvatarRight = helper.getView(R.id.ivAvatarRight);
-                ivAvatarLeft.setData(couple.getCreatorAvatar());
-                ivAvatarRight.setData(couple.getInviteeAvatar());
-            }
+            FrescoAvatarView ivAvatarLeft = helper.getView(R.id.ivAvatarLeft);
+            FrescoAvatarView ivAvatarRight = helper.getView(R.id.ivAvatarRight);
+            ivAvatarLeft.setData(couple.getCreatorAvatar());
+            ivAvatarRight.setData(couple.getInviteeAvatar());
             helper.setText(R.id.tvContent, contentText);
             helper.setVisible(R.id.llComment, !this.subComment);
             helper.setText(R.id.tvCommentCount, commentCount);
@@ -114,17 +107,10 @@ public class PostCommentAdapter extends BaseMultiItemQuickAdapter<PostComment, B
             helper.addOnClickListener(R.id.llReport);
         } else if (item.getItemType() == PostComment.KIND_JAB) {
             // jab
-            if (couple == null) {
-                helper.setVisible(R.id.cvAvatarLeft, false);
-                helper.setVisible(R.id.cvAvatarRight, false);
-            } else {
-                helper.setVisible(R.id.cvAvatarLeft, true);
-                helper.setVisible(R.id.cvAvatarRight, true);
-                FrescoAvatarView ivAvatarLeft = helper.getView(R.id.ivAvatarLeft);
-                FrescoAvatarView ivAvatarRight = helper.getView(R.id.ivAvatarRight);
-                ivAvatarLeft.setData(couple.getCreatorAvatar());
-                ivAvatarRight.setData(couple.getInviteeAvatar());
-            }
+            FrescoAvatarView ivAvatarLeft = helper.getView(R.id.ivAvatarLeft);
+            FrescoAvatarView ivAvatarRight = helper.getView(R.id.ivAvatarRight);
+            ivAvatarLeft.setData(couple.getCreatorAvatar());
+            ivAvatarRight.setData(couple.getInviteeAvatar());
         }
     }
 

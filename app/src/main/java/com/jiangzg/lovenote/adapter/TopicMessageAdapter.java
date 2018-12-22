@@ -32,17 +32,10 @@ public class TopicMessageAdapter extends BaseQuickAdapter<TopicMessage, BaseView
         String time = TimeHelper.getTimeShowLine_HM_MDHM_YMDHM_ByGo(item.getCreateAt());
         String contentText = StringUtils.isEmpty(item.getContentText()) ? mActivity.getString(R.string.receive_new_message) : item.getContentText();
         // view
-        if (couple == null) {
-            helper.setVisible(R.id.ivAvatarLeft, false);
-            helper.setVisible(R.id.ivAvatarRight, false);
-        } else {
-            helper.setVisible(R.id.ivAvatarLeft, true);
-            helper.setVisible(R.id.ivAvatarRight, true);
-            FrescoAvatarView ivAvatarLeft = helper.getView(R.id.ivAvatarLeft);
-            FrescoAvatarView ivAvatarRight = helper.getView(R.id.ivAvatarRight);
-            ivAvatarLeft.setData(couple.getCreatorAvatar());
-            ivAvatarRight.setData(couple.getInviteeAvatar());
-        }
+        FrescoAvatarView ivAvatarLeft = helper.getView(R.id.ivAvatarLeft);
+        FrescoAvatarView ivAvatarRight = helper.getView(R.id.ivAvatarRight);
+        ivAvatarLeft.setData(couple.getCreatorAvatar());
+        ivAvatarRight.setData(couple.getInviteeAvatar());
         helper.setText(R.id.tvTime, time);
         helper.setText(R.id.tvContent, contentText);
     }

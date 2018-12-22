@@ -154,7 +154,10 @@ public class FrescoAvatarView extends SimpleDraweeView {
     }
 
     public void setData(String ossKey) {
-        if (StringUtils.isEmpty(ossKey)) return;
+        if (StringUtils.isEmpty(ossKey)) {
+            this.setImageResource(R.mipmap.ic_account_circle_grey_48dp);
+            return;
+        }
         if (OssResHelper.isKeyFileExists(ossKey)) {
             File file = OssResHelper.newKeyFile(ossKey);
             if (file != null && !FileUtils.isFileEmpty(file)) {
