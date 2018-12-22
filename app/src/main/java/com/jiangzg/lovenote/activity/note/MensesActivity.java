@@ -204,7 +204,7 @@ public class MensesActivity extends BaseActivity<MensesActivity> {
                 dateBack();
                 break;
             case R.id.cvPush: // 发布
-                mensesPush();
+                showDatePicker();
                 break;
         }
     }
@@ -400,8 +400,21 @@ public class MensesActivity extends BaseActivity<MensesActivity> {
         });
     }
 
-    private void mensesPush() {
+    private void showDatePicker() {
+        DialogHelper.showDatePicker(mActivity, DateUtils.getCurrentLong(), time -> {
+            Calendar cal = DateUtils.getCalendar(time);
+            int year = cal.get(Calendar.YEAR);
+            int month = cal.get(Calendar.MONTH) + 1;
+            int day = cal.get(Calendar.DAY_OF_MONTH);
+            mensesPush(year, month, day);
+        });
+    }
+
+    private void mensesPush(int year, int month, int day) {
         Menses menses = new Menses();
+        menses.setYear(year);
+        menses.setMonthOfYear(month);
+        menses.setDayOfMonth(day);
         callAdd = new RetrofitHelper().call(API.class).noteMensesAdd(menses);
         MaterialDialog loading = mActivity.getLoading(true);
         RetrofitHelper.enqueue(callAdd, loading, new RetrofitHelper.CallBack() {

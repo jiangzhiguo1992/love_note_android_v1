@@ -30,11 +30,20 @@ public class Push implements Parcelable {
 
     private long createAt;
     private long userId;
+    private long toUserId;
     private String platform;
     private String title;
     private String contentText;
     private int contentType;
     private long contentId;
+
+    public long getToUserId() {
+        return toUserId;
+    }
+
+    public void setToUserId(long toUserId) {
+        this.toUserId = toUserId;
+    }
 
     public long getCreateAt() {
         return createAt;
@@ -95,6 +104,7 @@ public class Push implements Parcelable {
     protected Push(Parcel in) {
         createAt = in.readLong();
         userId = in.readLong();
+        toUserId = in.readLong();
         platform = in.readString();
         title = in.readString();
         contentText = in.readString();
@@ -106,6 +116,7 @@ public class Push implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeLong(createAt);
         dest.writeLong(userId);
+        dest.writeLong(toUserId);
         dest.writeString(platform);
         dest.writeString(title);
         dest.writeString(contentText);
