@@ -42,6 +42,9 @@ public class HelpActivity extends BaseActivity<HelpActivity> {
     public static final int INDEX_NOTE_HOME = 200;
     public static final int INDEX_NOTE_LOCK = 210;
     public static final int INDEX_NOTE_SOUVENIR = 220;
+    public static final int INDEX_NOTE_SHY = 221;
+    public static final int INDEX_NOTE_MENSES = 222;
+    public static final int INDEX_NOTE_SLEEP = 223;
     public static final int INDEX_NOTE_WORD = 230;
     public static final int INDEX_NOTE_WHISPER = 231;
     public static final int INDEX_NOTE_AWARD = 232;
@@ -192,6 +195,15 @@ public class HelpActivity extends BaseActivity<HelpActivity> {
                 break;
             case INDEX_NOTE_SOUVENIR:
                 help = getHelpNoteSouvenir(index);
+                break;
+            case INDEX_NOTE_SHY:
+                help = getHelpNoteShy(index);
+                break;
+            case INDEX_NOTE_MENSES:
+                help = getHelpNoteMenses(index);
+                break;
+            case INDEX_NOTE_SLEEP:
+                help = getHelpNoteSleep(index);
                 break;
             case INDEX_NOTE_WORD:
                 help = getHelpNoteWork(index);
@@ -389,12 +401,29 @@ public class HelpActivity extends BaseActivity<HelpActivity> {
         c2.setAnswer(getString(R.string.help_note_home_c2_a));
         contentList.add(c2);
         help.setContentList(contentList);
+        Help.HelpContent c3 = new Help.HelpContent();
+        c3.setQuestion(getString(R.string.help_note_home_c3_q));
+        c3.setAnswer(getString(R.string.help_note_home_c3_a));
+        contentList.add(c3);
+        help.setContentList(contentList);
         // sub
         List<Help> subList = new ArrayList<>();
         Help s1 = new Help();
         s1.setIndex(INDEX_NOTE_LOCK);
         s1.setTitle(getString(R.string.pwd_lock));
         subList.add(s1);
+        Help s11 = new Help();
+        s11.setIndex(INDEX_NOTE_SHY);
+        s11.setTitle(getString(R.string.shy));
+        subList.add(s11);
+        Help s12 = new Help();
+        s12.setIndex(INDEX_NOTE_MENSES);
+        s12.setTitle(getString(R.string.menses));
+        subList.add(s12);
+        Help s13 = new Help();
+        s13.setIndex(INDEX_NOTE_SLEEP);
+        s13.setTitle(getString(R.string.sleep));
+        subList.add(s13);
         Help s2 = new Help();
         s2.setIndex(INDEX_NOTE_SOUVENIR);
         s2.setTitle(getString(R.string.souvenir));
@@ -441,6 +470,60 @@ public class HelpActivity extends BaseActivity<HelpActivity> {
         Help.HelpContent c2 = new Help.HelpContent();
         c2.setQuestion(getString(R.string.help_note_lock_c2_q));
         c2.setAnswer(getString(R.string.help_note_lock_c2_a));
+        contentList.add(c2);
+        help.setContentList(contentList);
+        return help;
+    }
+
+    private Help getHelpNoteShy(int index) {
+        Help help = new Help();
+        help.setIndex(index);
+        help.setTitle(getString(R.string.shy));
+        // content
+        List<Help.HelpContent> contentList = new ArrayList<>();
+        Help.HelpContent c1 = new Help.HelpContent();
+        c1.setQuestion(getString(R.string.help_note_shy_c1_q));
+        c1.setAnswer(getString(R.string.help_note_shy_c1_a));
+        contentList.add(c1);
+        Help.HelpContent c2 = new Help.HelpContent();
+        c2.setQuestion(getString(R.string.help_note_shy_c2_q));
+        c2.setAnswer(getString(R.string.help_note_shy_c2_a));
+        contentList.add(c2);
+        help.setContentList(contentList);
+        return help;
+    }
+
+    private Help getHelpNoteMenses(int index) {
+        Help help = new Help();
+        help.setIndex(index);
+        help.setTitle(getString(R.string.menses));
+        // content
+        List<Help.HelpContent> contentList = new ArrayList<>();
+        Help.HelpContent c1 = new Help.HelpContent();
+        c1.setQuestion(getString(R.string.help_note_menses_c1_q));
+        c1.setAnswer(getString(R.string.help_note_menses_c1_a));
+        contentList.add(c1);
+        Help.HelpContent c2 = new Help.HelpContent();
+        c2.setQuestion(getString(R.string.help_note_menses_c2_q));
+        c2.setAnswer(getString(R.string.help_note_menses_c2_a));
+        contentList.add(c2);
+        help.setContentList(contentList);
+        return help;
+    }
+
+    private Help getHelpNoteSleep(int index) {
+        Help help = new Help();
+        help.setIndex(index);
+        help.setTitle(getString(R.string.sleep));
+        // content
+        List<Help.HelpContent> contentList = new ArrayList<>();
+        Help.HelpContent c1 = new Help.HelpContent();
+        c1.setQuestion(getString(R.string.help_note_sleep_c1_q));
+        c1.setAnswer(getString(R.string.help_note_sleep_c1_a));
+        contentList.add(c1);
+        Help.HelpContent c2 = new Help.HelpContent();
+        c2.setQuestion(getString(R.string.help_note_sleep_c2_q));
+        c2.setAnswer(getString(R.string.help_note_sleep_c2_a));
         contentList.add(c2);
         help.setContentList(contentList);
         return help;

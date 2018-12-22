@@ -10,6 +10,8 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.SparseIntArray;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
@@ -22,6 +24,7 @@ import com.jiangzg.base.component.ActivityTrans;
 import com.jiangzg.base.time.DateUtils;
 import com.jiangzg.base.view.ViewUtils;
 import com.jiangzg.lovenote.R;
+import com.jiangzg.lovenote.activity.settings.HelpActivity;
 import com.jiangzg.lovenote.adapter.ShyAdapter;
 import com.jiangzg.lovenote.base.BaseActivity;
 import com.jiangzg.lovenote.helper.ConsHelper;
@@ -170,6 +173,22 @@ public class ShyActivity extends BaseActivity<ShyActivity> {
         RetrofitHelper.cancel(callListGet);
         RecyclerHelper.release(recyclerHelper);
         RxBus.unregister(ConsHelper.EVENT_SHY_LIST_ITEM_DELETE, obListItemDelete);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.help, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menuHelp: // 帮助文档
+                HelpActivity.goActivity(mActivity, HelpActivity.INDEX_NOTE_SHY);
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override

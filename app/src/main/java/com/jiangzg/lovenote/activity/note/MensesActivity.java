@@ -8,6 +8,8 @@ import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -23,6 +25,7 @@ import com.jiangzg.base.time.DateUtils;
 import com.jiangzg.base.time.TimeUnit;
 import com.jiangzg.base.view.ViewUtils;
 import com.jiangzg.lovenote.R;
+import com.jiangzg.lovenote.activity.settings.HelpActivity;
 import com.jiangzg.lovenote.base.BaseActivity;
 import com.jiangzg.lovenote.helper.DialogHelper;
 import com.jiangzg.lovenote.helper.RetrofitHelper;
@@ -183,6 +186,22 @@ public class MensesActivity extends BaseActivity<MensesActivity> {
         RetrofitHelper.cancel(callAdd);
         RetrofitHelper.cancel(callGet);
         RetrofitHelper.cancel(callListGet);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.help, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menuHelp: // 帮助文档
+                HelpActivity.goActivity(mActivity, HelpActivity.INDEX_NOTE_MENSES);
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
