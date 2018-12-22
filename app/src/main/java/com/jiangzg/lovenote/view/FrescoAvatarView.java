@@ -144,7 +144,7 @@ public class FrescoAvatarView extends SimpleDraweeView {
             @Override
             public void onFailure(String id, Throwable throwable) {
                 super.onFailure(id, throwable);
-                LogUtils.e(FrescoAvatarView.class, "onFailure", throwable);
+                LogUtils.w(FrescoAvatarView.class, "onFailure", throwable.getMessage());
                 // 重新刷新oss
                 ApiHelper.ossInfoUpdate();
             }

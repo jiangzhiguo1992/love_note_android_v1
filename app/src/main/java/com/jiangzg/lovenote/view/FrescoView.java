@@ -51,6 +51,7 @@ import com.jiangzg.lovenote.helper.ResHelper;
 import com.jiangzg.lovenote.main.MyApp;
 
 import java.io.File;
+import java.net.SocketTimeoutException;
 
 /**
  * Created by JZG on 2018/3/21.
@@ -193,7 +194,7 @@ public class FrescoView extends SimpleDraweeView {
             @Override
             public void onFailure(String id, Throwable throwable) {
                 super.onFailure(id, throwable);
-                LogUtils.e(FrescoView.class, "onFailure", throwable);
+                LogUtils.w(FrescoView.class, "onFailure", throwable.getMessage());
                 // 重新刷新oss
                 ApiHelper.ossInfoUpdate();
                 // 加载失败事件

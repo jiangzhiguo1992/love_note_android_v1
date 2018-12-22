@@ -134,8 +134,8 @@ public class FrescoNativeView extends SimpleDraweeView {
             @Override
             public void onFailure(String id, Throwable throwable) {
                 super.onFailure(id, throwable);
+                LogUtils.w(FrescoNativeView.class, "onFailure", throwable.getMessage());
                 ToastUtils.show(MyApp.get().getString(R.string.image_load_fail));
-                LogUtils.e(FrescoNativeView.class, "onFailure", throwable);
             }
         });
         AbstractDraweeController controller = builder.build();

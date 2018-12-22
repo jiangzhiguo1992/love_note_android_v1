@@ -138,7 +138,7 @@ public class FrescoBigView extends PhotoDraweeView {
             @Override
             public void onFailure(String id, Throwable throwable) {
                 super.onFailure(id, throwable);
-                LogUtils.e(FrescoBigView.class, "onFailure", throwable);
+                LogUtils.w(FrescoBigView.class, "onFailure", throwable.getMessage());
                 if (mWidth > 0 && mHeight > 0) {
                     setController(uri);
                 }

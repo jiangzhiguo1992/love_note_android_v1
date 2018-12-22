@@ -723,17 +723,18 @@ public class FileUtils {
             return false;
         }
         if (!createOrExistsFile(file)) return false;
-        OutputStream os = null;
+        BufferedOutputStream os = null;
         try {
             os = new BufferedOutputStream(new FileOutputStream(file, append));
             byte data[] = new byte[ConstantUtils.KB];
             int len;
-            while ((len = is.read(data, 0, ConstantUtils.KB)) != -1) {
+            while ((len = is.read(data)) != -1) {
                 os.write(data, 0, len);
             }
             return true;
         } catch (IOException e) {
-            LogUtils.e(FileUtils.class, "writeFileFromIS", e);
+            LogUtils.w(FileUtils.class, "writeFileFromIS", e.getMessage());
+            FileUtils.deleteFile(file);
         } finally {
             closeIO(is, os);
         }

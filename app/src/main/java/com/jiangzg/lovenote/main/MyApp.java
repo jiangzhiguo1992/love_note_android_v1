@@ -18,7 +18,7 @@ import butterknife.ButterKnife;
 public class MyApp extends AppBase {
 
     // 测试模式(上线为false)，记得修改host + version信息
-    public static boolean DEBUG = true;
+    public static boolean DEBUG = false;
     // 首发结束时间
     public static final int SHOUFA_END_YEAR = 2018;
     public static final int SHOUFA_END_MONTH = 12;
