@@ -1,4 +1,4 @@
-package com.jiangzg.lovenote.helper;
+package com.jiangzg.base.view;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
@@ -28,7 +28,7 @@ import android.view.animation.LinearInterpolator;
  * Created by JZG on 2018/3/29.
  * 动画类
  */
-public class AnimHelper {
+public class AnimUtils {
 
     /**
      * 属性动画group使用，ViewGroup.setLayoutTransition(transition);
