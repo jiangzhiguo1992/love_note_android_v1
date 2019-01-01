@@ -102,12 +102,12 @@
 
                     <Button
                         android:id="@+id/btnSendCode"
-                        style="@style/FontWhiteSmall"
+                        style="@style/FontPrimarySmall"
                         android:layout_width="wrap_content"
                         android:layout_height="35dp"
                         android:layout_marginStart="10dp"
                         android:layout_marginEnd="50dp"
-                        android:background="@drawable/selector_enable_press_solid_light_primary_dark_r3"
+                        android:background="@drawable/selector_enable_press_stroke_light_primary_dark_r3"
                         android:enabled="false"
                         android:text="@string/send_validate_code"/>
                 </LinearLayout>
@@ -132,7 +132,7 @@
                         android:layout_marginEnd="5dp"
                         android:layout_marginBottom="10dp"
                         android:layout_weight="1"
-                        android:background="@drawable/selector_enable_press_solid_light_primary_dark_r3"
+                        android:background="@drawable/selector_enable_press_solid_light_primary_dark_r100"
                         android:text="@string/cancel"/>
 
                     <Button
@@ -145,7 +145,7 @@
                         android:layout_marginEnd="50dp"
                         android:layout_marginBottom="10dp"
                         android:layout_weight="1"
-                        android:background="@drawable/selector_enable_press_solid_light_primary_dark_r3"
+                        android:background="@drawable/selector_enable_press_solid_light_primary_dark_r100"
                         android:text="@string/complete"/>
                 </LinearLayout>
 
@@ -157,7 +157,7 @@
                     android:layout_marginStart="50dp"
                     android:layout_marginTop="20dp"
                     android:layout_marginEnd="50dp"
-                    android:background="@drawable/selector_enable_press_solid_light_primary_dark_r3"
+                    android:background="@drawable/selector_enable_press_solid_light_primary_dark_r100"
                     android:visibility="gone"
                     tools:text="开锁/关锁"
                     tools:visibility="visible"/>
@@ -171,7 +171,7 @@
                     android:layout_marginTop="20dp"
                     android:layout_marginEnd="50dp"
                     android:layout_marginBottom="20dp"
-                    android:background="@drawable/selector_enable_press_solid_light_primary_dark_r3"
+                    android:background="@drawable/selector_enable_press_solid_light_primary_dark_r100"
                     android:visibility="gone"
                     tools:text="设置/修改密码"
                     tools:visibility="visible"/>

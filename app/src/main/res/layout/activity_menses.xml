@@ -16,190 +16,198 @@
         android:layout_height="match_parent"
         android:background="?attr/colorPrimary">
 
-        <LinearLayout
+        <ScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <TextView
-                    android:id="@+id/tvDateShow"
-                    style="@style/FontWhiteBigBold"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:foreground="?attr/selectableItemBackground"
-                    android:gravity="center"
-                    android:padding="10dp"
-                    tools:text="2018年 11月22号"/>
-
-                <TextView
-                    android:id="@+id/tvBackCur"
-                    style="@style/FontWhiteSmall"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
-                    android:layout_centerVertical="true"
-                    android:foreground="?attr/selectableItemBackground"
-                    android:gravity="center"
-                    android:padding="10dp"
-                    android:text="@string/back_current"/>
-            </RelativeLayout>
-
-            <android.support.v7.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="10dp"
-                app:cardBackgroundColor="@color/white"
-                app:cardCornerRadius="@dimen/radius_normal"
-                app:cardElevation="@dimen/elevation_normal"
-                app:cardMaxElevation="@dimen/elevation_big">
-
-                <com.haibin.calendarview.CalendarView
-                    android:id="@+id/cvMenses"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    android:background="@color/white"
-                    android:visibility="gone"
-                    app:current_day_lunar_text_color="?attr/colorPrimaryDark"
-                    app:current_day_text_color="?attr/colorPrimaryDark"
-                    app:current_month_lunar_text_color="?attr/colorAccent"
-                    app:current_month_text_color="?attr/colorAccent"
-                    app:day_text_size="@dimen/font_big"
-                    app:lunar_text_size="7sp"
-                    app:month_view_show_mode="mode_all"
-                    app:other_month_lunar_text_color="?attr/colorControlNormal"
-                    app:other_month_text_color="?attr/colorControlNormal"
-                    app:scheme_lunar_text_color="?attr/colorPrimary"
-                    app:scheme_text_color="?attr/colorPrimary"
-                    app:select_mode="default_mode"
-                    app:selected_lunar_text_color="@color/white"
-                    app:selected_text_color="@color/white"
-                    app:selected_theme_color="?attr/colorPrimary"
-                    app:week_background="@color/alpha_00"
-                    app:week_start_with="sun"
-                    app:week_text_color="?attr/colorPrimary"
-                    app:week_text_size="@dimen/font_small"
-                    app:week_view_scrollable="true"
-                    app:year_view_background="@color/white"
-                    app:year_view_day_text_color="?attr/colorAccent"
-                    app:year_view_day_text_size="9sp"
-                    app:year_view_month_text_color="?attr/colorPrimary"
-                    app:year_view_month_text_size="@dimen/font_normal"
-                    app:year_view_scheme_color="?attr/colorPrimaryDark"
-                    app:year_view_scrollable="true"
-                    tools:visibility="visible"/>
-            </android.support.v7.widget.CardView>
-
-            <TextView
-                android:id="@+id/tvShow"
-                style="@style/FontWhiteHuge"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:gravity="center"
-                tools:text="只能是女性哦"
-                tools:visibility="gone"/>
-
-            <TextView
-                android:id="@+id/tvTip"
-                style="@style/FontWhiteHugeBold"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:padding="10dp"
-                tools:text="已开始 00:00:00"/>
+            android:fillViewport="true">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:padding="10dp">
-
-                <RadioGroup
-                    android:id="@+id/rgUser"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:background="@drawable/shape_solid_white_r5"
-                    android:gravity="center"
-                    android:orientation="vertical">
-
-                    <RadioButton
-                        android:id="@+id/rbMe"
-                        style="@style/FontWhiteNormal"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="?attr/selectableItemBackground"
-                        android:button="@null"
-                        android:foreground="?attr/selectableItemBackground"
-                        android:gravity="center"
-                        android:minLines="1"
-                        android:paddingTop="10dp"
-                        android:paddingBottom="10dp"
-                        android:singleLine="true"
-                        android:text="@string/me_de"
-                        android:textColor="@color/selector_text_check_light_primary"
-                        tools:checked="true"/>
-
-                    <View
-                        style="@style/LineHorizontal"
-                        android:background="?attr/colorPrimary"/>
-
-                    <RadioButton
-                        android:id="@+id/rbTa"
-                        style="@style/FontWhiteNormal"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="?attr/selectableItemBackground"
-                        android:button="@null"
-                        android:foreground="?attr/selectableItemBackground"
-                        android:gravity="center"
-                        android:minLines="1"
-                        android:paddingTop="10dp"
-                        android:paddingBottom="10dp"
-                        android:singleLine="true"
-                        android:text="@string/ta_de"
-                        android:textColor="@color/selector_text_check_light_primary"/>
-                </RadioGroup>
+                android:orientation="vertical">
 
                 <RelativeLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="center">
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
 
-                    <android.support.v7.widget.CardView
-                        android:id="@+id/cvPush"
-                        android:layout_width="80dp"
-                        android:layout_height="80dp"
-                        android:layout_margin="10dp"
-                        android:background="?attr/selectableItemBackground"
+                    <TextView
+                        android:id="@+id/tvDateShow"
+                        style="@style/FontWhiteBigBold"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
                         android:foreground="?attr/selectableItemBackground"
-                        android:visibility="gone"
-                        app:cardBackgroundColor="@color/white"
-                        app:cardCornerRadius="40dp"
-                        app:cardElevation="@dimen/elevation_big"
-                        app:cardMaxElevation="@dimen/elevation_huge"
-                        tools:visibility="visible">
+                        android:gravity="center"
+                        android:padding="10dp"
+                        tools:text="2018年 11月22号"/>
 
-                        <TextView
-                            android:id="@+id/tvPush"
-                            style="@style/FontPrimaryNormal"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:gravity="center"
-                            tools:text="姨妈来了"/>
-                    </android.support.v7.widget.CardView>
+                    <TextView
+                        android:id="@+id/tvBackCur"
+                        style="@style/FontWhiteSmall"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:foreground="?attr/selectableItemBackground"
+                        android:gravity="center"
+                        android:padding="10dp"
+                        android:text="@string/back_current"/>
                 </RelativeLayout>
+
+                <android.support.v7.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    app:cardBackgroundColor="@color/white"
+                    app:cardCornerRadius="@dimen/radius_normal"
+                    app:cardElevation="@dimen/elevation_normal"
+                    app:cardMaxElevation="@dimen/elevation_big">
+
+                    <com.haibin.calendarview.CalendarView
+                        android:id="@+id/cvMenses"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5dp"
+                        android:background="@color/white"
+                        android:visibility="gone"
+                        app:current_day_lunar_text_color="?attr/colorPrimaryDark"
+                        app:current_day_text_color="?attr/colorPrimaryDark"
+                        app:current_month_lunar_text_color="?attr/colorAccent"
+                        app:current_month_text_color="?attr/colorAccent"
+                        app:day_text_size="@dimen/font_big"
+                        app:lunar_text_size="7sp"
+                        app:month_view_show_mode="mode_all"
+                        app:other_month_lunar_text_color="?attr/colorControlNormal"
+                        app:other_month_text_color="?attr/colorControlNormal"
+                        app:scheme_lunar_text_color="?attr/colorPrimary"
+                        app:scheme_text_color="?attr/colorPrimary"
+                        app:select_mode="default_mode"
+                        app:selected_lunar_text_color="@color/white"
+                        app:selected_text_color="@color/white"
+                        app:selected_theme_color="?attr/colorPrimary"
+                        app:week_background="@color/alpha_00"
+                        app:week_start_with="sun"
+                        app:week_text_color="?attr/colorPrimary"
+                        app:week_text_size="@dimen/font_small"
+                        app:week_view_scrollable="true"
+                        app:year_view_background="@color/white"
+                        app:year_view_day_text_color="?attr/colorAccent"
+                        app:year_view_day_text_size="9sp"
+                        app:year_view_month_text_color="?attr/colorPrimary"
+                        app:year_view_month_text_size="@dimen/font_normal"
+                        app:year_view_scheme_color="?attr/colorPrimaryDark"
+                        app:year_view_scrollable="true"
+                        tools:visibility="visible"/>
+                </android.support.v7.widget.CardView>
+
+                <TextView
+                    android:id="@+id/tvShow"
+                    style="@style/FontWhiteHuge"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    tools:text="只能是女性哦"
+                    tools:visibility="gone"/>
+
+                <TextView
+                    android:id="@+id/tvTip"
+                    style="@style/FontWhiteHugeBold"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginBottom="20dp"
+                    android:gravity="center"
+                    tools:text="已开始 00:00:00"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:padding="10dp">
+
+                    <RadioGroup
+                        android:id="@+id/rgUser"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@drawable/shape_solid_white_r5"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <RadioButton
+                            android:id="@+id/rbMe"
+                            style="@style/FontWhiteNormal"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="?attr/selectableItemBackground"
+                            android:button="@null"
+                            android:foreground="?attr/selectableItemBackground"
+                            android:gravity="center"
+                            android:minLines="1"
+                            android:paddingTop="10dp"
+                            android:paddingBottom="10dp"
+                            android:singleLine="true"
+                            android:text="@string/me_de"
+                            android:textColor="@color/selector_text_check_light_primary"
+                            tools:checked="true"/>
+
+                        <View
+                            style="@style/LineHorizontal"
+                            android:background="?attr/colorPrimary"/>
+
+                        <RadioButton
+                            android:id="@+id/rbTa"
+                            style="@style/FontWhiteNormal"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="?attr/selectableItemBackground"
+                            android:button="@null"
+                            android:foreground="?attr/selectableItemBackground"
+                            android:gravity="center"
+                            android:minLines="1"
+                            android:paddingTop="10dp"
+                            android:paddingBottom="10dp"
+                            android:singleLine="true"
+                            android:text="@string/ta_de"
+                            android:textColor="@color/selector_text_check_light_primary"/>
+                    </RadioGroup>
+
+                    <RelativeLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center">
+
+                        <android.support.v7.widget.CardView
+                            android:id="@+id/cvPush"
+                            android:layout_width="80dp"
+                            android:layout_height="80dp"
+                            android:layout_margin="10dp"
+                            android:background="?attr/selectableItemBackground"
+                            android:foreground="?attr/selectableItemBackground"
+                            android:visibility="gone"
+                            app:cardBackgroundColor="@color/white"
+                            app:cardCornerRadius="40dp"
+                            app:cardElevation="@dimen/elevation_big"
+                            app:cardMaxElevation="@dimen/elevation_huge"
+                            tools:visibility="visible">
+
+                            <TextView
+                                android:id="@+id/tvPush"
+                                style="@style/FontPrimaryNormal"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:gravity="center"
+                                tools:text="姨妈来了"/>
+                        </android.support.v7.widget.CardView>
+                    </RelativeLayout>
+                </LinearLayout>
             </LinearLayout>
-        </LinearLayout>
+        </ScrollView>
     </com.jiangzg.lovenote.view.GSwipeRefreshLayout>
 </LinearLayout>
