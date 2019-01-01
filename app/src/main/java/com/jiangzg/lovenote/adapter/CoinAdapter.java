@@ -36,7 +36,7 @@ public class CoinAdapter extends BaseMultiItemQuickAdapter<Coin, BaseViewHolder>
         // data
         String avatar = UserHelper.getAvatar(couple, item.getUserId());
         String time = TimeHelper.getTimeShowLine_HM_MDHM_YMDHM_ByGo(item.getCreateAt());
-        String kindShow = ShowHelper.getKindShow(item.getKind());
+        String kindShow = ShowHelper.getCoinKindShow(item.getKind());
         String change;
         if (item.getChange() >= 0) {
             change = "+" + String.valueOf(item.getChange());

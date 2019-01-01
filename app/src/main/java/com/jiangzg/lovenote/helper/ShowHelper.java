@@ -10,7 +10,7 @@ import com.jiangzg.lovenote.model.entity.Trends;
  */
 public class ShowHelper {
 
-    public static String getKindShow(int form) {
+    public static String getCoinKindShow(int form) {
         switch (form) {
             case Coin.KIND_ADD_BY_SYS:
                 return MyApp.get().getString(R.string.sys_change);
@@ -30,7 +30,7 @@ public class ShowHelper {
         return MyApp.get().getString(R.string.unknown_kind);
     }
 
-    public static String getActShow(int act, long conId) {
+    public static String getTrendsActShow(int act, long conId) {
         switch (act) {
             case Trends.TRENDS_ACT_TYPE_INSERT: // 添加
                 return MyApp.get().getString(R.string.add);

@@ -118,12 +118,10 @@ public class SplashActivity extends BaseActivity<SplashActivity> {
 
     @Override
     protected void initData(Intent intent, Bundle state) {
-
     }
 
     @Override
     protected void onFinish(Bundle state) {
-
     }
 
     // 关闭其他activity

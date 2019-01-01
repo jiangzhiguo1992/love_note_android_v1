@@ -108,7 +108,7 @@ public class TrendsAdapter extends BaseMultiItemQuickAdapter<Trends, BaseViewHol
         FrescoAvatarView ivAvatar = helper.getView(R.id.ivAvatar);
         ivAvatar.setData(avatar);
         TextView tvContent = helper.getView(R.id.tvContent);
-        tvContent.setText(ShowHelper.getActShow(item.getActionType(), item.getContentId()));
+        tvContent.setText(ShowHelper.getTrendsActShow(item.getActionType(), item.getContentId()));
         Drawable dContent = getContentDrawable(item);
         tvContent.setCompoundDrawables(null, null, dContent, null);
         // listener
