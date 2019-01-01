@@ -3,11 +3,11 @@ package com.jiangzg.lovenote.activity.user;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.jiangzg.base.component.ActivityStack;
@@ -40,12 +40,12 @@ public class UserInfoActivity extends BaseActivity<UserInfoActivity> {
     Toolbar tb;
     @BindView(R.id.ivGirl)
     ImageView ivGirl;
-    @BindView(R.id.rlGirl)
-    RelativeLayout rlGirl;
+    @BindView(R.id.cvGirl)
+    CardView cvGirl;
     @BindView(R.id.ivBoy)
     ImageView ivBoy;
-    @BindView(R.id.rlBoy)
-    RelativeLayout rlBoy;
+    @BindView(R.id.cvBoy)
+    CardView cvBoy;
     @BindView(R.id.npYear)
     BirthPicker npYear;
     @BindView(R.id.npMonth)
@@ -107,14 +107,14 @@ public class UserInfoActivity extends BaseActivity<UserInfoActivity> {
         }
     }
 
-    @OnClick({R.id.rlGirl, R.id.rlBoy, R.id.btnOk})
+    @OnClick({R.id.cvGirl, R.id.cvBoy, R.id.btnOk})
     public void onViewClicked(View view) {
         switch (view.getId()) {
-            case R.id.rlGirl: // 女
+            case R.id.cvGirl: // 女
                 ivGirl.setVisibility(View.VISIBLE);
                 ivBoy.setVisibility(View.GONE);
                 break;
-            case R.id.rlBoy: // 男
+            case R.id.cvBoy: // 男
                 ivBoy.setVisibility(View.VISIBLE);
                 ivGirl.setVisibility(View.GONE);
                 break;
