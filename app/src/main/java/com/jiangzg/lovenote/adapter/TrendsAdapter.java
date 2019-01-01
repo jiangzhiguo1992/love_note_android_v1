@@ -37,9 +37,9 @@ import com.jiangzg.lovenote.activity.note.WordListActivity;
 import com.jiangzg.lovenote.base.BaseActivity;
 import com.jiangzg.lovenote.helper.ApiHelper;
 import com.jiangzg.lovenote.helper.SPHelper;
-import com.jiangzg.lovenote.helper.ShowHelper;
 import com.jiangzg.lovenote.helper.TimeHelper;
 import com.jiangzg.lovenote.helper.UserHelper;
+import com.jiangzg.lovenote.main.MyApp;
 import com.jiangzg.lovenote.model.entity.Couple;
 import com.jiangzg.lovenote.model.entity.Trends;
 import com.jiangzg.lovenote.view.FrescoAvatarView;
@@ -108,7 +108,7 @@ public class TrendsAdapter extends BaseMultiItemQuickAdapter<Trends, BaseViewHol
         FrescoAvatarView ivAvatar = helper.getView(R.id.ivAvatar);
         ivAvatar.setData(avatar);
         TextView tvContent = helper.getView(R.id.tvContent);
-        tvContent.setText(ShowHelper.getTrendsActShow(item.getActionType(), item.getContentId()));
+        tvContent.setText(getTrendsActShow(item.getActionType(), item.getContentId()));
         Drawable dContent = getContentDrawable(item);
         tvContent.setCompoundDrawables(null, null, dContent, null);
         // listener
@@ -265,6 +265,24 @@ public class TrendsAdapter extends BaseMultiItemQuickAdapter<Trends, BaseViewHol
                 MovieListActivity.goActivity(mActivity);
                 break;
         }
+    }
+
+    private String getTrendsActShow(int act, long conId) {
+        switch (act) {
+            case Trends.TRENDS_ACT_TYPE_INSERT: // 添加
+                return MyApp.get().getString(R.string.add);
+            case Trends.TRENDS_ACT_TYPE_DELETE: // 删除
+                return MyApp.get().getString(R.string.delete);
+            case Trends.TRENDS_ACT_TYPE_UPDATE: // 修改
+                return MyApp.get().getString(R.string.modify);
+            case Trends.TRENDS_ACT_TYPE_QUERY: // 进入/浏览
+                if (conId <= Trends.TRENDS_CON_ID_LIST) {
+                    return MyApp.get().getString(R.string.go_in);
+                } else {
+                    return MyApp.get().getString(R.string.browse);
+                }
+        }
+        return MyApp.get().getString(R.string.un_know);
     }
 
 }
