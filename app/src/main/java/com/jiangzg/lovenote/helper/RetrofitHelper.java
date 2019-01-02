@@ -202,13 +202,13 @@ public class RetrofitHelper {
             }
             if (StringUtils.isEmpty(errorStr)) {
                 body = new Result();
-                body.setCode(Result.RESULT_CODE_TOAST);
+                body.setCode(Result.CODE_TOAST);
                 body.setMessage(MyApp.get().getString(R.string.err_data_null));
             } else if (errorStr.startsWith("{")) {
                 body = GsonHelper.get().fromJson(errorStr, Result.class);
             } else {
                 body = new Result();
-                body.setCode(Result.RESULT_CODE_TOAST);
+                body.setCode(Result.CODE_TOAST);
                 body.setMessage(MyApp.get().getString(R.string.err_data_parse));
                 LogUtils.w(RetrofitHelper.class, "onResponseCall", errorStr);
             }
@@ -316,9 +316,9 @@ public class RetrofitHelper {
         int code = body.getCode();
         String message = body.getMessage();
         Result.Data data = body.getData();
-        if (code == Result.RESULT_CODE_TOAST) { // toast
+        if (code == Result.CODE_TOAST) { // toast
             ToastUtils.show(message);
-        } else if (code == Result.RESULT_CODE_DIALOG) { // dialog
+        } else if (code == Result.CODE_DIALOG) { // dialog
             if (ActivityStack.isActivityFinish(top)) return;
             MaterialDialog dialog = DialogHelper.getBuild(top)
                     .cancelable(true)
@@ -327,11 +327,11 @@ public class RetrofitHelper {
                     .positiveText(R.string.i_know)
                     .build();
             DialogHelper.showWithAnim(dialog);
-        } else if (code == Result.RESULT_CODE_NO_USER_INFO) { // userInfo
+        } else if (code == Result.CODE_NO_USER_INFO) { // userInfo
             ToastUtils.show(message);
             if (ActivityStack.isActivityFinish(top)) return;
             UserInfoActivity.goActivity(top, data.getUser());
-        } else if (code == Result.RESULT_CODE_NO_CP) { // cp
+        } else if (code == Result.CODE_NO_CP) { // cp
             ToastUtils.show(message);
             if (ActivityStack.isActivityFinish(top)) return;
             CouplePairActivity.goActivity(top);

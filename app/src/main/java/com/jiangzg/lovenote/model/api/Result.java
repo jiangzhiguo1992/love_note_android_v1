@@ -75,11 +75,11 @@ import java.util.List;
 
 public class Result implements Serializable {
 
-    public static final int RESULT_CODE_OK = 0;
-    public static final int RESULT_CODE_TOAST = 10;
-    public static final int RESULT_CODE_DIALOG = 11;
-    public static final int RESULT_CODE_NO_USER_INFO = 20;
-    public static final int RESULT_CODE_NO_CP = 30;
+    public static final int CODE_OK = 0;
+    public static final int CODE_TOAST = 10;
+    public static final int CODE_DIALOG = 11;
+    public static final int CODE_NO_USER_INFO = 20;
+    public static final int CODE_NO_CP = 30;
 
     private int code;
     private String message;
