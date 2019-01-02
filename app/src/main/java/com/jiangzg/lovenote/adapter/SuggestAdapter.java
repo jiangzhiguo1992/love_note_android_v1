@@ -72,14 +72,14 @@ public class SuggestAdapter extends BaseQuickAdapter<Suggest, BaseViewHolder> {
         long updatedAt = item.getUpdateAt();
         String update = TimeHelper.getTimeShowLine_HM_MD_YMD_ByGo(updatedAt);
         String updatedShow = String.format(Locale.getDefault(), formatUpdateAt, update);
-        final long followCount = item.getFollowCount();
+        final int followCount = item.getFollowCount();
         String followShow;
         if (followCount <= 0) {
             followShow = formatFollow;
         } else {
             followShow = CountHelper.getShowCount2Thousand(followCount);
         }
-        long commentCount = item.getCommentCount();
+        int commentCount = item.getCommentCount();
         String commentShow;
         if (commentCount <= 0) {
             commentShow = formatComment;

@@ -393,7 +393,7 @@ public class SuggestDetailActivity extends BaseActivity<SuggestDetailActivity> {
     // 关注
     private void follow(boolean api) {
         boolean newFollow = !suggest.isFollow();
-        long newFollowCount = newFollow ? suggest.getFollowCount() + 1 : suggest.getFollowCount() - 1;
+        int newFollowCount = newFollow ? suggest.getFollowCount() + 1 : suggest.getFollowCount() - 1;
         if (newFollowCount < 0) {
             newFollowCount = 0;
         }

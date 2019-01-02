@@ -11,8 +11,7 @@ import java.util.Locale;
  */
 public class CountHelper {
 
-    // getShowCount
-    public static String getShowCount2Thousand(long count) {
+    public static String getShowCount2Thousand(int count) {
         int unit = 10000; // 万
         if (Math.abs(count) < unit) {
             return String.valueOf(count);
@@ -20,7 +19,6 @@ public class CountHelper {
         return String.format(Locale.getDefault(), MyApp.get().getString(R.string.holder_thousand_point1), (double) count / (double) unit);
     }
 
-    // getShowDistance
     public static String getShowDistance(float distance) {
         String distanceShow = "-m";
         if (distance >= 1000 * 100) {

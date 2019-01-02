@@ -26,8 +26,8 @@ public class Suggest extends BaseObj implements Parcelable {
     private String title;
     private String contentText;
     private String contentImage;
-    private long followCount;
-    private long commentCount;
+    private int followCount;
+    private int commentCount;
     private boolean top;
     private boolean official;
     // 外键
@@ -99,19 +99,19 @@ public class Suggest extends BaseObj implements Parcelable {
         this.follow = follow;
     }
 
-    public long getFollowCount() {
+    public int getFollowCount() {
         return followCount;
     }
 
-    public void setFollowCount(long followCount) {
+    public void setFollowCount(int followCount) {
         this.followCount = followCount;
     }
 
-    public long getCommentCount() {
+    public int getCommentCount() {
         return commentCount;
     }
 
-    public void setCommentCount(long commentCount) {
+    public void setCommentCount(int commentCount) {
         this.commentCount = commentCount;
     }
 
@@ -136,8 +136,8 @@ public class Suggest extends BaseObj implements Parcelable {
         top = in.readByte() != 0;
         follow = in.readByte() != 0;
         comment = in.readByte() != 0;
-        followCount = in.readLong();
-        commentCount = in.readLong();
+        followCount = in.readInt();
+        commentCount = in.readInt();
         mine = in.readByte() != 0;
     }
 
@@ -152,8 +152,8 @@ public class Suggest extends BaseObj implements Parcelable {
         dest.writeByte((byte) (top ? 1 : 0));
         dest.writeByte((byte) (follow ? 1 : 0));
         dest.writeByte((byte) (comment ? 1 : 0));
-        dest.writeLong(followCount);
-        dest.writeLong(commentCount);
+        dest.writeInt(followCount);
+        dest.writeInt(commentCount);
         dest.writeByte((byte) (mine ? 1 : 0));
     }
 
