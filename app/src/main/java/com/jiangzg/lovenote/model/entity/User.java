@@ -3,8 +3,6 @@ package com.jiangzg.lovenote.model.entity;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import com.jiangzg.lovenote.base.BaseObj;
-
 /**
  * Created by JiangZhiGuo on 2016/9/30.
  * describe 用户实体类

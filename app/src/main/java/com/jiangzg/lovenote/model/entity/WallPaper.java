@@ -1,7 +1,5 @@
 package com.jiangzg.lovenote.model.entity;
 
-import com.jiangzg.lovenote.base.BaseObj;
-
 import java.util.List;
 
 /**

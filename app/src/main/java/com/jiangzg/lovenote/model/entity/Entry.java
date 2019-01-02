@@ -1,7 +1,5 @@
 package com.jiangzg.lovenote.model.entity;
 
-import com.jiangzg.lovenote.base.BaseObj;
-
 /**
  * Created by JZG on 2017/12/26.
  * Entry

@@ -51,7 +51,6 @@ import com.jiangzg.lovenote.helper.ResHelper;
 import com.jiangzg.lovenote.main.MyApp;
 
 import java.io.File;
-import java.net.SocketTimeoutException;
 
 /**
  * Created by JZG on 2018/3/21.

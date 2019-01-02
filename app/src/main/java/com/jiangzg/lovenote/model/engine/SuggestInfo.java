@@ -1,8 +1,8 @@
 package com.jiangzg.lovenote.model.engine;
 
 import com.jiangzg.lovenote.R;
-import com.jiangzg.lovenote.base.BaseObj;
 import com.jiangzg.lovenote.main.MyApp;
+import com.jiangzg.lovenote.model.entity.BaseObj;
 import com.jiangzg.lovenote.model.entity.Suggest;
 
 import java.util.ArrayList;

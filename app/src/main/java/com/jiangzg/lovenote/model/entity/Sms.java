@@ -1,7 +1,5 @@
 package com.jiangzg.lovenote.model.entity;
 
-import com.jiangzg.lovenote.base.BaseObj;
-
 /**
  * Created by JZG on 2018/3/27.
  * 短信

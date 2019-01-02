@@ -86,7 +86,7 @@ public class PostCommentAdapter extends BaseMultiItemQuickAdapter<PostComment, B
             FrescoAvatarView ivAvatarLeft = helper.getView(R.id.ivAvatarLeft);
             FrescoAvatarView ivAvatarRight = helper.getView(R.id.ivAvatarRight);
             ivAvatarLeft.setData(couple == null ? "" : couple.getCreatorAvatar());
-            ivAvatarRight.setData(couple == null ? "" :couple.getInviteeAvatar());
+            ivAvatarRight.setData(couple == null ? "" : couple.getInviteeAvatar());
             helper.setText(R.id.tvContent, contentText);
             helper.setVisible(R.id.llComment, !this.subComment);
             helper.setText(R.id.tvCommentCount, commentCount);
@@ -109,8 +109,8 @@ public class PostCommentAdapter extends BaseMultiItemQuickAdapter<PostComment, B
             // jab
             FrescoAvatarView ivAvatarLeft = helper.getView(R.id.ivAvatarLeft);
             FrescoAvatarView ivAvatarRight = helper.getView(R.id.ivAvatarRight);
-            ivAvatarLeft.setData(couple == null ? "" :couple.getCreatorAvatar());
-            ivAvatarRight.setData(couple == null ? "" :couple.getInviteeAvatar());
+            ivAvatarLeft.setData(couple == null ? "" : couple.getCreatorAvatar());
+            ivAvatarRight.setData(couple == null ? "" : couple.getInviteeAvatar());
         }
     }
 

@@ -1,7 +1,5 @@
 package com.jiangzg.lovenote.model.entity;
 
-import com.jiangzg.lovenote.base.BaseCP;
-
 /**
  * Created by JZG on 2018/7/23.
  * PostCommentPoint

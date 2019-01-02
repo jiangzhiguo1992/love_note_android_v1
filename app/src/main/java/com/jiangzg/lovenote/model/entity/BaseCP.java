@@ -1,10 +1,9 @@
-package com.jiangzg.lovenote.base;
+package com.jiangzg.lovenote.model.entity;
 
 import android.os.Parcel;
 import android.os.Parcelable;
 
 import com.jiangzg.lovenote.helper.SPHelper;
-import com.jiangzg.lovenote.model.entity.User;
 
 /**
  * Created by JZG on 2017/12/18.

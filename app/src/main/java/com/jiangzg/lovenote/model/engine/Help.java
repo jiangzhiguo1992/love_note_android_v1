@@ -3,7 +3,7 @@ package com.jiangzg.lovenote.model.engine;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import com.jiangzg.lovenote.base.BaseObj;
+import com.jiangzg.lovenote.model.entity.BaseObj;
 
 import java.util.List;
 

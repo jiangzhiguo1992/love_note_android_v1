@@ -1,4 +1,4 @@
-package com.jiangzg.lovenote.base;
+package com.jiangzg.lovenote.model.entity;
 
 import android.os.Parcel;
 import android.os.Parcelable;
