@@ -157,6 +157,80 @@ public class ApiHelper {
         return entry;
     }
 
+    public static Sms getSmsLoginBody(String phone) {
+        Sms sms = new Sms();
+        sms.setSendType(Sms.TYPE_LOGIN);
+        sms.setPhone(phone);
+        return sms;
+    }
+
+    public static Sms getSmsRegisterBody(String phone) {
+        Sms sms = new Sms();
+        sms.setSendType(Sms.TYPE_REGISTER);
+        sms.setPhone(phone);
+        return sms;
+    }
+
+    public static Sms getSmsForgetBody(String phone) {
+        Sms sms = new Sms();
+        sms.setSendType(Sms.TYPE_FORGET);
+        sms.setPhone(phone);
+        return sms;
+    }
+
+    public static Sms getSmsPhoneBody(String phone) {
+        Sms sms = new Sms();
+        sms.setSendType(Sms.TYPE_PHONE);
+        sms.setPhone(phone);
+        return sms;
+    }
+
+    public static Sms getSmsLockBody(String taPhone) {
+        Sms sms = new Sms();
+        sms.setSendType(Sms.TYPE_LOCK);
+        sms.setPhone(taPhone);
+        return sms;
+    }
+
+    public static User getUserBody(String phone, String pwd) {
+        User user = new User();
+        if (!StringUtils.isEmpty(phone)) {
+            user.setPhone(phone);
+        }
+        if (!StringUtils.isEmpty(pwd)) {
+            String md5Pwd = EncryptUtils.encryptMD5ToString(pwd);
+            user.setPassword(md5Pwd);
+        }
+        return user;
+    }
+
+    public static Lock getLockBody(String pwd) {
+        Lock lock = new Lock();
+        if (!StringUtils.isEmpty(pwd)) {
+            String md5Pwd = EncryptUtils.encryptMD5ToString(pwd);
+            lock.setPassword(md5Pwd);
+        }
+        return lock;
+    }
+
+    public static PostComment getPostCommentTextBody(long pid, long tcid, String content) {
+        PostComment postComment = new PostComment();
+        postComment.setPostId(pid);
+        postComment.setToCommentId(tcid);
+        postComment.setKind(PostComment.KIND_TEXT);
+        postComment.setContentText(content);
+        return postComment;
+    }
+
+    public static PostComment getPostCommentJabBody(long pid, long tcid) {
+        PostComment postComment = new PostComment();
+        postComment.setPostId(pid);
+        postComment.setToCommentId(tcid);
+        postComment.setKind(PostComment.KIND_JAB);
+        postComment.setContentText("");
+        return postComment;
+    }
+
     public static void postEntry(final BaseActivity mActivity) {
         Entry entry = getEntryBody();
         Call<Result> call = new RetrofitHelper().call(API.class).entryPush(entry);
@@ -367,80 +441,6 @@ public class ApiHelper {
             public void onFailure(int code, String message, Result.Data data) {
             }
         });
-    }
-
-    public static Sms getSmsLoginBody(String phone) {
-        Sms sms = new Sms();
-        sms.setSendType(Sms.TYPE_LOGIN);
-        sms.setPhone(phone);
-        return sms;
-    }
-
-    public static Sms getSmsRegisterBody(String phone) {
-        Sms sms = new Sms();
-        sms.setSendType(Sms.TYPE_REGISTER);
-        sms.setPhone(phone);
-        return sms;
-    }
-
-    public static Sms getSmsForgetBody(String phone) {
-        Sms sms = new Sms();
-        sms.setSendType(Sms.TYPE_FORGET);
-        sms.setPhone(phone);
-        return sms;
-    }
-
-    public static Sms getSmsPhoneBody(String phone) {
-        Sms sms = new Sms();
-        sms.setSendType(Sms.TYPE_PHONE);
-        sms.setPhone(phone);
-        return sms;
-    }
-
-    public static Sms getSmsLockBody(String taPhone) {
-        Sms sms = new Sms();
-        sms.setSendType(Sms.TYPE_LOCK);
-        sms.setPhone(taPhone);
-        return sms;
-    }
-
-    public static User getUserBody(String phone, String pwd) {
-        User user = new User();
-        if (!StringUtils.isEmpty(phone)) {
-            user.setPhone(phone);
-        }
-        if (!StringUtils.isEmpty(pwd)) {
-            String md5Pwd = EncryptUtils.encryptMD5ToString(pwd);
-            user.setPassword(md5Pwd);
-        }
-        return user;
-    }
-
-    public static Lock getLockBody(String pwd) {
-        Lock lock = new Lock();
-        if (!StringUtils.isEmpty(pwd)) {
-            String md5Pwd = EncryptUtils.encryptMD5ToString(pwd);
-            lock.setPassword(md5Pwd);
-        }
-        return lock;
-    }
-
-    public static PostComment getPostCommentTextBody(long pid, long tcid, String content) {
-        PostComment postComment = new PostComment();
-        postComment.setPostId(pid);
-        postComment.setToCommentId(tcid);
-        postComment.setKind(PostComment.KIND_TEXT);
-        postComment.setContentText(content);
-        return postComment;
-    }
-
-    public static PostComment getPostCommentJabBody(long pid, long tcid) {
-        PostComment postComment = new PostComment();
-        postComment.setPostId(pid);
-        postComment.setToCommentId(tcid);
-        postComment.setKind(PostComment.KIND_JAB);
-        postComment.setContentText("");
-        return postComment;
     }
 
 }
