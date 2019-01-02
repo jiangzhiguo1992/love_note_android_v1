@@ -233,9 +233,21 @@ public class CoupleFragment extends BasePagerFragment<CoupleFragment> {
         LocationHelper.startLocation(mActivity, true, new LocationHelper.LocationCallBack() {
             @Override
             public void onSuccess(LocationInfo info) {
+                if (info == null || (info.getLongitude() == 0 && info.getLatitude() == 0)) {
+                    return;
+                }
                 // 设备位置信息获取成功
-                Place body = ApiHelper.getPlaceBody(info);
-                if (body == null || (body.getLongitude() == 0 && body.getLatitude() == 0)) return;
+                Place body = new Place();
+                body.setLongitude(info.getLongitude());
+                body.setLatitude(info.getLatitude());
+                body.setAddress(info.getAddress());
+                body.setCountry(info.getCountry());
+                body.setProvince(info.getProvince());
+                body.setCity(info.getCity());
+                body.setDistrict(info.getDistrict());
+                body.setStreet(info.getStreet());
+                body.setCityId(info.getCityId());
+                // api
                 callPlaceGet = new RetrofitHelper().call(API.class).couplePlacePush(body);
                 RetrofitHelper.enqueue(callPlaceGet, null, new RetrofitHelper.CallBack() {
                     @Override

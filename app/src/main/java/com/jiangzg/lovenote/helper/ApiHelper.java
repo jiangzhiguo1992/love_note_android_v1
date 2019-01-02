@@ -69,9 +69,9 @@ public class ApiHelper {
     public static final int MODIFY_PHONE = 13;
     public static final int MODIFY_INFO = 14;
     // cp修改类型
-    public static final int COUPLE_UPDATE_GOOD = 1; // 更好
-    public static final int COUPLE_UPDATE_BAD = 2; // 更坏
-    public static final int COUPLE_UPDATE_INFO = 3;// 信息
+    public static final int COUPLE_UPDATE_GOOD = 1;
+    public static final int COUPLE_UPDATE_BAD = 2;
+    public static final int COUPLE_UPDATE_INFO = 3;
     // comment order类型
     private static final int LIST_COMMENT_ORDER_POINT = 0;
     private static final int LIST_COMMENT_ORDER_TIME = 1;
@@ -423,23 +423,6 @@ public class ApiHelper {
             lock.setPassword(md5Pwd);
         }
         return lock;
-    }
-
-    public static Place getPlaceBody(LocationInfo info) {
-        if (info == null || (info.getLongitude() == 0 && info.getLatitude() == 0)) {
-            info = LocationInfo.getInfo();
-        }
-        Place place = new Place();
-        place.setLongitude(info.getLongitude());
-        place.setLatitude(info.getLatitude());
-        place.setAddress(info.getAddress());
-        place.setCountry(info.getCountry());
-        place.setProvince(info.getProvince());
-        place.setCity(info.getCity());
-        place.setDistrict(info.getDistrict());
-        place.setStreet(info.getStreet());
-        place.setCityId(info.getCityId());
-        return place;
     }
 
     public static PostComment getPostCommentTextBody(long pid, long tcid, String content) {
