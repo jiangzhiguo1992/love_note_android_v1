@@ -182,7 +182,7 @@ public class SouvenirDetailDoneActivity extends BaseActivity<SouvenirDetailDoneA
         tvTitle.setText(souvenir.getTitle());
         // happen
         long happenAt = TimeHelper.getJavaTimeByGo(souvenir.getHappenAt());
-        String happen = DateUtils.getString(happenAt, ConstantUtils.FORMAT_LINE_Y_M_D_H_M);
+        String happen = DateUtils.getStr(happenAt, ConstantUtils.FORMAT_LINE_Y_M_D_H_M);
         tvHappenAt.setText(happen);
         // dayCount
         long dayCount;
@@ -206,9 +206,9 @@ public class SouvenirDetailDoneActivity extends BaseActivity<SouvenirDetailDoneA
         // foreign
         List<SouvenirForeignFragment> fragmentList = new ArrayList<>();
         List<String> titleList = new ArrayList<>();
-        Calendar calHappen = DateUtils.getCalendar(happenAt);
+        Calendar calHappen = DateUtils.getCal(happenAt);
         int yearHappen = calHappen.get(Calendar.YEAR);
-        Calendar calNow = DateUtils.getCurrentCalendar();
+        Calendar calNow = DateUtils.getCurrentCal();
         int yearNow = calNow.get(Calendar.YEAR);
         calHappen.set(Calendar.YEAR, yearNow);
         if (calHappen.getTimeInMillis() > calNow.getTimeInMillis()) {

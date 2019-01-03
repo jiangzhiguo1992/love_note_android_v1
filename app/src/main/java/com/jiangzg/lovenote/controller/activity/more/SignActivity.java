@@ -199,7 +199,7 @@ public class SignActivity extends BaseActivity<SignActivity> {
     }
 
     private void refreshDateToCurrent() {
-        Calendar calendar = DateUtils.getCurrentCalendar();
+        Calendar calendar = DateUtils.getCurrentCal();
         selectYear = calendar.get(Calendar.YEAR);
         selectMonth = calendar.get(Calendar.MONTH) + 1;
         selectDay = calendar.get(Calendar.DAY_OF_MONTH);
@@ -219,7 +219,7 @@ public class SignActivity extends BaseActivity<SignActivity> {
         int rightCount = 0, leftCount = 0;
         Map<String, com.haibin.calendarview.Calendar> schemeMap = new HashMap<>();
         if (signList != null && signList.size() > 0) {
-            Calendar c = DateUtils.getCurrentCalendar();
+            Calendar c = DateUtils.getCurrentCal();
             int year = c.get(Calendar.YEAR);
             int month = c.get(Calendar.MONTH) + 1;
             int day = c.get(Calendar.DAY_OF_MONTH);
@@ -261,12 +261,12 @@ public class SignActivity extends BaseActivity<SignActivity> {
             for (Sign s : signList) {
                 if (s == null) continue;
                 if (s.getYear() == selectYear && s.getMonthOfYear() == selectMonth && s.getDayOfMonth() == selectDay) {
-                    signShow = DateUtils.getString(TimeHelper.getJavaTimeByGo(s.getCreateAt()), ConstantUtils.FORMAT_H_M);
+                    signShow = DateUtils.getStr(TimeHelper.getJavaTimeByGo(s.getCreateAt()), ConstantUtils.FORMAT_H_M);
                 }
             }
         }
         if (StringUtils.isEmpty(signShow)) {
-            Calendar cal = DateUtils.getCurrentCalendar();
+            Calendar cal = DateUtils.getCurrentCal();
             if (today == null || (cal.get(Calendar.YEAR) == selectYear
                     && cal.get(Calendar.MONTH) + 1 == selectMonth
                     && cal.get(Calendar.DAY_OF_MONTH) == selectDay)) {

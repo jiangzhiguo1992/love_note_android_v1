@@ -27,8 +27,8 @@ public class EntryAdapter extends BaseQuickAdapter<Entry, BaseViewHolder> {
         // data
         String id = "id:" + item.getId();
         String userId = "uid:" + item.getUserId();
-        String create = DateUtils.getString(item.getCreateAt() * 1000, ConstantUtils.FORMAT_LINE_Y_M_D_H_M);
-        String update = DateUtils.getString(item.getUpdateAt() * 1000, ConstantUtils.FORMAT_LINE_Y_M_D_H_M);
+        String create = DateUtils.getStr(item.getCreateAt() * 1000, ConstantUtils.FORMAT_LINE_Y_M_D_H_M);
+        String update = DateUtils.getStr(item.getUpdateAt() * 1000, ConstantUtils.FORMAT_LINE_Y_M_D_H_M);
         String platform = item.getPlatform();
         String market = item.getMarket();
         String deviceName = item.getDeviceName();

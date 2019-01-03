@@ -23,7 +23,7 @@ public class TimeUnit {
     private int second;
 
     public static TimeUnit getByDate(long date) {
-        Calendar c = DateUtils.getCalendar(date);
+        Calendar c = DateUtils.getCal(date);
         TimeUnit unit = new TimeUnit();
         unit.setYear(c.get(Calendar.YEAR));
         unit.setMonth(c.get(Calendar.MONTH));

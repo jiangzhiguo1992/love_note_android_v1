@@ -36,7 +36,7 @@ public class SleepAdapter extends BaseQuickAdapter<Sleep, BaseViewHolder> {
 
     @Override
     protected void convert(BaseViewHolder helper, Sleep item) {
-        String time = DateUtils.getString(TimeHelper.getJavaTimeByGo(item.getCreateAt()), ConstantUtils.FORMAT_H_M);
+        String time = DateUtils.getStr(TimeHelper.getJavaTimeByGo(item.getCreateAt()), ConstantUtils.FORMAT_H_M);
         String format = item.isSleep() ? mActivity.getString(R.string.holder_colon_sleep) : mActivity.getString(R.string.holder_colon_wake);
         String show = String.format(Locale.getDefault(), format, time);
         // view

@@ -229,7 +229,7 @@ public class MensesActivity extends BaseActivity<MensesActivity> {
     }
 
     private void refreshDateToCurrent() {
-        Calendar calendar = DateUtils.getCurrentCalendar();
+        Calendar calendar = DateUtils.getCurrentCal();
         selectYear = calendar.get(Calendar.YEAR);
         selectMonth = calendar.get(Calendar.MONTH) + 1;
         cvMenses.scrollToCurrent(true);
@@ -421,7 +421,7 @@ public class MensesActivity extends BaseActivity<MensesActivity> {
 
     private void showDatePicker() {
         DialogHelper.showDatePicker(mActivity, DateUtils.getCurrentLong(), time -> {
-            Calendar cal = DateUtils.getCalendar(time);
+            Calendar cal = DateUtils.getCal(time);
             int year = cal.get(Calendar.YEAR);
             int month = cal.get(Calendar.MONTH) + 1;
             int day = cal.get(Calendar.DAY_OF_MONTH);

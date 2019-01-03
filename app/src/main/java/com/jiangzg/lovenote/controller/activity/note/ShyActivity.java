@@ -216,7 +216,7 @@ public class ShyActivity extends BaseActivity<ShyActivity> {
     }
 
     private void refreshDateToCurrent() {
-        Calendar calendar = DateUtils.getCurrentCalendar();
+        Calendar calendar = DateUtils.getCurrentCal();
         selectYear = calendar.get(Calendar.YEAR);
         selectMonth = calendar.get(Calendar.MONTH) + 1;
         selectDay = calendar.get(Calendar.DAY_OF_MONTH);

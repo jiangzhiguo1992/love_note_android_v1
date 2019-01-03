@@ -32,7 +32,7 @@ public class DateUtils {
     /**
      * 获取当前时间
      */
-    public static Calendar getCurrentCalendar() {
+    public static Calendar getCurrentCal() {
         return Calendar.getInstance();
     }
 
@@ -40,14 +40,14 @@ public class DateUtils {
         return new Date();
     }
 
-    public static String getCurrentString(String sFormat) {
+    public static String getCurrentStr(String sFormat) {
         if (StringUtils.isEmpty(sFormat)) {
-            LogUtils.w(DateUtils.class, "getCurrentString", "sFormat == null");
+            LogUtils.w(DateUtils.class, "getCurrentStr", "sFormat == null");
             return "";
         }
         SimpleDateFormat format = getFormat(sFormat);
         if (format == null) {
-            LogUtils.w(DateUtils.class, "getCurrentString", "format == null");
+            LogUtils.w(DateUtils.class, "getCurrentStr", "format == null");
             return "";
         }
         return format.format(new Date());
@@ -94,9 +94,9 @@ public class DateUtils {
     /**
      * 获取Calendar类型时间
      */
-    public static Calendar getCalendar(Date date) {
+    public static Calendar getCal(Date date) {
         if (date == null) {
-            LogUtils.w(DateUtils.class, "getCalendar", "date == null");
+            LogUtils.w(DateUtils.class, "getCal", "date == null");
             return null;
         }
         Calendar calendar = Calendar.getInstance();
@@ -104,18 +104,18 @@ public class DateUtils {
         return calendar;
     }
 
-    public static Calendar getCalendar(String time, String sFormat) {
+    public static Calendar getCal(String time, String sFormat) {
         if (StringUtils.isEmpty(time) || StringUtils.isEmpty(sFormat)) {
-            LogUtils.w(DateUtils.class, "getCalendar", "time == null || sFormat == null");
+            LogUtils.w(DateUtils.class, "getCal", "time == null || sFormat == null");
             return null;
         }
         Date date = getDate(time, sFormat);
-        return getCalendar(date);
+        return getCal(date);
     }
 
-    public static Calendar getCalendar(long time) {
+    public static Calendar getCal(long time) {
         Date date = new Date(time);
-        return getCalendar(date);
+        return getCal(date);
     }
 
     /**
@@ -150,35 +150,35 @@ public class DateUtils {
     /**
      * 获取String类型时间
      */
-    public static String getString(Date date, String sFormat) {
+    public static String getStr(Date date, String sFormat) {
         if (date == null || StringUtils.isEmpty(sFormat)) {
-            LogUtils.w(DateUtils.class, "getString", "date == null || sFormat == null");
+            LogUtils.w(DateUtils.class, "getStr", "date == null || sFormat == null");
             return "";
         }
         SimpleDateFormat format = getFormat(sFormat);
         if (format == null) {
-            LogUtils.w(DateUtils.class, "getString", "format == null");
+            LogUtils.w(DateUtils.class, "getStr", "format == null");
             return "";
         }
         return format.format(date);
     }
 
-    public static String getString(long time, String sFormat) {
+    public static String getStr(long time, String sFormat) {
         if (StringUtils.isEmpty(sFormat)) {
-            LogUtils.w(DateUtils.class, "getString", "sFormat == null");
+            LogUtils.w(DateUtils.class, "getStr", "sFormat == null");
             return "";
         }
         Date date = new Date(time);
-        return getString(date, sFormat);
+        return getStr(date, sFormat);
     }
 
-    public static String getString(Calendar calendar, String sFormat) {
+    public static String getStr(Calendar calendar, String sFormat) {
         if (calendar == null || StringUtils.isEmpty(sFormat)) {
-            LogUtils.w(DateUtils.class, "getString", "calendar == null || sFormat == null");
+            LogUtils.w(DateUtils.class, "getStr", "calendar == null || sFormat == null");
             return "";
         }
         Date date = calendar.getTime();
-        return getString(date, sFormat);
+        return getStr(date, sFormat);
     }
 
 }

@@ -27,7 +27,7 @@ public class ApiAdapter extends BaseQuickAdapter<Api, BaseViewHolder> {
     protected void convert(BaseViewHolder helper, Api item) {
         // data
         String id = "id:" + item.getId();
-        String create = DateUtils.getString(item.getCreateAt() * 1000, ConstantUtils.FORMAT_LINE_Y_M_D_H_M);
+        String create = DateUtils.getStr(item.getCreateAt() * 1000, ConstantUtils.FORMAT_LINE_Y_M_D_H_M);
         String userId = "uid:" + String.valueOf(item.getUserId());
         String duration = String.valueOf(item.getDuration());
         String uri = item.getMethod() + item.getUri();

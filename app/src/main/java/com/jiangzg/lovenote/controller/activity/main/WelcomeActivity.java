@@ -163,8 +163,8 @@ public class WelcomeActivity extends BaseActivity<WelcomeActivity> {
 
     private void initShouFa() {
         ivShouFa.setVisibility(View.GONE);
-        Calendar now = DateUtils.getCurrentCalendar();
-        Calendar end = DateUtils.getCurrentCalendar();
+        Calendar now = DateUtils.getCurrentCal();
+        Calendar end = DateUtils.getCurrentCal();
         end.set(Calendar.YEAR, MyApp.SHOUFA_END_YEAR);
         end.set(Calendar.MONTH, MyApp.SHOUFA_END_MONTH - 1);
         end.set(Calendar.DAY_OF_MONTH, MyApp.SHOUFA_END_DAY);

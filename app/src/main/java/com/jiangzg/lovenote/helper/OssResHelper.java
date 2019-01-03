@@ -193,7 +193,7 @@ public class OssResHelper {
             LogUtils.d(OssResHelper.class, "refreshOssResWithDelExpire", "目录不存在");
             return;
         }
-        final String expireTime = DateUtils.getString(expireAt, ConstantUtils.FORMAT_CHINA_Y_M_D_H_M);
+        final String expireTime = DateUtils.getStr(expireAt, ConstantUtils.FORMAT_CHINA_Y_M_D_H_M);
         // 开线程
         MyApp.get().getThread().execute(() -> {
             List<File> existsFileList = FileUtils.listFilesAndDirInDir(dir, true);
@@ -206,7 +206,7 @@ public class OssResHelper {
                 //        for (File file : existsFileList) {
                 //            if (file == null) continue;
                 //            long lastModified = file.lastModified();
-                //            String lastModifyTime = DateUtils.getString(lastModified, ConstantUtils.FORMAT_CHINA_Y_M_D_H_M);
+                //            String lastModifyTime = DateUtils.getStr(lastModified, ConstantUtils.FORMAT_CHINA_Y_M_D_H_M);
                 //            if (lastModified > expireAt) {
                 //                LogUtils.i(OssResHelper.class, "refreshOssResWithDelExpire", "目录(" + dir.getName() + "): 留下没过期文件(" + file.getName() + "): 修改时间 == " + lastModifyTime + " , 过期时间 == " + expireTime);
                 //            } else {
@@ -243,7 +243,7 @@ public class OssResHelper {
                     if (!find) {
                         // 没发现的文件，再检查一下过期时间
                         long lastModified = file.lastModified();
-                        String lastModifyTime = DateUtils.getString(lastModified, ConstantUtils.FORMAT_CHINA_Y_M_D_H_M);
+                        String lastModifyTime = DateUtils.getStr(lastModified, ConstantUtils.FORMAT_CHINA_Y_M_D_H_M);
                         if (lastModified > expireAt) {
                             LogUtils.i(OssResHelper.class, "refreshOssResWithDelExpire", "目录(" + dir.getName() + "): 留下没过期文件(" + file.getName() + "): 修改时间 == " + lastModifyTime + " , 过期时间 == " + expireTime);
                         } else {
@@ -256,7 +256,7 @@ public class OssResHelper {
                     //boolean success = file.setLastModified(DateUtils.getCurrentLong());
                     //if (success) {
                     //    long lastModified = file.lastModified();
-                    //    String lastModifyTime = DateUtils.getString(lastModified, ConstantUtils.FORMAT_CHINA_Y_M_D_H_M);
+                    //    String lastModifyTime = DateUtils.getStr(lastModified, ConstantUtils.FORMAT_CHINA_Y_M_D_H_M);
                     //    LogUtils.i(OssResHelper.class, "refreshOssResWithDelExpire", "目录(" + dir.getName() + "): 更新文件(" + file.getName() + "): 过期时间 == " + lastModifyTime);
                     //} else {
                     //    LogUtils.w(OssResHelper.class, "refreshOssResWithDelExpire", "目录(" + dir.getName() + "): 更新文件(" + file.getName() + "): 过期时间 == 失败");
@@ -306,7 +306,7 @@ public class OssResHelper {
                 for (File file : expireFileList) {
                     if (file == null) continue;
                     long lastModified = file.lastModified();
-                    String lastModifyTime = DateUtils.getString(lastModified, ConstantUtils.FORMAT_CHINA_Y_M_D_H_M);
+                    String lastModifyTime = DateUtils.getStr(lastModified, ConstantUtils.FORMAT_CHINA_Y_M_D_H_M);
                     LogUtils.i(OssResHelper.class, "refreshOssResWithDelExpire", "目录(" + dir.getName() + "): 删除已过期文件(" + file.getName() + "): 修改时间 == " + lastModifyTime + " , 过期时间 == " + expireTime);
                 }
                 ResHelper.deleteFileListInBackground(expireFileList);

@@ -39,7 +39,7 @@ public class SuggestCommentAdapter extends BaseQuickAdapter<SuggestComment, Base
         String uid = "uid:" + item.getUserId();
         String sid = "sid:" + item.getSuggestId();
         String official = item.isOfficial() ? mActivity.getString(R.string.official) : "";
-        String create = DateUtils.getString(item.getCreateAt() * 1000, ConstantUtils.FORMAT_LINE_Y_M_D_H_M);
+        String create = DateUtils.getStr(item.getCreateAt() * 1000, ConstantUtils.FORMAT_LINE_Y_M_D_H_M);
         String contentText = item.getContentText();
         // view
         helper.setText(R.id.tvOfficial, official);

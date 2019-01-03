@@ -27,7 +27,7 @@ public class OssHelper {
      */
     public static void refreshOssClient() {
         OssInfo ossInfo = SPHelper.getOssInfo();
-        String expireTime = DateUtils.getString(ossInfo.getStsExpireTime() * 1000, ConstantUtils.FORMAT_LINE_M_D_H_M);
+        String expireTime = DateUtils.getStr(ossInfo.getStsExpireTime() * 1000, ConstantUtils.FORMAT_LINE_M_D_H_M);
         LogUtils.i(OssHelper.class, "refreshOssClient", "sts将在 " + expireTime + " 过期");
         String bucket = ossInfo.getBucket();
         String accessKeyId = ossInfo.getAccessKeyId();

@@ -363,7 +363,7 @@ public class NoteFragment extends BasePagerFragment<NoteFragment> {
         rlSouvenir.setVisibility(View.VISIBLE);
         // data
         String title = souvenirLatest.getTitle();
-        Calendar calHappen = DateUtils.getCurrentCalendar();
+        Calendar calHappen = DateUtils.getCurrentCal();
         long timeNow = calHappen.getTimeInMillis();
         int yearHappen = calHappen.get(Calendar.YEAR);
         calHappen.setTimeInMillis(TimeHelper.getJavaTimeByGo(souvenirLatest.getHappenAt()));

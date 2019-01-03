@@ -55,7 +55,7 @@ public class OssHelper {
      */
     public static void refreshOssClient() {
         OssInfo ossInfo = SPHelper.getOssInfo();
-        String expireTime = DateUtils.getString(TimeHelper.getJavaTimeByGo(ossInfo.getStsExpireTime()), ConstantUtils.FORMAT_LINE_M_D_H_M);
+        String expireTime = DateUtils.getStr(TimeHelper.getJavaTimeByGo(ossInfo.getStsExpireTime()), ConstantUtils.FORMAT_LINE_M_D_H_M);
         LogUtils.i(OssHelper.class, "refreshOssClient", "sts将在 " + expireTime + " 过期");
         //String bucket = ossInfo.getBucket();
         String accessKeyId = ossInfo.getAccessKeyId();
@@ -124,14 +124,14 @@ public class OssHelper {
     // 给后台看的 所以用CST时区
     private static String createJpegKey(String dir) {
         String uuid = StringUtils.getUUID(8);
-        return dir + DateUtils.getCurrentString(ConstantUtils.FORMAT_CHINA_Y_M_D__H_M_S_S) + "-" + uuid + ".jpeg";
+        return dir + DateUtils.getCurrentStr(ConstantUtils.FORMAT_CHINA_Y_M_D__H_M_S_S) + "-" + uuid + ".jpeg";
     }
 
     // 给后台看的 所以用CST时区
     private static String createExtensionKey(String dir, File source) {
         String uuid = StringUtils.getUUID(8);
         String extension = FileUtils.getFileExtension(source);
-        return dir + DateUtils.getCurrentString(ConstantUtils.FORMAT_CHINA_Y_M_D__H_M_S_S) + "-" + uuid + extension;
+        return dir + DateUtils.getCurrentStr(ConstantUtils.FORMAT_CHINA_Y_M_D__H_M_S_S) + "-" + uuid + extension;
     }
 
     // 取消任务

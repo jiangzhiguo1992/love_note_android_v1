@@ -41,7 +41,7 @@ public class ShyAdapter extends BaseQuickAdapter<Shy, BaseViewHolder> {
     @Override
     protected void convert(BaseViewHolder helper, Shy item) {
         String avatar = UserHelper.getAvatar(couple, item.getUserId());
-        String happenAt = DateUtils.getString(TimeHelper.getJavaTimeByGo(item.getHappenAt()), ConstantUtils.FORMAT_H_M);
+        String happenAt = DateUtils.getStr(TimeHelper.getJavaTimeByGo(item.getHappenAt()), ConstantUtils.FORMAT_H_M);
         // view
         FrescoAvatarView ivAvatar = helper.getView(R.id.ivAvatar);
         ivAvatar.setData(avatar);

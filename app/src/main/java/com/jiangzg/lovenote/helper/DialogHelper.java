@@ -90,7 +90,7 @@ public class DialogHelper {
     // 日期选择器
     public static void showDatePicker(Context context, long time, final OnPickListener listener) {
         if (context == null) return;
-        final Calendar calendar = DateUtils.getCalendar(time);
+        final Calendar calendar = DateUtils.getCal(time);
         int year = calendar.get(Calendar.YEAR);
         int month = calendar.get(Calendar.MONTH);
         int day = calendar.get(Calendar.DAY_OF_MONTH);
@@ -107,7 +107,7 @@ public class DialogHelper {
     // 时钟选择器
     public static void showTimePicker(Context context, long time, final OnPickListener listener) {
         if (context == null) return;
-        final Calendar calendar = DateUtils.getCalendar(time);
+        final Calendar calendar = DateUtils.getCal(time);
         int hour = calendar.get(Calendar.HOUR_OF_DAY);
         int minute = calendar.get(Calendar.MINUTE);
         TimePickerDialog picker = new TimePickerDialog(context, (view, hourOfDay, minute1) -> {

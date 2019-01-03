@@ -211,7 +211,7 @@ public class UserFragment extends BaseFragment<UserFragment> {
     private void getUserData() {
         long current = DateUtils.getCurrentLong() / 1000;
         long startH1 = (DateUtils.getCurrentLong() - ConstantUtils.HOUR) / 1000;
-        Calendar calendar = DateUtils.getCurrentCalendar();
+        Calendar calendar = DateUtils.getCurrentCal();
         calendar.set(Calendar.HOUR_OF_DAY, 0);
         calendar.set(Calendar.MINUTE, 0);
         calendar.set(Calendar.SECOND, 0);
@@ -297,7 +297,7 @@ public class UserFragment extends BaseFragment<UserFragment> {
     private void getEntryData() {
         long current = DateUtils.getCurrentLong() / 1000;
         long startH1 = (DateUtils.getCurrentLong() - ConstantUtils.HOUR) / 1000;
-        Calendar calendar = DateUtils.getCurrentCalendar();
+        Calendar calendar = DateUtils.getCurrentCal();
         calendar.set(Calendar.HOUR_OF_DAY, 0);
         calendar.set(Calendar.MINUTE, 0);
         calendar.set(Calendar.SECOND, 0);
@@ -383,7 +383,7 @@ public class UserFragment extends BaseFragment<UserFragment> {
     private void getSmsData() {
         long current = DateUtils.getCurrentLong() / 1000;
         long startH1 = (DateUtils.getCurrentLong() - ConstantUtils.HOUR) / 1000;
-        Calendar calendar = DateUtils.getCurrentCalendar();
+        Calendar calendar = DateUtils.getCurrentCal();
         calendar.set(Calendar.HOUR_OF_DAY, 0);
         calendar.set(Calendar.MINUTE, 0);
         calendar.set(Calendar.SECOND, 0);
@@ -469,7 +469,7 @@ public class UserFragment extends BaseFragment<UserFragment> {
     private void getApiData() {
         long current = DateUtils.getCurrentLong() / 1000;
         long startH1 = (DateUtils.getCurrentLong() - ConstantUtils.HOUR) / 1000;
-        Calendar calendar = DateUtils.getCurrentCalendar();
+        Calendar calendar = DateUtils.getCurrentCal();
         calendar.set(Calendar.HOUR_OF_DAY, 0);
         calendar.set(Calendar.MINUTE, 0);
         calendar.set(Calendar.SECOND, 0);
@@ -555,7 +555,7 @@ public class UserFragment extends BaseFragment<UserFragment> {
     private void getCoupleData() {
         long current = DateUtils.getCurrentLong() / 1000;
         //long startH1 = (DateUtils.getCurrentLong() - ConstantUtils.HOUR) / 1000;
-        Calendar calendar = DateUtils.getCurrentCalendar();
+        Calendar calendar = DateUtils.getCurrentCal();
         calendar.set(Calendar.HOUR_OF_DAY, 0);
         calendar.set(Calendar.MINUTE, 0);
         calendar.set(Calendar.SECOND, 0);
@@ -640,11 +640,11 @@ public class UserFragment extends BaseFragment<UserFragment> {
 
     private void getSignData() {
         long currentLong = DateUtils.getCurrentLong();
-        Calendar c0 = DateUtils.getCalendar(currentLong);
-        Calendar c1 = DateUtils.getCalendar(currentLong - ConstantUtils.DAY);
-        Calendar c2 = DateUtils.getCalendar(currentLong - ConstantUtils.DAY * 2);
-        Calendar c3 = DateUtils.getCalendar(currentLong - ConstantUtils.DAY * 3);
-        Calendar c4 = DateUtils.getCalendar(currentLong - ConstantUtils.DAY * 4);
+        Calendar c0 = DateUtils.getCal(currentLong);
+        Calendar c1 = DateUtils.getCal(currentLong - ConstantUtils.DAY);
+        Calendar c2 = DateUtils.getCal(currentLong - ConstantUtils.DAY * 2);
+        Calendar c3 = DateUtils.getCal(currentLong - ConstantUtils.DAY * 3);
+        Calendar c4 = DateUtils.getCal(currentLong - ConstantUtils.DAY * 4);
         int year0 = c0.get(Calendar.YEAR);
         int year1 = c1.get(Calendar.YEAR);
         int year2 = c2.get(Calendar.YEAR);

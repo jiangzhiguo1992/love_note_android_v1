@@ -26,7 +26,7 @@ public class SmsAdapter extends BaseQuickAdapter<Sms, BaseViewHolder> {
     protected void convert(BaseViewHolder helper, Sms item) {
         // data
         String id = "id:" + item.getId();
-        String create = DateUtils.getString(item.getCreateAt() * 1000, ConstantUtils.FORMAT_LINE_Y_M_D_H_M);
+        String create = DateUtils.getStr(item.getCreateAt() * 1000, ConstantUtils.FORMAT_LINE_Y_M_D_H_M);
         String phone = item.getPhone();
         String sendType = Sms.getTypeShow(item.getSendType());
         String content = item.getContent();

@@ -28,7 +28,7 @@ public class CoupleStateAdapter extends BaseQuickAdapter<Couple.State, BaseViewH
         String id = "id:" + item.getId();
         String uid = "uid:" + item.getUserId();
         String cid = "cid:" + item.getCoupleId();
-        String create = DateUtils.getString(item.getCreateAt() * 1000, ConstantUtils.FORMAT_LINE_Y_M_D_H_M);
+        String create = DateUtils.getStr(item.getCreateAt() * 1000, ConstantUtils.FORMAT_LINE_Y_M_D_H_M);
         String state = Couple.getStateShow(item.getState());
         // view
         helper.setText(R.id.tvId, id);

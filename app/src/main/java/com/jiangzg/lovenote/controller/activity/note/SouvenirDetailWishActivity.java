@@ -176,7 +176,7 @@ public class SouvenirDetailWishActivity extends BaseActivity<SouvenirDetailDoneA
         tvTitle.setText(souvenir.getTitle());
         // happen
         long happenAt = TimeHelper.getJavaTimeByGo(souvenir.getHappenAt());
-        String happen = DateUtils.getString(happenAt, ConstantUtils.FORMAT_LINE_Y_M_D_H_M);
+        String happen = DateUtils.getStr(happenAt, ConstantUtils.FORMAT_LINE_Y_M_D_H_M);
         tvHappenAt.setText(happen);
         // dayCount
         long dayCount;

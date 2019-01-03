@@ -158,8 +158,8 @@ public class UserListActivity extends BaseActivity<UserListActivity> {
     }
 
     private void refreshDateView() {
-        String startAt = "s:" + DateUtils.getString(start, ConstantUtils.FORMAT_LINE_Y_M_D_H_M);
-        String endAt = "e:" + DateUtils.getString(end, ConstantUtils.FORMAT_LINE_Y_M_D_H_M);
+        String startAt = "s:" + DateUtils.getStr(start, ConstantUtils.FORMAT_LINE_Y_M_D_H_M);
+        String endAt = "e:" + DateUtils.getStr(end, ConstantUtils.FORMAT_LINE_Y_M_D_H_M);
         btnStart.setText(startAt);
         btnEnd.setText(endAt);
     }

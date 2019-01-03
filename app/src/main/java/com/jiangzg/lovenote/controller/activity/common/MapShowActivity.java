@@ -139,7 +139,7 @@ public class MapShowActivity extends BaseActivity<MapShowActivity> {
 
             @Override
             public void onFailed(String errMsg) {
-                //ToastUtils.show(getString(R.string.location_error));
+                //ToastUtils.show(getStr(R.string.location_error));
             }
         });
     }

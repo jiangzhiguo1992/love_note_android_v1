@@ -40,8 +40,8 @@ public class PostAdapter extends BaseQuickAdapter<Post, BaseViewHolder> {
         String cid = "cid:" + item.getCoupleId();
         String kind = "kind:" + item.getKind();
         String subKind = "subKind:" + item.getSubKind();
-        String create = "创建于:" + DateUtils.getString(item.getCreateAt() * 1000, ConstantUtils.FORMAT_LINE_Y_M_D_H_M);
-        String update = "更新于:" + DateUtils.getString(item.getUpdateAt() * 1000, ConstantUtils.FORMAT_LINE_Y_M_D_H_M);
+        String create = "创建于:" + DateUtils.getStr(item.getCreateAt() * 1000, ConstantUtils.FORMAT_LINE_Y_M_D_H_M);
+        String update = "更新于:" + DateUtils.getStr(item.getUpdateAt() * 1000, ConstantUtils.FORMAT_LINE_Y_M_D_H_M);
         String title = item.getTitle();
         String contentText = item.getContentText();
         String reportCount = String.valueOf(item.getReportCount());

@@ -27,8 +27,8 @@ public class TimeHelper {
 
     // 时间显示(有横线)(一般不用)
     public static String getTimeShowLine_MD_YMD_ByGo(long time) {
-        Calendar cNow = DateUtils.getCurrentCalendar();
-        Calendar cTime = DateUtils.getCurrentCalendar();
+        Calendar cNow = DateUtils.getCurrentCal();
+        Calendar cTime = DateUtils.getCurrentCal();
         cTime.setTime(new Date(getJavaTimeByGo(time)));
         String format;
         if (cNow.get(Calendar.YEAR) == cTime.get(Calendar.YEAR)) {
@@ -38,13 +38,13 @@ public class TimeHelper {
             // 不同年
             format = ConstantUtils.FORMAT_LINE_Y_M_D;
         }
-        return DateUtils.getString(getJavaTimeByGo(time), format);
+        return DateUtils.getStr(getJavaTimeByGo(time), format);
     }
 
     // 时间显示(有横线)
     public static String getTimeShowLine_HM_MD_YMD_ByGo(long time) {
-        Calendar cNow = DateUtils.getCurrentCalendar();
-        Calendar cTime = DateUtils.getCurrentCalendar();
+        Calendar cNow = DateUtils.getCurrentCal();
+        Calendar cTime = DateUtils.getCurrentCal();
         cTime.setTime(new Date(getJavaTimeByGo(time)));
         String format;
         if (CalUtils.isSameDay(cNow, cTime)) {
@@ -57,13 +57,13 @@ public class TimeHelper {
             // 不同年
             format = ConstantUtils.FORMAT_LINE_Y_M_D;
         }
-        return DateUtils.getString(getJavaTimeByGo(time), format);
+        return DateUtils.getStr(getJavaTimeByGo(time), format);
     }
 
     // 时间显示(有横线)
     public static String getTimeShowLine_HM_MDHM_YMDHM_ByGo(long time) {
-        Calendar cNow = DateUtils.getCurrentCalendar();
-        Calendar cTime = DateUtils.getCurrentCalendar();
+        Calendar cNow = DateUtils.getCurrentCal();
+        Calendar cTime = DateUtils.getCurrentCal();
         cTime.setTime(new Date(getJavaTimeByGo(time)));
         String format;
         if (CalUtils.isSameDay(cNow, cTime)) {
@@ -76,13 +76,13 @@ public class TimeHelper {
             // 不同年
             format = ConstantUtils.FORMAT_LINE_Y_M_D_H_M;
         }
-        return DateUtils.getString(getJavaTimeByGo(time), format);
+        return DateUtils.getStr(getJavaTimeByGo(time), format);
     }
 
     // 时间显示(y年 M月 d日)(一般不用)
     public static String getTimeShowLocal_MD_YMD_ByGo(long time) {
-        Calendar cNow = DateUtils.getCurrentCalendar();
-        Calendar cTime = DateUtils.getCurrentCalendar();
+        Calendar cNow = DateUtils.getCurrentCal();
+        Calendar cTime = DateUtils.getCurrentCal();
         cTime.setTime(new Date(getJavaTimeByGo(time)));
         String format;
         if (cNow.get(Calendar.YEAR) == cTime.get(Calendar.YEAR)) {
@@ -97,13 +97,13 @@ public class TimeHelper {
             String day = MyApp.get().getString(R.string.dayR);
             format = "yyyy" + year + " MM" + month + " dd" + day;
         }
-        return DateUtils.getString(getJavaTimeByGo(time), format);
+        return DateUtils.getStr(getJavaTimeByGo(time), format);
     }
 
     // 时间显示(y年 M月 d日 / HH:mm)
     public static String getTimeShowLocal_HM_MD_YMD_ByGo(long time) {
-        Calendar cNow = DateUtils.getCurrentCalendar();
-        Calendar cTime = DateUtils.getCurrentCalendar();
+        Calendar cNow = DateUtils.getCurrentCal();
+        Calendar cTime = DateUtils.getCurrentCal();
         cTime.setTime(new Date(getJavaTimeByGo(time)));
         String format;
         if (CalUtils.isSameDay(cNow, cTime)) {
@@ -121,13 +121,13 @@ public class TimeHelper {
             String day = MyApp.get().getString(R.string.dayR);
             format = "yyyy" + year + " MM" + month + " dd" + day;
         }
-        return DateUtils.getString(getJavaTimeByGo(time), format);
+        return DateUtils.getStr(getJavaTimeByGo(time), format);
     }
 
     // 时间显示(y年M月d日 HH:mm)
     public static String getTimeShowLocal_HM_MDHM_YMDHM_ByGo(long time) {
-        Calendar cNow = DateUtils.getCurrentCalendar();
-        Calendar cTime = DateUtils.getCurrentCalendar();
+        Calendar cNow = DateUtils.getCurrentCal();
+        Calendar cTime = DateUtils.getCurrentCal();
         cTime.setTime(new Date(getJavaTimeByGo(time)));
         String format;
         if (CalUtils.isSameDay(cNow, cTime)) {
@@ -145,7 +145,7 @@ public class TimeHelper {
             String day = MyApp.get().getString(R.string.dayR);
             format = "yyyy" + year + "MM" + month + "dd" + day + " HH:mm";
         }
-        return DateUtils.getString(getJavaTimeByGo(time), format);
+        return DateUtils.getStr(getJavaTimeByGo(time), format);
     }
 
 }

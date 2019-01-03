@@ -43,7 +43,7 @@ public class CalendarMonthView extends MonthView {
     }
 
     public static com.haibin.calendarview.Calendar getCalendarView(long goTime) {
-        Calendar calendar = DateUtils.getCalendar(TimeHelper.getJavaTimeByGo(goTime));
+        Calendar calendar = DateUtils.getCal(TimeHelper.getJavaTimeByGo(goTime));
         com.haibin.calendarview.Calendar c = new com.haibin.calendarview.Calendar();
         c.setYear(calendar.get(Calendar.YEAR));
         c.setMonth(calendar.get(Calendar.MONTH) + 1);

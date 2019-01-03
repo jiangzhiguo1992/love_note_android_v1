@@ -253,7 +253,7 @@ public class CoupleFragment extends BaseFragment<CoupleFragment> {
 
     private void getVipData() {
         long current = DateUtils.getCurrentLong() / 1000;
-        Calendar calendar = DateUtils.getCurrentCalendar();
+        Calendar calendar = DateUtils.getCurrentCal();
         calendar.set(Calendar.HOUR_OF_DAY, 0);
         calendar.set(Calendar.MINUTE, 0);
         calendar.set(Calendar.SECOND, 0);
@@ -300,7 +300,7 @@ public class CoupleFragment extends BaseFragment<CoupleFragment> {
 
     private void getCoinData() {
         long current = DateUtils.getCurrentLong() / 1000;
-        Calendar calendar = DateUtils.getCurrentCalendar();
+        Calendar calendar = DateUtils.getCurrentCal();
         calendar.set(Calendar.HOUR_OF_DAY, 0);
         calendar.set(Calendar.MINUTE, 0);
         calendar.set(Calendar.SECOND, 0);
@@ -347,7 +347,7 @@ public class CoupleFragment extends BaseFragment<CoupleFragment> {
 
     private void getBillData() {
         long current = DateUtils.getCurrentLong() / 1000;
-        Calendar calendar = DateUtils.getCurrentCalendar();
+        Calendar calendar = DateUtils.getCurrentCal();
         calendar.set(Calendar.HOUR_OF_DAY, 0);
         calendar.set(Calendar.MINUTE, 0);
         calendar.set(Calendar.SECOND, 0);

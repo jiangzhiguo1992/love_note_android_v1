@@ -47,8 +47,8 @@ public class MatchWorkAdapter extends BaseQuickAdapter<MatchWork, BaseViewHolder
         String cid = "cid:" + item.getCoupleId();
         String mpid = "mpid:" + item.getMatchPeriodId();
         String kind = MatchPeriod.getKindShow(item.getKind());
-        String create = "创建:" + DateUtils.getString(item.getCreateAt() * 1000, ConstantUtils.FORMAT_LINE_Y_M_D_H_M);
-        String update = "更新:" + DateUtils.getString(item.getUpdateAt() * 1000, ConstantUtils.FORMAT_LINE_Y_M_D_H_M);
+        String create = "创建:" + DateUtils.getStr(item.getCreateAt() * 1000, ConstantUtils.FORMAT_LINE_Y_M_D_H_M);
+        String update = "更新:" + DateUtils.getStr(item.getUpdateAt() * 1000, ConstantUtils.FORMAT_LINE_Y_M_D_H_M);
         String title = item.getTitle();
         String contentText = item.getContentText();
         String contentImage = item.getContentImage();

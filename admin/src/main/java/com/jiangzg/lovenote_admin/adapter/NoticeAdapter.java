@@ -35,8 +35,8 @@ public class NoticeAdapter extends BaseQuickAdapter<Notice, BaseViewHolder> {
     protected void convert(BaseViewHolder helper, Notice item) {
         // data
         String id = "id:" + item.getId();
-        String create = "时间:" + DateUtils.getString(item.getCreateAt() * 1000, ConstantUtils.FORMAT_LINE_Y_M_D_H_M);
-        //String update = "u:" + DateUtils.getString(item.getUpdateAt() * 1000, ConstantUtils.FORMAT_LINE_Y_M_D_H_M);
+        String create = "时间:" + DateUtils.getStr(item.getCreateAt() * 1000, ConstantUtils.FORMAT_LINE_Y_M_D_H_M);
+        //String update = "u:" + DateUtils.getStr(item.getUpdateAt() * 1000, ConstantUtils.FORMAT_LINE_Y_M_D_H_M);
         String type = "(" + Notice.getTypeShow(item.getContentType()) + ")";
         String title = item.getTitle();
         String content = item.getContentText().replace("\\n", "\n");

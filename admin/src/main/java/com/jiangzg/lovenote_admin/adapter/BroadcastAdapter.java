@@ -35,10 +35,10 @@ public class BroadcastAdapter extends BaseQuickAdapter<Broadcast, BaseViewHolder
     protected void convert(BaseViewHolder helper, Broadcast item) {
         // data
         String id = "id:" + item.getId();
-        //String create = "创建:" + DateUtils.getString(item.getCreateAt() * 1000, ConstantUtils.FORMAT_LINE_Y_M_D_H_M);
-        //String update = "更新:" + DateUtils.getString(item.getUpdateAt() * 1000, ConstantUtils.FORMAT_LINE_Y_M_D_H_M);
-        String start = "开始:" + DateUtils.getString(item.getStartAt() * 1000, ConstantUtils.FORMAT_LINE_Y_M_D_H_M);
-        String end = "结束:" + (item.getEndAt() == 0 ? "永久" : DateUtils.getString(item.getEndAt() * 1000, ConstantUtils.FORMAT_LINE_Y_M_D_H_M));
+        //String create = "创建:" + DateUtils.getStr(item.getCreateAt() * 1000, ConstantUtils.FORMAT_LINE_Y_M_D_H_M);
+        //String update = "更新:" + DateUtils.getStr(item.getUpdateAt() * 1000, ConstantUtils.FORMAT_LINE_Y_M_D_H_M);
+        String start = "开始:" + DateUtils.getStr(item.getStartAt() * 1000, ConstantUtils.FORMAT_LINE_Y_M_D_H_M);
+        String end = "结束:" + (item.getEndAt() == 0 ? "永久" : DateUtils.getStr(item.getEndAt() * 1000, ConstantUtils.FORMAT_LINE_Y_M_D_H_M));
         String type = "(" + Broadcast.getTypeShow(item.getContentType()) + ")";
         String isEnd = "(" + item.isEnd() + ")";
         String title = item.getTitle();

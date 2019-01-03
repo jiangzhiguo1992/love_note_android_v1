@@ -28,7 +28,7 @@ public class PlaceAdapter extends BaseQuickAdapter<Place, BaseViewHolder> {
         // data
         String id = "id:" + item.getId();
         String userId = "uid:" + item.getUserId();
-        String create = DateUtils.getString(item.getCreateAt() * 1000, ConstantUtils.FORMAT_LINE_Y_M_D_H_M);
+        String create = DateUtils.getStr(item.getCreateAt() * 1000, ConstantUtils.FORMAT_LINE_Y_M_D_H_M);
         String address = StringUtils.isEmpty(item.getAddress()) ? item.getStreet() : item.getAddress();
         String cityId = "city:" + item.getCityId();
         String lon = "lon:" + item.getLongitude();

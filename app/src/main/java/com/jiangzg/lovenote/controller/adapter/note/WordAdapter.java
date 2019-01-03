@@ -39,7 +39,7 @@ public class WordAdapter extends BaseMultiItemQuickAdapter<Word, BaseViewHolder>
     protected void convert(BaseViewHolder helper, Word item) {
         // data
         String timeDay = TimeHelper.getTimeShowLine_MD_YMD_ByGo(item.getCreateAt());
-        String timeClock = DateUtils.getString(TimeHelper.getJavaTimeByGo(item.getCreateAt()), ConstantUtils.FORMAT_H_M);
+        String timeClock = DateUtils.getStr(TimeHelper.getJavaTimeByGo(item.getCreateAt()), ConstantUtils.FORMAT_H_M);
         String content = item.getContentText();
         // view
         helper.setText(R.id.tvCreateAt, timeDay);

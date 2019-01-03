@@ -30,8 +30,8 @@ public class CoupleAdapter extends BaseQuickAdapter<Couple, BaseViewHolder> {
     protected void convert(BaseViewHolder helper, Couple item) {
         // data
         String id = "id:" + item.getId();
-        String create = "c:" + DateUtils.getString(item.getCreateAt() * 1000, ConstantUtils.FORMAT_LINE_Y_M_D_H_M);
-        String update = "u:" + DateUtils.getString(item.getUpdateAt() * 1000, ConstantUtils.FORMAT_LINE_Y_M_D_H_M);
+        String create = "c:" + DateUtils.getStr(item.getCreateAt() * 1000, ConstantUtils.FORMAT_LINE_Y_M_D_H_M);
+        String update = "u:" + DateUtils.getStr(item.getUpdateAt() * 1000, ConstantUtils.FORMAT_LINE_Y_M_D_H_M);
         String creatorId = "c:" + item.getCreatorId();
         String creatorAvatar = item.getCreatorAvatar();
         String creatorName = item.getCreatorName();

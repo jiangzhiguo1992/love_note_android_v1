@@ -43,8 +43,8 @@ public class PostCommentAdapter extends BaseQuickAdapter<PostComment, BaseViewHo
         String pid = "pid:" + item.getPostId();
         String tcid = "tcid:" + item.getToCommentId();
         String floor = "楼层:" + String.valueOf(item.getFloor());
-        String create = "创建:" + DateUtils.getString(item.getCreateAt() * 1000, ConstantUtils.FORMAT_LINE_Y_M_D_H_M);
-        String update = "更新:" + DateUtils.getString(item.getUpdateAt() * 1000, ConstantUtils.FORMAT_LINE_Y_M_D_H_M);
+        String create = "创建:" + DateUtils.getStr(item.getCreateAt() * 1000, ConstantUtils.FORMAT_LINE_Y_M_D_H_M);
+        String update = "更新:" + DateUtils.getStr(item.getUpdateAt() * 1000, ConstantUtils.FORMAT_LINE_Y_M_D_H_M);
         String contentText = item.getKind() == PostComment.KIND_JAB ? "【戳了一下】" : item.getContentText();
         String subCommentCount = String.valueOf(item.getSubCommentCount());
         String reportCount = String.valueOf(item.getReportCount());

@@ -41,7 +41,7 @@ public class AlarmUtils {
             LogUtils.w(AlarmUtils.class, "sendTriggerActivity", "context/cls == null");
             return null;
         } else {
-            String time = DateUtils.getString(trigger, ConstantUtils.FORMAT_LINE_Y_M_D_H_M_S);
+            String time = DateUtils.getStr(trigger, ConstantUtils.FORMAT_LINE_Y_M_D_H_M_S);
             LogUtils.i(AlarmUtils.class, "sendTriggerService", "将在 " + time + " 启动Activity");
         }
         AlarmManager alarmManager = AppBase.getAlarmManager();
@@ -76,7 +76,7 @@ public class AlarmUtils {
             LogUtils.w(AlarmUtils.class, "sendTriggerBroadcast", "cls == null");
             return null;
         } else {
-            String time = DateUtils.getString(trigger, ConstantUtils.FORMAT_LINE_Y_M_D_H_M_S);
+            String time = DateUtils.getStr(trigger, ConstantUtils.FORMAT_LINE_Y_M_D_H_M_S);
             LogUtils.i(AlarmUtils.class, "sendTriggerBroadcast", "将在 " + time + " 发送Broadcast");
         }
         AlarmManager alarmManager = AppBase.getAlarmManager();
@@ -111,7 +111,7 @@ public class AlarmUtils {
             LogUtils.w(AlarmUtils.class, "sendTriggerService", "cls == null");
             return null;
         } else {
-            String time = DateUtils.getString(trigger, ConstantUtils.FORMAT_LINE_Y_M_D_H_M_S);
+            String time = DateUtils.getStr(trigger, ConstantUtils.FORMAT_LINE_Y_M_D_H_M_S);
             LogUtils.i(AlarmUtils.class, "sendTriggerService", "将在 " + time + " 启动Service");
         }
         AlarmManager alarmManager = AppBase.getAlarmManager();

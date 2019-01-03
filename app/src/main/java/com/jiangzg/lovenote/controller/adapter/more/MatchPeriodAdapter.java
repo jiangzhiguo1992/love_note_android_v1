@@ -33,8 +33,8 @@ public class MatchPeriodAdapter extends BaseQuickAdapter<MatchPeriod, BaseViewHo
     protected void convert(BaseViewHolder helper, MatchPeriod item) {
         // data
         String title = item.getTitle();
-        String start = DateUtils.getString(TimeHelper.getJavaTimeByGo(item.getStartAt()), ConstantUtils.FORMAT_LINE_M_D_H_M);
-        String end = DateUtils.getString(TimeHelper.getJavaTimeByGo(item.getEndAt()), ConstantUtils.FORMAT_LINE_M_D_H_M);
+        String start = DateUtils.getStr(TimeHelper.getJavaTimeByGo(item.getStartAt()), ConstantUtils.FORMAT_LINE_M_D_H_M);
+        String end = DateUtils.getStr(TimeHelper.getJavaTimeByGo(item.getEndAt()), ConstantUtils.FORMAT_LINE_M_D_H_M);
         String time = String.format(Locale.getDefault(), mActivity.getString(R.string.holder_space_line_space_holder), start, end);
         String periodShow = String.format(Locale.getDefault(), mActivity.getString(R.string.the_holder_period), item.getPeriod());
         String coinChange = String.format(Locale.getDefault(), mActivity.getString(R.string.go_in_award_colon_holder_coin), item.getCoinChange());

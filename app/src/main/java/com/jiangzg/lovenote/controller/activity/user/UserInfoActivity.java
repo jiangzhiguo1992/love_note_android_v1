@@ -142,7 +142,7 @@ public class UserInfoActivity extends BaseActivity<UserInfoActivity> {
         }
         final int sex = (isGirl == View.VISIBLE) ? User.SEX_GIRL : User.SEX_BOY;
         String sexShow = (sex == User.SEX_GIRL) ? getString(R.string.girl) : getString(R.string.boy);
-        Calendar calendar = DateUtils.getCurrentCalendar();
+        Calendar calendar = DateUtils.getCurrentCal();
         calendar.set(year, month - 1, day, 0, 0, 0);
         final long birth = TimeHelper.getGoTimeByJava(calendar.getTimeInMillis());
         String title = getString(R.string.once_push_never_modify);

@@ -35,8 +35,8 @@ public class BillAdapter extends BaseQuickAdapter<Bill, BaseViewHolder> {
         String id = "id:" + item.getId();
         String uid = "uid:" + item.getUserId();
         String cid = "cid:" + item.getCoupleId();
-        String create = "c:" + DateUtils.getString(item.getCreateAt() * 1000, ConstantUtils.FORMAT_LINE_Y_M_D_H_M);
-        String update = "u:" + DateUtils.getString(item.getUpdateAt() * 1000, ConstantUtils.FORMAT_LINE_Y_M_D_H_M);
+        String create = "c:" + DateUtils.getStr(item.getCreateAt() * 1000, ConstantUtils.FORMAT_LINE_Y_M_D_H_M);
+        String update = "u:" + DateUtils.getStr(item.getUpdateAt() * 1000, ConstantUtils.FORMAT_LINE_Y_M_D_H_M);
         String platformOs = item.getPlatformOs();
         String platformPay = Bill.getPlatformPayShow(item.getPlatformPay());
         String payType = Bill.getPayTypeShow(item.getPayType());

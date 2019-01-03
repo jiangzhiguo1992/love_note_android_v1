@@ -90,11 +90,11 @@ public class SignListActivity extends BaseActivity<SignListActivity> {
             etCid.setText(String.valueOf(cid));
         }
         // time
-        int year = DateUtils.getCurrentCalendar().get(Calendar.YEAR);
+        int year = DateUtils.getCurrentCal().get(Calendar.YEAR);
         etYear.setText(String.valueOf(year));
-        int month = DateUtils.getCurrentCalendar().get(Calendar.MONTH) + 1;
+        int month = DateUtils.getCurrentCal().get(Calendar.MONTH) + 1;
         etMonth.setText(String.valueOf(month));
-        int day = DateUtils.getCurrentCalendar().get(Calendar.DAY_OF_MONTH);
+        int day = DateUtils.getCurrentCal().get(Calendar.DAY_OF_MONTH);
         etDay.setText(String.valueOf(day));
         // recycler
         recyclerHelper = new RecyclerHelper(rv)

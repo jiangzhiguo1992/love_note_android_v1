@@ -301,8 +301,8 @@ public class CoupleInfoActivity extends BaseActivity<CoupleInfoActivity> {
         String taPhone = ta == null ? "" : ta.getPhone();
         long meBirth = TimeHelper.getJavaTimeByGo(me == null ? 0 : me.getBirthday());
         long taBirth = TimeHelper.getJavaTimeByGo(ta == null ? 0 : ta.getBirthday());
-        String meBirthShow = DateUtils.getString(meBirth, ConstantUtils.FORMAT_POINT_Y_M_D);
-        String taBirthShow = DateUtils.getString(taBirth, ConstantUtils.FORMAT_POINT_Y_M_D);
+        String meBirthShow = DateUtils.getStr(meBirth, ConstantUtils.FORMAT_POINT_Y_M_D);
+        String taBirthShow = DateUtils.getStr(taBirth, ConstantUtils.FORMAT_POINT_Y_M_D);
         int togetherDay = SPHelper.getTogetherDay();
         // view
         if (StringUtils.isEmpty(taAvatar)) {

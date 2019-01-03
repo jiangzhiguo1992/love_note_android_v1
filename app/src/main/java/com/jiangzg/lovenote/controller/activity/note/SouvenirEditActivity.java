@@ -208,7 +208,7 @@ public class SouvenirEditActivity extends BaseActivity<SouvenirEditActivity> {
     private void refreshDateView() {
         if (souvenir == null) return;
         long happenAt = TimeHelper.getJavaTimeByGo(souvenir.getHappenAt());
-        String happen = DateUtils.getString(happenAt, ConstantUtils.FORMAT_LINE_Y_M_D_H_M);
+        String happen = DateUtils.getStr(happenAt, ConstantUtils.FORMAT_LINE_Y_M_D_H_M);
         tvHappenAt.setText(happen);
     }
 

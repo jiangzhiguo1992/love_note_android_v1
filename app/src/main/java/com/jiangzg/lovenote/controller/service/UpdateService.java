@@ -76,7 +76,7 @@ public class UpdateService extends Service {
             Version version = versionList.get(i);
             String versionName = version.getVersionName();
             long createdAt = version.getCreateAt();
-            String create = DateUtils.getString(TimeHelper.getJavaTimeByGo(createdAt), ConstantUtils.FORMAT_LINE_M_D);
+            String create = DateUtils.getStr(TimeHelper.getJavaTimeByGo(createdAt), ConstantUtils.FORMAT_LINE_M_D);
             String updateLog = version.getUpdateLog();
             updateLog = updateLog.replace("\\n", "\n"); // 换行问题
             builder.append(MyApp.get().getString(R.string.version_number_colon)).append(versionName)

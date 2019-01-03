@@ -22,7 +22,7 @@ public class SuggestInfo extends BaseObj {
         // status
         List<SuggestStatus> statusList = new ArrayList<>();
         statusList.add(new SuggestStatus(STATUS_VISIBLE, MyApp.get().getString(R.string.all)));
-        //statusList.add(new SuggestStatus(Suggest.STATUS_REPLY_NO, MyApp.get().getString(R.string.no_reply)));
+        //statusList.add(new SuggestStatus(Suggest.STATUS_REPLY_NO, MyApp.get().getStr(R.string.no_reply)));
         statusList.add(new SuggestStatus(Suggest.STATUS_REPLY_YES, MyApp.get().getString(R.string.already_reply)));
         statusList.add(new SuggestStatus(Suggest.STATUS_ACCEPT_NO, MyApp.get().getString(R.string.no_accept)));
         statusList.add(new SuggestStatus(Suggest.STATUS_ACCEPT_YES, MyApp.get().getString(R.string.already_accept)));

@@ -124,8 +124,8 @@ public class MatchPeriodEditActivity extends BaseActivity<MatchPeriodEditActivit
         if (endAt <= 0) {
             endAt = DateUtils.getCurrentLong();
         }
-        String start = "s: " + DateUtils.getString(startAt, ConstantUtils.FORMAT_LINE_Y_M_D_H_M);
-        String end = "e: " + DateUtils.getString(endAt, ConstantUtils.FORMAT_LINE_Y_M_D_H_M);
+        String start = "s: " + DateUtils.getStr(startAt, ConstantUtils.FORMAT_LINE_Y_M_D_H_M);
+        String end = "e: " + DateUtils.getStr(endAt, ConstantUtils.FORMAT_LINE_Y_M_D_H_M);
         btnStart.setText(start);
         btnEnd.setText(end);
     }
