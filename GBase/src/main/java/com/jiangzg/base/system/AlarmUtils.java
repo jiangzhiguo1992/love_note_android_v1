@@ -7,8 +7,8 @@ import android.content.Intent;
 import android.os.Build;
 
 import com.jiangzg.base.application.AppBase;
+import com.jiangzg.base.common.DateUtils;
 import com.jiangzg.base.common.LogUtils;
-import com.jiangzg.base.time.DateUtils;
 
 /**
  * author cipherGG

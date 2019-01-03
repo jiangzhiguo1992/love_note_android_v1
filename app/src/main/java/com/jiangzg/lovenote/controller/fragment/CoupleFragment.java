@@ -14,8 +14,8 @@ import android.widget.TextView;
 
 import com.jiangzg.base.common.LogUtils;
 import com.jiangzg.base.common.StringUtils;
+import com.jiangzg.base.common.TimeUnit;
 import com.jiangzg.base.system.LocationInfo;
-import com.jiangzg.base.time.TimeUnit;
 import com.jiangzg.base.view.BarUtils;
 import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.base.view.ViewUtils;

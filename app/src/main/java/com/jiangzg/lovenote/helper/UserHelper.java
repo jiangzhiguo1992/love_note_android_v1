@@ -1,8 +1,8 @@
 package com.jiangzg.lovenote.helper;
 
+import com.jiangzg.base.common.DateUtils;
 import com.jiangzg.base.common.StringUtils;
-import com.jiangzg.base.time.DateUtils;
-import com.jiangzg.base.time.TimeUnit;
+import com.jiangzg.base.common.TimeUnit;
 import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.main.MyApp;
 import com.jiangzg.lovenote.model.entity.Couple;

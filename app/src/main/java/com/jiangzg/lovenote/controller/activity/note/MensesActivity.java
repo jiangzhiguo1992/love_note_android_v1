@@ -18,10 +18,10 @@ import android.widget.TextView;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.haibin.calendarview.CalendarView;
 import com.haibin.calendarview.WeekView;
+import com.jiangzg.base.common.DateUtils;
 import com.jiangzg.base.common.StringUtils;
+import com.jiangzg.base.common.TimeUnit;
 import com.jiangzg.base.component.ActivityTrans;
-import com.jiangzg.base.time.DateUtils;
-import com.jiangzg.base.time.TimeUnit;
 import com.jiangzg.base.view.ViewUtils;
 import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.controller.activity.base.BaseActivity;
@@ -343,7 +343,7 @@ public class MensesActivity extends BaseActivity<MensesActivity> {
         long createAt = TimeHelper.getJavaTimeByGo(menses.getCreateAt());
         if (start) {
             // 已开始
-            TimeUnit timeUnit = TimeUnit.convertTime2Unit(DateUtils.getCurrentLong() - createAt);
+            TimeUnit timeUnit = TimeUnit.get(DateUtils.getCurrentLong() - createAt);
             String timeSHow = timeUnit.getAllShow(false, false, true, true, true, true,
                     R.string.year, R.string.month, R.string.dayT,
                     R.string.hour_short, R.string.minute_short, R.string.second);
@@ -352,14 +352,14 @@ public class MensesActivity extends BaseActivity<MensesActivity> {
             long between = DateUtils.getCurrentLong() - createAt;
             if (between > TimeUnit.DAY * 30) {
                 // 已推迟
-                TimeUnit timeUnit = TimeUnit.convertTime2Unit(between - TimeUnit.DAY * 30);
+                TimeUnit timeUnit = TimeUnit.get(between - TimeUnit.DAY * 30);
                 String timeSHow = timeUnit.getMaxShow(false, true, true, true, true, true,
                         R.string.year, R.string.month, R.string.dayT,
                         R.string.hour_short, R.string.minute_short, R.string.second);
                 tipShow = String.format(Locale.getDefault(), getString(R.string.already_delay_space_holder), timeSHow);
             } else {
                 // 倒计时
-                TimeUnit timeUnit = TimeUnit.convertTime2Unit(TimeUnit.DAY * 30 - between);
+                TimeUnit timeUnit = TimeUnit.get(TimeUnit.DAY * 30 - between);
                 String timeSHow = timeUnit.getMaxShow(false, true, true, true, true, true,
                         R.string.year, R.string.month, R.string.dayT,
                         R.string.hour_short, R.string.minute_short, R.string.second);

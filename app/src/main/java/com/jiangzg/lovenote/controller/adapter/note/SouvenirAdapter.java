@@ -4,8 +4,8 @@ import android.support.v4.app.Fragment;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
-import com.jiangzg.base.time.DateUtils;
-import com.jiangzg.base.time.TimeUnit;
+import com.jiangzg.base.common.DateUtils;
+import com.jiangzg.base.common.TimeUnit;
 import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.controller.activity.note.SouvenirDetailDoneActivity;
 import com.jiangzg.lovenote.controller.activity.note.SouvenirDetailWishActivity;

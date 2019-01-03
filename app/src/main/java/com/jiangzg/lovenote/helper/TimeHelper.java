@@ -1,7 +1,6 @@
 package com.jiangzg.lovenote.helper;
 
-import com.jiangzg.base.time.CalUtils;
-import com.jiangzg.base.time.DateUtils;
+import com.jiangzg.base.common.DateUtils;
 import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.main.MyApp;
 
@@ -46,7 +45,7 @@ public class TimeHelper {
         Calendar cTime = DateUtils.getCurrentCal();
         cTime.setTime(new Date(getJavaTimeByGo(time)));
         String format;
-        if (CalUtils.isSameDay(cNow, cTime)) {
+        if (DateUtils.isSameDay(cNow, cTime)) {
             // 同一天
             format = DateUtils.FORMAT_H_M;
         } else if (cNow.get(Calendar.YEAR) == cTime.get(Calendar.YEAR)) {
@@ -65,7 +64,7 @@ public class TimeHelper {
         Calendar cTime = DateUtils.getCurrentCal();
         cTime.setTime(new Date(getJavaTimeByGo(time)));
         String format;
-        if (CalUtils.isSameDay(cNow, cTime)) {
+        if (DateUtils.isSameDay(cNow, cTime)) {
             // 同一天
             format = DateUtils.FORMAT_H_M;
         } else if (cNow.get(Calendar.YEAR) == cTime.get(Calendar.YEAR)) {
@@ -105,7 +104,7 @@ public class TimeHelper {
         Calendar cTime = DateUtils.getCurrentCal();
         cTime.setTime(new Date(getJavaTimeByGo(time)));
         String format;
-        if (CalUtils.isSameDay(cNow, cTime)) {
+        if (DateUtils.isSameDay(cNow, cTime)) {
             // 同一天
             format = DateUtils.FORMAT_H_M;
         } else if (cNow.get(Calendar.YEAR) == cTime.get(Calendar.YEAR)) {
@@ -129,7 +128,7 @@ public class TimeHelper {
         Calendar cTime = DateUtils.getCurrentCal();
         cTime.setTime(new Date(getJavaTimeByGo(time)));
         String format;
-        if (CalUtils.isSameDay(cNow, cTime)) {
+        if (DateUtils.isSameDay(cNow, cTime)) {
             // 同一天
             format = DateUtils.FORMAT_H_M;
         } else if (cNow.get(Calendar.YEAR) == cTime.get(Calendar.YEAR)) {

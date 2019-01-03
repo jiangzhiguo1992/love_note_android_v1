@@ -1,7 +1,4 @@
-package com.jiangzg.base.time;
-
-import com.jiangzg.base.common.LogUtils;
-import com.jiangzg.base.common.StringUtils;
+package com.jiangzg.base.common;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -156,6 +153,46 @@ public class DateUtils {
     public static String getStr(long timestamp, String sFormat) {
         Date date = new Date(timestamp);
         return getStr(date, sFormat);
+    }
+
+    /*************************************日历操作**************************************/
+
+    // 判断是否是同一天
+    public static boolean isSameDay(Calendar c1, Calendar c2) {
+        if (c1 == null || c2 == null) {
+            LogUtils.w(DateUtils.class, "isSameDay", "c1 == null || c2 == null");
+            return false;
+        }
+        boolean isSameYear = c1.get(Calendar.YEAR) == c2.get(Calendar.YEAR);
+        boolean isSameMonth = c1.get(Calendar.MONTH) == c2.get(Calendar.MONTH);
+        boolean isSameDay = c1.get(Calendar.DAY_OF_MONTH) == c2.get(Calendar.DAY_OF_MONTH);
+        return isSameYear && isSameMonth && isSameDay;
+    }
+
+    // 获取传入日期的周第一天
+    public static Calendar getFirstDayOfWeek(Calendar cal) {
+        return getFirstDayOfWeek(cal, Calendar.SUNDAY);
+    }
+
+    public static Calendar getFirstDayOfWeek(Calendar cal, int firstDayInWeek) {
+        if (cal == null) {
+            LogUtils.w(DateUtils.class, "getFirstDayOfWeek", "cal == null");
+            return Calendar.getInstance();
+        }
+        cal.setFirstDayOfWeek(firstDayInWeek);
+        while (cal.get(Calendar.DAY_OF_WEEK) != firstDayInWeek) {
+            cal.add(Calendar.DATE, -1);
+        }
+        cal.set(Calendar.HOUR_OF_DAY, 0);
+        cal.set(Calendar.MINUTE, 0);
+        cal.set(Calendar.SECOND, 0);
+        cal.set(Calendar.MILLISECOND, 0);
+        return cal;
+    }
+
+    // 判断闰年
+    public static boolean isLeapYear(int year) {
+        return year % 4 == 0 && year % 100 != 0 || year % 400 == 0;
     }
 
 }

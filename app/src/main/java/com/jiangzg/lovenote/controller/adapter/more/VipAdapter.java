@@ -4,7 +4,7 @@ import android.support.v4.app.FragmentActivity;
 
 import com.chad.library.adapter.base.BaseMultiItemQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
-import com.jiangzg.base.time.DateUtils;
+import com.jiangzg.base.common.DateUtils;
 import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.helper.ApiHelper;
 import com.jiangzg.lovenote.helper.SPHelper;

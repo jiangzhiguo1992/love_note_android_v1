@@ -20,9 +20,9 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemLongClickListener;
 import com.haibin.calendarview.CalendarView;
 import com.haibin.calendarview.WeekView;
+import com.jiangzg.base.common.DateUtils;
+import com.jiangzg.base.common.TimeUnit;
 import com.jiangzg.base.component.ActivityTrans;
-import com.jiangzg.base.time.DateUtils;
-import com.jiangzg.base.time.TimeUnit;
 import com.jiangzg.base.view.ViewUtils;
 import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.controller.activity.base.BaseActivity;
@@ -348,7 +348,7 @@ public class SleepActivity extends BaseActivity<SleepActivity> {
         String sleepShowMe = getString(R.string.now_no);
         if (sleepMe != null && sleepMe.getId() > 0) {
             long continueTime = DateUtils.getCurrentLong() - TimeHelper.getJavaTimeByGo(sleepMe.getCreateAt());
-            TimeUnit timeUnit = TimeUnit.convertTime2Unit(continueTime);
+            TimeUnit timeUnit = TimeUnit.get(continueTime);
             String timeShow = timeUnit.getMaxShow(true, true, true, true, true, true, R.string.year, R.string.month, R.string.dayT, R.string.hour_short, R.string.minute_short, R.string.second);
             if (!sleepMe.isSleep()) {
                 sleepShowMe = String.format(Locale.getDefault(), getString(R.string.already_wake_space_holder), timeShow);
@@ -360,7 +360,7 @@ public class SleepActivity extends BaseActivity<SleepActivity> {
         String sleetShowTa = getString(R.string.now_no);
         if (sleepTa != null && sleepTa.getId() > 0) {
             long continueTime = DateUtils.getCurrentLong() - TimeHelper.getJavaTimeByGo(sleepTa.getCreateAt());
-            TimeUnit timeUnit = TimeUnit.convertTime2Unit(continueTime);
+            TimeUnit timeUnit = TimeUnit.get(continueTime);
             String timeShow = timeUnit.getMaxShow(true, true, true, true, true, true, R.string.year, R.string.month, R.string.dayT, R.string.hour_short, R.string.minute_short, R.string.second);
             if (!sleepTa.isSleep()) {
                 sleetShowTa = String.format(Locale.getDefault(), getString(R.string.already_wake_space_holder), timeShow);

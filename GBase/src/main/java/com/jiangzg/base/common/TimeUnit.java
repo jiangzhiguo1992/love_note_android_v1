@@ -1,10 +1,8 @@
-package com.jiangzg.base.time;
+package com.jiangzg.base.common;
 
 import android.support.annotation.StringRes;
 
 import com.jiangzg.base.application.AppBase;
-import com.jiangzg.base.common.LogUtils;
-import com.jiangzg.base.common.StringUtils;
 
 import java.util.Calendar;
 
@@ -46,20 +44,8 @@ public class TimeUnit {
     private int minute;
     private int second;
 
-    public static TimeUnit getByDate(long date) {
-        Calendar c = DateUtils.getCal(date);
-        TimeUnit unit = new TimeUnit();
-        unit.setYear(c.get(Calendar.YEAR));
-        unit.setMonth(c.get(Calendar.MONTH));
-        unit.setDay(c.get(Calendar.DAY_OF_MONTH));
-        unit.setHour(c.get(Calendar.HOUR));
-        unit.setMinute(c.get(Calendar.MINUTE));
-        unit.setSecond(c.get(Calendar.SECOND));
-        return unit;
-    }
-
     /* between是时间间隔 */
-    public static TimeUnit convertTime2Unit(long between) {
+    public static TimeUnit get(long between) {
         TimeUnit unit = new TimeUnit();
         // year
         int year = (int) (between / YEAR);
@@ -117,7 +103,7 @@ public class TimeUnit {
             second = (int) (between / SEC);
         }
         unit.setSecond(second);
-        LogUtils.d(TimeUnit.class, "convertTime2Unit", unit.toString());
+        LogUtils.d(TimeUnit.class, "get", unit.toString());
         return unit;
     }
 

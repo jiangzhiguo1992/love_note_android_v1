@@ -6,7 +6,7 @@ import android.graphics.Paint;
 
 import com.haibin.calendarview.MonthView;
 import com.jiangzg.base.common.ConvertUtils;
-import com.jiangzg.base.time.DateUtils;
+import com.jiangzg.base.common.DateUtils;
 import com.jiangzg.lovenote.helper.TimeHelper;
 
 import java.util.Calendar;

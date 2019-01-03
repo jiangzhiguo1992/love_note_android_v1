@@ -8,7 +8,6 @@ import com.jiangzg.base.application.AppBase;
 import com.jiangzg.base.application.AppInfo;
 import com.jiangzg.base.application.AppUtils;
 import com.jiangzg.base.component.ActivityStack;
-import com.jiangzg.base.time.DateUtils;
 
 import java.io.File;
 import java.util.Arrays;

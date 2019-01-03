@@ -8,7 +8,7 @@ import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
-import com.jiangzg.base.time.DateUtils;
+import com.jiangzg.base.common.DateUtils;
 import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.controller.adapter.topic.PostAdapter;
 import com.jiangzg.lovenote.controller.fragment.base.BaseFragment;

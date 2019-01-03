@@ -16,12 +16,12 @@ import android.view.Window;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.jiangzg.base.application.AppUtils;
+import com.jiangzg.base.common.DateUtils;
 import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.base.component.ActivityStack;
 import com.jiangzg.base.component.ActivityTrans;
 import com.jiangzg.base.system.InputUtils;
 import com.jiangzg.base.system.PermUtils;
-import com.jiangzg.base.time.DateUtils;
 import com.jiangzg.base.view.BarUtils;
 import com.jiangzg.base.view.ScreenUtils;
 import com.jiangzg.base.view.ToastUtils;

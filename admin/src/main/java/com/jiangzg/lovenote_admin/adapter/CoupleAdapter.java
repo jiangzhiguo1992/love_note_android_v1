@@ -3,7 +3,7 @@ package com.jiangzg.lovenote_admin.adapter;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.jiangzg.base.common.ConvertUtils;
-import com.jiangzg.base.time.DateUtils;
+import com.jiangzg.base.common.DateUtils;
 import com.jiangzg.lovenote_admin.R;
 import com.jiangzg.lovenote_admin.activity.CoupleDetailActivity;
 import com.jiangzg.lovenote_admin.base.BaseActivity;

@@ -6,8 +6,8 @@ import android.support.v7.widget.CardView;
 import android.view.View;
 import android.widget.TextView;
 
-import com.jiangzg.base.time.DateUtils;
-import com.jiangzg.base.time.TimeUnit;
+import com.jiangzg.base.common.DateUtils;
+import com.jiangzg.base.common.TimeUnit;
 import com.jiangzg.lovenote_admin.R;
 import com.jiangzg.lovenote_admin.activity.ApiListActivity;
 import com.jiangzg.lovenote_admin.activity.CoupleListActivity;
