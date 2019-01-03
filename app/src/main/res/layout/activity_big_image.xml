@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:background="@color/black"
     android:fitsSystemWindows="false"
-    tools:context="com.jiangzg.lovenote.activity.common.BigImageActivity">
+    tools:context=".controller.activity.common.BigImageActivity">
 
     <com.jiangzg.lovenote.view.TryCacheViewPager
         android:id="@+id/vpImage"

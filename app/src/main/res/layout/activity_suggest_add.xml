@@ -8,7 +8,7 @@
     android:layout_height="match_parent"
     android:gravity="center_horizontal"
     android:orientation="vertical"
-    tools:context="com.jiangzg.lovenote.activity.settings.SuggestAddActivity">
+    tools:context=".controller.activity.settings.SuggestAddActivity">
 
     <include layout="@layout/view_top_bar"/>
 

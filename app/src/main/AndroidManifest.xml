@@ -42,14 +42,14 @@
 
         <!-- apk更新 -->
         <service
-            android:name=".service.UpdateService"
+            android:name=".controller.service.UpdateService"
             android:enabled="true"
             android:exported="true"
             tools:ignore="ExportedService"/>
 
         <!-- oss -->
         <receiver
-            android:name=".receiver.OssRefreshReceiver"
+            android:name=".controller.receiver.OssRefreshReceiver"
             android:enabled="true"
             android:exported="true"
             tools:ignore="ExportedReceiver"/>
@@ -67,7 +67,7 @@
 
         <!-- 阿里推送 -->
         <receiver
-            android:name=".receiver.AliPushReceiver"
+            android:name=".controller.receiver.AliPushReceiver"
             android:exported="false">
             <intent-filter>
                 <action android:name="com.alibaba.push2.action.NOTIFICATION_OPENED"/>
@@ -110,118 +110,118 @@
             android:launchMode="singleTop"/>
 
         <!-- main -->
-        <activity android:name=".activity.main.WelcomeActivity">
+        <activity android:name=".controller.activity.main.WelcomeActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".activity.main.HomeActivity"/>
-        <activity android:name=".activity.main.SplashActivity"/>
+        <activity android:name=".controller.activity.main.HomeActivity"/>
+        <activity android:name=".controller.activity.main.SplashActivity"/>
         <!-- common -->
-        <activity android:name=".activity.common.WebActivity"/>
-        <activity android:name=".activity.common.BigImageActivity"/>
-        <activity android:name=".activity.common.MapShowActivity"/>
-        <activity android:name=".activity.common.MapSelectActivity"/>
-        <activity android:name=".activity.common.MapSearchActivity"/>
+        <activity android:name=".controller.activity.common.WebActivity"/>
+        <activity android:name=".controller.activity.common.BigImageActivity"/>
+        <activity android:name=".controller.activity.common.MapShowActivity"/>
+        <activity android:name=".controller.activity.common.MapSelectActivity"/>
+        <activity android:name=".controller.activity.common.MapSearchActivity"/>
         <!-- user -->
-        <activity android:name=".activity.user.LoginActivity"/>
-        <activity android:name=".activity.user.RegisterActivity"/>
-        <activity android:name=".activity.user.ForgetActivity"/>
-        <activity android:name=".activity.user.PhoneActivity"/>
-        <activity android:name=".activity.user.PasswordActivity"/>
-        <activity android:name=".activity.user.UserInfoActivity"/>
+        <activity android:name=".controller.activity.user.LoginActivity"/>
+        <activity android:name=".controller.activity.user.RegisterActivity"/>
+        <activity android:name=".controller.activity.user.ForgetActivity"/>
+        <activity android:name=".controller.activity.user.PhoneActivity"/>
+        <activity android:name=".controller.activity.user.PasswordActivity"/>
+        <activity android:name=".controller.activity.user.UserInfoActivity"/>
         <!-- settings -->
-        <activity android:name=".activity.settings.SettingsActivity"/>
-        <activity android:name=".activity.settings.ThemeActivity"/>
-        <activity android:name=".activity.settings.HelpActivity"/>
-        <activity android:name=".activity.settings.NoticeListActivity"/>
-        <activity android:name=".activity.settings.NoticeDetailActivity"/>
-        <activity android:name=".activity.settings.SuggestHomeActivity"/>
-        <activity android:name=".activity.settings.SuggestDetailActivity"/>
-        <activity android:name=".activity.settings.SuggestAddActivity"/>
-        <activity android:name=".activity.settings.SuggestListActivity"/>
-        <activity android:name=".activity.settings.AboutActivity"/>
-        <activity android:name=".activity.settings.UserProtocolActivity"/>
+        <activity android:name=".controller.activity.settings.SettingsActivity"/>
+        <activity android:name=".controller.activity.settings.ThemeActivity"/>
+        <activity android:name=".controller.activity.settings.HelpActivity"/>
+        <activity android:name=".controller.activity.settings.NoticeListActivity"/>
+        <activity android:name=".controller.activity.settings.NoticeDetailActivity"/>
+        <activity android:name=".controller.activity.settings.SuggestHomeActivity"/>
+        <activity android:name=".controller.activity.settings.SuggestDetailActivity"/>
+        <activity android:name=".controller.activity.settings.SuggestAddActivity"/>
+        <activity android:name=".controller.activity.settings.SuggestListActivity"/>
+        <activity android:name=".controller.activity.settings.AboutActivity"/>
+        <activity android:name=".controller.activity.settings.UserProtocolActivity"/>
         <!-- couple -->
-        <activity android:name=".activity.couple.CouplePairActivity"/>
-        <activity android:name=".activity.couple.CoupleInfoActivity"/>
-        <activity android:name=".activity.couple.CoupleWallPaperActivity"/>
-        <activity android:name=".activity.couple.CouplePlaceActivity"/>
-        <activity android:name=".activity.couple.CoupleWeatherActivity"/>
+        <activity android:name=".controller.activity.couple.CouplePairActivity"/>
+        <activity android:name=".controller.activity.couple.CoupleInfoActivity"/>
+        <activity android:name=".controller.activity.couple.CoupleWallPaperActivity"/>
+        <activity android:name=".controller.activity.couple.CouplePlaceActivity"/>
+        <activity android:name=".controller.activity.couple.CoupleWeatherActivity"/>
         <!-- book -->
-        <activity android:name=".activity.note.LockActivity"/>
-        <activity android:name=".activity.note.NoteCustomActivity"/>
-        <activity android:name=".activity.note.NoteTotalActivity"/>
-        <activity android:name=".activity.note.TrendsListActivity"/>
-        <activity android:name=".activity.note.ShyActivity"/>
-        <activity android:name=".activity.note.MensesActivity"/>
-        <activity android:name=".activity.note.SleepActivity"/>
-        <activity android:name=".activity.note.AudioListActivity"/>
-        <activity android:name=".activity.note.AudioEditActivity"/>
-        <activity android:name=".activity.note.VideoListActivity"/>
-        <activity android:name=".activity.note.VideoEditActivity"/>
-        <activity android:name=".activity.note.AlbumListActivity"/>
-        <activity android:name=".activity.note.AlbumEditActivity"/>
-        <activity android:name=".activity.note.PictureListActivity"/>
-        <activity android:name=".activity.note.PictureEditActivity"/>
-        <activity android:name=".activity.note.SouvenirListActivity"/>
-        <activity android:name=".activity.note.SouvenirEditActivity"/>
-        <activity android:name=".activity.note.SouvenirDetailDoneActivity"/>
-        <activity android:name=".activity.note.SouvenirDetailWishActivity"/>
-        <activity android:name=".activity.note.SouvenirEditForeignActivity"/>
-        <activity android:name=".activity.note.WordListActivity"/>
-        <activity android:name=".activity.note.WhisperListActivity"/>
-        <activity android:name=".activity.note.DiaryListActivity"/>
-        <activity android:name=".activity.note.DiaryEditActivity"/>
-        <activity android:name=".activity.note.DiaryDetailActivity"/>
-        <activity android:name=".activity.note.AwardListActivity"/>
-        <activity android:name=".activity.note.AwardEditActivity"/>
-        <activity android:name=".activity.note.AwardRuleListActivity"/>
-        <activity android:name=".activity.note.AwardRuleEditActivity"/>
-        <activity android:name=".activity.note.DreamListActivity"/>
-        <activity android:name=".activity.note.DreamEditActivity"/>
-        <activity android:name=".activity.note.DreamDetailActivity"/>
-        <activity android:name=".activity.note.GiftListActivity"/>
-        <activity android:name=".activity.note.GiftEditActivity"/>
-        <activity android:name=".activity.note.FoodListActivity"/>
-        <activity android:name=".activity.note.FoodEditActivity"/>
-        <activity android:name=".activity.note.TravelListActivity"/>
-        <activity android:name=".activity.note.TravelDetailActivity"/>
-        <activity android:name=".activity.note.TravelEditActivity"/>
-        <activity android:name=".activity.note.TravelPlaceEditActivity"/>
-        <activity android:name=".activity.note.AngryListActivity"/>
-        <activity android:name=".activity.note.AngryEditActivity"/>
-        <activity android:name=".activity.note.AngryDetailActivity"/>
-        <activity android:name=".activity.note.PromiseListActivity"/>
-        <activity android:name=".activity.note.PromiseEditActivity"/>
-        <activity android:name=".activity.note.PromiseDetailActivity"/>
-        <activity android:name=".activity.note.MovieEditActivity"/>
-        <activity android:name=".activity.note.MovieListActivity"/>
+        <activity android:name=".controller.activity.note.LockActivity"/>
+        <activity android:name=".controller.activity.note.NoteCustomActivity"/>
+        <activity android:name=".controller.activity.note.NoteTotalActivity"/>
+        <activity android:name=".controller.activity.note.TrendsListActivity"/>
+        <activity android:name=".controller.activity.note.ShyActivity"/>
+        <activity android:name=".controller.activity.note.MensesActivity"/>
+        <activity android:name=".controller.activity.note.SleepActivity"/>
+        <activity android:name=".controller.activity.note.AudioListActivity"/>
+        <activity android:name=".controller.activity.note.AudioEditActivity"/>
+        <activity android:name=".controller.activity.note.VideoListActivity"/>
+        <activity android:name=".controller.activity.note.VideoEditActivity"/>
+        <activity android:name=".controller.activity.note.AlbumListActivity"/>
+        <activity android:name=".controller.activity.note.AlbumEditActivity"/>
+        <activity android:name=".controller.activity.note.PictureListActivity"/>
+        <activity android:name=".controller.activity.note.PictureEditActivity"/>
+        <activity android:name=".controller.activity.note.SouvenirListActivity"/>
+        <activity android:name=".controller.activity.note.SouvenirEditActivity"/>
+        <activity android:name=".controller.activity.note.SouvenirDetailDoneActivity"/>
+        <activity android:name=".controller.activity.note.SouvenirDetailWishActivity"/>
+        <activity android:name=".controller.activity.note.SouvenirEditForeignActivity"/>
+        <activity android:name=".controller.activity.note.WordListActivity"/>
+        <activity android:name=".controller.activity.note.WhisperListActivity"/>
+        <activity android:name=".controller.activity.note.DiaryListActivity"/>
+        <activity android:name=".controller.activity.note.DiaryEditActivity"/>
+        <activity android:name=".controller.activity.note.DiaryDetailActivity"/>
+        <activity android:name=".controller.activity.note.AwardListActivity"/>
+        <activity android:name=".controller.activity.note.AwardEditActivity"/>
+        <activity android:name=".controller.activity.note.AwardRuleListActivity"/>
+        <activity android:name=".controller.activity.note.AwardRuleEditActivity"/>
+        <activity android:name=".controller.activity.note.DreamListActivity"/>
+        <activity android:name=".controller.activity.note.DreamEditActivity"/>
+        <activity android:name=".controller.activity.note.DreamDetailActivity"/>
+        <activity android:name=".controller.activity.note.GiftListActivity"/>
+        <activity android:name=".controller.activity.note.GiftEditActivity"/>
+        <activity android:name=".controller.activity.note.FoodListActivity"/>
+        <activity android:name=".controller.activity.note.FoodEditActivity"/>
+        <activity android:name=".controller.activity.note.TravelListActivity"/>
+        <activity android:name=".controller.activity.note.TravelDetailActivity"/>
+        <activity android:name=".controller.activity.note.TravelEditActivity"/>
+        <activity android:name=".controller.activity.note.TravelPlaceEditActivity"/>
+        <activity android:name=".controller.activity.note.AngryListActivity"/>
+        <activity android:name=".controller.activity.note.AngryEditActivity"/>
+        <activity android:name=".controller.activity.note.AngryDetailActivity"/>
+        <activity android:name=".controller.activity.note.PromiseListActivity"/>
+        <activity android:name=".controller.activity.note.PromiseEditActivity"/>
+        <activity android:name=".controller.activity.note.PromiseDetailActivity"/>
+        <activity android:name=".controller.activity.note.MovieEditActivity"/>
+        <activity android:name=".controller.activity.note.MovieListActivity"/>
         <!-- topic -->
-        <activity android:name=".activity.topic.TopicMessageActivity"/>
-        <activity android:name=".activity.topic.PostMineActivity"/>
-        <activity android:name=".activity.topic.PostCollectActivity"/>
-        <activity android:name=".activity.topic.PostListActivity"/>
-        <activity android:name=".activity.topic.PostAddActivity"/>
-        <activity android:name=".activity.topic.PostSearchActivity"/>
-        <activity android:name=".activity.topic.PostDetailActivity"/>
-        <activity android:name=".activity.topic.PostSubCommentListActivity"/>
+        <activity android:name=".controller.activity.topic.TopicMessageActivity"/>
+        <activity android:name=".controller.activity.topic.PostMineActivity"/>
+        <activity android:name=".controller.activity.topic.PostCollectActivity"/>
+        <activity android:name=".controller.activity.topic.PostListActivity"/>
+        <activity android:name=".controller.activity.topic.PostAddActivity"/>
+        <activity android:name=".controller.activity.topic.PostSearchActivity"/>
+        <activity android:name=".controller.activity.topic.PostDetailActivity"/>
+        <activity android:name=".controller.activity.topic.PostSubCommentListActivity"/>
         <!-- more -->
-        <activity android:name=".activity.more.BroadcastActivity"/>
-        <activity android:name=".activity.more.VipActivity"/>
-        <activity android:name=".activity.more.VipListActivity"/>
-        <activity android:name=".activity.more.VipBuyActivity"/>
-        <activity android:name=".activity.more.CoinActivity"/>
-        <activity android:name=".activity.more.SignActivity"/>
-        <activity android:name=".activity.more.CoinBuyActivity"/>
-        <activity android:name=".activity.more.MatchWifeActivity"/>
-        <activity android:name=".activity.more.MatchWifeListActivity"/>
-        <activity android:name=".activity.more.MatchLetterActivity"/>
-        <activity android:name=".activity.more.MatchLetterListActivity"/>
-        <activity android:name=".activity.more.MatchDiscussActivity"/>
-        <activity android:name=".activity.more.MatchDiscussListActivity"/>
+        <activity android:name=".controller.activity.more.BroadcastActivity"/>
+        <activity android:name=".controller.activity.more.VipActivity"/>
+        <activity android:name=".controller.activity.more.VipListActivity"/>
+        <activity android:name=".controller.activity.more.VipBuyActivity"/>
+        <activity android:name=".controller.activity.more.CoinActivity"/>
+        <activity android:name=".controller.activity.more.SignActivity"/>
+        <activity android:name=".controller.activity.more.CoinBuyActivity"/>
+        <activity android:name=".controller.activity.more.MatchWifeActivity"/>
+        <activity android:name=".controller.activity.more.MatchWifeListActivity"/>
+        <activity android:name=".controller.activity.more.MatchLetterActivity"/>
+        <activity android:name=".controller.activity.more.MatchLetterListActivity"/>
+        <activity android:name=".controller.activity.more.MatchDiscussActivity"/>
+        <activity android:name=".controller.activity.more.MatchDiscussListActivity"/>
     </application>
 
 </manifest>

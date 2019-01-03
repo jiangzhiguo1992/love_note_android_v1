@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.jiangzg.lovenote.activity.more.VipBuyActivity">
+    tools:context=".controller.activity.more.VipBuyActivity">
 
     <include layout="@layout/view_top_bar"/>
 

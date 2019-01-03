@@ -23,7 +23,7 @@ import com.jiangzg.base.common.LogUtils;
 import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.base.view.PopUtils;
 import com.jiangzg.lovenote.R;
-import com.jiangzg.lovenote.activity.common.BigImageActivity;
+import com.jiangzg.lovenote.controller.activity.common.BigImageActivity;
 
 import java.util.Random;
 

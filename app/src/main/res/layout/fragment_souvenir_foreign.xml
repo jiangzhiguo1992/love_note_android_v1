@@ -4,7 +4,7 @@
     android:id="@+id/srl"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.jiangzg.lovenote.fragment.note.SouvenirForeignFragment">
+    tools:context=".controller.fragment.note.SouvenirForeignFragment">
 
     <LinearLayout
         android:layout_width="match_parent"

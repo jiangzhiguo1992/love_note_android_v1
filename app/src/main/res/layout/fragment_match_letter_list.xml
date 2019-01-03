@@ -4,7 +4,7 @@
     android:id="@+id/srl"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.jiangzg.lovenote.fragment.more.MatchLetterListFragment">
+    tools:context=".controller.fragment.more.MatchLetterListFragment">
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rv"

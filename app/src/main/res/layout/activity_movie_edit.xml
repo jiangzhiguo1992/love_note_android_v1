@@ -7,7 +7,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".activity.note.MovieEditActivity">
+    tools:context=".controller.activity.note.MovieEditActivity">
 
     <include layout="@layout/view_top_bar"/>
 

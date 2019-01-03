@@ -8,7 +8,7 @@
     android:background="@drawable/shape_gradient_primary_back"
     android:gravity="center_horizontal"
     android:orientation="vertical"
-    tools:context="com.jiangzg.lovenote.activity.couple.CoupleInfoActivity">
+    tools:context=".controller.activity.couple.CoupleInfoActivity">
 
     <include layout="@layout/view_top_bar"/>
 

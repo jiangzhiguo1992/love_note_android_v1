@@ -27,7 +27,7 @@ import com.jiangzg.base.time.DateUtils;
 import com.jiangzg.base.view.DialogUtils;
 import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.lovenote.R;
-import com.jiangzg.lovenote.activity.more.VipActivity;
+import com.jiangzg.lovenote.controller.activity.more.VipActivity;
 import com.jiangzg.lovenote.main.MyApp;
 import com.jiangzg.lovenote.model.entity.OssInfo;
 import com.jiangzg.lovenote.model.entity.User;

@@ -5,7 +5,7 @@ import android.net.Uri;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.lovenote.R;
-import com.jiangzg.lovenote.fragment.TopicFragment;
+import com.jiangzg.lovenote.controller.fragment.TopicFragment;
 import com.jiangzg.lovenote.main.MyApp;
 import com.jiangzg.lovenote.model.entity.Album;
 import com.jiangzg.lovenote.model.entity.Audio;
