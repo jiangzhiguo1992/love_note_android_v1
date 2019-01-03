@@ -48,7 +48,7 @@ public class DateUtils {
     }
 
     public static long getCurrentLong() {
-        return getCurrentDate().getTime();
+        return getLong(getCurrentDate());
     }
 
     public static String getCurrentStr(String sFormat) {
