@@ -10,11 +10,10 @@ import com.jiangzg.lovenote.main.MyApp;
  */
 public class WeatherHelper {
 
-    // 天气显示文本
-    public static String getWeatherShowByIcon(String icon) {
-        if (StringUtils.isEmpty(icon)) return "";
-        String iconTrim = icon.trim();
-        switch (iconTrim) {
+    public static String getShowById(String id) {
+        if (StringUtils.isEmpty(id)) return "";
+        String idTrim = id.trim();
+        switch (idTrim) {
             case "0":
             case "30":
                 return MyApp.get().getString(R.string.sunny);
@@ -70,9 +69,8 @@ public class WeatherHelper {
         }
     }
 
-    // 天气显示icon
-    public static int getWeatherIconById(String id) {
-        if (StringUtils.isEmpty(id)) return 0;
+    public static int getIconById(String id) {
+        if (StringUtils.isEmpty(id)) return R.mipmap.w0;
         String idTrim = id.trim();
         int iconRes;
         switch (idTrim) {
@@ -167,7 +165,7 @@ public class WeatherHelper {
                 iconRes = R.mipmap.w46;
                 break;
             default:
-                iconRes = 0;
+                iconRes = R.mipmap.w0;
         }
         return iconRes;
     }

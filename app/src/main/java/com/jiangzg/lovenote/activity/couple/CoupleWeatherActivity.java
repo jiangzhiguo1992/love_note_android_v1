@@ -193,8 +193,8 @@ public class CoupleWeatherActivity extends BaseActivity<CoupleWeatherActivity> {
         WeatherForecast forecast = myWeatherForecastList.get(0);
         String time = TimeHelper.getTimeShowLocal_MD_YMD_ByGo(forecast.getTimeAt());
         String condition = String.format(Locale.getDefault(), mActivity.getString(R.string.holder_wave_holder), forecast.getConditionDay(), forecast.getConditionNight());
-        int iconDay = WeatherHelper.getWeatherIconById(forecast.getIconDay());
-        int iconNight = WeatherHelper.getWeatherIconById(forecast.getIconNight());
+        int iconDay = WeatherHelper.getIconById(forecast.getIconDay());
+        int iconNight = WeatherHelper.getIconById(forecast.getIconNight());
         String temp = String.format(Locale.getDefault(), getString(R.string.holder_wave_holder_c), forecast.getTempDay(), forecast.getTempNight());
         String wind = String.format(Locale.getDefault(), getString(R.string.holder_wave_holder), forecast.getWindDay(), forecast.getWindNight());
         // view
@@ -227,8 +227,8 @@ public class CoupleWeatherActivity extends BaseActivity<CoupleWeatherActivity> {
         WeatherForecast forecast = taWeatherForecastList.get(0);
         String time = TimeHelper.getTimeShowLocal_MD_YMD_ByGo(forecast.getTimeAt());
         String condition = String.format(Locale.getDefault(), getString(R.string.holder_wave_holder), forecast.getConditionDay(), forecast.getConditionNight());
-        int iconDay = WeatherHelper.getWeatherIconById(forecast.getIconDay());
-        int iconNight = WeatherHelper.getWeatherIconById(forecast.getIconNight());
+        int iconDay = WeatherHelper.getIconById(forecast.getIconDay());
+        int iconNight = WeatherHelper.getIconById(forecast.getIconNight());
         String temp = String.format(Locale.getDefault(), getString(R.string.holder_wave_holder_c), forecast.getTempDay(), forecast.getTempNight());
         String wind = String.format(Locale.getDefault(), getString(R.string.holder_wave_holder), forecast.getWindDay(), forecast.getWindNight());
         // view

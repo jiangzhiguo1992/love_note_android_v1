@@ -402,7 +402,7 @@ public class CoupleFragment extends BasePagerFragment<CoupleFragment> {
         String myWeatherShow = "";
         Drawable myIcon = null;
         if (myWeatherToday != null && !StringUtils.isEmpty(myWeatherToday.getTemp())) {
-            int weatherIcon = WeatherHelper.getWeatherIconById(myWeatherToday.getIcon());
+            int weatherIcon = WeatherHelper.getIconById(myWeatherToday.getIcon());
             myIcon = ViewUtils.getDrawable(mActivity, weatherIcon);
             if (myIcon != null) {
                 myIcon.setTint(colorIcon);
@@ -419,7 +419,7 @@ public class CoupleFragment extends BasePagerFragment<CoupleFragment> {
         String taWeatherShow = "";
         Drawable taIcon = null;
         if (taWeatherToday != null && !StringUtils.isEmpty(taWeatherToday.getTemp())) {
-            int weatherIcon = WeatherHelper.getWeatherIconById(taWeatherToday.getIcon());
+            int weatherIcon = WeatherHelper.getIconById(taWeatherToday.getIcon());
             taIcon = ViewUtils.getDrawable(mActivity, weatherIcon);
             if (taIcon != null) {
                 taIcon.setTint(colorIcon);
