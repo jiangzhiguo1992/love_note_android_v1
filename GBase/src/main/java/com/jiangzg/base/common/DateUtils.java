@@ -157,28 +157,57 @@ public class DateUtils {
 
     /*************************************日历操作**************************************/
 
+    // 判断是否是同一时
+    public static boolean isSameHour(long t1, long t2) {
+        Calendar c1 = getCal(t1);
+        Calendar c2 = getCal(t2);
+        boolean isSameYear = c1.get(Calendar.YEAR) == c2.get(Calendar.YEAR);
+        boolean isSameDay = c1.get(Calendar.DAY_OF_YEAR) == c2.get(Calendar.DAY_OF_YEAR);
+        boolean isSameHour = c1.get(Calendar.HOUR_OF_DAY) == c2.get(Calendar.HOUR_OF_DAY);
+        return isSameYear && isSameDay && isSameHour;
+    }
+
     // 判断是否是同一天
-    public static boolean isSameDay(Calendar c1, Calendar c2) {
-        if (c1 == null || c2 == null) {
-            LogUtils.w(DateUtils.class, "isSameDay", "c1 == null || c2 == null");
-            return false;
-        }
+    public static boolean isSameDay(long t1, long t2) {
+        Calendar c1 = getCal(t1);
+        Calendar c2 = getCal(t2);
+        boolean isSameYear = c1.get(Calendar.YEAR) == c2.get(Calendar.YEAR);
+        boolean isSameDay = c1.get(Calendar.DAY_OF_YEAR) == c2.get(Calendar.DAY_OF_YEAR);
+        return isSameYear && isSameDay;
+    }
+
+    // 判断是否是同一周
+    public static boolean isSameWeek(long t1, long t2) {
+        Calendar c1 = getCal(t1);
+        Calendar c2 = getCal(t2);
+        boolean isSameYear = c1.get(Calendar.YEAR) == c2.get(Calendar.YEAR);
+        boolean isSameWeek = c1.get(Calendar.WEEK_OF_YEAR) == c2.get(Calendar.WEEK_OF_YEAR);
+        return isSameYear && isSameWeek;
+    }
+
+    // 判断是否是同一月
+    public static boolean isSameMonth(long t1, long t2) {
+        Calendar c1 = getCal(t1);
+        Calendar c2 = getCal(t2);
         boolean isSameYear = c1.get(Calendar.YEAR) == c2.get(Calendar.YEAR);
         boolean isSameMonth = c1.get(Calendar.MONTH) == c2.get(Calendar.MONTH);
-        boolean isSameDay = c1.get(Calendar.DAY_OF_MONTH) == c2.get(Calendar.DAY_OF_MONTH);
-        return isSameYear && isSameMonth && isSameDay;
+        return isSameYear && isSameMonth;
+    }
+
+    // 判断是否是同一年
+    public static boolean isSameYear(long t1, long t2) {
+        Calendar c1 = getCal(t1);
+        Calendar c2 = getCal(t2);
+        return c1.get(Calendar.YEAR) == c2.get(Calendar.YEAR);
     }
 
     // 获取传入日期的周第一天
-    public static Calendar getFirstDayOfWeek(Calendar cal) {
-        return getFirstDayOfWeek(cal, Calendar.SUNDAY);
+    public static Calendar getFirstDayOfWeek(long timestamp) {
+        return getFirstDayOfWeek(timestamp, Calendar.SUNDAY);
     }
 
-    public static Calendar getFirstDayOfWeek(Calendar cal, int firstDayInWeek) {
-        if (cal == null) {
-            LogUtils.w(DateUtils.class, "getFirstDayOfWeek", "cal == null");
-            return Calendar.getInstance();
-        }
+    public static Calendar getFirstDayOfWeek(long timestamp, int firstDayInWeek) {
+        Calendar cal = getCal(timestamp);
         cal.setFirstDayOfWeek(firstDayInWeek);
         while (cal.get(Calendar.DAY_OF_WEEK) != firstDayInWeek) {
             cal.add(Calendar.DATE, -1);
