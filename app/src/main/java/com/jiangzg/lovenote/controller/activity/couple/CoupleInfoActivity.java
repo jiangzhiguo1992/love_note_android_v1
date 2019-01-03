@@ -18,7 +18,6 @@ import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
-import com.jiangzg.base.common.ConstantUtils;
 import com.jiangzg.base.common.FileUtils;
 import com.jiangzg.base.common.LogUtils;
 import com.jiangzg.base.common.StringUtils;
@@ -301,8 +300,8 @@ public class CoupleInfoActivity extends BaseActivity<CoupleInfoActivity> {
         String taPhone = ta == null ? "" : ta.getPhone();
         long meBirth = TimeHelper.getJavaTimeByGo(me == null ? 0 : me.getBirthday());
         long taBirth = TimeHelper.getJavaTimeByGo(ta == null ? 0 : ta.getBirthday());
-        String meBirthShow = DateUtils.getStr(meBirth, ConstantUtils.FORMAT_POINT_Y_M_D);
-        String taBirthShow = DateUtils.getStr(taBirth, ConstantUtils.FORMAT_POINT_Y_M_D);
+        String meBirthShow = DateUtils.getStr(meBirth, DateUtils.FORMAT_POINT_Y_M_D);
+        String taBirthShow = DateUtils.getStr(taBirth, DateUtils.FORMAT_POINT_Y_M_D);
         int togetherDay = SPHelper.getTogetherDay();
         // view
         if (StringUtils.isEmpty(taAvatar)) {

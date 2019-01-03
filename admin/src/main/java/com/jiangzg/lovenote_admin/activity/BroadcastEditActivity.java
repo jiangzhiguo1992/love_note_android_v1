@@ -13,7 +13,6 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
-import com.jiangzg.base.common.ConstantUtils;
 import com.jiangzg.base.component.ActivityTrans;
 import com.jiangzg.base.time.DateUtils;
 import com.jiangzg.lovenote_admin.R;
@@ -123,8 +122,8 @@ public class BroadcastEditActivity extends BaseActivity<BroadcastEditActivity> {
         if (endAt <= 0) {
             endAt = DateUtils.getCurrentLong();
         }
-        String start = "s: " + DateUtils.getStr(startAt, ConstantUtils.FORMAT_LINE_Y_M_D_H_M);
-        String end = "e: " + DateUtils.getStr(endAt, ConstantUtils.FORMAT_LINE_Y_M_D_H_M);
+        String start = "s: " + DateUtils.getStr(startAt, DateUtils.FORMAT_LINE_Y_M_D_H_M);
+        String end = "e: " + DateUtils.getStr(endAt, DateUtils.FORMAT_LINE_Y_M_D_H_M);
         tvStart.setText(start);
         tvEnd.setText(end);
     }

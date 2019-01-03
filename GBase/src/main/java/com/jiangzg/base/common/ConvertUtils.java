@@ -133,17 +133,17 @@ public class ConvertUtils {
     /**
      * 字节数转以unit为单位的size
      */
-    public static double byte2Size(long byteNum, ConstantUtils.MemoryUnit unit) {
+    public static double byte2Size(long byteNum, FileUtils.MemoryUnit unit) {
         switch (unit) {
             default:
             case BYTE:
-                return (double) byteNum / ConstantUtils.BYTE;
+                return (double) byteNum / FileUtils.BYTE;
             case KB:
-                return (double) byteNum / ConstantUtils.KB;
+                return (double) byteNum / FileUtils.KB;
             case MB:
-                return (double) byteNum / ConstantUtils.MB;
+                return (double) byteNum / FileUtils.MB;
             case GB:
-                return (double) byteNum / ConstantUtils.GB;
+                return (double) byteNum / FileUtils.GB;
         }
     }
 
@@ -152,17 +152,17 @@ public class ConvertUtils {
      *
      * @param size 大小
      */
-    public static long size2Byte(long size, ConstantUtils.MemoryUnit unit) {
+    public static long size2Byte(long size, FileUtils.MemoryUnit unit) {
         switch (unit) {
             default:
             case BYTE:
-                return size * ConstantUtils.BYTE;
+                return size * FileUtils.BYTE;
             case KB:
-                return size * ConstantUtils.KB;
+                return size * FileUtils.KB;
             case MB:
-                return size * ConstantUtils.MB;
+                return size * FileUtils.MB;
             case GB:
-                return size * ConstantUtils.GB;
+                return size * FileUtils.GB;
         }
     }
 
@@ -176,14 +176,14 @@ public class ConvertUtils {
     public static String byte2FitSize(long byteNum) {
         if (byteNum < 0) {
             return "";
-        } else if (byteNum < ConstantUtils.KB) {
+        } else if (byteNum < FileUtils.KB) {
             return String.format(Locale.getDefault(), "%.1fB", (double) byteNum);
-        } else if (byteNum < ConstantUtils.MB) {
-            return String.format(Locale.getDefault(), "%.1fKB", (double) byteNum / ConstantUtils.KB);
-        } else if (byteNum < ConstantUtils.GB) {
-            return String.format(Locale.getDefault(), "%.1fMB", (double) byteNum / ConstantUtils.MB);
+        } else if (byteNum < FileUtils.MB) {
+            return String.format(Locale.getDefault(), "%.1fKB", (double) byteNum / FileUtils.KB);
+        } else if (byteNum < FileUtils.GB) {
+            return String.format(Locale.getDefault(), "%.1fMB", (double) byteNum / FileUtils.MB);
         } else {
-            return String.format(Locale.getDefault(), "%.1fGB", (double) byteNum / ConstantUtils.GB);
+            return String.format(Locale.getDefault(), "%.1fGB", (double) byteNum / FileUtils.GB);
         }
     }
 
@@ -200,9 +200,9 @@ public class ConvertUtils {
         }
         try {
             ByteArrayOutputStream os = new ByteArrayOutputStream();
-            byte[] b = new byte[ConstantUtils.KB];
+            byte[] b = new byte[FileUtils.KB];
             int len;
-            while ((len = is.read(b, 0, ConstantUtils.KB)) != -1) {
+            while ((len = is.read(b, 0, FileUtils.KB)) != -1) {
                 os.write(b, 0, len);
             }
             return os;

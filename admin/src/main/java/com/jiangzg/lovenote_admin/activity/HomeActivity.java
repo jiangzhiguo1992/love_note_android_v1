@@ -11,9 +11,9 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.widget.RelativeLayout;
 
-import com.jiangzg.base.common.ConstantUtils;
 import com.jiangzg.base.component.ActivityTrans;
 import com.jiangzg.base.component.FragmentTrans;
+import com.jiangzg.base.time.TimeUnit;
 import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.lovenote_admin.R;
 import com.jiangzg.lovenote_admin.base.BaseActivity;
@@ -138,7 +138,7 @@ public class HomeActivity extends BaseActivity<HomeActivity> {
                     public void run() {
                         ossInfoUpdate(); // 重复更新
                     }
-                }, ConstantUtils.SEC * 5);
+                }, TimeUnit.SEC * 5);
             }
         });
     }

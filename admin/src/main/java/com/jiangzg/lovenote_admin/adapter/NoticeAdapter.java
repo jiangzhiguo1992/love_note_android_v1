@@ -6,7 +6,6 @@ import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
-import com.jiangzg.base.common.ConstantUtils;
 import com.jiangzg.base.time.DateUtils;
 import com.jiangzg.lovenote_admin.R;
 import com.jiangzg.lovenote_admin.base.BaseActivity;
@@ -35,7 +34,7 @@ public class NoticeAdapter extends BaseQuickAdapter<Notice, BaseViewHolder> {
     protected void convert(BaseViewHolder helper, Notice item) {
         // data
         String id = "id:" + item.getId();
-        String create = "时间:" + DateUtils.getStr(item.getCreateAt() * 1000, ConstantUtils.FORMAT_LINE_Y_M_D_H_M);
+        String create = "时间:" + DateUtils.getStr(item.getCreateAt() * 1000, DateUtils.FORMAT_LINE_Y_M_D_H_M);
         //String update = "u:" + DateUtils.getStr(item.getUpdateAt() * 1000, ConstantUtils.FORMAT_LINE_Y_M_D_H_M);
         String type = "(" + Notice.getTypeShow(item.getContentType()) + ")";
         String title = item.getTitle();

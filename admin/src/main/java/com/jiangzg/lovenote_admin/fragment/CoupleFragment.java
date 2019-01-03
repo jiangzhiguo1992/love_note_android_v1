@@ -6,8 +6,8 @@ import android.support.v7.widget.CardView;
 import android.view.View;
 import android.widget.TextView;
 
-import com.jiangzg.base.common.ConstantUtils;
 import com.jiangzg.base.time.DateUtils;
+import com.jiangzg.base.time.TimeUnit;
 import com.jiangzg.lovenote_admin.R;
 import com.jiangzg.lovenote_admin.activity.BillListActivity;
 import com.jiangzg.lovenote_admin.activity.CoinListActivity;
@@ -168,9 +168,9 @@ public class CoupleFragment extends BaseFragment<CoupleFragment> {
     }
 
     private void getSuggestData() {
-        long startH1 = (DateUtils.getCurrentLong() - ConstantUtils.HOUR) / 1000;
-        long startD1 = (DateUtils.getCurrentLong() - ConstantUtils.DAY) / 1000;
-        long startD7 = (DateUtils.getCurrentLong() - ConstantUtils.DAY * 3) / 1000;
+        long startH1 = (DateUtils.getCurrentLong() - TimeUnit.HOUR) / 1000;
+        long startD1 = (DateUtils.getCurrentLong() - TimeUnit.DAY) / 1000;
+        long startD7 = (DateUtils.getCurrentLong() - TimeUnit.DAY * 3) / 1000;
         Call<Result> callSuggestH1 = new RetrofitHelper().call(API.class).setSuggestTotalGet(startH1);
         RetrofitHelper.enqueue(callSuggestH1, null, new RetrofitHelper.CallBack() {
             @Override
@@ -210,9 +210,9 @@ public class CoupleFragment extends BaseFragment<CoupleFragment> {
     }
 
     private void getSuggestCommentData() {
-        long startH1 = (DateUtils.getCurrentLong() - ConstantUtils.HOUR) / 1000;
-        long startD1 = (DateUtils.getCurrentLong() - ConstantUtils.DAY) / 1000;
-        long startD7 = (DateUtils.getCurrentLong() - ConstantUtils.DAY * 3) / 1000;
+        long startH1 = (DateUtils.getCurrentLong() - TimeUnit.HOUR) / 1000;
+        long startD1 = (DateUtils.getCurrentLong() - TimeUnit.DAY) / 1000;
+        long startD7 = (DateUtils.getCurrentLong() - TimeUnit.DAY * 3) / 1000;
         Call<Result> callCommentH1 = new RetrofitHelper().call(API.class).setSuggestCommentTotalGet(startH1);
         RetrofitHelper.enqueue(callCommentH1, null, new RetrofitHelper.CallBack() {
             @Override
@@ -396,7 +396,7 @@ public class CoupleFragment extends BaseFragment<CoupleFragment> {
     }
 
     private void getMatchWorkData() {
-        long startD1 = (DateUtils.getCurrentLong() - ConstantUtils.DAY) / 1000;
+        long startD1 = (DateUtils.getCurrentLong() - TimeUnit.DAY) / 1000;
         Call<Result> callWife = new RetrofitHelper().call(API.class).moreMatchWorkTotalGet(startD1, MatchPeriod.MATCH_KIND_WIFE_PICTURE);
         RetrofitHelper.enqueue(callWife, null, new RetrofitHelper.CallBack() {
             @Override
@@ -436,9 +436,9 @@ public class CoupleFragment extends BaseFragment<CoupleFragment> {
     }
 
     private void getPostData() {
-        long startH1 = (DateUtils.getCurrentLong() - ConstantUtils.HOUR) / 1000;
-        long startD1 = (DateUtils.getCurrentLong() - ConstantUtils.DAY) / 1000;
-        long startD7 = (DateUtils.getCurrentLong() - ConstantUtils.DAY * 3) / 1000;
+        long startH1 = (DateUtils.getCurrentLong() - TimeUnit.HOUR) / 1000;
+        long startD1 = (DateUtils.getCurrentLong() - TimeUnit.DAY) / 1000;
+        long startD7 = (DateUtils.getCurrentLong() - TimeUnit.DAY * 3) / 1000;
         Call<Result> callSuggestH1 = new RetrofitHelper().call(API.class).setPostTotalGet(startH1);
         RetrofitHelper.enqueue(callSuggestH1, null, new RetrofitHelper.CallBack() {
             @Override
@@ -478,9 +478,9 @@ public class CoupleFragment extends BaseFragment<CoupleFragment> {
     }
 
     private void getPostCommentData() {
-        long startH1 = (DateUtils.getCurrentLong() - ConstantUtils.HOUR) / 1000;
-        long startD1 = (DateUtils.getCurrentLong() - ConstantUtils.DAY) / 1000;
-        long startD7 = (DateUtils.getCurrentLong() - ConstantUtils.DAY * 3) / 1000;
+        long startH1 = (DateUtils.getCurrentLong() - TimeUnit.HOUR) / 1000;
+        long startD1 = (DateUtils.getCurrentLong() - TimeUnit.DAY) / 1000;
+        long startD7 = (DateUtils.getCurrentLong() - TimeUnit.DAY * 3) / 1000;
         Call<Result> callCommentH1 = new RetrofitHelper().call(API.class).setPostCommentTotalGet(startH1);
         RetrofitHelper.enqueue(callCommentH1, null, new RetrofitHelper.CallBack() {
             @Override

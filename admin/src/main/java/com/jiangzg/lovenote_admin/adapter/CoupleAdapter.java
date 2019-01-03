@@ -2,7 +2,6 @@ package com.jiangzg.lovenote_admin.adapter;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
-import com.jiangzg.base.common.ConstantUtils;
 import com.jiangzg.base.common.ConvertUtils;
 import com.jiangzg.base.time.DateUtils;
 import com.jiangzg.lovenote_admin.R;
@@ -30,8 +29,8 @@ public class CoupleAdapter extends BaseQuickAdapter<Couple, BaseViewHolder> {
     protected void convert(BaseViewHolder helper, Couple item) {
         // data
         String id = "id:" + item.getId();
-        String create = "c:" + DateUtils.getStr(item.getCreateAt() * 1000, ConstantUtils.FORMAT_LINE_Y_M_D_H_M);
-        String update = "u:" + DateUtils.getStr(item.getUpdateAt() * 1000, ConstantUtils.FORMAT_LINE_Y_M_D_H_M);
+        String create = "c:" + DateUtils.getStr(item.getCreateAt() * 1000, DateUtils.FORMAT_LINE_Y_M_D_H_M);
+        String update = "u:" + DateUtils.getStr(item.getUpdateAt() * 1000, DateUtils.FORMAT_LINE_Y_M_D_H_M);
         String creatorId = "c:" + item.getCreatorId();
         String creatorAvatar = item.getCreatorAvatar();
         String creatorName = item.getCreatorName();

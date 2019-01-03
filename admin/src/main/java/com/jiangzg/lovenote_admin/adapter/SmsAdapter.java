@@ -2,7 +2,6 @@ package com.jiangzg.lovenote_admin.adapter;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
-import com.jiangzg.base.common.ConstantUtils;
 import com.jiangzg.base.time.DateUtils;
 import com.jiangzg.lovenote_admin.R;
 import com.jiangzg.lovenote_admin.activity.UserDetailActivity;
@@ -26,7 +25,7 @@ public class SmsAdapter extends BaseQuickAdapter<Sms, BaseViewHolder> {
     protected void convert(BaseViewHolder helper, Sms item) {
         // data
         String id = "id:" + item.getId();
-        String create = DateUtils.getStr(item.getCreateAt() * 1000, ConstantUtils.FORMAT_LINE_Y_M_D_H_M);
+        String create = DateUtils.getStr(item.getCreateAt() * 1000, DateUtils.FORMAT_LINE_Y_M_D_H_M);
         String phone = item.getPhone();
         String sendType = Sms.getTypeShow(item.getSendType());
         String content = item.getContent();

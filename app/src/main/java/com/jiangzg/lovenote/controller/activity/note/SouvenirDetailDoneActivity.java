@@ -13,10 +13,10 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
-import com.jiangzg.base.common.ConstantUtils;
 import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.base.component.ActivityTrans;
 import com.jiangzg.base.time.DateUtils;
+import com.jiangzg.base.time.TimeUnit;
 import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.controller.activity.base.BaseActivity;
@@ -182,16 +182,16 @@ public class SouvenirDetailDoneActivity extends BaseActivity<SouvenirDetailDoneA
         tvTitle.setText(souvenir.getTitle());
         // happen
         long happenAt = TimeHelper.getJavaTimeByGo(souvenir.getHappenAt());
-        String happen = DateUtils.getStr(happenAt, ConstantUtils.FORMAT_LINE_Y_M_D_H_M);
+        String happen = DateUtils.getStr(happenAt, DateUtils.FORMAT_LINE_Y_M_D_H_M);
         tvHappenAt.setText(happen);
         // dayCount
         long dayCount;
         String format;
         if (DateUtils.getCurrentLong() > happenAt) {
-            dayCount = (DateUtils.getCurrentLong() - happenAt) / ConstantUtils.DAY;
+            dayCount = (DateUtils.getCurrentLong() - happenAt) / TimeUnit.DAY;
             format = getString(R.string.add_holder);
         } else {
-            dayCount = (happenAt - DateUtils.getCurrentLong()) / ConstantUtils.DAY;
+            dayCount = (happenAt - DateUtils.getCurrentLong()) / TimeUnit.DAY;
             format = getString(R.string.sub_holder);
         }
         String days = String.format(Locale.getDefault(), format, dayCount);

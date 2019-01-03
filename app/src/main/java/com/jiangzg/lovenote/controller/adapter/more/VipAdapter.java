@@ -4,7 +4,6 @@ import android.support.v4.app.FragmentActivity;
 
 import com.chad.library.adapter.base.BaseMultiItemQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
-import com.jiangzg.base.common.ConstantUtils;
 import com.jiangzg.base.time.DateUtils;
 import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.helper.ApiHelper;
@@ -40,7 +39,7 @@ public class VipAdapter extends BaseMultiItemQuickAdapter<Vip, BaseViewHolder> {
         String avatar = UserHelper.getAvatar(couple, item.getUserId());
         String time = TimeHelper.getTimeShowLine_HM_MDHM_YMDHM_ByGo(item.getCreateAt());
         int expireDays = item.getExpireDays();
-        String expireAt = DateUtils.getStr(TimeHelper.getJavaTimeByGo(item.getExpireAt()), ConstantUtils.FORMAT_LINE_Y_M_D_H_M);
+        String expireAt = DateUtils.getStr(TimeHelper.getJavaTimeByGo(item.getExpireAt()), DateUtils.FORMAT_LINE_Y_M_D_H_M);
         String content = String.format(Locale.getDefault(), mActivity.getString(R.string.get_space_holder_space_day_vip_on_space_holder_space_expire), expireDays, expireAt);
         // view
         FrescoAvatarView ivAvatar = helper.getView(R.id.ivAvatar);

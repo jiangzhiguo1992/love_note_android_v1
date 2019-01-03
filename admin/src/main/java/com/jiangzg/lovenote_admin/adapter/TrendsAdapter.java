@@ -2,7 +2,6 @@ package com.jiangzg.lovenote_admin.adapter;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
-import com.jiangzg.base.common.ConstantUtils;
 import com.jiangzg.base.time.DateUtils;
 import com.jiangzg.lovenote_admin.R;
 import com.jiangzg.lovenote_admin.activity.CoupleDetailActivity;
@@ -28,7 +27,7 @@ public class TrendsAdapter extends BaseQuickAdapter<Trends, BaseViewHolder> {
         String id = "id:" + item.getId();
         String uid = "uid:" + item.getUserId();
         String cid = "cid:" + item.getCoupleId();
-        String create = DateUtils.getStr(item.getCreateAt() * 1000, ConstantUtils.FORMAT_LINE_Y_M_D_H_M);
+        String create = DateUtils.getStr(item.getCreateAt() * 1000, DateUtils.FORMAT_LINE_Y_M_D_H_M);
         String actType = Trends.getActShow(item.getActionType(), item.getContentId());
         String conType = Trends.getContentShow(item.getContentType());
         String conId = String.valueOf(item.getContentId());

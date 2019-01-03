@@ -6,8 +6,8 @@ import android.support.v7.widget.CardView;
 import android.view.View;
 import android.widget.TextView;
 
-import com.jiangzg.base.common.ConstantUtils;
 import com.jiangzg.base.time.DateUtils;
+import com.jiangzg.base.time.TimeUnit;
 import com.jiangzg.lovenote_admin.R;
 import com.jiangzg.lovenote_admin.activity.ApiListActivity;
 import com.jiangzg.lovenote_admin.activity.CoupleListActivity;
@@ -210,7 +210,7 @@ public class UserFragment extends BaseFragment<UserFragment> {
 
     private void getUserData() {
         long current = DateUtils.getCurrentLong() / 1000;
-        long startH1 = (DateUtils.getCurrentLong() - ConstantUtils.HOUR) / 1000;
+        long startH1 = (DateUtils.getCurrentLong() - TimeUnit.HOUR) / 1000;
         Calendar calendar = DateUtils.getCurrentCal();
         calendar.set(Calendar.HOUR_OF_DAY, 0);
         calendar.set(Calendar.MINUTE, 0);
@@ -296,7 +296,7 @@ public class UserFragment extends BaseFragment<UserFragment> {
 
     private void getEntryData() {
         long current = DateUtils.getCurrentLong() / 1000;
-        long startH1 = (DateUtils.getCurrentLong() - ConstantUtils.HOUR) / 1000;
+        long startH1 = (DateUtils.getCurrentLong() - TimeUnit.HOUR) / 1000;
         Calendar calendar = DateUtils.getCurrentCal();
         calendar.set(Calendar.HOUR_OF_DAY, 0);
         calendar.set(Calendar.MINUTE, 0);
@@ -382,7 +382,7 @@ public class UserFragment extends BaseFragment<UserFragment> {
 
     private void getSmsData() {
         long current = DateUtils.getCurrentLong() / 1000;
-        long startH1 = (DateUtils.getCurrentLong() - ConstantUtils.HOUR) / 1000;
+        long startH1 = (DateUtils.getCurrentLong() - TimeUnit.HOUR) / 1000;
         Calendar calendar = DateUtils.getCurrentCal();
         calendar.set(Calendar.HOUR_OF_DAY, 0);
         calendar.set(Calendar.MINUTE, 0);
@@ -468,7 +468,7 @@ public class UserFragment extends BaseFragment<UserFragment> {
 
     private void getApiData() {
         long current = DateUtils.getCurrentLong() / 1000;
-        long startH1 = (DateUtils.getCurrentLong() - ConstantUtils.HOUR) / 1000;
+        long startH1 = (DateUtils.getCurrentLong() - TimeUnit.HOUR) / 1000;
         Calendar calendar = DateUtils.getCurrentCal();
         calendar.set(Calendar.HOUR_OF_DAY, 0);
         calendar.set(Calendar.MINUTE, 0);
@@ -641,10 +641,10 @@ public class UserFragment extends BaseFragment<UserFragment> {
     private void getSignData() {
         long currentLong = DateUtils.getCurrentLong();
         Calendar c0 = DateUtils.getCal(currentLong);
-        Calendar c1 = DateUtils.getCal(currentLong - ConstantUtils.DAY);
-        Calendar c2 = DateUtils.getCal(currentLong - ConstantUtils.DAY * 2);
-        Calendar c3 = DateUtils.getCal(currentLong - ConstantUtils.DAY * 3);
-        Calendar c4 = DateUtils.getCal(currentLong - ConstantUtils.DAY * 4);
+        Calendar c1 = DateUtils.getCal(currentLong - TimeUnit.DAY);
+        Calendar c2 = DateUtils.getCal(currentLong - TimeUnit.DAY * 2);
+        Calendar c3 = DateUtils.getCal(currentLong - TimeUnit.DAY * 3);
+        Calendar c4 = DateUtils.getCal(currentLong - TimeUnit.DAY * 4);
         int year0 = c0.get(Calendar.YEAR);
         int year1 = c1.get(Calendar.YEAR);
         int year2 = c2.get(Calendar.YEAR);
@@ -724,7 +724,7 @@ public class UserFragment extends BaseFragment<UserFragment> {
 
     private void getNoteData() {
         long currentLong = DateUtils.getCurrentLong();
-        long start = (currentLong - ConstantUtils.DAY) / 1000;
+        long start = (currentLong - TimeUnit.DAY) / 1000;
         long end = currentLong / 1000;
         Call<Result> call = new RetrofitHelper().call(API.class).noteTrendsConListGet(start, end);
         RetrofitHelper.enqueue(call, null, new RetrofitHelper.CallBack() {
@@ -761,7 +761,7 @@ public class UserFragment extends BaseFragment<UserFragment> {
 
     private void getPlaceData() {
         long currentLong = DateUtils.getCurrentLong();
-        long start = (currentLong - ConstantUtils.DAY) / 1000;
+        long start = (currentLong - TimeUnit.DAY) / 1000;
         long end = currentLong / 1000;
         Call<Result> call = new RetrofitHelper().call(API.class).couplePlaceGroupGet(start, end, "city");
         RetrofitHelper.enqueue(call, null, new RetrofitHelper.CallBack() {

@@ -18,7 +18,6 @@ import android.widget.TextView;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.haibin.calendarview.CalendarView;
 import com.haibin.calendarview.WeekView;
-import com.jiangzg.base.common.ConstantUtils;
 import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.base.component.ActivityTrans;
 import com.jiangzg.base.time.DateUtils;
@@ -351,16 +350,16 @@ public class MensesActivity extends BaseActivity<MensesActivity> {
             tipShow = String.format(Locale.getDefault(), getString(R.string.already_start_space_holder), timeSHow);
         } else {
             long between = DateUtils.getCurrentLong() - createAt;
-            if (between > ConstantUtils.DAY * 30) {
+            if (between > TimeUnit.DAY * 30) {
                 // 已推迟
-                TimeUnit timeUnit = TimeUnit.convertTime2Unit(between - ConstantUtils.DAY * 30);
+                TimeUnit timeUnit = TimeUnit.convertTime2Unit(between - TimeUnit.DAY * 30);
                 String timeSHow = timeUnit.getMaxShow(false, true, true, true, true, true,
                         R.string.year, R.string.month, R.string.dayT,
                         R.string.hour_short, R.string.minute_short, R.string.second);
                 tipShow = String.format(Locale.getDefault(), getString(R.string.already_delay_space_holder), timeSHow);
             } else {
                 // 倒计时
-                TimeUnit timeUnit = TimeUnit.convertTime2Unit(ConstantUtils.DAY * 30 - between);
+                TimeUnit timeUnit = TimeUnit.convertTime2Unit(TimeUnit.DAY * 30 - between);
                 String timeSHow = timeUnit.getMaxShow(false, true, true, true, true, true,
                         R.string.year, R.string.month, R.string.dayT,
                         R.string.hour_short, R.string.minute_short, R.string.second);

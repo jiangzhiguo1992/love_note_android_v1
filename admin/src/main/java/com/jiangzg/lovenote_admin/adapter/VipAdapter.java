@@ -2,7 +2,6 @@ package com.jiangzg.lovenote_admin.adapter;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
-import com.jiangzg.base.common.ConstantUtils;
 import com.jiangzg.base.time.DateUtils;
 import com.jiangzg.lovenote_admin.R;
 import com.jiangzg.lovenote_admin.activity.CoupleDetailActivity;
@@ -29,10 +28,10 @@ public class VipAdapter extends BaseQuickAdapter<Vip, BaseViewHolder> {
         String uid = "uid:" + item.getUserId();
         String cid = "cid:" + item.getCoupleId();
         String bid = "bid:" + item.getBillId();
-        String create = DateUtils.getStr(item.getCreateAt() * 1000, ConstantUtils.FORMAT_LINE_Y_M_D_H_M);
+        String create = DateUtils.getStr(item.getCreateAt() * 1000, DateUtils.FORMAT_LINE_Y_M_D_H_M);
         String fromType = Vip.getFromTypeShow(item.getFromType());
         String expireDays = "天数:" + item.getExpireDays();
-        String expireAt = "到期:" + DateUtils.getStr(item.getExpireAt() * 1000, ConstantUtils.FORMAT_LINE_Y_M_D_H_M);
+        String expireAt = "到期:" + DateUtils.getStr(item.getExpireAt() * 1000, DateUtils.FORMAT_LINE_Y_M_D_H_M);
         // view
         helper.setText(R.id.tvId, id);
         helper.setText(R.id.tvUid, uid);

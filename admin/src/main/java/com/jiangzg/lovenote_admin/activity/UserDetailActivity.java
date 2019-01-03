@@ -14,7 +14,6 @@ import android.widget.TextView;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
-import com.jiangzg.base.common.ConstantUtils;
 import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.base.component.ActivityTrans;
 import com.jiangzg.base.time.DateUtils;
@@ -214,10 +213,10 @@ public class UserDetailActivity extends BaseActivity<UserDetailActivity> {
         etId.setText(String.valueOf(user.getId()));
         etPhone.setText(user.getPhone());
         btnStatus.setText(user.getStatus() == BaseObj.STATUS_VISIBLE ? "正常ing" : "拉黑ing");
-        tvCreate.setText("c:" + DateUtils.getStr(user.getCreateAt() * 1000, ConstantUtils.FORMAT_LINE_Y_M_D_H_M));
-        tvUpdate.setText("u:" + DateUtils.getStr(user.getUpdateAt() * 1000, ConstantUtils.FORMAT_LINE_Y_M_D_H_M));
+        tvCreate.setText("c:" + DateUtils.getStr(user.getCreateAt() * 1000, DateUtils.FORMAT_LINE_Y_M_D_H_M));
+        tvUpdate.setText("u:" + DateUtils.getStr(user.getUpdateAt() * 1000, DateUtils.FORMAT_LINE_Y_M_D_H_M));
         btnSex.setText("性别:" + User.getSexShow(user.getSex()));
-        btnBirthday.setText("生日:" + DateUtils.getStr(user.getBirthday() * 1000, ConstantUtils.FORMAT_LINE_Y_M_D));
+        btnBirthday.setText("生日:" + DateUtils.getStr(user.getBirthday() * 1000, DateUtils.FORMAT_LINE_Y_M_D));
     }
 
     private void showStatusDialog() {

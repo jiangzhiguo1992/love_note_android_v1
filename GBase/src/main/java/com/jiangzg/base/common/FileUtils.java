@@ -26,6 +26,22 @@ import java.util.List;
  */
 public class FileUtils {
 
+    /* Byte与Byte的倍数 */
+    public static final int BYTE = 1;
+    /* KB与Byte的倍数 */
+    public static final int KB = 1024;
+    /* MB与Byte的倍数 */
+    public static final int MB = 1048576;
+    /* GB与Byte的倍数 */
+    public static final int GB = 1073741824;
+
+    public enum MemoryUnit {
+        BYTE,
+        KB,
+        MB,
+        GB
+    }
+
     /**
      * 根据文件路径获取文件
      */
@@ -538,9 +554,9 @@ public class FileUtils {
         InputStream is = null;
         try {
             is = new BufferedInputStream(new FileInputStream(file));
-            byte[] buffer = new byte[ConstantUtils.KB];
+            byte[] buffer = new byte[KB];
             int readChars;
-            while ((readChars = is.read(buffer, 0, ConstantUtils.KB)) != -1) {
+            while ((readChars = is.read(buffer, 0, KB)) != -1) {
                 for (int i = 0; i < readChars; ++i) {
                     if (buffer[i] == '\n') ++count;
                 }
@@ -725,7 +741,7 @@ public class FileUtils {
         BufferedOutputStream os = null;
         try {
             os = new BufferedOutputStream(new FileOutputStream(file, append));
-            byte data[] = new byte[ConstantUtils.KB];
+            byte data[] = new byte[KB];
             int len;
             while ((len = is.read(data)) != -1) {
                 os.write(data, 0, len);

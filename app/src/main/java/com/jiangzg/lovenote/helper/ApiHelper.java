@@ -12,7 +12,6 @@ import com.afollestad.materialdialogs.MaterialDialog;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.jiangzg.base.application.AppInfo;
 import com.jiangzg.base.application.AppUtils;
-import com.jiangzg.base.common.ConstantUtils;
 import com.jiangzg.base.common.EncryptUtils;
 import com.jiangzg.base.common.FileUtils;
 import com.jiangzg.base.common.LogUtils;
@@ -20,6 +19,7 @@ import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.base.system.DeviceInfo;
 import com.jiangzg.base.system.LanguageUtils;
 import com.jiangzg.base.time.DateUtils;
+import com.jiangzg.base.time.TimeUnit;
 import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.controller.activity.base.BaseActivity;
 import com.jiangzg.lovenote.controller.activity.couple.CoupleInfoActivity;
@@ -317,7 +317,7 @@ public class ApiHelper {
                 MyApp.get().getHandler().postDelayed(() -> {
                     LogUtils.w(ApiHelper.class, "ossInfoUpdate", "oss更新失败");
                     ossInfoUpdate(); // 重复更新
-                }, ConstantUtils.MIN);
+                }, TimeUnit.MIN);
             }
         });
     }

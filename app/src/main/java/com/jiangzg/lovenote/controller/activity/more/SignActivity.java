@@ -14,7 +14,6 @@ import android.widget.TextView;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.haibin.calendarview.CalendarView;
 import com.haibin.calendarview.WeekView;
-import com.jiangzg.base.common.ConstantUtils;
 import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.base.component.ActivityTrans;
 import com.jiangzg.base.time.DateUtils;
@@ -261,7 +260,7 @@ public class SignActivity extends BaseActivity<SignActivity> {
             for (Sign s : signList) {
                 if (s == null) continue;
                 if (s.getYear() == selectYear && s.getMonthOfYear() == selectMonth && s.getDayOfMonth() == selectDay) {
-                    signShow = DateUtils.getStr(TimeHelper.getJavaTimeByGo(s.getCreateAt()), ConstantUtils.FORMAT_H_M);
+                    signShow = DateUtils.getStr(TimeHelper.getJavaTimeByGo(s.getCreateAt()), DateUtils.FORMAT_H_M);
                 }
             }
         }

@@ -2,7 +2,6 @@ package com.jiangzg.lovenote_admin.adapter;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
-import com.jiangzg.base.common.ConstantUtils;
 import com.jiangzg.base.time.DateUtils;
 import com.jiangzg.lovenote_admin.R;
 import com.jiangzg.lovenote_admin.activity.CoupleDetailActivity;
@@ -29,7 +28,7 @@ public class CoinAdapter extends BaseQuickAdapter<Coin, BaseViewHolder> {
         String uid = "uid:" + item.getUserId();
         String cid = "cid:" + item.getCoupleId();
         String bid = "bid:" + item.getBillId();
-        String create = DateUtils.getStr(item.getCreateAt() * 1000, ConstantUtils.FORMAT_LINE_Y_M_D_H_M);
+        String create = DateUtils.getStr(item.getCreateAt() * 1000, DateUtils.FORMAT_LINE_Y_M_D_H_M);
         String kind = Coin.getKindShow(item.getKind());
         String change = item.getChange() > 0 ? "+" + item.getChange() : String.valueOf(item.getChange());
         String count = String.valueOf(item.getCount());

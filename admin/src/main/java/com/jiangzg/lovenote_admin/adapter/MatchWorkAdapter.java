@@ -6,7 +6,6 @@ import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
-import com.jiangzg.base.common.ConstantUtils;
 import com.jiangzg.base.common.ConvertUtils;
 import com.jiangzg.base.time.DateUtils;
 import com.jiangzg.base.view.ScreenUtils;
@@ -47,8 +46,8 @@ public class MatchWorkAdapter extends BaseQuickAdapter<MatchWork, BaseViewHolder
         String cid = "cid:" + item.getCoupleId();
         String mpid = "mpid:" + item.getMatchPeriodId();
         String kind = MatchPeriod.getKindShow(item.getKind());
-        String create = "创建:" + DateUtils.getStr(item.getCreateAt() * 1000, ConstantUtils.FORMAT_LINE_Y_M_D_H_M);
-        String update = "更新:" + DateUtils.getStr(item.getUpdateAt() * 1000, ConstantUtils.FORMAT_LINE_Y_M_D_H_M);
+        String create = "创建:" + DateUtils.getStr(item.getCreateAt() * 1000, DateUtils.FORMAT_LINE_Y_M_D_H_M);
+        String update = "更新:" + DateUtils.getStr(item.getUpdateAt() * 1000, DateUtils.FORMAT_LINE_Y_M_D_H_M);
         String title = item.getTitle();
         String contentText = item.getContentText();
         String contentImage = item.getContentImage();

@@ -1,10 +1,10 @@
 package com.jiangzg.lovenote.helper;
 
-import com.jiangzg.base.common.ConstantUtils;
 import com.jiangzg.base.common.FileUtils;
 import com.jiangzg.base.common.LogUtils;
 import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.base.time.DateUtils;
+import com.jiangzg.base.time.TimeUnit;
 import com.jiangzg.lovenote.main.MyApp;
 
 import java.io.File;
@@ -18,7 +18,7 @@ import java.util.ListIterator;
  */
 public class OssResHelper {
 
-    public static final long FILE_DOWNLOAD_WAIT = ConstantUtils.MIN * 10;
+    public static final long FILE_DOWNLOAD_WAIT = TimeUnit.MIN * 10;
 
     public static final int TYPE_COUPLE_AVATAR = 100;
     public static final int TYPE_COUPLE_WALL = 110;
@@ -193,7 +193,7 @@ public class OssResHelper {
             LogUtils.d(OssResHelper.class, "refreshOssResWithDelExpire", "目录不存在");
             return;
         }
-        final String expireTime = DateUtils.getStr(expireAt, ConstantUtils.FORMAT_CHINA_Y_M_D_H_M);
+        final String expireTime = DateUtils.getStr(expireAt, DateUtils.FORMAT_CHINA_Y_M_D_H_M);
         // 开线程
         MyApp.get().getThread().execute(() -> {
             List<File> existsFileList = FileUtils.listFilesAndDirInDir(dir, true);
@@ -243,7 +243,7 @@ public class OssResHelper {
                     if (!find) {
                         // 没发现的文件，再检查一下过期时间
                         long lastModified = file.lastModified();
-                        String lastModifyTime = DateUtils.getStr(lastModified, ConstantUtils.FORMAT_CHINA_Y_M_D_H_M);
+                        String lastModifyTime = DateUtils.getStr(lastModified, DateUtils.FORMAT_CHINA_Y_M_D_H_M);
                         if (lastModified > expireAt) {
                             LogUtils.i(OssResHelper.class, "refreshOssResWithDelExpire", "目录(" + dir.getName() + "): 留下没过期文件(" + file.getName() + "): 修改时间 == " + lastModifyTime + " , 过期时间 == " + expireTime);
                         } else {
@@ -306,7 +306,7 @@ public class OssResHelper {
                 for (File file : expireFileList) {
                     if (file == null) continue;
                     long lastModified = file.lastModified();
-                    String lastModifyTime = DateUtils.getStr(lastModified, ConstantUtils.FORMAT_CHINA_Y_M_D_H_M);
+                    String lastModifyTime = DateUtils.getStr(lastModified, DateUtils.FORMAT_CHINA_Y_M_D_H_M);
                     LogUtils.i(OssResHelper.class, "refreshOssResWithDelExpire", "目录(" + dir.getName() + "): 删除已过期文件(" + file.getName() + "): 修改时间 == " + lastModifyTime + " , 过期时间 == " + expireTime);
                 }
                 ResHelper.deleteFileListInBackground(expireFileList);

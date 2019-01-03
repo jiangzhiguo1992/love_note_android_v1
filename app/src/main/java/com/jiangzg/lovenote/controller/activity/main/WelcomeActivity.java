@@ -9,11 +9,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.jiangzg.base.application.AppUtils;
-import com.jiangzg.base.common.ConstantUtils;
 import com.jiangzg.base.common.FileUtils;
 import com.jiangzg.base.common.LogUtils;
 import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.base.time.DateUtils;
+import com.jiangzg.base.time.TimeUnit;
 import com.jiangzg.base.view.BarUtils;
 import com.jiangzg.base.view.ScreenUtils;
 import com.jiangzg.lovenote.R;
@@ -45,7 +45,7 @@ import retrofit2.Call;
  */
 public class WelcomeActivity extends BaseActivity<WelcomeActivity> {
 
-    private static final long TransPageMillis = (long) (ConstantUtils.SEC * 2);
+    private static final long TransPageMillis = (long) (TimeUnit.SEC * 2);
 
     @BindView(R.id.ivBg)
     FrescoNativeView ivBg;
@@ -133,7 +133,7 @@ public class WelcomeActivity extends BaseActivity<WelcomeActivity> {
         //set.setInterpolator(new AccelerateDecelerateInterpolator());
         //set.start();
         ObjectAnimator alpha = ObjectAnimator.ofFloat(ivBg, "alpha", 0, 1);
-        alpha.setDuration(ConstantUtils.SEC);
+        alpha.setDuration(TimeUnit.SEC);
         alpha.setInterpolator(new AccelerateDecelerateInterpolator());
         alpha.start();
     }

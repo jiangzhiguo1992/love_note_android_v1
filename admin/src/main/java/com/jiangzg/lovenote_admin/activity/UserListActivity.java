@@ -12,9 +12,9 @@ import android.widget.Button;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
-import com.jiangzg.base.common.ConstantUtils;
 import com.jiangzg.base.component.ActivityTrans;
 import com.jiangzg.base.time.DateUtils;
+import com.jiangzg.base.time.TimeUnit;
 import com.jiangzg.lovenote_admin.R;
 import com.jiangzg.lovenote_admin.adapter.UserAdapter;
 import com.jiangzg.lovenote_admin.base.BaseActivity;
@@ -72,7 +72,7 @@ public class UserListActivity extends BaseActivity<UserListActivity> {
     protected void initView(Intent intent, Bundle state) {
         ViewHelper.initTopBar(mActivity, tb, "user_list", true);
         // time
-        start = DateUtils.getCurrentLong() - ConstantUtils.DAY;
+        start = DateUtils.getCurrentLong() - TimeUnit.DAY;
         end = DateUtils.getCurrentLong();
         refreshDateView();
         // recycler
@@ -158,8 +158,8 @@ public class UserListActivity extends BaseActivity<UserListActivity> {
     }
 
     private void refreshDateView() {
-        String startAt = "s:" + DateUtils.getStr(start, ConstantUtils.FORMAT_LINE_Y_M_D_H_M);
-        String endAt = "e:" + DateUtils.getStr(end, ConstantUtils.FORMAT_LINE_Y_M_D_H_M);
+        String startAt = "s:" + DateUtils.getStr(start, DateUtils.FORMAT_LINE_Y_M_D_H_M);
+        String endAt = "e:" + DateUtils.getStr(end, DateUtils.FORMAT_LINE_Y_M_D_H_M);
         btnStart.setText(startAt);
         btnEnd.setText(endAt);
     }
@@ -219,8 +219,8 @@ public class UserListActivity extends BaseActivity<UserListActivity> {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 long birth = DateUtils.getCurrentLong() - (long) data.getBirth() * 1000;
-                long year = birth / ConstantUtils.YEAR;
-                long day = (birth % ConstantUtils.YEAR) / ConstantUtils.DAY;
+                long year = birth / TimeUnit.YEAR;
+                long day = (birth % TimeUnit.YEAR) / TimeUnit.DAY;
                 if (data.getBirth() == 0) {
                     year = 0;
                     day = 0;

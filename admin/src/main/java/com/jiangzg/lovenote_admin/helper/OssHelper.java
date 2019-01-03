@@ -6,7 +6,6 @@ import com.alibaba.sdk.android.oss.OSS;
 import com.alibaba.sdk.android.oss.OSSClient;
 import com.alibaba.sdk.android.oss.common.auth.OSSCredentialProvider;
 import com.alibaba.sdk.android.oss.common.auth.OSSStsTokenCredentialProvider;
-import com.jiangzg.base.common.ConstantUtils;
 import com.jiangzg.base.common.LogUtils;
 import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.base.time.DateUtils;
@@ -27,7 +26,7 @@ public class OssHelper {
      */
     public static void refreshOssClient() {
         OssInfo ossInfo = SPHelper.getOssInfo();
-        String expireTime = DateUtils.getStr(ossInfo.getStsExpireTime() * 1000, ConstantUtils.FORMAT_LINE_M_D_H_M);
+        String expireTime = DateUtils.getStr(ossInfo.getStsExpireTime() * 1000, DateUtils.FORMAT_LINE_M_D_H_M);
         LogUtils.i(OssHelper.class, "refreshOssClient", "sts将在 " + expireTime + " 过期");
         String bucket = ossInfo.getBucket();
         String accessKeyId = ossInfo.getAccessKeyId();

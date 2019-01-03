@@ -19,8 +19,8 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
-import com.jiangzg.base.common.ConstantUtils;
 import com.jiangzg.base.component.ActivityTrans;
+import com.jiangzg.base.time.TimeUnit;
 import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.base.view.ViewUtils;
 import com.jiangzg.lovenote.R;
@@ -223,7 +223,7 @@ public class LoginActivity extends BaseActivity<LoginActivity> {
                         if (countDownGo < countDownSec) {
                             ++countDownGo;
                             btnSendCode.setText(String.valueOf(countDownSec - countDownGo) + "s");
-                            MyApp.get().getHandler().postDelayed(this, ConstantUtils.SEC);
+                            MyApp.get().getHandler().postDelayed(this, TimeUnit.SEC);
                         } else {
                             stopCountDownTask();
                         }

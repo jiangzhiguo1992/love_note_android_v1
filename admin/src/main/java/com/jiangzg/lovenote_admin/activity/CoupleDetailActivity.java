@@ -17,7 +17,6 @@ import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
-import com.jiangzg.base.common.ConstantUtils;
 import com.jiangzg.base.common.ConvertUtils;
 import com.jiangzg.base.common.LogUtils;
 import com.jiangzg.base.common.StringUtils;
@@ -350,8 +349,8 @@ public class CoupleDetailActivity extends BaseActivity<CoupleDetailActivity> {
         int width = ConvertUtils.dp2px(30);
         int height = ConvertUtils.dp2px(30);
         String id = String.valueOf(couple.getId());
-        String create = "c:" + DateUtils.getStr(couple.getCreateAt() * 1000, ConstantUtils.FORMAT_LINE_Y_M_D_H_M);
-        String update = "u:" + DateUtils.getStr(couple.getUpdateAt() * 1000, ConstantUtils.FORMAT_LINE_Y_M_D_H_M);
+        String create = "c:" + DateUtils.getStr(couple.getCreateAt() * 1000, DateUtils.FORMAT_LINE_Y_M_D_H_M);
+        String update = "u:" + DateUtils.getStr(couple.getUpdateAt() * 1000, DateUtils.FORMAT_LINE_Y_M_D_H_M);
         String creatorId = "c用户:" + couple.getCreatorId();
         String creatorAvatar = couple.getCreatorAvatar();
         String creatorName = couple.getCreatorName();
@@ -378,10 +377,10 @@ public class CoupleDetailActivity extends BaseActivity<CoupleDetailActivity> {
         }
         // creator
         String sex1 = User.getSexShow(creator.getSex());
-        String birth1 = DateUtils.getStr(creator.getBirthday() * 1000, ConstantUtils.FORMAT_LINE_Y_M_D);
+        String birth1 = DateUtils.getStr(creator.getBirthday() * 1000, DateUtils.FORMAT_LINE_Y_M_D);
         String phone1 = creator.getPhone();
         String sex2 = User.getSexShow(inviter.getSex());
-        String birth2 = DateUtils.getStr(inviter.getBirthday() * 1000, ConstantUtils.FORMAT_LINE_Y_M_D);
+        String birth2 = DateUtils.getStr(inviter.getBirthday() * 1000, DateUtils.FORMAT_LINE_Y_M_D);
         String phone2 = inviter.getPhone();
         // view
         tvSex1.setText(birth1 + " " + sex1);

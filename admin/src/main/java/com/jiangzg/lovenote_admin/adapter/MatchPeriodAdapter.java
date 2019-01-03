@@ -6,7 +6,6 @@ import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
-import com.jiangzg.base.common.ConstantUtils;
 import com.jiangzg.base.time.DateUtils;
 import com.jiangzg.lovenote_admin.R;
 import com.jiangzg.lovenote_admin.activity.MatchWorkListActivity;
@@ -39,8 +38,8 @@ public class MatchPeriodAdapter extends BaseQuickAdapter<MatchPeriod, BaseViewHo
         //String create = "创建:" + DateUtils.getStr(item.getCreateAt() * 1000, ConstantUtils.FORMAT_LINE_Y_M_D_H_M);
         //String update = "更新:" + DateUtils.getStr(item.getUpdateAt() * 1000, ConstantUtils.FORMAT_LINE_Y_M_D_H_M);
         String isEnd = "(" + (DateUtils.getCurrentLong() >= item.getStartAt() * 1000 && DateUtils.getCurrentLong() <= item.getEndAt() * 1000) + ")";
-        String start = "开始:" + DateUtils.getStr(item.getStartAt() * 1000, ConstantUtils.FORMAT_LINE_Y_M_D_H_M);
-        String end = "结束:" + DateUtils.getStr(item.getEndAt() * 1000, ConstantUtils.FORMAT_LINE_Y_M_D_H_M);
+        String start = "开始:" + DateUtils.getStr(item.getStartAt() * 1000, DateUtils.FORMAT_LINE_Y_M_D_H_M);
+        String end = "结束:" + DateUtils.getStr(item.getEndAt() * 1000, DateUtils.FORMAT_LINE_Y_M_D_H_M);
         String period = "期数:" + item.getPeriod();
         String kind = MatchPeriod.getKindShow(item.getKind());
         String coinChange = "奖励金币:" + item.getCoinChange();

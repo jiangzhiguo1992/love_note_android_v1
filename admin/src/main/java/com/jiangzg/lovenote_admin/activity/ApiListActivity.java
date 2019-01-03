@@ -13,9 +13,9 @@ import android.widget.Button;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
-import com.jiangzg.base.common.ConstantUtils;
 import com.jiangzg.base.component.ActivityTrans;
 import com.jiangzg.base.time.DateUtils;
+import com.jiangzg.base.time.TimeUnit;
 import com.jiangzg.lovenote_admin.R;
 import com.jiangzg.lovenote_admin.adapter.ApiAdapter;
 import com.jiangzg.lovenote_admin.base.BaseActivity;
@@ -78,7 +78,7 @@ public class ApiListActivity extends BaseActivity<ApiListActivity> {
     protected void initView(Intent intent, Bundle state) {
         ViewHelper.initTopBar(mActivity, tb, "api_list", true);
         // time
-        start = DateUtils.getCurrentLong() - ConstantUtils.HOUR;
+        start = DateUtils.getCurrentLong() - TimeUnit.HOUR;
         end = DateUtils.getCurrentLong();
         refreshDateView();
         // recycler
@@ -136,8 +136,8 @@ public class ApiListActivity extends BaseActivity<ApiListActivity> {
     }
 
     private void refreshDateView() {
-        String startAt = "s: " + DateUtils.getStr(start, ConstantUtils.FORMAT_LINE_Y_M_D_H_M);
-        String endAt = "e: " + DateUtils.getStr(end, ConstantUtils.FORMAT_LINE_Y_M_D_H_M);
+        String startAt = "s: " + DateUtils.getStr(start, DateUtils.FORMAT_LINE_Y_M_D_H_M);
+        String endAt = "e: " + DateUtils.getStr(end, DateUtils.FORMAT_LINE_Y_M_D_H_M);
         btnStart.setText(startAt);
         btnEnd.setText(endAt);
     }

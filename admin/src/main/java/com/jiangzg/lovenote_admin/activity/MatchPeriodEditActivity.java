@@ -12,7 +12,6 @@ import android.widget.EditText;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
-import com.jiangzg.base.common.ConstantUtils;
 import com.jiangzg.base.common.LogUtils;
 import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.base.component.ActivityTrans;
@@ -124,8 +123,8 @@ public class MatchPeriodEditActivity extends BaseActivity<MatchPeriodEditActivit
         if (endAt <= 0) {
             endAt = DateUtils.getCurrentLong();
         }
-        String start = "s: " + DateUtils.getStr(startAt, ConstantUtils.FORMAT_LINE_Y_M_D_H_M);
-        String end = "e: " + DateUtils.getStr(endAt, ConstantUtils.FORMAT_LINE_Y_M_D_H_M);
+        String start = "s: " + DateUtils.getStr(startAt, DateUtils.FORMAT_LINE_Y_M_D_H_M);
+        String end = "e: " + DateUtils.getStr(endAt, DateUtils.FORMAT_LINE_Y_M_D_H_M);
         btnStart.setText(start);
         btnEnd.setText(end);
     }

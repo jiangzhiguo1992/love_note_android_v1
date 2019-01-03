@@ -1,8 +1,8 @@
 package com.jiangzg.lovenote.helper;
 
-import com.jiangzg.base.common.ConstantUtils;
 import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.base.time.DateUtils;
+import com.jiangzg.base.time.TimeUnit;
 import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.main.MyApp;
 import com.jiangzg.lovenote.model.entity.Couple;
@@ -134,7 +134,7 @@ public class UserHelper {
         CoupleState state = couple.getState();
         if (state == null) return -1;
         long breakAt = state.getCreateAt() + SPHelper.getLimit().getCoupleBreakSec();
-        long currentAt = DateUtils.getCurrentLong() / ConstantUtils.SEC;
+        long currentAt = DateUtils.getCurrentLong() / TimeUnit.SEC;
         long countDown = breakAt - currentAt;
         return countDown > 0 ? countDown : -1;
     }

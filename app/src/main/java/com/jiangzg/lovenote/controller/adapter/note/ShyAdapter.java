@@ -3,7 +3,6 @@ package com.jiangzg.lovenote.controller.adapter.note;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
-import com.jiangzg.base.common.ConstantUtils;
 import com.jiangzg.base.time.DateUtils;
 import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.lovenote.R;
@@ -41,7 +40,7 @@ public class ShyAdapter extends BaseQuickAdapter<Shy, BaseViewHolder> {
     @Override
     protected void convert(BaseViewHolder helper, Shy item) {
         String avatar = UserHelper.getAvatar(couple, item.getUserId());
-        String happenAt = DateUtils.getStr(TimeHelper.getJavaTimeByGo(item.getHappenAt()), ConstantUtils.FORMAT_H_M);
+        String happenAt = DateUtils.getStr(TimeHelper.getJavaTimeByGo(item.getHappenAt()), DateUtils.FORMAT_H_M);
         // view
         FrescoAvatarView ivAvatar = helper.getView(R.id.ivAvatar);
         ivAvatar.setData(avatar);

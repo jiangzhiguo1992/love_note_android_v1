@@ -12,9 +12,9 @@ import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
-import com.jiangzg.base.common.ConstantUtils;
 import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.base.component.ActivityTrans;
+import com.jiangzg.base.time.TimeUnit;
 import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.controller.activity.base.BaseActivity;
 import com.jiangzg.lovenote.controller.adapter.settings.HelpContentAdapter;
@@ -362,8 +362,8 @@ public class HelpActivity extends BaseActivity<HelpActivity> {
 
     private Help getHelpCoupleInfo(int index) {
         Limit limit = SPHelper.getLimit();
-        long breakNeedDay = limit.getCoupleBreakNeedSec() / (ConstantUtils.DAY / ConstantUtils.SEC);
-        long breakContinueHour = limit.getCoupleBreakSec() / (ConstantUtils.HOUR / ConstantUtils.SEC);
+        long breakNeedDay = limit.getCoupleBreakNeedSec() / (TimeUnit.DAY / TimeUnit.SEC);
+        long breakContinueHour = limit.getCoupleBreakSec() / (TimeUnit.HOUR / TimeUnit.SEC);
         Help help = new Help();
         help.setIndex(index);
         help.setTitle(getString(R.string.pair_info));

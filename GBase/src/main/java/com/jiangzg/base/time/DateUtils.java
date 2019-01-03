@@ -18,26 +18,37 @@ import java.util.Locale;
  */
 public class DateUtils {
 
-    /**
-     * 获取日期格式
-     */
-    public static SimpleDateFormat getFormat(String type) {
-        if (StringUtils.isEmpty(type)) {
-            LogUtils.w(DateUtils.class, "getFormat", "type == null");
-            return null;
-        }
-        return new SimpleDateFormat(type, Locale.getDefault());
-    }
+    public static final String FORMAT_CHINA_Y_M_D__H_M_S_S = "yyyyMMdd-HHmmssSSS"; // 一般用于流水号
+    public static final String FORMAT_LINE_Y_M_D_H_M_S = "yyyy-MM-dd HH:mm:ss";
+    public static final String FORMAT_CHINA_Y_M_D_H_M_S = "yyyy年MM月dd日 HH时mm分ss秒";
+    public static final String FORMAT_LINE_Y_M_D_H_M = "yyyy-MM-dd HH:mm";
+    public static final String FORMAT_CHINA_Y_M_D_H_M = "yyyy年MM月dd日 HH:mm";
+    public static final String FORMAT_LINE_Y_M_D = "yyyy-MM-dd";
+    public static final String FORMAT_POINT_Y_M_D = "yyyy.MM.dd";
+    public static final String FORMAT_CHINA_Y_M_D = "yyyy年MM月dd日";
+    public static final String FORMAT_LINE_Y_M = "yyyy-MM";
+    public static final String FORMAT_POINT_M_D = "yyyy.MM";
+    public static final String FORMAT_CHINA_M_D = "MM月dd日";
+    public static final String FORMAT_LINE_M_D = "MM-dd";
+    public static final String FORMAT_LINE_M_D_H_M = "MM-dd HH:mm";
+    public static final String FORMAT_H_M_S = "HH:mm:ss";
+    public static final String FORMAT_H_M = "HH:mm";
+    public static final String FORMAT_M_S = "mm:ss";
+    public static final String FORMAT_12_A = "hh:mm a"; // 12小时制
 
     /**
      * 获取当前时间
      */
+    public static Date getCurrentDate() {
+        return new Date();
+    }
+
     public static Calendar getCurrentCal() {
         return Calendar.getInstance();
     }
 
-    public static Date getCurrentDate() {
-        return new Date();
+    public static long getCurrentLong() {
+        return getCurrentDate().getTime();
     }
 
     public static String getCurrentStr(String sFormat) {
@@ -45,17 +56,8 @@ public class DateUtils {
             LogUtils.w(DateUtils.class, "getCurrentStr", "sFormat == null");
             return "";
         }
-        SimpleDateFormat format = getFormat(sFormat);
-        if (format == null) {
-            LogUtils.w(DateUtils.class, "getCurrentStr", "format == null");
-            return "";
-        }
-        return format.format(new Date());
-    }
-
-    public static long getCurrentLong() {
-        Date date = new Date();
-        return date.getTime();
+        SimpleDateFormat format = new SimpleDateFormat(sFormat, Locale.getDefault());
+        return format.format(getCurrentDate());
     }
 
     /**
@@ -66,12 +68,8 @@ public class DateUtils {
             LogUtils.w(DateUtils.class, "getDate", "time == null || sFormat == null");
             return null;
         }
-        SimpleDateFormat format = getFormat(sFormat);
+        SimpleDateFormat format = new SimpleDateFormat(sFormat, Locale.getDefault());
         try {
-            if (format == null) {
-                LogUtils.w(DateUtils.class, "getDate", "format == null");
-                return null;
-            }
             return format.parse(time);
         } catch (ParseException e) {
             LogUtils.e(DateUtils.class, "getDate", e);
@@ -155,11 +153,7 @@ public class DateUtils {
             LogUtils.w(DateUtils.class, "getStr", "date == null || sFormat == null");
             return "";
         }
-        SimpleDateFormat format = getFormat(sFormat);
-        if (format == null) {
-            LogUtils.w(DateUtils.class, "getStr", "format == null");
-            return "";
-        }
+        SimpleDateFormat format = new SimpleDateFormat(sFormat, Locale.getDefault());
         return format.format(date);
     }
 

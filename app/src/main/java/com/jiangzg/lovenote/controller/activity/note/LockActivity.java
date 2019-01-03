@@ -18,9 +18,9 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.afollestad.materialdialogs.MaterialDialog;
-import com.jiangzg.base.common.ConstantUtils;
 import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.base.component.ActivityTrans;
+import com.jiangzg.base.time.TimeUnit;
 import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.controller.activity.base.BaseActivity;
@@ -426,7 +426,7 @@ public class LockActivity extends BaseActivity<LockActivity> {
                     if (countDownGo < countDownSec) {
                         ++countDownGo;
                         btnSendCode.setText(String.valueOf(countDownSec - countDownGo) + "s");
-                        MyApp.get().getHandler().postDelayed(this, ConstantUtils.SEC);
+                        MyApp.get().getHandler().postDelayed(this, TimeUnit.SEC);
                     } else {
                         stopCountDownTask();
                     }

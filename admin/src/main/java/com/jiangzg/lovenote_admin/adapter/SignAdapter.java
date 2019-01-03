@@ -2,7 +2,6 @@ package com.jiangzg.lovenote_admin.adapter;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
-import com.jiangzg.base.common.ConstantUtils;
 import com.jiangzg.base.time.DateUtils;
 import com.jiangzg.lovenote_admin.R;
 import com.jiangzg.lovenote_admin.activity.CoupleDetailActivity;
@@ -28,7 +27,7 @@ public class SignAdapter extends BaseQuickAdapter<Sign, BaseViewHolder> {
         String id = "id:" + item.getId();
         String uid = "uid:" + item.getUserId();
         String cid = "cid:" + item.getCoupleId();
-        String create = DateUtils.getStr(item.getCreateAt() * 1000, ConstantUtils.FORMAT_LINE_Y_M_D_H_M);
+        String create = DateUtils.getStr(item.getCreateAt() * 1000, DateUtils.FORMAT_LINE_Y_M_D_H_M);
         String year = item.getYear() + "年";
         String month = item.getMonthOfYear() + "月";
         String day = item.getDayOfMonth() + "日";

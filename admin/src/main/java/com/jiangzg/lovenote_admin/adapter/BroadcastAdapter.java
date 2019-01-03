@@ -6,7 +6,6 @@ import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
-import com.jiangzg.base.common.ConstantUtils;
 import com.jiangzg.base.time.DateUtils;
 import com.jiangzg.lovenote_admin.R;
 import com.jiangzg.lovenote_admin.base.BaseActivity;
@@ -37,8 +36,8 @@ public class BroadcastAdapter extends BaseQuickAdapter<Broadcast, BaseViewHolder
         String id = "id:" + item.getId();
         //String create = "创建:" + DateUtils.getStr(item.getCreateAt() * 1000, ConstantUtils.FORMAT_LINE_Y_M_D_H_M);
         //String update = "更新:" + DateUtils.getStr(item.getUpdateAt() * 1000, ConstantUtils.FORMAT_LINE_Y_M_D_H_M);
-        String start = "开始:" + DateUtils.getStr(item.getStartAt() * 1000, ConstantUtils.FORMAT_LINE_Y_M_D_H_M);
-        String end = "结束:" + (item.getEndAt() == 0 ? "永久" : DateUtils.getStr(item.getEndAt() * 1000, ConstantUtils.FORMAT_LINE_Y_M_D_H_M));
+        String start = "开始:" + DateUtils.getStr(item.getStartAt() * 1000, DateUtils.FORMAT_LINE_Y_M_D_H_M);
+        String end = "结束:" + (item.getEndAt() == 0 ? "永久" : DateUtils.getStr(item.getEndAt() * 1000, DateUtils.FORMAT_LINE_Y_M_D_H_M));
         String type = "(" + Broadcast.getTypeShow(item.getContentType()) + ")";
         String isEnd = "(" + item.isEnd() + ")";
         String title = item.getTitle();

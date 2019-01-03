@@ -1,6 +1,5 @@
 package com.jiangzg.lovenote.helper;
 
-import com.jiangzg.base.common.ConstantUtils;
 import com.jiangzg.base.time.CalUtils;
 import com.jiangzg.base.time.DateUtils;
 import com.jiangzg.lovenote.R;
@@ -33,10 +32,10 @@ public class TimeHelper {
         String format;
         if (cNow.get(Calendar.YEAR) == cTime.get(Calendar.YEAR)) {
             // 同一年
-            format = ConstantUtils.FORMAT_LINE_M_D;
+            format = DateUtils.FORMAT_LINE_M_D;
         } else {
             // 不同年
-            format = ConstantUtils.FORMAT_LINE_Y_M_D;
+            format = DateUtils.FORMAT_LINE_Y_M_D;
         }
         return DateUtils.getStr(getJavaTimeByGo(time), format);
     }
@@ -49,13 +48,13 @@ public class TimeHelper {
         String format;
         if (CalUtils.isSameDay(cNow, cTime)) {
             // 同一天
-            format = ConstantUtils.FORMAT_H_M;
+            format = DateUtils.FORMAT_H_M;
         } else if (cNow.get(Calendar.YEAR) == cTime.get(Calendar.YEAR)) {
             // 同一年
-            format = ConstantUtils.FORMAT_LINE_M_D;
+            format = DateUtils.FORMAT_LINE_M_D;
         } else {
             // 不同年
-            format = ConstantUtils.FORMAT_LINE_Y_M_D;
+            format = DateUtils.FORMAT_LINE_Y_M_D;
         }
         return DateUtils.getStr(getJavaTimeByGo(time), format);
     }
@@ -68,13 +67,13 @@ public class TimeHelper {
         String format;
         if (CalUtils.isSameDay(cNow, cTime)) {
             // 同一天
-            format = ConstantUtils.FORMAT_H_M;
+            format = DateUtils.FORMAT_H_M;
         } else if (cNow.get(Calendar.YEAR) == cTime.get(Calendar.YEAR)) {
             // 同一年
-            format = ConstantUtils.FORMAT_LINE_M_D_H_M;
+            format = DateUtils.FORMAT_LINE_M_D_H_M;
         } else {
             // 不同年
-            format = ConstantUtils.FORMAT_LINE_Y_M_D_H_M;
+            format = DateUtils.FORMAT_LINE_Y_M_D_H_M;
         }
         return DateUtils.getStr(getJavaTimeByGo(time), format);
     }
@@ -108,7 +107,7 @@ public class TimeHelper {
         String format;
         if (CalUtils.isSameDay(cNow, cTime)) {
             // 同一天
-            format = ConstantUtils.FORMAT_H_M;
+            format = DateUtils.FORMAT_H_M;
         } else if (cNow.get(Calendar.YEAR) == cTime.get(Calendar.YEAR)) {
             // 同一年
             String month = MyApp.get().getString(R.string.month);
@@ -132,7 +131,7 @@ public class TimeHelper {
         String format;
         if (CalUtils.isSameDay(cNow, cTime)) {
             // 同一天
-            format = ConstantUtils.FORMAT_H_M;
+            format = DateUtils.FORMAT_H_M;
         } else if (cNow.get(Calendar.YEAR) == cTime.get(Calendar.YEAR)) {
             // 同一年
             String month = MyApp.get().getString(R.string.month);

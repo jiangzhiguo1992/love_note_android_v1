@@ -12,10 +12,10 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.jiangzg.base.common.ConstantUtils;
 import com.jiangzg.base.common.LogUtils;
 import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.base.system.LocationInfo;
+import com.jiangzg.base.time.TimeUnit;
 import com.jiangzg.base.view.BarUtils;
 import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.base.view.ViewUtils;
@@ -467,7 +467,7 @@ public class CoupleFragment extends BasePagerFragment<CoupleFragment> {
                     } else {
                         String breakCountDownShow = getBreakCountDownShow(couple);
                         tvCoupleCountDown.setText(breakCountDownShow);
-                        MyApp.get().getHandler().postDelayed(this, ConstantUtils.SEC);
+                        MyApp.get().getHandler().postDelayed(this, TimeUnit.SEC);
                     }
                 }
             };
@@ -484,11 +484,11 @@ public class CoupleFragment extends BasePagerFragment<CoupleFragment> {
 
     private String getBreakCountDownShow(Couple couple) {
         long breakCountDown = UserHelper.getCoupleBreakCountDown(couple);
-        long hour = breakCountDown / (ConstantUtils.HOUR / ConstantUtils.SEC);
+        long hour = breakCountDown / (TimeUnit.HOUR / TimeUnit.SEC);
         String hourF = hour >= 10 ? "" : "0";
-        long min = (breakCountDown - hour * (ConstantUtils.HOUR / ConstantUtils.SEC)) / (ConstantUtils.MIN / ConstantUtils.SEC);
+        long min = (breakCountDown - hour * (TimeUnit.HOUR / TimeUnit.SEC)) / (TimeUnit.MIN / TimeUnit.SEC);
         String minF = min >= 10 ? ":" : ":0";
-        long sec = breakCountDown - hour * (ConstantUtils.HOUR / ConstantUtils.SEC) - min * (ConstantUtils.MIN / ConstantUtils.SEC);
+        long sec = breakCountDown - hour * (TimeUnit.HOUR / TimeUnit.SEC) - min * (TimeUnit.MIN / TimeUnit.SEC);
         String secF = sec >= 10 ? ":" : ":0";
         return hourF + hour + minF + min + secF + sec;
     }

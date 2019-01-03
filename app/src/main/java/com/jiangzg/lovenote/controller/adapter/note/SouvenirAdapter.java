@@ -4,8 +4,8 @@ import android.support.v4.app.Fragment;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
-import com.jiangzg.base.common.ConstantUtils;
 import com.jiangzg.base.time.DateUtils;
+import com.jiangzg.base.time.TimeUnit;
 import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.controller.activity.note.SouvenirDetailDoneActivity;
 import com.jiangzg.lovenote.controller.activity.note.SouvenirDetailWishActivity;
@@ -37,14 +37,14 @@ public class SouvenirAdapter extends BaseQuickAdapter<Souvenir, BaseViewHolder> 
     protected void convert(BaseViewHolder helper, Souvenir item) {
         String title = item.getTitle();
         long happenAt = TimeHelper.getJavaTimeByGo(item.getHappenAt());
-        String happen = DateUtils.getStr(happenAt, ConstantUtils.FORMAT_LINE_Y_M_D_H_M);
+        String happen = DateUtils.getStr(happenAt, DateUtils.FORMAT_LINE_Y_M_D_H_M);
         long dayCount;
         String format;
         if (DateUtils.getCurrentLong() > happenAt) {
-            dayCount = (DateUtils.getCurrentLong() - happenAt) / ConstantUtils.DAY;
+            dayCount = (DateUtils.getCurrentLong() - happenAt) / TimeUnit.DAY;
             format = formatGone;
         } else {
-            dayCount = (happenAt - DateUtils.getCurrentLong()) / ConstantUtils.DAY;
+            dayCount = (happenAt - DateUtils.getCurrentLong()) / TimeUnit.DAY;
             format = formatHave;
         }
         String days = String.format(Locale.getDefault(), format, dayCount);

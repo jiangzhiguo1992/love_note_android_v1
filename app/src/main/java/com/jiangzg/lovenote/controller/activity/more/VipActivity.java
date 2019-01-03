@@ -13,7 +13,6 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.jiangzg.base.common.ConstantUtils;
 import com.jiangzg.base.common.ConvertUtils;
 import com.jiangzg.base.component.ActivityTrans;
 import com.jiangzg.base.time.DateUtils;
@@ -236,7 +235,7 @@ public class VipActivity extends BaseActivity<VipActivity> {
         // vip
         String vipInfo;
         if (vip != null) {
-            String time = DateUtils.getStr(TimeHelper.getJavaTimeByGo(vip.getExpireAt()), ConstantUtils.FORMAT_LINE_Y_M_D_H_M);
+            String time = DateUtils.getStr(TimeHelper.getJavaTimeByGo(vip.getExpireAt()), DateUtils.FORMAT_LINE_Y_M_D_H_M);
             vipInfo = String.format(Locale.getDefault(), getString(R.string.vip_over_due_next_holder), time);
         } else {
             vipInfo = getString(R.string.no_handle);

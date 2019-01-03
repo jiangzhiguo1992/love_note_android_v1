@@ -3,7 +3,6 @@ package com.jiangzg.base.time;
 import android.support.annotation.StringRes;
 
 import com.jiangzg.base.application.AppBase;
-import com.jiangzg.base.common.ConstantUtils;
 import com.jiangzg.base.common.LogUtils;
 import com.jiangzg.base.common.StringUtils;
 
@@ -14,6 +13,31 @@ import java.util.Calendar;
  * 时间单位类 也可参考Formatter
  */
 public class TimeUnit {
+
+    /* 毫秒与毫秒的倍数 */
+    public static final long MSEC = 1;
+    /* 秒与毫秒的倍数 */
+    public static final long SEC = MSEC * 1000;
+    /* 分与毫秒的倍数 */
+    public static final long MIN = SEC * 60;
+    /* 时与毫秒的倍数 */
+    public static final long HOUR = MIN * 60;
+    /* 天与毫秒的倍数 */
+    public static final long DAY = HOUR * 24;
+    /* 天与毫秒的倍数 */
+    public static final long MONTH = DAY * 30;
+    /* 天与毫秒的倍数 */
+    public static final long YEAR = MONTH * 12;
+
+    public enum Unit {
+        MSEC,
+        SEC,
+        MIN,
+        HOUR,
+        DAY,
+        MONTH,
+        YEAR,
+    }
 
     private int year;
     private int month;
@@ -38,59 +62,59 @@ public class TimeUnit {
     public static TimeUnit convertTime2Unit(long between) {
         TimeUnit unit = new TimeUnit();
         // year
-        int year = (int) (between / ConstantUtils.YEAR);
+        int year = (int) (between / YEAR);
         unit.setYear(year);
         // month
         int mouth;
         long monthB;
         if (year > 0) {
             long yearB = between % year;
-            mouth = (int) (yearB / ConstantUtils.MONTH);
-            monthB = yearB % ConstantUtils.MONTH;
+            mouth = (int) (yearB / MONTH);
+            monthB = yearB % MONTH;
         } else {
-            mouth = (int) (between / ConstantUtils.MONTH);
-            monthB = between % ConstantUtils.MONTH;
+            mouth = (int) (between / MONTH);
+            monthB = between % MONTH;
         }
         unit.setMonth(mouth);
         // day
         int day;
         long dayB;
         if (mouth > 0) {
-            day = (int) (monthB / ConstantUtils.DAY);
-            dayB = monthB % ConstantUtils.DAY;
+            day = (int) (monthB / DAY);
+            dayB = monthB % DAY;
         } else {
-            day = (int) (between / ConstantUtils.DAY);
-            dayB = between % ConstantUtils.DAY;
+            day = (int) (between / DAY);
+            dayB = between % DAY;
         }
         unit.setDay(day);
         // hour
         int hour;
         long hourB;
         if (day > 0) {
-            hour = (int) (dayB / ConstantUtils.HOUR);
-            hourB = dayB % ConstantUtils.HOUR;
+            hour = (int) (dayB / HOUR);
+            hourB = dayB % HOUR;
         } else {
-            hour = (int) (between / ConstantUtils.HOUR);
-            hourB = between % ConstantUtils.HOUR;
+            hour = (int) (between / HOUR);
+            hourB = between % HOUR;
         }
         unit.setHour(hour);
         // minute
         int minute;
         long minuteB;
         if (hour > 0) {
-            minute = (int) (hourB / ConstantUtils.MIN);
-            minuteB = hourB % ConstantUtils.MIN;
+            minute = (int) (hourB / MIN);
+            minuteB = hourB % MIN;
         } else {
-            minute = (int) (between / ConstantUtils.MIN);
-            minuteB = between % ConstantUtils.MIN;
+            minute = (int) (between / MIN);
+            minuteB = between % MIN;
         }
         unit.setMinute(minute);
         // minute
         int second;
         if (minute > 0) {
-            second = (int) (minuteB / ConstantUtils.SEC);
+            second = (int) (minuteB / SEC);
         } else {
-            second = (int) (between / ConstantUtils.SEC);
+            second = (int) (between / SEC);
         }
         unit.setSecond(second);
         LogUtils.d(TimeUnit.class, "convertTime2Unit", unit.toString());
@@ -100,14 +124,14 @@ public class TimeUnit {
     /**
      * 获取时间单位 eg: 1分钟，1小时，1天
      */
-    public ConstantUtils.TimeUnit getMaxUnit() {
-        if (year > 0) return ConstantUtils.TimeUnit.YEAR;
-        if (month > 0) return ConstantUtils.TimeUnit.MONTH;
-        if (day > 0) return ConstantUtils.TimeUnit.DAY;
-        if (hour > 0) return ConstantUtils.TimeUnit.HOUR;
-        if (minute > 0) return ConstantUtils.TimeUnit.MIN;
-        if (second > 0) return ConstantUtils.TimeUnit.SEC;
-        return ConstantUtils.TimeUnit.MSEC;
+    public Unit getMaxUnit() {
+        if (year > 0) return Unit.YEAR;
+        if (month > 0) return Unit.MONTH;
+        if (day > 0) return Unit.DAY;
+        if (hour > 0) return Unit.HOUR;
+        if (minute > 0) return Unit.MIN;
+        if (second > 0) return Unit.SEC;
+        return Unit.MSEC;
     }
 
     /**
@@ -256,4 +280,5 @@ public class TimeUnit {
     public void setSecond(int second) {
         this.second = second;
     }
+
 }

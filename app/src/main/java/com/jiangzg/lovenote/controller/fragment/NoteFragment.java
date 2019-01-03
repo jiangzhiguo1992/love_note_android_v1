@@ -15,8 +15,8 @@ import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
-import com.jiangzg.base.common.ConstantUtils;
 import com.jiangzg.base.time.DateUtils;
+import com.jiangzg.base.time.TimeUnit;
 import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.controller.activity.couple.CouplePairActivity;
 import com.jiangzg.lovenote.controller.activity.note.LockActivity;
@@ -395,13 +395,13 @@ public class NoteFragment extends BasePagerFragment<NoteFragment> {
                         stopSouvenirCountDownTask(); // 停止倒计时
                         refreshData(); // 刷新数据
                     } else {
-                        if (betweenTime / ConstantUtils.HOUR < 24) {
+                        if (betweenTime / TimeUnit.HOUR < 24) {
                             startLoveAnim();
                         } else {
                             stopLoveAnim();
                         }
                         tvSouvenirCountDown.setText(getCountDownShow(betweenTime));
-                        MyApp.get().getHandler().postDelayed(this, ConstantUtils.SEC);
+                        MyApp.get().getHandler().postDelayed(this, TimeUnit.SEC);
                     }
                 }
             };
@@ -428,13 +428,13 @@ public class NoteFragment extends BasePagerFragment<NoteFragment> {
     }
 
     private String getCountDownShow(long betweenTime) {
-        long day = betweenTime / ConstantUtils.DAY;
-        long hourTotal = betweenTime - (day * ConstantUtils.DAY);
-        long hour = hourTotal / ConstantUtils.HOUR;
-        long minTotal = hourTotal - (hour * ConstantUtils.HOUR);
-        long min = minTotal / ConstantUtils.MIN;
-        long secTotal = minTotal - (min * ConstantUtils.MIN);
-        long sec = secTotal / ConstantUtils.SEC;
+        long day = betweenTime / TimeUnit.DAY;
+        long hourTotal = betweenTime - (day * TimeUnit.DAY);
+        long hour = hourTotal / TimeUnit.HOUR;
+        long minTotal = hourTotal - (hour * TimeUnit.HOUR);
+        long min = minTotal / TimeUnit.MIN;
+        long secTotal = minTotal - (min * TimeUnit.MIN);
+        long sec = secTotal / TimeUnit.SEC;
         String dayShow = String.valueOf(day);
         String hourShow = String.valueOf(hour);
         if (hourShow.length() <= 1) {

@@ -4,7 +4,6 @@ import android.support.v4.app.FragmentActivity;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
-import com.jiangzg.base.common.ConstantUtils;
 import com.jiangzg.base.time.DateUtils;
 import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.controller.activity.more.MatchDiscussListActivity;
@@ -33,8 +32,8 @@ public class MatchPeriodAdapter extends BaseQuickAdapter<MatchPeriod, BaseViewHo
     protected void convert(BaseViewHolder helper, MatchPeriod item) {
         // data
         String title = item.getTitle();
-        String start = DateUtils.getStr(TimeHelper.getJavaTimeByGo(item.getStartAt()), ConstantUtils.FORMAT_LINE_M_D_H_M);
-        String end = DateUtils.getStr(TimeHelper.getJavaTimeByGo(item.getEndAt()), ConstantUtils.FORMAT_LINE_M_D_H_M);
+        String start = DateUtils.getStr(TimeHelper.getJavaTimeByGo(item.getStartAt()), DateUtils.FORMAT_LINE_M_D_H_M);
+        String end = DateUtils.getStr(TimeHelper.getJavaTimeByGo(item.getEndAt()), DateUtils.FORMAT_LINE_M_D_H_M);
         String time = String.format(Locale.getDefault(), mActivity.getString(R.string.holder_space_line_space_holder), start, end);
         String periodShow = String.format(Locale.getDefault(), mActivity.getString(R.string.the_holder_period), item.getPeriod());
         String coinChange = String.format(Locale.getDefault(), mActivity.getString(R.string.go_in_award_colon_holder_coin), item.getCoinChange());

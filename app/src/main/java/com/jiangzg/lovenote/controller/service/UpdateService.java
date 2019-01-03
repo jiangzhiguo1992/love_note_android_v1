@@ -10,7 +10,6 @@ import android.os.IBinder;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.jiangzg.base.application.AppInfo;
-import com.jiangzg.base.common.ConstantUtils;
 import com.jiangzg.base.common.LogUtils;
 import com.jiangzg.base.component.ActivityStack;
 import com.jiangzg.base.component.ActivityTrans;
@@ -76,7 +75,7 @@ public class UpdateService extends Service {
             Version version = versionList.get(i);
             String versionName = version.getVersionName();
             long createdAt = version.getCreateAt();
-            String create = DateUtils.getStr(TimeHelper.getJavaTimeByGo(createdAt), ConstantUtils.FORMAT_LINE_M_D);
+            String create = DateUtils.getStr(TimeHelper.getJavaTimeByGo(createdAt), DateUtils.FORMAT_LINE_M_D);
             String updateLog = version.getUpdateLog();
             updateLog = updateLog.replace("\\n", "\n"); // 换行问题
             builder.append(MyApp.get().getString(R.string.version_number_colon)).append(versionName)

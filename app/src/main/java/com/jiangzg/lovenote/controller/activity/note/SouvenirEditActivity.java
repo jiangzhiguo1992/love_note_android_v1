@@ -14,7 +14,6 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
-import com.jiangzg.base.common.ConstantUtils;
 import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.base.component.ActivityTrans;
 import com.jiangzg.base.system.LocationInfo;
@@ -208,7 +207,7 @@ public class SouvenirEditActivity extends BaseActivity<SouvenirEditActivity> {
     private void refreshDateView() {
         if (souvenir == null) return;
         long happenAt = TimeHelper.getJavaTimeByGo(souvenir.getHappenAt());
-        String happen = DateUtils.getStr(happenAt, ConstantUtils.FORMAT_LINE_Y_M_D_H_M);
+        String happen = DateUtils.getStr(happenAt, DateUtils.FORMAT_LINE_Y_M_D_H_M);
         tvHappenAt.setText(happen);
     }
 

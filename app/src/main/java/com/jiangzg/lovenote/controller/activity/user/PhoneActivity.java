@@ -11,8 +11,8 @@ import android.view.View;
 import android.widget.Button;
 
 import com.afollestad.materialdialogs.MaterialDialog;
-import com.jiangzg.base.common.ConstantUtils;
 import com.jiangzg.base.component.ActivityTrans;
+import com.jiangzg.base.time.TimeUnit;
 import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.controller.activity.base.BaseActivity;
 import com.jiangzg.lovenote.helper.ApiHelper;
@@ -138,7 +138,7 @@ public class PhoneActivity extends BaseActivity<PhoneActivity> {
                         if (countDownGo < countDownSec) {
                             ++countDownGo;
                             btnSendCode.setText(String.valueOf(countDownSec - countDownGo) + "s");
-                            MyApp.get().getHandler().postDelayed(this, ConstantUtils.SEC);
+                            MyApp.get().getHandler().postDelayed(this, TimeUnit.SEC);
                         } else {
                             stopCountDownTask();
                         }
