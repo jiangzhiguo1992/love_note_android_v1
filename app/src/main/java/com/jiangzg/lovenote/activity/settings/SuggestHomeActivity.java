@@ -26,7 +26,7 @@ import com.jiangzg.base.common.ConvertUtils;
 import com.jiangzg.base.component.ActivityTrans;
 import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.activity.base.BaseActivity;
-import com.jiangzg.lovenote.adapter.SuggestAdapter;
+import com.jiangzg.lovenote.adapter.settings.SuggestAdapter;
 import com.jiangzg.lovenote.helper.ConsHelper;
 import com.jiangzg.lovenote.helper.ListHelper;
 import com.jiangzg.lovenote.helper.RecyclerHelper;

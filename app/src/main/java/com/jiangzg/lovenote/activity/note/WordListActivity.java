@@ -23,7 +23,7 @@ import com.jiangzg.base.system.InputUtils;
 import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.activity.base.BaseActivity;
 import com.jiangzg.lovenote.activity.settings.HelpActivity;
-import com.jiangzg.lovenote.adapter.WordAdapter;
+import com.jiangzg.lovenote.adapter.note.WordAdapter;
 import com.jiangzg.lovenote.helper.ConsHelper;
 import com.jiangzg.lovenote.helper.ListHelper;
 import com.jiangzg.lovenote.helper.RecyclerHelper;

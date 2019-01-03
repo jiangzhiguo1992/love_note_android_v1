@@ -12,7 +12,7 @@ import com.jiangzg.base.component.ActivityTrans;
 import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.activity.base.BaseActivity;
 import com.jiangzg.lovenote.activity.couple.CouplePairActivity;
-import com.jiangzg.lovenote.adapter.FragmentPagerAdapter;
+import com.jiangzg.lovenote.adapter.common.CommonFragmentAdapter;
 import com.jiangzg.lovenote.fragment.topic.PostCollectFragment;
 import com.jiangzg.lovenote.helper.SPHelper;
 import com.jiangzg.lovenote.helper.UserHelper;
@@ -72,7 +72,7 @@ public class PostCollectActivity extends BaseActivity<PostCollectActivity> {
         fragmentList.add(meCollectFragment);
         fragmentList.add(taCollectFragment);
         // adapter
-        FragmentPagerAdapter<PostCollectFragment> adapter = new FragmentPagerAdapter<>(getSupportFragmentManager());
+        CommonFragmentAdapter<PostCollectFragment> adapter = new CommonFragmentAdapter<>(getSupportFragmentManager());
         adapter.newData(titleList, fragmentList);
         // view
         vpFragment.setOffscreenPageLimit(fragmentList.size());

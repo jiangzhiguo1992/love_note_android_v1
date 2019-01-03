@@ -15,7 +15,7 @@ import com.jiangzg.base.component.ActivityTrans;
 import com.jiangzg.base.time.DateUtils;
 import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.activity.base.BaseActivity;
-import com.jiangzg.lovenote.adapter.TrendsAdapter;
+import com.jiangzg.lovenote.adapter.note.TrendsAdapter;
 import com.jiangzg.lovenote.helper.RecyclerHelper;
 import com.jiangzg.lovenote.helper.RetrofitHelper;
 import com.jiangzg.lovenote.helper.TimeHelper;

@@ -21,7 +21,7 @@ import com.jiangzg.base.view.DialogUtils;
 import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.activity.base.BaseActivity;
 import com.jiangzg.lovenote.activity.settings.HelpActivity;
-import com.jiangzg.lovenote.adapter.AwardAdapter;
+import com.jiangzg.lovenote.adapter.note.AwardAdapter;
 import com.jiangzg.lovenote.helper.ApiHelper;
 import com.jiangzg.lovenote.helper.ConsHelper;
 import com.jiangzg.lovenote.helper.DialogHelper;

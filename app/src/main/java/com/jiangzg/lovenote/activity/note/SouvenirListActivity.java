@@ -16,7 +16,7 @@ import com.jiangzg.base.component.ActivityTrans;
 import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.activity.base.BaseActivity;
 import com.jiangzg.lovenote.activity.settings.HelpActivity;
-import com.jiangzg.lovenote.adapter.FragmentPagerAdapter;
+import com.jiangzg.lovenote.adapter.common.CommonFragmentAdapter;
 import com.jiangzg.lovenote.fragment.note.SouvenirListFragment;
 import com.jiangzg.lovenote.helper.ViewHelper;
 
@@ -61,7 +61,7 @@ public class SouvenirListActivity extends BaseActivity<SouvenirListActivity> {
         SouvenirListFragment souvenirDoneFragment = SouvenirListFragment.newFragment(true);
         SouvenirListFragment souvenirWishFragment = SouvenirListFragment.newFragment(false);
         // adapter
-        FragmentPagerAdapter<SouvenirListFragment> adapter = new FragmentPagerAdapter<>(getSupportFragmentManager());
+        CommonFragmentAdapter<SouvenirListFragment> adapter = new CommonFragmentAdapter<>(getSupportFragmentManager());
         adapter.addData(title, souvenirDoneFragment);
         adapter.addData(getString(R.string.wish_list), souvenirWishFragment);
         // view

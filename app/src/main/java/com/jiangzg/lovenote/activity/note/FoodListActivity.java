@@ -19,7 +19,7 @@ import com.chad.library.adapter.base.listener.OnItemLongClickListener;
 import com.jiangzg.base.component.ActivityTrans;
 import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.activity.base.BaseActivity;
-import com.jiangzg.lovenote.adapter.FoodAdapter;
+import com.jiangzg.lovenote.adapter.note.FoodAdapter;
 import com.jiangzg.lovenote.helper.ConsHelper;
 import com.jiangzg.lovenote.helper.ListHelper;
 import com.jiangzg.lovenote.helper.OssResHelper;

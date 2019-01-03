@@ -14,7 +14,7 @@ import com.jiangzg.base.component.ActivityTrans;
 import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.activity.base.BaseActivity;
 import com.jiangzg.lovenote.activity.settings.HelpActivity;
-import com.jiangzg.lovenote.adapter.FragmentPagerAdapter;
+import com.jiangzg.lovenote.adapter.common.CommonFragmentAdapter;
 import com.jiangzg.lovenote.fragment.base.BasePagerFragment;
 import com.jiangzg.lovenote.fragment.more.MatchDiscussListFragment;
 import com.jiangzg.lovenote.fragment.more.MatchPeriodListFragment;
@@ -58,7 +58,7 @@ public class MatchDiscussActivity extends BaseActivity<MatchDiscussActivity> {
         MatchPeriodListFragment periodListFragment = MatchPeriodListFragment.newFragment(MatchPeriod.MATCH_KIND_DISCUSS_MEET);
         MatchDiscussListFragment discussListFragment = MatchDiscussListFragment.newFragment();
         // adapter
-        FragmentPagerAdapter<BasePagerFragment> adapter = new FragmentPagerAdapter<>(getSupportFragmentManager());
+        CommonFragmentAdapter<BasePagerFragment> adapter = new CommonFragmentAdapter<>(getSupportFragmentManager());
         adapter.addData(getString(R.string.old_period), periodListFragment);
         adapter.addData(getString(R.string.we_de), discussListFragment);
         // view

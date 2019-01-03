@@ -11,7 +11,7 @@ import com.chad.library.adapter.base.listener.OnItemChildClickListener;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.chad.library.adapter.base.listener.OnItemLongClickListener;
 import com.jiangzg.lovenote.R;
-import com.jiangzg.lovenote.adapter.MatchWifeAdapter;
+import com.jiangzg.lovenote.adapter.more.MatchWifeAdapter;
 import com.jiangzg.lovenote.fragment.base.BaseFragment;
 import com.jiangzg.lovenote.fragment.base.BasePagerFragment;
 import com.jiangzg.lovenote.helper.ApiHelper;

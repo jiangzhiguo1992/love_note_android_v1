@@ -21,7 +21,7 @@ import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.activity.base.BaseActivity;
 import com.jiangzg.lovenote.activity.common.MapShowActivity;
-import com.jiangzg.lovenote.adapter.FragmentPagerAdapter;
+import com.jiangzg.lovenote.adapter.common.CommonFragmentAdapter;
 import com.jiangzg.lovenote.fragment.note.SouvenirForeignFragment;
 import com.jiangzg.lovenote.helper.ConsHelper;
 import com.jiangzg.lovenote.helper.DialogHelper;
@@ -250,7 +250,7 @@ public class SouvenirDetailDoneActivity extends BaseActivity<SouvenirDetailDoneA
         // adapter
         Collections.reverse(titleList);
         Collections.reverse(fragmentList);
-        FragmentPagerAdapter<SouvenirForeignFragment> adapter = new FragmentPagerAdapter<>(getSupportFragmentManager());
+        CommonFragmentAdapter<SouvenirForeignFragment> adapter = new CommonFragmentAdapter<>(getSupportFragmentManager());
         adapter.newData(titleList, fragmentList);
         // viewPager
         vpFragment.setOffscreenPageLimit(yearNow - yearHappen + 1);

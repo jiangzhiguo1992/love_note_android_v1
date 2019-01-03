@@ -23,7 +23,7 @@ import com.jiangzg.lovenote.activity.note.LockActivity;
 import com.jiangzg.lovenote.activity.note.NoteCustomActivity;
 import com.jiangzg.lovenote.activity.note.SouvenirListActivity;
 import com.jiangzg.lovenote.activity.settings.HelpActivity;
-import com.jiangzg.lovenote.adapter.NoteModelAdapter;
+import com.jiangzg.lovenote.adapter.note.ModelAdapter;
 import com.jiangzg.lovenote.fragment.base.BaseFragment;
 import com.jiangzg.lovenote.fragment.base.BasePagerFragment;
 import com.jiangzg.lovenote.helper.ConsHelper;
@@ -123,7 +123,7 @@ public class NoteFragment extends BasePagerFragment<NoteFragment> {
         // rv
         rhLive = new RecyclerHelper(rvLive)
                 .initLayoutManager(new GridLayoutManager(mActivity, 4, LinearLayoutManager.VERTICAL, false))
-                .initAdapter(new NoteModelAdapter(mFragment))
+                .initAdapter(new ModelAdapter(mFragment))
                 .setAdapter()
                 .listenerClick(new OnItemClickListener() {
                     @Override
@@ -133,7 +133,7 @@ public class NoteFragment extends BasePagerFragment<NoteFragment> {
                 });
         rhNote = new RecyclerHelper(rvNote)
                 .initLayoutManager(new GridLayoutManager(mActivity, 4, LinearLayoutManager.VERTICAL, false))
-                .initAdapter(new NoteModelAdapter(mFragment))
+                .initAdapter(new ModelAdapter(mFragment))
                 .setAdapter()
                 .listenerClick(new OnItemClickListener() {
                     @Override
@@ -143,7 +143,7 @@ public class NoteFragment extends BasePagerFragment<NoteFragment> {
                 });
         rhMedia = new RecyclerHelper(rvMedia)
                 .initLayoutManager(new GridLayoutManager(mActivity, 4, LinearLayoutManager.VERTICAL, false))
-                .initAdapter(new NoteModelAdapter(mFragment))
+                .initAdapter(new ModelAdapter(mFragment))
                 .setAdapter()
                 .listenerClick(new OnItemClickListener() {
                     @Override
@@ -153,7 +153,7 @@ public class NoteFragment extends BasePagerFragment<NoteFragment> {
                 });
         rhOther = new RecyclerHelper(rvOther)
                 .initLayoutManager(new GridLayoutManager(mActivity, 4, LinearLayoutManager.VERTICAL, false))
-                .initAdapter(new NoteModelAdapter(mFragment))
+                .initAdapter(new ModelAdapter(mFragment))
                 .setAdapter()
                 .listenerClick(new OnItemClickListener() {
                     @Override
@@ -252,8 +252,8 @@ public class NoteFragment extends BasePagerFragment<NoteFragment> {
             LockActivity.goActivity(mFragment);
             return;
         }
-        NoteModelAdapter noteModelAdapter = (NoteModelAdapter) adapter;
-        noteModelAdapter.goActivity(position);
+        ModelAdapter modelAdapter = (ModelAdapter) adapter;
+        modelAdapter.goActivity(position);
     }
 
     private void customView() {
@@ -265,9 +265,9 @@ public class NoteFragment extends BasePagerFragment<NoteFragment> {
         lineLive.setVisibility(isLive ? View.VISIBLE : View.GONE);
         rvLive.setVisibility(isLive ? View.VISIBLE : View.GONE);
         ArrayList<Integer> dataLive = new ArrayList<>();
-        if (custom.isShy()) dataLive.add(NoteModelAdapter.SHY);
-        if (custom.isMenses()) dataLive.add(NoteModelAdapter.MENSES);
-        if (custom.isSleep()) dataLive.add(NoteModelAdapter.SLEEP);
+        if (custom.isShy()) dataLive.add(ModelAdapter.SHY);
+        if (custom.isMenses()) dataLive.add(ModelAdapter.MENSES);
+        if (custom.isSleep()) dataLive.add(ModelAdapter.SLEEP);
         rhLive.dataNew(dataLive);
         // note
         boolean isNote = custom.isWord() || custom.isWhisper() || custom.isDiary() || custom.isAward()
@@ -275,32 +275,32 @@ public class NoteFragment extends BasePagerFragment<NoteFragment> {
                 || custom.isAngry() || custom.isGift() || custom.isPromise();
         lineNote.setVisibility(isNote ? View.VISIBLE : View.GONE);
         ArrayList<Integer> dataNote = new ArrayList<>();
-        if (custom.isWord()) dataNote.add(NoteModelAdapter.WORD);
-        if (custom.isWhisper()) dataNote.add(NoteModelAdapter.WHISPER);
-        if (custom.isDiary()) dataNote.add(NoteModelAdapter.DIARY);
-        if (custom.isAward()) dataNote.add(NoteModelAdapter.AWARD);
-        if (custom.isDream()) dataNote.add(NoteModelAdapter.DREAM);
-        if (custom.isMovie()) dataNote.add(NoteModelAdapter.MOVIE);
-        if (custom.isFood()) dataNote.add(NoteModelAdapter.FOOD);
-        if (custom.isTravel()) dataNote.add(NoteModelAdapter.TRAVEL);
-        if (custom.isAngry()) dataNote.add(NoteModelAdapter.ANGRY);
-        if (custom.isGift()) dataNote.add(NoteModelAdapter.GIFT);
-        if (custom.isPromise()) dataNote.add(NoteModelAdapter.PROMISE);
+        if (custom.isWord()) dataNote.add(ModelAdapter.WORD);
+        if (custom.isWhisper()) dataNote.add(ModelAdapter.WHISPER);
+        if (custom.isDiary()) dataNote.add(ModelAdapter.DIARY);
+        if (custom.isAward()) dataNote.add(ModelAdapter.AWARD);
+        if (custom.isDream()) dataNote.add(ModelAdapter.DREAM);
+        if (custom.isMovie()) dataNote.add(ModelAdapter.MOVIE);
+        if (custom.isFood()) dataNote.add(ModelAdapter.FOOD);
+        if (custom.isTravel()) dataNote.add(ModelAdapter.TRAVEL);
+        if (custom.isAngry()) dataNote.add(ModelAdapter.ANGRY);
+        if (custom.isGift()) dataNote.add(ModelAdapter.GIFT);
+        if (custom.isPromise()) dataNote.add(ModelAdapter.PROMISE);
         rhNote.dataNew(dataNote);
         // media
         boolean isMedia = custom.isAudio() || custom.isVideo() || custom.isAlbum();
         lineMedia.setVisibility(isMedia ? View.VISIBLE : View.GONE);
         ArrayList<Integer> dataMedia = new ArrayList<>();
-        if (custom.isAudio()) dataMedia.add(NoteModelAdapter.AUDIO);
-        if (custom.isVideo()) dataMedia.add(NoteModelAdapter.VIDEO);
-        if (custom.isAlbum()) dataMedia.add(NoteModelAdapter.ALBUM);
+        if (custom.isAudio()) dataMedia.add(ModelAdapter.AUDIO);
+        if (custom.isVideo()) dataMedia.add(ModelAdapter.VIDEO);
+        if (custom.isAlbum()) dataMedia.add(ModelAdapter.ALBUM);
         rhMedia.dataNew(dataMedia);
         // other
         boolean isOther = custom.isTotal() || custom.isTrends();
         lineOther.setVisibility(isOther ? View.VISIBLE : View.GONE);
         ArrayList<Integer> dataOther = new ArrayList<>();
-        if (custom.isTotal()) dataOther.add(NoteModelAdapter.TOTAL);
-        if (custom.isTrends()) dataOther.add(NoteModelAdapter.TRENDS);
+        if (custom.isTotal()) dataOther.add(ModelAdapter.TOTAL);
+        if (custom.isTrends()) dataOther.add(ModelAdapter.TRENDS);
         rhOther.dataNew(dataOther);
     }
 

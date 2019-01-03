@@ -14,7 +14,7 @@ import com.jiangzg.base.component.ActivityTrans;
 import com.jiangzg.base.view.BarUtils;
 import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.activity.base.BaseActivity;
-import com.jiangzg.lovenote.adapter.FragmentPagerAdapter;
+import com.jiangzg.lovenote.adapter.common.CommonFragmentAdapter;
 import com.jiangzg.lovenote.fragment.CoupleFragment;
 import com.jiangzg.lovenote.fragment.MoreFragment;
 import com.jiangzg.lovenote.fragment.NoteFragment;
@@ -41,7 +41,7 @@ public class HomeActivity extends BaseActivity<HomeActivity> {
 
     private ModelShow modelShow;
     private int[] menuIdArray;
-    private FragmentPagerAdapter<BasePagerFragment> pagerAdapter;
+    private CommonFragmentAdapter<BasePagerFragment> pagerAdapter;
     private CoupleFragment coupleFragment;
     private NoteFragment noteFragment;
     private TopicFragment topicFragment;
@@ -138,7 +138,7 @@ public class HomeActivity extends BaseActivity<HomeActivity> {
             boolean topic = modelShow.isTopic();
             boolean more = modelShow.isMore();
             FragmentManager manager = mActivity.getSupportFragmentManager();
-            pagerAdapter = new FragmentPagerAdapter<>(manager);
+            pagerAdapter = new CommonFragmentAdapter<>(manager);
             int index = -1;
             if (couple) {
                 ++index;

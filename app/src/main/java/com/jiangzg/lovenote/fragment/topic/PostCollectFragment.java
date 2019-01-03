@@ -10,7 +10,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.chad.library.adapter.base.listener.OnItemLongClickListener;
 import com.jiangzg.lovenote.R;
-import com.jiangzg.lovenote.adapter.PostAdapter;
+import com.jiangzg.lovenote.adapter.topic.PostAdapter;
 import com.jiangzg.lovenote.fragment.base.BaseFragment;
 import com.jiangzg.lovenote.fragment.base.BasePagerFragment;
 import com.jiangzg.lovenote.helper.ConsHelper;

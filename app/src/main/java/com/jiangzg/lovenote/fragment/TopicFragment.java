@@ -16,7 +16,7 @@ import com.jiangzg.lovenote.activity.settings.HelpActivity;
 import com.jiangzg.lovenote.activity.topic.PostCollectActivity;
 import com.jiangzg.lovenote.activity.topic.PostMineActivity;
 import com.jiangzg.lovenote.activity.topic.TopicMessageActivity;
-import com.jiangzg.lovenote.adapter.TopicHomeKindAdapter;
+import com.jiangzg.lovenote.adapter.topic.HomeKindAdapter;
 import com.jiangzg.lovenote.fragment.base.BaseFragment;
 import com.jiangzg.lovenote.fragment.base.BasePagerFragment;
 import com.jiangzg.lovenote.helper.RecyclerHelper;
@@ -69,7 +69,7 @@ public class TopicFragment extends BasePagerFragment<TopicFragment> {
         recyclerHelper = new RecyclerHelper(rv)
                 .initLayoutManager(new LinearLayoutManager(mActivity))
                 .initRefresh(srl, true)
-                .initAdapter(new TopicHomeKindAdapter(mActivity, mFragment))
+                .initAdapter(new HomeKindAdapter(mActivity, mFragment))
                 .viewEmpty(mActivity, R.layout.list_empty_grey, false, false)
                 .viewHeader(mActivity, R.layout.list_head_topic)
                 .setAdapter()
@@ -77,7 +77,7 @@ public class TopicFragment extends BasePagerFragment<TopicFragment> {
                 .listenerClick(new OnItemClickListener() {
                     @Override
                     public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
-                        TopicHomeKindAdapter homeKindAdapter = (TopicHomeKindAdapter) adapter;
+                        HomeKindAdapter homeKindAdapter = (HomeKindAdapter) adapter;
                         homeKindAdapter.goPostList(position);
                     }
                 });

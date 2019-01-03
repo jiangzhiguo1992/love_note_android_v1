@@ -10,7 +10,7 @@ import android.view.View;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.jiangzg.lovenote.R;
-import com.jiangzg.lovenote.adapter.TopicMessageAdapter;
+import com.jiangzg.lovenote.adapter.topic.MessageAdapter;
 import com.jiangzg.lovenote.fragment.base.BaseFragment;
 import com.jiangzg.lovenote.fragment.base.BasePagerFragment;
 import com.jiangzg.lovenote.helper.RecyclerHelper;
@@ -55,7 +55,7 @@ public class MessageListFragment extends BasePagerFragment<MessageListFragment> 
         recyclerHelper = new RecyclerHelper(rv)
                 .initLayoutManager(new LinearLayoutManager(mActivity))
                 .initRefresh(srl, true)
-                .initAdapter(new TopicMessageAdapter(mActivity))
+                .initAdapter(new MessageAdapter(mActivity))
                 .viewEmpty(mActivity, R.layout.list_empty_grey, true, true)
                 .viewLoadMore(new RecyclerHelper.MoreGreyView())
                 .setAdapter()
@@ -64,7 +64,7 @@ public class MessageListFragment extends BasePagerFragment<MessageListFragment> 
                 .listenerClick(new OnItemClickListener() {
                     @Override
                     public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
-                        TopicMessageAdapter messageAdapter = (TopicMessageAdapter) adapter;
+                        MessageAdapter messageAdapter = (MessageAdapter) adapter;
                         messageAdapter.goSomeDetail(position);
                     }
                 });

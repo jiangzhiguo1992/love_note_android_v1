@@ -9,7 +9,7 @@ import android.view.View;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.jiangzg.lovenote.R;
-import com.jiangzg.lovenote.adapter.MatchPeriodAdapter;
+import com.jiangzg.lovenote.adapter.more.MatchPeriodAdapter;
 import com.jiangzg.lovenote.fragment.base.BaseFragment;
 import com.jiangzg.lovenote.fragment.base.BasePagerFragment;
 import com.jiangzg.lovenote.helper.RecyclerHelper;

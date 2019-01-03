@@ -18,7 +18,7 @@ import com.jiangzg.base.component.ActivityTrans;
 import com.jiangzg.base.view.DialogUtils;
 import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.activity.base.BaseActivity;
-import com.jiangzg.lovenote.adapter.FragmentPagerAdapter;
+import com.jiangzg.lovenote.adapter.common.CommonFragmentAdapter;
 import com.jiangzg.lovenote.fragment.topic.PostListFragment;
 import com.jiangzg.lovenote.helper.ApiHelper;
 import com.jiangzg.lovenote.helper.ConsHelper;
@@ -93,7 +93,7 @@ public class PostListActivity extends BaseActivity<PostListActivity> {
             }
         }
         // adapter
-        FragmentPagerAdapter<PostListFragment> adapter = new FragmentPagerAdapter<>(getSupportFragmentManager());
+        CommonFragmentAdapter<PostListFragment> adapter = new CommonFragmentAdapter<>(getSupportFragmentManager());
         adapter.newData(titleList, fragmentList);
         // view
         vpFragment.setOffscreenPageLimit(fragmentList.size());

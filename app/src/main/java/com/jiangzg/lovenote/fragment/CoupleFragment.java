@@ -26,7 +26,7 @@ import com.jiangzg.lovenote.activity.couple.CouplePlaceActivity;
 import com.jiangzg.lovenote.activity.couple.CoupleWallPaperActivity;
 import com.jiangzg.lovenote.activity.couple.CoupleWeatherActivity;
 import com.jiangzg.lovenote.activity.settings.HelpActivity;
-import com.jiangzg.lovenote.adapter.CoupleHomeWallPagerAdapter;
+import com.jiangzg.lovenote.adapter.couple.HomeWallPagerAdapter;
 import com.jiangzg.lovenote.fragment.base.BaseFragment;
 import com.jiangzg.lovenote.fragment.base.BasePagerFragment;
 import com.jiangzg.lovenote.helper.ApiHelper;
@@ -350,9 +350,9 @@ public class CoupleFragment extends BasePagerFragment<CoupleFragment> {
         List<String> imageList = wallPaper.getContentImageList();
         OssResHelper.refreshResWithDelNoExist(OssResHelper.TYPE_COUPLE_WALL, imageList);
         // vp适配器
-        CoupleHomeWallPagerAdapter adapter = (CoupleHomeWallPagerAdapter) vpWallPaper.getAdapter();
+        HomeWallPagerAdapter adapter = (HomeWallPagerAdapter) vpWallPaper.getAdapter();
         if (adapter == null) {
-            adapter = new CoupleHomeWallPagerAdapter(mActivity, vpWallPaper);
+            adapter = new HomeWallPagerAdapter(mActivity, vpWallPaper);
             vpWallPaper.setAdapter(adapter);
         }
         // 单图显示

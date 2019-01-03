@@ -23,7 +23,7 @@ import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.activity.base.BaseActivity;
 import com.jiangzg.lovenote.activity.common.MapSelectActivity;
-import com.jiangzg.lovenote.adapter.ImgSquareEditAdapter;
+import com.jiangzg.lovenote.adapter.common.ImgSquareEditAdapter;
 import com.jiangzg.lovenote.helper.ConsHelper;
 import com.jiangzg.lovenote.helper.DialogHelper;
 import com.jiangzg.lovenote.helper.MediaPickHelper;

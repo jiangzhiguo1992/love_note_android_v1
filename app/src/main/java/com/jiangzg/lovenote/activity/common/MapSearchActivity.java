@@ -19,7 +19,7 @@ import com.jiangzg.base.component.ActivityTrans;
 import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.activity.base.BaseActivity;
-import com.jiangzg.lovenote.adapter.MapSearchAdapter;
+import com.jiangzg.lovenote.adapter.common.MapSearchAdapter;
 import com.jiangzg.lovenote.helper.LocationHelper;
 import com.jiangzg.lovenote.helper.MapHelper;
 import com.jiangzg.lovenote.helper.RecyclerHelper;

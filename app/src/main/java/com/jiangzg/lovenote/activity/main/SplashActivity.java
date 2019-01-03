@@ -19,7 +19,7 @@ import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.activity.base.BaseActivity;
 import com.jiangzg.lovenote.activity.user.LoginActivity;
 import com.jiangzg.lovenote.activity.user.RegisterActivity;
-import com.jiangzg.lovenote.adapter.PagerLayoutAdapter;
+import com.jiangzg.lovenote.adapter.common.CommonPagerAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -105,7 +105,7 @@ public class SplashActivity extends BaseActivity<SplashActivity> {
             }
         });
         // adapter
-        PagerLayoutAdapter adapter = new PagerLayoutAdapter(mActivity);
+        CommonPagerAdapter adapter = new CommonPagerAdapter(mActivity);
         vp.setAdapter(adapter);
         // data
         List<Integer> dataList = new ArrayList<>();
