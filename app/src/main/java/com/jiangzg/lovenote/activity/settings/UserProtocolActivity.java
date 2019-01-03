@@ -8,7 +8,7 @@ import android.widget.TextView;
 
 import com.jiangzg.base.component.ActivityTrans;
 import com.jiangzg.lovenote.R;
-import com.jiangzg.lovenote.base.BaseActivity;
+import com.jiangzg.lovenote.activity.base.BaseActivity;
 import com.jiangzg.lovenote.helper.SPHelper;
 import com.jiangzg.lovenote.helper.ViewHelper;
 

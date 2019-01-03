@@ -17,7 +17,7 @@ import com.jiangzg.base.time.DateUtils;
 import com.jiangzg.base.view.BarUtils;
 import com.jiangzg.base.view.ScreenUtils;
 import com.jiangzg.lovenote.R;
-import com.jiangzg.lovenote.base.BaseActivity;
+import com.jiangzg.lovenote.activity.base.BaseActivity;
 import com.jiangzg.lovenote.helper.ApiHelper;
 import com.jiangzg.lovenote.helper.OssResHelper;
 import com.jiangzg.lovenote.helper.RetrofitHelper;

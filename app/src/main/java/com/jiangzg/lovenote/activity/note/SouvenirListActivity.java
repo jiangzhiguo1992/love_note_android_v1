@@ -14,9 +14,9 @@ import android.view.View;
 
 import com.jiangzg.base.component.ActivityTrans;
 import com.jiangzg.lovenote.R;
+import com.jiangzg.lovenote.activity.base.BaseActivity;
 import com.jiangzg.lovenote.activity.settings.HelpActivity;
 import com.jiangzg.lovenote.adapter.FragmentPagerAdapter;
-import com.jiangzg.lovenote.base.BaseActivity;
 import com.jiangzg.lovenote.fragment.note.SouvenirListFragment;
 import com.jiangzg.lovenote.helper.ViewHelper;
 

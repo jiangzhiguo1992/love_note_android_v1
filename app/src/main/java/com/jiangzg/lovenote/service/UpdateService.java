@@ -18,7 +18,7 @@ import com.jiangzg.base.component.IntentFactory;
 import com.jiangzg.base.system.PermUtils;
 import com.jiangzg.base.time.DateUtils;
 import com.jiangzg.lovenote.R;
-import com.jiangzg.lovenote.base.BaseActivity;
+import com.jiangzg.lovenote.activity.base.BaseActivity;
 import com.jiangzg.lovenote.helper.ConsHelper;
 import com.jiangzg.lovenote.helper.DialogHelper;
 import com.jiangzg.lovenote.helper.GsonHelper;

@@ -1,4 +1,4 @@
-package com.jiangzg.lovenote.base;
+package com.jiangzg.lovenote.fragment.base;
 
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;

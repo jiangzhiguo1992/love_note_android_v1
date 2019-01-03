@@ -15,8 +15,8 @@ import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.base.component.ActivityTrans;
 import com.jiangzg.base.view.BarUtils;
 import com.jiangzg.lovenote.R;
+import com.jiangzg.lovenote.activity.base.BaseActivity;
 import com.jiangzg.lovenote.adapter.BigImagePagerAdapter;
-import com.jiangzg.lovenote.base.BaseActivity;
 import com.jiangzg.lovenote.helper.OssHelper;
 import com.jiangzg.lovenote.view.TryCacheViewPager;
 

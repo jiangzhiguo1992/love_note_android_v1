@@ -4,8 +4,8 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.lovenote.R;
+import com.jiangzg.lovenote.activity.base.BaseActivity;
 import com.jiangzg.lovenote.activity.common.MapShowActivity;
-import com.jiangzg.lovenote.base.BaseActivity;
 import com.jiangzg.lovenote.helper.TimeHelper;
 import com.jiangzg.lovenote.model.entity.TravelPlace;
 

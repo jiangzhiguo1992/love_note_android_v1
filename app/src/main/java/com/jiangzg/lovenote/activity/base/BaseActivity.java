@@ -1,4 +1,4 @@
-package com.jiangzg.lovenote.base;
+package com.jiangzg.lovenote.activity.base;
 
 import android.app.Activity;
 import android.content.DialogInterface;

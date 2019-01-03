@@ -21,7 +21,7 @@ import com.jiangzg.base.common.FileUtils;
 import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.base.component.ActivityTrans;
 import com.jiangzg.lovenote.R;
-import com.jiangzg.lovenote.base.BaseActivity;
+import com.jiangzg.lovenote.activity.base.BaseActivity;
 import com.jiangzg.lovenote.helper.ViewHelper;
 
 import java.io.File;

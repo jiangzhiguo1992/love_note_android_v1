@@ -1,4 +1,4 @@
-package com.jiangzg.lovenote.base;
+package com.jiangzg.lovenote.fragment.base;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.jiangzg.base.common.LogUtils;
+import com.jiangzg.lovenote.activity.base.BaseActivity;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
