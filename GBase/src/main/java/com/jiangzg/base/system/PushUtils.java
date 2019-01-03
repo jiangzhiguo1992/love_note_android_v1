@@ -13,7 +13,7 @@ import com.jiangzg.base.common.LogUtils;
  * Created by JZG on 2018/10/19.
  * 通知管理类
  */
-public class NotificationUtils {
+public class PushUtils {
 
     // setNotificationChannel
     public static void setNotificationChannel(NotificationManager manager,
@@ -21,7 +21,7 @@ public class NotificationUtils {
                                               String channelDesc, boolean light, boolean vibrate) {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O) return;
         if (manager == null) {
-            LogUtils.w(NotificationUtils.class, "setNotificationChannel", "manager == null");
+            LogUtils.w(PushUtils.class, "setNotificationChannel", "manager == null");
             return;
         }
         // id是通道，name 和 desc 用户可见，

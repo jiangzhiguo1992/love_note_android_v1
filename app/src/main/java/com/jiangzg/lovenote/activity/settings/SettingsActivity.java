@@ -14,7 +14,7 @@ import android.widget.TextView;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.jiangzg.base.component.ActivityTrans;
 import com.jiangzg.base.component.IntentFactory;
-import com.jiangzg.base.system.NotificationUtils;
+import com.jiangzg.base.system.PushUtils;
 import com.jiangzg.base.view.DialogUtils;
 import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.lovenote.R;
@@ -239,12 +239,12 @@ public class SettingsActivity extends BaseActivity<SettingsActivity> {
     }
 
     private void refreshNotificationStatus() {
-        boolean enabled = NotificationUtils.isNotificationEnabled();
+        boolean enabled = PushUtils.isNotificationEnabled();
         tvNoticeStatus.setText(enabled ? R.string.notice_yes_open : R.string.notice_no_open);
     }
 
     private void goNoticeSettings() {
-        //boolean enabled = NotificationUtils.isNotificationEnabled();
+        //boolean enabled = PushUtils.isNotificationEnabled();
         //if (enabled) return;
         Intent notice = IntentFactory.getNotificationSettings();
         ActivityTrans.start(mActivity, notice);

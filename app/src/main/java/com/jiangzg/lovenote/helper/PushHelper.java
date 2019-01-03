@@ -11,7 +11,7 @@ import com.alibaba.sdk.android.push.register.HuaWeiRegister;
 import com.alibaba.sdk.android.push.register.MiPushRegister;
 import com.jiangzg.base.common.LogUtils;
 import com.jiangzg.base.common.StringUtils;
-import com.jiangzg.base.system.NotificationUtils;
+import com.jiangzg.base.system.PushUtils;
 import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.main.MyApp;
 import com.jiangzg.lovenote.model.entity.PushInfo;
@@ -93,7 +93,7 @@ public class PushHelper {
             info.setNoticeVibrate(false);
         }
         NotificationManager manager = MyApp.getNotificationManager();
-        NotificationUtils.setNotificationChannel(manager, info.getChannelId(), info.getChannelName(),
+        PushUtils.setNotificationChannel(manager, info.getChannelId(), info.getChannelName(),
                 info.getChannelLevel(), info.getChannelDesc(), info.isNoticeLight(), info.isNoticeVibrate());
     }
 
