@@ -19,7 +19,6 @@ import com.jiangzg.base.common.LogUtils;
 import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.base.system.DeviceInfo;
 import com.jiangzg.base.system.LanguageUtils;
-import com.jiangzg.base.system.LocationInfo;
 import com.jiangzg.base.time.DateUtils;
 import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.activity.couple.CoupleInfoActivity;
@@ -39,7 +38,6 @@ import com.jiangzg.lovenote.model.entity.MatchReport;
 import com.jiangzg.lovenote.model.entity.MatchWork;
 import com.jiangzg.lovenote.model.entity.ModelShow;
 import com.jiangzg.lovenote.model.entity.OssInfo;
-import com.jiangzg.lovenote.model.entity.Place;
 import com.jiangzg.lovenote.model.entity.PostComment;
 import com.jiangzg.lovenote.model.entity.PushInfo;
 import com.jiangzg.lovenote.model.entity.Sms;
@@ -301,6 +299,7 @@ public class ApiHelper {
 
     // 更新oss信息
     public static void ossInfoUpdate() {
+        if (UserHelper.isEmpty(SPHelper.getMe())) return;
         Call<Result> call = new RetrofitHelper().call(API.class).ossGet();
         RetrofitHelper.enqueue(call, null, new RetrofitHelper.CallBack() {
             @Override

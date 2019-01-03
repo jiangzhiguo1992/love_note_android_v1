@@ -1,8 +1,10 @@
 package com.jiangzg.lovenote.activity.main;
 
+import android.animation.ObjectAnimator;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -20,6 +22,7 @@ import com.jiangzg.lovenote.helper.ApiHelper;
 import com.jiangzg.lovenote.helper.OssResHelper;
 import com.jiangzg.lovenote.helper.RetrofitHelper;
 import com.jiangzg.lovenote.helper.SPHelper;
+import com.jiangzg.lovenote.helper.UserHelper;
 import com.jiangzg.lovenote.main.MyApp;
 import com.jiangzg.lovenote.model.api.API;
 import com.jiangzg.lovenote.model.api.Result;
@@ -81,7 +84,7 @@ public class WelcomeActivity extends BaseActivity<WelcomeActivity> {
             int height = ScreenUtils.getScreenRealHeight(mActivity);
             ivBg.setWidthAndHeight(width, height);
             ivBg.setDataFile(wallPaper);
-            //startAnim(); // 先不要动画了，避免加载卡顿
+            startAnim(); // 渐变动画
         }
         // ...非网络性init操作
         checkUser();
@@ -121,19 +124,23 @@ public class WelcomeActivity extends BaseActivity<WelcomeActivity> {
         return fileList.get(nextInt);
     }
 
-    //private void startAnim() {
-    //    ObjectAnimator scaleX = ObjectAnimator.ofFloat(ivBg, "scaleX", 1f, 1.2F, 1f);
-    //    ObjectAnimator scaleY = ObjectAnimator.ofFloat(ivBg, "scaleY", 1f, 1.2F, 1f);
-    //    AnimatorSet set = new AnimatorSet();
-    //    set.setDuration(10000);
-    //    set.playTogether(scaleX, scaleY);
-    //    set.setInterpolator(new AccelerateDecelerateInterpolator());
-    //    set.start();
-    //}
+    private void startAnim() {
+        //ObjectAnimator scaleX = ObjectAnimator.ofFloat(ivBg, "scaleX", 1f, 1.2F, 1f);
+        //ObjectAnimator scaleY = ObjectAnimator.ofFloat(ivBg, "scaleY", 1f, 1.2F, 1f);
+        //AnimatorSet set = new AnimatorSet();
+        //set.setDuration(10000);
+        //set.playTogether(scaleX, scaleY);
+        //set.setInterpolator(new AccelerateDecelerateInterpolator());
+        //set.start();
+        ObjectAnimator alpha = ObjectAnimator.ofFloat(ivBg, "alpha", 0, 1);
+        alpha.setDuration(ConstantUtils.SEC);
+        alpha.setInterpolator(new AccelerateDecelerateInterpolator());
+        alpha.start();
+    }
 
     // 检查用户
     private void checkUser() {
-        if (SPHelper.getMe() == null) {
+        if (UserHelper.isEmpty(SPHelper.getMe())) {
             // 没有登录
             MyApp.get().getHandler().postDelayed(() -> SplashActivity.goActivity(mActivity), TransPageMillis);
         } else {
