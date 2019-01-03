@@ -52,12 +52,7 @@ public class DateUtils {
     }
 
     public static String getCurrentStr(String sFormat) {
-        if (StringUtils.isEmpty(sFormat)) {
-            LogUtils.w(DateUtils.class, "getCurrentStr", "sFormat == null");
-            return "";
-        }
-        SimpleDateFormat format = new SimpleDateFormat(sFormat, Locale.getDefault());
-        return format.format(getCurrentDate());
+        return getStr(getCurrentDate(), sFormat);
     }
 
     /**
@@ -66,7 +61,7 @@ public class DateUtils {
     public static Date getDate(String time, String sFormat) {
         if (StringUtils.isEmpty(time) || StringUtils.isEmpty(sFormat)) {
             LogUtils.w(DateUtils.class, "getDate", "time == null || sFormat == null");
-            return null;
+            return getCurrentDate();
         }
         SimpleDateFormat format = new SimpleDateFormat(sFormat, Locale.getDefault());
         try {
@@ -74,19 +69,19 @@ public class DateUtils {
         } catch (ParseException e) {
             LogUtils.e(DateUtils.class, "getDate", e);
         }
-        return null;
+        return getCurrentDate();
     }
 
-    public static Date getDate(Calendar calendar) {
-        if (calendar == null) {
-            LogUtils.w(DateUtils.class, "getDate", "calendar == null");
-            return null;
+    public static Date getDate(Calendar cal) {
+        if (cal == null) {
+            LogUtils.w(DateUtils.class, "getDate", "cal == null");
+            return getCurrentDate();
         }
-        return calendar.getTime();
+        return cal.getTime();
     }
 
-    public static Date getDate(long time) {
-        return new Date(time);
+    public static Date getDate(long timestamp) {
+        return new Date(timestamp);
     }
 
     /**
@@ -95,24 +90,20 @@ public class DateUtils {
     public static Calendar getCal(Date date) {
         if (date == null) {
             LogUtils.w(DateUtils.class, "getCal", "date == null");
-            return null;
+            return getCurrentCal();
         }
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTime(date);
-        return calendar;
+        Calendar time = Calendar.getInstance();
+        time.setTime(date);
+        return time;
     }
 
     public static Calendar getCal(String time, String sFormat) {
-        if (StringUtils.isEmpty(time) || StringUtils.isEmpty(sFormat)) {
-            LogUtils.w(DateUtils.class, "getCal", "time == null || sFormat == null");
-            return null;
-        }
         Date date = getDate(time, sFormat);
         return getCal(date);
     }
 
-    public static Calendar getCal(long time) {
-        Date date = new Date(time);
+    public static Calendar getCal(long timestamp) {
+        Date date = new Date(timestamp);
         return getCal(date);
     }
 
@@ -127,8 +118,8 @@ public class DateUtils {
         return date.getTime();
     }
 
-    public static long getLong(Calendar calendar) {
-        Date date = calendar.getTime();
+    public static long getLong(Calendar cal) {
+        Date date = cal.getTime();
         return date.getTime();
     }
 
@@ -157,21 +148,13 @@ public class DateUtils {
         return format.format(date);
     }
 
-    public static String getStr(long time, String sFormat) {
-        if (StringUtils.isEmpty(sFormat)) {
-            LogUtils.w(DateUtils.class, "getStr", "sFormat == null");
-            return "";
-        }
-        Date date = new Date(time);
+    public static String getStr(Calendar cal, String sFormat) {
+        Date date = cal.getTime();
         return getStr(date, sFormat);
     }
 
-    public static String getStr(Calendar calendar, String sFormat) {
-        if (calendar == null || StringUtils.isEmpty(sFormat)) {
-            LogUtils.w(DateUtils.class, "getStr", "calendar == null || sFormat == null");
-            return "";
-        }
-        Date date = calendar.getTime();
+    public static String getStr(long timestamp, String sFormat) {
+        Date date = new Date(timestamp);
         return getStr(date, sFormat);
     }
 
