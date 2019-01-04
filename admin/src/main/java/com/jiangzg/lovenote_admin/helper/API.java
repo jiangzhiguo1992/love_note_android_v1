@@ -85,10 +85,10 @@ public interface API {
     Call<Result> entryListGet(@Query("uid") long uid, @Query("page") int page);
 
     @GET("entry?total=1")
-    Call<Result> entryTotalGet(@Query("start") long start, @Query("end") long end);
+    Call<Result> entryTotalGet(@Query("create") boolean create, @Query("start") long start, @Query("end") long end);
 
     @GET("entry?group=1")
-    Call<Result> entryGroupGet(@Query("start") long start, @Query("end") long end, @Query("filed") String filed);
+    Call<Result> entryGroupGet(@Query("filed") String filed, @Query("create") boolean create, @Query("start") long start, @Query("end") long end);
 
     @GET("api?list=1")
     Call<Result> apiListGet(@Query("start") long start, @Query("end") long end, @Query("uid") long uid, @Query("page") int page);

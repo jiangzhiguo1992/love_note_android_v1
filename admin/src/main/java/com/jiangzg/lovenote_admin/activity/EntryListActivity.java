@@ -14,10 +14,10 @@ import android.widget.EditText;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
-import com.jiangzg.base.common.StringUtils;
-import com.jiangzg.base.component.ActivityTrans;
 import com.jiangzg.base.common.DateUtils;
+import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.base.common.TimeUnit;
+import com.jiangzg.base.component.ActivityTrans;
 import com.jiangzg.base.view.DialogUtils;
 import com.jiangzg.lovenote_admin.R;
 import com.jiangzg.lovenote_admin.adapter.EntryAdapter;
@@ -50,16 +50,20 @@ public class EntryListActivity extends BaseActivity<EntryListActivity> {
     Button btnStart;
     @BindView(R.id.btnEnd)
     Button btnEnd;
-    @BindView(R.id.btnTotal)
-    Button btnTotal;
-    @BindView(R.id.btnGroup)
-    Button btnGroup;
+    @BindView(R.id.btnTotalCreate)
+    Button btnTotalCreate;
+    @BindView(R.id.btnGroupCreate)
+    Button btnGroupCreate;
+    @BindView(R.id.btnTotalUpdate)
+    Button btnTotalUpdate;
+    @BindView(R.id.btnGroupUpdate)
+    Button btnGroupUpdate;
     @BindView(R.id.rv)
     RecyclerView rv;
 
     private RecyclerHelper recyclerHelper;
     private int page;
-    private int filedIndex;
+    private int cFiledIndex, uFiledIndex;
     private long start, end;
 
     public static void goActivity(Fragment from) {
@@ -94,8 +98,9 @@ public class EntryListActivity extends BaseActivity<EntryListActivity> {
         end = DateUtils.getCurrentLong();
         refreshDateView();
         // filed
-        filedIndex = 0;
-        btnGroup.setText("分组(" + ApiHelper.LIST_ENTRY_FILED_SHOW[filedIndex] + ")");
+        cFiledIndex = uFiledIndex = 0;
+        btnGroupCreate.setText("分组(" + ApiHelper.LIST_ENTRY_FILED_SHOW[cFiledIndex] + ")");
+        btnGroupUpdate.setText("分组(" + ApiHelper.LIST_ENTRY_FILED_SHOW[uFiledIndex] + ")");
         // recycler
         recyclerHelper = new RecyclerHelper(rv)
                 .initLayoutManager(new LinearLayoutManager(mActivity))
@@ -129,7 +134,8 @@ public class EntryListActivity extends BaseActivity<EntryListActivity> {
         RecyclerHelper.release(recyclerHelper);
     }
 
-    @OnClick({R.id.btnSearch, R.id.btnStart, R.id.btnEnd, R.id.btnTotal, R.id.btnGroup})
+    @OnClick({R.id.btnSearch, R.id.btnStart, R.id.btnEnd,
+            R.id.btnTotalCreate, R.id.btnGroupCreate, R.id.btnTotalUpdate, R.id.btnGroupUpdate})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.btnSearch:
@@ -141,11 +147,17 @@ public class EntryListActivity extends BaseActivity<EntryListActivity> {
             case R.id.btnEnd:
                 showEndPicker();
                 break;
-            case R.id.btnTotal:
-                getAllCount();
+            case R.id.btnTotalCreate:
+                getAllCount(true);
                 break;
-            case R.id.btnGroup:
-                showFiledSelectDialog();
+            case R.id.btnGroupCreate:
+                showFiledSelectDialog(true);
+                break;
+            case R.id.btnTotalUpdate:
+                getAllCount(false);
+                break;
+            case R.id.btnGroupUpdate:
+                showFiledSelectDialog(false);
                 break;
         }
     }
@@ -207,34 +219,47 @@ public class EntryListActivity extends BaseActivity<EntryListActivity> {
         });
     }
 
-    private void getAllCount() {
-        Call<Result> call = new RetrofitHelper().call(API.class).entryTotalGet(start / 1000, end / 1000);
+    private void getAllCount(final boolean create) {
+        Call<Result> call = new RetrofitHelper().call(API.class).entryTotalGet(create, start / 1000, end / 1000);
         RetrofitHelper.enqueue(call, getLoading(true), new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
-                btnTotal.setText("数量(" + data.getTotal() + ")");
+                if (create) {
+                    btnTotalCreate.setText("数量(" + data.getTotal() + ")");
+                } else {
+                    btnTotalUpdate.setText("数量(" + data.getTotal() + ")");
+                }
             }
 
             @Override
             public void onFailure(int code, String message, Result.Data data) {
-                btnTotal.setText("数量(fail)");
+                if (create) {
+                    btnTotalCreate.setText("数量(fail)");
+                } else {
+                    btnTotalUpdate.setText("数量(fail)");
+                }
             }
         });
     }
 
-    private void showFiledSelectDialog() {
+    private void showFiledSelectDialog(final boolean create) {
         MaterialDialog dialog = DialogHelper.getBuild(mActivity)
                 .cancelable(true)
                 .canceledOnTouchOutside(true)
                 .title(R.string.select_search_type)
                 .items(ApiHelper.LIST_ENTRY_FILED_SHOW)
-                .itemsCallbackSingleChoice(filedIndex, new MaterialDialog.ListCallbackSingleChoice() {
+                .itemsCallbackSingleChoice(create ? cFiledIndex : uFiledIndex, new MaterialDialog.ListCallbackSingleChoice() {
                     @Override
                     public boolean onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {
-                        filedIndex = which;
-                        btnGroup.setText("分组(" + ApiHelper.LIST_ENTRY_FILED_SHOW[filedIndex] + ")");
+                        if (create) {
+                            cFiledIndex = which;
+                            btnGroupCreate.setText("分组(" + ApiHelper.LIST_ENTRY_FILED_SHOW[cFiledIndex] + ")");
+                        } else {
+                            uFiledIndex = which;
+                            btnGroupUpdate.setText("分组(" + ApiHelper.LIST_ENTRY_FILED_SHOW[uFiledIndex] + ")");
+                        }
                         DialogUtils.dismiss(dialog);
-                        getFiledGroupData();
+                        getFiledGroupData(create);
                         return true;
                     }
                 })
@@ -242,9 +267,9 @@ public class EntryListActivity extends BaseActivity<EntryListActivity> {
         DialogHelper.showWithAnim(dialog);
     }
 
-    private void getFiledGroupData() {
-        String filed = ApiHelper.LIST_ENTRY_FILED_SHOW[filedIndex];
-        Call<Result> call = new RetrofitHelper().call(API.class).entryGroupGet(start / 1000, end / 1000, filed);
+    private void getFiledGroupData(boolean create) {
+        String filed = ApiHelper.LIST_ENTRY_FILED_SHOW[create ? cFiledIndex : uFiledIndex];
+        Call<Result> call = new RetrofitHelper().call(API.class).entryGroupGet(filed, create, start / 1000, end / 1000);
         RetrofitHelper.enqueue(call, getLoading(true), new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
