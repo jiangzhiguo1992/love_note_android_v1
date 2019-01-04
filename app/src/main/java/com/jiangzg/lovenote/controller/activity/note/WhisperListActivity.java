@@ -30,7 +30,6 @@ import com.jiangzg.lovenote.controller.activity.base.BaseActivity;
 import com.jiangzg.lovenote.controller.activity.more.VipActivity;
 import com.jiangzg.lovenote.controller.activity.settings.HelpActivity;
 import com.jiangzg.lovenote.controller.adapter.note.WhisperAdapter;
-import com.jiangzg.lovenote.helper.ConsHelper;
 import com.jiangzg.lovenote.helper.ListHelper;
 import com.jiangzg.lovenote.helper.MediaPickHelper;
 import com.jiangzg.lovenote.helper.OssHelper;
@@ -187,7 +186,7 @@ public class WhisperListActivity extends BaseActivity<WhisperListActivity> {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode != RESULT_OK) return;
-        if (requestCode == ConsHelper.REQUEST_PICTURE) {
+        if (requestCode == BaseActivity.REQUEST_PICTURE) {
             // 相册
             File pictureFile = MediaPickHelper.getResultFile(mActivity, data);
             if (FileUtils.isFileEmpty(pictureFile)) {

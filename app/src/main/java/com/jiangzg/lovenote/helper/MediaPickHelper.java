@@ -14,6 +14,7 @@ import com.jiangzg.base.component.ProviderUtils;
 import com.jiangzg.base.media.BitmapUtils;
 import com.jiangzg.base.system.PermUtils;
 import com.jiangzg.lovenote.R;
+import com.jiangzg.lovenote.controller.activity.base.BaseActivity;
 import com.zhihu.matisse.Matisse;
 import com.zhihu.matisse.MimeType;
 import com.zhihu.matisse.engine.impl.GlideEngine;
@@ -30,7 +31,7 @@ import java.util.List;
 public class MediaPickHelper {
 
     public static void selectImage(Activity activity, int maxCount) {
-        PermUtils.requestPermissions(activity, ConsHelper.REQUEST_APP_INFO, PermUtils.appInfo, new PermUtils.OnPermissionListener() {
+        PermUtils.requestPermissions(activity, BaseActivity.REQUEST_APP_INFO, PermUtils.appInfo, new PermUtils.OnPermissionListener() {
             @Override
             public void onPermissionGranted(int requestCode, String[] permissions) {
                 MediaPickHelper.selectImageWithOutPermission(activity, maxCount);
@@ -58,7 +59,7 @@ public class MediaPickHelper {
                 .restrictOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED) // 文件方向(默认值)
                 .thumbnailScale(0.75f) // 缩略图(0.75倍)
                 .imageEngine(new GlideEngine()) // 构造器(glide)
-                .forResult(ConsHelper.REQUEST_PICTURE); // 请求码
+                .forResult(BaseActivity.REQUEST_PICTURE); // 请求码
     }
 
     public static File getResultFile(Activity activity, Intent data) {
@@ -68,7 +69,7 @@ public class MediaPickHelper {
         }
         boolean permissionOK = PermUtils.isPermissionOK(activity, PermUtils.appInfo);
         if (!permissionOK) {
-            PermUtils.requestPermissions(activity, ConsHelper.REQUEST_APP_INFO, PermUtils.appInfo, null);
+            PermUtils.requestPermissions(activity, BaseActivity.REQUEST_APP_INFO, PermUtils.appInfo, null);
             return null;
         }
         List<Uri> uris = Matisse.obtainResult(data);
@@ -98,7 +99,7 @@ public class MediaPickHelper {
         }
         boolean permissionOK = PermUtils.isPermissionOK(activity, PermUtils.appInfo);
         if (!permissionOK) {
-            PermUtils.requestPermissions(activity, ConsHelper.REQUEST_APP_INFO, PermUtils.appInfo, null);
+            PermUtils.requestPermissions(activity, BaseActivity.REQUEST_APP_INFO, PermUtils.appInfo, null);
             return null;
         }
         List<Uri> uris = Matisse.obtainResult(data);

@@ -21,7 +21,6 @@ import com.jiangzg.base.component.ActivityTrans;
 import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.controller.activity.base.BaseActivity;
-import com.jiangzg.lovenote.helper.ConsHelper;
 import com.jiangzg.lovenote.helper.DialogHelper;
 import com.jiangzg.lovenote.helper.RetrofitHelper;
 import com.jiangzg.lovenote.helper.RxBus;
@@ -188,7 +187,7 @@ public class AngryEditActivity extends BaseActivity<AngryEditActivity> {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 // event
-                RxBus.post(new RxBus.Event<>(ConsHelper.EVENT_ANGRY_LIST_REFRESH, new ArrayList<>()));
+                RxBus.post(new RxBus.Event<>(RxBus.EVENT_ANGRY_LIST_REFRESH, new ArrayList<>()));
                 // finish
                 mActivity.finish();
             }

@@ -13,6 +13,7 @@ import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.base.component.ActivityStack;
 import com.jiangzg.base.component.BroadcastUtils;
 import com.jiangzg.base.system.PermUtils;
+import com.jiangzg.lovenote.controller.activity.base.BaseActivity;
 import com.jiangzg.lovenote.main.MyApp;
 
 import java.io.File;
@@ -97,7 +98,7 @@ public class ResHelper {
         if (top == null) return;
         //if (!FileUtils.isFileExists(file)) return; // 有时候存在文件也会返回false
         if (file == null) return;
-        PermUtils.requestPermissions(top, ConsHelper.REQUEST_APP_INFO, PermUtils.appInfo, new PermUtils.OnPermissionListener() {
+        PermUtils.requestPermissions(top, BaseActivity.REQUEST_APP_INFO, PermUtils.appInfo, new PermUtils.OnPermissionListener() {
             @Override
             public void onPermissionGranted(int requestCode, String[] permissions) {
                 MyApp.get().getThread().execute(() -> {
@@ -119,7 +120,7 @@ public class ResHelper {
         final Activity top = ActivityStack.getTop();
         if (top == null) return;
         if (fileList == null || fileList.size() <= 0) return;
-        PermUtils.requestPermissions(top, ConsHelper.REQUEST_APP_INFO, PermUtils.appInfo, new PermUtils.OnPermissionListener() {
+        PermUtils.requestPermissions(top, BaseActivity.REQUEST_APP_INFO, PermUtils.appInfo, new PermUtils.OnPermissionListener() {
             @Override
             public void onPermissionGranted(int requestCode, String[] permissions) {
                 MyApp.get().getThread().execute(() -> {

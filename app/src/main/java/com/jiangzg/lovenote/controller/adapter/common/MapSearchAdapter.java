@@ -8,7 +8,6 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.jiangzg.base.system.LocationInfo;
 import com.jiangzg.lovenote.R;
-import com.jiangzg.lovenote.helper.ConsHelper;
 import com.jiangzg.lovenote.helper.RxBus;
 
 /**
@@ -50,7 +49,7 @@ public class MapSearchAdapter extends BaseQuickAdapter<PoiItem, BaseViewHolder> 
         select.setAddress(item.getTitle());
         select.setCityId(item.getCityCode());
         // 传输数据
-        RxBus.post(new RxBus.Event<>(ConsHelper.EVENT_MAP_SELECT, select));
+        RxBus.post(new RxBus.Event<>(RxBus.EVENT_MAP_SELECT, select));
         mActivity.finish();
     }
 

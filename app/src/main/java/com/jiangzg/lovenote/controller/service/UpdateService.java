@@ -18,7 +18,6 @@ import com.jiangzg.base.component.IntentFactory;
 import com.jiangzg.base.system.PermUtils;
 import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.controller.activity.base.BaseActivity;
-import com.jiangzg.lovenote.helper.ConsHelper;
 import com.jiangzg.lovenote.helper.DialogHelper;
 import com.jiangzg.lovenote.helper.GsonHelper;
 import com.jiangzg.lovenote.helper.OssHelper;
@@ -140,7 +139,7 @@ public class UpdateService extends Service {
             if (canInstall) {
                 ossDownloadApk(version);
             } else {
-                PermUtils.requestPermissions(top, ConsHelper.REQUEST_INSTALL, PermUtils.installApk, new PermUtils.OnPermissionListener() {
+                PermUtils.requestPermissions(top, BaseActivity.REQUEST_INSTALL, PermUtils.installApk, new PermUtils.OnPermissionListener() {
                     @Override
                     public void onPermissionGranted(int requestCode, String[] permissions) {
                         ossDownloadApk(version);

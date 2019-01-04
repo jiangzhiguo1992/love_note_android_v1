@@ -12,7 +12,6 @@ import com.jiangzg.lovenote.controller.activity.base.BaseActivity;
 import com.jiangzg.lovenote.controller.activity.common.MapShowActivity;
 import com.jiangzg.lovenote.controller.activity.note.FoodEditActivity;
 import com.jiangzg.lovenote.controller.adapter.common.ImgSquareShowAdapter;
-import com.jiangzg.lovenote.helper.ConsHelper;
 import com.jiangzg.lovenote.helper.RecyclerHelper;
 import com.jiangzg.lovenote.helper.RxBus;
 import com.jiangzg.lovenote.helper.SPHelper;
@@ -75,7 +74,7 @@ public class FoodAdapter extends BaseQuickAdapter<Food, BaseViewHolder> {
     public void selectFood(int position) {
         mActivity.finish(); // 必须先关闭
         Food item = getItem(position);
-        RxBus.post(new RxBus.Event<>(ConsHelper.EVENT_FOOD_SELECT, item));
+        RxBus.post(new RxBus.Event<>(RxBus.EVENT_FOOD_SELECT, item));
     }
 
     public void goEditActivity(int position) {

@@ -19,7 +19,6 @@ import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.controller.activity.base.BaseActivity;
 import com.jiangzg.lovenote.controller.adapter.topic.PostAdapter;
-import com.jiangzg.lovenote.helper.ConsHelper;
 import com.jiangzg.lovenote.helper.ListHelper;
 import com.jiangzg.lovenote.helper.RecyclerHelper;
 import com.jiangzg.lovenote.helper.RetrofitHelper;
@@ -103,11 +102,11 @@ public class PostSearchActivity extends BaseActivity<PostSearchActivity> {
     protected void initData(Intent intent, Bundle state) {
         page = 0;
         // event
-        obListItemDelete = RxBus.register(ConsHelper.EVENT_POST_LIST_ITEM_DELETE, post -> {
+        obListItemDelete = RxBus.register(RxBus.EVENT_POST_LIST_ITEM_DELETE, post -> {
             if (recyclerHelper == null) return;
             ListHelper.removeObjInAdapter(recyclerHelper.getAdapter(), post);
         });
-        obListItemRefresh = RxBus.register(ConsHelper.EVENT_POST_LIST_ITEM_REFRESH, post -> {
+        obListItemRefresh = RxBus.register(RxBus.EVENT_POST_LIST_ITEM_REFRESH, post -> {
             if (recyclerHelper == null) return;
             ListHelper.refreshObjInAdapter(recyclerHelper.getAdapter(), post);
         });
@@ -116,8 +115,8 @@ public class PostSearchActivity extends BaseActivity<PostSearchActivity> {
     @Override
     protected void onFinish(Bundle state) {
         RetrofitHelper.cancel(call);
-        RxBus.unregister(ConsHelper.EVENT_POST_LIST_ITEM_DELETE, obListItemDelete);
-        RxBus.unregister(ConsHelper.EVENT_POST_LIST_ITEM_REFRESH, obListItemRefresh);
+        RxBus.unregister(RxBus.EVENT_POST_LIST_ITEM_DELETE, obListItemDelete);
+        RxBus.unregister(RxBus.EVENT_POST_LIST_ITEM_REFRESH, obListItemRefresh);
         RecyclerHelper.release(recyclerHelper);
     }
 

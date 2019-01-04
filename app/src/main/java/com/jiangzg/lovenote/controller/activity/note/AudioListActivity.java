@@ -21,7 +21,6 @@ import com.jiangzg.base.media.PlayerUtils;
 import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.controller.activity.base.BaseActivity;
 import com.jiangzg.lovenote.controller.adapter.note.AudioAdapter;
-import com.jiangzg.lovenote.helper.ConsHelper;
 import com.jiangzg.lovenote.helper.ListHelper;
 import com.jiangzg.lovenote.helper.OssResHelper;
 import com.jiangzg.lovenote.helper.RecyclerHelper;
@@ -116,11 +115,11 @@ public class AudioListActivity extends BaseActivity<AudioListActivity> {
     protected void initData(Intent intent, Bundle state) {
         page = 0;
         // event
-        obListRefresh = RxBus.register(ConsHelper.EVENT_AUDIO_LIST_REFRESH, audioList -> {
+        obListRefresh = RxBus.register(RxBus.EVENT_AUDIO_LIST_REFRESH, audioList -> {
             if (recyclerHelper == null) return;
             recyclerHelper.dataRefresh();
         });
-        obListItemDelete = RxBus.register(ConsHelper.EVENT_AUDIO_LIST_ITEM_DELETE, audio -> {
+        obListItemDelete = RxBus.register(RxBus.EVENT_AUDIO_LIST_ITEM_DELETE, audio -> {
             if (recyclerHelper == null) return;
             ListHelper.removeObjInAdapter(recyclerHelper.getAdapter(), audio);
         });
@@ -131,8 +130,8 @@ public class AudioListActivity extends BaseActivity<AudioListActivity> {
     @Override
     protected void onFinish(Bundle state) {
         RetrofitHelper.cancel(call);
-        RxBus.unregister(ConsHelper.EVENT_AUDIO_LIST_REFRESH, obListRefresh);
-        RxBus.unregister(ConsHelper.EVENT_AUDIO_LIST_ITEM_DELETE, obListItemDelete);
+        RxBus.unregister(RxBus.EVENT_AUDIO_LIST_REFRESH, obListRefresh);
+        RxBus.unregister(RxBus.EVENT_AUDIO_LIST_ITEM_DELETE, obListItemDelete);
         RecyclerHelper.release(recyclerHelper);
     }
 

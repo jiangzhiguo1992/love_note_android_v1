@@ -21,7 +21,6 @@ import com.jiangzg.lovenote.controller.activity.base.BaseActivity;
 import com.jiangzg.lovenote.controller.adapter.common.CommonFragmentAdapter;
 import com.jiangzg.lovenote.controller.fragment.topic.PostListFragment;
 import com.jiangzg.lovenote.helper.ApiHelper;
-import com.jiangzg.lovenote.helper.ConsHelper;
 import com.jiangzg.lovenote.helper.DialogHelper;
 import com.jiangzg.lovenote.helper.RxBus;
 import com.jiangzg.lovenote.helper.ViewHelper;
@@ -152,7 +151,7 @@ public class PostListActivity extends BaseActivity<PostListActivity> {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.llTop: // 置顶
-                RxBus.post(new RxBus.Event<>(ConsHelper.EVENT_POST_GO_TOP, true));
+                RxBus.post(new RxBus.Event<>(RxBus.EVENT_POST_GO_TOP, true));
                 break;
             case R.id.llSearch: // 搜索
                 showSearchDialog();
@@ -185,13 +184,13 @@ public class PostListActivity extends BaseActivity<PostListActivity> {
                     RxBus.Event<Boolean> event;
                     switch (ApiHelper.LIST_TOPIC_TYPE[searchIndex]) {
                         case ApiHelper.LIST_TOPIC_OFFICIAL: // 官方
-                            event = new RxBus.Event<>(ConsHelper.EVENT_POST_SEARCH_OFFICIAL, true);
+                            event = new RxBus.Event<>(RxBus.EVENT_POST_SEARCH_OFFICIAL, true);
                             break;
                         case ApiHelper.LIST_TOPIC_WELL: // 精华
-                            event = new RxBus.Event<>(ConsHelper.EVENT_POST_SEARCH_WELL, true);
+                            event = new RxBus.Event<>(RxBus.EVENT_POST_SEARCH_WELL, true);
                             break;
                         default: // 普通
-                            event = new RxBus.Event<>(ConsHelper.EVENT_POST_SEARCH_ALL, true);
+                            event = new RxBus.Event<>(RxBus.EVENT_POST_SEARCH_ALL, true);
                             break;
                     }
                     RxBus.post(event);

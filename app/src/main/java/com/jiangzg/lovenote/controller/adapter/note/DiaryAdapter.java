@@ -6,7 +6,6 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.controller.activity.note.DiaryDetailActivity;
-import com.jiangzg.lovenote.helper.ConsHelper;
 import com.jiangzg.lovenote.helper.RxBus;
 import com.jiangzg.lovenote.helper.SPHelper;
 import com.jiangzg.lovenote.helper.TimeHelper;
@@ -62,7 +61,7 @@ public class DiaryAdapter extends BaseQuickAdapter<Diary, BaseViewHolder> {
     public void selectDiary(int position) {
         mActivity.finish(); // 必须先关闭
         Diary item = getItem(position);
-        RxBus.post(new RxBus.Event<>(ConsHelper.EVENT_DIARY_SELECT, item));
+        RxBus.post(new RxBus.Event<>(RxBus.EVENT_DIARY_SELECT, item));
     }
 
 }

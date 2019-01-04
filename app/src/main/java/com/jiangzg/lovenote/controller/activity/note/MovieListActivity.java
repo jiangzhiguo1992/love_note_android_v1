@@ -20,7 +20,6 @@ import com.jiangzg.base.component.ActivityTrans;
 import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.controller.activity.base.BaseActivity;
 import com.jiangzg.lovenote.controller.adapter.note.MovieAdapter;
-import com.jiangzg.lovenote.helper.ConsHelper;
 import com.jiangzg.lovenote.helper.ListHelper;
 import com.jiangzg.lovenote.helper.OssResHelper;
 import com.jiangzg.lovenote.helper.RecyclerHelper;
@@ -59,21 +58,21 @@ public class MovieListActivity extends BaseActivity<MovieListActivity> {
 
     public static void goActivity(Activity from) {
         Intent intent = new Intent(from, MovieListActivity.class);
-        intent.putExtra("from", ConsHelper.ACT_LIST_FROM_BROWSE);
+        intent.putExtra("from", BaseActivity.ACT_LIST_FROM_BROWSE);
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         ActivityTrans.start(from, intent);
     }
 
     public static void goActivity(Fragment from) {
         Intent intent = new Intent(from.getActivity(), MovieListActivity.class);
-        intent.putExtra("from", ConsHelper.ACT_LIST_FROM_BROWSE);
+        intent.putExtra("from", BaseActivity.ACT_LIST_FROM_BROWSE);
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         ActivityTrans.start(from, intent);
     }
 
     public static void goActivityBySelect(Activity from) {
         Intent intent = new Intent(from, MovieListActivity.class);
-        intent.putExtra("from", ConsHelper.ACT_LIST_FROM_SELECT);
+        intent.putExtra("from", BaseActivity.ACT_LIST_FROM_SELECT);
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         ActivityTrans.start(from, intent);
     }
@@ -136,15 +135,15 @@ public class MovieListActivity extends BaseActivity<MovieListActivity> {
     protected void initData(Intent intent, Bundle state) {
         page = 0;
         // event
-        obListRefresh = RxBus.register(ConsHelper.EVENT_MOVIE_LIST_REFRESH, movieList -> {
+        obListRefresh = RxBus.register(RxBus.EVENT_MOVIE_LIST_REFRESH, movieList -> {
             if (recyclerHelper == null) return;
             recyclerHelper.dataRefresh();
         });
-        obListItemDelete = RxBus.register(ConsHelper.EVENT_MOVIE_LIST_ITEM_DELETE, movie -> {
+        obListItemDelete = RxBus.register(RxBus.EVENT_MOVIE_LIST_ITEM_DELETE, movie -> {
             if (recyclerHelper == null) return;
             ListHelper.removeObjInAdapter(recyclerHelper.getAdapter(), movie);
         });
-        obListItemRefresh = RxBus.register(ConsHelper.EVENT_MOVIE_LIST_ITEM_REFRESH, movie -> {
+        obListItemRefresh = RxBus.register(RxBus.EVENT_MOVIE_LIST_ITEM_REFRESH, movie -> {
             if (recyclerHelper == null) return;
             ListHelper.refreshObjInAdapter(recyclerHelper.getAdapter(), movie);
         });
@@ -155,9 +154,9 @@ public class MovieListActivity extends BaseActivity<MovieListActivity> {
     @Override
     protected void onFinish(Bundle state) {
         RetrofitHelper.cancel(call);
-        RxBus.unregister(ConsHelper.EVENT_MOVIE_LIST_REFRESH, obListRefresh);
-        RxBus.unregister(ConsHelper.EVENT_MOVIE_LIST_ITEM_DELETE, obListItemDelete);
-        RxBus.unregister(ConsHelper.EVENT_MOVIE_LIST_ITEM_REFRESH, obListItemRefresh);
+        RxBus.unregister(RxBus.EVENT_MOVIE_LIST_REFRESH, obListRefresh);
+        RxBus.unregister(RxBus.EVENT_MOVIE_LIST_ITEM_DELETE, obListItemDelete);
+        RxBus.unregister(RxBus.EVENT_MOVIE_LIST_ITEM_REFRESH, obListItemRefresh);
         RecyclerHelper.release(recyclerHelper);
     }
 
@@ -187,7 +186,7 @@ public class MovieListActivity extends BaseActivity<MovieListActivity> {
     }
 
     private boolean isFromSelect() {
-        return getIntent().getIntExtra("from", ConsHelper.ACT_LIST_FROM_BROWSE) == ConsHelper.ACT_LIST_FROM_SELECT;
+        return getIntent().getIntExtra("from", BaseActivity.ACT_LIST_FROM_BROWSE) == BaseActivity.ACT_LIST_FROM_SELECT;
     }
 
     private void getData(final boolean more) {

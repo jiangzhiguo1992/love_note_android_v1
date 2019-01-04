@@ -18,7 +18,6 @@ import com.jiangzg.lovenote.controller.activity.base.BaseActivity;
 import com.jiangzg.lovenote.controller.activity.couple.CouplePairActivity;
 import com.jiangzg.lovenote.controller.activity.settings.HelpActivity;
 import com.jiangzg.lovenote.controller.adapter.more.CoinAdapter;
-import com.jiangzg.lovenote.helper.ConsHelper;
 import com.jiangzg.lovenote.helper.RecyclerHelper;
 import com.jiangzg.lovenote.helper.RetrofitHelper;
 import com.jiangzg.lovenote.helper.RxBus;
@@ -103,7 +102,7 @@ public class CoinActivity extends BaseActivity<CoinActivity> {
     protected void initData(Intent intent, Bundle state) {
         page = 0;
         // event
-        obRefresh = RxBus.register(ConsHelper.EVENT_COIN_INFO_REFRESH, coin -> {
+        obRefresh = RxBus.register(RxBus.EVENT_COIN_INFO_REFRESH, coin -> {
             refreshData();
             if (recyclerHelper != null) recyclerHelper.dataRefresh();
         });
@@ -115,7 +114,7 @@ public class CoinActivity extends BaseActivity<CoinActivity> {
     protected void onFinish(Bundle state) {
         RetrofitHelper.cancel(callGet);
         RetrofitHelper.cancel(callList);
-        RxBus.unregister(ConsHelper.EVENT_COIN_INFO_REFRESH, obRefresh);
+        RxBus.unregister(RxBus.EVENT_COIN_INFO_REFRESH, obRefresh);
         RecyclerHelper.release(recyclerHelper);
     }
 

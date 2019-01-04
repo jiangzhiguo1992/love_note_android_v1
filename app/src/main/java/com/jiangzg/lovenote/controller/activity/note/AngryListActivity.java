@@ -20,7 +20,6 @@ import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.controller.activity.base.BaseActivity;
 import com.jiangzg.lovenote.controller.adapter.note.AngryAdapter;
 import com.jiangzg.lovenote.helper.ApiHelper;
-import com.jiangzg.lovenote.helper.ConsHelper;
 import com.jiangzg.lovenote.helper.DialogHelper;
 import com.jiangzg.lovenote.helper.ListHelper;
 import com.jiangzg.lovenote.helper.RecyclerHelper;
@@ -110,15 +109,15 @@ public class AngryListActivity extends BaseActivity<AngryListActivity> {
     protected void initData(Intent intent, Bundle state) {
         page = 0;
         // event
-        obListRefresh = RxBus.register(ConsHelper.EVENT_ANGRY_LIST_REFRESH, angryList -> {
+        obListRefresh = RxBus.register(RxBus.EVENT_ANGRY_LIST_REFRESH, angryList -> {
             if (recyclerHelper == null) return;
             recyclerHelper.dataRefresh();
         });
-        obListItemDelete = RxBus.register(ConsHelper.EVENT_ANGRY_LIST_ITEM_DELETE, angry -> {
+        obListItemDelete = RxBus.register(RxBus.EVENT_ANGRY_LIST_ITEM_DELETE, angry -> {
             if (recyclerHelper == null) return;
             ListHelper.removeObjInAdapter(recyclerHelper.getAdapter(), angry);
         });
-        obListItemRefresh = RxBus.register(ConsHelper.EVENT_ANGRY_LIST_ITEM_REFRESH, angry -> {
+        obListItemRefresh = RxBus.register(RxBus.EVENT_ANGRY_LIST_ITEM_REFRESH, angry -> {
             if (recyclerHelper == null) return;
             ListHelper.refreshObjInAdapter(recyclerHelper.getAdapter(), angry);
         });
@@ -129,9 +128,9 @@ public class AngryListActivity extends BaseActivity<AngryListActivity> {
     @Override
     protected void onFinish(Bundle state) {
         RecyclerHelper.release(recyclerHelper);
-        RxBus.unregister(ConsHelper.EVENT_ANGRY_LIST_REFRESH, obListRefresh);
-        RxBus.unregister(ConsHelper.EVENT_ANGRY_LIST_ITEM_DELETE, obListItemDelete);
-        RxBus.unregister(ConsHelper.EVENT_ANGRY_LIST_ITEM_REFRESH, obListItemRefresh);
+        RxBus.unregister(RxBus.EVENT_ANGRY_LIST_REFRESH, obListRefresh);
+        RxBus.unregister(RxBus.EVENT_ANGRY_LIST_ITEM_DELETE, obListItemDelete);
+        RxBus.unregister(RxBus.EVENT_ANGRY_LIST_ITEM_REFRESH, obListItemRefresh);
         RetrofitHelper.cancel(call);
     }
 

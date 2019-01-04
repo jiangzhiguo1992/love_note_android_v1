@@ -12,7 +12,6 @@ import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.controller.adapter.note.SouvenirAdapter;
 import com.jiangzg.lovenote.controller.fragment.base.BaseFragment;
 import com.jiangzg.lovenote.controller.fragment.base.BasePagerFragment;
-import com.jiangzg.lovenote.helper.ConsHelper;
 import com.jiangzg.lovenote.helper.ListHelper;
 import com.jiangzg.lovenote.helper.RecyclerHelper;
 import com.jiangzg.lovenote.helper.RetrofitHelper;
@@ -80,22 +79,22 @@ public class SouvenirListFragment extends BasePagerFragment<SouvenirListFragment
     protected void loadData() {
         page = 0;
         // event
-        obListRefresh = RxBus.register(ConsHelper.EVENT_SOUVENIR_LIST_REFRESH, souvenirList -> {
+        obListRefresh = RxBus.register(RxBus.EVENT_SOUVENIR_LIST_REFRESH, souvenirList -> {
             if (recyclerHelper == null) return;
             recyclerHelper.dataRefresh();
         });
-        obListItemDelete = RxBus.register(ConsHelper.EVENT_SOUVENIR_LIST_ITEM_DELETE, souvenir -> {
+        obListItemDelete = RxBus.register(RxBus.EVENT_SOUVENIR_LIST_ITEM_DELETE, souvenir -> {
             if (recyclerHelper == null) return;
             ListHelper.removeObjInAdapter(recyclerHelper.getAdapter(), souvenir);
         });
-        obListItemRefresh = RxBus.register(ConsHelper.EVENT_SOUVENIR_LIST_ITEM_REFRESH, souvenir -> {
+        obListItemRefresh = RxBus.register(RxBus.EVENT_SOUVENIR_LIST_ITEM_REFRESH, souvenir -> {
             if (recyclerHelper == null || souvenir == null) return;
             if (souvenir.isDone() == done) {
                 // 没改变状态则刷新item
                 ListHelper.refreshObjInAdapter(recyclerHelper.getAdapter(), souvenir);
             } else {
                 // 改变done则刷新list,两个fragment都要刷
-                RxBus.post(new RxBus.Event<>(ConsHelper.EVENT_SOUVENIR_LIST_REFRESH, new ArrayList<>()));
+                RxBus.post(new RxBus.Event<>(RxBus.EVENT_SOUVENIR_LIST_REFRESH, new ArrayList<>()));
             }
         });
         // refresh
@@ -105,9 +104,9 @@ public class SouvenirListFragment extends BasePagerFragment<SouvenirListFragment
     @Override
     protected void onFinish(Bundle state) {
         RetrofitHelper.cancel(call);
-        RxBus.unregister(ConsHelper.EVENT_SOUVENIR_LIST_REFRESH, obListRefresh);
-        RxBus.unregister(ConsHelper.EVENT_SOUVENIR_LIST_ITEM_DELETE, obListItemDelete);
-        RxBus.unregister(ConsHelper.EVENT_SOUVENIR_LIST_ITEM_REFRESH, obListItemRefresh);
+        RxBus.unregister(RxBus.EVENT_SOUVENIR_LIST_REFRESH, obListRefresh);
+        RxBus.unregister(RxBus.EVENT_SOUVENIR_LIST_ITEM_DELETE, obListItemDelete);
+        RxBus.unregister(RxBus.EVENT_SOUVENIR_LIST_ITEM_REFRESH, obListItemRefresh);
         RecyclerHelper.release(recyclerHelper);
     }
 

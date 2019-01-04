@@ -22,7 +22,6 @@ import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.controller.activity.base.BaseActivity;
 import com.jiangzg.lovenote.controller.activity.common.BigImageActivity;
-import com.jiangzg.lovenote.helper.ConsHelper;
 import com.jiangzg.lovenote.helper.DialogHelper;
 import com.jiangzg.lovenote.helper.MediaPickHelper;
 import com.jiangzg.lovenote.helper.OssHelper;
@@ -64,7 +63,7 @@ public class AlbumEditActivity extends BaseActivity<AlbumEditActivity> {
 
     public static void goActivity(Activity from) {
         Intent intent = new Intent(from, AlbumEditActivity.class);
-        intent.putExtra("from", ConsHelper.ACT_EDIT_FROM_ADD);
+        intent.putExtra("from", BaseActivity.ACT_EDIT_FROM_ADD);
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         ActivityTrans.start(from, intent);
     }
@@ -78,7 +77,7 @@ public class AlbumEditActivity extends BaseActivity<AlbumEditActivity> {
             return;
         }
         Intent intent = new Intent(from, AlbumEditActivity.class);
-        intent.putExtra("from", ConsHelper.ACT_EDIT_FROM_UPDATE);
+        intent.putExtra("from", BaseActivity.ACT_EDIT_FROM_UPDATE);
         intent.putExtra("album", album);
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         ActivityTrans.start(from, intent);
@@ -136,7 +135,7 @@ public class AlbumEditActivity extends BaseActivity<AlbumEditActivity> {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode != RESULT_OK) return;
-        if (requestCode == ConsHelper.REQUEST_PICTURE) {
+        if (requestCode == BaseActivity.REQUEST_PICTURE) {
             // 相册
             pictureFile = MediaPickHelper.getResultFile(mActivity, data);
             if (FileUtils.isFileEmpty(pictureFile)) {
@@ -185,7 +184,7 @@ public class AlbumEditActivity extends BaseActivity<AlbumEditActivity> {
     }
 
     private boolean isFromUpdate() {
-        return getIntent().getIntExtra("from", ConsHelper.ACT_EDIT_FROM_ADD) == ConsHelper.ACT_EDIT_FROM_UPDATE;
+        return getIntent().getIntExtra("from", BaseActivity.ACT_EDIT_FROM_ADD) == BaseActivity.ACT_EDIT_FROM_UPDATE;
     }
 
     private void refreshDateView() {
@@ -290,7 +289,7 @@ public class AlbumEditActivity extends BaseActivity<AlbumEditActivity> {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 // event
-                RxBus.post(new RxBus.Event<>(ConsHelper.EVENT_ALBUM_LIST_REFRESH, new ArrayList<>()));
+                RxBus.post(new RxBus.Event<>(RxBus.EVENT_ALBUM_LIST_REFRESH, new ArrayList<>()));
                 mActivity.finish();
             }
 
@@ -309,7 +308,7 @@ public class AlbumEditActivity extends BaseActivity<AlbumEditActivity> {
             public void onResponse(int code, String message, Result.Data data) {
                 // event
                 Album album = data.getAlbum();
-                RxBus.post(new RxBus.Event<>(ConsHelper.EVENT_ALBUM_LIST_ITEM_REFRESH, album));
+                RxBus.post(new RxBus.Event<>(RxBus.EVENT_ALBUM_LIST_ITEM_REFRESH, album));
                 mActivity.finish();
             }
 

@@ -23,7 +23,6 @@ import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.controller.activity.base.BaseActivity;
 import com.jiangzg.lovenote.controller.activity.couple.CouplePairActivity;
 import com.jiangzg.lovenote.controller.adapter.common.ImgSquareEditAdapter;
-import com.jiangzg.lovenote.helper.ConsHelper;
 import com.jiangzg.lovenote.helper.DialogHelper;
 import com.jiangzg.lovenote.helper.ListHelper;
 import com.jiangzg.lovenote.helper.MediaPickHelper;
@@ -152,7 +151,7 @@ public class PostAddActivity extends BaseActivity<PostAddActivity> {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode != RESULT_OK) return;
-        if (requestCode == ConsHelper.REQUEST_PICTURE) {
+        if (requestCode == BaseActivity.REQUEST_PICTURE) {
             // 相册
             List<String> pathList = MediaPickHelper.getResultFilePathList(mActivity, data);
             if (pathList == null || pathList.size() <= 0) {

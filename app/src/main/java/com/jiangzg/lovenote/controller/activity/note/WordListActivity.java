@@ -24,7 +24,6 @@ import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.controller.activity.base.BaseActivity;
 import com.jiangzg.lovenote.controller.activity.settings.HelpActivity;
 import com.jiangzg.lovenote.controller.adapter.note.WordAdapter;
-import com.jiangzg.lovenote.helper.ConsHelper;
 import com.jiangzg.lovenote.helper.ListHelper;
 import com.jiangzg.lovenote.helper.RecyclerHelper;
 import com.jiangzg.lovenote.helper.RetrofitHelper;
@@ -119,7 +118,7 @@ public class WordListActivity extends BaseActivity<WordListActivity> {
     protected void initData(Intent intent, Bundle state) {
         page = 0;
         // event
-        obListItemDelete = RxBus.register(ConsHelper.EVENT_WORD_LIST_ITEM_DELETE, word -> {
+        obListItemDelete = RxBus.register(RxBus.EVENT_WORD_LIST_ITEM_DELETE, word -> {
             if (recyclerHelper == null) return;
             ListHelper.removeObjInAdapter(recyclerHelper.getAdapter(), word);
         });
@@ -131,7 +130,7 @@ public class WordListActivity extends BaseActivity<WordListActivity> {
     protected void onFinish(Bundle state) {
         RetrofitHelper.cancel(callGet);
         RetrofitHelper.cancel(callAdd);
-        RxBus.unregister(ConsHelper.EVENT_WORD_LIST_ITEM_DELETE, obListItemDelete);
+        RxBus.unregister(RxBus.EVENT_WORD_LIST_ITEM_DELETE, obListItemDelete);
         RecyclerHelper.release(recyclerHelper);
     }
 

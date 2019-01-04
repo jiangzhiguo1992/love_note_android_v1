@@ -25,7 +25,6 @@ import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.controller.activity.base.BaseActivity;
 import com.jiangzg.lovenote.controller.activity.settings.HelpActivity;
 import com.jiangzg.lovenote.helper.ApiHelper;
-import com.jiangzg.lovenote.helper.ConsHelper;
 import com.jiangzg.lovenote.helper.RetrofitHelper;
 import com.jiangzg.lovenote.helper.RxBus;
 import com.jiangzg.lovenote.helper.SPHelper;
@@ -135,7 +134,7 @@ public class CouplePairActivity extends BaseActivity<CouplePairActivity> {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == Activity.RESULT_OK && requestCode == ConsHelper.REQUEST_CONTACT) {
+        if (resultCode == Activity.RESULT_OK && requestCode == BaseActivity.REQUEST_CONTACT) {
             String select = IntentResult.getContactSelect(data);
             etPhone.setText(select);
         }
@@ -181,7 +180,7 @@ public class CouplePairActivity extends BaseActivity<CouplePairActivity> {
 
     private void selectContact() {
         Intent contacts = IntentFactory.getContacts();
-        ActivityTrans.startResult(mActivity, contacts, ConsHelper.REQUEST_CONTACT);
+        ActivityTrans.startResult(mActivity, contacts, BaseActivity.REQUEST_CONTACT);
     }
 
     private void allViewGone() {
@@ -357,7 +356,7 @@ public class CouplePairActivity extends BaseActivity<CouplePairActivity> {
                     // 有配对成功的，退出本界面
                     Couple couple = data.getCouple();
                     SPHelper.setCouple(couple);
-                    RxBus.post(new RxBus.Event<>(ConsHelper.EVENT_COUPLE_REFRESH, new Couple()));
+                    RxBus.post(new RxBus.Event<>(RxBus.EVENT_COUPLE_REFRESH, new Couple()));
                     mActivity.finish();
                 } else {
                     // 没有则刷新数据和view

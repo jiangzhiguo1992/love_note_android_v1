@@ -43,6 +43,30 @@ import butterknife.Unbinder;
  */
 public abstract class BaseActivity<T> extends AppCompatActivity {
 
+    // activityFrom
+    public static final int ACT_LIST_FROM_BROWSE = 0;
+    public static final int ACT_LIST_FROM_SELECT = 1;
+    public static final int ACT_LIST_FROM_SELECT_ALBUM = 2;
+    public static final int ACT_LIST_FROM_SELECT_PICTURE = 3;
+    public static final int ACT_EDIT_FROM_ADD = 0;
+    public static final int ACT_EDIT_FROM_UPDATE = 1;
+    public static final int ACT_DETAIL_FROM_ID = 0;
+    public static final int ACT_DETAIL_FROM_OBJ = 1;
+    // requestCode
+    public static final int REQUEST_APP_INFO = 1001;
+    public static final int REQUEST_DEVICE_INFO = 1002;
+    public static final int REQUEST_PICTURE = 1003;
+    public static final int REQUEST_AUDIO = 1004;
+    public static final int REQUEST_VIDEO = 1005;
+    public static final int REQUEST_CAMERA = 1006;
+    public static final int REQUEST_CROP = 1007;
+    public static final int REQUEST_INSTALL = 1008;
+    public static final int REQUEST_CONTEXT_ALERT = 1009;
+    public static final int REQUEST_SCAN = 1010;
+    public static final int REQUEST_CONTACT = 1011;
+    public static final int REQUEST_LOCATION = 1012;
+    public static final int REQUEST_NOTE_PICTURE = 1013;
+
     public BaseActivity mActivity;
     public FragmentManager mFragmentManager;
     //public View mRootView;

@@ -33,7 +33,6 @@ import com.jiangzg.lovenote.controller.activity.common.BigImageActivity;
 import com.jiangzg.lovenote.controller.activity.settings.HelpActivity;
 import com.jiangzg.lovenote.controller.adapter.couple.CoupleStateAdapter;
 import com.jiangzg.lovenote.helper.ApiHelper;
-import com.jiangzg.lovenote.helper.ConsHelper;
 import com.jiangzg.lovenote.helper.DialogHelper;
 import com.jiangzg.lovenote.helper.MediaPickHelper;
 import com.jiangzg.lovenote.helper.OssHelper;
@@ -196,7 +195,7 @@ public class CoupleInfoActivity extends BaseActivity<CoupleInfoActivity> {
             ResHelper.deleteFileInBackground(cropFile);
             return;
         }
-        if (requestCode == ConsHelper.REQUEST_PICTURE) {
+        if (requestCode == BaseActivity.REQUEST_PICTURE) {
             // 相册
             File pictureFile = MediaPickHelper.getResultFile(mActivity, data);
             if (FileUtils.isFileEmpty(pictureFile)) {
@@ -205,8 +204,8 @@ public class CoupleInfoActivity extends BaseActivity<CoupleInfoActivity> {
             }
             cropFile = ResHelper.newImageCacheFile();
             Intent intent = IntentFactory.getImageCrop(ResHelper.PROVIDER_AUTH, pictureFile, cropFile, 1, 1);
-            ActivityTrans.startResult(mActivity, intent, ConsHelper.REQUEST_CROP);
-        } else if (requestCode == ConsHelper.REQUEST_CROP) {
+            ActivityTrans.startResult(mActivity, intent, BaseActivity.REQUEST_CROP);
+        } else if (requestCode == BaseActivity.REQUEST_CROP) {
             // 裁剪
             ossUploadAvatar();
         }
@@ -392,7 +391,7 @@ public class CoupleInfoActivity extends BaseActivity<CoupleInfoActivity> {
             public void onResponse(int code, String message, Result.Data data) {
                 Couple couple = data.getCouple();
                 SPHelper.setCouple(couple);
-                RxBus.post(new RxBus.Event<>(ConsHelper.EVENT_COUPLE_REFRESH, couple));
+                RxBus.post(new RxBus.Event<>(RxBus.EVENT_COUPLE_REFRESH, couple));
                 setViewData();
             }
 
@@ -436,7 +435,7 @@ public class CoupleInfoActivity extends BaseActivity<CoupleInfoActivity> {
             public void onResponse(int code, String message, Result.Data data) {
                 Couple couple = data.getCouple();
                 SPHelper.setCouple(couple);
-                RxBus.post(new RxBus.Event<>(ConsHelper.EVENT_COUPLE_REFRESH, couple));
+                RxBus.post(new RxBus.Event<>(RxBus.EVENT_COUPLE_REFRESH, couple));
                 mActivity.finish();
             }
 

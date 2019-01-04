@@ -15,7 +15,6 @@ import com.jiangzg.base.component.ActivityTrans;
 import com.jiangzg.base.view.ViewUtils;
 import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.controller.activity.base.BaseActivity;
-import com.jiangzg.lovenote.helper.ConsHelper;
 import com.jiangzg.lovenote.helper.RxBus;
 import com.jiangzg.lovenote.helper.SPHelper;
 import com.jiangzg.lovenote.helper.ViewHelper;
@@ -257,7 +256,7 @@ public class NoteCustomActivity extends BaseActivity<NoteCustomActivity> {
         SPHelper.setNoteCustom(custom);
         updateView();
         // event
-        RxBus.post(new RxBus.Event<>(ConsHelper.EVENT_CUSTOM_REFRESH, custom));
+        RxBus.post(new RxBus.Event<>(RxBus.EVENT_CUSTOM_REFRESH, custom));
     }
 
     private void updateView() {

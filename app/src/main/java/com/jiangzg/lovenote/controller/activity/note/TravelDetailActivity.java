@@ -26,7 +26,6 @@ import com.jiangzg.lovenote.controller.adapter.note.FoodAdapter;
 import com.jiangzg.lovenote.controller.adapter.note.MovieAdapter;
 import com.jiangzg.lovenote.controller.adapter.note.TravelPlaceAdapter;
 import com.jiangzg.lovenote.controller.adapter.note.VideoAdapter;
-import com.jiangzg.lovenote.helper.ConsHelper;
 import com.jiangzg.lovenote.helper.DialogHelper;
 import com.jiangzg.lovenote.helper.ListHelper;
 import com.jiangzg.lovenote.helper.RecyclerHelper;
@@ -105,7 +104,7 @@ public class TravelDetailActivity extends BaseActivity<TravelDetailActivity> {
 
     public static void goActivity(Activity from, Travel travel) {
         Intent intent = new Intent(from, TravelDetailActivity.class);
-        intent.putExtra("from", ConsHelper.ACT_DETAIL_FROM_OBJ);
+        intent.putExtra("from", BaseActivity.ACT_DETAIL_FROM_OBJ);
         intent.putExtra("travel", travel);
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         ActivityTrans.start(from, intent);
@@ -113,7 +112,7 @@ public class TravelDetailActivity extends BaseActivity<TravelDetailActivity> {
 
     public static void goActivity(Activity from, long tid) {
         Intent intent = new Intent(from, TravelDetailActivity.class);
-        intent.putExtra("from", ConsHelper.ACT_DETAIL_FROM_ID);
+        intent.putExtra("from", BaseActivity.ACT_DETAIL_FROM_ID);
         intent.putExtra("tid", tid);
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         ActivityTrans.start(from, intent);
@@ -129,15 +128,15 @@ public class TravelDetailActivity extends BaseActivity<TravelDetailActivity> {
         ViewHelper.initTopBar(mActivity, tb, getString(R.string.travel), true);
         srl.setEnabled(false);
         // init
-        int from = intent.getIntExtra("from", ConsHelper.ACT_DETAIL_FROM_ID);
-        if (from == ConsHelper.ACT_DETAIL_FROM_OBJ) {
+        int from = intent.getIntExtra("from", BaseActivity.ACT_DETAIL_FROM_ID);
+        if (from == BaseActivity.ACT_DETAIL_FROM_OBJ) {
             travel = intent.getParcelableExtra("travel");
             refreshView();
             // 没有详情页的，可以不加
             if (travel != null) {
                 refreshTravel(travel.getId());
             }
-        } else if (from == ConsHelper.ACT_DETAIL_FROM_ID) {
+        } else if (from == BaseActivity.ACT_DETAIL_FROM_ID) {
             long tid = intent.getLongExtra("tid", 0);
             refreshTravel(tid);
         }
@@ -146,7 +145,7 @@ public class TravelDetailActivity extends BaseActivity<TravelDetailActivity> {
     @Override
     protected void initData(Intent intent, Bundle state) {
         // event
-        obDetailRefresh = RxBus.register(ConsHelper.EVENT_TRAVEL_DETAIL_REFRESH, travel -> {
+        obDetailRefresh = RxBus.register(RxBus.EVENT_TRAVEL_DETAIL_REFRESH, travel -> {
             if (TravelDetailActivity.this.travel == null) return;
             refreshTravel(TravelDetailActivity.this.travel.getId());
         });
@@ -156,7 +155,7 @@ public class TravelDetailActivity extends BaseActivity<TravelDetailActivity> {
     protected void onFinish(Bundle state) {
         RetrofitHelper.cancel(callGet);
         RetrofitHelper.cancel(callDel);
-        RxBus.unregister(ConsHelper.EVENT_TRAVEL_DETAIL_REFRESH, obDetailRefresh);
+        RxBus.unregister(RxBus.EVENT_TRAVEL_DETAIL_REFRESH, obDetailRefresh);
         RecyclerHelper.release(recyclerPlace);
         RecyclerHelper.release(recyclerAlbum);
         RecyclerHelper.release(recyclerVideo);
@@ -425,7 +424,7 @@ public class TravelDetailActivity extends BaseActivity<TravelDetailActivity> {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 // ListItemDelete
-                RxBus.post(new RxBus.Event<>(ConsHelper.EVENT_TRAVEL_LIST_ITEM_DELETE, travel));
+                RxBus.post(new RxBus.Event<>(RxBus.EVENT_TRAVEL_LIST_ITEM_DELETE, travel));
                 mActivity.finish();
             }
 

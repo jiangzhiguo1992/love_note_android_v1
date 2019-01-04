@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.jiangzg.lovenote.R;
-import com.jiangzg.lovenote.helper.ConsHelper;
 import com.jiangzg.lovenote.helper.PayHelper;
 import com.jiangzg.lovenote.helper.RxBus;
 import com.jiangzg.lovenote.model.engine.PayWxResult;
@@ -47,7 +46,7 @@ public class WXPayEntryActivity extends Activity implements IWXAPIEventHandler {
         result.setRespType(resp.getType());
         result.setErrCode(resp.errCode);
         if (result.getRespType() == ConstantsAPI.COMMAND_PAY_BY_WX) {
-            RxBus.post(new RxBus.Event<>(ConsHelper.EVENT_PAY_WX_RESULT, result));
+            RxBus.post(new RxBus.Event<>(RxBus.EVENT_PAY_WX_RESULT, result));
             finish();
         }
     }

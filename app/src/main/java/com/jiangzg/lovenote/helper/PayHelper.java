@@ -8,6 +8,7 @@ import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.base.system.PermUtils;
 import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.lovenote.R;
+import com.jiangzg.lovenote.controller.activity.base.BaseActivity;
 import com.jiangzg.lovenote.main.MyApp;
 import com.jiangzg.lovenote.model.engine.PayAliResult;
 import com.jiangzg.lovenote.model.engine.PayWxResult;
@@ -38,7 +39,7 @@ public class PayHelper {
     }
 
     public static void payByAli(final Activity activity, final String orderInfo, final AliCallBack callBack) {
-        PermUtils.requestPermissions(activity, ConsHelper.REQUEST_DEVICE_INFO, PermUtils.deviceInfo, new PermUtils.OnPermissionListener() {
+        PermUtils.requestPermissions(activity, BaseActivity.REQUEST_DEVICE_INFO, PermUtils.deviceInfo, new PermUtils.OnPermissionListener() {
             @Override
             public void onPermissionGranted(int requestCode, String[] permissions) {
                 payByAliNoPermission(activity, orderInfo, callBack);
@@ -101,13 +102,13 @@ public class PayHelper {
         api.registerApp(WX_APP_ID);
         // 先解除事件
         if (registerPayWX != null) {
-            RxBus.unregister(ConsHelper.EVENT_PAY_WX_RESULT, registerPayWX);
+            RxBus.unregister(RxBus.EVENT_PAY_WX_RESULT, registerPayWX);
         }
         // 再添加事件
-        registerPayWX = RxBus.register(ConsHelper.EVENT_PAY_WX_RESULT, result -> {
+        registerPayWX = RxBus.register(RxBus.EVENT_PAY_WX_RESULT, result -> {
             if (registerPayWX != null) {
                 // 别忘了解除事件
-                RxBus.unregister(ConsHelper.EVENT_PAY_WX_RESULT, registerPayWX);
+                RxBus.unregister(RxBus.EVENT_PAY_WX_RESULT, registerPayWX);
                 registerPayWX = null;
             }
             if (result == null || result.getErrCode() == PayWxResult.CODE_ERR) {

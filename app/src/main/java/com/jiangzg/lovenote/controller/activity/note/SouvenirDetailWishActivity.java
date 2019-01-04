@@ -19,7 +19,6 @@ import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.controller.activity.base.BaseActivity;
 import com.jiangzg.lovenote.controller.activity.common.MapShowActivity;
-import com.jiangzg.lovenote.helper.ConsHelper;
 import com.jiangzg.lovenote.helper.DialogHelper;
 import com.jiangzg.lovenote.helper.RetrofitHelper;
 import com.jiangzg.lovenote.helper.RxBus;
@@ -66,7 +65,7 @@ public class SouvenirDetailWishActivity extends BaseActivity<SouvenirDetailDoneA
 
     public static void goActivity(Fragment from, Souvenir souvenir) {
         Intent intent = new Intent(from.getActivity(), SouvenirDetailWishActivity.class);
-        intent.putExtra("from", ConsHelper.ACT_DETAIL_FROM_OBJ);
+        intent.putExtra("from", BaseActivity.ACT_DETAIL_FROM_OBJ);
         intent.putExtra("souvenir", souvenir);
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         ActivityTrans.start(from, intent);
@@ -74,7 +73,7 @@ public class SouvenirDetailWishActivity extends BaseActivity<SouvenirDetailDoneA
 
     public static void goActivity(Activity from, long sid) {
         Intent intent = new Intent(from, SouvenirDetailWishActivity.class);
-        intent.putExtra("from", ConsHelper.ACT_DETAIL_FROM_ID);
+        intent.putExtra("from", BaseActivity.ACT_DETAIL_FROM_ID);
         intent.putExtra("sid", sid);
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         ActivityTrans.start(from, intent);
@@ -90,15 +89,15 @@ public class SouvenirDetailWishActivity extends BaseActivity<SouvenirDetailDoneA
         ViewHelper.initTopBar(mActivity, tb, getString(R.string.wish_list), true);
         srl.setEnabled(false);
         // init
-        int from = intent.getIntExtra("from", ConsHelper.ACT_DETAIL_FROM_ID);
-        if (from == ConsHelper.ACT_DETAIL_FROM_OBJ) {
+        int from = intent.getIntExtra("from", BaseActivity.ACT_DETAIL_FROM_ID);
+        if (from == BaseActivity.ACT_DETAIL_FROM_OBJ) {
             souvenir = intent.getParcelableExtra("souvenir");
             refreshView();
             // 没有详情页的，可以不加
             if (souvenir != null) {
                 refreshData(souvenir.getId());
             }
-        } else if (from == ConsHelper.ACT_DETAIL_FROM_ID) {
+        } else if (from == BaseActivity.ACT_DETAIL_FROM_ID) {
             long sid = intent.getLongExtra("sid", 0);
             refreshData(sid);
         }
@@ -107,7 +106,7 @@ public class SouvenirDetailWishActivity extends BaseActivity<SouvenirDetailDoneA
     @Override
     protected void initData(Intent intent, Bundle state) {
         // event
-        obDetailRefresh = RxBus.register(ConsHelper.EVENT_SOUVENIR_DETAIL_REFRESH, souvenir -> {
+        obDetailRefresh = RxBus.register(RxBus.EVENT_SOUVENIR_DETAIL_REFRESH, souvenir -> {
             if (souvenir == null) return;
             refreshData(souvenir.getId());
         });
@@ -117,7 +116,7 @@ public class SouvenirDetailWishActivity extends BaseActivity<SouvenirDetailDoneA
     protected void onFinish(Bundle state) {
         RetrofitHelper.cancel(callGet);
         RetrofitHelper.cancel(callDel);
-        RxBus.unregister(ConsHelper.EVENT_SOUVENIR_DETAIL_REFRESH, obDetailRefresh);
+        RxBus.unregister(RxBus.EVENT_SOUVENIR_DETAIL_REFRESH, obDetailRefresh);
     }
 
     @Override
@@ -231,7 +230,7 @@ public class SouvenirDetailWishActivity extends BaseActivity<SouvenirDetailDoneA
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 // event
-                RxBus.post(new RxBus.Event<>(ConsHelper.EVENT_SOUVENIR_LIST_ITEM_DELETE, souvenir));
+                RxBus.post(new RxBus.Event<>(RxBus.EVENT_SOUVENIR_LIST_ITEM_DELETE, souvenir));
                 // finish
                 mActivity.finish();
             }

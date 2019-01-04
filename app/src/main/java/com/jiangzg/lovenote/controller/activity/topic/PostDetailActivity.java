@@ -37,7 +37,6 @@ import com.jiangzg.lovenote.controller.activity.settings.HelpActivity;
 import com.jiangzg.lovenote.controller.adapter.common.ImgSquareShowAdapter;
 import com.jiangzg.lovenote.controller.adapter.topic.PostCommentAdapter;
 import com.jiangzg.lovenote.helper.ApiHelper;
-import com.jiangzg.lovenote.helper.ConsHelper;
 import com.jiangzg.lovenote.helper.CountHelper;
 import com.jiangzg.lovenote.helper.DialogHelper;
 import com.jiangzg.lovenote.helper.ListHelper;
@@ -134,7 +133,7 @@ public class PostDetailActivity extends BaseActivity<PostDetailActivity> {
     public static void goActivity(Activity from, Post post) {
         if (post == null) return;
         Intent intent = new Intent(from, PostDetailActivity.class);
-        intent.putExtra("from", ConsHelper.ACT_DETAIL_FROM_OBJ);
+        intent.putExtra("from", BaseActivity.ACT_DETAIL_FROM_OBJ);
         intent.putExtra("post", post);
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         ActivityTrans.start(from, intent);
@@ -143,7 +142,7 @@ public class PostDetailActivity extends BaseActivity<PostDetailActivity> {
     public static void goActivity(Activity from, long pid) {
         if (pid == 0) return;
         Intent intent = new Intent(from, PostDetailActivity.class);
-        intent.putExtra("from", ConsHelper.ACT_DETAIL_FROM_ID);
+        intent.putExtra("from", BaseActivity.ACT_DETAIL_FROM_ID);
         intent.putExtra("pid", pid);
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         ActivityTrans.start(from, intent);
@@ -152,7 +151,7 @@ public class PostDetailActivity extends BaseActivity<PostDetailActivity> {
     public static void goActivity(Context from, long pid) {
         if (pid == 0) return;
         Intent intent = new Intent(from, PostDetailActivity.class);
-        intent.putExtra("from", ConsHelper.ACT_DETAIL_FROM_ID);
+        intent.putExtra("from", BaseActivity.ACT_DETAIL_FROM_ID);
         intent.putExtra("pid", pid);
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         ActivityTrans.start(from, intent);
@@ -206,8 +205,8 @@ public class PostDetailActivity extends BaseActivity<PostDetailActivity> {
                     }
                 });
         // init
-        int from = intent.getIntExtra("from", ConsHelper.ACT_DETAIL_FROM_ID);
-        if (from == ConsHelper.ACT_DETAIL_FROM_OBJ) {
+        int from = intent.getIntExtra("from", BaseActivity.ACT_DETAIL_FROM_ID);
+        if (from == BaseActivity.ACT_DETAIL_FROM_OBJ) {
             post = intent.getParcelableExtra("post");
             // view
             initHead();
@@ -216,7 +215,7 @@ public class PostDetailActivity extends BaseActivity<PostDetailActivity> {
             } else {
                 recyclerHelper.dataRefresh();
             }
-        } else if (from == ConsHelper.ACT_DETAIL_FROM_ID) {
+        } else if (from == BaseActivity.ACT_DETAIL_FROM_ID) {
             long pid = intent.getLongExtra("pid", 0);
             refreshPost(pid, true);
         }
@@ -238,16 +237,16 @@ public class PostDetailActivity extends BaseActivity<PostDetailActivity> {
         orderIndex = 0;
         searchUserId = 0;
         // event
-        obPostDetailRefresh = RxBus.register(ConsHelper.EVENT_POST_DETAIL_REFRESH, pid -> refreshPost(pid, false));
-        obPostCommentListRefresh = RxBus.register(ConsHelper.EVENT_POST_COMMENT_LIST_REFRESH, postComment -> {
+        obPostDetailRefresh = RxBus.register(RxBus.EVENT_POST_DETAIL_REFRESH, pid -> refreshPost(pid, false));
+        obPostCommentListRefresh = RxBus.register(RxBus.EVENT_POST_COMMENT_LIST_REFRESH, postComment -> {
             if (recyclerHelper == null) return;
             recyclerHelper.dataRefresh();
         });
-        obPostCommentListItemDelete = RxBus.register(ConsHelper.EVENT_POST_COMMENT_LIST_ITEM_DELETE, postComment -> {
+        obPostCommentListItemDelete = RxBus.register(RxBus.EVENT_POST_COMMENT_LIST_ITEM_DELETE, postComment -> {
             if (recyclerHelper == null) return;
             ListHelper.removeObjInAdapter(recyclerHelper.getAdapter(), postComment);
         });
-        obPostCommentListItemRefresh = RxBus.register(ConsHelper.EVENT_POST_COMMENT_LIST_ITEM_REFRESH, postComment -> {
+        obPostCommentListItemRefresh = RxBus.register(RxBus.EVENT_POST_COMMENT_LIST_ITEM_REFRESH, postComment -> {
             if (recyclerHelper == null) return;
             ListHelper.refreshObjInAdapter(recyclerHelper.getAdapter(), postComment);
         });
@@ -265,10 +264,10 @@ public class PostDetailActivity extends BaseActivity<PostDetailActivity> {
         RetrofitHelper.cancel(callReport);
         RetrofitHelper.cancel(callPoint);
         RetrofitHelper.cancel(callCollect);
-        RxBus.unregister(ConsHelper.EVENT_POST_DETAIL_REFRESH, obPostDetailRefresh);
-        RxBus.unregister(ConsHelper.EVENT_POST_COMMENT_LIST_REFRESH, obPostCommentListRefresh);
-        RxBus.unregister(ConsHelper.EVENT_POST_COMMENT_LIST_ITEM_DELETE, obPostCommentListItemDelete);
-        RxBus.unregister(ConsHelper.EVENT_POST_COMMENT_LIST_ITEM_REFRESH, obPostCommentListItemRefresh);
+        RxBus.unregister(RxBus.EVENT_POST_DETAIL_REFRESH, obPostDetailRefresh);
+        RxBus.unregister(RxBus.EVENT_POST_COMMENT_LIST_REFRESH, obPostCommentListRefresh);
+        RxBus.unregister(RxBus.EVENT_POST_COMMENT_LIST_ITEM_DELETE, obPostCommentListItemDelete);
+        RxBus.unregister(RxBus.EVENT_POST_COMMENT_LIST_ITEM_REFRESH, obPostCommentListItemRefresh);
         RecyclerHelper.release(recyclerHelper);
     }
 
@@ -365,7 +364,7 @@ public class PostDetailActivity extends BaseActivity<PostDetailActivity> {
                 // comment
                 if (comment) recyclerHelper.dataRefresh();
                 // event
-                RxBus.post(new RxBus.Event<>(ConsHelper.EVENT_POST_LIST_ITEM_REFRESH, post));
+                RxBus.post(new RxBus.Event<>(RxBus.EVENT_POST_LIST_ITEM_REFRESH, post));
             }
 
             @Override
@@ -679,7 +678,7 @@ public class PostDetailActivity extends BaseActivity<PostDetailActivity> {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 // event
-                RxBus.post(new RxBus.Event<>(ConsHelper.EVENT_POST_LIST_ITEM_REFRESH, post));
+                RxBus.post(new RxBus.Event<>(RxBus.EVENT_POST_LIST_ITEM_REFRESH, post));
             }
 
             @Override
@@ -707,7 +706,7 @@ public class PostDetailActivity extends BaseActivity<PostDetailActivity> {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 // event
-                RxBus.post(new RxBus.Event<>(ConsHelper.EVENT_POST_LIST_ITEM_REFRESH, post));
+                RxBus.post(new RxBus.Event<>(RxBus.EVENT_POST_LIST_ITEM_REFRESH, post));
             }
 
             @Override
@@ -732,7 +731,7 @@ public class PostDetailActivity extends BaseActivity<PostDetailActivity> {
                 // refresh
                 recyclerHelper.dataRefresh();
                 // event
-                RxBus.post(new RxBus.Event<>(ConsHelper.EVENT_POST_LIST_ITEM_REFRESH, post));
+                RxBus.post(new RxBus.Event<>(RxBus.EVENT_POST_LIST_ITEM_REFRESH, post));
             }
 
             @Override
@@ -788,7 +787,7 @@ public class PostDetailActivity extends BaseActivity<PostDetailActivity> {
                 // refresh
                 recyclerHelper.dataRefresh();
                 // event
-                RxBus.post(new RxBus.Event<>(ConsHelper.EVENT_POST_LIST_ITEM_REFRESH, post));
+                RxBus.post(new RxBus.Event<>(RxBus.EVENT_POST_LIST_ITEM_REFRESH, post));
             }
 
             @Override
@@ -821,7 +820,7 @@ public class PostDetailActivity extends BaseActivity<PostDetailActivity> {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 // event
-                RxBus.post(new RxBus.Event<>(ConsHelper.EVENT_POST_LIST_ITEM_DELETE, post));
+                RxBus.post(new RxBus.Event<>(RxBus.EVENT_POST_LIST_ITEM_DELETE, post));
                 mActivity.finish();
             }
 
@@ -842,7 +841,7 @@ public class PostDetailActivity extends BaseActivity<PostDetailActivity> {
             public void onResponse(int code, String message, Result.Data data) {
                 // event
                 post.setReport(true);
-                RxBus.post(new RxBus.Event<>(ConsHelper.EVENT_POST_LIST_ITEM_REFRESH, post));
+                RxBus.post(new RxBus.Event<>(RxBus.EVENT_POST_LIST_ITEM_REFRESH, post));
             }
 
             @Override

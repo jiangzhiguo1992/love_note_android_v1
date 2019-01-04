@@ -12,7 +12,6 @@ import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.controller.activity.base.BaseActivity;
 import com.jiangzg.lovenote.helper.ApiHelper;
-import com.jiangzg.lovenote.helper.ConsHelper;
 import com.jiangzg.lovenote.helper.DialogHelper;
 import com.jiangzg.lovenote.helper.OssResHelper;
 import com.jiangzg.lovenote.helper.RetrofitHelper;
@@ -176,7 +175,7 @@ public class AudioAdapter extends BaseMultiItemQuickAdapter<Audio, BaseViewHolde
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 // event
-                RxBus.post(new RxBus.Event<>(ConsHelper.EVENT_AUDIO_LIST_ITEM_DELETE, item));
+                RxBus.post(new RxBus.Event<>(RxBus.EVENT_AUDIO_LIST_ITEM_DELETE, item));
             }
 
             @Override

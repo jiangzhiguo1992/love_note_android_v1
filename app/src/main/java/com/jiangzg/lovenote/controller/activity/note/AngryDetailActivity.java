@@ -21,7 +21,6 @@ import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.controller.activity.base.BaseActivity;
 import com.jiangzg.lovenote.controller.adapter.note.GiftAdapter;
 import com.jiangzg.lovenote.controller.adapter.note.PromiseAdapter;
-import com.jiangzg.lovenote.helper.ConsHelper;
 import com.jiangzg.lovenote.helper.DialogHelper;
 import com.jiangzg.lovenote.helper.ListHelper;
 import com.jiangzg.lovenote.helper.RecyclerHelper;
@@ -81,7 +80,7 @@ public class AngryDetailActivity extends BaseActivity<AngryDetailActivity> {
 
     public static void goActivity(Activity from, Angry angry) {
         Intent intent = new Intent(from, AngryDetailActivity.class);
-        intent.putExtra("from", ConsHelper.ACT_DETAIL_FROM_OBJ);
+        intent.putExtra("from", BaseActivity.ACT_DETAIL_FROM_OBJ);
         intent.putExtra("angry", angry);
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         ActivityTrans.start(from, intent);
@@ -89,7 +88,7 @@ public class AngryDetailActivity extends BaseActivity<AngryDetailActivity> {
 
     public static void goActivity(Activity from, long aid) {
         Intent intent = new Intent(from, AngryDetailActivity.class);
-        intent.putExtra("from", ConsHelper.ACT_DETAIL_FROM_ID);
+        intent.putExtra("from", BaseActivity.ACT_DETAIL_FROM_ID);
         intent.putExtra("aid", aid);
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         ActivityTrans.start(from, intent);
@@ -105,15 +104,15 @@ public class AngryDetailActivity extends BaseActivity<AngryDetailActivity> {
         ViewHelper.initTopBar(mActivity, tb, getString(R.string.angry), true);
         srl.setEnabled(false);
         // init
-        int from = intent.getIntExtra("from", ConsHelper.ACT_DETAIL_FROM_ID);
-        if (from == ConsHelper.ACT_DETAIL_FROM_OBJ) {
+        int from = intent.getIntExtra("from", BaseActivity.ACT_DETAIL_FROM_ID);
+        if (from == BaseActivity.ACT_DETAIL_FROM_OBJ) {
             angry = intent.getParcelableExtra("angry");
             refreshView();
             // 必须加，要获取关联数据
             if (angry != null) {
                 refreshData(angry.getId());
             }
-        } else if (from == ConsHelper.ACT_DETAIL_FROM_ID) {
+        } else if (from == BaseActivity.ACT_DETAIL_FROM_ID) {
             long aid = intent.getLongExtra("aid", 0);
             refreshData(aid);
         }
@@ -122,9 +121,9 @@ public class AngryDetailActivity extends BaseActivity<AngryDetailActivity> {
     @Override
     protected void initData(Intent intent, Bundle state) {
         // event
-        obGiftSelect = RxBus.register(ConsHelper.EVENT_GIFT_SELECT, this::updateGift);
-        obPromiseSelect = RxBus.register(ConsHelper.EVENT_PROMISE_SELECT, this::updatePromise);
-        obPromiseListDelete = RxBus.register(ConsHelper.EVENT_PROMISE_LIST_ITEM_DELETE, promise -> {
+        obGiftSelect = RxBus.register(RxBus.EVENT_GIFT_SELECT, this::updateGift);
+        obPromiseSelect = RxBus.register(RxBus.EVENT_PROMISE_SELECT, this::updatePromise);
+        obPromiseListDelete = RxBus.register(RxBus.EVENT_PROMISE_LIST_ITEM_DELETE, promise -> {
             if (recyclerPromise == null) return;
             ListHelper.removeObjInAdapter(recyclerPromise.getAdapter(), promise);
             if (recyclerPromise.getAdapter().getData().size() <= 0) {
@@ -133,7 +132,7 @@ public class AngryDetailActivity extends BaseActivity<AngryDetailActivity> {
                 rvPromise.setVisibility(View.GONE);
             }
         });
-        obPromiseListRefresh = RxBus.register(ConsHelper.EVENT_PROMISE_LIST_ITEM_REFRESH, promise -> {
+        obPromiseListRefresh = RxBus.register(RxBus.EVENT_PROMISE_LIST_ITEM_REFRESH, promise -> {
             if (recyclerPromise == null) return;
             ListHelper.refreshObjInAdapter(recyclerPromise.getAdapter(), promise);
         });
@@ -143,10 +142,10 @@ public class AngryDetailActivity extends BaseActivity<AngryDetailActivity> {
     protected void onFinish(Bundle state) {
         RetrofitHelper.cancel(callDel);
         RetrofitHelper.cancel(callGet);
-        RxBus.unregister(ConsHelper.EVENT_GIFT_SELECT, obGiftSelect);
-        RxBus.unregister(ConsHelper.EVENT_PROMISE_SELECT, obPromiseSelect);
-        RxBus.unregister(ConsHelper.EVENT_PROMISE_LIST_ITEM_DELETE, obPromiseListDelete);
-        RxBus.unregister(ConsHelper.EVENT_PROMISE_LIST_ITEM_REFRESH, obPromiseListRefresh);
+        RxBus.unregister(RxBus.EVENT_GIFT_SELECT, obGiftSelect);
+        RxBus.unregister(RxBus.EVENT_PROMISE_SELECT, obPromiseSelect);
+        RxBus.unregister(RxBus.EVENT_PROMISE_LIST_ITEM_DELETE, obPromiseListDelete);
+        RxBus.unregister(RxBus.EVENT_PROMISE_LIST_ITEM_REFRESH, obPromiseListRefresh);
         RecyclerHelper.release(recyclerPromise);
     }
 
@@ -297,7 +296,7 @@ public class AngryDetailActivity extends BaseActivity<AngryDetailActivity> {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 // event
-                RxBus.post(new RxBus.Event<>(ConsHelper.EVENT_ANGRY_LIST_ITEM_DELETE, angry));
+                RxBus.post(new RxBus.Event<>(RxBus.EVENT_ANGRY_LIST_ITEM_DELETE, angry));
                 // finish
                 mActivity.finish();
             }
@@ -346,7 +345,7 @@ public class AngryDetailActivity extends BaseActivity<AngryDetailActivity> {
                 // view
                 refreshView();
                 // event
-                RxBus.post(new RxBus.Event<>(ConsHelper.EVENT_ANGRY_LIST_ITEM_REFRESH, angry));
+                RxBus.post(new RxBus.Event<>(RxBus.EVENT_ANGRY_LIST_ITEM_REFRESH, angry));
             }
 
             @Override
@@ -367,7 +366,7 @@ public class AngryDetailActivity extends BaseActivity<AngryDetailActivity> {
                 // view
                 refreshView();
                 // event
-                RxBus.post(new RxBus.Event<>(ConsHelper.EVENT_ANGRY_LIST_ITEM_REFRESH, angry));
+                RxBus.post(new RxBus.Event<>(RxBus.EVENT_ANGRY_LIST_ITEM_REFRESH, angry));
             }
 
             @Override

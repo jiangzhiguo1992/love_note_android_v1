@@ -27,7 +27,6 @@ import com.jiangzg.lovenote.controller.activity.base.BaseActivity;
 import com.jiangzg.lovenote.controller.activity.couple.CouplePairActivity;
 import com.jiangzg.lovenote.controller.activity.settings.HelpActivity;
 import com.jiangzg.lovenote.helper.ApiHelper;
-import com.jiangzg.lovenote.helper.ConsHelper;
 import com.jiangzg.lovenote.helper.RetrofitHelper;
 import com.jiangzg.lovenote.helper.RxBus;
 import com.jiangzg.lovenote.helper.SPHelper;
@@ -201,7 +200,7 @@ public class LockActivity extends BaseActivity<LockActivity> {
                 lock = data.getLock();
                 refreshView();
                 // event
-                RxBus.post(new RxBus.Event<>(ConsHelper.EVENT_LOCK_REFRESH, lock));
+                RxBus.post(new RxBus.Event<>(RxBus.EVENT_LOCK_REFRESH, lock));
             }
 
             @Override
@@ -268,7 +267,7 @@ public class LockActivity extends BaseActivity<LockActivity> {
                 lock = data.getLock();
                 refreshView();
                 // event
-                RxBus.post(new RxBus.Event<>(ConsHelper.EVENT_LOCK_REFRESH, lock));
+                RxBus.post(new RxBus.Event<>(RxBus.EVENT_LOCK_REFRESH, lock));
                 // finish
                 if (lock != null && !lock.isLock()) {
                     mActivity.finish();
@@ -340,7 +339,7 @@ public class LockActivity extends BaseActivity<LockActivity> {
                 lock = data.getLock();
                 refreshView();
                 // event
-                RxBus.post(new RxBus.Event<>(ConsHelper.EVENT_LOCK_REFRESH, lock));
+                RxBus.post(new RxBus.Event<>(RxBus.EVENT_LOCK_REFRESH, lock));
             }
 
             @Override
@@ -365,7 +364,7 @@ public class LockActivity extends BaseActivity<LockActivity> {
                 lock = data.getLock();
                 refreshView();
                 // event
-                RxBus.post(new RxBus.Event<>(ConsHelper.EVENT_LOCK_REFRESH, lock));
+                RxBus.post(new RxBus.Event<>(RxBus.EVENT_LOCK_REFRESH, lock));
             }
 
             @Override

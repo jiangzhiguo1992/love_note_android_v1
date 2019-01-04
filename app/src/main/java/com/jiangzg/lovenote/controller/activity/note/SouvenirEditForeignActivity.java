@@ -29,7 +29,6 @@ import com.jiangzg.lovenote.controller.adapter.note.GiftAdapter;
 import com.jiangzg.lovenote.controller.adapter.note.MovieAdapter;
 import com.jiangzg.lovenote.controller.adapter.note.TravelAdapter;
 import com.jiangzg.lovenote.controller.adapter.note.VideoAdapter;
-import com.jiangzg.lovenote.helper.ConsHelper;
 import com.jiangzg.lovenote.helper.DialogHelper;
 import com.jiangzg.lovenote.helper.ListHelper;
 import com.jiangzg.lovenote.helper.RecyclerHelper;
@@ -327,49 +326,49 @@ public class SouvenirEditForeignActivity extends BaseActivity<SouvenirEditForeig
     @Override
     protected void initData(Intent intent, Bundle state) {
         // event
-        obSelectGift = RxBus.register(ConsHelper.EVENT_GIFT_SELECT, gift -> {
+        obSelectGift = RxBus.register(RxBus.EVENT_GIFT_SELECT, gift -> {
             if (recyclerGift == null) return;
             List<Gift> giftList = new ArrayList<>();
             giftList.add(gift);
             recyclerGift.dataAdd(giftList);
             refreshAddView();
         });
-        obSelectTravel = RxBus.register(ConsHelper.EVENT_TRAVEL_SELECT, travel -> {
+        obSelectTravel = RxBus.register(RxBus.EVENT_TRAVEL_SELECT, travel -> {
             if (recyclerTravel == null) return;
             List<Travel> travelList = new ArrayList<>();
             travelList.add(travel);
             recyclerTravel.dataAdd(travelList);
             refreshAddView();
         });
-        obSelectAlbum = RxBus.register(ConsHelper.EVENT_ALBUM_SELECT, album -> {
+        obSelectAlbum = RxBus.register(RxBus.EVENT_ALBUM_SELECT, album -> {
             if (recyclerAlbum == null) return;
             List<Album> albumList = new ArrayList<>();
             albumList.add(album);
             recyclerAlbum.dataAdd(albumList);
             refreshAddView();
         });
-        obSelectVideo = RxBus.register(ConsHelper.EVENT_VIDEO_SELECT, video -> {
+        obSelectVideo = RxBus.register(RxBus.EVENT_VIDEO_SELECT, video -> {
             if (recyclerVideo == null) return;
             List<Video> videoList = new ArrayList<>();
             videoList.add(video);
             recyclerVideo.dataAdd(videoList);
             refreshAddView();
         });
-        obSelectFood = RxBus.register(ConsHelper.EVENT_FOOD_SELECT, food -> {
+        obSelectFood = RxBus.register(RxBus.EVENT_FOOD_SELECT, food -> {
             if (recyclerFood == null) return;
             List<Food> foodList = new ArrayList<>();
             foodList.add(food);
             recyclerFood.dataAdd(foodList);
             refreshAddView();
         });
-        obSelectMovie = RxBus.register(ConsHelper.EVENT_MOVIE_SELECT, movie -> {
+        obSelectMovie = RxBus.register(RxBus.EVENT_MOVIE_SELECT, movie -> {
             if (recyclerMovie == null) return;
             List<Movie> movieList = new ArrayList<>();
             movieList.add(movie);
             recyclerMovie.dataAdd(movieList);
             refreshAddView();
         });
-        obSelectDiary = RxBus.register(ConsHelper.EVENT_DIARY_SELECT, diary -> {
+        obSelectDiary = RxBus.register(RxBus.EVENT_DIARY_SELECT, diary -> {
             if (recyclerDiary == null) return;
             List<Diary> diaryList = new ArrayList<>();
             diaryList.add(diary);
@@ -381,13 +380,13 @@ public class SouvenirEditForeignActivity extends BaseActivity<SouvenirEditForeig
     @Override
     protected void onFinish(Bundle state) {
         RetrofitHelper.cancel(call);
-        RxBus.unregister(ConsHelper.EVENT_GIFT_SELECT, obSelectGift);
-        RxBus.unregister(ConsHelper.EVENT_TRAVEL_SELECT, obSelectTravel);
-        RxBus.unregister(ConsHelper.EVENT_ALBUM_SELECT, obSelectAlbum);
-        RxBus.unregister(ConsHelper.EVENT_VIDEO_SELECT, obSelectVideo);
-        RxBus.unregister(ConsHelper.EVENT_FOOD_SELECT, obSelectFood);
-        RxBus.unregister(ConsHelper.EVENT_MOVIE_SELECT, obSelectMovie);
-        RxBus.unregister(ConsHelper.EVENT_DIARY_SELECT, obSelectDiary);
+        RxBus.unregister(RxBus.EVENT_GIFT_SELECT, obSelectGift);
+        RxBus.unregister(RxBus.EVENT_TRAVEL_SELECT, obSelectTravel);
+        RxBus.unregister(RxBus.EVENT_ALBUM_SELECT, obSelectAlbum);
+        RxBus.unregister(RxBus.EVENT_VIDEO_SELECT, obSelectVideo);
+        RxBus.unregister(RxBus.EVENT_FOOD_SELECT, obSelectFood);
+        RxBus.unregister(RxBus.EVENT_MOVIE_SELECT, obSelectMovie);
+        RxBus.unregister(RxBus.EVENT_DIARY_SELECT, obSelectDiary);
         RecyclerHelper.release(recyclerGift);
         RecyclerHelper.release(recyclerTravel);
         RecyclerHelper.release(recyclerAlbum);
@@ -627,7 +626,7 @@ public class SouvenirEditForeignActivity extends BaseActivity<SouvenirEditForeig
             public void onResponse(int code, String message, Result.Data data) {
                 // event
                 Souvenir souvenir = data.getSouvenir();
-                RxBus.post(new RxBus.Event<>(ConsHelper.EVENT_SOUVENIR_DETAIL_REFRESH, souvenir));
+                RxBus.post(new RxBus.Event<>(RxBus.EVENT_SOUVENIR_DETAIL_REFRESH, souvenir));
                 // finish
                 mActivity.finish();
             }

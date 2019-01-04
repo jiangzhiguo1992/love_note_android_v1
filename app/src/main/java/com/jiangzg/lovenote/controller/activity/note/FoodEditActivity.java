@@ -24,7 +24,6 @@ import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.controller.activity.base.BaseActivity;
 import com.jiangzg.lovenote.controller.activity.common.MapSelectActivity;
 import com.jiangzg.lovenote.controller.adapter.common.ImgSquareEditAdapter;
-import com.jiangzg.lovenote.helper.ConsHelper;
 import com.jiangzg.lovenote.helper.DialogHelper;
 import com.jiangzg.lovenote.helper.MediaPickHelper;
 import com.jiangzg.lovenote.helper.OssHelper;
@@ -94,7 +93,7 @@ public class FoodEditActivity extends BaseActivity<FoodEditActivity> {
             return;
         }
         Intent intent = new Intent(from, FoodEditActivity.class);
-        intent.putExtra("from", ConsHelper.ACT_EDIT_FROM_UPDATE);
+        intent.putExtra("from", BaseActivity.ACT_EDIT_FROM_UPDATE);
         intent.putExtra("food", food);
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         ActivityTrans.start(from, intent);
@@ -150,7 +149,7 @@ public class FoodEditActivity extends BaseActivity<FoodEditActivity> {
     @Override
     protected void initData(Intent intent, Bundle state) {
         // event
-        obSelectMap = RxBus.register(ConsHelper.EVENT_MAP_SELECT, info -> {
+        obSelectMap = RxBus.register(RxBus.EVENT_MAP_SELECT, info -> {
             if (info == null || food == null) return;
             food.setLatitude(info.getLatitude());
             food.setLongitude(info.getLongitude());
@@ -165,7 +164,7 @@ public class FoodEditActivity extends BaseActivity<FoodEditActivity> {
         RetrofitHelper.cancel(callAdd);
         RetrofitHelper.cancel(callUpdate);
         RetrofitHelper.cancel(callDel);
-        RxBus.unregister(ConsHelper.EVENT_MAP_SELECT, obSelectMap);
+        RxBus.unregister(RxBus.EVENT_MAP_SELECT, obSelectMap);
         RecyclerHelper.release(recyclerHelper);
     }
 
@@ -183,7 +182,7 @@ public class FoodEditActivity extends BaseActivity<FoodEditActivity> {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode != RESULT_OK) return;
-        if (requestCode == ConsHelper.REQUEST_PICTURE) {
+        if (requestCode == BaseActivity.REQUEST_PICTURE) {
             // 相册
             List<String> pathList = MediaPickHelper.getResultFilePathList(mActivity, data);
             if (pathList == null || pathList.size() <= 0) {
@@ -229,7 +228,7 @@ public class FoodEditActivity extends BaseActivity<FoodEditActivity> {
     }
 
     private boolean isFromUpdate() {
-        return getIntent().getIntExtra("from", ConsHelper.ACT_EDIT_FROM_ADD) == ConsHelper.ACT_EDIT_FROM_UPDATE;
+        return getIntent().getIntExtra("from", BaseActivity.ACT_EDIT_FROM_ADD) == BaseActivity.ACT_EDIT_FROM_UPDATE;
     }
 
     private void setRecyclerShow(boolean show, int childCount) {
@@ -357,7 +356,7 @@ public class FoodEditActivity extends BaseActivity<FoodEditActivity> {
             public void onResponse(int code, String message, Result.Data data) {
                 // event
                 Food food = data.getFood();
-                RxBus.post(new RxBus.Event<>(ConsHelper.EVENT_FOOD_LIST_ITEM_REFRESH, food));
+                RxBus.post(new RxBus.Event<>(RxBus.EVENT_FOOD_LIST_ITEM_REFRESH, food));
                 // finish
                 mActivity.finish();
             }
@@ -377,7 +376,7 @@ public class FoodEditActivity extends BaseActivity<FoodEditActivity> {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 // event
-                RxBus.post(new RxBus.Event<>(ConsHelper.EVENT_FOOD_LIST_REFRESH, new ArrayList<>()));
+                RxBus.post(new RxBus.Event<>(RxBus.EVENT_FOOD_LIST_REFRESH, new ArrayList<>()));
                 // finish
                 mActivity.finish();
             }
@@ -408,7 +407,7 @@ public class FoodEditActivity extends BaseActivity<FoodEditActivity> {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 // event
-                RxBus.post(new RxBus.Event<>(ConsHelper.EVENT_FOOD_LIST_ITEM_DELETE, food));
+                RxBus.post(new RxBus.Event<>(RxBus.EVENT_FOOD_LIST_ITEM_DELETE, food));
                 // finish
                 mActivity.finish();
             }

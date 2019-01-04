@@ -35,7 +35,6 @@ import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.controller.activity.base.BaseActivity;
 import com.jiangzg.lovenote.controller.adapter.topic.PostCommentAdapter;
 import com.jiangzg.lovenote.helper.ApiHelper;
-import com.jiangzg.lovenote.helper.ConsHelper;
 import com.jiangzg.lovenote.helper.CountHelper;
 import com.jiangzg.lovenote.helper.DialogHelper;
 import com.jiangzg.lovenote.helper.RecyclerHelper;
@@ -102,7 +101,7 @@ public class PostSubCommentListActivity extends BaseActivity<PostSubCommentListA
     public static void goActivity(Activity from, PostComment postComment) {
         if (postComment == null) return;
         Intent intent = new Intent(from, PostSubCommentListActivity.class);
-        intent.putExtra("from", ConsHelper.ACT_DETAIL_FROM_OBJ);
+        intent.putExtra("from", BaseActivity.ACT_DETAIL_FROM_OBJ);
         intent.putExtra("postComment", postComment);
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         ActivityTrans.start(from, intent);
@@ -111,7 +110,7 @@ public class PostSubCommentListActivity extends BaseActivity<PostSubCommentListA
     public static void goActivity(Activity from, long pcid) {
         if (pcid == 0) return;
         Intent intent = new Intent(from, PostSubCommentListActivity.class);
-        intent.putExtra("from", ConsHelper.ACT_DETAIL_FROM_ID);
+        intent.putExtra("from", BaseActivity.ACT_DETAIL_FROM_ID);
         intent.putExtra("pcid", pcid);
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         ActivityTrans.start(from, intent);
@@ -120,7 +119,7 @@ public class PostSubCommentListActivity extends BaseActivity<PostSubCommentListA
     public static void goActivity(Context from, long pcid) {
         if (pcid == 0) return;
         Intent intent = new Intent(from, PostSubCommentListActivity.class);
-        intent.putExtra("from", ConsHelper.ACT_DETAIL_FROM_ID);
+        intent.putExtra("from", BaseActivity.ACT_DETAIL_FROM_ID);
         intent.putExtra("pcid", pcid);
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         ActivityTrans.start(from, intent);
@@ -167,13 +166,13 @@ public class PostSubCommentListActivity extends BaseActivity<PostSubCommentListA
                     }
                 });
         // init
-        int from = intent.getIntExtra("from", ConsHelper.ACT_DETAIL_FROM_ID);
-        if (from == ConsHelper.ACT_DETAIL_FROM_OBJ) {
+        int from = intent.getIntExtra("from", BaseActivity.ACT_DETAIL_FROM_ID);
+        if (from == BaseActivity.ACT_DETAIL_FROM_OBJ) {
             postComment = intent.getParcelableExtra("postComment");
             // view
             initHeadAndBottom();
             recyclerHelper.dataRefresh();
-        } else if (from == ConsHelper.ACT_DETAIL_FROM_ID) {
+        } else if (from == BaseActivity.ACT_DETAIL_FROM_ID) {
             long pcid = intent.getLongExtra("pcid", 0);
             refreshPostComment(pcid, true);
         }
@@ -188,7 +187,7 @@ public class PostSubCommentListActivity extends BaseActivity<PostSubCommentListA
         page = 0;
         orderIndex = 0;
         // event
-        obPostCommentDetail = RxBus.register(ConsHelper.EVENT_POST_COMMENT_DETAIL_REFRESH, pcid -> refreshPostComment(pcid, false));
+        obPostCommentDetail = RxBus.register(RxBus.EVENT_POST_COMMENT_DETAIL_REFRESH, pcid -> refreshPostComment(pcid, false));
         // refresh
         recyclerHelper.dataRefresh();
     }
@@ -201,7 +200,7 @@ public class PostSubCommentListActivity extends BaseActivity<PostSubCommentListA
         RetrofitHelper.cancel(callSubCommentListGet);
         RetrofitHelper.cancel(callReport);
         RetrofitHelper.cancel(callPoint);
-        RxBus.unregister(ConsHelper.EVENT_POST_COMMENT_DETAIL_REFRESH, obPostCommentDetail);
+        RxBus.unregister(RxBus.EVENT_POST_COMMENT_DETAIL_REFRESH, obPostCommentDetail);
         RecyclerHelper.release(recyclerHelper);
     }
 
@@ -280,7 +279,7 @@ public class PostSubCommentListActivity extends BaseActivity<PostSubCommentListA
                 // subComment
                 if (subComment) recyclerHelper.dataRefresh();
                 // event
-                RxBus.post(new RxBus.Event<>(ConsHelper.EVENT_POST_COMMENT_LIST_ITEM_REFRESH, postComment));
+                RxBus.post(new RxBus.Event<>(RxBus.EVENT_POST_COMMENT_LIST_ITEM_REFRESH, postComment));
             }
 
             @Override
@@ -461,7 +460,7 @@ public class PostSubCommentListActivity extends BaseActivity<PostSubCommentListA
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 // event
-                RxBus.post(new RxBus.Event<>(ConsHelper.EVENT_POST_COMMENT_LIST_ITEM_REFRESH, postComment));
+                RxBus.post(new RxBus.Event<>(RxBus.EVENT_POST_COMMENT_LIST_ITEM_REFRESH, postComment));
             }
 
             @Override
@@ -485,7 +484,7 @@ public class PostSubCommentListActivity extends BaseActivity<PostSubCommentListA
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 // event
-                RxBus.post(new RxBus.Event<>(ConsHelper.EVENT_POST_COMMENT_LIST_ITEM_REFRESH, postComment));
+                RxBus.post(new RxBus.Event<>(RxBus.EVENT_POST_COMMENT_LIST_ITEM_REFRESH, postComment));
             }
 
             @Override
@@ -510,8 +509,8 @@ public class PostSubCommentListActivity extends BaseActivity<PostSubCommentListA
                 // refresh
                 recyclerHelper.dataRefresh();
                 // event
-                RxBus.post(new RxBus.Event<>(ConsHelper.EVENT_POST_DETAIL_REFRESH, postComment.getPostId()));
-                RxBus.post(new RxBus.Event<>(ConsHelper.EVENT_POST_COMMENT_LIST_ITEM_REFRESH, postComment));
+                RxBus.post(new RxBus.Event<>(RxBus.EVENT_POST_DETAIL_REFRESH, postComment.getPostId()));
+                RxBus.post(new RxBus.Event<>(RxBus.EVENT_POST_COMMENT_LIST_ITEM_REFRESH, postComment));
             }
 
             @Override
@@ -567,8 +566,8 @@ public class PostSubCommentListActivity extends BaseActivity<PostSubCommentListA
                 // refresh
                 recyclerHelper.dataRefresh();
                 // event
-                RxBus.post(new RxBus.Event<>(ConsHelper.EVENT_POST_DETAIL_REFRESH, postComment.getPostId()));
-                RxBus.post(new RxBus.Event<>(ConsHelper.EVENT_POST_COMMENT_LIST_ITEM_REFRESH, postComment));
+                RxBus.post(new RxBus.Event<>(RxBus.EVENT_POST_DETAIL_REFRESH, postComment.getPostId()));
+                RxBus.post(new RxBus.Event<>(RxBus.EVENT_POST_COMMENT_LIST_ITEM_REFRESH, postComment));
             }
 
             @Override
@@ -598,8 +597,8 @@ public class PostSubCommentListActivity extends BaseActivity<PostSubCommentListA
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 // event
-                RxBus.post(new RxBus.Event<>(ConsHelper.EVENT_POST_DETAIL_REFRESH, postComment.getPostId()));
-                RxBus.post(new RxBus.Event<>(ConsHelper.EVENT_POST_COMMENT_LIST_ITEM_DELETE, postComment));
+                RxBus.post(new RxBus.Event<>(RxBus.EVENT_POST_DETAIL_REFRESH, postComment.getPostId()));
+                RxBus.post(new RxBus.Event<>(RxBus.EVENT_POST_COMMENT_LIST_ITEM_DELETE, postComment));
                 mActivity.finish();
             }
 

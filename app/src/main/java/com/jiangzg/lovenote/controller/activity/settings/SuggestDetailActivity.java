@@ -34,7 +34,6 @@ import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.controller.activity.base.BaseActivity;
 import com.jiangzg.lovenote.controller.activity.common.BigImageActivity;
 import com.jiangzg.lovenote.controller.adapter.settings.SuggestCommentAdapter;
-import com.jiangzg.lovenote.helper.ConsHelper;
 import com.jiangzg.lovenote.helper.DialogHelper;
 import com.jiangzg.lovenote.helper.RecyclerHelper;
 import com.jiangzg.lovenote.helper.RetrofitHelper;
@@ -156,7 +155,7 @@ public class SuggestDetailActivity extends BaseActivity<SuggestDetailActivity> {
     protected void initData(Intent intent, Bundle state) {
         page = 0;
         // event
-        obDetailRefresh = RxBus.register(ConsHelper.EVENT_SUGGEST_DETAIL_REFRESH, suggest -> refreshSuggest());
+        obDetailRefresh = RxBus.register(RxBus.EVENT_SUGGEST_DETAIL_REFRESH, suggest -> refreshSuggest());
         // refresh
         //recyclerHelper.dataRefresh();
         refreshSuggest();
@@ -169,7 +168,7 @@ public class SuggestDetailActivity extends BaseActivity<SuggestDetailActivity> {
         RetrofitHelper.cancel(callFollow);
         RetrofitHelper.cancel(callCommentListGet);
         RetrofitHelper.cancel(callCommentAdd);
-        RxBus.unregister(ConsHelper.EVENT_SUGGEST_DETAIL_REFRESH, obDetailRefresh);
+        RxBus.unregister(RxBus.EVENT_SUGGEST_DETAIL_REFRESH, obDetailRefresh);
         RecyclerHelper.release(recyclerHelper);
     }
 
@@ -243,7 +242,7 @@ public class SuggestDetailActivity extends BaseActivity<SuggestDetailActivity> {
                 // data
                 if (recyclerHelper != null) recyclerHelper.dataRefresh();
                 // event
-                RxBus.post(new RxBus.Event<>(ConsHelper.EVENT_SUGGEST_LIST_ITEM_REFRESH, suggest));
+                RxBus.post(new RxBus.Event<>(RxBus.EVENT_SUGGEST_LIST_ITEM_REFRESH, suggest));
             }
 
             @Override
@@ -407,7 +406,7 @@ public class SuggestDetailActivity extends BaseActivity<SuggestDetailActivity> {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 // event
-                RxBus.post(new RxBus.Event<>(ConsHelper.EVENT_SUGGEST_LIST_ITEM_REFRESH, suggest));
+                RxBus.post(new RxBus.Event<>(RxBus.EVENT_SUGGEST_LIST_ITEM_REFRESH, suggest));
             }
 
             @Override
@@ -468,7 +467,7 @@ public class SuggestDetailActivity extends BaseActivity<SuggestDetailActivity> {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 // event
-                RxBus.post(new RxBus.Event<>(ConsHelper.EVENT_SUGGEST_LIST_ITEM_DELETE, suggest));
+                RxBus.post(new RxBus.Event<>(RxBus.EVENT_SUGGEST_LIST_ITEM_DELETE, suggest));
                 mActivity.finish();
             }
 

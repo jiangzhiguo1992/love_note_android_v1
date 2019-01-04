@@ -27,7 +27,6 @@ import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.controller.activity.base.BaseActivity;
 import com.jiangzg.lovenote.controller.activity.settings.HelpActivity;
 import com.jiangzg.lovenote.controller.adapter.note.ShyAdapter;
-import com.jiangzg.lovenote.helper.ConsHelper;
 import com.jiangzg.lovenote.helper.DialogHelper;
 import com.jiangzg.lovenote.helper.ListHelper;
 import com.jiangzg.lovenote.helper.RecyclerHelper;
@@ -153,7 +152,7 @@ public class ShyActivity extends BaseActivity<ShyActivity> {
     @Override
     protected void initData(Intent intent, Bundle state) {
         // event
-        obListItemDelete = RxBus.register(ConsHelper.EVENT_SHY_LIST_ITEM_DELETE, shy -> {
+        obListItemDelete = RxBus.register(RxBus.EVENT_SHY_LIST_ITEM_DELETE, shy -> {
             if (recyclerHelper == null) return;
             ListHelper.removeObjInAdapter(recyclerHelper.getAdapter(), shy);
             refreshMonthData();
@@ -172,7 +171,7 @@ public class ShyActivity extends BaseActivity<ShyActivity> {
         RetrofitHelper.cancel(callAdd);
         RetrofitHelper.cancel(callListGet);
         RecyclerHelper.release(recyclerHelper);
-        RxBus.unregister(ConsHelper.EVENT_SHY_LIST_ITEM_DELETE, obListItemDelete);
+        RxBus.unregister(RxBus.EVENT_SHY_LIST_ITEM_DELETE, obListItemDelete);
     }
 
     @Override

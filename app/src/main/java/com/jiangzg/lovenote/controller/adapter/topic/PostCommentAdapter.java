@@ -11,7 +11,6 @@ import com.jiangzg.base.view.ViewUtils;
 import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.controller.activity.base.BaseActivity;
 import com.jiangzg.lovenote.controller.activity.topic.PostSubCommentListActivity;
-import com.jiangzg.lovenote.helper.ConsHelper;
 import com.jiangzg.lovenote.helper.CountHelper;
 import com.jiangzg.lovenote.helper.DialogHelper;
 import com.jiangzg.lovenote.helper.RetrofitHelper;
@@ -140,9 +139,9 @@ public class PostCommentAdapter extends BaseMultiItemQuickAdapter<PostComment, B
             public void onResponse(int code, String message, Result.Data data) {
                 remove(position);
                 // event
-                RxBus.post(new RxBus.Event<>(ConsHelper.EVENT_POST_DETAIL_REFRESH, item.getPostId()));
+                RxBus.post(new RxBus.Event<>(RxBus.EVENT_POST_DETAIL_REFRESH, item.getPostId()));
                 if (subComment) {
-                    RxBus.post(new RxBus.Event<>(ConsHelper.EVENT_POST_COMMENT_DETAIL_REFRESH, item.getToCommentId()));
+                    RxBus.post(new RxBus.Event<>(RxBus.EVENT_POST_COMMENT_DETAIL_REFRESH, item.getToCommentId()));
                 }
             }
 

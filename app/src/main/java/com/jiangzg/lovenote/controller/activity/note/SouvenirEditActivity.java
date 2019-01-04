@@ -22,7 +22,6 @@ import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.controller.activity.base.BaseActivity;
 import com.jiangzg.lovenote.controller.activity.common.MapSelectActivity;
-import com.jiangzg.lovenote.helper.ConsHelper;
 import com.jiangzg.lovenote.helper.DialogHelper;
 import com.jiangzg.lovenote.helper.RetrofitHelper;
 import com.jiangzg.lovenote.helper.RxBus;
@@ -69,7 +68,7 @@ public class SouvenirEditActivity extends BaseActivity<SouvenirEditActivity> {
 
     public static void goActivity(Activity from) {
         Intent intent = new Intent(from, SouvenirEditActivity.class);
-        intent.putExtra("from", ConsHelper.ACT_EDIT_FROM_ADD);
+        intent.putExtra("from", BaseActivity.ACT_EDIT_FROM_ADD);
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         ActivityTrans.start(from, intent);
     }
@@ -83,7 +82,7 @@ public class SouvenirEditActivity extends BaseActivity<SouvenirEditActivity> {
             return;
         }
         Intent intent = new Intent(from, SouvenirEditActivity.class);
-        intent.putExtra("from", ConsHelper.ACT_EDIT_FROM_UPDATE);
+        intent.putExtra("from", BaseActivity.ACT_EDIT_FROM_UPDATE);
         intent.putExtra("souvenir", souvenir);
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         ActivityTrans.start(from, intent);
@@ -126,7 +125,7 @@ public class SouvenirEditActivity extends BaseActivity<SouvenirEditActivity> {
     @Override
     protected void initData(Intent intent, Bundle state) {
         // event
-        obSelectMap = RxBus.register(ConsHelper.EVENT_MAP_SELECT, info -> {
+        obSelectMap = RxBus.register(RxBus.EVENT_MAP_SELECT, info -> {
             if (info == null || souvenir == null) return;
             souvenir.setLatitude(info.getLatitude());
             souvenir.setLongitude(info.getLongitude());
@@ -140,7 +139,7 @@ public class SouvenirEditActivity extends BaseActivity<SouvenirEditActivity> {
     protected void onFinish(Bundle state) {
         RetrofitHelper.cancel(callAdd);
         RetrofitHelper.cancel(callUpdate);
-        RxBus.unregister(ConsHelper.EVENT_MAP_SELECT, obSelectMap);
+        RxBus.unregister(RxBus.EVENT_MAP_SELECT, obSelectMap);
     }
 
     @Override
@@ -173,7 +172,7 @@ public class SouvenirEditActivity extends BaseActivity<SouvenirEditActivity> {
     }
 
     private boolean isFromUpdate() {
-        return getIntent().getIntExtra("from", ConsHelper.ACT_EDIT_FROM_ADD) == ConsHelper.ACT_EDIT_FROM_UPDATE;
+        return getIntent().getIntExtra("from", BaseActivity.ACT_EDIT_FROM_ADD) == BaseActivity.ACT_EDIT_FROM_UPDATE;
     }
 
     private void initTypeCheck() {
@@ -244,8 +243,8 @@ public class SouvenirEditActivity extends BaseActivity<SouvenirEditActivity> {
             public void onResponse(int code, String message, Result.Data data) {
                 // event
                 Souvenir souvenir = data.getSouvenir();
-                RxBus.post(new RxBus.Event<>(ConsHelper.EVENT_SOUVENIR_DETAIL_REFRESH, souvenir));
-                RxBus.post(new RxBus.Event<>(ConsHelper.EVENT_SOUVENIR_LIST_ITEM_REFRESH, souvenir));
+                RxBus.post(new RxBus.Event<>(RxBus.EVENT_SOUVENIR_DETAIL_REFRESH, souvenir));
+                RxBus.post(new RxBus.Event<>(RxBus.EVENT_SOUVENIR_LIST_ITEM_REFRESH, souvenir));
                 // finish
                 mActivity.finish();
             }
@@ -264,7 +263,7 @@ public class SouvenirEditActivity extends BaseActivity<SouvenirEditActivity> {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 // event
-                RxBus.post(new RxBus.Event<>(ConsHelper.EVENT_SOUVENIR_LIST_REFRESH, new ArrayList<>()));
+                RxBus.post(new RxBus.Event<>(RxBus.EVENT_SOUVENIR_LIST_REFRESH, new ArrayList<>()));
                 // finish
                 mActivity.finish();
             }

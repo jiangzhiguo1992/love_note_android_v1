@@ -21,7 +21,6 @@ import com.jiangzg.base.component.ActivityTrans;
 import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.controller.activity.base.BaseActivity;
-import com.jiangzg.lovenote.helper.ConsHelper;
 import com.jiangzg.lovenote.helper.DialogHelper;
 import com.jiangzg.lovenote.helper.RetrofitHelper;
 import com.jiangzg.lovenote.helper.RxBus;
@@ -66,7 +65,7 @@ public class PromiseEditActivity extends BaseActivity<PromiseEditActivity> {
 
     public static void goActivity(Activity from) {
         Intent intent = new Intent(from, PromiseEditActivity.class);
-        intent.putExtra("from", ConsHelper.ACT_EDIT_FROM_ADD);
+        intent.putExtra("from", BaseActivity.ACT_EDIT_FROM_ADD);
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         ActivityTrans.start(from, intent);
     }
@@ -80,7 +79,7 @@ public class PromiseEditActivity extends BaseActivity<PromiseEditActivity> {
             return;
         }
         Intent intent = new Intent(from, PromiseEditActivity.class);
-        intent.putExtra("from", ConsHelper.ACT_EDIT_FROM_UPDATE);
+        intent.putExtra("from", BaseActivity.ACT_EDIT_FROM_UPDATE);
         intent.putExtra("promise", promise);
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         ActivityTrans.start(from, intent);
@@ -153,7 +152,7 @@ public class PromiseEditActivity extends BaseActivity<PromiseEditActivity> {
     }
 
     private boolean isFromUpdate() {
-        return getIntent().getIntExtra("from", ConsHelper.ACT_EDIT_FROM_ADD) == ConsHelper.ACT_EDIT_FROM_UPDATE;
+        return getIntent().getIntExtra("from", BaseActivity.ACT_EDIT_FROM_ADD) == BaseActivity.ACT_EDIT_FROM_UPDATE;
     }
 
     private void initHappenCheck() {
@@ -239,8 +238,8 @@ public class PromiseEditActivity extends BaseActivity<PromiseEditActivity> {
             public void onResponse(int code, String message, Result.Data data) {
                 // event
                 Promise promise = data.getPromise();
-                RxBus.post(new RxBus.Event<>(ConsHelper.EVENT_PROMISE_LIST_ITEM_REFRESH, promise));
-                RxBus.post(new RxBus.Event<>(ConsHelper.EVENT_PROMISE_DETAIL_REFRESH, promise));
+                RxBus.post(new RxBus.Event<>(RxBus.EVENT_PROMISE_LIST_ITEM_REFRESH, promise));
+                RxBus.post(new RxBus.Event<>(RxBus.EVENT_PROMISE_DETAIL_REFRESH, promise));
                 // finish
                 mActivity.finish();
             }
@@ -259,7 +258,7 @@ public class PromiseEditActivity extends BaseActivity<PromiseEditActivity> {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 // event
-                RxBus.post(new RxBus.Event<>(ConsHelper.EVENT_PROMISE_LIST_REFRESH, new ArrayList<>()));
+                RxBus.post(new RxBus.Event<>(RxBus.EVENT_PROMISE_LIST_REFRESH, new ArrayList<>()));
                 // finish
                 mActivity.finish();
             }

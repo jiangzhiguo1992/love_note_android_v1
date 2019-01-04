@@ -23,7 +23,6 @@ import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.controller.activity.base.BaseActivity;
 import com.jiangzg.lovenote.controller.activity.common.MapSelectActivity;
 import com.jiangzg.lovenote.controller.adapter.common.ImgSquareEditAdapter;
-import com.jiangzg.lovenote.helper.ConsHelper;
 import com.jiangzg.lovenote.helper.DialogHelper;
 import com.jiangzg.lovenote.helper.MediaPickHelper;
 import com.jiangzg.lovenote.helper.OssHelper;
@@ -80,7 +79,7 @@ public class PictureEditActivity extends BaseActivity<PictureEditActivity> {
             return;
         }
         Intent intent = new Intent(from, PictureEditActivity.class);
-        intent.putExtra("from", ConsHelper.ACT_EDIT_FROM_ADD);
+        intent.putExtra("from", BaseActivity.ACT_EDIT_FROM_ADD);
         intent.putExtra("album", album);
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         ActivityTrans.start(from, intent);
@@ -95,7 +94,7 @@ public class PictureEditActivity extends BaseActivity<PictureEditActivity> {
             return;
         }
         Intent intent = new Intent(from, PictureEditActivity.class);
-        intent.putExtra("from", ConsHelper.ACT_EDIT_FROM_UPDATE);
+        intent.putExtra("from", BaseActivity.ACT_EDIT_FROM_UPDATE);
         intent.putExtra("album", album);
         intent.putExtra("picture", picture);
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
@@ -163,12 +162,12 @@ public class PictureEditActivity extends BaseActivity<PictureEditActivity> {
     @Override
     protected void initData(Intent intent, Bundle state) {
         // event
-        obSelectAlbum = RxBus.register(ConsHelper.EVENT_ALBUM_SELECT, album -> {
+        obSelectAlbum = RxBus.register(RxBus.EVENT_ALBUM_SELECT, album -> {
             PictureEditActivity.this.isChangeAlbum = true;
             PictureEditActivity.this.album = album;
             PictureEditActivity.this.refreshAlbum();
         });
-        obSelectMap = RxBus.register(ConsHelper.EVENT_MAP_SELECT, info -> {
+        obSelectMap = RxBus.register(RxBus.EVENT_MAP_SELECT, info -> {
             if (info == null || picture == null) return;
             picture.setLatitude(info.getLatitude());
             picture.setLongitude(info.getLongitude());
@@ -182,8 +181,8 @@ public class PictureEditActivity extends BaseActivity<PictureEditActivity> {
     protected void onFinish(Bundle state) {
         RetrofitHelper.cancel(callAdd);
         RetrofitHelper.cancel(callUpdate);
-        RxBus.unregister(ConsHelper.EVENT_ALBUM_SELECT, obSelectAlbum);
-        RxBus.unregister(ConsHelper.EVENT_MAP_SELECT, obSelectMap);
+        RxBus.unregister(RxBus.EVENT_ALBUM_SELECT, obSelectAlbum);
+        RxBus.unregister(RxBus.EVENT_MAP_SELECT, obSelectMap);
         RecyclerHelper.release(recyclerHelper);
     }
 
@@ -197,7 +196,7 @@ public class PictureEditActivity extends BaseActivity<PictureEditActivity> {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode != RESULT_OK) return;
-        if (requestCode == ConsHelper.REQUEST_PICTURE) {
+        if (requestCode == BaseActivity.REQUEST_PICTURE) {
             // 相册
             List<String> pathList = MediaPickHelper.getResultFilePathList(mActivity, data);
             if (pathList == null || pathList.size() <= 0) {
@@ -238,7 +237,7 @@ public class PictureEditActivity extends BaseActivity<PictureEditActivity> {
     }
 
     private boolean isFromUpdate() {
-        return getIntent().getIntExtra("from", ConsHelper.ACT_EDIT_FROM_ADD) == ConsHelper.ACT_EDIT_FROM_UPDATE;
+        return getIntent().getIntExtra("from", BaseActivity.ACT_EDIT_FROM_ADD) == BaseActivity.ACT_EDIT_FROM_UPDATE;
     }
 
     private void refreshAlbum() {
@@ -353,9 +352,9 @@ public class PictureEditActivity extends BaseActivity<PictureEditActivity> {
                 String toast = String.format(Locale.getDefault(), mActivity.getString(R.string.success_push_holder_paper_picture), total);
                 ToastUtils.show(toast);
                 // event
-                RxBus.post(new RxBus.Event<>(ConsHelper.EVENT_ALBUM_LIST_REFRESH, new ArrayList<>()));
-                RxBus.post(new RxBus.Event<>(ConsHelper.EVENT_ALBUM_DETAIL_REFRESH, album));
-                RxBus.post(new RxBus.Event<>(ConsHelper.EVENT_PICTURE_LIST_REFRESH, new ArrayList<>()));
+                RxBus.post(new RxBus.Event<>(RxBus.EVENT_ALBUM_LIST_REFRESH, new ArrayList<>()));
+                RxBus.post(new RxBus.Event<>(RxBus.EVENT_ALBUM_DETAIL_REFRESH, album));
+                RxBus.post(new RxBus.Event<>(RxBus.EVENT_PICTURE_LIST_REFRESH, new ArrayList<>()));
                 // finish
                 mActivity.finish();
             }
@@ -374,13 +373,13 @@ public class PictureEditActivity extends BaseActivity<PictureEditActivity> {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 // event
-                RxBus.post(new RxBus.Event<>(ConsHelper.EVENT_ALBUM_LIST_REFRESH, new ArrayList<>()));
-                RxBus.post(new RxBus.Event<>(ConsHelper.EVENT_ALBUM_DETAIL_REFRESH, album));
+                RxBus.post(new RxBus.Event<>(RxBus.EVENT_ALBUM_LIST_REFRESH, new ArrayList<>()));
+                RxBus.post(new RxBus.Event<>(RxBus.EVENT_ALBUM_DETAIL_REFRESH, album));
                 Picture picture = data.getPicture();
                 if (isChangeAlbum) {
-                    RxBus.post(new RxBus.Event<>(ConsHelper.EVENT_PICTURE_LIST_REFRESH, new ArrayList<>()));
+                    RxBus.post(new RxBus.Event<>(RxBus.EVENT_PICTURE_LIST_REFRESH, new ArrayList<>()));
                 } else {
-                    RxBus.post(new RxBus.Event<>(ConsHelper.EVENT_PICTURE_LIST_ITEM_REFRESH, picture));
+                    RxBus.post(new RxBus.Event<>(RxBus.EVENT_PICTURE_LIST_ITEM_REFRESH, picture));
                 }
                 // finish
                 mActivity.finish();

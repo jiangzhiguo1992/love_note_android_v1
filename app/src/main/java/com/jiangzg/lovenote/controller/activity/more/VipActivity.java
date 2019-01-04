@@ -20,7 +20,6 @@ import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.controller.activity.base.BaseActivity;
 import com.jiangzg.lovenote.controller.activity.couple.CouplePairActivity;
 import com.jiangzg.lovenote.controller.activity.settings.HelpActivity;
-import com.jiangzg.lovenote.helper.ConsHelper;
 import com.jiangzg.lovenote.helper.RetrofitHelper;
 import com.jiangzg.lovenote.helper.RxBus;
 import com.jiangzg.lovenote.helper.SPHelper;
@@ -188,13 +187,13 @@ public class VipActivity extends BaseActivity<VipActivity> {
     @Override
     protected void initData(Intent intent, Bundle state) {
         // event
-        obRefresh = RxBus.register(ConsHelper.EVENT_VIP_INFO_REFRESH, vip -> refreshData());
+        obRefresh = RxBus.register(RxBus.EVENT_VIP_INFO_REFRESH, vip -> refreshData());
     }
 
     @Override
     protected void onFinish(Bundle state) {
         RetrofitHelper.cancel(callGet);
-        RxBus.unregister(ConsHelper.EVENT_VIP_INFO_REFRESH, obRefresh);
+        RxBus.unregister(RxBus.EVENT_VIP_INFO_REFRESH, obRefresh);
     }
 
     @Override

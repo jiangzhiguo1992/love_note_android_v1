@@ -9,7 +9,6 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.controller.activity.base.BaseActivity;
 import com.jiangzg.lovenote.controller.activity.note.TravelDetailActivity;
-import com.jiangzg.lovenote.helper.ConsHelper;
 import com.jiangzg.lovenote.helper.RecyclerHelper;
 import com.jiangzg.lovenote.helper.RxBus;
 import com.jiangzg.lovenote.helper.SPHelper;
@@ -77,7 +76,7 @@ public class TravelAdapter extends BaseQuickAdapter<Travel, BaseViewHolder> {
     public void selectTravel(int position) {
         mActivity.finish(); // 必须先关闭
         Travel item = getItem(position);
-        RxBus.post(new RxBus.Event<>(ConsHelper.EVENT_TRAVEL_SELECT, item));
+        RxBus.post(new RxBus.Event<>(RxBus.EVENT_TRAVEL_SELECT, item));
     }
 
     public void goTravelDetail(int position) {

@@ -22,7 +22,6 @@ import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.controller.activity.base.BaseActivity;
 import com.jiangzg.lovenote.controller.adapter.common.ImgSquareEditAdapter;
-import com.jiangzg.lovenote.helper.ConsHelper;
 import com.jiangzg.lovenote.helper.DialogHelper;
 import com.jiangzg.lovenote.helper.MediaPickHelper;
 import com.jiangzg.lovenote.helper.OssHelper;
@@ -72,7 +71,7 @@ public class GiftEditActivity extends BaseActivity<GiftEditActivity> {
 
     public static void goActivity(Activity from) {
         Intent intent = new Intent(from, GiftEditActivity.class);
-        intent.putExtra("from", ConsHelper.ACT_EDIT_FROM_ADD);
+        intent.putExtra("from", BaseActivity.ACT_EDIT_FROM_ADD);
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         ActivityTrans.start(from, intent);
     }
@@ -86,7 +85,7 @@ public class GiftEditActivity extends BaseActivity<GiftEditActivity> {
             return;
         }
         Intent intent = new Intent(from, GiftEditActivity.class);
-        intent.putExtra("from", ConsHelper.ACT_EDIT_FROM_UPDATE);
+        intent.putExtra("from", BaseActivity.ACT_EDIT_FROM_UPDATE);
         intent.putExtra("gift", gift);
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         ActivityTrans.start(from, intent);
@@ -163,7 +162,7 @@ public class GiftEditActivity extends BaseActivity<GiftEditActivity> {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode != RESULT_OK) return;
-        if (requestCode == ConsHelper.REQUEST_PICTURE) {
+        if (requestCode == BaseActivity.REQUEST_PICTURE) {
             // 相册
             List<String> pathList = MediaPickHelper.getResultFilePathList(mActivity, data);
             if (pathList == null || pathList.size() <= 0) {
@@ -200,7 +199,7 @@ public class GiftEditActivity extends BaseActivity<GiftEditActivity> {
     }
 
     private boolean isFromUpdate() {
-        return getIntent().getIntExtra("from", ConsHelper.ACT_EDIT_FROM_ADD) == ConsHelper.ACT_EDIT_FROM_UPDATE;
+        return getIntent().getIntExtra("from", BaseActivity.ACT_EDIT_FROM_ADD) == BaseActivity.ACT_EDIT_FROM_UPDATE;
     }
 
     private void initReceiveCheck() {
@@ -328,7 +327,7 @@ public class GiftEditActivity extends BaseActivity<GiftEditActivity> {
             public void onResponse(int code, String message, Result.Data data) {
                 // event
                 Gift gift = data.getGift();
-                RxBus.post(new RxBus.Event<>(ConsHelper.EVENT_GIFT_LIST_ITEM_REFRESH, gift));
+                RxBus.post(new RxBus.Event<>(RxBus.EVENT_GIFT_LIST_ITEM_REFRESH, gift));
                 // finish
                 mActivity.finish();
             }
@@ -348,7 +347,7 @@ public class GiftEditActivity extends BaseActivity<GiftEditActivity> {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 // event
-                RxBus.post(new RxBus.Event<>(ConsHelper.EVENT_GIFT_LIST_REFRESH, new ArrayList<>()));
+                RxBus.post(new RxBus.Event<>(RxBus.EVENT_GIFT_LIST_REFRESH, new ArrayList<>()));
                 // finish
                 mActivity.finish();
             }
@@ -379,7 +378,7 @@ public class GiftEditActivity extends BaseActivity<GiftEditActivity> {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 // event
-                RxBus.post(new RxBus.Event<>(ConsHelper.EVENT_GIFT_LIST_ITEM_DELETE, gift));
+                RxBus.post(new RxBus.Event<>(RxBus.EVENT_GIFT_LIST_ITEM_DELETE, gift));
                 // finish
                 mActivity.finish();
             }

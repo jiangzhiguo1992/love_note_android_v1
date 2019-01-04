@@ -7,7 +7,6 @@ import com.jiangzg.base.common.DateUtils;
 import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.controller.activity.base.BaseActivity;
-import com.jiangzg.lovenote.helper.ConsHelper;
 import com.jiangzg.lovenote.helper.DialogHelper;
 import com.jiangzg.lovenote.helper.RetrofitHelper;
 import com.jiangzg.lovenote.helper.RxBus;
@@ -72,7 +71,7 @@ public class ShyAdapter extends BaseQuickAdapter<Shy, BaseViewHolder> {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 // event
-                RxBus.post(new RxBus.Event<>(ConsHelper.EVENT_SHY_LIST_ITEM_DELETE, item));
+                RxBus.post(new RxBus.Event<>(RxBus.EVENT_SHY_LIST_ITEM_DELETE, item));
             }
 
             @Override

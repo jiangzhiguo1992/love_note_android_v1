@@ -20,7 +20,6 @@ import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.controller.activity.base.BaseActivity;
 import com.jiangzg.lovenote.controller.adapter.note.DiaryAdapter;
 import com.jiangzg.lovenote.helper.ApiHelper;
-import com.jiangzg.lovenote.helper.ConsHelper;
 import com.jiangzg.lovenote.helper.DialogHelper;
 import com.jiangzg.lovenote.helper.ListHelper;
 import com.jiangzg.lovenote.helper.OssResHelper;
@@ -65,21 +64,21 @@ public class DiaryListActivity extends BaseActivity<DiaryListActivity> {
 
     public static void goActivity(Activity from) {
         Intent intent = new Intent(from, DiaryListActivity.class);
-        intent.putExtra("from", ConsHelper.ACT_LIST_FROM_BROWSE);
+        intent.putExtra("from", BaseActivity.ACT_LIST_FROM_BROWSE);
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         ActivityTrans.start(from, intent);
     }
 
     public static void goActivity(Fragment from) {
         Intent intent = new Intent(from.getActivity(), DiaryListActivity.class);
-        intent.putExtra("from", ConsHelper.ACT_LIST_FROM_BROWSE);
+        intent.putExtra("from", BaseActivity.ACT_LIST_FROM_BROWSE);
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         ActivityTrans.start(from, intent);
     }
 
     public static void goActivityBySelect(Activity from) {
         Intent intent = new Intent(from, DiaryListActivity.class);
-        intent.putExtra("from", ConsHelper.ACT_LIST_FROM_SELECT);
+        intent.putExtra("from", BaseActivity.ACT_LIST_FROM_SELECT);
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         ActivityTrans.start(from, intent);
     }
@@ -130,15 +129,15 @@ public class DiaryListActivity extends BaseActivity<DiaryListActivity> {
     protected void initData(Intent intent, Bundle state) {
         page = 0;
         // event
-        obListRefresh = RxBus.register(ConsHelper.EVENT_DIARY_LIST_REFRESH, diaryList -> {
+        obListRefresh = RxBus.register(RxBus.EVENT_DIARY_LIST_REFRESH, diaryList -> {
             if (recyclerHelper == null) return;
             recyclerHelper.dataRefresh();
         });
-        obListItemDelete = RxBus.register(ConsHelper.EVENT_DIARY_LIST_ITEM_DELETE, diary -> {
+        obListItemDelete = RxBus.register(RxBus.EVENT_DIARY_LIST_ITEM_DELETE, diary -> {
             if (recyclerHelper == null) return;
             ListHelper.removeObjInAdapter(recyclerHelper.getAdapter(), diary);
         });
-        obListItemRefresh = RxBus.register(ConsHelper.EVENT_DIARY_LIST_ITEM_REFRESH, diary -> {
+        obListItemRefresh = RxBus.register(RxBus.EVENT_DIARY_LIST_ITEM_REFRESH, diary -> {
             if (recyclerHelper == null) return;
             ListHelper.refreshObjInAdapter(recyclerHelper.getAdapter(), diary);
         });
@@ -149,9 +148,9 @@ public class DiaryListActivity extends BaseActivity<DiaryListActivity> {
     @Override
     protected void onFinish(Bundle state) {
         RetrofitHelper.cancel(call);
-        RxBus.unregister(ConsHelper.EVENT_DIARY_LIST_REFRESH, obListRefresh);
-        RxBus.unregister(ConsHelper.EVENT_DIARY_LIST_ITEM_DELETE, obListItemDelete);
-        RxBus.unregister(ConsHelper.EVENT_DIARY_LIST_ITEM_REFRESH, obListItemRefresh);
+        RxBus.unregister(RxBus.EVENT_DIARY_LIST_REFRESH, obListRefresh);
+        RxBus.unregister(RxBus.EVENT_DIARY_LIST_ITEM_DELETE, obListItemDelete);
+        RxBus.unregister(RxBus.EVENT_DIARY_LIST_ITEM_REFRESH, obListItemRefresh);
         RecyclerHelper.release(recyclerHelper);
     }
 
@@ -168,7 +167,7 @@ public class DiaryListActivity extends BaseActivity<DiaryListActivity> {
     }
 
     private boolean isFromSelect() {
-        return getIntent().getIntExtra("from", ConsHelper.ACT_LIST_FROM_BROWSE) == ConsHelper.ACT_LIST_FROM_SELECT;
+        return getIntent().getIntExtra("from", BaseActivity.ACT_LIST_FROM_BROWSE) == BaseActivity.ACT_LIST_FROM_SELECT;
     }
 
     private void getData(final boolean more) {

@@ -18,7 +18,6 @@ import com.jiangzg.base.component.ActivityTrans;
 import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.controller.activity.base.BaseActivity;
 import com.jiangzg.lovenote.controller.activity.settings.HelpActivity;
-import com.jiangzg.lovenote.helper.ConsHelper;
 import com.jiangzg.lovenote.helper.PayHelper;
 import com.jiangzg.lovenote.helper.RetrofitHelper;
 import com.jiangzg.lovenote.helper.RxBus;
@@ -207,7 +206,7 @@ public class VipBuyActivity extends BaseActivity<VipBuyActivity> {
         RetrofitHelper.enqueue(callAfter, loading, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
-                RxBus.post(new RxBus.Event<>(ConsHelper.EVENT_VIP_INFO_REFRESH, new Vip()));
+                RxBus.post(new RxBus.Event<>(RxBus.EVENT_VIP_INFO_REFRESH, new Vip()));
             }
 
             @Override

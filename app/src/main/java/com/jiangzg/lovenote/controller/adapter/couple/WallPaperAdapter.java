@@ -7,7 +7,6 @@ import com.jiangzg.base.view.ScreenUtils;
 import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.controller.activity.base.BaseActivity;
 import com.jiangzg.lovenote.controller.activity.common.BigImageActivity;
-import com.jiangzg.lovenote.helper.ConsHelper;
 import com.jiangzg.lovenote.helper.DialogHelper;
 import com.jiangzg.lovenote.helper.RetrofitHelper;
 import com.jiangzg.lovenote.helper.RxBus;
@@ -86,7 +85,7 @@ public class WallPaperAdapter extends BaseQuickAdapter<String, BaseViewHolder> {
                 WallPaperAdapter.this.remove(position);
                 SPHelper.setWallPaper(data.getWallPaper());
                 // event
-                RxBus.post(new RxBus.Event<>(ConsHelper.EVENT_WALL_PAPER_REFRESH, data.getWallPaper()));
+                RxBus.post(new RxBus.Event<>(RxBus.EVENT_WALL_PAPER_REFRESH, data.getWallPaper()));
             }
 
             @Override

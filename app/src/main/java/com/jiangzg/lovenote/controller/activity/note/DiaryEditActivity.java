@@ -21,7 +21,6 @@ import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.controller.activity.base.BaseActivity;
 import com.jiangzg.lovenote.controller.adapter.common.ImgSquareEditAdapter;
-import com.jiangzg.lovenote.helper.ConsHelper;
 import com.jiangzg.lovenote.helper.DialogHelper;
 import com.jiangzg.lovenote.helper.MediaPickHelper;
 import com.jiangzg.lovenote.helper.OssHelper;
@@ -66,7 +65,7 @@ public class DiaryEditActivity extends BaseActivity<DiaryEditActivity> {
 
     public static void goActivity(Activity from) {
         Intent intent = new Intent(from, DiaryEditActivity.class);
-        intent.putExtra("from", ConsHelper.ACT_EDIT_FROM_ADD);
+        intent.putExtra("from", BaseActivity.ACT_EDIT_FROM_ADD);
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         ActivityTrans.start(from, intent);
     }
@@ -80,7 +79,7 @@ public class DiaryEditActivity extends BaseActivity<DiaryEditActivity> {
             return;
         }
         Intent intent = new Intent(from, DiaryEditActivity.class);
-        intent.putExtra("from", ConsHelper.ACT_EDIT_FROM_UPDATE);
+        intent.putExtra("from", BaseActivity.ACT_EDIT_FROM_UPDATE);
         intent.putExtra("diary", diary);
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         ActivityTrans.start(from, intent);
@@ -149,7 +148,7 @@ public class DiaryEditActivity extends BaseActivity<DiaryEditActivity> {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode != RESULT_OK) return;
-        if (requestCode == ConsHelper.REQUEST_PICTURE) {
+        if (requestCode == BaseActivity.REQUEST_PICTURE) {
             // 相册
             List<String> pathList = MediaPickHelper.getResultFilePathList(mActivity, data);
             if (pathList == null || pathList.size() <= 0) {
@@ -191,7 +190,7 @@ public class DiaryEditActivity extends BaseActivity<DiaryEditActivity> {
     }
 
     private boolean isFromUpdate() {
-        return getIntent().getIntExtra("from", ConsHelper.ACT_EDIT_FROM_ADD) == ConsHelper.ACT_EDIT_FROM_UPDATE;
+        return getIntent().getIntExtra("from", BaseActivity.ACT_EDIT_FROM_ADD) == BaseActivity.ACT_EDIT_FROM_UPDATE;
     }
 
     private void setRecyclerShow(boolean show, final int childCount) {
@@ -309,8 +308,8 @@ public class DiaryEditActivity extends BaseActivity<DiaryEditActivity> {
             public void onResponse(int code, String message, Result.Data data) {
                 // event
                 Diary diary = data.getDiary();
-                RxBus.post(new RxBus.Event<>(ConsHelper.EVENT_DIARY_LIST_ITEM_REFRESH, diary));
-                RxBus.post(new RxBus.Event<>(ConsHelper.EVENT_DIARY_DETAIL_REFRESH, diary));
+                RxBus.post(new RxBus.Event<>(RxBus.EVENT_DIARY_LIST_ITEM_REFRESH, diary));
+                RxBus.post(new RxBus.Event<>(RxBus.EVENT_DIARY_DETAIL_REFRESH, diary));
                 // finish
                 mActivity.finish();
             }
@@ -330,7 +329,7 @@ public class DiaryEditActivity extends BaseActivity<DiaryEditActivity> {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 // event
-                RxBus.post(new RxBus.Event<>(ConsHelper.EVENT_DIARY_LIST_REFRESH, new ArrayList<>()));
+                RxBus.post(new RxBus.Event<>(RxBus.EVENT_DIARY_LIST_REFRESH, new ArrayList<>()));
                 // sp
                 SPHelper.setDraftDiary(null);
                 // finish

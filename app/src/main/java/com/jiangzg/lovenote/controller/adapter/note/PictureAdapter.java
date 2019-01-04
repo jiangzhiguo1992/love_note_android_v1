@@ -26,7 +26,6 @@ import com.jiangzg.lovenote.controller.activity.base.BaseActivity;
 import com.jiangzg.lovenote.controller.activity.common.BigImageActivity;
 import com.jiangzg.lovenote.controller.activity.common.MapShowActivity;
 import com.jiangzg.lovenote.controller.activity.note.PictureEditActivity;
-import com.jiangzg.lovenote.helper.ConsHelper;
 import com.jiangzg.lovenote.helper.DialogHelper;
 import com.jiangzg.lovenote.helper.ListHelper;
 import com.jiangzg.lovenote.helper.RetrofitHelper;
@@ -164,7 +163,7 @@ public class PictureAdapter extends BaseQuickAdapter<Picture, BaseViewHolder> {
     public void selectPicture(int position) {
         mActivity.finish(); // 必须先关闭
         Picture item = getItem(position);
-        RxBus.post(new RxBus.Event<>(ConsHelper.EVENT_PICTURE_SELECT, item));
+        RxBus.post(new RxBus.Event<>(RxBus.EVENT_PICTURE_SELECT, item));
     }
 
     // 点击跳转地图
@@ -311,7 +310,7 @@ public class PictureAdapter extends BaseQuickAdapter<Picture, BaseViewHolder> {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 // event
-                RxBus.post(new RxBus.Event<>(ConsHelper.EVENT_PICTURE_LIST_ITEM_DELETE, item));
+                RxBus.post(new RxBus.Event<>(RxBus.EVENT_PICTURE_LIST_ITEM_DELETE, item));
             }
 
             @Override

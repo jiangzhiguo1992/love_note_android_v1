@@ -26,6 +26,7 @@ import com.jiangzg.base.system.PermUtils;
 import com.jiangzg.base.view.DialogUtils;
 import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.lovenote.R;
+import com.jiangzg.lovenote.controller.activity.base.BaseActivity;
 import com.jiangzg.lovenote.controller.activity.more.VipActivity;
 import com.jiangzg.lovenote.main.MyApp;
 import com.jiangzg.lovenote.model.entity.OssInfo;
@@ -792,7 +793,7 @@ public class OssHelper {
             return;
         }
         // 权限检查
-        PermUtils.requestPermissions(activity, ConsHelper.REQUEST_APP_INFO, PermUtils.appInfo, new PermUtils.OnPermissionListener() {
+        PermUtils.requestPermissions(activity, BaseActivity.REQUEST_APP_INFO, PermUtils.appInfo, new PermUtils.OnPermissionListener() {
             @Override
             public void onPermissionGranted(int requestCode, String[] permissions) {
                 final File target = ResHelper.newSdCardImageFile(objectKey);

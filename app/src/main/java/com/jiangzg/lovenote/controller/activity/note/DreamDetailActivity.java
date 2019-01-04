@@ -13,7 +13,6 @@ import com.jiangzg.base.component.ActivityTrans;
 import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.controller.activity.base.BaseActivity;
-import com.jiangzg.lovenote.helper.ConsHelper;
 import com.jiangzg.lovenote.helper.DialogHelper;
 import com.jiangzg.lovenote.helper.RetrofitHelper;
 import com.jiangzg.lovenote.helper.RxBus;
@@ -55,7 +54,7 @@ public class DreamDetailActivity extends BaseActivity<DreamDetailActivity> {
 
     public static void goActivity(Activity from, Dream dream) {
         Intent intent = new Intent(from, DreamDetailActivity.class);
-        intent.putExtra("from", ConsHelper.ACT_DETAIL_FROM_OBJ);
+        intent.putExtra("from", BaseActivity.ACT_DETAIL_FROM_OBJ);
         intent.putExtra("dream", dream);
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         ActivityTrans.start(from, intent);
@@ -63,7 +62,7 @@ public class DreamDetailActivity extends BaseActivity<DreamDetailActivity> {
 
     public static void goActivity(Activity from, long did) {
         Intent intent = new Intent(from, DreamDetailActivity.class);
-        intent.putExtra("from", ConsHelper.ACT_DETAIL_FROM_ID);
+        intent.putExtra("from", BaseActivity.ACT_DETAIL_FROM_ID);
         intent.putExtra("did", did);
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         ActivityTrans.start(from, intent);
@@ -79,15 +78,15 @@ public class DreamDetailActivity extends BaseActivity<DreamDetailActivity> {
         ViewHelper.initTopBar(mActivity, tb, getString(R.string.dream), true);
         srl.setEnabled(false);
         // init
-        int from = intent.getIntExtra("from", ConsHelper.ACT_DETAIL_FROM_ID);
-        if (from == ConsHelper.ACT_DETAIL_FROM_OBJ) {
+        int from = intent.getIntExtra("from", BaseActivity.ACT_DETAIL_FROM_ID);
+        if (from == BaseActivity.ACT_DETAIL_FROM_OBJ) {
             dream = intent.getParcelableExtra("dream");
             refreshView();
             // 没有详情页的，可以不加
             if (dream != null) {
                 refreshData(dream.getId());
             }
-        } else if (from == ConsHelper.ACT_DETAIL_FROM_ID) {
+        } else if (from == BaseActivity.ACT_DETAIL_FROM_ID) {
             long did = intent.getLongExtra("did", 0);
             refreshData(did);
         }
@@ -96,7 +95,7 @@ public class DreamDetailActivity extends BaseActivity<DreamDetailActivity> {
     @Override
     protected void initData(Intent intent, Bundle state) {
         // event
-        obDetailRefresh = RxBus.register(ConsHelper.EVENT_DREAM_DETAIL_REFRESH, dream -> {
+        obDetailRefresh = RxBus.register(RxBus.EVENT_DREAM_DETAIL_REFRESH, dream -> {
             if (dream == null) return;
             refreshData(dream.getId());
         });
@@ -106,7 +105,7 @@ public class DreamDetailActivity extends BaseActivity<DreamDetailActivity> {
     protected void onFinish(Bundle state) {
         RetrofitHelper.cancel(callDel);
         RetrofitHelper.cancel(callGet);
-        RxBus.unregister(ConsHelper.EVENT_DREAM_DETAIL_REFRESH, obDetailRefresh);
+        RxBus.unregister(RxBus.EVENT_DREAM_DETAIL_REFRESH, obDetailRefresh);
     }
 
     @Override
@@ -191,7 +190,7 @@ public class DreamDetailActivity extends BaseActivity<DreamDetailActivity> {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 // event
-                RxBus.post(new RxBus.Event<>(ConsHelper.EVENT_DREAM_LIST_ITEM_DELETE, dream));
+                RxBus.post(new RxBus.Event<>(RxBus.EVENT_DREAM_LIST_ITEM_DELETE, dream));
                 // finish
                 mActivity.finish();
             }

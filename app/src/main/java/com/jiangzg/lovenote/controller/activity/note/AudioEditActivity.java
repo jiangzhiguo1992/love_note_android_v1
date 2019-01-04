@@ -27,7 +27,6 @@ import com.jiangzg.base.system.PermUtils;
 import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.controller.activity.base.BaseActivity;
-import com.jiangzg.lovenote.helper.ConsHelper;
 import com.jiangzg.lovenote.helper.DialogHelper;
 import com.jiangzg.lovenote.helper.OssHelper;
 import com.jiangzg.lovenote.helper.RetrofitHelper;
@@ -113,7 +112,7 @@ public class AudioEditActivity extends BaseActivity<AudioEditActivity> {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode != RESULT_OK || audio == null) return;
-        if (requestCode == ConsHelper.REQUEST_AUDIO) {
+        if (requestCode == BaseActivity.REQUEST_AUDIO) {
             // file
             audioFile = IntentResult.getAudioFile(data);
             // duration
@@ -170,11 +169,11 @@ public class AudioEditActivity extends BaseActivity<AudioEditActivity> {
     }
 
     private void selectAudio() {
-        PermUtils.requestPermissions(mActivity, ConsHelper.REQUEST_APP_INFO, PermUtils.appInfo, new PermUtils.OnPermissionListener() {
+        PermUtils.requestPermissions(mActivity, BaseActivity.REQUEST_APP_INFO, PermUtils.appInfo, new PermUtils.OnPermissionListener() {
             @Override
             public void onPermissionGranted(int requestCode, String[] permissions) {
                 Intent intent = IntentFactory.getAudio();
-                ActivityTrans.startResult(mActivity, intent, ConsHelper.REQUEST_AUDIO);
+                ActivityTrans.startResult(mActivity, intent, BaseActivity.REQUEST_AUDIO);
             }
 
             @Override
@@ -243,7 +242,7 @@ public class AudioEditActivity extends BaseActivity<AudioEditActivity> {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 // event
-                RxBus.post(new RxBus.Event<>(ConsHelper.EVENT_AUDIO_LIST_REFRESH, new ArrayList<>()));
+                RxBus.post(new RxBus.Event<>(RxBus.EVENT_AUDIO_LIST_REFRESH, new ArrayList<>()));
                 mActivity.finish();
             }
 

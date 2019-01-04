@@ -27,7 +27,6 @@ import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.controller.activity.base.BaseActivity;
 import com.jiangzg.lovenote.controller.adapter.note.PromiseBreakAdapter;
-import com.jiangzg.lovenote.helper.ConsHelper;
 import com.jiangzg.lovenote.helper.DialogHelper;
 import com.jiangzg.lovenote.helper.RecyclerHelper;
 import com.jiangzg.lovenote.helper.RetrofitHelper;
@@ -93,7 +92,7 @@ public class PromiseDetailActivity extends BaseActivity<PromiseDetailActivity> {
 
     public static void goActivity(Activity from, Promise promise) {
         Intent intent = new Intent(from, PromiseDetailActivity.class);
-        intent.putExtra("from", ConsHelper.ACT_DETAIL_FROM_OBJ);
+        intent.putExtra("from", BaseActivity.ACT_DETAIL_FROM_OBJ);
         intent.putExtra("promise", promise);
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         ActivityTrans.start(from, intent);
@@ -101,7 +100,7 @@ public class PromiseDetailActivity extends BaseActivity<PromiseDetailActivity> {
 
     public static void goActivity(Activity from, long pid) {
         Intent intent = new Intent(from, PromiseDetailActivity.class);
-        intent.putExtra("from", ConsHelper.ACT_DETAIL_FROM_ID);
+        intent.putExtra("from", BaseActivity.ACT_DETAIL_FROM_ID);
         intent.putExtra("pid", pid);
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         ActivityTrans.start(from, intent);
@@ -134,8 +133,8 @@ public class PromiseDetailActivity extends BaseActivity<PromiseDetailActivity> {
                     }
                 });
         // init
-        int from = intent.getIntExtra("from", ConsHelper.ACT_DETAIL_FROM_ID);
-        if (from == ConsHelper.ACT_DETAIL_FROM_OBJ) {
+        int from = intent.getIntExtra("from", BaseActivity.ACT_DETAIL_FROM_ID);
+        if (from == BaseActivity.ACT_DETAIL_FROM_OBJ) {
             promise = intent.getParcelableExtra("promise");
             // view
             initHead();
@@ -144,7 +143,7 @@ public class PromiseDetailActivity extends BaseActivity<PromiseDetailActivity> {
             if (promise != null) {
                 refreshPromise(promise.getId());
             }
-        } else if (from == ConsHelper.ACT_DETAIL_FROM_ID) {
+        } else if (from == BaseActivity.ACT_DETAIL_FROM_ID) {
             long pid = intent.getLongExtra("pid", 0);
             refreshPromise(pid);
         }
@@ -160,7 +159,7 @@ public class PromiseDetailActivity extends BaseActivity<PromiseDetailActivity> {
     protected void initData(Intent intent, Bundle state) {
         page = 0;
         // event
-        obDetailRefresh = RxBus.register(ConsHelper.EVENT_PROMISE_DETAIL_REFRESH, promise -> {
+        obDetailRefresh = RxBus.register(RxBus.EVENT_PROMISE_DETAIL_REFRESH, promise -> {
             if (PromiseDetailActivity.this.promise == null) return;
             refreshPromise(PromiseDetailActivity.this.promise.getId());
         });
@@ -172,7 +171,7 @@ public class PromiseDetailActivity extends BaseActivity<PromiseDetailActivity> {
         RetrofitHelper.cancel(callDel);
         RetrofitHelper.cancel(callBreakAdd);
         RetrofitHelper.cancel(callBreakListGet);
-        RxBus.unregister(ConsHelper.EVENT_PROMISE_DETAIL_REFRESH, obDetailRefresh);
+        RxBus.unregister(RxBus.EVENT_PROMISE_DETAIL_REFRESH, obDetailRefresh);
         RecyclerHelper.release(recyclerHelper);
     }
 
@@ -330,7 +329,7 @@ public class PromiseDetailActivity extends BaseActivity<PromiseDetailActivity> {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 // event
-                RxBus.post(new RxBus.Event<>(ConsHelper.EVENT_PROMISE_LIST_ITEM_DELETE, promise));
+                RxBus.post(new RxBus.Event<>(RxBus.EVENT_PROMISE_LIST_ITEM_DELETE, promise));
                 mActivity.finish();
             }
 
@@ -380,7 +379,7 @@ public class PromiseDetailActivity extends BaseActivity<PromiseDetailActivity> {
                 promise.setBreakCount(promise.getBreakCount() + 1);
                 initHead();
                 // event
-                RxBus.post(new RxBus.Event<>(ConsHelper.EVENT_PROMISE_LIST_ITEM_REFRESH, promise));
+                RxBus.post(new RxBus.Event<>(RxBus.EVENT_PROMISE_LIST_ITEM_REFRESH, promise));
             }
 
             @Override

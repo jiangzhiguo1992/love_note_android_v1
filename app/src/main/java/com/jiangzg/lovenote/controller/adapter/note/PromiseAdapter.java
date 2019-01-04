@@ -6,7 +6,6 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.controller.activity.note.PromiseDetailActivity;
-import com.jiangzg.lovenote.helper.ConsHelper;
 import com.jiangzg.lovenote.helper.RxBus;
 import com.jiangzg.lovenote.helper.SPHelper;
 import com.jiangzg.lovenote.helper.TimeHelper;
@@ -52,7 +51,7 @@ public class PromiseAdapter extends BaseQuickAdapter<Promise, BaseViewHolder> {
     public void selectPromise(int position) {
         mActivity.finish(); // 必须先关闭
         Promise item = getItem(position);
-        RxBus.post(new RxBus.Event<>(ConsHelper.EVENT_PROMISE_SELECT, item));
+        RxBus.post(new RxBus.Event<>(RxBus.EVENT_PROMISE_SELECT, item));
     }
 
 }

@@ -18,7 +18,6 @@ import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.controller.activity.base.BaseActivity;
 import com.jiangzg.lovenote.controller.activity.note.AlbumEditActivity;
 import com.jiangzg.lovenote.controller.activity.note.PictureListActivity;
-import com.jiangzg.lovenote.helper.ConsHelper;
 import com.jiangzg.lovenote.helper.DialogHelper;
 import com.jiangzg.lovenote.helper.RetrofitHelper;
 import com.jiangzg.lovenote.helper.RxBus;
@@ -86,7 +85,7 @@ public class AlbumAdapter extends BaseQuickAdapter<Album, BaseViewHolder> {
     public void selectAlbum(int position) {
         mActivity.finish(); // 必须先关闭
         Album item = getItem(position);
-        RxBus.post(new RxBus.Event<>(ConsHelper.EVENT_ALBUM_SELECT, item));
+        RxBus.post(new RxBus.Event<>(RxBus.EVENT_ALBUM_SELECT, item));
     }
 
     public void selectPicture(int position) {

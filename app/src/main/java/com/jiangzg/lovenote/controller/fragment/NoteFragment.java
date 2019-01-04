@@ -26,7 +26,6 @@ import com.jiangzg.lovenote.controller.activity.settings.HelpActivity;
 import com.jiangzg.lovenote.controller.adapter.note.ModelAdapter;
 import com.jiangzg.lovenote.controller.fragment.base.BaseFragment;
 import com.jiangzg.lovenote.controller.fragment.base.BasePagerFragment;
-import com.jiangzg.lovenote.helper.ConsHelper;
 import com.jiangzg.lovenote.helper.RecyclerHelper;
 import com.jiangzg.lovenote.helper.RetrofitHelper;
 import com.jiangzg.lovenote.helper.RxBus;
@@ -169,11 +168,11 @@ public class NoteFragment extends BasePagerFragment<NoteFragment> {
 
     protected void loadData() {
         // event
-        obLockRefresh = RxBus.register(ConsHelper.EVENT_LOCK_REFRESH, lock -> {
+        obLockRefresh = RxBus.register(RxBus.EVENT_LOCK_REFRESH, lock -> {
             NoteFragment.this.lock = lock;
             refreshData();
         });
-        obCustomRefresh = RxBus.register(ConsHelper.EVENT_CUSTOM_REFRESH, custom -> customView());
+        obCustomRefresh = RxBus.register(RxBus.EVENT_CUSTOM_REFRESH, custom -> customView());
         // data
         refreshData();
     }
@@ -181,8 +180,8 @@ public class NoteFragment extends BasePagerFragment<NoteFragment> {
     @Override
     protected void onFinish(Bundle state) {
         RetrofitHelper.cancel(call);
-        RxBus.unregister(ConsHelper.EVENT_LOCK_REFRESH, obLockRefresh);
-        RxBus.unregister(ConsHelper.EVENT_CUSTOM_REFRESH, obCustomRefresh);
+        RxBus.unregister(RxBus.EVENT_LOCK_REFRESH, obLockRefresh);
+        RxBus.unregister(RxBus.EVENT_CUSTOM_REFRESH, obCustomRefresh);
         stopSouvenirCountDownTask();
         RecyclerHelper.release(rhLive);
         RecyclerHelper.release(rhNote);

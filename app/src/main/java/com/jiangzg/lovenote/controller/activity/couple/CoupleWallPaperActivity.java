@@ -20,7 +20,6 @@ import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.controller.activity.base.BaseActivity;
 import com.jiangzg.lovenote.controller.activity.more.VipActivity;
 import com.jiangzg.lovenote.controller.adapter.couple.WallPaperAdapter;
-import com.jiangzg.lovenote.helper.ConsHelper;
 import com.jiangzg.lovenote.helper.MediaPickHelper;
 import com.jiangzg.lovenote.helper.OssHelper;
 import com.jiangzg.lovenote.helper.RecyclerHelper;
@@ -112,7 +111,7 @@ public class CoupleWallPaperActivity extends BaseActivity<CoupleWallPaperActivit
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode != RESULT_OK) return;
-        if (requestCode == ConsHelper.REQUEST_PICTURE) {
+        if (requestCode == BaseActivity.REQUEST_PICTURE) {
             // 相册
             List<String> pathList = MediaPickHelper.getResultFilePathList(mActivity, data);
             if (pathList == null || pathList.size() <= 0) {
@@ -192,7 +191,7 @@ public class CoupleWallPaperActivity extends BaseActivity<CoupleWallPaperActivit
                 SPHelper.setWallPaper(data.getWallPaper());
                 viewRefresh(data);
                 // event
-                RxBus.post(new RxBus.Event<>(ConsHelper.EVENT_WALL_PAPER_REFRESH, data.getWallPaper()));
+                RxBus.post(new RxBus.Event<>(RxBus.EVENT_WALL_PAPER_REFRESH, data.getWallPaper()));
             }
 
             @Override

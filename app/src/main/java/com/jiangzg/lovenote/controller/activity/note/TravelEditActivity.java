@@ -32,7 +32,6 @@ import com.jiangzg.lovenote.controller.adapter.note.FoodAdapter;
 import com.jiangzg.lovenote.controller.adapter.note.MovieAdapter;
 import com.jiangzg.lovenote.controller.adapter.note.TravelPlaceAdapter;
 import com.jiangzg.lovenote.controller.adapter.note.VideoAdapter;
-import com.jiangzg.lovenote.helper.ConsHelper;
 import com.jiangzg.lovenote.helper.DialogHelper;
 import com.jiangzg.lovenote.helper.ListHelper;
 import com.jiangzg.lovenote.helper.RecyclerHelper;
@@ -116,7 +115,7 @@ public class TravelEditActivity extends BaseActivity<TravelEditActivity> {
 
     public static void goActivity(Activity from) {
         Intent intent = new Intent(from, TravelEditActivity.class);
-        intent.putExtra("from", ConsHelper.ACT_EDIT_FROM_ADD);
+        intent.putExtra("from", BaseActivity.ACT_EDIT_FROM_ADD);
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         ActivityTrans.start(from, intent);
     }
@@ -130,7 +129,7 @@ public class TravelEditActivity extends BaseActivity<TravelEditActivity> {
             return;
         }
         Intent intent = new Intent(from, TravelEditActivity.class);
-        intent.putExtra("from", ConsHelper.ACT_EDIT_FROM_UPDATE);
+        intent.putExtra("from", BaseActivity.ACT_EDIT_FROM_UPDATE);
         intent.putExtra("travel", travel);
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         ActivityTrans.start(from, intent);
@@ -331,42 +330,42 @@ public class TravelEditActivity extends BaseActivity<TravelEditActivity> {
     @Override
     protected void initData(Intent intent, Bundle state) {
         // event
-        obAddPlace = RxBus.register(ConsHelper.EVENT_TRAVEL_EDIT_ADD_PLACE, travelPlace -> {
+        obAddPlace = RxBus.register(RxBus.EVENT_TRAVEL_EDIT_ADD_PLACE, travelPlace -> {
             if (recyclerPlace == null) return;
             List<TravelPlace> placeList = new ArrayList<>();
             placeList.add(travelPlace);
             recyclerPlace.dataAdd(placeList);
             refreshAddView();
         });
-        obSelectAlbum = RxBus.register(ConsHelper.EVENT_ALBUM_SELECT, album -> {
+        obSelectAlbum = RxBus.register(RxBus.EVENT_ALBUM_SELECT, album -> {
             if (recyclerAlbum == null) return;
             List<Album> albumList = new ArrayList<>();
             albumList.add(album);
             recyclerAlbum.dataAdd(albumList);
             refreshAddView();
         });
-        obSelectVideo = RxBus.register(ConsHelper.EVENT_VIDEO_SELECT, video -> {
+        obSelectVideo = RxBus.register(RxBus.EVENT_VIDEO_SELECT, video -> {
             if (recyclerVideo == null) return;
             List<Video> videoList = new ArrayList<>();
             videoList.add(video);
             recyclerVideo.dataAdd(videoList);
             refreshAddView();
         });
-        obSelectFood = RxBus.register(ConsHelper.EVENT_FOOD_SELECT, food -> {
+        obSelectFood = RxBus.register(RxBus.EVENT_FOOD_SELECT, food -> {
             if (recyclerFood == null) return;
             List<Food> foodList = new ArrayList<>();
             foodList.add(food);
             recyclerFood.dataAdd(foodList);
             refreshAddView();
         });
-        obSelectMovie = RxBus.register(ConsHelper.EVENT_MOVIE_SELECT, movie -> {
+        obSelectMovie = RxBus.register(RxBus.EVENT_MOVIE_SELECT, movie -> {
             if (recyclerMovie == null) return;
             List<Movie> movieList = new ArrayList<>();
             movieList.add(movie);
             recyclerMovie.dataAdd(movieList);
             refreshAddView();
         });
-        obSelectDiary = RxBus.register(ConsHelper.EVENT_DIARY_SELECT, diary -> {
+        obSelectDiary = RxBus.register(RxBus.EVENT_DIARY_SELECT, diary -> {
             if (recyclerDiary == null) return;
             List<Diary> diaryList = new ArrayList<>();
             diaryList.add(diary);
@@ -379,12 +378,12 @@ public class TravelEditActivity extends BaseActivity<TravelEditActivity> {
     protected void onFinish(Bundle state) {
         RetrofitHelper.cancel(callAdd);
         RetrofitHelper.cancel(callUpdate);
-        RxBus.unregister(ConsHelper.EVENT_TRAVEL_EDIT_ADD_PLACE, obAddPlace);
-        RxBus.unregister(ConsHelper.EVENT_ALBUM_SELECT, obSelectAlbum);
-        RxBus.unregister(ConsHelper.EVENT_VIDEO_SELECT, obSelectVideo);
-        RxBus.unregister(ConsHelper.EVENT_FOOD_SELECT, obSelectFood);
-        RxBus.unregister(ConsHelper.EVENT_MOVIE_SELECT, obSelectMovie);
-        RxBus.unregister(ConsHelper.EVENT_DIARY_SELECT, obSelectDiary);
+        RxBus.unregister(RxBus.EVENT_TRAVEL_EDIT_ADD_PLACE, obAddPlace);
+        RxBus.unregister(RxBus.EVENT_ALBUM_SELECT, obSelectAlbum);
+        RxBus.unregister(RxBus.EVENT_VIDEO_SELECT, obSelectVideo);
+        RxBus.unregister(RxBus.EVENT_FOOD_SELECT, obSelectFood);
+        RxBus.unregister(RxBus.EVENT_MOVIE_SELECT, obSelectMovie);
+        RxBus.unregister(RxBus.EVENT_DIARY_SELECT, obSelectDiary);
         RecyclerHelper.release(recyclerPlace);
         RecyclerHelper.release(recyclerAlbum);
         RecyclerHelper.release(recyclerVideo);
@@ -438,7 +437,7 @@ public class TravelEditActivity extends BaseActivity<TravelEditActivity> {
     }
 
     private boolean isFromUpdate() {
-        return getIntent().getIntExtra("from", ConsHelper.ACT_EDIT_FROM_ADD) == ConsHelper.ACT_EDIT_FROM_UPDATE;
+        return getIntent().getIntExtra("from", BaseActivity.ACT_EDIT_FROM_ADD) == BaseActivity.ACT_EDIT_FROM_UPDATE;
     }
 
     private void refreshAddView() {
@@ -642,8 +641,8 @@ public class TravelEditActivity extends BaseActivity<TravelEditActivity> {
             public void onResponse(int code, String message, Result.Data data) {
                 // event
                 Travel travel = data.getTravel();
-                RxBus.post(new RxBus.Event<>(ConsHelper.EVENT_TRAVEL_LIST_ITEM_REFRESH, travel));
-                RxBus.post(new RxBus.Event<>(ConsHelper.EVENT_TRAVEL_DETAIL_REFRESH, travel));
+                RxBus.post(new RxBus.Event<>(RxBus.EVENT_TRAVEL_LIST_ITEM_REFRESH, travel));
+                RxBus.post(new RxBus.Event<>(RxBus.EVENT_TRAVEL_DETAIL_REFRESH, travel));
                 // finish
                 mActivity.finish();
             }
@@ -662,7 +661,7 @@ public class TravelEditActivity extends BaseActivity<TravelEditActivity> {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 // event
-                RxBus.post(new RxBus.Event<>(ConsHelper.EVENT_TRAVEL_LIST_REFRESH, new ArrayList<>()));
+                RxBus.post(new RxBus.Event<>(RxBus.EVENT_TRAVEL_LIST_REFRESH, new ArrayList<>()));
                 // finish
                 mActivity.finish();
             }

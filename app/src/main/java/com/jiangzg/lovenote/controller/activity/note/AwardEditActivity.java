@@ -22,7 +22,6 @@ import com.jiangzg.base.component.ActivityTrans;
 import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.controller.activity.base.BaseActivity;
-import com.jiangzg.lovenote.helper.ConsHelper;
 import com.jiangzg.lovenote.helper.DialogHelper;
 import com.jiangzg.lovenote.helper.RetrofitHelper;
 import com.jiangzg.lovenote.helper.RxBus;
@@ -103,7 +102,7 @@ public class AwardEditActivity extends BaseActivity<AwardEditActivity> {
     @Override
     protected void initData(Intent intent, Bundle state) {
         // event
-        obSelectAwardRule = RxBus.register(ConsHelper.EVENT_AWARD_RULE_SELECT, awardRule -> {
+        obSelectAwardRule = RxBus.register(RxBus.EVENT_AWARD_RULE_SELECT, awardRule -> {
             if (awardRule == null) return;
             award.setAwardRuleId(awardRule.getId());
             rule = awardRule;
@@ -114,7 +113,7 @@ public class AwardEditActivity extends BaseActivity<AwardEditActivity> {
     @Override
     protected void onFinish(Bundle state) {
         RetrofitHelper.cancel(callAdd);
-        RxBus.unregister(ConsHelper.EVENT_AWARD_RULE_SELECT, obSelectAwardRule);
+        RxBus.unregister(RxBus.EVENT_AWARD_RULE_SELECT, obSelectAwardRule);
     }
 
     @Override
@@ -230,7 +229,7 @@ public class AwardEditActivity extends BaseActivity<AwardEditActivity> {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 // event
-                RxBus.post(new RxBus.Event<>(ConsHelper.EVENT_AWARD_LIST_REFRESH, new ArrayList<>()));
+                RxBus.post(new RxBus.Event<>(RxBus.EVENT_AWARD_LIST_REFRESH, new ArrayList<>()));
                 // finish
                 mActivity.finish();
             }

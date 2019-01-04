@@ -31,7 +31,6 @@ import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.controller.activity.base.BaseActivity;
 import com.jiangzg.lovenote.controller.activity.common.MapSelectActivity;
-import com.jiangzg.lovenote.helper.ConsHelper;
 import com.jiangzg.lovenote.helper.DialogHelper;
 import com.jiangzg.lovenote.helper.OssHelper;
 import com.jiangzg.lovenote.helper.ResHelper;
@@ -119,7 +118,7 @@ public class VideoEditActivity extends BaseActivity<VideoEditActivity> {
     @Override
     protected void initData(Intent intent, Bundle state) {
         // event
-        obSelectMap = RxBus.register(ConsHelper.EVENT_MAP_SELECT, info -> {
+        obSelectMap = RxBus.register(RxBus.EVENT_MAP_SELECT, info -> {
             if (info == null || video == null) return;
             video.setLatitude(info.getLatitude());
             video.setLongitude(info.getLongitude());
@@ -132,7 +131,7 @@ public class VideoEditActivity extends BaseActivity<VideoEditActivity> {
     @Override
     protected void onFinish(Bundle state) {
         RetrofitHelper.cancel(callAdd);
-        RxBus.unregister(ConsHelper.EVENT_MAP_SELECT, obSelectMap);
+        RxBus.unregister(RxBus.EVENT_MAP_SELECT, obSelectMap);
         // 记得删除临时文件
         ResHelper.deleteFileInBackground(thumbFile);
     }
@@ -147,7 +146,7 @@ public class VideoEditActivity extends BaseActivity<VideoEditActivity> {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode != RESULT_OK || video == null) return;
-        if (requestCode == ConsHelper.REQUEST_VIDEO) {
+        if (requestCode == BaseActivity.REQUEST_VIDEO) {
             // file
             videoFile = IntentResult.getVideoFile(data);
             // duration
@@ -214,11 +213,11 @@ public class VideoEditActivity extends BaseActivity<VideoEditActivity> {
     }
 
     private void selectVideo() {
-        PermUtils.requestPermissions(mActivity, ConsHelper.REQUEST_APP_INFO, PermUtils.appInfo, new PermUtils.OnPermissionListener() {
+        PermUtils.requestPermissions(mActivity, BaseActivity.REQUEST_APP_INFO, PermUtils.appInfo, new PermUtils.OnPermissionListener() {
             @Override
             public void onPermissionGranted(int requestCode, String[] permissions) {
                 Intent intent = IntentFactory.getVideo();
-                ActivityTrans.startResult(mActivity, intent, ConsHelper.REQUEST_VIDEO);
+                ActivityTrans.startResult(mActivity, intent, BaseActivity.REQUEST_VIDEO);
             }
 
             @Override
@@ -329,7 +328,7 @@ public class VideoEditActivity extends BaseActivity<VideoEditActivity> {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 // event
-                RxBus.post(new RxBus.Event<>(ConsHelper.EVENT_VIDEO_LIST_REFRESH, new ArrayList<>()));
+                RxBus.post(new RxBus.Event<>(RxBus.EVENT_VIDEO_LIST_REFRESH, new ArrayList<>()));
                 mActivity.finish();
             }
 

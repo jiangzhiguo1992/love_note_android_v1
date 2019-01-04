@@ -23,7 +23,6 @@ import com.jiangzg.lovenote.controller.activity.base.BaseActivity;
 import com.jiangzg.lovenote.controller.activity.settings.HelpActivity;
 import com.jiangzg.lovenote.controller.adapter.note.DreamAdapter;
 import com.jiangzg.lovenote.helper.ApiHelper;
-import com.jiangzg.lovenote.helper.ConsHelper;
 import com.jiangzg.lovenote.helper.DialogHelper;
 import com.jiangzg.lovenote.helper.ListHelper;
 import com.jiangzg.lovenote.helper.RecyclerHelper;
@@ -113,15 +112,15 @@ public class DreamListActivity extends BaseActivity<DreamListActivity> {
     protected void initData(Intent intent, Bundle state) {
         page = 0;
         // event
-        obListRefresh = RxBus.register(ConsHelper.EVENT_DREAM_LIST_REFRESH, dreamList -> {
+        obListRefresh = RxBus.register(RxBus.EVENT_DREAM_LIST_REFRESH, dreamList -> {
             if (recyclerHelper == null) return;
             recyclerHelper.dataRefresh();
         });
-        obListItemDelete = RxBus.register(ConsHelper.EVENT_DREAM_LIST_ITEM_DELETE, dream -> {
+        obListItemDelete = RxBus.register(RxBus.EVENT_DREAM_LIST_ITEM_DELETE, dream -> {
             if (recyclerHelper == null) return;
             ListHelper.removeObjInAdapter(recyclerHelper.getAdapter(), dream);
         });
-        obListItemRefresh = RxBus.register(ConsHelper.EVENT_DREAM_LIST_ITEM_REFRESH, dream -> {
+        obListItemRefresh = RxBus.register(RxBus.EVENT_DREAM_LIST_ITEM_REFRESH, dream -> {
             if (recyclerHelper == null) return;
             ListHelper.refreshObjInAdapter(recyclerHelper.getAdapter(), dream);
         });
@@ -132,9 +131,9 @@ public class DreamListActivity extends BaseActivity<DreamListActivity> {
     @Override
     protected void onFinish(Bundle state) {
         RetrofitHelper.cancel(call);
-        RxBus.unregister(ConsHelper.EVENT_DREAM_LIST_REFRESH, obListRefresh);
-        RxBus.unregister(ConsHelper.EVENT_DREAM_LIST_ITEM_DELETE, obListItemDelete);
-        RxBus.unregister(ConsHelper.EVENT_DREAM_LIST_ITEM_REFRESH, obListItemRefresh);
+        RxBus.unregister(RxBus.EVENT_DREAM_LIST_REFRESH, obListRefresh);
+        RxBus.unregister(RxBus.EVENT_DREAM_LIST_ITEM_DELETE, obListItemDelete);
+        RxBus.unregister(RxBus.EVENT_DREAM_LIST_ITEM_REFRESH, obListItemRefresh);
         RecyclerHelper.release(recyclerHelper);
     }
 

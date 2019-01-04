@@ -10,7 +10,6 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.controller.activity.note.GiftEditActivity;
 import com.jiangzg.lovenote.controller.adapter.common.ImgSquareShowAdapter;
-import com.jiangzg.lovenote.helper.ConsHelper;
 import com.jiangzg.lovenote.helper.RecyclerHelper;
 import com.jiangzg.lovenote.helper.RxBus;
 import com.jiangzg.lovenote.helper.SPHelper;
@@ -71,7 +70,7 @@ public class GiftAdapter extends BaseQuickAdapter<Gift, BaseViewHolder> {
     public void selectGift(int position) {
         mActivity.finish(); // 必须先关闭
         Gift item = getItem(position);
-        RxBus.post(new RxBus.Event<>(ConsHelper.EVENT_GIFT_SELECT, item));
+        RxBus.post(new RxBus.Event<>(RxBus.EVENT_GIFT_SELECT, item));
     }
 
 }

@@ -25,7 +25,6 @@ import com.jiangzg.base.view.ScreenUtils;
 import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.controller.activity.base.BaseActivity;
 import com.jiangzg.lovenote.controller.adapter.note.PictureAdapter;
-import com.jiangzg.lovenote.helper.ConsHelper;
 import com.jiangzg.lovenote.helper.ListHelper;
 import com.jiangzg.lovenote.helper.OssResHelper;
 import com.jiangzg.lovenote.helper.RecyclerHelper;
@@ -94,7 +93,7 @@ public class PictureListActivity extends BaseActivity<PictureListActivity> {
 
     public static void goActivity(Activity from, long albumId) {
         Intent intent = new Intent(from, PictureListActivity.class);
-        intent.putExtra("from", ConsHelper.ACT_LIST_FROM_BROWSE);
+        intent.putExtra("from", BaseActivity.ACT_LIST_FROM_BROWSE);
         intent.putExtra("albumId", albumId);
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         ActivityTrans.start(from, intent);
@@ -102,7 +101,7 @@ public class PictureListActivity extends BaseActivity<PictureListActivity> {
 
     public static void goActivity(Activity from, Album album) {
         Intent intent = new Intent(from, PictureListActivity.class);
-        intent.putExtra("from", ConsHelper.ACT_LIST_FROM_BROWSE);
+        intent.putExtra("from", BaseActivity.ACT_LIST_FROM_BROWSE);
         intent.putExtra("album", album);
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         ActivityTrans.start(from, intent);
@@ -110,7 +109,7 @@ public class PictureListActivity extends BaseActivity<PictureListActivity> {
 
     public static void goActivityBySelect(Activity from, Album album) {
         Intent intent = new Intent(from, PictureListActivity.class);
-        intent.putExtra("from", ConsHelper.ACT_LIST_FROM_SELECT);
+        intent.putExtra("from", BaseActivity.ACT_LIST_FROM_SELECT);
         intent.putExtra("album", album);
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         ActivityTrans.start(from, intent);
@@ -198,19 +197,19 @@ public class PictureListActivity extends BaseActivity<PictureListActivity> {
     protected void initData(Intent intent, Bundle state) {
         page = 0;
         // event
-        obAlbumRefresh = RxBus.register(ConsHelper.EVENT_ALBUM_DETAIL_REFRESH, a -> {
+        obAlbumRefresh = RxBus.register(RxBus.EVENT_ALBUM_DETAIL_REFRESH, a -> {
             if (album == null) return;
             refreshAlbum(album.getId());
         });
-        obListRefresh = RxBus.register(ConsHelper.EVENT_PICTURE_LIST_REFRESH, pictureList -> {
+        obListRefresh = RxBus.register(RxBus.EVENT_PICTURE_LIST_REFRESH, pictureList -> {
             if (recyclerHelper == null) return;
             recyclerHelper.dataRefresh();
         });
-        obListItemRefresh = RxBus.register(ConsHelper.EVENT_PICTURE_LIST_ITEM_REFRESH, picture -> {
+        obListItemRefresh = RxBus.register(RxBus.EVENT_PICTURE_LIST_ITEM_REFRESH, picture -> {
             if (recyclerHelper == null) return;
             ListHelper.refreshObjInAdapter(recyclerHelper.getAdapter(), picture);
         });
-        obListItemDelete = RxBus.register(ConsHelper.EVENT_PICTURE_LIST_ITEM_DELETE, picture -> {
+        obListItemDelete = RxBus.register(RxBus.EVENT_PICTURE_LIST_ITEM_DELETE, picture -> {
             if (recyclerHelper == null) return;
             ListHelper.removeObjInAdapter(recyclerHelper.getAdapter(), picture);
             if (album == null) return;
@@ -225,10 +224,10 @@ public class PictureListActivity extends BaseActivity<PictureListActivity> {
     protected void onFinish(Bundle state) {
         RetrofitHelper.cancel(callPictureList);
         RetrofitHelper.cancel(callAlbum);
-        RxBus.unregister(ConsHelper.EVENT_ALBUM_DETAIL_REFRESH, obAlbumRefresh);
-        RxBus.unregister(ConsHelper.EVENT_PICTURE_LIST_REFRESH, obListRefresh);
-        RxBus.unregister(ConsHelper.EVENT_PICTURE_LIST_ITEM_REFRESH, obListItemRefresh);
-        RxBus.unregister(ConsHelper.EVENT_PICTURE_LIST_ITEM_DELETE, obListItemDelete);
+        RxBus.unregister(RxBus.EVENT_ALBUM_DETAIL_REFRESH, obAlbumRefresh);
+        RxBus.unregister(RxBus.EVENT_PICTURE_LIST_REFRESH, obListRefresh);
+        RxBus.unregister(RxBus.EVENT_PICTURE_LIST_ITEM_REFRESH, obListItemRefresh);
+        RxBus.unregister(RxBus.EVENT_PICTURE_LIST_ITEM_DELETE, obListItemDelete);
         RecyclerHelper.release(recyclerHelper);
     }
 
@@ -251,7 +250,7 @@ public class PictureListActivity extends BaseActivity<PictureListActivity> {
     }
 
     private boolean isFromSelectPicture() {
-        return getIntent().getIntExtra("from", ConsHelper.ACT_LIST_FROM_BROWSE) == ConsHelper.ACT_LIST_FROM_SELECT;
+        return getIntent().getIntExtra("from", BaseActivity.ACT_LIST_FROM_BROWSE) == BaseActivity.ACT_LIST_FROM_SELECT;
     }
 
     private void refreshAlbumView() {

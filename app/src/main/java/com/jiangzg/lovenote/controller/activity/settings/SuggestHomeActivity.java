@@ -27,7 +27,6 @@ import com.jiangzg.base.component.ActivityTrans;
 import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.controller.activity.base.BaseActivity;
 import com.jiangzg.lovenote.controller.adapter.settings.SuggestAdapter;
-import com.jiangzg.lovenote.helper.ConsHelper;
 import com.jiangzg.lovenote.helper.ListHelper;
 import com.jiangzg.lovenote.helper.RecyclerHelper;
 import com.jiangzg.lovenote.helper.RetrofitHelper;
@@ -116,15 +115,15 @@ public class SuggestHomeActivity extends BaseActivity<SuggestHomeActivity> {
     protected void initData(Intent intent, Bundle state) {
         page = 0;
         // event
-        obListRefresh = RxBus.register(ConsHelper.EVENT_SUGGEST_LIST_REFRESH, suggests -> {
+        obListRefresh = RxBus.register(RxBus.EVENT_SUGGEST_LIST_REFRESH, suggests -> {
             if (recyclerHelper == null) return;
             recyclerHelper.dataRefresh();
         });
-        obListItemDelete = RxBus.register(ConsHelper.EVENT_SUGGEST_LIST_ITEM_DELETE, suggest -> {
+        obListItemDelete = RxBus.register(RxBus.EVENT_SUGGEST_LIST_ITEM_DELETE, suggest -> {
             if (recyclerHelper == null) return;
             ListHelper.removeObjInAdapter(recyclerHelper.getAdapter(), suggest);
         });
-        obListItemRefresh = RxBus.register(ConsHelper.EVENT_SUGGEST_LIST_ITEM_REFRESH, suggest -> {
+        obListItemRefresh = RxBus.register(RxBus.EVENT_SUGGEST_LIST_ITEM_REFRESH, suggest -> {
             if (recyclerHelper == null) return;
             ListHelper.refreshObjInAdapter(recyclerHelper.getAdapter(), suggest);
         });
@@ -135,9 +134,9 @@ public class SuggestHomeActivity extends BaseActivity<SuggestHomeActivity> {
     @Override
     protected void onFinish(Bundle state) {
         RetrofitHelper.cancel(call);
-        RxBus.unregister(ConsHelper.EVENT_SUGGEST_LIST_REFRESH, obListRefresh);
-        RxBus.unregister(ConsHelper.EVENT_SUGGEST_LIST_ITEM_DELETE, obListItemDelete);
-        RxBus.unregister(ConsHelper.EVENT_SUGGEST_LIST_ITEM_REFRESH, obListItemRefresh);
+        RxBus.unregister(RxBus.EVENT_SUGGEST_LIST_REFRESH, obListRefresh);
+        RxBus.unregister(RxBus.EVENT_SUGGEST_LIST_ITEM_DELETE, obListItemDelete);
+        RxBus.unregister(RxBus.EVENT_SUGGEST_LIST_ITEM_REFRESH, obListItemRefresh);
         RecyclerHelper.release(recyclerHelper);
     }
 

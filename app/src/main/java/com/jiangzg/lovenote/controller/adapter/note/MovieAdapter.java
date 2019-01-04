@@ -12,7 +12,6 @@ import com.jiangzg.lovenote.controller.activity.base.BaseActivity;
 import com.jiangzg.lovenote.controller.activity.common.MapShowActivity;
 import com.jiangzg.lovenote.controller.activity.note.MovieEditActivity;
 import com.jiangzg.lovenote.controller.adapter.common.ImgSquareShowAdapter;
-import com.jiangzg.lovenote.helper.ConsHelper;
 import com.jiangzg.lovenote.helper.RecyclerHelper;
 import com.jiangzg.lovenote.helper.RxBus;
 import com.jiangzg.lovenote.helper.SPHelper;
@@ -75,7 +74,7 @@ public class MovieAdapter extends BaseQuickAdapter<Movie, BaseViewHolder> {
     public void selectMovie(int position) {
         mActivity.finish(); // 必须先关闭
         Movie item = getItem(position);
-        RxBus.post(new RxBus.Event<>(ConsHelper.EVENT_MOVIE_SELECT, item));
+        RxBus.post(new RxBus.Event<>(RxBus.EVENT_MOVIE_SELECT, item));
     }
 
     public void goEditActivity(int position) {

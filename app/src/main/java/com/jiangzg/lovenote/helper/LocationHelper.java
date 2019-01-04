@@ -12,6 +12,7 @@ import com.jiangzg.base.common.LogUtils;
 import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.base.system.LocationInfo;
 import com.jiangzg.base.system.PermUtils;
+import com.jiangzg.lovenote.controller.activity.base.BaseActivity;
 import com.jiangzg.lovenote.main.MyApp;
 
 /**
@@ -30,7 +31,7 @@ public class LocationHelper {
     public static boolean checkLocationEnable(final Activity activity) {
         if (!PermUtils.isPermissionOK(activity, PermUtils.location)) {
             // 权限不过关
-            PermUtils.requestPermissions(activity, ConsHelper.REQUEST_LOCATION, PermUtils.location, new PermUtils.OnPermissionListener() {
+            PermUtils.requestPermissions(activity, BaseActivity.REQUEST_LOCATION, PermUtils.location, new PermUtils.OnPermissionListener() {
                 @Override
                 public void onPermissionGranted(int requestCode, String[] permissions) {
                     // 通过之后 用户再点击一次来进行后面的判断

@@ -14,7 +14,6 @@ import com.jiangzg.lovenote.controller.adapter.topic.PostAdapter;
 import com.jiangzg.lovenote.controller.fragment.base.BaseFragment;
 import com.jiangzg.lovenote.controller.fragment.base.BasePagerFragment;
 import com.jiangzg.lovenote.helper.ApiHelper;
-import com.jiangzg.lovenote.helper.ConsHelper;
 import com.jiangzg.lovenote.helper.ListHelper;
 import com.jiangzg.lovenote.helper.RecyclerHelper;
 import com.jiangzg.lovenote.helper.RetrofitHelper;
@@ -96,40 +95,40 @@ public class PostListFragment extends BasePagerFragment<PostListFragment> {
         official = false;
         well = false;
         // event
-        obGoTop = RxBus.register(ConsHelper.EVENT_POST_GO_TOP, isTrue -> {
+        obGoTop = RxBus.register(RxBus.EVENT_POST_GO_TOP, isTrue -> {
             if (!mFragment.getUserVisibleHint() || !isTrue || rv == null) return;
             rv.smoothScrollToPosition(0);
         });
-        obSearchNormal = RxBus.register(ConsHelper.EVENT_POST_SEARCH_ALL, isTrue -> {
+        obSearchNormal = RxBus.register(RxBus.EVENT_POST_SEARCH_ALL, isTrue -> {
             if (!mFragment.getUserVisibleHint() || !isTrue) return;
             official = false;
             well = false;
             recyclerHelper.dataRefresh();
         });
-        obSearchOfficial = RxBus.register(ConsHelper.EVENT_POST_SEARCH_OFFICIAL, isTrue -> {
+        obSearchOfficial = RxBus.register(RxBus.EVENT_POST_SEARCH_OFFICIAL, isTrue -> {
             if (!mFragment.getUserVisibleHint() || !isTrue) return;
             official = true;
             well = false;
             recyclerHelper.dataRefresh();
         });
-        obSearchWell = RxBus.register(ConsHelper.EVENT_POST_SEARCH_WELL, isTrue -> {
+        obSearchWell = RxBus.register(RxBus.EVENT_POST_SEARCH_WELL, isTrue -> {
             if (!mFragment.getUserVisibleHint() || !isTrue) return;
             official = false;
             well = true;
             recyclerHelper.dataRefresh();
         });
-        obListRefresh = RxBus.register(ConsHelper.EVENT_POST_LIST_REFRESH, subKind -> {
+        obListRefresh = RxBus.register(RxBus.EVENT_POST_LIST_REFRESH, subKind -> {
             if (recyclerHelper == null || subKindInfo == null || (subKind > 0 && subKindInfo.getKind() != subKind)) {
                 // 全部是可以更新的
                 return;
             }
             recyclerHelper.dataRefresh();
         });
-        obListItemDelete = RxBus.register(ConsHelper.EVENT_POST_LIST_ITEM_DELETE, post -> {
+        obListItemDelete = RxBus.register(RxBus.EVENT_POST_LIST_ITEM_DELETE, post -> {
             if (recyclerHelper == null) return;
             ListHelper.removeObjInAdapter(recyclerHelper.getAdapter(), post);
         });
-        obListItemRefresh = RxBus.register(ConsHelper.EVENT_POST_LIST_ITEM_REFRESH, post -> {
+        obListItemRefresh = RxBus.register(RxBus.EVENT_POST_LIST_ITEM_REFRESH, post -> {
             if (recyclerHelper == null) return;
             ListHelper.refreshObjInAdapter(recyclerHelper.getAdapter(), post);
         });
@@ -140,13 +139,13 @@ public class PostListFragment extends BasePagerFragment<PostListFragment> {
     @Override
     protected void onFinish(Bundle state) {
         RetrofitHelper.cancel(call);
-        RxBus.unregister(ConsHelper.EVENT_POST_GO_TOP, obGoTop);
-        RxBus.unregister(ConsHelper.EVENT_POST_SEARCH_ALL, obSearchNormal);
-        RxBus.unregister(ConsHelper.EVENT_POST_SEARCH_OFFICIAL, obSearchOfficial);
-        RxBus.unregister(ConsHelper.EVENT_POST_SEARCH_WELL, obSearchWell);
-        RxBus.unregister(ConsHelper.EVENT_POST_LIST_REFRESH, obListRefresh);
-        RxBus.unregister(ConsHelper.EVENT_POST_LIST_ITEM_DELETE, obListItemDelete);
-        RxBus.unregister(ConsHelper.EVENT_POST_LIST_ITEM_REFRESH, obListItemRefresh);
+        RxBus.unregister(RxBus.EVENT_POST_GO_TOP, obGoTop);
+        RxBus.unregister(RxBus.EVENT_POST_SEARCH_ALL, obSearchNormal);
+        RxBus.unregister(RxBus.EVENT_POST_SEARCH_OFFICIAL, obSearchOfficial);
+        RxBus.unregister(RxBus.EVENT_POST_SEARCH_WELL, obSearchWell);
+        RxBus.unregister(RxBus.EVENT_POST_LIST_REFRESH, obListRefresh);
+        RxBus.unregister(RxBus.EVENT_POST_LIST_ITEM_DELETE, obListItemDelete);
+        RxBus.unregister(RxBus.EVENT_POST_LIST_ITEM_REFRESH, obListItemRefresh);
         RecyclerHelper.release(recyclerHelper);
     }
 

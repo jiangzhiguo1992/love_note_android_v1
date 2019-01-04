@@ -23,7 +23,6 @@ import com.jiangzg.lovenote.controller.activity.base.BaseActivity;
 import com.jiangzg.lovenote.controller.activity.settings.HelpActivity;
 import com.jiangzg.lovenote.controller.adapter.note.AwardAdapter;
 import com.jiangzg.lovenote.helper.ApiHelper;
-import com.jiangzg.lovenote.helper.ConsHelper;
 import com.jiangzg.lovenote.helper.DialogHelper;
 import com.jiangzg.lovenote.helper.ListHelper;
 import com.jiangzg.lovenote.helper.RecyclerHelper;
@@ -120,11 +119,11 @@ public class AwardListActivity extends BaseActivity<AwardListActivity> {
     protected void initData(Intent intent, Bundle state) {
         page = 0;
         // event
-        obListRefresh = RxBus.register(ConsHelper.EVENT_AWARD_LIST_REFRESH, awardList -> {
+        obListRefresh = RxBus.register(RxBus.EVENT_AWARD_LIST_REFRESH, awardList -> {
             if (recyclerHelper == null) return;
             recyclerHelper.dataRefresh();
         });
-        obListItemDelete = RxBus.register(ConsHelper.EVENT_AWARD_LIST_ITEM_DELETE, award -> {
+        obListItemDelete = RxBus.register(RxBus.EVENT_AWARD_LIST_ITEM_DELETE, award -> {
             if (recyclerHelper == null) return;
             ListHelper.removeObjInAdapter(recyclerHelper.getAdapter(), award);
             refreshScoreData();
@@ -137,8 +136,8 @@ public class AwardListActivity extends BaseActivity<AwardListActivity> {
     protected void onFinish(Bundle state) {
         RetrofitHelper.cancel(callList);
         RetrofitHelper.cancel(callScore);
-        RxBus.unregister(ConsHelper.EVENT_AWARD_LIST_REFRESH, obListRefresh);
-        RxBus.unregister(ConsHelper.EVENT_AWARD_LIST_ITEM_DELETE, obListItemDelete);
+        RxBus.unregister(RxBus.EVENT_AWARD_LIST_REFRESH, obListRefresh);
+        RxBus.unregister(RxBus.EVENT_AWARD_LIST_ITEM_DELETE, obListItemDelete);
         RecyclerHelper.release(recyclerHelper);
     }
 

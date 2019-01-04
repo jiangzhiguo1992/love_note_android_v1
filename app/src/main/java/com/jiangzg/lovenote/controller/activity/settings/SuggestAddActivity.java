@@ -23,7 +23,6 @@ import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.controller.activity.base.BaseActivity;
 import com.jiangzg.lovenote.controller.activity.common.BigImageActivity;
-import com.jiangzg.lovenote.helper.ConsHelper;
 import com.jiangzg.lovenote.helper.DialogHelper;
 import com.jiangzg.lovenote.helper.MediaPickHelper;
 import com.jiangzg.lovenote.helper.OssHelper;
@@ -149,7 +148,7 @@ public class SuggestAddActivity extends BaseActivity<SuggestAddActivity> {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode != RESULT_OK) return;
-        if (requestCode == ConsHelper.REQUEST_PICTURE) {
+        if (requestCode == BaseActivity.REQUEST_PICTURE) {
             // 相册
             pictureFile = MediaPickHelper.getResultFile(mActivity, data);
             if (FileUtils.isFileEmpty(pictureFile)) {
@@ -311,7 +310,7 @@ public class SuggestAddActivity extends BaseActivity<SuggestAddActivity> {
         RetrofitHelper.enqueue(call, loading, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
-                RxBus.post(new RxBus.Event<>(ConsHelper.EVENT_SUGGEST_LIST_REFRESH, new ArrayList<>()));
+                RxBus.post(new RxBus.Event<>(RxBus.EVENT_SUGGEST_LIST_REFRESH, new ArrayList<>()));
                 mActivity.finish();
             }
 

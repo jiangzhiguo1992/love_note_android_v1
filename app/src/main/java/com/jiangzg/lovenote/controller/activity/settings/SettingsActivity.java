@@ -22,7 +22,6 @@ import com.jiangzg.lovenote.controller.activity.base.BaseActivity;
 import com.jiangzg.lovenote.controller.activity.main.SplashActivity;
 import com.jiangzg.lovenote.controller.activity.user.PasswordActivity;
 import com.jiangzg.lovenote.controller.activity.user.PhoneActivity;
-import com.jiangzg.lovenote.helper.ConsHelper;
 import com.jiangzg.lovenote.helper.DialogHelper;
 import com.jiangzg.lovenote.helper.PushHelper;
 import com.jiangzg.lovenote.helper.ResHelper;
@@ -261,7 +260,7 @@ public class SettingsActivity extends BaseActivity<SettingsActivity> {
                 .onPositive((dialog1, which) -> {
                     SPHelper.clearAll();
                     PushHelper.unBindAccount();
-                    RxBus.post(new RxBus.Event<>(ConsHelper.EVENT_USER_REFRESH, null));
+                    RxBus.post(new RxBus.Event<>(RxBus.EVENT_USER_REFRESH, null));
                     SplashActivity.goActivity(mActivity);
                 })
                 .build();

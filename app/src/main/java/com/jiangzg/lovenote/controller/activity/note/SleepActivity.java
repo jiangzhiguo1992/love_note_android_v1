@@ -28,7 +28,6 @@ import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.controller.activity.base.BaseActivity;
 import com.jiangzg.lovenote.controller.activity.settings.HelpActivity;
 import com.jiangzg.lovenote.controller.adapter.note.SleepAdapter;
-import com.jiangzg.lovenote.helper.ConsHelper;
 import com.jiangzg.lovenote.helper.ListHelper;
 import com.jiangzg.lovenote.helper.RecyclerHelper;
 import com.jiangzg.lovenote.helper.RetrofitHelper;
@@ -188,7 +187,7 @@ public class SleepActivity extends BaseActivity<SleepActivity> {
     @Override
     protected void initData(Intent intent, Bundle state) {
         // event
-        obListItemDelete = RxBus.register(ConsHelper.EVENT_SLEEP_LIST_ITEM_DELETE, sleep -> {
+        obListItemDelete = RxBus.register(RxBus.EVENT_SLEEP_LIST_ITEM_DELETE, sleep -> {
             if (recyclerLeft != null) {
                 ListHelper.removeObjInAdapter(recyclerLeft.getAdapter(), sleep);
             }
@@ -216,7 +215,7 @@ public class SleepActivity extends BaseActivity<SleepActivity> {
         RetrofitHelper.cancel(callListGet);
         RecyclerHelper.release(recyclerLeft);
         RecyclerHelper.release(recyclerRight);
-        RxBus.unregister(ConsHelper.EVENT_SLEEP_LIST_ITEM_DELETE, obListItemDelete);
+        RxBus.unregister(RxBus.EVENT_SLEEP_LIST_ITEM_DELETE, obListItemDelete);
     }
 
     @Override

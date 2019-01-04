@@ -17,7 +17,6 @@ import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.controller.activity.base.BaseActivity;
 import com.jiangzg.lovenote.controller.adapter.common.ImgSquareShowAdapter;
-import com.jiangzg.lovenote.helper.ConsHelper;
 import com.jiangzg.lovenote.helper.DialogHelper;
 import com.jiangzg.lovenote.helper.RecyclerHelper;
 import com.jiangzg.lovenote.helper.RetrofitHelper;
@@ -67,7 +66,7 @@ public class DiaryDetailActivity extends BaseActivity<DiaryDetailActivity> {
 
     public static void goActivity(Activity from, Diary diary) {
         Intent intent = new Intent(from, DiaryDetailActivity.class);
-        intent.putExtra("from", ConsHelper.ACT_DETAIL_FROM_OBJ);
+        intent.putExtra("from", BaseActivity.ACT_DETAIL_FROM_OBJ);
         intent.putExtra("diary", diary);
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         ActivityTrans.start(from, intent);
@@ -75,7 +74,7 @@ public class DiaryDetailActivity extends BaseActivity<DiaryDetailActivity> {
 
     public static void goActivity(Activity from, long did) {
         Intent intent = new Intent(from, DiaryDetailActivity.class);
-        intent.putExtra("from", ConsHelper.ACT_DETAIL_FROM_ID);
+        intent.putExtra("from", BaseActivity.ACT_DETAIL_FROM_ID);
         intent.putExtra("did", did);
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         ActivityTrans.start(from, intent);
@@ -91,15 +90,15 @@ public class DiaryDetailActivity extends BaseActivity<DiaryDetailActivity> {
         ViewHelper.initTopBar(mActivity, tb, getString(R.string.diary), true);
         srl.setEnabled(false);
         // init
-        int from = intent.getIntExtra("from", ConsHelper.ACT_DETAIL_FROM_ID);
-        if (from == ConsHelper.ACT_DETAIL_FROM_OBJ) {
+        int from = intent.getIntExtra("from", BaseActivity.ACT_DETAIL_FROM_ID);
+        if (from == BaseActivity.ACT_DETAIL_FROM_OBJ) {
             diary = intent.getParcelableExtra("diary");
             refreshView();
             // 没有详情页的，可以不加
             if (diary != null) {
                 refreshData(diary.getId());
             }
-        } else if (from == ConsHelper.ACT_DETAIL_FROM_ID) {
+        } else if (from == BaseActivity.ACT_DETAIL_FROM_ID) {
             long did = intent.getLongExtra("did", 0);
             refreshData(did);
         }
@@ -108,7 +107,7 @@ public class DiaryDetailActivity extends BaseActivity<DiaryDetailActivity> {
     @Override
     protected void initData(Intent intent, Bundle state) {
         // event
-        obDetailRefresh = RxBus.register(ConsHelper.EVENT_DIARY_DETAIL_REFRESH, diary -> {
+        obDetailRefresh = RxBus.register(RxBus.EVENT_DIARY_DETAIL_REFRESH, diary -> {
             if (diary == null) return;
             refreshData(diary.getId());
         });
@@ -118,7 +117,7 @@ public class DiaryDetailActivity extends BaseActivity<DiaryDetailActivity> {
     protected void onFinish(Bundle state) {
         RetrofitHelper.cancel(callDel);
         RetrofitHelper.cancel(callGet);
-        RxBus.unregister(ConsHelper.EVENT_DIARY_DETAIL_REFRESH, obDetailRefresh);
+        RxBus.unregister(RxBus.EVENT_DIARY_DETAIL_REFRESH, obDetailRefresh);
         RecyclerHelper.release(recyclerHelper);
     }
 
@@ -223,7 +222,7 @@ public class DiaryDetailActivity extends BaseActivity<DiaryDetailActivity> {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 // event
-                RxBus.post(new RxBus.Event<>(ConsHelper.EVENT_DIARY_LIST_ITEM_DELETE, diary));
+                RxBus.post(new RxBus.Event<>(RxBus.EVENT_DIARY_LIST_ITEM_DELETE, diary));
                 // finish
                 mActivity.finish();
             }

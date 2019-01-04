@@ -20,7 +20,6 @@ import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.controller.activity.base.BaseActivity;
 import com.jiangzg.lovenote.controller.activity.common.MapSelectActivity;
-import com.jiangzg.lovenote.helper.ConsHelper;
 import com.jiangzg.lovenote.helper.DialogHelper;
 import com.jiangzg.lovenote.helper.RxBus;
 import com.jiangzg.lovenote.helper.SPHelper;
@@ -85,7 +84,7 @@ public class TravelPlaceEditActivity extends BaseActivity<TravelPlaceEditActivit
     @Override
     protected void initData(Intent intent, Bundle state) {
         // event
-        obSelectMap = RxBus.register(ConsHelper.EVENT_MAP_SELECT, info -> {
+        obSelectMap = RxBus.register(RxBus.EVENT_MAP_SELECT, info -> {
             if (info == null || place == null) return;
             place.setLatitude(info.getLatitude());
             place.setLongitude(info.getLongitude());
@@ -97,7 +96,7 @@ public class TravelPlaceEditActivity extends BaseActivity<TravelPlaceEditActivit
 
     @Override
     protected void onFinish(Bundle state) {
-        RxBus.unregister(ConsHelper.EVENT_MAP_SELECT, obSelectMap);
+        RxBus.unregister(RxBus.EVENT_MAP_SELECT, obSelectMap);
     }
 
     @Override
@@ -179,7 +178,7 @@ public class TravelPlaceEditActivity extends BaseActivity<TravelPlaceEditActivit
             return;
         }
         // event
-        RxBus.post(new RxBus.Event<>(ConsHelper.EVENT_TRAVEL_EDIT_ADD_PLACE, place));
+        RxBus.post(new RxBus.Event<>(RxBus.EVENT_TRAVEL_EDIT_ADD_PLACE, place));
         mActivity.finish();
     }
 

@@ -27,7 +27,6 @@ import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.controller.activity.base.BaseActivity;
 import com.jiangzg.lovenote.controller.adapter.common.MapSelectAdapter;
-import com.jiangzg.lovenote.helper.ConsHelper;
 import com.jiangzg.lovenote.helper.LocationHelper;
 import com.jiangzg.lovenote.helper.MapHelper;
 import com.jiangzg.lovenote.helper.RecyclerHelper;
@@ -147,7 +146,7 @@ public class MapSelectActivity extends BaseActivity<MapSelectActivity> {
             }
         });
         // 地图搜索
-        obMapSearch = RxBus.register(ConsHelper.EVENT_MAP_SELECT, info -> {
+        obMapSearch = RxBus.register(RxBus.EVENT_MAP_SELECT, info -> {
             // 修改选中位置
             //setLocationSelect(info, true, true);
             mActivity.finish();
@@ -171,7 +170,7 @@ public class MapSelectActivity extends BaseActivity<MapSelectActivity> {
     @Override
     protected void onFinish(Bundle state) {
         RecyclerHelper.release(recyclerHelper);
-        RxBus.unregister(ConsHelper.EVENT_MAP_SELECT, obMapSearch);
+        RxBus.unregister(RxBus.EVENT_MAP_SELECT, obMapSearch);
         if (poiSearch != null) {
             poiSearch.setOnPoiSearchListener(null);
         }
@@ -233,7 +232,7 @@ public class MapSelectActivity extends BaseActivity<MapSelectActivity> {
                     ToastUtils.show(getString(R.string.please_select_address));
                     return true;
                 }
-                RxBus.post(new RxBus.Event<>(ConsHelper.EVENT_MAP_SELECT, locationSelect));
+                RxBus.post(new RxBus.Event<>(RxBus.EVENT_MAP_SELECT, locationSelect));
                 //mActivity.finish();
                 return true;
         }

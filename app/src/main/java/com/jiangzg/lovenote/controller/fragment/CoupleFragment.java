@@ -30,7 +30,6 @@ import com.jiangzg.lovenote.controller.adapter.couple.HomeWallPagerAdapter;
 import com.jiangzg.lovenote.controller.fragment.base.BaseFragment;
 import com.jiangzg.lovenote.controller.fragment.base.BasePagerFragment;
 import com.jiangzg.lovenote.helper.ApiHelper;
-import com.jiangzg.lovenote.helper.ConsHelper;
 import com.jiangzg.lovenote.helper.CountHelper;
 import com.jiangzg.lovenote.helper.LocationHelper;
 import com.jiangzg.lovenote.helper.OssResHelper;
@@ -154,8 +153,8 @@ public class CoupleFragment extends BasePagerFragment<CoupleFragment> {
 
     protected void loadData() {
         // event
-        obWallPaperRefresh = RxBus.register(ConsHelper.EVENT_WALL_PAPER_REFRESH, wallPaper -> refreshWallPaperView());
-        obCoupleRefresh = RxBus.register(ConsHelper.EVENT_COUPLE_REFRESH, couple -> {
+        obWallPaperRefresh = RxBus.register(RxBus.EVENT_WALL_PAPER_REFRESH, wallPaper -> refreshWallPaperView());
+        obCoupleRefresh = RxBus.register(RxBus.EVENT_COUPLE_REFRESH, couple -> {
             refreshView();
             // oss 这里配对状态变化 oss也会变化
             ApiHelper.ossInfoUpdate();
@@ -168,8 +167,8 @@ public class CoupleFragment extends BasePagerFragment<CoupleFragment> {
     protected void onFinish(Bundle state) {
         RetrofitHelper.cancel(callHomeGet);
         RetrofitHelper.cancel(callPlaceGet);
-        RxBus.unregister(ConsHelper.EVENT_WALL_PAPER_REFRESH, obWallPaperRefresh);
-        RxBus.unregister(ConsHelper.EVENT_COUPLE_REFRESH, obCoupleRefresh);
+        RxBus.unregister(RxBus.EVENT_WALL_PAPER_REFRESH, obWallPaperRefresh);
+        RxBus.unregister(RxBus.EVENT_COUPLE_REFRESH, obCoupleRefresh);
         stopCoupleCountDownTask();
     }
 
@@ -462,7 +461,7 @@ public class CoupleFragment extends BasePagerFragment<CoupleFragment> {
                     Couple couple = SPHelper.getCouple();
                     long breakCountDown = UserHelper.getCoupleBreakCountDown(couple);
                     if (breakCountDown <= 0) {
-                        RxBus.post(new RxBus.Event<>(ConsHelper.EVENT_COUPLE_REFRESH, new Couple()));
+                        RxBus.post(new RxBus.Event<>(RxBus.EVENT_COUPLE_REFRESH, new Couple()));
                         stopCoupleCountDownTask();
                     } else {
                         String breakCountDownShow = getBreakCountDownShow(couple);
