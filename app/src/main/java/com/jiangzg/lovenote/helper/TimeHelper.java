@@ -20,103 +20,103 @@ public class TimeHelper {
         return time * 1000;
     }
 
-    // 时间显示(有横线)(一般不用)
     public static String getTimeShowLine_MD_YMD_ByGo(long time) {
+        long jTime = getJavaTimeByGo(time);
         String format;
-        if (DateUtils.isSameYear(DateUtils.getCurrentLong(), getJavaTimeByGo(time))) {
+        if (DateUtils.isSameYear(DateUtils.getCurrentLong(), jTime)) {
             // 同一年
             format = DateUtils.FORMAT_LINE_M_D;
         } else {
             // 不同年
             format = DateUtils.FORMAT_LINE_Y_M_D;
         }
-        return DateUtils.getStr(getJavaTimeByGo(time), format);
+        return DateUtils.getStr(jTime, format);
     }
 
-    // 时间显示(有横线)
     public static String getTimeShowLine_HM_MD_YMD_ByGo(long time) {
+        long jTime = getJavaTimeByGo(time);
         String format;
-        if (DateUtils.isSameDay(DateUtils.getCurrentLong(), getJavaTimeByGo(time))) {
+        if (DateUtils.isSameDay(DateUtils.getCurrentLong(), jTime)) {
             // 同一天
             format = DateUtils.FORMAT_H_M;
-        } else if (DateUtils.isSameYear(DateUtils.getCurrentLong(), getJavaTimeByGo(time))) {
+        } else if (DateUtils.isSameYear(DateUtils.getCurrentLong(), jTime)) {
             // 同一年
             format = DateUtils.FORMAT_LINE_M_D;
         } else {
             // 不同年
             format = DateUtils.FORMAT_LINE_Y_M_D;
         }
-        return DateUtils.getStr(getJavaTimeByGo(time), format);
+        return DateUtils.getStr(jTime, format);
     }
 
-    // 时间显示(有横线)
     public static String getTimeShowLine_HM_MDHM_YMDHM_ByGo(long time) {
+        long jTime = getJavaTimeByGo(time);
         String format;
-        if (DateUtils.isSameDay(DateUtils.getCurrentLong(), getJavaTimeByGo(time))) {
+        if (DateUtils.isSameDay(DateUtils.getCurrentLong(), jTime)) {
             // 同一天
             format = DateUtils.FORMAT_H_M;
-        } else if (DateUtils.isSameYear(DateUtils.getCurrentLong(), getJavaTimeByGo(time))) {
+        } else if (DateUtils.isSameYear(DateUtils.getCurrentLong(), jTime)) {
             // 同一年
             format = DateUtils.FORMAT_LINE_M_D_H_M;
         } else {
             // 不同年
             format = DateUtils.FORMAT_LINE_Y_M_D_H_M;
         }
-        return DateUtils.getStr(getJavaTimeByGo(time), format);
+        return DateUtils.getStr(jTime, format);
     }
 
-    // 时间显示(y年 M月 d日)(一般不用)
     public static String getTimeShowLocal_MD_YMD_ByGo(long time) {
+        long jTime = getJavaTimeByGo(time);
         String year = MyApp.get().getString(R.string.year);
         String month = MyApp.get().getString(R.string.month);
         String day = MyApp.get().getString(R.string.dayR);
         String format;
-        if (DateUtils.isSameYear(DateUtils.getCurrentLong(), getJavaTimeByGo(time))) {
+        if (DateUtils.isSameYear(DateUtils.getCurrentLong(), jTime)) {
             // 同一年
             format = "MM" + month + " dd" + day;
         } else {
             // 不同年
             format = "yyyy" + year + " MM" + month + " dd" + day;
         }
-        return DateUtils.getStr(getJavaTimeByGo(time), format);
+        return DateUtils.getStr(jTime, format);
     }
 
-    // 时间显示(y年 M月 d日 / HH:mm)
     public static String getTimeShowLocal_HM_MD_YMD_ByGo(long time) {
+        long jTime = getJavaTimeByGo(time);
         String year = MyApp.get().getString(R.string.year);
         String month = MyApp.get().getString(R.string.month);
         String day = MyApp.get().getString(R.string.dayR);
         String format;
-        if (DateUtils.isSameDay(DateUtils.getCurrentLong(), getJavaTimeByGo(time))) {
+        if (DateUtils.isSameDay(DateUtils.getCurrentLong(), jTime)) {
             // 同一天
             format = DateUtils.FORMAT_H_M;
-        } else if (DateUtils.isSameYear(DateUtils.getCurrentLong(), getJavaTimeByGo(time))) {
+        } else if (DateUtils.isSameYear(DateUtils.getCurrentLong(), jTime)) {
             // 同一年
             format = "MM" + month + " dd" + day;
         } else {
             // 不同年
             format = "yyyy" + year + " MM" + month + " dd" + day;
         }
-        return DateUtils.getStr(getJavaTimeByGo(time), format);
+        return DateUtils.getStr(jTime, format);
     }
 
-    // 时间显示(y年M月d日 HH:mm)
     public static String getTimeShowLocal_HM_MDHM_YMDHM_ByGo(long time) {
+        long jTime = getJavaTimeByGo(time);
         String year = MyApp.get().getString(R.string.year);
         String month = MyApp.get().getString(R.string.month);
         String day = MyApp.get().getString(R.string.dayR);
         String format;
-        if (DateUtils.isSameDay(DateUtils.getCurrentLong(), getJavaTimeByGo(time))) {
+        if (DateUtils.isSameDay(DateUtils.getCurrentLong(), jTime)) {
             // 同一天
             format = DateUtils.FORMAT_H_M;
-        } else if (DateUtils.isSameYear(DateUtils.getCurrentLong(), getJavaTimeByGo(time))) {
+        } else if (DateUtils.isSameYear(DateUtils.getCurrentLong(), jTime)) {
             // 同一年
             format = "MM" + month + "dd" + day + " HH:mm";
         } else {
             // 不同年
             format = "yyyy" + year + "MM" + month + "dd" + day + " HH:mm";
         }
-        return DateUtils.getStr(getJavaTimeByGo(time), format);
+        return DateUtils.getStr(jTime, format);
     }
 
 }
