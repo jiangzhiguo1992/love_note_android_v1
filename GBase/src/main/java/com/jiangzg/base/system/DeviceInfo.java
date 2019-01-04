@@ -25,7 +25,6 @@ public class DeviceInfo {
     private String macAddress; // MAC地址
     private String model; // 设备型号
     private String manufacturer; // 设备厂商
-    private String platform; // 平台(Android)
     private String osVersion; // Android版本号
     private boolean isPhone; // 是否是手机
     private boolean isTable; // 是否是手表
@@ -117,16 +116,8 @@ public class DeviceInfo {
         if (StringUtils.isEmpty(model)) {
             model = Build.MODEL;
         }
-        LogUtils.d(DeviceInfo.class, "getModel: ", model);
+        LogUtils.d(DeviceInfo.class, "getModel", model);
         return model;
-    }
-
-    public String getPlatform() {
-        if (StringUtils.isEmpty(platform)) {
-            platform = "Android";
-        }
-        LogUtils.d(DeviceInfo.class, "getPlatform", platform);
-        return platform;
     }
 
     public String getOsVersion() {
@@ -144,7 +135,6 @@ public class DeviceInfo {
                 ", macAddress='" + macAddress + '\'' +
                 ", model='" + model + '\'' +
                 ", manufacturer='" + manufacturer + '\'' +
-                ", platform='" + platform + '\'' +
                 ", osVersion='" + osVersion + '\'' +
                 ", isPhone=" + isPhone +
                 ", isTable=" + isTable +

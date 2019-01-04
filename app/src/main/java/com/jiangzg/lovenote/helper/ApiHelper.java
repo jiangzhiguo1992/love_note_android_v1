@@ -147,7 +147,7 @@ public class ApiHelper {
         // 语言
         entry.setLanguage(LanguageUtils.getLocale().getLanguage());
         // 手机平台
-        entry.setPlatform(DeviceInfo.get().getPlatform());
+        entry.setPlatform("android");
         // 手机版本
         entry.setOsVersion(DeviceInfo.get().getOsVersion());
         // 软件版本
