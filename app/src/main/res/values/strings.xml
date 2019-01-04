@@ -739,7 +739,7 @@
     <string name="help_topic_home_c1_q">为什么有的类别我这里有，我的另一半没有呢？</string>
     <string name="help_topic_home_c1_a">亲，我们这里部分模块是区分用户和地域的。\n有的模块只对男性开放，有的只对女性开放，有的只对同性恋开放，有的只对异性恋开放。\n有的模块只对区域内用户开发，类似于《附近的帖子》。</string>
     <string name="help_topic_home_c2_q">这个匿名发帖靠谱吗？</string>
-    <string name="help_topic_home_c2_a">考虑到部分内容可能不想让另一半看到，我们提供了匿名发布的模块，并且提供了相应的分类。\n放心，匿名的话，发帖人的信息将会被抹除，包括在匿名下的所有评论者的信息也会被抹除。\n因为不知道用户的信息，所以帖子和评论是不能删除的，而且在帖子更新的时候不会受到消息提醒。</string>
+    <string name="help_topic_home_c2_a">考虑到部分内容可能不想让另一半看到，我们提供了匿名发布的模块，并且提供了相应的分类。\n放心，匿名的话，发帖人的信息将会被抹除，包括在匿名下的所有评论者的信息也会被抹除。\n因为不知道用户的信息，所以帖子和评论是不能删除的，而且在帖子更新的时候不会收到消息提醒。</string>
     <string name="help_topic_post_c1_q">怎么删除？</string>
     <string name="help_topic_post_c1_a">帖子：如果是自己的帖子，右上角会有删除的图标，点击删除。\n评论：如果是自己的评论，长按即可删除哦。</string>
     <string name="help_topic_post_c2_q">点赞，收藏，戳TA，三者的区别是？</string>
