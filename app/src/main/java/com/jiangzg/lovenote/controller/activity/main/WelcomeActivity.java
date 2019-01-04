@@ -197,11 +197,11 @@ public class WelcomeActivity extends BaseActivity<WelcomeActivity> {
                     break;
                 case "samsung": // 三星(不用！)
                     break;
-                case "tencent": // 应用宝
-                    break;
                 case "ali": // 阿里
                     ivShouFa.setVisibility(View.VISIBLE);
                     ivShouFa.setImageResource(R.mipmap.shoufa_ali);
+                    break;
+                case "tencent": // 应用宝
                     break;
                 case "qh360": // 360
                     ivShouFa.setVisibility(View.VISIBLE);
