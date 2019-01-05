@@ -69,7 +69,6 @@
                                     android:id="@+id/rlSouvenir"
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
-                                    android:gravity="center_vertical|start"
                                     android:visibility="gone"
                                     tools:visibility="visible">
 
@@ -100,8 +99,7 @@
                                         style="@style/FontPrimaryHugeBold"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:layout_below="@+id/tvSouvenirYear"
-                                        android:layout_marginTop="3dp"
+                                        android:layout_alignParentBottom="true"
                                         android:gravity="center"
                                         tools:text="倒计时 XX天 XX:XX:XX"/>
                                 </RelativeLayout>
