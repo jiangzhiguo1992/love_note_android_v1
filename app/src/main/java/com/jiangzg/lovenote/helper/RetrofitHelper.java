@@ -184,13 +184,14 @@ public class RetrofitHelper {
     private static void onResponseCall(Dialog loading, Response<Result> response, CallBack callBack) {
         if (loading != null) DialogUtils.dismiss(loading);
         if (response == null) return;
-        // 获取body
-        String errorStr = "";
-        Result body;
+        // status
         int status = response.code();
+        // 获取body
+        Result body;
         if (status == 200) {
             body = response.body();
         } else {
+            String errorStr = "";
             try {
                 if (response.errorBody() == null) {
                     errorStr = MyApp.get().getString(R.string.http_response_error);
@@ -229,21 +230,6 @@ public class RetrofitHelper {
                 if (ActivityStack.isActivityFinish(top)) return;
                 SplashActivity.goActivity(top);
                 break;
-            case 403: // 禁止访问,key错误
-            case 404: // url不存在
-            case 405: // method错误
-            case 406: // 用户被禁用,应该退出应用
-                if (ActivityStack.isActivityFinish(top)) return;
-                MaterialDialog dialogMsg = DialogHelper.getBuild(top)
-                        .cancelable(true)
-                        .canceledOnTouchOutside(false)
-                        .content(message)
-                        .positiveText(R.string.i_want_feedback)
-                        .onPositive((dialog, which) -> SuggestAddActivity.goActivity(top))
-                        .negativeText(R.string.i_know)
-                        .build();
-                DialogHelper.showWithAnim(dialogMsg);
-                break;
             case 408: // 请求超时
                 if (ActivityStack.isActivityFinish(top)) return;
                 MaterialDialog dialog408 = DialogHelper.getBuild(top)
@@ -265,7 +251,7 @@ public class RetrofitHelper {
                 UpdateService.showUpdateDialog(versionList);
                 break;
             case 417: // 逻辑错误，必须返回错误信息
-                check417Code(top, body);
+                checkCode417(top, body);
                 break;
             case 500: // 服务器异常
                 if (ActivityStack.isActivityFinish(top)) return;
@@ -290,6 +276,10 @@ public class RetrofitHelper {
                 DialogHelper.showWithAnim(dialog503);
                 break;
             default: // 其他错误
+                // 403 禁止访问,key错误
+                // 404 url不存在
+                // 405 method错误
+                // 406 用户被禁用,应该退出应用
                 if (ActivityStack.isActivityFinish(top)) return;
                 MaterialDialog dialogDef = DialogHelper.getBuild(top)
                         .cancelable(true)
@@ -312,7 +302,7 @@ public class RetrofitHelper {
         }
     }
 
-    private static void check417Code(final Activity top, Result body) {
+    private static void checkCode417(final Activity top, Result body) {
         int code = body.getCode();
         String message = body.getMessage();
         Result.Data data = body.getData();
