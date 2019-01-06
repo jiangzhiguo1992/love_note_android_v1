@@ -1,11 +1,13 @@
 package com.jiangzg.lovenote.helper.common;
 
 import android.app.Activity;
+import android.content.pm.ProviderInfo;
 import android.content.res.Configuration;
 import android.os.Build;
 
 import com.jiangzg.base.application.AppInfo;
 import com.jiangzg.base.application.AppListener;
+import com.jiangzg.base.application.AppUtils;
 import com.jiangzg.base.common.ConvertUtils;
 import com.jiangzg.base.common.FileUtils;
 import com.jiangzg.base.common.LogUtils;
@@ -28,11 +30,7 @@ import java.util.List;
  */
 public class ResHelper {
 
-    // 要和manifest中的一致
-    public static String PROVIDER_AUTH;
-
     public static void initApp() {
-        PROVIDER_AUTH = MyApp.get().getPackageName() + ".fileprovider";
         AppListener.addComponentListener("ResHelper", new AppListener.ComponentListener() {
             @Override
             public void onTrimMemory(int level) {
@@ -49,6 +47,14 @@ public class ResHelper {
             public void onConfigurationChanged(Configuration cfg) {
             }
         });
+    }
+
+    public static String getFileProviderAuth() {
+        String auth = MyApp.get().getPackageName() + ".fileprovider";
+        ProviderInfo providerInfo = AppUtils.getAppProviderInfo(MyApp.get(), "android.support.v4.content.FileProvider");
+        if (providerInfo == null) return auth;
+        if (StringUtils.isEmpty(providerInfo.authority)) return auth;
+        return providerInfo.authority;
     }
 
     // 获取具有缓存的文件夹
@@ -107,7 +113,7 @@ public class ResHelper {
                     LogUtils.d(ResHelper.class, "deleteFileInBackground", file.getAbsolutePath());
                     FileUtils.deleteFile(file);
                     // 发送删除广播
-                    BroadcastUtils.refreshMediaFileDelete(ResHelper.PROVIDER_AUTH, file);
+                    BroadcastUtils.refreshMediaFileDelete(ResHelper.getFileProviderAuth(), file);
                 });
             }
 
@@ -131,7 +137,7 @@ public class ResHelper {
                         LogUtils.d(ResHelper.class, "deleteFileListInBackground", file.getAbsolutePath());
                         FileUtils.deleteFile(file);
                         // 发送删除广播
-                        BroadcastUtils.refreshMediaFileDelete(ResHelper.PROVIDER_AUTH, file);
+                        BroadcastUtils.refreshMediaFileDelete(ResHelper.getFileProviderAuth(), file);
                     }
                 });
             }

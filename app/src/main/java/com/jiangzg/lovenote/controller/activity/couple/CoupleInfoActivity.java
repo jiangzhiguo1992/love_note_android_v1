@@ -203,7 +203,7 @@ public class CoupleInfoActivity extends BaseActivity<CoupleInfoActivity> {
                 return;
             }
             cropFile = ResHelper.newImageCacheFile();
-            Intent intent = IntentFactory.getImageCrop(ResHelper.PROVIDER_AUTH, pictureFile, cropFile, 1, 1);
+            Intent intent = IntentFactory.getImageCrop(ResHelper.getFileProviderAuth(), pictureFile, cropFile, 1, 1);
             ActivityTrans.startResult(mActivity, intent, BaseActivity.REQUEST_CROP);
         } else if (requestCode == BaseActivity.REQUEST_CROP) {
             // 裁剪

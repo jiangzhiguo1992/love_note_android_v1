@@ -205,7 +205,7 @@ public class UpdateService extends Service {
     // 启动安装
     private void installApk(File apkFile) {
         LogUtils.i(UpdateService.class, "installApk", "apkFile = " + apkFile.getAbsolutePath());
-        Intent installIntent = IntentFactory.getInstall(ResHelper.PROVIDER_AUTH, apkFile);
+        Intent installIntent = IntentFactory.getInstall(ResHelper.getFileProviderAuth(), apkFile);
         ActivityTrans.start(UpdateService.this, installIntent);
         UpdateService.this.stopSelf();
     }

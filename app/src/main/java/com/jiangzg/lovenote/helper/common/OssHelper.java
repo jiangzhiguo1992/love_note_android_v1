@@ -819,7 +819,7 @@ public class OssHelper {
                     boolean copy = FileUtils.copyOrMoveFile(source, target, false);
                     if (copy) {
                         LogUtils.d(OssHelper.class, "downloadBigImage", "文件复制成功！");
-                        BroadcastUtils.refreshMediaImageInsert(ResHelper.PROVIDER_AUTH, target);
+                        BroadcastUtils.refreshMediaImageInsert(ResHelper.getFileProviderAuth(), target);
                         ToastUtils.show(sucToast);
                         return;
                     }
@@ -832,7 +832,7 @@ public class OssHelper {
                     @Override
                     public void success(String ossPath) {
                         // 下载完通知图库媒体
-                        BroadcastUtils.refreshMediaImageInsert(ResHelper.PROVIDER_AUTH, target);
+                        BroadcastUtils.refreshMediaImageInsert(ResHelper.getFileProviderAuth(), target);
                         ToastUtils.show(sucToast);
                     }
 

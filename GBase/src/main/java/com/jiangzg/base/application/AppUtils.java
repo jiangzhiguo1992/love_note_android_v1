@@ -5,7 +5,9 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.pm.ActivityInfo;
 import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.content.pm.ProviderInfo;
 import android.os.Bundle;
 
 import com.jiangzg.base.common.LogUtils;
@@ -79,6 +81,36 @@ public class AppUtils {
             return activityInfo.metaData;
         } catch (PackageManager.NameNotFoundException e) {
             LogUtils.e(AppUtils.class, "getAppActivityMetaData", e);
+        }
+        return null;
+    }
+
+    /**
+     * 获取manifest中的provider里的节点
+     */
+    public static ProviderInfo[] getAppProviderInfoList(Context context) {
+        if (context == null) {
+            LogUtils.w(AppUtils.class, "getAppProviderInfo", "context == null");
+            return new ProviderInfo[]{};
+        }
+        PackageManager packageManager = context.getPackageManager();
+        String packageName = context.getPackageName();
+        try {
+            PackageInfo packageInfo = packageManager.getPackageInfo(packageName, PackageManager.GET_PROVIDERS);
+            return packageInfo.providers;
+        } catch (PackageManager.NameNotFoundException e) {
+            LogUtils.e(AppUtils.class, "getAppProviderInfo", e);
+        }
+        return new ProviderInfo[]{};
+    }
+
+    public static ProviderInfo getAppProviderInfo(Context context, String name) {
+        ProviderInfo[] providerInfoList = getAppProviderInfoList(context);
+        if (providerInfoList == null || providerInfoList.length <= 0) return null;
+        for (ProviderInfo info : providerInfoList) {
+            if (info == null) continue;
+            if (!info.name.trim().equals(name.trim())) continue;
+            return info;
         }
         return null;
     }

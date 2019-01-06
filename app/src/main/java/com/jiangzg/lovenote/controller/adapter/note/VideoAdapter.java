@@ -113,7 +113,7 @@ public class VideoAdapter extends BaseMultiItemQuickAdapter<Video, BaseViewHolde
             return;
         }
         // 播放调用系统界面
-        Intent intent = IntentFactory.getVideoPlayByFile(ResHelper.PROVIDER_AUTH, file);
+        Intent intent = IntentFactory.getVideoPlayByFile(ResHelper.getFileProviderAuth(), file);
         ActivityTrans.start(mActivity, intent);
     }
 

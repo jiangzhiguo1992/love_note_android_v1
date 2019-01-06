@@ -159,7 +159,7 @@ public class FrescoNativeView extends SimpleDraweeView {
     // file://
     public void setDataFile(File file) {
         if (file == null) return;
-        Uri parse = ProviderUtils.getUriByFile(ResHelper.PROVIDER_AUTH, file);
+        Uri parse = ProviderUtils.getUriByFile(ResHelper.getFileProviderAuth(), file);
         setController(parse);
     }
 
