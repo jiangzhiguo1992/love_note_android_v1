@@ -59,7 +59,7 @@ public class RetrofitHelper {
     private String mBaseUrl;
 
     public RetrofitHelper() {
-        this.mBaseUrl = API.BASE_URL; //默认api
+        this.mBaseUrl = AppUtils.getAppMetaDataString(MyApp.get(), "api_base_url"); // 默认api，BaseURL最好以/结尾
         this.mHeaders = getHeadJson(); // 默认全参
         this.mFactory = Factory.gson; // 默认gson
         this.mLog = HttpLoggingInterceptor.Level.BODY; // 默认打印全部

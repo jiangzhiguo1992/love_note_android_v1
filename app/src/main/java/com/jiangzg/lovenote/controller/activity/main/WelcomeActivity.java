@@ -163,51 +163,44 @@ public class WelcomeActivity extends BaseActivity<WelcomeActivity> {
 
     private void initShouFa() {
         ivShouFa.setVisibility(View.GONE);
+        String publishEnd = AppUtils.getAppMetaDataString(MyApp.get(), "market_publish_end");
         Calendar now = DateUtils.getCurrentCal();
-        Calendar end = DateUtils.getCurrentCal();
-        end.set(Calendar.YEAR, MyApp.SHOUFA_END_YEAR);
-        end.set(Calendar.MONTH, MyApp.SHOUFA_END_MONTH - 1);
-        end.set(Calendar.DAY_OF_MONTH, MyApp.SHOUFA_END_DAY);
-        if (now.getTimeInMillis() > end.getTimeInMillis()) {
-            // 首发结束
-            return;
-        }
-        Bundle appMetaData = AppUtils.getAppMetaData(MyApp.get());
-        if (appMetaData != null) {
-            String channel = appMetaData.getString("market_channel");
-            if (StringUtils.isEmpty(channel)) return;
-            switch (channel) {
-                case "oppo": // oppo
-                    break;
-                case "vivo": // vivo
-                    break;
-                case "huawei": // 华为
-                    ivShouFa.setVisibility(View.VISIBLE);
-                    ivShouFa.setImageResource(R.mipmap.shoufa_huawei);
-                    break;
-                case "xiaomi": // 小米
-                    ivShouFa.setVisibility(View.VISIBLE);
-                    ivShouFa.setImageResource(R.mipmap.shoufa_xiaomi);
-                    break;
-                case "meizu": // 魅族
-                    ivShouFa.setVisibility(View.VISIBLE);
-                    ivShouFa.setImageResource(R.mipmap.shoufa_meizu);
-                    break;
-                case "google": // 谷歌(不用！)
-                    break;
-                case "tencent": // 应用宝
-                    break;
-                case "ali": // 阿里
-                    ivShouFa.setVisibility(View.VISIBLE);
-                    ivShouFa.setImageResource(R.mipmap.shoufa_ali);
-                    break;
-                case "baidu": // 百度
-                    break;
-                case "qh360": // 360
-                    ivShouFa.setVisibility(View.VISIBLE);
-                    ivShouFa.setImageResource(R.mipmap.shoufa_360);
-                    break;
-            }
+        Calendar end = DateUtils.getCal(publishEnd, DateUtils.FORMAT_LINE_Y_M_D);
+        if (now.getTimeInMillis() > end.getTimeInMillis()) return;
+        String marketChannel = AppUtils.getAppMetaDataString(MyApp.get(), "market_channel");
+        switch (marketChannel) {
+            case "oppo": // oppo
+                break;
+            case "vivo": // vivo
+                break;
+            case "huawei": // 华为
+                ivShouFa.setVisibility(View.VISIBLE);
+                ivShouFa.setImageResource(R.mipmap.shoufa_huawei);
+                break;
+            case "xiaomi": // 小米
+                ivShouFa.setVisibility(View.VISIBLE);
+                ivShouFa.setImageResource(R.mipmap.shoufa_xiaomi);
+                break;
+            case "meizu": // 魅族
+                ivShouFa.setVisibility(View.VISIBLE);
+                ivShouFa.setImageResource(R.mipmap.shoufa_meizu);
+                break;
+            case "google": // 谷歌(不用！)
+                break;
+            case "tencent": // 应用宝
+                break;
+            case "ali": // 阿里
+                ivShouFa.setVisibility(View.VISIBLE);
+                ivShouFa.setImageResource(R.mipmap.shoufa_ali);
+                break;
+            case "baidu": // 百度
+                break;
+            case "qh360": // 360
+                ivShouFa.setVisibility(View.VISIBLE);
+                ivShouFa.setImageResource(R.mipmap.shoufa_360);
+                break;
+            default:
+                break;
         }
     }
 

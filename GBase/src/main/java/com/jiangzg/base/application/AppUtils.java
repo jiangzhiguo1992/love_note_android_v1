@@ -41,6 +41,30 @@ public class AppUtils {
         return null;
     }
 
+    public static String getAppMetaDataString(Context context, String name) {
+        Bundle metaData = getAppMetaData(context);
+        if (metaData == null) return "";
+        return metaData.getString(name, "");
+    }
+
+    public static int getAppMetaDataInt(Context context, String name) {
+        Bundle metaData = getAppMetaData(context);
+        if (metaData == null) return 0;
+        return metaData.getInt(name, 0);
+    }
+
+    public static long getAppMetaDataLong(Context context, String name) {
+        Bundle metaData = getAppMetaData(context);
+        if (metaData == null) return 0;
+        return metaData.getLong(name, 0);
+    }
+
+    public static boolean getAppMetaDataBool(Context context, String name) {
+        Bundle metaData = getAppMetaData(context);
+        if (metaData == null) return false;
+        return metaData.getBoolean(name, false);
+    }
+
     /**
      * 获取manifest中的activity下的MetaData
      */

@@ -3,7 +3,6 @@ package com.jiangzg.lovenote.helper.common;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.ContentResolver;
-import android.os.Bundle;
 import android.provider.Settings;
 import android.text.InputType;
 import android.widget.EditText;
@@ -141,11 +140,8 @@ public class ApiHelper {
         String model = DeviceInfo.get().getModel();
         entry.setDeviceName(manufacturer + " : " + model);
         // 下载渠道
-        Bundle appMetaData = AppUtils.getAppMetaData(MyApp.get());
-        if (appMetaData != null) {
-            String marketChannel = appMetaData.getString("market_channel");
-            entry.setMarket(marketChannel);
-        }
+        String marketChannel = AppUtils.getAppMetaDataString(MyApp.get(), "market_channel");
+        entry.setMarket(marketChannel);
         // 语言
         entry.setLanguage(LanguageUtils.getLocale().getLanguage());
         // 手机平台
