@@ -3,6 +3,7 @@ package com.jiangzg.lovenote.helper.system;
 import android.app.Activity;
 
 import com.alipay.sdk.app.PayTask;
+import com.jiangzg.base.application.AppUtils;
 import com.jiangzg.base.common.LogUtils;
 import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.base.system.PermUtils;
@@ -30,7 +31,6 @@ import rx.Observable;
 public class PayHelper {
 
     private static Observable<PayWxResult> registerPayWX;
-    public static String WX_APP_ID = "wx956330a3fd0ef37e";
 
     public interface AliCallBack {
         void onSuccess(PayAliResult result);
@@ -97,11 +97,14 @@ public class PayHelper {
 
     public static void payByWX(final Activity activity, final WXOrder order, final WXCallBack callBack) {
         if (order == null) return;
-        WX_APP_ID = order.getAppId();
+        String appId = order.getAppId();
+        if (StringUtils.isEmpty(appId)) {
+            appId = getWXAppId();
+        }
         // 商户APP工程中引入微信JAR包，调用API前，需要先向微信注册您的APPID
         final IWXAPI api = WXAPIFactory.createWXAPI(activity, null);
         // 将该app注册到微信
-        api.registerApp(WX_APP_ID);
+        api.registerApp(appId);
         // 先解除事件
         if (registerPayWX != null) {
             RxBus.unregister(RxBus.EVENT_PAY_WX_RESULT, registerPayWX);
@@ -135,6 +138,10 @@ public class PayHelper {
             request.sign = order.getSign();
             api.sendReq(request);
         });
+    }
+
+    public static String getWXAppId() {
+        return AppUtils.getAppMetaDataString(MyApp.get(), "wx_app_id");
     }
 
 }

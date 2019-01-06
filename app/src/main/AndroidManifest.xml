@@ -34,6 +34,11 @@
             android:name="market_publish_end"
             android:value="2018-12-3"/>
 
+        <!-- api_app_key -->
+        <meta-data
+            android:name="api_app_key"
+            android:value="59fj48dj327fdl19fdi28cas5d20jd83"/>
+
         <!-- uri转file 7.0兼容 -->
         <provider
             android:name="android.support.v4.content.FileProvider"
@@ -75,7 +80,6 @@
         <meta-data
             android:name="com.amap.api.v2.apikey"
             android:value="8d050bd3da20cc18f5f066710b8b8974"/>
-
         <service
             android:name="com.amap.api.location.APSService"
             android:enabled="true"
@@ -113,7 +117,10 @@
             android:windowSoftInputMode="adjustResize|stateHidden">
         </activity>
 
-        <!-- 微信支付 -->
+        <!-- 微信支付 wx_app_id是备用 -->
+        <meta-data
+            android:name="wx_app_id"
+            android:value="wx956330a3fd0ef37e"/>
         <activity
             android:name=".wxapi.WXEntryActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"

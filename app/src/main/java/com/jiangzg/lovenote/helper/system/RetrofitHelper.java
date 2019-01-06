@@ -70,7 +70,7 @@ public class RetrofitHelper {
         User me = SPHelper.getMe();
         options.put("Accept", "application/json");
         options.put("access_token", me == null ? "" : me.getUserToken());
-        options.put("app_key", "59fj48dj327fdl19fdi28cas5d20jd83");
+        options.put("app_key", AppUtils.getAppMetaDataString(MyApp.get(), "api_app_key"));
         options.put("platform", "android");
         options.put("sign", AppInfo.get().getSHA1());
         options.put("language", LanguageUtils.getLocale().getLanguage());
