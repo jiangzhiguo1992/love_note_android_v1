@@ -16,7 +16,7 @@ import com.jiangzg.lovenote.controller.activity.topic.PostDetailActivity;
 import com.jiangzg.lovenote.controller.activity.topic.PostMineActivity;
 import com.jiangzg.lovenote.controller.activity.topic.PostSubCommentListActivity;
 import com.jiangzg.lovenote.controller.activity.topic.TopicMessageActivity;
-import com.jiangzg.lovenote.helper.GsonHelper;
+import com.jiangzg.lovenote.helper.common.GsonHelper;
 import com.jiangzg.lovenote.model.engine.Push;
 
 import java.util.Map;

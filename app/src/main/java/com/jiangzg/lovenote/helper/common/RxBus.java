@@ -1,4 +1,4 @@
-package com.jiangzg.lovenote.helper;
+package com.jiangzg.lovenote.helper.common;
 
 import java.io.Serializable;
 import java.util.ArrayList;

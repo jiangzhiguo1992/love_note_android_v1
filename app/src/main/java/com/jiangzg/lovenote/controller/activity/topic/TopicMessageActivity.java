@@ -14,9 +14,9 @@ import com.jiangzg.lovenote.controller.activity.base.BaseActivity;
 import com.jiangzg.lovenote.controller.activity.couple.CouplePairActivity;
 import com.jiangzg.lovenote.controller.adapter.common.CommonFragmentAdapter;
 import com.jiangzg.lovenote.controller.fragment.topic.MessageListFragment;
-import com.jiangzg.lovenote.helper.SPHelper;
-import com.jiangzg.lovenote.helper.UserHelper;
-import com.jiangzg.lovenote.helper.ViewHelper;
+import com.jiangzg.lovenote.helper.common.SPHelper;
+import com.jiangzg.lovenote.helper.common.UserHelper;
+import com.jiangzg.lovenote.helper.view.ViewHelper;
 import com.jiangzg.lovenote.model.entity.TopicMessage;
 
 import java.util.ArrayList;

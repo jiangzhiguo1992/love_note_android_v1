@@ -8,7 +8,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.jiangzg.base.system.LocationInfo;
 import com.jiangzg.lovenote.R;
-import com.jiangzg.lovenote.helper.RxBus;
+import com.jiangzg.lovenote.helper.common.RxBus;
 
 /**
  * Created by JZG on 2018/3/12.

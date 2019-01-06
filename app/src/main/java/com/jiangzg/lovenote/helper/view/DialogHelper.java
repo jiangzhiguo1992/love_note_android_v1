@@ -1,4 +1,4 @@
-package com.jiangzg.lovenote.helper;
+package com.jiangzg.lovenote.helper.view;
 
 import android.app.Activity;
 import android.app.DatePickerDialog;

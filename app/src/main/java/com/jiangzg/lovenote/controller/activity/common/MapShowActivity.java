@@ -18,9 +18,9 @@ import com.jiangzg.base.system.LocationInfo;
 import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.controller.activity.base.BaseActivity;
-import com.jiangzg.lovenote.helper.LocationHelper;
-import com.jiangzg.lovenote.helper.MapHelper;
-import com.jiangzg.lovenote.helper.ViewHelper;
+import com.jiangzg.lovenote.helper.system.LocationHelper;
+import com.jiangzg.lovenote.helper.view.MapHelper;
+import com.jiangzg.lovenote.helper.view.ViewHelper;
 
 import java.util.ArrayList;
 

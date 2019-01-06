@@ -7,7 +7,7 @@ import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.controller.activity.base.BaseActivity;
 import com.jiangzg.lovenote.controller.activity.topic.PostDetailActivity;
 import com.jiangzg.lovenote.controller.activity.topic.PostSubCommentListActivity;
-import com.jiangzg.lovenote.helper.TimeHelper;
+import com.jiangzg.lovenote.helper.common.TimeHelper;
 import com.jiangzg.lovenote.model.entity.Couple;
 import com.jiangzg.lovenote.model.entity.TopicMessage;
 import com.jiangzg.lovenote.view.FrescoAvatarView;

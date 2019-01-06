@@ -1,4 +1,4 @@
-package com.jiangzg.lovenote.helper;
+package com.jiangzg.lovenote.helper.common;
 
 import android.app.Activity;
 import android.content.res.Configuration;
@@ -14,6 +14,8 @@ import com.jiangzg.base.component.ActivityStack;
 import com.jiangzg.base.component.BroadcastUtils;
 import com.jiangzg.base.system.PermUtils;
 import com.jiangzg.lovenote.controller.activity.base.BaseActivity;
+import com.jiangzg.lovenote.helper.view.DialogHelper;
+import com.jiangzg.lovenote.helper.view.FrescoHelper;
 import com.jiangzg.lovenote.main.MyApp;
 
 import java.io.File;

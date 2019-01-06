@@ -18,7 +18,7 @@ import com.jiangzg.lovenote.controller.activity.base.BaseActivity;
 import com.jiangzg.lovenote.controller.activity.settings.HelpActivity;
 import com.jiangzg.lovenote.controller.adapter.common.CommonFragmentAdapter;
 import com.jiangzg.lovenote.controller.fragment.note.SouvenirListFragment;
-import com.jiangzg.lovenote.helper.ViewHelper;
+import com.jiangzg.lovenote.helper.view.ViewHelper;
 
 import butterknife.BindView;
 import butterknife.OnClick;

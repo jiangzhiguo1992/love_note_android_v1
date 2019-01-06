@@ -30,14 +30,14 @@ import com.jiangzg.lovenote.controller.activity.base.BaseActivity;
 import com.jiangzg.lovenote.controller.activity.more.VipActivity;
 import com.jiangzg.lovenote.controller.activity.settings.HelpActivity;
 import com.jiangzg.lovenote.controller.adapter.note.WhisperAdapter;
-import com.jiangzg.lovenote.helper.ListHelper;
-import com.jiangzg.lovenote.helper.MediaPickHelper;
-import com.jiangzg.lovenote.helper.OssHelper;
-import com.jiangzg.lovenote.helper.OssResHelper;
-import com.jiangzg.lovenote.helper.RecyclerHelper;
-import com.jiangzg.lovenote.helper.RetrofitHelper;
-import com.jiangzg.lovenote.helper.SPHelper;
-import com.jiangzg.lovenote.helper.ViewHelper;
+import com.jiangzg.lovenote.helper.common.ListHelper;
+import com.jiangzg.lovenote.helper.common.OssHelper;
+import com.jiangzg.lovenote.helper.common.OssResHelper;
+import com.jiangzg.lovenote.helper.common.SPHelper;
+import com.jiangzg.lovenote.helper.media.PickHelper;
+import com.jiangzg.lovenote.helper.system.RetrofitHelper;
+import com.jiangzg.lovenote.helper.view.RecyclerHelper;
+import com.jiangzg.lovenote.helper.view.ViewHelper;
 import com.jiangzg.lovenote.model.api.API;
 import com.jiangzg.lovenote.model.api.Result;
 import com.jiangzg.lovenote.model.entity.Whisper;
@@ -188,7 +188,7 @@ public class WhisperListActivity extends BaseActivity<WhisperListActivity> {
         if (resultCode != RESULT_OK) return;
         if (requestCode == BaseActivity.REQUEST_PICTURE) {
             // 相册
-            File pictureFile = MediaPickHelper.getResultFile(mActivity, data);
+            File pictureFile = PickHelper.getResultFile(mActivity, data);
             if (FileUtils.isFileEmpty(pictureFile)) {
                 ToastUtils.show(getString(R.string.file_no_exits));
                 return;
@@ -323,7 +323,7 @@ public class WhisperListActivity extends BaseActivity<WhisperListActivity> {
             VipActivity.goActivity(mActivity);
             return;
         }
-        MediaPickHelper.selectImage(mActivity, 1);
+        PickHelper.selectImage(mActivity, 1);
     }
 
     // 上传

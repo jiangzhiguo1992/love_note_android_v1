@@ -17,7 +17,7 @@ import com.jiangzg.base.view.BarUtils;
 import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.controller.activity.base.BaseActivity;
 import com.jiangzg.lovenote.controller.adapter.common.BigImagePagerAdapter;
-import com.jiangzg.lovenote.helper.OssHelper;
+import com.jiangzg.lovenote.helper.common.OssHelper;
 import com.jiangzg.lovenote.view.TryCacheViewPager;
 
 import java.util.ArrayList;

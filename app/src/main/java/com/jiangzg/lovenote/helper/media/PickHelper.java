@@ -1,4 +1,4 @@
-package com.jiangzg.lovenote.helper;
+package com.jiangzg.lovenote.helper.media;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -15,6 +15,8 @@ import com.jiangzg.base.media.BitmapUtils;
 import com.jiangzg.base.system.PermUtils;
 import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.controller.activity.base.BaseActivity;
+import com.jiangzg.lovenote.helper.common.ListHelper;
+import com.jiangzg.lovenote.helper.view.DialogHelper;
 import com.zhihu.matisse.Matisse;
 import com.zhihu.matisse.MimeType;
 import com.zhihu.matisse.engine.impl.GlideEngine;
@@ -26,15 +28,15 @@ import java.util.List;
 
 /**
  * Created by JZG on 2018/11/24.
- * MediaPickHelper
+ * PickHelper
  */
-public class MediaPickHelper {
+public class PickHelper {
 
     public static void selectImage(Activity activity, int maxCount) {
         PermUtils.requestPermissions(activity, BaseActivity.REQUEST_APP_INFO, PermUtils.appInfo, new PermUtils.OnPermissionListener() {
             @Override
             public void onPermissionGranted(int requestCode, String[] permissions) {
-                MediaPickHelper.selectImageWithOutPermission(activity, maxCount);
+                PickHelper.selectImageWithOutPermission(activity, maxCount);
             }
 
             @Override
@@ -64,7 +66,7 @@ public class MediaPickHelper {
 
     public static File getResultFile(Activity activity, Intent data) {
         if (activity == null || data == null) {
-            LogUtils.w(MediaPickHelper.class, "getResultFile", "activity == null || data == null");
+            LogUtils.w(PickHelper.class, "getResultFile", "activity == null || data == null");
             return null;
         }
         boolean permissionOK = PermUtils.isPermissionOK(activity, PermUtils.appInfo);
@@ -74,7 +76,7 @@ public class MediaPickHelper {
         }
         List<Uri> uris = Matisse.obtainResult(data);
         if (uris == null || uris.size() <= 0) {
-            LogUtils.w(MediaPickHelper.class, "getResultFile", "uris == null");
+            LogUtils.w(PickHelper.class, "getResultFile", "uris == null");
             return null;
         }
         Uri uri = uris.get(0);
@@ -94,7 +96,7 @@ public class MediaPickHelper {
 
     public static List<File> getResultFileList(Activity activity, Intent data) {
         if (activity == null || data == null) {
-            LogUtils.w(MediaPickHelper.class, "getResultFileList", "activity == null || data == null");
+            LogUtils.w(PickHelper.class, "getResultFileList", "activity == null || data == null");
             return null;
         }
         boolean permissionOK = PermUtils.isPermissionOK(activity, PermUtils.appInfo);
@@ -104,7 +106,7 @@ public class MediaPickHelper {
         }
         List<Uri> uris = Matisse.obtainResult(data);
         if (uris == null || uris.size() <= 0) {
-            LogUtils.w(MediaPickHelper.class, "getResultFileList", "uris == null");
+            LogUtils.w(PickHelper.class, "getResultFileList", "uris == null");
             return new ArrayList<>();
         }
         List<File> fileList = new ArrayList<>();

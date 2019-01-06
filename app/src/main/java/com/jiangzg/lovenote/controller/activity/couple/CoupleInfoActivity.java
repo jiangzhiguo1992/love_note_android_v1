@@ -32,18 +32,18 @@ import com.jiangzg.lovenote.controller.activity.base.BaseActivity;
 import com.jiangzg.lovenote.controller.activity.common.BigImageActivity;
 import com.jiangzg.lovenote.controller.activity.settings.HelpActivity;
 import com.jiangzg.lovenote.controller.adapter.couple.CoupleStateAdapter;
-import com.jiangzg.lovenote.helper.ApiHelper;
-import com.jiangzg.lovenote.helper.DialogHelper;
-import com.jiangzg.lovenote.helper.MediaPickHelper;
-import com.jiangzg.lovenote.helper.OssHelper;
-import com.jiangzg.lovenote.helper.RecyclerHelper;
-import com.jiangzg.lovenote.helper.ResHelper;
-import com.jiangzg.lovenote.helper.RetrofitHelper;
-import com.jiangzg.lovenote.helper.RxBus;
-import com.jiangzg.lovenote.helper.SPHelper;
-import com.jiangzg.lovenote.helper.TimeHelper;
-import com.jiangzg.lovenote.helper.UserHelper;
-import com.jiangzg.lovenote.helper.ViewHelper;
+import com.jiangzg.lovenote.helper.common.ApiHelper;
+import com.jiangzg.lovenote.helper.common.OssHelper;
+import com.jiangzg.lovenote.helper.common.ResHelper;
+import com.jiangzg.lovenote.helper.common.RxBus;
+import com.jiangzg.lovenote.helper.common.SPHelper;
+import com.jiangzg.lovenote.helper.common.TimeHelper;
+import com.jiangzg.lovenote.helper.common.UserHelper;
+import com.jiangzg.lovenote.helper.media.PickHelper;
+import com.jiangzg.lovenote.helper.system.RetrofitHelper;
+import com.jiangzg.lovenote.helper.view.DialogHelper;
+import com.jiangzg.lovenote.helper.view.RecyclerHelper;
+import com.jiangzg.lovenote.helper.view.ViewHelper;
 import com.jiangzg.lovenote.model.api.API;
 import com.jiangzg.lovenote.model.api.Result;
 import com.jiangzg.lovenote.model.entity.Couple;
@@ -197,7 +197,7 @@ public class CoupleInfoActivity extends BaseActivity<CoupleInfoActivity> {
         }
         if (requestCode == BaseActivity.REQUEST_PICTURE) {
             // 相册
-            File pictureFile = MediaPickHelper.getResultFile(mActivity, data);
+            File pictureFile = PickHelper.getResultFile(mActivity, data);
             if (FileUtils.isFileEmpty(pictureFile)) {
                 ToastUtils.show(getString(R.string.file_no_exits));
                 return;

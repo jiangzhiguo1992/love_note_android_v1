@@ -23,13 +23,13 @@ import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.controller.activity.base.BaseActivity;
 import com.jiangzg.lovenote.controller.activity.common.BigImageActivity;
-import com.jiangzg.lovenote.helper.DialogHelper;
-import com.jiangzg.lovenote.helper.MediaPickHelper;
-import com.jiangzg.lovenote.helper.OssHelper;
-import com.jiangzg.lovenote.helper.RetrofitHelper;
-import com.jiangzg.lovenote.helper.RxBus;
-import com.jiangzg.lovenote.helper.SPHelper;
-import com.jiangzg.lovenote.helper.ViewHelper;
+import com.jiangzg.lovenote.helper.common.OssHelper;
+import com.jiangzg.lovenote.helper.common.RxBus;
+import com.jiangzg.lovenote.helper.common.SPHelper;
+import com.jiangzg.lovenote.helper.media.PickHelper;
+import com.jiangzg.lovenote.helper.system.RetrofitHelper;
+import com.jiangzg.lovenote.helper.view.DialogHelper;
+import com.jiangzg.lovenote.helper.view.ViewHelper;
 import com.jiangzg.lovenote.model.api.API;
 import com.jiangzg.lovenote.model.api.Result;
 import com.jiangzg.lovenote.model.engine.SuggestInfo;
@@ -150,7 +150,7 @@ public class SuggestAddActivity extends BaseActivity<SuggestAddActivity> {
         if (resultCode != RESULT_OK) return;
         if (requestCode == BaseActivity.REQUEST_PICTURE) {
             // 相册
-            pictureFile = MediaPickHelper.getResultFile(mActivity, data);
+            pictureFile = PickHelper.getResultFile(mActivity, data);
             if (FileUtils.isFileEmpty(pictureFile)) {
                 ToastUtils.show(getString(R.string.file_no_exits));
                 pictureFile = null;
@@ -189,7 +189,7 @@ public class SuggestAddActivity extends BaseActivity<SuggestAddActivity> {
     private void toggleImage() {
         if (FileUtils.isFileEmpty(pictureFile)) {
             pictureFile = null;
-            MediaPickHelper.selectImage(mActivity, 1);
+            PickHelper.selectImage(mActivity, 1);
         } else {
             cancelImage();
         }

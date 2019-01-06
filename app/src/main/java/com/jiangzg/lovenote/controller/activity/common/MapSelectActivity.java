@@ -27,11 +27,11 @@ import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.controller.activity.base.BaseActivity;
 import com.jiangzg.lovenote.controller.adapter.common.MapSelectAdapter;
-import com.jiangzg.lovenote.helper.LocationHelper;
-import com.jiangzg.lovenote.helper.MapHelper;
-import com.jiangzg.lovenote.helper.RecyclerHelper;
-import com.jiangzg.lovenote.helper.RxBus;
-import com.jiangzg.lovenote.helper.ViewHelper;
+import com.jiangzg.lovenote.helper.common.RxBus;
+import com.jiangzg.lovenote.helper.system.LocationHelper;
+import com.jiangzg.lovenote.helper.view.MapHelper;
+import com.jiangzg.lovenote.helper.view.RecyclerHelper;
+import com.jiangzg.lovenote.helper.view.ViewHelper;
 import com.jiangzg.lovenote.view.GSwipeRefreshLayout;
 
 import java.util.ArrayList;

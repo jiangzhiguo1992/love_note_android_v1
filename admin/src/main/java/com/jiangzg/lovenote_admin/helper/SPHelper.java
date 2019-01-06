@@ -2,7 +2,7 @@ package com.jiangzg.lovenote_admin.helper;
 
 import android.content.SharedPreferences;
 
-import com.jiangzg.base.system.SPUtils;
+import com.jiangzg.base.common.SPUtils;
 import com.jiangzg.lovenote_admin.domain.OssInfo;
 import com.jiangzg.lovenote_admin.domain.User;
 

@@ -13,7 +13,7 @@ import com.jiangzg.base.common.FileUtils;
 import com.jiangzg.base.view.ScreenUtils;
 import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.controller.activity.common.BigImageActivity;
-import com.jiangzg.lovenote.helper.DialogHelper;
+import com.jiangzg.lovenote.helper.view.DialogHelper;
 import com.jiangzg.lovenote.view.FrescoView;
 
 import java.util.ArrayList;

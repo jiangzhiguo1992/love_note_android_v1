@@ -5,8 +5,8 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.jiangzg.lovenote.R;
-import com.jiangzg.lovenote.helper.PayHelper;
-import com.jiangzg.lovenote.helper.RxBus;
+import com.jiangzg.lovenote.helper.common.RxBus;
+import com.jiangzg.lovenote.helper.system.PayHelper;
 import com.jiangzg.lovenote.model.engine.PayWxResult;
 import com.tencent.mm.opensdk.constants.ConstantsAPI;
 import com.tencent.mm.opensdk.modelbase.BaseReq;

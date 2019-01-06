@@ -5,8 +5,8 @@ import android.support.v4.app.FragmentActivity;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.jiangzg.lovenote.R;
-import com.jiangzg.lovenote.helper.TimeHelper;
-import com.jiangzg.lovenote.helper.WeatherHelper;
+import com.jiangzg.lovenote.helper.common.TimeHelper;
+import com.jiangzg.lovenote.helper.common.WeatherHelper;
 import com.jiangzg.lovenote.model.entity.WeatherForecast;
 
 import java.util.ArrayList;

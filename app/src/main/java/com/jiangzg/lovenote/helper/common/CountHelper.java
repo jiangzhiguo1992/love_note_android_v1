@@ -1,4 +1,4 @@
-package com.jiangzg.lovenote.helper;
+package com.jiangzg.lovenote.helper.common;
 
 import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.main.MyApp;

@@ -9,8 +9,8 @@ import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.controller.activity.more.MatchDiscussListActivity;
 import com.jiangzg.lovenote.controller.activity.more.MatchLetterListActivity;
 import com.jiangzg.lovenote.controller.activity.more.MatchWifeListActivity;
-import com.jiangzg.lovenote.helper.CountHelper;
-import com.jiangzg.lovenote.helper.TimeHelper;
+import com.jiangzg.lovenote.helper.common.CountHelper;
+import com.jiangzg.lovenote.helper.common.TimeHelper;
 import com.jiangzg.lovenote.model.entity.MatchPeriod;
 
 import java.util.Locale;

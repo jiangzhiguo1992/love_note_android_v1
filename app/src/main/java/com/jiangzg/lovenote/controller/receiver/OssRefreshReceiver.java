@@ -6,8 +6,8 @@ import android.content.Intent;
 
 import com.jiangzg.base.common.LogUtils;
 import com.jiangzg.base.system.AlarmUtils;
-import com.jiangzg.lovenote.helper.ApiHelper;
-import com.jiangzg.lovenote.helper.SPHelper;
+import com.jiangzg.lovenote.helper.common.ApiHelper;
+import com.jiangzg.lovenote.helper.common.SPHelper;
 
 /**
  * 定时广播oss更新

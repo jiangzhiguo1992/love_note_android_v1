@@ -27,8 +27,8 @@ import com.jiangzg.base.view.ScreenUtils;
 import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.controller.activity.main.HomeActivity;
-import com.jiangzg.lovenote.helper.DialogHelper;
-import com.jiangzg.lovenote.helper.ThemeHelper;
+import com.jiangzg.lovenote.helper.view.DialogHelper;
+import com.jiangzg.lovenote.helper.view.ThemeHelper;
 
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;

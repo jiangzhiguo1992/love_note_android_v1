@@ -21,7 +21,7 @@ import com.jiangzg.lovenote.controller.fragment.NoteFragment;
 import com.jiangzg.lovenote.controller.fragment.TopicFragment;
 import com.jiangzg.lovenote.controller.fragment.base.BasePagerFragment;
 import com.jiangzg.lovenote.controller.service.UpdateService;
-import com.jiangzg.lovenote.helper.SPHelper;
+import com.jiangzg.lovenote.helper.common.SPHelper;
 import com.jiangzg.lovenote.model.entity.ModelShow;
 import com.jiangzg.lovenote.model.entity.Version;
 import com.jiangzg.lovenote.view.HomePaper;

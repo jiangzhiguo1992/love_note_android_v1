@@ -4,7 +4,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import com.chad.library.adapter.base.entity.MultiItemEntity;
-import com.jiangzg.lovenote.helper.ApiHelper;
+import com.jiangzg.lovenote.helper.common.ApiHelper;
 
 /**
  * Created by JZG on 2018/4/25.

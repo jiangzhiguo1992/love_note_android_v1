@@ -1,4 +1,4 @@
-package com.jiangzg.base.system;
+package com.jiangzg.base.common;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -7,7 +7,6 @@ import android.text.TextUtils;
 import android.util.ArrayMap;
 
 import com.jiangzg.base.application.AppBase;
-import com.jiangzg.base.common.LogUtils;
 
 import java.util.Map;
 

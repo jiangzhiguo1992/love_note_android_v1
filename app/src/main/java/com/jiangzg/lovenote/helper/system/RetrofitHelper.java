@@ -1,4 +1,4 @@
-package com.jiangzg.lovenote.helper;
+package com.jiangzg.lovenote.helper.system;
 
 import android.app.Activity;
 import android.app.Dialog;
@@ -22,6 +22,9 @@ import com.jiangzg.lovenote.controller.activity.main.SplashActivity;
 import com.jiangzg.lovenote.controller.activity.settings.SuggestAddActivity;
 import com.jiangzg.lovenote.controller.activity.user.UserInfoActivity;
 import com.jiangzg.lovenote.controller.service.UpdateService;
+import com.jiangzg.lovenote.helper.common.GsonHelper;
+import com.jiangzg.lovenote.helper.common.SPHelper;
+import com.jiangzg.lovenote.helper.view.DialogHelper;
 import com.jiangzg.lovenote.main.MyApp;
 import com.jiangzg.lovenote.model.api.API;
 import com.jiangzg.lovenote.model.api.Result;

@@ -1,4 +1,4 @@
-package com.jiangzg.lovenote.helper;
+package com.jiangzg.lovenote.helper.view;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -23,6 +23,8 @@ import com.facebook.imagepipeline.request.ImageRequest;
 import com.facebook.imagepipeline.request.ImageRequestBuilder;
 import com.jiangzg.base.common.LogUtils;
 import com.jiangzg.base.common.StringUtils;
+import com.jiangzg.lovenote.helper.common.ResHelper;
+import com.jiangzg.lovenote.helper.common.SPHelper;
 
 import okhttp3.OkHttpClient;
 

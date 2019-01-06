@@ -19,9 +19,9 @@ import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.controller.activity.base.BaseActivity;
 import com.jiangzg.lovenote.controller.adapter.settings.HelpContentAdapter;
 import com.jiangzg.lovenote.controller.adapter.settings.HelpSubAdapter;
-import com.jiangzg.lovenote.helper.RecyclerHelper;
-import com.jiangzg.lovenote.helper.SPHelper;
-import com.jiangzg.lovenote.helper.ViewHelper;
+import com.jiangzg.lovenote.helper.common.SPHelper;
+import com.jiangzg.lovenote.helper.view.RecyclerHelper;
+import com.jiangzg.lovenote.helper.view.ViewHelper;
 import com.jiangzg.lovenote.model.engine.Help;
 import com.jiangzg.lovenote.model.entity.Limit;
 

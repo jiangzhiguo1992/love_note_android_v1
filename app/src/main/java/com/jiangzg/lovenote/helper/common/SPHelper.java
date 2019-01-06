@@ -1,11 +1,12 @@
-package com.jiangzg.lovenote.helper;
+package com.jiangzg.lovenote.helper.common;
 
 import android.content.SharedPreferences;
 
 import com.jiangzg.base.common.DateUtils;
 import com.jiangzg.base.common.LogUtils;
+import com.jiangzg.base.common.SPUtils;
 import com.jiangzg.base.common.StringUtils;
-import com.jiangzg.base.system.SPUtils;
+import com.jiangzg.lovenote.helper.view.ThemeHelper;
 import com.jiangzg.lovenote.model.engine.NoteCustom;
 import com.jiangzg.lovenote.model.entity.CommonConst;
 import com.jiangzg.lovenote.model.entity.CommonCount;

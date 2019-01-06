@@ -9,7 +9,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.controller.activity.topic.PostListActivity;
-import com.jiangzg.lovenote.helper.CountHelper;
+import com.jiangzg.lovenote.helper.common.CountHelper;
 import com.jiangzg.lovenote.model.entity.PostKindInfo;
 import com.jiangzg.lovenote.model.entity.TopicInfo;
 

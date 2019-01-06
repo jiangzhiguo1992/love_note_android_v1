@@ -1,9 +1,10 @@
-package com.jiangzg.lovenote.helper;
+package com.jiangzg.lovenote.helper.view;
 
 import android.app.Activity;
 
 import com.jiangzg.base.component.ActivityStack;
 import com.jiangzg.lovenote.R;
+import com.jiangzg.lovenote.helper.common.SPHelper;
 
 import java.util.Stack;
 

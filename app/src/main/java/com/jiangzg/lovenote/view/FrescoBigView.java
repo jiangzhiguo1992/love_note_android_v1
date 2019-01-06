@@ -37,10 +37,10 @@ import com.jiangzg.base.component.ActivityStack;
 import com.jiangzg.base.component.ProviderUtils;
 import com.jiangzg.base.view.ScreenUtils;
 import com.jiangzg.lovenote.R;
-import com.jiangzg.lovenote.helper.FrescoHelper;
-import com.jiangzg.lovenote.helper.OssHelper;
-import com.jiangzg.lovenote.helper.OssResHelper;
-import com.jiangzg.lovenote.helper.ResHelper;
+import com.jiangzg.lovenote.helper.common.OssHelper;
+import com.jiangzg.lovenote.helper.common.OssResHelper;
+import com.jiangzg.lovenote.helper.common.ResHelper;
+import com.jiangzg.lovenote.helper.view.FrescoHelper;
 import com.jiangzg.lovenote.main.MyApp;
 
 import java.io.File;

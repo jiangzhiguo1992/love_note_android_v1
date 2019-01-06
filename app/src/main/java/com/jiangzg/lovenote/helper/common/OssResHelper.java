@@ -1,4 +1,4 @@
-package com.jiangzg.lovenote.helper;
+package com.jiangzg.lovenote.helper.common;
 
 import com.jiangzg.base.common.DateUtils;
 import com.jiangzg.base.common.FileUtils;

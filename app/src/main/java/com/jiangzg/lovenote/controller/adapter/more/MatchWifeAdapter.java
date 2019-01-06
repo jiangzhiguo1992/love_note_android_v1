@@ -12,7 +12,7 @@ import com.jiangzg.base.view.ScreenUtils;
 import com.jiangzg.base.view.ViewUtils;
 import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.controller.activity.common.BigImageActivity;
-import com.jiangzg.lovenote.helper.CountHelper;
+import com.jiangzg.lovenote.helper.common.CountHelper;
 import com.jiangzg.lovenote.model.entity.MatchWork;
 import com.jiangzg.lovenote.view.FrescoView;
 

@@ -1,4 +1,4 @@
-package com.jiangzg.lovenote.helper;
+package com.jiangzg.lovenote.helper.view;
 
 import android.app.Activity;
 import android.content.Context;
@@ -24,6 +24,7 @@ import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.base.view.PopUtils;
 import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.controller.activity.common.BigImageActivity;
+import com.jiangzg.lovenote.helper.media.PickHelper;
 
 import java.util.Random;
 
@@ -110,7 +111,7 @@ public class ViewHelper {
                     break;
                 case R.id.llPicture:
                     PopUtils.dismiss(window);
-                    MediaPickHelper.selectImage(activity, 1);
+                    PickHelper.selectImage(activity, 1);
                     break;
                 case R.id.llCancel:
                     PopUtils.dismiss(window);

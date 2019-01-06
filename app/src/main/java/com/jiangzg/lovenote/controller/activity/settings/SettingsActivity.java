@@ -22,12 +22,12 @@ import com.jiangzg.lovenote.controller.activity.base.BaseActivity;
 import com.jiangzg.lovenote.controller.activity.main.SplashActivity;
 import com.jiangzg.lovenote.controller.activity.user.PasswordActivity;
 import com.jiangzg.lovenote.controller.activity.user.PhoneActivity;
-import com.jiangzg.lovenote.helper.DialogHelper;
-import com.jiangzg.lovenote.helper.PushHelper;
-import com.jiangzg.lovenote.helper.ResHelper;
-import com.jiangzg.lovenote.helper.RxBus;
-import com.jiangzg.lovenote.helper.SPHelper;
-import com.jiangzg.lovenote.helper.ViewHelper;
+import com.jiangzg.lovenote.helper.common.ResHelper;
+import com.jiangzg.lovenote.helper.common.RxBus;
+import com.jiangzg.lovenote.helper.common.SPHelper;
+import com.jiangzg.lovenote.helper.system.PushHelper;
+import com.jiangzg.lovenote.helper.view.DialogHelper;
+import com.jiangzg.lovenote.helper.view.ViewHelper;
 import com.jiangzg.lovenote.main.MyApp;
 import com.jiangzg.lovenote.model.entity.PushInfo;
 

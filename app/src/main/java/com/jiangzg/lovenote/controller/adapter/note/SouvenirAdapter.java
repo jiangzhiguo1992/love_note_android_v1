@@ -9,7 +9,7 @@ import com.jiangzg.base.common.TimeUnit;
 import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.controller.activity.note.SouvenirDetailDoneActivity;
 import com.jiangzg.lovenote.controller.activity.note.SouvenirDetailWishActivity;
-import com.jiangzg.lovenote.helper.TimeHelper;
+import com.jiangzg.lovenote.helper.common.TimeHelper;
 import com.jiangzg.lovenote.model.entity.Souvenir;
 
 import java.util.Locale;

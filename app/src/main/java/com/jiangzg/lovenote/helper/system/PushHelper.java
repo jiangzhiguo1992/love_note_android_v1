@@ -1,4 +1,4 @@
-package com.jiangzg.lovenote.helper;
+package com.jiangzg.lovenote.helper.system;
 
 import android.app.NotificationManager;
 import android.content.Context;
@@ -13,6 +13,7 @@ import com.jiangzg.base.common.LogUtils;
 import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.base.system.PushUtils;
 import com.jiangzg.lovenote.R;
+import com.jiangzg.lovenote.helper.common.SPHelper;
 import com.jiangzg.lovenote.main.MyApp;
 import com.jiangzg.lovenote.model.entity.PushInfo;
 import com.jiangzg.lovenote.model.entity.User;

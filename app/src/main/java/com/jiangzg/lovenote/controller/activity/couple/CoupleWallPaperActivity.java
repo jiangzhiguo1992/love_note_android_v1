@@ -20,14 +20,14 @@ import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.controller.activity.base.BaseActivity;
 import com.jiangzg.lovenote.controller.activity.more.VipActivity;
 import com.jiangzg.lovenote.controller.adapter.couple.WallPaperAdapter;
-import com.jiangzg.lovenote.helper.MediaPickHelper;
-import com.jiangzg.lovenote.helper.OssHelper;
-import com.jiangzg.lovenote.helper.RecyclerHelper;
-import com.jiangzg.lovenote.helper.RetrofitHelper;
-import com.jiangzg.lovenote.helper.RxBus;
-import com.jiangzg.lovenote.helper.SPHelper;
-import com.jiangzg.lovenote.helper.UserHelper;
-import com.jiangzg.lovenote.helper.ViewHelper;
+import com.jiangzg.lovenote.helper.common.OssHelper;
+import com.jiangzg.lovenote.helper.common.RxBus;
+import com.jiangzg.lovenote.helper.common.SPHelper;
+import com.jiangzg.lovenote.helper.common.UserHelper;
+import com.jiangzg.lovenote.helper.media.PickHelper;
+import com.jiangzg.lovenote.helper.system.RetrofitHelper;
+import com.jiangzg.lovenote.helper.view.RecyclerHelper;
+import com.jiangzg.lovenote.helper.view.ViewHelper;
 import com.jiangzg.lovenote.model.api.API;
 import com.jiangzg.lovenote.model.api.Result;
 import com.jiangzg.lovenote.model.entity.WallPaper;
@@ -113,7 +113,7 @@ public class CoupleWallPaperActivity extends BaseActivity<CoupleWallPaperActivit
         if (resultCode != RESULT_OK) return;
         if (requestCode == BaseActivity.REQUEST_PICTURE) {
             // 相册
-            List<String> pathList = MediaPickHelper.getResultFilePathList(mActivity, data);
+            List<String> pathList = PickHelper.getResultFilePathList(mActivity, data);
             if (pathList == null || pathList.size() <= 0) {
                 ToastUtils.show(getString(R.string.file_no_exits));
                 return;
@@ -158,7 +158,7 @@ public class CoupleWallPaperActivity extends BaseActivity<CoupleWallPaperActivit
             VipActivity.goActivity(mActivity);
             return;
         }
-        MediaPickHelper.selectImage(mActivity, count - data.size());
+        PickHelper.selectImage(mActivity, count - data.size());
     }
 
     // oss上传头像

@@ -18,7 +18,7 @@ import com.jiangzg.lovenote.controller.adapter.common.CommonFragmentAdapter;
 import com.jiangzg.lovenote.controller.fragment.base.BasePagerFragment;
 import com.jiangzg.lovenote.controller.fragment.more.MatchDiscussListFragment;
 import com.jiangzg.lovenote.controller.fragment.more.MatchPeriodListFragment;
-import com.jiangzg.lovenote.helper.ViewHelper;
+import com.jiangzg.lovenote.helper.view.ViewHelper;
 import com.jiangzg.lovenote.model.entity.MatchPeriod;
 
 import butterknife.BindView;

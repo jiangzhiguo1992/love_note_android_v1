@@ -1,4 +1,4 @@
-package com.jiangzg.lovenote.helper;
+package com.jiangzg.lovenote.helper.common;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;

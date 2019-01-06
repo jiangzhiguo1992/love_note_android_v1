@@ -6,7 +6,7 @@ import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.controller.activity.base.BaseActivity;
 import com.jiangzg.lovenote.controller.activity.common.MapShowActivity;
-import com.jiangzg.lovenote.helper.TimeHelper;
+import com.jiangzg.lovenote.helper.common.TimeHelper;
 import com.jiangzg.lovenote.model.entity.TravelPlace;
 
 /**

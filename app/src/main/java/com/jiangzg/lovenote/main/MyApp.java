@@ -4,10 +4,10 @@ import com.jiangzg.base.application.AppBase;
 import com.jiangzg.base.application.AppListener;
 import com.jiangzg.base.common.LogUtils;
 import com.jiangzg.base.component.ActivityStack;
-import com.jiangzg.lovenote.helper.FrescoHelper;
-import com.jiangzg.lovenote.helper.PushHelper;
-import com.jiangzg.lovenote.helper.ResHelper;
-import com.jiangzg.lovenote.helper.ThemeHelper;
+import com.jiangzg.lovenote.helper.common.ResHelper;
+import com.jiangzg.lovenote.helper.system.PushHelper;
+import com.jiangzg.lovenote.helper.view.FrescoHelper;
+import com.jiangzg.lovenote.helper.view.ThemeHelper;
 
 import butterknife.ButterKnife;
 

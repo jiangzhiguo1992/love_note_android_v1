@@ -1,4 +1,4 @@
-package com.jiangzg.lovenote.helper;
+package com.jiangzg.lovenote.helper.common;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -25,6 +25,8 @@ import com.jiangzg.lovenote.controller.activity.base.BaseActivity;
 import com.jiangzg.lovenote.controller.activity.couple.CoupleInfoActivity;
 import com.jiangzg.lovenote.controller.activity.main.HomeActivity;
 import com.jiangzg.lovenote.controller.receiver.OssRefreshReceiver;
+import com.jiangzg.lovenote.helper.system.RetrofitHelper;
+import com.jiangzg.lovenote.helper.view.DialogHelper;
 import com.jiangzg.lovenote.main.MyApp;
 import com.jiangzg.lovenote.model.api.API;
 import com.jiangzg.lovenote.model.api.Result;
