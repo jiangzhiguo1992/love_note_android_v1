@@ -65,7 +65,6 @@ android {
     productFlavors { // 发布渠道
         official {} // 官方
         //---------------------手机厂商----------------------
-//        google {} // 谷歌
         oppo {} // oppo
         vivo {} // vivo
         huawei {} // 华为
@@ -80,12 +79,17 @@ android {
 //        lenovo {} // 联想
 //        nokia {} // 诺基亚
         //---------------------三方市场----------------------
+//        google {} // 谷歌
         tencent {} // 应用宝
         ali {} // 阿里
         baidu {} // 百度
         qh360 {} // 360
 //        kuan {} // 酷安
+//        mm {} // 移动-MM
+//        wostore {} // 联通-沃商店
+//        tianyi {} // 电信-天翼空间
 //        sougou {} // 搜狗
+//        yingyonghui {} // 应用汇
     }
     productFlavors.all { // 发布渠道
         flavor -> flavor.manifestPlaceholders = [MARKET_CHANNEL_VALUE: name]

@@ -177,8 +177,6 @@ public class WelcomeActivity extends BaseActivity<WelcomeActivity> {
             String channel = appMetaData.getString("market_channel");
             if (StringUtils.isEmpty(channel)) return;
             switch (channel) {
-                case "google": // 谷歌(不用！)
-                    break;
                 case "oppo": // oppo
                     break;
                 case "vivo": // vivo
@@ -194,6 +192,8 @@ public class WelcomeActivity extends BaseActivity<WelcomeActivity> {
                 case "meizu": // 魅族
                     ivShouFa.setVisibility(View.VISIBLE);
                     ivShouFa.setImageResource(R.mipmap.shoufa_meizu);
+                    break;
+                case "google": // 谷歌(不用！)
                     break;
                 case "tencent": // 应用宝
                     break;
