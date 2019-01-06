@@ -75,13 +75,10 @@ android {
 //        samsung {} // 三星
 //        nubia {} // 努比亚
 //        leshi {} // 乐视
-//        lenovo {} // 联想
 //        smaritsan {} // 锤子
 //        kupai {} // 酷派
-//        suoni {} // 索尼
+//        lenovo {} // 联想
 //        nokia {} // 诺基亚
-//        htc {} // htc
-//        lg {} // lg
         //---------------------三方市场----------------------
         tencent {} // 应用宝
         ali {} // 阿里
