@@ -71,13 +71,13 @@ android {
         huawei {} // 华为
         xiaomi {} // 小米
         meizu {} // 魅族
+//        jinli {} // 金立
 //        samsung {} // 三星
-//        lenovo {} // 联想
 //        nubia {} // 努比亚
+//        leshi {} // 乐视
+//        lenovo {} // 联想
 //        smaritsan {} // 锤子
 //        kupai {} // 酷派
-//        jinli {} // 金立
-//        leshi {} // 乐视
 //        suoni {} // 索尼
 //        nokia {} // 诺基亚
 //        htc {} // htc
