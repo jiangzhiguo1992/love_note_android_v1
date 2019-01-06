@@ -37,7 +37,6 @@
         android:layout_toEndOf="@+id/ivAvatar"
         android:background="@drawable/shape_solid_white_right_circle_left_react"
         android:elevation="@dimen/elevation_normal"
-        android:foreground="?attr/selectableItemBackground"
         android:gravity="center_vertical"
         android:orientation="horizontal"
         android:padding="3dp"
