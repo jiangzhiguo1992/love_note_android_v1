@@ -4,8 +4,6 @@ import android.support.annotation.StringRes;
 
 import com.jiangzg.base.application.AppBase;
 
-import java.util.Calendar;
-
 /**
  * Created by gg on 2017/4/7.
  * 时间单位类 也可参考Formatter

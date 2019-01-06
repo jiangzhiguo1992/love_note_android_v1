@@ -5,8 +5,8 @@ import com.jiangzg.base.application.AppListener;
 import com.jiangzg.base.common.LogUtils;
 import com.jiangzg.base.component.ActivityStack;
 import com.jiangzg.lovenote.helper.common.ResHelper;
+import com.jiangzg.lovenote.helper.media.FrescoHelper;
 import com.jiangzg.lovenote.helper.system.PushHelper;
-import com.jiangzg.lovenote.helper.view.FrescoHelper;
 import com.jiangzg.lovenote.helper.view.ThemeHelper;
 
 import butterknife.ButterKnife;

@@ -40,7 +40,7 @@ import com.jiangzg.lovenote.helper.common.ApiHelper;
 import com.jiangzg.lovenote.helper.common.OssHelper;
 import com.jiangzg.lovenote.helper.common.OssResHelper;
 import com.jiangzg.lovenote.helper.common.ResHelper;
-import com.jiangzg.lovenote.helper.view.FrescoHelper;
+import com.jiangzg.lovenote.helper.media.FrescoHelper;
 import com.jiangzg.lovenote.main.MyApp;
 
 import java.io.File;

@@ -6,9 +6,9 @@ import com.alibaba.sdk.android.oss.OSS;
 import com.alibaba.sdk.android.oss.OSSClient;
 import com.alibaba.sdk.android.oss.common.auth.OSSCredentialProvider;
 import com.alibaba.sdk.android.oss.common.auth.OSSStsTokenCredentialProvider;
+import com.jiangzg.base.common.DateUtils;
 import com.jiangzg.base.common.LogUtils;
 import com.jiangzg.base.common.StringUtils;
-import com.jiangzg.base.common.DateUtils;
 import com.jiangzg.lovenote_admin.base.MyApp;
 import com.jiangzg.lovenote_admin.domain.OssInfo;
 

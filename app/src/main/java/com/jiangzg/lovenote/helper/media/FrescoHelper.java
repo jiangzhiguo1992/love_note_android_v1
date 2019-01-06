@@ -1,4 +1,4 @@
-package com.jiangzg.lovenote.helper.view;
+package com.jiangzg.lovenote.helper.media;
 
 import android.content.Context;
 import android.graphics.Bitmap;
