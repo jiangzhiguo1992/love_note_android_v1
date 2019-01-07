@@ -159,13 +159,13 @@ public interface API {
     @POST("set/suggest/follow")
     Call<Result> setSuggestFollowToggle(@Body SuggestFollow suggestFollow);
 
-    // 配对邀请
-    @POST("couple")
-    Call<Result> coupleInvitee(@Body User user);
-
     // cp首页
     @GET("couple/home")
     Call<Result> coupleHomeGet();
+
+    // 配对邀请
+    @POST("couple")
+    Call<Result> coupleInvitee(@Body User user);
 
     // 配对更新
     @PUT("couple")
