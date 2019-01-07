@@ -95,6 +95,10 @@ public interface API {
     @POST("user")
     Call<Result> userRegister(@Query("code") String code, @Body User user);
 
+    // 用户登录
+    @POST("user/login")
+    Call<Result> userLogin(@Query("type") int type, @Query("code") String code, @Body User user);
+
     // 用户修改
     @PUT("user")
     Call<Result> userModify(@Query("type") int type, @Query("code") String code, @Query("old_pwd") String oldPwd, @Body User user);
@@ -102,10 +106,6 @@ public interface API {
     // 用户获取ta
     @GET("user?ta=1")
     Call<Result> userGetTa();
-
-    // 用户登录
-    @POST("user/login")
-    Call<Result> userLogin(@Query("type") int type, @Query("code") String code, @Body User user);
 
     // 版本
     @GET("set/version")
@@ -163,20 +163,25 @@ public interface API {
     @POST("couple")
     Call<Result> coupleInvitee(@Body User user);
 
+    // cp首页
+    @GET("couple/home")
+    Call<Result> coupleHomeGet();
+
     // 配对更新
     @PUT("couple")
     Call<Result> coupleUpdate(@Query("type") int type, @Body Couple couple);
 
     // 配对查询
-    @GET("couple")
-    Call<Result> coupleGet(@Query("self") boolean self, @Query("uid") long uid);
+    @GET("couple?self=0")
+    Call<Result> coupleGet(@Query("uid") long uid);
 
+    // 配对查询
+    @GET("couple?self=1")
+    Call<Result> coupleSelfGet();
+
+    // 配对状态查询
     @GET("couple?list=1&state=1")
     Call<Result> coupleStateListGet(@Query("cid") long cid, @Query("page") int page);
-
-    // cp首页
-    @GET("couple/home")
-    Call<Result> coupleHomeGet();
 
     // 添加墙纸
     @POST("couple/wallPaper")
@@ -460,7 +465,7 @@ public interface API {
 
     // promise删除
     @DELETE("note/promise")
-    Call<Result> notePromiseDel(@Query("pid") long did);
+    Call<Result> notePromiseDel(@Query("pid") long pid);
 
     // promise修改
     @PUT("note/promise")
@@ -673,13 +678,13 @@ public interface API {
     @GET("more/coin?list=1")
     Call<Result> moreCoinListGet(@Query("page") int page);
 
-    // sign上传
-    @POST("more/sign")
-    Call<Result> moreSignAdd();
-
     // signList获取
     @GET("more/sign?date=1")
     Call<Result> moreSignDateGet(@Query("year") int year, @Query("month") int month);
+
+    // sign上传
+    @POST("more/sign")
+    Call<Result> moreSignAdd();
 
     // matchPeriodList获取
     @GET("more/match/period?list=1")

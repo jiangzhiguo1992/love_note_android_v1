@@ -195,7 +195,7 @@ public class CouplePairActivity extends BaseActivity<CouplePairActivity> {
             srl.setRefreshing(true);
         }
         // api获取和ta的以往cp
-        callRefreshSelf = new RetrofitHelper().call(API.class).coupleGet(true, 0);
+        callRefreshSelf = new RetrofitHelper().call(API.class).coupleSelfGet();
         RetrofitHelper.enqueue(callRefreshSelf, null, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
@@ -347,7 +347,7 @@ public class CouplePairActivity extends BaseActivity<CouplePairActivity> {
         User me = SPHelper.getMe();
         if (me == null) return;
         long uid = me.getId();
-        callGetVisible = new RetrofitHelper().call(API.class).coupleGet(false, uid);
+        callGetVisible = new RetrofitHelper().call(API.class).coupleGet(uid);
         RetrofitHelper.enqueue(callGetVisible, null, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
