@@ -19,7 +19,7 @@
 
         <!-- 上线部署 1.version 2.app_name 3.is_debug 4.api_url 5.market_publish -->
 
-        <!-- 测试模式 (上线为false) -->
+        <!-- 测试模式 (上线为 false) -->
         <meta-data
             android:name="is_debug"
             android:value="true"/>
