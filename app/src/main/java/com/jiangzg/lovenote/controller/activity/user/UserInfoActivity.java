@@ -189,7 +189,7 @@ public class UserInfoActivity extends BaseActivity<UserInfoActivity> {
         int minYear = maxYear - 100;
         npYear.setMinValue(minYear);
         npYear.setMaxValue(maxYear);
-        npYear.setValue(maxYear - 20);
+        npYear.setValue(maxYear - 21);
     }
 
     public void setMonths() {
