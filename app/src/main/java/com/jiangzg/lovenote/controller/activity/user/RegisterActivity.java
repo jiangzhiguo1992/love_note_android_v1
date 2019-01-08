@@ -7,16 +7,15 @@ import android.os.Bundle;
 import android.support.design.widget.TextInputEditText;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.TextView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.jiangzg.base.common.TimeUnit;
 import com.jiangzg.base.component.ActivityTrans;
 import com.jiangzg.base.view.ToastUtils;
-import com.jiangzg.base.view.ViewUtils;
 import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.controller.activity.base.BaseActivity;
 import com.jiangzg.lovenote.controller.activity.settings.UserProtocolActivity;
@@ -51,10 +50,6 @@ public class RegisterActivity extends BaseActivity<RegisterActivity> {
     Button btnSendCode;
     @BindView(R.id.btnRegister)
     Button btnRegister;
-    @BindView(R.id.cbProtocol)
-    CheckBox cbProtocol;
-    @BindView(R.id.tvProtocol)
-    TextView tvProtocol;
 
     private Call<Result> callSms;
     private Call<Result> callRegister;
@@ -76,7 +71,6 @@ public class RegisterActivity extends BaseActivity<RegisterActivity> {
     @Override
     protected void initView(Intent intent, Bundle state) {
         ViewHelper.initTopBar(mActivity, tb, getString(R.string.register), true);
-        ViewUtils.setLineBottom(tvProtocol);
     }
 
     @Override
@@ -91,6 +85,12 @@ public class RegisterActivity extends BaseActivity<RegisterActivity> {
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.user_protocol, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
     protected void onStop() {
         super.onStop();
         if (isGo) {
@@ -98,12 +98,22 @@ public class RegisterActivity extends BaseActivity<RegisterActivity> {
         }
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menuProtocol: // 用户协议
+                UserProtocolActivity.goActivity(mActivity);
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
     @OnTextChanged({R.id.etPhone, R.id.etPwd, R.id.etPwdConfirm, R.id.etCode})
     public void afterTextChanged(Editable s) {
         onInputChange();
     }
 
-    @OnClick({R.id.btnSendCode, R.id.btnRegister, R.id.tvProtocol})
+    @OnClick({R.id.btnSendCode, R.id.btnRegister})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.btnSendCode: // 验证码
@@ -111,9 +121,6 @@ public class RegisterActivity extends BaseActivity<RegisterActivity> {
                 break;
             case R.id.btnRegister: // 注册
                 register();
-                break;
-            case R.id.tvProtocol: // 用户协议
-                UserProtocolActivity.goActivity(mActivity);
                 break;
         }
     }
@@ -186,10 +193,6 @@ public class RegisterActivity extends BaseActivity<RegisterActivity> {
     }
 
     private void register() {
-        if (!cbProtocol.isChecked()) {
-            ToastUtils.show(getString(R.string.please_check_agree_protocol));
-            return;
-        }
         String pwd = etPwd.getText().toString();
         String pwdConfirm = etPwdConfirm.getText().toString();
         if (!pwd.equals(pwdConfirm)) {

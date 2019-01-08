@@ -3,8 +3,8 @@
       xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/menuForget"
-        android:title="@string/forget_pwd"
+        android:id="@+id/menuProtocol"
+        android:title="@string/user_protocol"
         app:showAsAction="always"/>
 
 </menu>

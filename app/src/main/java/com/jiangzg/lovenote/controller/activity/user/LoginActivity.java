@@ -12,7 +12,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -21,7 +20,6 @@ import android.widget.TextView;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.jiangzg.base.common.TimeUnit;
 import com.jiangzg.base.component.ActivityTrans;
-import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.base.view.ViewUtils;
 import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.controller.activity.base.BaseActivity;
@@ -70,10 +68,8 @@ public class LoginActivity extends BaseActivity<LoginActivity> {
     TextInputLayout tilPwd;
     @BindView(R.id.llVerify)
     LinearLayout llVerify;
-    @BindView(R.id.cbProtocol)
-    CheckBox cbProtocol;
-    @BindView(R.id.tvProtocol)
-    TextView tvProtocol;
+    @BindView(R.id.tvForget)
+    TextView tvForget;
 
     private Call<Result> callSms;
     private Call<Result> callLogin;
@@ -96,7 +92,7 @@ public class LoginActivity extends BaseActivity<LoginActivity> {
     @Override
     protected void initView(Intent intent, Bundle state) {
         ViewHelper.initTopBar(mActivity, tb, getString(R.string.login), true);
-        ViewUtils.setLineBottom(tvProtocol);
+        ViewUtils.setLineBottom(tvForget);
         // loginType
         rgLoginType.setOnCheckedChangeListener((group, checkedId) -> toggleLoginType());
         // 默认密码登录
@@ -116,15 +112,15 @@ public class LoginActivity extends BaseActivity<LoginActivity> {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.forget_pwd, menu);
+        getMenuInflater().inflate(R.menu.user_protocol, menu);
         return super.onCreateOptionsMenu(menu);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.menuForget: // 忘记密码
-                ForgetActivity.goActivity(mActivity);
+            case R.id.menuProtocol: // 用户协议
+                UserProtocolActivity.goActivity(mActivity);
                 return true;
         }
         return super.onOptionsItemSelected(item);
@@ -135,20 +131,20 @@ public class LoginActivity extends BaseActivity<LoginActivity> {
         onInputChange();
     }
 
-    @OnClick({R.id.btnSendCode, R.id.btnLogin, R.id.btnRegister, R.id.tvProtocol})
+    @OnClick({R.id.btnSendCode, R.id.tvForget, R.id.btnLogin, R.id.btnRegister})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btnSendCode: // 验证码
                 sendCode();
+                break;
+            case R.id.tvForget: // 忘记密码
+                ForgetActivity.goActivity(mActivity);
                 break;
             case R.id.btnLogin: // 登录
                 login();
                 break;
             case R.id.btnRegister: // 注册
                 RegisterActivity.goActivity(mActivity);
-                break;
-            case R.id.tvProtocol: // 用户协议
-                UserProtocolActivity.goActivity(mActivity);
                 break;
         }
     }
@@ -245,10 +241,6 @@ public class LoginActivity extends BaseActivity<LoginActivity> {
     }
 
     private void login() {
-        if (!cbProtocol.isChecked()) {
-            ToastUtils.show(getString(R.string.please_check_agree_protocol));
-            return;
-        }
         String phone = etPhone.getText().toString().trim();
         String password = etPwd.getText().toString();
         String code = etCode.getText().toString().trim();

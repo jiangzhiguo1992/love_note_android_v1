@@ -16,11 +16,54 @@
         android:scaleType="fitCenter"
         android:src="@mipmap/ic_launcher"/>
 
+    <RadioGroup
+        android:id="@+id/rgLoginType"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/shape_stroke_primary_r100"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/rbLoginPwd"
+            style="@style/FontGreyNormal"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/selector_check_solid_primary_r100"
+            android:button="@null"
+            android:gravity="center"
+            android:minLines="1"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp"
+            android:singleLine="true"
+            android:text="@string/pwd_login"
+            android:textColor="@color/selector_text_check_primary_white"
+            tools:checked="true"/>
+
+        <RadioButton
+            android:id="@+id/rbLoginVerify"
+            style="@style/FontGreyNormal"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/selector_check_solid_primary_r100"
+            android:button="@null"
+            android:gravity="center"
+            android:minLines="1"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp"
+            android:singleLine="true"
+            android:text="@string/verify_login"
+            android:textColor="@color/selector_text_check_primary_white"/>
+    </RadioGroup>
+
     <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="30dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="10dp"
         android:layout_marginEnd="30dp">
 
         <android.support.design.widget.TextInputEditText
@@ -99,48 +142,23 @@
             android:text="@string/send_validate_code"/>
     </LinearLayout>
 
-    <RadioGroup
-        android:id="@+id/rgLoginType"
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:background="@drawable/shape_stroke_primary_r100"
-        android:gravity="center_vertical"
-        android:orientation="horizontal">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-        <RadioButton
-            android:id="@+id/rbLoginPwd"
-            style="@style/FontGreyNormal"
-            android:layout_width="0dp"
+        <TextView
+            android:id="@+id/tvForget"
+            style="@style/FontPrimarySmall"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="@drawable/selector_check_solid_primary_r100"
-            android:button="@null"
-            android:gravity="center"
-            android:minLines="1"
-            android:paddingTop="8dp"
-            android:paddingBottom="8dp"
-            android:singleLine="true"
-            android:text="@string/pwd_login"
-            android:textColor="@color/selector_text_check_primary_white"
-            tools:checked="true"/>
-
-        <RadioButton
-            android:id="@+id/rbLoginVerify"
-            style="@style/FontGreyNormal"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="@drawable/selector_check_solid_primary_r100"
-            android:button="@null"
-            android:gravity="center"
-            android:minLines="1"
-            android:paddingTop="8dp"
-            android:paddingBottom="8dp"
-            android:singleLine="true"
-            android:text="@string/verify_login"
-            android:textColor="@color/selector_text_check_primary_white"/>
-    </RadioGroup>
+            android:layout_alignParentEnd="true"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:paddingStart="30dp"
+            android:paddingTop="10dp"
+            android:paddingEnd="30dp"
+            android:paddingBottom="10dp"
+            android:text="@string/forget_pwd"/>
+    </RelativeLayout>
 
     <Button
         android:id="@+id/btnLogin"
@@ -148,7 +166,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="30dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="10dp"
         android:layout_marginEnd="30dp"
         android:background="@drawable/selector_enable_press_solid_light_primary_dark_r100"
         android:enabled="false"
@@ -163,31 +181,4 @@
         android:layout_marginEnd="30dp"
         android:background="?attr/selectableItemBackgroundBorderless"
         android:text="@string/register"/>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="bottom|center_horizontal"
-        android:orientation="horizontal">
-
-        <CheckBox
-            android:id="@+id/cbProtocol"
-            style="@style/FontPrimarySmall"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:checked="true"
-            android:gravity="center_vertical"
-            android:paddingTop="5dp"
-            android:paddingBottom="5dp"
-            android:text="@string/agree"/>
-
-        <TextView
-            android:id="@+id/tvProtocol"
-            style="@style/FontBlackSmall"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="?attr/selectableItemBackground"
-            android:padding="5dp"
-            android:text="@string/user_protocol"/>
-    </LinearLayout>
 </LinearLayout>
