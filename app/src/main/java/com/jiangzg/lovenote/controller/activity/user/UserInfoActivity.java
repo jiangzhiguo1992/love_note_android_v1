@@ -87,7 +87,7 @@ public class UserInfoActivity extends BaseActivity<UserInfoActivity> {
 
     @Override
     protected void initData(Intent intent, Bundle state) {
-        SPHelper.clearMe(); // 清除数据
+        SPHelper.clearMe(); // 清除数据，防止打开app卡在这个界面
         me = intent.getParcelableExtra("user");
     }
 
