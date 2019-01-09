@@ -103,7 +103,7 @@ public class PasswordActivity extends BaseActivity<PasswordActivity> {
         String md5OldPwd = EncryptUtils.encryptMD5ToString(oldPwd);
         User user = ApiHelper.getUserBody("", newPwd);
         call = new RetrofitHelper().call(API.class).userModify(ApiHelper.MODIFY_PASSWORD, "", md5OldPwd, user);
-        MaterialDialog loading = getLoading("", true);
+        MaterialDialog loading = getLoading(true);
         RetrofitHelper.enqueue(call, loading, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {

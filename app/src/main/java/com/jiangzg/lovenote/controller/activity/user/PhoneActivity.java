@@ -166,7 +166,7 @@ public class PhoneActivity extends BaseActivity<PhoneActivity> {
         User user = ApiHelper.getUserBody(phone, "");
         // api调用
         callModify = new RetrofitHelper().call(API.class).userModify(ApiHelper.MODIFY_PHONE, code, "", user);
-        MaterialDialog loading = getLoading("", true);
+        MaterialDialog loading = getLoading(true);
         RetrofitHelper.enqueue(callModify, loading, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {

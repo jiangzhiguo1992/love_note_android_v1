@@ -96,7 +96,6 @@ public abstract class BaseActivity<T> extends AppCompatActivity {
     /* 注销 */
     protected abstract void onFinish(Bundle state);
 
-
     public MaterialDialog getLoading(String msg, boolean cancelable, DialogInterface.OnDismissListener listener) {
         MaterialDialog loading = getLoading(msg, cancelable);
         loading.setOnDismissListener(listener);
