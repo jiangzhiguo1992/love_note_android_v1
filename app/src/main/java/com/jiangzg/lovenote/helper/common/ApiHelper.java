@@ -228,13 +228,14 @@ public class ApiHelper {
     }
 
     public static void postEntry(final BaseActivity mActivity) {
+        long start = DateUtils.getCurrentLong();
         Entry entry = getEntryBody();
         Call<Result> call = new RetrofitHelper().call(API.class).entryPush(entry);
         MaterialDialog loading = mActivity.getLoading(true);
         RetrofitHelper.enqueue(call, loading, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
-                onEntryFinish(0, 0, mActivity, code, data);
+                onEntryFinish(start, 0, mActivity, code, data);
             }
 
             @Override
@@ -245,9 +246,9 @@ public class ApiHelper {
 
     public static void onEntryFinish(long startTime, long totalWait, final Activity mActivity, int code, Result.Data data) {
         if (data == null) return;
-        // user
-        User user = data.getUser();
-        SPHelper.setMe(user);
+        // me
+        User me = data.getUser();
+        SPHelper.setMe(me);
         // commonConst
         CommonConst commonConst = data.getCommonConst();
         SPHelper.setCommonConst(commonConst);
@@ -268,6 +269,9 @@ public class ApiHelper {
         // pushInfo
         PushInfo pushInfo = data.getPushInfo();
         SPHelper.setPushInfo(pushInfo);
+        // commonCount
+        CommonCount commonCount = data.getCommonCount();
+        SPHelper.setCommonCount(commonCount);
         // version
         final ArrayList<Version> versionList = (ArrayList<Version>) data.getVersionList();
         if (versionList == null || versionList.size() <= 0) {
@@ -280,12 +284,8 @@ public class ApiHelper {
         } else {
             SPHelper.setVersion(versionList.get(0));
         }
-        // commonCount
-        CommonCount commonCount = data.getCommonCount();
-        SPHelper.setCommonCount(commonCount);
         // delay
-        long endTime = DateUtils.getCurrentLong();
-        long between = endTime - startTime;
+        long between = DateUtils.getCurrentLong() - startTime;
         if (between >= totalWait) {
             // 间隔时间太大
             HomeActivity.goActivity(mActivity);
