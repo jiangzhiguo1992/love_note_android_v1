@@ -864,23 +864,14 @@ public class OssHelper {
     }
 
     // 墙纸 (持久化)
-    public static void uploadWall(Activity activity, final List<String> sourceList, final OssUploadsCallBack callBack) {
-        long imageSize = SPHelper.getVipLimit().getWallPaperSize();
-        final List<File> fileList = ListHelper.getFileListByPath(sourceList);
-        boolean overLimit = false;
-        for (File file : fileList) {
-            if (FileUtils.isFileEmpty(file)) continue;
-            if (file.length() >= imageSize) {
-                overLimit = true;
-                break;
-            }
-        }
-        if (overLimit) {
-            String sizeFormat = ConvertUtils.byte2FitSize(imageSize);
+    public static void uploadWall(Activity activity, final File source, final OssUploadCallBack callBack) {
+        long wallPaperSize = SPHelper.getVipLimit().getWallPaperSize();
+        if (source != null && source.length() >= wallPaperSize) {
+            String sizeFormat = ConvertUtils.byte2FitSize(wallPaperSize);
             String format = String.format(Locale.getDefault(), activity.getString(R.string.image_too_large_cant_over_holder), sizeFormat);
             ToastUtils.show(format);
             if (callBack != null) {
-                callBack.failure(fileList, "");
+                callBack.failure(source, "");
             }
             // vip跳转
             VipActivity.goActivity(activity);
@@ -888,7 +879,7 @@ public class OssHelper {
         }
         OssInfo ossInfo = SPHelper.getOssInfo();
         String pathCoupleWall = ossInfo.getPathCoupleWall();
-        uploadJpegList(activity, pathCoupleWall, fileList, callBack);
+        uploadJpeg(activity, pathCoupleWall, source, callBack);
     }
 
     // 音频 (限制大小 +  持久化)

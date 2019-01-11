@@ -14,13 +14,16 @@ import android.view.View;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemLongClickListener;
+import com.jiangzg.base.common.FileUtils;
 import com.jiangzg.base.component.ActivityTrans;
+import com.jiangzg.base.component.IntentFactory;
 import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.controller.activity.base.BaseActivity;
 import com.jiangzg.lovenote.controller.activity.more.VipActivity;
 import com.jiangzg.lovenote.controller.adapter.couple.WallPaperAdapter;
 import com.jiangzg.lovenote.helper.common.OssHelper;
+import com.jiangzg.lovenote.helper.common.ResHelper;
 import com.jiangzg.lovenote.helper.common.RxBus;
 import com.jiangzg.lovenote.helper.common.SPHelper;
 import com.jiangzg.lovenote.helper.common.UserHelper;
@@ -52,6 +55,7 @@ public class CoupleWallPaperActivity extends BaseActivity<CoupleWallPaperActivit
     private RecyclerHelper recyclerHelper;
     private Call<Result> callUpdate;
     private Call<Result> callGet;
+    private File cropFile;
 
     public static void goActivity(Fragment from) {
         if (UserHelper.isCoupleBreak(SPHelper.getCouple())) {
@@ -99,6 +103,8 @@ public class CoupleWallPaperActivity extends BaseActivity<CoupleWallPaperActivit
         RetrofitHelper.cancel(callGet);
         RetrofitHelper.cancel(callUpdate);
         RecyclerHelper.release(recyclerHelper);
+        // 创建成功的cropFile都要删除
+        ResHelper.deleteFileInBackground(cropFile);
     }
 
     @Override
@@ -110,15 +116,23 @@ public class CoupleWallPaperActivity extends BaseActivity<CoupleWallPaperActivit
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode != RESULT_OK) return;
+        if (resultCode != RESULT_OK) {
+            ResHelper.deleteFileInBackground(cropFile);
+            return;
+        }
         if (requestCode == BaseActivity.REQUEST_PICTURE) {
             // 相册
-            List<String> pathList = PickHelper.getResultFilePathList(mActivity, data);
-            if (pathList == null || pathList.size() <= 0) {
+            File pictureFile = PickHelper.getResultFile(mActivity, data);
+            if (FileUtils.isFileEmpty(pictureFile)) {
                 ToastUtils.show(getString(R.string.file_no_exits));
                 return;
             }
-            ossUploadWall(pathList);
+            cropFile = ResHelper.newImageCacheFile();
+            Intent intent = IntentFactory.getImageCrop(ResHelper.getFileProviderAuth(), pictureFile, cropFile);
+            ActivityTrans.startResult(mActivity, intent, BaseActivity.REQUEST_CROP);
+        } else if (requestCode == BaseActivity.REQUEST_CROP) {
+            // 裁剪
+            ossUploadWall();
         }
     }
 
@@ -158,28 +172,31 @@ public class CoupleWallPaperActivity extends BaseActivity<CoupleWallPaperActivit
             VipActivity.goActivity(mActivity);
             return;
         }
-        PickHelper.selectImage(mActivity, count - data.size());
+        PickHelper.selectImage(mActivity, 1);
     }
 
     // oss上传头像
-    private void ossUploadWall(List<String> pathList) {
-        OssHelper.uploadWall(mActivity, pathList, new OssHelper.OssUploadsCallBack() {
+    private void ossUploadWall() {
+        OssHelper.uploadWall(mActivity, cropFile, new OssHelper.OssUploadCallBack() {
             @Override
-            public void success(List<File> sourceList, List<String> ossPathList) {
-                apiPushData(ossPathList);
+            public void success(File source, String ossPath) {
+                apiPushData(ossPath);
+                ResHelper.deleteFileInBackground(cropFile);
+
             }
 
             @Override
-            public void failure(List<File> sourceList, String errMsg) {
+            public void failure(File source, String errMsg) {
+                ResHelper.deleteFileInBackground(cropFile);
             }
         });
     }
 
-    private void apiPushData(List<String> ossPathList) {
+    private void apiPushData(String ossPath) {
         if (recyclerHelper == null || recyclerHelper.getAdapter() == null) return;
         WallPaperAdapter adapter = recyclerHelper.getAdapter();
         List<String> objects = new ArrayList<>(adapter.getData());
-        objects.addAll(ossPathList);
+        objects.add(ossPath);
         WallPaper body = new WallPaper();
         body.setContentImageList(objects);
         // api
