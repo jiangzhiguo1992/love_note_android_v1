@@ -100,10 +100,10 @@ public class AboutActivity extends BaseActivity<AboutActivity> {
         tvOfficialGroup.setText(StringUtils.isEmpty(officialGroup) ? getString(R.string.now_no) : officialGroup.replace("\\n", "\n"));
         // 官方微博
         String officialWeibo = commonConst.getOfficialWeibo();
-        tvWeiBo.setText(officialWeibo);
+        tvWeiBo.setText(StringUtils.isEmpty(officialWeibo) ? getString(R.string.now_no) : officialWeibo);
         // 官方网站
         String officialWeb = commonConst.getOfficialWeb();
-        tvOfficialWeb.setText(officialWeb);
+        tvOfficialWeb.setText(StringUtils.isEmpty(officialWeb) ? getString(R.string.now_no) : officialWeb);
         // 联系我们
         String contactEmail = commonConst.getContactEmail();
         tvContact.setText(StringUtils.isEmpty(contactEmail) ? getString(R.string.now_no) : contactEmail.replace("\\n", "\n"));
