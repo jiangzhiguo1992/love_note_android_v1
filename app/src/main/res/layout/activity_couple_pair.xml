@@ -78,6 +78,7 @@
                     android:layout_marginTop="10dp"
                     android:layout_marginEnd="20dp"
                     android:layout_marginBottom="10dp"
+                    android:background="@drawable/selector_enable_press_solid_light_primary_dark_r100"
                     android:enabled="false"
                     android:text="@string/i_want_pair_with_ta"/>
             </LinearLayout>
@@ -143,12 +144,13 @@
                             android:id="@+id/btnCardBad"
                             style="@style/FontWhiteNormal"
                             android:layout_width="0dp"
-                            android:layout_height="wrap_content"
+                            android:layout_height="40dp"
                             android:layout_marginStart="10dp"
                             android:layout_marginTop="15dp"
                             android:layout_marginEnd="5dp"
                             android:layout_marginBottom="15dp"
                             android:layout_weight="1"
+                            android:background="@drawable/selector_enable_press_solid_light_primary_dark_r100"
                             android:gravity="center"
                             tools:text="不超过六个字"/>
 
@@ -156,12 +158,13 @@
                             android:id="@+id/btnCardGood"
                             style="@style/FontWhiteNormal"
                             android:layout_width="0dp"
-                            android:layout_height="wrap_content"
+                            android:layout_height="40dp"
                             android:layout_marginStart="5dp"
                             android:layout_marginTop="15dp"
                             android:layout_marginEnd="10dp"
                             android:layout_marginBottom="15dp"
                             android:layout_weight="1"
+                            android:background="@drawable/selector_enable_press_solid_light_primary_dark_r100"
                             android:gravity="center"
                             android:paddingStart="20dp"
                             android:paddingEnd="20dp"

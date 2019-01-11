@@ -1,115 +1,117 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal">
+    android:orientation="vertical">
 
-    <com.jiangzg.lovenote.view.FrescoAvatarView
-        android:id="@+id/ivAvatarLeft"
-        android:layout_width="25dp"
-        android:layout_height="25dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="5dp"
-        android:visibility="invisible"
-        tools:background="@mipmap/ic_account_circle_grey_48dp"
-        tools:visibility="visible"/>
-
-    <com.jiangzg.lovenote.view.FrescoAvatarView
-        android:id="@+id/ivAvatarRight"
-        android:layout_width="25dp"
-        android:layout_height="25dp"
-        android:layout_alignParentEnd="true"
-        android:layout_marginTop="5dp"
-        android:layout_marginEnd="10dp"
-        android:visibility="invisible"
-        tools:background="@mipmap/ic_account_circle_grey_48dp"
-        tools:visibility="visible"/>
-
-    <LinearLayout
+    <android.support.v7.widget.CardView
+        android:id="@+id/cvPlace"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_toStartOf="@+id/ivAvatarRight"
-        android:layout_toEndOf="@id/ivAvatarLeft"
-        android:orientation="vertical">
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="2dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="5dp"
+        android:background="?attr/selectableItemBackground"
+        android:foreground="?attr/selectableItemBackground"
+        app:cardBackgroundColor="@color/white"
+        app:cardCornerRadius="@dimen/radius_normal"
+        app:cardElevation="@dimen/elevation_normal"
+        app:cardMaxElevation="@dimen/elevation_big">
 
-        <android.support.v7.widget.CardView
-            android:id="@+id/cvPlace"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:background="?attr/selectableItemBackground"
-            android:foreground="?attr/selectableItemBackground"
-            app:cardBackgroundColor="@color/white"
-            app:cardCornerRadius="@dimen/radius_normal"
-            app:cardElevation="@dimen/elevation_normal"
-            app:cardMaxElevation="@dimen/elevation_big">
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="5dp">
+
+            <TextView
+                android:id="@+id/tvAddress"
+                style="@style/FontBlackNormal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                tools:text="建议内容建议内容建议内容建议内容建议内容"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:padding="5dp">
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/tvAddress"
-                    style="@style/FontBlackNormal"
-                    android:layout_width="match_parent"
+                    android:id="@+id/tvProvince"
+                    style="@style/FontGreySmall"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:ellipsize="end"
                     android:gravity="center"
-                    tools:text="建议内容建议内容建议内容建议内容建议内容"/>
+                    android:minLines="1"
+                    android:singleLine="true"
+                    tools:text="省份"/>
 
-                <LinearLayout
-                    android:layout_width="match_parent"
+                <TextView
+                    android:id="@+id/tvCity"
+                    style="@style/FontGreySmall"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
-                    android:orientation="horizontal">
+                    android:layout_weight="1"
+                    android:ellipsize="end"
+                    android:gravity="center"
+                    android:minLines="1"
+                    android:singleLine="true"
+                    tools:text="城市"/>
 
-                    <TextView
-                        android:id="@+id/tvProvince"
-                        style="@style/FontGreySmall"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:ellipsize="end"
-                        android:gravity="center"
-                        android:minLines="1"
-                        android:singleLine="true"
-                        tools:text="省份"/>
-
-                    <TextView
-                        android:id="@+id/tvCity"
-                        style="@style/FontGreySmall"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:ellipsize="end"
-                        android:gravity="center"
-                        android:minLines="1"
-                        android:singleLine="true"
-                        tools:text="城市"/>
-
-                    <TextView
-                        android:id="@+id/tvDistrict"
-                        style="@style/FontGreySmall"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:ellipsize="end"
-                        android:gravity="center"
-                        android:minLines="1"
-                        android:singleLine="true"
-                        tools:text="城区"/>
-                </LinearLayout>
+                <TextView
+                    android:id="@+id/tvDistrict"
+                    style="@style/FontGreySmall"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:ellipsize="end"
+                    android:gravity="center"
+                    android:minLines="1"
+                    android:singleLine="true"
+                    tools:text="城区"/>
             </LinearLayout>
-        </android.support.v7.widget.CardView>
+        </LinearLayout>
+    </android.support.v7.widget.CardView>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.jiangzg.lovenote.view.FrescoAvatarView
+            android:id="@+id/ivAvatarLeft"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="10dp"
+            android:visibility="invisible"
+            tools:background="@mipmap/ic_account_circle_grey_48dp"
+            tools:visibility="visible"/>
+
+        <com.jiangzg.lovenote.view.FrescoAvatarView
+            android:id="@+id/ivAvatarRight"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="10dp"
+            android:visibility="invisible"
+            tools:background="@mipmap/ic_account_circle_grey_48dp"
+            tools:visibility="visible"/>
 
         <LinearLayout
             android:id="@+id/llDistance"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_toStartOf="@+id/ivAvatarRight"
+            android:layout_toEndOf="@+id/ivAvatarLeft"
             android:gravity="center"
             android:orientation="vertical">
 
@@ -119,18 +121,20 @@
                 android:background="?attr/colorControlNormal"
                 tools:background="@color/black"/>
 
-            <RelativeLayout
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal">
 
                 <TextView
                     android:id="@+id/tvTimeLeft"
                     style="@style/FontWhiteSmallBold"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
                     android:layout_marginEnd="10dp"
-                    android:layout_toStartOf="@+id/tvDistance"
+                    android:layout_weight="1"
+                    android:gravity="end"
                     android:maxLines="1"
                     android:singleLine="true"
                     android:visibility="gone"
@@ -143,11 +147,12 @@
                     style="@style/FontWhiteSmallBold"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
                     android:background="@drawable/shape_stroke_light_r3"
                     android:maxLines="1"
                     android:paddingStart="5dp"
+                    android:paddingTop="2dp"
                     android:paddingEnd="5dp"
+                    android:paddingBottom="2dp"
                     android:singleLine="true"
                     tools:text="相距100米"
                     tools:textColor="@color/black"/>
@@ -155,18 +160,17 @@
                 <TextView
                     android:id="@+id/tvTimeRight"
                     style="@style/FontWhiteSmallBold"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
                     android:layout_marginStart="10dp"
-                    android:layout_toEndOf="@+id/tvDistance"
+                    android:layout_weight="1"
                     android:maxLines="1"
                     android:singleLine="true"
                     android:visibility="gone"
                     tools:text="1992-07-12 11:33"
                     tools:textColor="@color/black"
                     tools:visibility="visible"/>
-            </RelativeLayout>
+            </LinearLayout>
 
             <View
                 android:layout_width="1dp"
@@ -174,5 +178,5 @@
                 android:background="?attr/colorControlNormal"
                 tools:background="@color/black"/>
         </LinearLayout>
-    </LinearLayout>
-</RelativeLayout>
+    </RelativeLayout>
+</LinearLayout>

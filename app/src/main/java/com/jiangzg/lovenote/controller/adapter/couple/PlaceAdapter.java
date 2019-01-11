@@ -2,6 +2,7 @@ package com.jiangzg.lovenote.controller.adapter.couple;
 
 import android.support.v4.app.FragmentActivity;
 import android.view.View;
+import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
@@ -55,19 +56,21 @@ public class PlaceAdapter extends BaseQuickAdapter<Place, BaseViewHolder> {
         // view
         FrescoAvatarView ivAvatarRight = helper.getView(R.id.ivAvatarRight);
         FrescoAvatarView ivAvatarLeft = helper.getView(R.id.ivAvatarLeft);
+        TextView tvTimeLeft = helper.getView(R.id.tvTimeLeft);
+        TextView tvTimeRight = helper.getView(R.id.tvTimeRight);
         if (isMine) {
             ivAvatarLeft.setVisibility(View.INVISIBLE);
             ivAvatarRight.setVisibility(View.VISIBLE);
-            helper.setVisible(R.id.tvTimeLeft, false);
-            helper.setVisible(R.id.tvTimeRight, true);
+            tvTimeLeft.setVisibility(View.INVISIBLE);
+            tvTimeRight.setVisibility(View.VISIBLE);
             // set
             ivAvatarRight.setData(avatar);
             helper.setText(R.id.tvTimeRight, time);
         } else {
             ivAvatarLeft.setVisibility(View.VISIBLE);
             ivAvatarRight.setVisibility(View.INVISIBLE);
-            helper.setVisible(R.id.tvTimeLeft, true);
-            helper.setVisible(R.id.tvTimeRight, false);
+            tvTimeLeft.setVisibility(View.VISIBLE);
+            tvTimeRight.setVisibility(View.INVISIBLE);
             // set
             ivAvatarLeft.setData(avatar);
             helper.setText(R.id.tvTimeLeft, time);
