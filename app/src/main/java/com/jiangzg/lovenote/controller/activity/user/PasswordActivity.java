@@ -84,11 +84,9 @@ public class PasswordActivity extends BaseActivity<PasswordActivity> {
     }
 
     private void onInputChange() {
-        boolean oldPwd = etOldPwd.getText().toString().length() > 0;
         boolean newPwd = etNewPwd.getText().toString().length() > 0;
         boolean newPwdConfirm = etNewPwdConfirm.getText().toString().length() > 0;
-
-        btnModify.setEnabled(oldPwd && newPwd && newPwdConfirm);
+        btnModify.setEnabled(newPwd && newPwdConfirm);
     }
 
     private void modify() {
