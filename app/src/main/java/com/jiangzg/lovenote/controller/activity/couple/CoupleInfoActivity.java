@@ -31,6 +31,7 @@ import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.controller.activity.base.BaseActivity;
 import com.jiangzg.lovenote.controller.activity.common.BigImageActivity;
+import com.jiangzg.lovenote.controller.activity.note.SouvenirListActivity;
 import com.jiangzg.lovenote.controller.activity.settings.HelpActivity;
 import com.jiangzg.lovenote.controller.adapter.couple.CoupleStateAdapter;
 import com.jiangzg.lovenote.helper.common.ApiHelper;
@@ -226,7 +227,8 @@ public class CoupleInfoActivity extends BaseActivity<CoupleInfoActivity> {
         return super.onOptionsItemSelected(item);
     }
 
-    @OnClick({R.id.rlTogether, R.id.ivAvatarRight, R.id.ivAvatarLeft, R.id.tvNameLeft, R.id.llPhoneLeft})
+    @OnClick({R.id.rlTogether, R.id.ivAvatarRight, R.id.ivAvatarLeft, R.id.tvNameLeft, R.id.llPhoneLeft,
+            R.id.llUserInfoLeft, R.id.llUserInfoRight})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.rlTogether: // 在一起
@@ -244,6 +246,10 @@ public class CoupleInfoActivity extends BaseActivity<CoupleInfoActivity> {
                 break;
             case R.id.llPhoneLeft: // 拨打ta的电话
                 showDial();
+                break;
+            case R.id.llUserInfoLeft: // ta的生日
+            case R.id.llUserInfoRight: // 我的生日
+                SouvenirListActivity.goActivity(mActivity);
                 break;
         }
     }
