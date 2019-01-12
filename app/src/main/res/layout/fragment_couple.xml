@@ -197,6 +197,8 @@
                         style="@style/FontWhiteHugeBold"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
+                        android:layout_marginStart="5dp"
+                        android:layout_marginEnd="5dp"
                         android:ellipsize="middle"
                         android:gravity="bottom"
                         android:shadowColor="@color/black_alpha_50"

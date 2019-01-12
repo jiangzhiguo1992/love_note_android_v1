@@ -15,6 +15,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
@@ -53,7 +54,6 @@ import com.jiangzg.lovenote.view.FrescoAvatarView;
 
 import java.io.File;
 import java.util.List;
-import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -67,6 +67,11 @@ public class CoupleInfoActivity extends BaseActivity<CoupleInfoActivity> {
     AppBarLayout abl;
     @BindView(R.id.tb)
     Toolbar tb;
+
+    @BindView(R.id.rlTogether)
+    RelativeLayout rlTogether;
+    @BindView(R.id.tvTogether)
+    TextView tvTogether;
 
     @BindView(R.id.ivAvatarLeft)
     FrescoAvatarView ivAvatarLeft;
@@ -94,8 +99,6 @@ public class CoupleInfoActivity extends BaseActivity<CoupleInfoActivity> {
     @BindView(R.id.tvBirthRight)
     TextView tvBirthRight;
 
-    @BindView(R.id.tvPairDays)
-    TextView tvPairDays;
     @BindView(R.id.rv)
     RecyclerView rv;
 
@@ -223,9 +226,12 @@ public class CoupleInfoActivity extends BaseActivity<CoupleInfoActivity> {
         return super.onOptionsItemSelected(item);
     }
 
-    @OnClick({R.id.ivAvatarRight, R.id.ivAvatarLeft, R.id.tvNameLeft, R.id.llPhoneLeft})
+    @OnClick({R.id.rlTogether, R.id.ivAvatarRight, R.id.ivAvatarLeft, R.id.tvNameLeft, R.id.llPhoneLeft})
     public void onViewClicked(View view) {
         switch (view.getId()) {
+            case R.id.rlTogether: // 在一起
+                showTogetherTimePicker();
+                break;
             case R.id.ivAvatarRight: // 右头像
                 String myAvatar = UserHelper.getMyAvatar(SPHelper.getMe());
                 BigImageActivity.goActivityByOss(mActivity, myAvatar, ivAvatarRight);
@@ -298,7 +304,14 @@ public class CoupleInfoActivity extends BaseActivity<CoupleInfoActivity> {
         tvPhoneRight.setText(mePhone);
         tvBirthLeft.setText(taBirthShow);
         tvBirthRight.setText(meBirthShow);
-        tvPairDays.setText(String.format(Locale.getDefault(), getString(R.string.holder_day), togetherDay));
+        tvTogether.setText(String.valueOf(togetherDay));
+    }
+
+    private void showTogetherTimePicker() {
+        Couple couple = SPHelper.getCouple();
+        long togetherAt = couple == null ? DateUtils.getCurrentLong() :
+                (couple.getTogetherAt() == 0 ? DateUtils.getCurrentLong() : TimeHelper.getJavaTimeByGo(couple.getTogetherAt()));
+        DialogHelper.showDateTimePicker(mActivity, togetherAt, time -> apiCoupleInfo(TimeHelper.getGoTimeByJava(time), "", ""));
     }
 
     private void showLeftAvatarPop() {
@@ -326,7 +339,7 @@ public class CoupleInfoActivity extends BaseActivity<CoupleInfoActivity> {
                     EditText editText = dialog.getInputEditText();
                     if (editText != null) {
                         String modifyName = editText.getText().toString();
-                        apiCoupleInfo("", modifyName);
+                        apiCoupleInfo(0, "", modifyName);
                     }
                 })
                 .build();
@@ -338,7 +351,7 @@ public class CoupleInfoActivity extends BaseActivity<CoupleInfoActivity> {
         OssHelper.uploadAvatar(mActivity, cropFile, new OssHelper.OssUploadCallBack() {
             @Override
             public void success(File source, String ossPath) {
-                apiCoupleInfo(ossPath, "");
+                apiCoupleInfo(0, ossPath, "");
                 ResHelper.deleteFileInBackground(cropFile);
             }
 
@@ -350,11 +363,12 @@ public class CoupleInfoActivity extends BaseActivity<CoupleInfoActivity> {
     }
 
     // api 修改couple
-    private void apiCoupleInfo(String avatar, String name) {
+    private void apiCoupleInfo(long togetherAt, String avatar, String name) {
         User user = SPHelper.getMe();
         if (user == null) return;
         Couple body = user.getCouple();
         if (body == null) return;
+        body.setTogetherAt(togetherAt);
         if (body.getCreatorId() == user.getId()) {
             body.setInviteeAvatar(avatar);
             body.setInviteeName(name);
