@@ -65,26 +65,26 @@ android {
     productFlavors { // 发布渠道
         official {} // 官方
         //---------------------手机厂商----------------------
+//        google {} // 谷歌
         oppo {} // oppo
         vivo {} // vivo
         huawei {} // 华为
         xiaomi {} // 小米
         meizu {} // 魅族
-//        jinli {} // 金立
 //        samsung {} // 三星
 //        nubia {} // 努比亚
-//        leshi {} // 乐视
 //        smaritsan {} // 锤子
+//        jinli {} // 金立
+//        leshi {} // 乐视
 //        kupai {} // 酷派
 //        lenovo {} // 联想
 //        nokia {} // 诺基亚
         //---------------------三方市场----------------------
-//        google {} // 谷歌
+        kuan {} // 酷安
         tencent {} // 应用宝
         ali {} // 阿里
         baidu {} // 百度
         qh360 {} // 360
-//        kuan {} // 酷安
 //        mm {} // 移动-MM
 //        wostore {} // 联通-沃商店
 //        tianyi {} // 电信-天翼空间

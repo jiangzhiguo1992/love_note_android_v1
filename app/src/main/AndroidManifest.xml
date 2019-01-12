@@ -34,11 +34,6 @@
             android:name="market_publish_end"
             android:value="2018-12-3"/>
 
-        <!-- api_app_key -->
-        <meta-data
-            android:name="api_app_key"
-            android:value="59fj48dj327fdl19fdi28cas5d20jd83"/>
-
         <!-- uri转file 7.0兼容 -->
         <provider
             android:name="android.support.v4.content.FileProvider"
