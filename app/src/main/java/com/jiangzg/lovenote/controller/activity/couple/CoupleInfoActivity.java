@@ -100,7 +100,6 @@ public class CoupleInfoActivity extends BaseActivity<CoupleInfoActivity> {
     RecyclerView rv;
 
     private RecyclerHelper recyclerHelper;
-    private Call<Result> callTaGet;
     private Call<Result> callStateListGet;
     private Call<Result> callUpdateInfo;
     private Call<Result> callUpdateStatus;
@@ -150,15 +149,12 @@ public class CoupleInfoActivity extends BaseActivity<CoupleInfoActivity> {
     @Override
     protected void initData(Intent intent, Bundle state) {
         page = 0;
-        // ta 对方可能更改手机，需要每次同步
-        getTaData();
         // coupleState
         getCoupleStateList(false);
     }
 
     @Override
     protected void onFinish(Bundle state) {
-        RetrofitHelper.cancel(callTaGet);
         RetrofitHelper.cancel(callStateListGet);
         RetrofitHelper.cancel(callUpdateInfo);
         RetrofitHelper.cancel(callUpdateStatus);
@@ -246,24 +242,6 @@ public class CoupleInfoActivity extends BaseActivity<CoupleInfoActivity> {
         }
     }
 
-    private void getTaData() {
-        callTaGet = new RetrofitHelper().call(API.class).userGetTa();
-        RetrofitHelper.enqueue(callTaGet, null, new RetrofitHelper.CallBack() {
-            @Override
-            public void onResponse(int code, String message, Result.Data data) {
-                User ta = data.getUser();
-                SPHelper.setTa(ta);
-                setViewData();
-                // menu
-                mActivity.invalidateOptionsMenu();
-            }
-
-            @Override
-            public void onFailure(int code, String message, Result.Data data) {
-            }
-        });
-    }
-
     private void getCoupleStateList(final boolean more) {
         Couple couple = SPHelper.getCouple();
         if (couple == null) return;
@@ -291,6 +269,7 @@ public class CoupleInfoActivity extends BaseActivity<CoupleInfoActivity> {
         // data
         User me = SPHelper.getMe();
         User ta = SPHelper.getTa();
+        Couple couple = me == null ? null : me.getCouple();
         String myName = UserHelper.getMyName(me);
         String taName = UserHelper.getTaName(me);
         String myAvatar = UserHelper.getMyAvatar(me);
@@ -301,7 +280,7 @@ public class CoupleInfoActivity extends BaseActivity<CoupleInfoActivity> {
         long taBirth = TimeHelper.getJavaTimeByGo(ta == null ? 0 : ta.getBirthday());
         String meBirthShow = DateUtils.getStr(meBirth, DateUtils.FORMAT_POINT_Y_M_D);
         String taBirthShow = DateUtils.getStr(taBirth, DateUtils.FORMAT_POINT_Y_M_D);
-        int togetherDay = SPHelper.getTogetherDay();
+        int togetherDay = UserHelper.getCoupleTogetherDay(couple);
         // view
         if (StringUtils.isEmpty(taAvatar)) {
             ivAvatarLeft.setImageResource(UserHelper.getSexAvatarResId(ta));

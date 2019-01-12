@@ -44,7 +44,6 @@ public class SPHelper {
     private static final String SHARE_ME = "share_me";
     private static final String SHARE_TA = "share_ta";
     private static final String SHARE_COUPLE = "share_couple";
-    private static final String SHARE_COUPLE_TOGETHER = "share_couple_together";
     private static final String SHARE_WALL_PAPER = "share_wall_paper";
     private static final String SHARE_DRAFT = "share_draft";
 
@@ -246,13 +245,12 @@ public class SPHelper {
     private static final String FIELD_CP_INVITEE_ID = "invitee_id";
     private static final String FIELD_CP_INVITEE_NAME = "invitee_name";
     private static final String FIELD_CP_INVITEE_AVATAR = "invitee_avatar";
+    private static final String FIELD_CP_TOGETHER_AT = "together_at";
     private static final String FIELD_CP_STATE_ID = "state_id";
     private static final String FIELD_CP_STATE_CREATE_AT = "state_create_at";
     private static final String FIELD_CP_STATE_UPDATE_AT = "state_update_at";
     private static final String FIELD_CP_STATE_USER_ID = "state_user_id";
     private static final String FIELD_CP_STATE_STATE = "state_state";
-    // togetherDay
-    private static final String FIELD_COUPLE_TOGETHER_DAY = "couple_together_day";
     // wallPaper
     private static final String FIELD_WALL_PAPER_JSON = "json";
     // draft
@@ -275,7 +273,6 @@ public class SPHelper {
         clearMe();
         clearTa();
         clearCouple();
-        clearCoupleDay();
         clearWallPaper();
         clearDraft();
     }
@@ -302,10 +299,6 @@ public class SPHelper {
 
     public static void clearCouple() {
         SPUtils.clear(SHARE_COUPLE);
-    }
-
-    public static void clearCoupleDay() {
-        SPUtils.clear(SHARE_COUPLE_TOGETHER);
     }
 
     public static void clearWallPaper() {
@@ -949,6 +942,7 @@ public class SPHelper {
         editor.putLong(FIELD_CP_ID, couple.getId());
         editor.putLong(FIELD_CP_CREATE_AT, couple.getCreateAt());
         editor.putLong(FIELD_CP_UPDATE_AT, couple.getUpdateAt());
+        editor.putLong(FIELD_CP_TOGETHER_AT, couple.getTogetherAt());
         editor.putLong(FIELD_CP_CREATOR_ID, couple.getCreatorId());
         editor.putString(FIELD_CP_CREATOR_NAME, couple.getCreatorName());
         editor.putString(FIELD_CP_CREATOR_AVATAR, couple.getCreatorAvatar());
@@ -972,6 +966,7 @@ public class SPHelper {
         couple.setId(sp.getLong(FIELD_CP_ID, 0));
         couple.setCreateAt(sp.getLong(FIELD_CP_CREATE_AT, 0));
         couple.setUpdateAt(sp.getLong(FIELD_CP_UPDATE_AT, 0));
+        couple.setTogetherAt(sp.getLong(FIELD_CP_TOGETHER_AT, 0));
         couple.setCreatorId(sp.getLong(FIELD_CP_CREATOR_ID, 0));
         couple.setCreatorName(sp.getString(FIELD_CP_CREATOR_NAME, ""));
         couple.setCreatorAvatar(sp.getString(FIELD_CP_CREATOR_AVATAR, ""));
@@ -991,20 +986,6 @@ public class SPHelper {
             couple.setState(state);
         }
         return couple;
-    }
-
-    public static void setTogetherDay(int days) {
-        clearCoupleDay();
-        LogUtils.d(SPHelper.class, "setTogetherDay", String.valueOf(days));
-        SharedPreferences.Editor editor = SPUtils.getSharedPreferences(SHARE_COUPLE_TOGETHER).edit();
-        editor.putInt(FIELD_COUPLE_TOGETHER_DAY, days);
-        editor.apply();
-    }
-
-    public static int getTogetherDay() {
-        SharedPreferences sp = SPUtils.getSharedPreferences(SHARE_COUPLE_TOGETHER);
-        int togetherDay = sp.getInt(FIELD_COUPLE_TOGETHER_DAY, 1);
-        return togetherDay <= 0 ? 1 : togetherDay;
     }
 
     /**

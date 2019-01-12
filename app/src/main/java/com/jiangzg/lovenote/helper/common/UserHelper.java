@@ -139,4 +139,10 @@ public class UserHelper {
         return countDown > 0 ? countDown : -1;
     }
 
+    public static int getCoupleTogetherDay(Couple couple) {
+        if (isEmpty(couple)) return 1;
+        long togetherAt = couple.getTogetherAt() > 0 ? TimeHelper.getJavaTimeByGo(couple.getTogetherAt()) : DateUtils.getCurrentLong();
+        return (int) ((DateUtils.getCurrentLong() - togetherAt) / TimeUnit.DAY);
+    }
+
 }

@@ -103,10 +103,6 @@ public interface API {
     @PUT("user")
     Call<Result> userModify(@Query("type") int type, @Query("code") String code, @Query("old_pwd") String oldPwd, @Body User user);
 
-    // 用户获取ta
-    @GET("user?ta=1")
-    Call<Result> userGetTa();
-
     // 版本
     @GET("set/version")
     Call<Result> setVersionNewListGet(@Query("code") int code);

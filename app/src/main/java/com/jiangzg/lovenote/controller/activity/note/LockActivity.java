@@ -86,7 +86,6 @@ public class LockActivity extends BaseActivity<LockActivity> {
     private Call<Result> callToggle;
     private Call<Result> callAddPwd;
     private Call<Result> callModifyPwd;
-    private Call<Result> callTa;
     private Call<Result> callSms;
     private boolean open;
     private int countDownGo = -1;
@@ -139,7 +138,6 @@ public class LockActivity extends BaseActivity<LockActivity> {
         RetrofitHelper.cancel(callToggle);
         RetrofitHelper.cancel(callAddPwd);
         RetrofitHelper.cancel(callModifyPwd);
-        RetrofitHelper.cancel(callTa);
         RetrofitHelper.cancel(callSms);
         stopCountDownTask();
     }
@@ -183,7 +181,7 @@ public class LockActivity extends BaseActivity<LockActivity> {
                 push();
                 break;
             case R.id.btnSendCode: // 验证码
-                getTaData();
+                sendCode();
                 break;
         }
     }
@@ -370,22 +368,6 @@ public class LockActivity extends BaseActivity<LockActivity> {
             @Override
             public void onFailure(int code, String message, Result.Data data) {
                 srl.setRefreshing(false);
-            }
-        });
-    }
-
-    private void getTaData() {
-        callTa = new RetrofitHelper().call(API.class).userGetTa();
-        RetrofitHelper.enqueue(callTa, null, new RetrofitHelper.CallBack() {
-            @Override
-            public void onResponse(int code, String message, Result.Data data) {
-                User ta = data.getUser();
-                SPHelper.setTa(ta);
-                sendCode();
-            }
-
-            @Override
-            public void onFailure(int code, String message, Result.Data data) {
             }
         });
     }

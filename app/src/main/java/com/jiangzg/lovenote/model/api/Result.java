@@ -133,7 +133,7 @@ public class Result implements Serializable {
         private Couple couple;
         private List<CoupleState> coupleStateList;
         private PairCard pairCard;
-        private int togetherDay;
+        private User ta;
         private WallPaper wallPaper;
         private Place placeMe;
         private Place placeTa;
@@ -875,14 +875,6 @@ public class Result implements Serializable {
             this.weatherTodayTa = weatherTodayTa;
         }
 
-        public int getTogetherDay() {
-            return togetherDay;
-        }
-
-        public void setTogetherDay(int togetherDay) {
-            this.togetherDay = togetherDay;
-        }
-
         public PairCard getPairCard() {
             return pairCard;
         }
@@ -1113,6 +1105,14 @@ public class Result implements Serializable {
 
         public void setSleep(Sleep sleep) {
             this.sleep = sleep;
+        }
+
+        public User getTa() {
+            return ta;
+        }
+
+        public void setTa(User ta) {
+            this.ta = ta;
         }
     }
 }

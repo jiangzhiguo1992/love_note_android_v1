@@ -10,6 +10,7 @@ import android.os.Parcelable;
 
 public class Couple extends BaseObj implements Parcelable {
 
+    private long togetherAt;
     private long creatorId;
     private long inviteeId;
     private String creatorName;
@@ -17,6 +18,14 @@ public class Couple extends BaseObj implements Parcelable {
     private String creatorAvatar;
     private String inviteeAvatar;
     private CoupleState state;
+
+    public long getTogetherAt() {
+        return togetherAt;
+    }
+
+    public void setTogetherAt(long togetherAt) {
+        this.togetherAt = togetherAt;
+    }
 
     public CoupleState getState() {
         return state;
@@ -85,6 +94,7 @@ public class Couple extends BaseObj implements Parcelable {
         inviteeName = in.readString();
         creatorAvatar = in.readString();
         inviteeAvatar = in.readString();
+        togetherAt = in.readLong();
         state = in.readParcelable(CoupleState.class.getClassLoader());
     }
 
@@ -97,6 +107,7 @@ public class Couple extends BaseObj implements Parcelable {
         dest.writeString(inviteeName);
         dest.writeString(creatorAvatar);
         dest.writeString(inviteeAvatar);
+        dest.writeLong(togetherAt);
         dest.writeParcelable(state, flags);
     }
 

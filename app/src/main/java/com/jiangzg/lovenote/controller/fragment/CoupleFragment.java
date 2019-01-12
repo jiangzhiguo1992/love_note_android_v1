@@ -174,7 +174,7 @@ public class CoupleFragment extends BasePagerFragment<CoupleFragment> {
         stopCoupleCountDownTask();
     }
 
-    @OnClick({R.id.ivHelp, R.id.ivWallPaper, R.id.btnPair,R.id.llCoupleInfo, R.id.llPlace, R.id.llWeather})
+    @OnClick({R.id.ivHelp, R.id.ivWallPaper, R.id.btnPair, R.id.llCoupleInfo, R.id.llPlace, R.id.llWeather})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.ivHelp: // 帮助文档
@@ -212,7 +212,7 @@ public class CoupleFragment extends BasePagerFragment<CoupleFragment> {
             public void onResponse(int code, String message, Result.Data data) {
                 srl.setRefreshing(false);
                 SPHelper.setMe(data.getUser());
-                SPHelper.setTogetherDay(data.getTogetherDay());
+                SPHelper.setTa(data.getTa());
                 SPHelper.setWallPaper(data.getWallPaper());
                 refreshView();
                 // 刷新地址+天气
@@ -314,6 +314,7 @@ public class CoupleFragment extends BasePagerFragment<CoupleFragment> {
             String taName = UserHelper.getTaName(me);
             String myAvatar = UserHelper.getMyAvatar(me);
             String taAvatar = UserHelper.getTaAvatar(me);
+            int togetherDay = UserHelper.getCoupleTogetherDay(couple);
             if (StringUtils.isEmpty(taAvatar)) {
                 ivAvatarLeft.setImageResource(UserHelper.getSexAvatarResId(ta));
             } else {
@@ -326,7 +327,7 @@ public class CoupleFragment extends BasePagerFragment<CoupleFragment> {
             }
             tvNameLeft.setText(taName);
             tvNameRight.setText(myName);
-            tvTogether.setText(String.valueOf(SPHelper.getTogetherDay())); // TODO
+            tvTogether.setText(String.valueOf(togetherDay));
             refreshPlaceView();
             refreshWeatherView();
         }
