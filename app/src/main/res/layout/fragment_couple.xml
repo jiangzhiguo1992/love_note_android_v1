@@ -126,7 +126,7 @@
                 <LinearLayout
                     android:id="@+id/llCoupleInfo"
                     android:layout_width="match_parent"
-                    android:layout_height="70dp"
+                    android:layout_height="wrap_content"
                     android:gravity="center_vertical"
                     android:orientation="horizontal"
                     android:paddingStart="10dp"
@@ -134,9 +134,10 @@
 
                     <com.jiangzg.lovenote.view.FrescoAvatarView
                         android:id="@+id/ivAvatarLeft"
-                        android:layout_width="60dp"
-                        android:layout_height="60dp"
-                        tools:src="@mipmap/ic_account_circle_grey_48dp"/>
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_marginEnd="5dp"
+                        tools:background="@mipmap/ic_account_circle_grey_48dp"/>
 
                     <TextView
                         android:id="@+id/tvNameLeft"
@@ -152,6 +153,7 @@
                         android:shadowColor="@color/black_alpha_50"
                         android:shadowRadius="10"
                         android:singleLine="true"
+                        android:visibility="gone"
                         tools:text="爱称"/>
 
                     <TextView
@@ -168,13 +170,51 @@
                         android:shadowColor="@color/black_alpha_50"
                         android:shadowRadius="10"
                         android:singleLine="true"
+                        android:visibility="gone"
                         tools:text="爱称"/>
 
                     <com.jiangzg.lovenote.view.FrescoAvatarView
                         android:id="@+id/ivAvatarRight"
-                        android:layout_width="60dp"
-                        android:layout_height="60dp"
-                        tools:src="@mipmap/ic_account_circle_grey_48dp"/>
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_marginStart="5dp"
+                        tools:background="@mipmap/ic_account_circle_grey_48dp"/>
+
+                    <TextView
+                        style="@style/FontWhiteNormal"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="bottom|end"
+                        android:maxLines="1"
+                        android:shadowColor="@color/black_alpha_50"
+                        android:shadowRadius="10"
+                        android:singleLine="true"
+                        android:text="@string/in_together"/>
+
+                    <TextView
+                        android:id="@+id/tvTogether"
+                        style="@style/FontWhiteHugeBold"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:ellipsize="middle"
+                        android:gravity="bottom"
+                        android:shadowColor="@color/black_alpha_50"
+                        android:shadowRadius="10"
+                        android:singleLine="true"
+                        android:textSize="35sp"
+                        tools:text="365000"/>
+
+                    <TextView
+                        style="@style/FontWhiteNormal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="bottom"
+                        android:maxLines="1"
+                        android:shadowColor="@color/black_alpha_50"
+                        android:shadowRadius="10"
+                        android:singleLine="true"
+                        android:text="@string/dayT"/>
                 </LinearLayout>
 
                 <!-- 地址/天气 -->
@@ -182,10 +222,7 @@
                     android:id="@+id/cvPlaceWeather"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginEnd="10dp"
-                    android:layout_marginBottom="10dp"
+                    android:layout_margin="10dp"
                     app:cardBackgroundColor="@color/white"
                     app:cardCornerRadius="@dimen/radius_big"
                     app:cardElevation="@dimen/elevation_big"

@@ -340,6 +340,7 @@
     <string name="pair">配对</string>
     <string name="dissolve">解散</string>
     <string name="complex">复合</string>
+    <string name="in_together">在一起</string>
     <string name="i_want_pair_with_ta">我要和TA配对</string>
     <string name="please_input_ta_phone">请输入TA的手机号</string>
     <string name="un_know_ta_phone">获取不到TA的手机号</string>

@@ -93,6 +93,8 @@ public class CoupleFragment extends BasePagerFragment<CoupleFragment> {
     TextView tvNameLeft;
     @BindView(R.id.tvNameRight)
     TextView tvNameRight;
+    @BindView(R.id.tvTogether)
+    TextView tvTogether;
 
     @BindView(R.id.cvPlaceWeather)
     CardView cvPlaceWeather;
@@ -172,8 +174,7 @@ public class CoupleFragment extends BasePagerFragment<CoupleFragment> {
         stopCoupleCountDownTask();
     }
 
-    @OnClick({R.id.ivHelp, R.id.ivWallPaper, R.id.btnPair,
-            R.id.llCoupleInfo, R.id.llPlace, R.id.llWeather})
+    @OnClick({R.id.ivHelp, R.id.ivWallPaper, R.id.btnPair,R.id.llCoupleInfo, R.id.llPlace, R.id.llWeather})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.ivHelp: // 帮助文档
@@ -325,6 +326,7 @@ public class CoupleFragment extends BasePagerFragment<CoupleFragment> {
             }
             tvNameLeft.setText(taName);
             tvNameRight.setText(myName);
+            tvTogether.setText(String.valueOf(SPHelper.getTogetherDay())); // TODO
             refreshPlaceView();
             refreshWeatherView();
         }
