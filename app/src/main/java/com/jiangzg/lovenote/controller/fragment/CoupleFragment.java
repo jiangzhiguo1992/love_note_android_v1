@@ -98,6 +98,8 @@ public class CoupleFragment extends BasePagerFragment<CoupleFragment> {
 
     @BindView(R.id.cvPlaceWeather)
     CardView cvPlaceWeather;
+    @BindView(R.id.vLinePlaceWeather)
+    View vLinePlaceWeather;
     @BindView(R.id.llPlace)
     LinearLayout llPlace;
     @BindView(R.id.tvPlaceLeft)
@@ -147,7 +149,8 @@ public class CoupleFragment extends BasePagerFragment<CoupleFragment> {
         ivWallPaper.setLayoutParams(paramsSettings);
         // show
         ModelShow modelShow = SPHelper.getModelShow();
-        cvPlaceWeather.setVisibility(modelShow.isCouplePlace() ? View.VISIBLE : View.GONE);
+        vLinePlaceWeather.setVisibility((modelShow.isCouplePlace() && modelShow.isCoupleWeather()) ? View.VISIBLE : View.GONE);
+        llPlace.setVisibility(modelShow.isCouplePlace() ? View.VISIBLE : View.GONE);
         llWeather.setVerticalGravity(modelShow.isCoupleWeather() ? View.VISIBLE : View.GONE);
         // listener
         srl.setOnRefreshListener(this::refreshData);

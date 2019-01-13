@@ -96,7 +96,8 @@
                     android:gravity="center"
                     android:textSize="50sp"
                     android:visibility="gone"
-                    tools:text="20:12:23"/>
+                    tools:text="20:12:23"
+                    tools:visibility="visible"/>
 
                 <TextView
                     android:id="@+id/tvAddWallPaper"
@@ -109,7 +110,8 @@
                     android:shadowDy="30"
                     android:shadowRadius="20"
                     android:text="@string/click_right_top_add_wall_paper"
-                    android:visibility="gone"/>
+                    android:visibility="gone"
+                    tools:visibility="visible"/>
             </RelativeLayout>
 
             <!-- 底部信息栏 -->
@@ -288,6 +290,7 @@
                         </LinearLayout>
 
                         <View
+                            android:id="@+id/vLinePlaceWeather"
                             style="@style/LineHorizontal"
                             android:background="?attr/colorControlNormal"/>
 
