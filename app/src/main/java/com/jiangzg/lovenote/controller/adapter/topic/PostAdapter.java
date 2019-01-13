@@ -1,7 +1,6 @@
 package com.jiangzg.lovenote.controller.adapter.topic;
 
 import android.content.res.ColorStateList;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -14,6 +13,7 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.base.view.ViewUtils;
 import com.jiangzg.lovenote.R;
+import com.jiangzg.lovenote.controller.activity.base.BaseActivity;
 import com.jiangzg.lovenote.controller.activity.topic.PostDetailActivity;
 import com.jiangzg.lovenote.controller.adapter.common.ImgSquareShowAdapter;
 import com.jiangzg.lovenote.helper.common.CountHelper;
@@ -44,11 +44,10 @@ public class PostAdapter extends BaseQuickAdapter<Post, BaseViewHolder> {
 
     private final ColorStateList colorPrimaryStateList, colorGreyStateList;
     private final int colorPrimary, colorFontGrey, colorFontBlack;
-    private FragmentActivity mActivity;
+    private BaseActivity mActivity;
     private boolean kindShow, subKindShow;
 
-
-    public PostAdapter(FragmentActivity activity, boolean kindShow, boolean subKindShow) {
+    public PostAdapter(BaseActivity activity, boolean kindShow, boolean subKindShow) {
         super(R.layout.list_item_post);
         mActivity = activity;
         this.kindShow = kindShow;
@@ -199,8 +198,9 @@ public class PostAdapter extends BaseQuickAdapter<Post, BaseViewHolder> {
         Post item = getItem(position);
         PostCollect postCollect = new PostCollect();
         postCollect.setPostId(item.getId());
-        Call<Result> callCollect = new RetrofitHelper().call(API.class).topicPostCollectToggle(postCollect);
-        RetrofitHelper.enqueue(callCollect, null, new RetrofitHelper.CallBack() {
+        // api
+        Call<Result> api = new RetrofitHelper().call(API.class).topicPostCollectToggle(postCollect);
+        RetrofitHelper.enqueue(api, null, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 remove(position);
@@ -210,6 +210,7 @@ public class PostAdapter extends BaseQuickAdapter<Post, BaseViewHolder> {
             public void onFailure(int code, String message, Result.Data data) {
             }
         });
+        mActivity.pushApi(api);
     }
 
 }

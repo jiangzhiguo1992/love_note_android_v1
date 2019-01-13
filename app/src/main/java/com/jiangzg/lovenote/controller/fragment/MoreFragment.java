@@ -107,7 +107,6 @@ public class MoreFragment extends BasePagerFragment<MoreFragment> {
     @BindView(R.id.tvPostcard)
     TextView tvPostcard;
 
-    private Call<Result> call;
     private List<Broadcast> broadcastList;
     private MatchPeriod wifePeriod;
     private MatchPeriod letterPeriod;
@@ -156,7 +155,6 @@ public class MoreFragment extends BasePagerFragment<MoreFragment> {
 
     @Override
     protected void onFinish(Bundle state) {
-        RetrofitHelper.cancel(call);
     }
 
     @Override
@@ -237,8 +235,8 @@ public class MoreFragment extends BasePagerFragment<MoreFragment> {
         if (!srl.isRefreshing()) {
             srl.setRefreshing(true);
         }
-        call = new RetrofitHelper().call(API.class).moreHomeGet();
-        RetrofitHelper.enqueue(call, null, new RetrofitHelper.CallBack() {
+        Call<Result> api = new RetrofitHelper().call(API.class).moreHomeGet();
+        RetrofitHelper.enqueue(api, null, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 srl.setRefreshing(false);
@@ -260,6 +258,7 @@ public class MoreFragment extends BasePagerFragment<MoreFragment> {
                 srl.setRefreshing(false);
             }
         });
+        pushApi(api);
     }
 
     private void initBroadcast(List<Broadcast> broadcastList) {

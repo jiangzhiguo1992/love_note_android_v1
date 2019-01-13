@@ -37,9 +37,6 @@ public class PostCollectFragment extends BasePagerFragment<PostCollectFragment> 
 
     private boolean me;
     private RecyclerHelper recyclerHelper;
-    private Observable<Post> obListItemRefresh;
-    private Observable<Post> obListItemDelete;
-    private Call<Result> call;
     private int page;
 
     public static PostCollectFragment newFragment(boolean me) {
@@ -86,31 +83,30 @@ public class PostCollectFragment extends BasePagerFragment<PostCollectFragment> 
     protected void loadData() {
         page = 0;
         // event
-        obListItemDelete = RxBus.register(RxBus.EVENT_POST_LIST_ITEM_DELETE, post -> {
+        Observable<Post> obListItemDelete = RxBus.register(RxBus.EVENT_POST_LIST_ITEM_DELETE, post -> {
             if (recyclerHelper == null) return;
             ListHelper.removeObjInAdapter(recyclerHelper.getAdapter(), post);
         });
-        obListItemRefresh = RxBus.register(RxBus.EVENT_POST_LIST_ITEM_REFRESH, post -> {
+        pushBus(RxBus.EVENT_POST_LIST_ITEM_DELETE, obListItemDelete);
+        Observable<Post> obListItemRefresh = RxBus.register(RxBus.EVENT_POST_LIST_ITEM_REFRESH, post -> {
             if (recyclerHelper == null) return;
             ListHelper.refreshObjInAdapter(recyclerHelper.getAdapter(), post);
         });
+        pushBus(RxBus.EVENT_POST_LIST_ITEM_REFRESH, obListItemRefresh);
         // refresh
         recyclerHelper.dataRefresh();
     }
 
     @Override
     protected void onFinish(Bundle state) {
-        RetrofitHelper.cancel(call);
-        RxBus.unregister(RxBus.EVENT_POST_LIST_ITEM_DELETE, obListItemDelete);
-        RxBus.unregister(RxBus.EVENT_POST_LIST_ITEM_REFRESH, obListItemRefresh);
         RecyclerHelper.release(recyclerHelper);
     }
 
     private void getData(final boolean more) {
         page = more ? page + 1 : 0;
         // api
-        call = new RetrofitHelper().call(API.class).topicPostCollectListGet(me, page);
-        RetrofitHelper.enqueue(call, null, new RetrofitHelper.CallBack() {
+        Call<Result> api = new RetrofitHelper().call(API.class).topicPostCollectListGet(me, page);
+        RetrofitHelper.enqueue(api, null, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 if (recyclerHelper == null) return;
@@ -125,6 +121,7 @@ public class PostCollectFragment extends BasePagerFragment<PostCollectFragment> 
                 recyclerHelper.dataFail(more, message);
             }
         });
+        pushApi(api);
     }
 
 }

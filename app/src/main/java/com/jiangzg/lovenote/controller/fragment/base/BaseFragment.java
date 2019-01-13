@@ -16,14 +16,22 @@ import android.view.ViewGroup;
 
 import com.jiangzg.base.common.LogUtils;
 import com.jiangzg.lovenote.controller.activity.base.BaseActivity;
+import com.jiangzg.lovenote.helper.common.RxBus;
+import com.jiangzg.lovenote.helper.system.RetrofitHelper;
+import com.jiangzg.lovenote.model.api.Result;
+import com.jiangzg.lovenote.model.engine.RxRegister;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+import retrofit2.Call;
+import rx.Observable;
 
 /**
  * Created by JiangZhiGuo on 2016-12-2.
@@ -36,6 +44,8 @@ public abstract class BaseFragment<T> extends Fragment {
     public FragmentManager mFragmentManager;
     public View mRootView;
     private Unbinder mUnBinder;
+    private List<Call<Result>> apiList = new ArrayList<>(); // api队列
+    private List<RxRegister> busList = new ArrayList<>(); // bus队列
 
     /* 获取fragment实例demo */
     private static BaseFragment newFragment() {
@@ -63,6 +73,16 @@ public abstract class BaseFragment<T> extends Fragment {
      * 注销
      */
     protected abstract void onFinish(Bundle state);
+
+    public void pushApi(Call<Result> api) {
+        if (api == null) return;
+        apiList.add(api);
+    }
+
+    public void pushBus(int event, Observable bus) {
+        if (bus == null) return;
+        busList.add(new RxRegister(event, bus));
+    }
 
     /* 最先调用的，是否展示在界面上 */
     @Override
@@ -131,6 +151,15 @@ public abstract class BaseFragment<T> extends Fragment {
     public void onDetach() {
         super.onDetach();
         onFinish(null);
+        // 取消网络操作
+        for (Call<Result> api : apiList) {
+            RetrofitHelper.cancel(api);
+        }
+        // 注销bus
+        for (RxRegister bus : busList) {
+            if (bus == null) continue;
+            RxBus.unregister(bus.getEvent(), bus.getOb());
+        }
         //if (mUnBinder != null) {
         //    mUnBinder.unbind();
         //}

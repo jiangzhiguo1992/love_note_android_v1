@@ -42,14 +42,6 @@ public class PostListFragment extends BasePagerFragment<PostListFragment> {
     private PostKindInfo kindInfo;
     private PostSubKindInfo subKindInfo;
     private RecyclerHelper recyclerHelper;
-    private Observable<Boolean> obGoTop;
-    private Observable<Boolean> obSearchNormal;
-    private Observable<Boolean> obSearchOfficial;
-    private Observable<Boolean> obSearchWell;
-    private Observable<Integer> obListRefresh;
-    private Observable<Post> obListItemRefresh;
-    private Observable<Post> obListItemDelete;
-    private Call<Result> call;
     private long create;
     private boolean official, well;
     private int page;
@@ -95,57 +87,56 @@ public class PostListFragment extends BasePagerFragment<PostListFragment> {
         official = false;
         well = false;
         // event
-        obGoTop = RxBus.register(RxBus.EVENT_POST_GO_TOP, isTrue -> {
+        Observable<Boolean> obGoTop = RxBus.register(RxBus.EVENT_POST_GO_TOP, isTrue -> {
             if (!mFragment.getUserVisibleHint() || !isTrue || rv == null) return;
             rv.smoothScrollToPosition(0);
         });
-        obSearchNormal = RxBus.register(RxBus.EVENT_POST_SEARCH_ALL, isTrue -> {
+        pushBus(RxBus.EVENT_POST_GO_TOP, obGoTop);
+        Observable<Boolean> obSearchNormal = RxBus.register(RxBus.EVENT_POST_SEARCH_ALL, isTrue -> {
             if (!mFragment.getUserVisibleHint() || !isTrue) return;
             official = false;
             well = false;
             recyclerHelper.dataRefresh();
         });
-        obSearchOfficial = RxBus.register(RxBus.EVENT_POST_SEARCH_OFFICIAL, isTrue -> {
+        pushBus(RxBus.EVENT_POST_SEARCH_ALL, obSearchNormal);
+        Observable<Boolean> obSearchOfficial = RxBus.register(RxBus.EVENT_POST_SEARCH_OFFICIAL, isTrue -> {
             if (!mFragment.getUserVisibleHint() || !isTrue) return;
             official = true;
             well = false;
             recyclerHelper.dataRefresh();
         });
-        obSearchWell = RxBus.register(RxBus.EVENT_POST_SEARCH_WELL, isTrue -> {
+        pushBus(RxBus.EVENT_POST_SEARCH_OFFICIAL, obSearchOfficial);
+        Observable<Boolean> obSearchWell = RxBus.register(RxBus.EVENT_POST_SEARCH_WELL, isTrue -> {
             if (!mFragment.getUserVisibleHint() || !isTrue) return;
             official = false;
             well = true;
             recyclerHelper.dataRefresh();
         });
-        obListRefresh = RxBus.register(RxBus.EVENT_POST_LIST_REFRESH, subKind -> {
+        pushBus(RxBus.EVENT_POST_SEARCH_WELL, obSearchWell);
+        Observable<Integer> obListRefresh = RxBus.register(RxBus.EVENT_POST_LIST_REFRESH, subKind -> {
             if (recyclerHelper == null || subKindInfo == null || (subKind > 0 && subKindInfo.getKind() != subKind)) {
                 // 全部是可以更新的
                 return;
             }
             recyclerHelper.dataRefresh();
         });
-        obListItemDelete = RxBus.register(RxBus.EVENT_POST_LIST_ITEM_DELETE, post -> {
+        pushBus(RxBus.EVENT_POST_LIST_REFRESH, obListRefresh);
+        Observable<Post> obListItemDelete = RxBus.register(RxBus.EVENT_POST_LIST_ITEM_DELETE, post -> {
             if (recyclerHelper == null) return;
             ListHelper.removeObjInAdapter(recyclerHelper.getAdapter(), post);
         });
-        obListItemRefresh = RxBus.register(RxBus.EVENT_POST_LIST_ITEM_REFRESH, post -> {
+        pushBus(RxBus.EVENT_POST_LIST_ITEM_DELETE, obListItemDelete);
+        Observable<Post> obListItemRefresh = RxBus.register(RxBus.EVENT_POST_LIST_ITEM_REFRESH, post -> {
             if (recyclerHelper == null) return;
             ListHelper.refreshObjInAdapter(recyclerHelper.getAdapter(), post);
         });
+        pushBus(RxBus.EVENT_POST_LIST_ITEM_REFRESH, obListItemRefresh);
         // refresh
         recyclerHelper.dataRefresh();
     }
 
     @Override
     protected void onFinish(Bundle state) {
-        RetrofitHelper.cancel(call);
-        RxBus.unregister(RxBus.EVENT_POST_GO_TOP, obGoTop);
-        RxBus.unregister(RxBus.EVENT_POST_SEARCH_ALL, obSearchNormal);
-        RxBus.unregister(RxBus.EVENT_POST_SEARCH_OFFICIAL, obSearchOfficial);
-        RxBus.unregister(RxBus.EVENT_POST_SEARCH_WELL, obSearchWell);
-        RxBus.unregister(RxBus.EVENT_POST_LIST_REFRESH, obListRefresh);
-        RxBus.unregister(RxBus.EVENT_POST_LIST_ITEM_DELETE, obListItemDelete);
-        RxBus.unregister(RxBus.EVENT_POST_LIST_ITEM_REFRESH, obListItemRefresh);
         RecyclerHelper.release(recyclerHelper);
     }
 
@@ -169,8 +160,8 @@ public class PostListFragment extends BasePagerFragment<PostListFragment> {
             create = TimeHelper.getGoTimeByJava(DateUtils.getCurrentLong());
         }
         // api
-        call = new RetrofitHelper().call(API.class).topicPostListGet(create, kindInfo.getKind(), subKindInfo.getKind(), "", official, well, page);
-        RetrofitHelper.enqueue(call, null, new RetrofitHelper.CallBack() {
+        Call<Result> api = new RetrofitHelper().call(API.class).topicPostListGet(create, kindInfo.getKind(), subKindInfo.getKind(), "", official, well, page);
+        RetrofitHelper.enqueue(api, null, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 if (recyclerHelper == null) return;
@@ -185,6 +176,7 @@ public class PostListFragment extends BasePagerFragment<PostListFragment> {
                 recyclerHelper.dataFail(more, message);
             }
         });
+        pushApi(api);
     }
 
 }

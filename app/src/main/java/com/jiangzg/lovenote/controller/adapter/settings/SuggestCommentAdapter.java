@@ -83,9 +83,8 @@ public class SuggestCommentAdapter extends BaseQuickAdapter<SuggestComment, Base
 
     private void delCommentApi(final int position) {
         final SuggestComment item = getItem(position);
-        Call<Result> call = new RetrofitHelper().call(API.class).setSuggestCommentDel(item.getId());
-        MaterialDialog loading = mActivity.getLoading(true);
-        RetrofitHelper.enqueue(call, loading, new RetrofitHelper.CallBack() {
+        Call<Result> api = new RetrofitHelper().call(API.class).setSuggestCommentDel(item.getId());
+        RetrofitHelper.enqueue(api, mActivity.getLoading(true), new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 remove(position);
@@ -97,6 +96,7 @@ public class SuggestCommentAdapter extends BaseQuickAdapter<SuggestComment, Base
             public void onFailure(int code, String message, Result.Data data) {
             }
         });
+        mActivity.pushApi(api);
     }
 
 

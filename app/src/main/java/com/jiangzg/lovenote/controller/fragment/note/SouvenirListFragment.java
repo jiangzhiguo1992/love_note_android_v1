@@ -37,10 +37,6 @@ public class SouvenirListFragment extends BasePagerFragment<SouvenirListFragment
 
     private boolean done;
     private RecyclerHelper recyclerHelper;
-    private Observable<List<Souvenir>> obListRefresh;
-    private Observable<Souvenir> obListItemDelete;
-    private Observable<Souvenir> obListItemRefresh;
-    private Call<Result> call;
     private int page;
 
     public static SouvenirListFragment newFragment(boolean done) {
@@ -79,15 +75,17 @@ public class SouvenirListFragment extends BasePagerFragment<SouvenirListFragment
     protected void loadData() {
         page = 0;
         // event
-        obListRefresh = RxBus.register(RxBus.EVENT_SOUVENIR_LIST_REFRESH, souvenirList -> {
+        Observable<List<Souvenir>> obListRefresh = RxBus.register(RxBus.EVENT_SOUVENIR_LIST_REFRESH, souvenirList -> {
             if (recyclerHelper == null) return;
             recyclerHelper.dataRefresh();
         });
-        obListItemDelete = RxBus.register(RxBus.EVENT_SOUVENIR_LIST_ITEM_DELETE, souvenir -> {
+        pushBus(RxBus.EVENT_SOUVENIR_LIST_REFRESH, obListRefresh);
+        Observable<Souvenir> obListItemDelete = RxBus.register(RxBus.EVENT_SOUVENIR_LIST_ITEM_DELETE, souvenir -> {
             if (recyclerHelper == null) return;
             ListHelper.removeObjInAdapter(recyclerHelper.getAdapter(), souvenir);
         });
-        obListItemRefresh = RxBus.register(RxBus.EVENT_SOUVENIR_LIST_ITEM_REFRESH, souvenir -> {
+        pushBus(RxBus.EVENT_SOUVENIR_LIST_ITEM_DELETE, obListItemDelete);
+        Observable<Souvenir> obListItemRefresh = RxBus.register(RxBus.EVENT_SOUVENIR_LIST_ITEM_REFRESH, souvenir -> {
             if (recyclerHelper == null || souvenir == null) return;
             if (souvenir.isDone() == done) {
                 // 没改变状态则刷新item
@@ -97,23 +95,20 @@ public class SouvenirListFragment extends BasePagerFragment<SouvenirListFragment
                 RxBus.post(new RxBus.Event<>(RxBus.EVENT_SOUVENIR_LIST_REFRESH, new ArrayList<>()));
             }
         });
+        pushBus(RxBus.EVENT_SOUVENIR_LIST_ITEM_REFRESH, obListItemRefresh);
         // refresh
         recyclerHelper.dataRefresh();
     }
 
     @Override
     protected void onFinish(Bundle state) {
-        RetrofitHelper.cancel(call);
-        RxBus.unregister(RxBus.EVENT_SOUVENIR_LIST_REFRESH, obListRefresh);
-        RxBus.unregister(RxBus.EVENT_SOUVENIR_LIST_ITEM_DELETE, obListItemDelete);
-        RxBus.unregister(RxBus.EVENT_SOUVENIR_LIST_ITEM_REFRESH, obListItemRefresh);
         RecyclerHelper.release(recyclerHelper);
     }
 
     private void getData(final boolean more) {
         page = more ? page + 1 : 0;
-        call = new RetrofitHelper().call(API.class).noteSouvenirListGet(done, page);
-        RetrofitHelper.enqueue(call, null, new RetrofitHelper.CallBack() {
+        Call<Result> api = new RetrofitHelper().call(API.class).noteSouvenirListGet(done, page);
+        RetrofitHelper.enqueue(api, null, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 if (recyclerHelper == null) return;
@@ -128,6 +123,7 @@ public class SouvenirListFragment extends BasePagerFragment<SouvenirListFragment
                 recyclerHelper.dataFail(false, message);
             }
         });
+        pushApi(api);
     }
 
 }

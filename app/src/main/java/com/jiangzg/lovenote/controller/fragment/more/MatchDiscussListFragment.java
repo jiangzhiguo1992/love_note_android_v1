@@ -35,7 +35,6 @@ public class MatchDiscussListFragment extends BasePagerFragment<MatchDiscussList
     RecyclerView rv;
 
     private RecyclerHelper recyclerHelper;
-    private Call<Result> callGet;
     private int page;
 
     public static MatchDiscussListFragment newFragment() {
@@ -93,15 +92,14 @@ public class MatchDiscussListFragment extends BasePagerFragment<MatchDiscussList
 
     @Override
     protected void onFinish(Bundle state) {
-        RetrofitHelper.cancel(callGet);
         RecyclerHelper.release(recyclerHelper);
     }
 
     private void getData(final boolean more) {
         page = more ? page + 1 : 0;
         // api
-        callGet = new RetrofitHelper().call(API.class).moreMatchWordOurListGet(MatchPeriod.MATCH_KIND_DISCUSS_MEET, page);
-        RetrofitHelper.enqueue(callGet, null, new RetrofitHelper.CallBack() {
+        Call<Result> api = new RetrofitHelper().call(API.class).moreMatchWordOurListGet(MatchPeriod.MATCH_KIND_DISCUSS_MEET, page);
+        RetrofitHelper.enqueue(api, null, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 if (recyclerHelper == null) return;
@@ -116,6 +114,7 @@ public class MatchDiscussListFragment extends BasePagerFragment<MatchDiscussList
                 recyclerHelper.dataFail(more, message);
             }
         });
+        pushApi(api);
     }
 
 }

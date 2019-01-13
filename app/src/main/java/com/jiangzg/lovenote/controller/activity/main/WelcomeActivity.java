@@ -54,8 +54,6 @@ public class WelcomeActivity extends BaseActivity<WelcomeActivity> {
     @BindView(R.id.ivShouFa)
     ImageView ivShouFa;
 
-    private Call<Result> call;
-
     @Override
     protected int getView(Intent intent) {
         BarUtils.setStatusBarTrans(mActivity, true);
@@ -92,7 +90,6 @@ public class WelcomeActivity extends BaseActivity<WelcomeActivity> {
 
     @Override
     protected void onFinish(Bundle state) {
-        RetrofitHelper.cancel(call);
     }
 
     @Override
@@ -147,8 +144,9 @@ public class WelcomeActivity extends BaseActivity<WelcomeActivity> {
             // 有token
             final long startTime = DateUtils.getCurrentLong();
             Entry entry = ApiHelper.getEntryBody();
-            call = new RetrofitHelper().call(API.class).entryPush(entry);
-            RetrofitHelper.enqueue(call, null, new RetrofitHelper.CallBack() {
+            // api
+            Call<Result> api = new RetrofitHelper().call(API.class).entryPush(entry);
+            RetrofitHelper.enqueue(api, null, new RetrofitHelper.CallBack() {
                 @Override
                 public void onResponse(int code, String message, Result.Data data) {
                     ApiHelper.onEntryFinish(startTime, TransPageMillis, mActivity, code, data);
@@ -158,6 +156,7 @@ public class WelcomeActivity extends BaseActivity<WelcomeActivity> {
                 public void onFailure(int code, String message, Result.Data data) {
                 }
             });
+            pushApi(api);
         }
     }
 

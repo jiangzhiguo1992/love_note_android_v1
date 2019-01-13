@@ -35,7 +35,6 @@ public class MatchLetterListFragment extends BasePagerFragment<MatchLetterListFr
     RecyclerView rv;
 
     private RecyclerHelper recyclerHelper;
-    private Call<Result> callGet;
     private int page;
 
     public static MatchLetterListFragment newFragment() {
@@ -93,15 +92,14 @@ public class MatchLetterListFragment extends BasePagerFragment<MatchLetterListFr
 
     @Override
     protected void onFinish(Bundle state) {
-        RetrofitHelper.cancel(callGet);
         RecyclerHelper.release(recyclerHelper);
     }
 
     private void getData(final boolean more) {
         page = more ? page + 1 : 0;
         // api
-        callGet = new RetrofitHelper().call(API.class).moreMatchWordOurListGet(MatchPeriod.MATCH_KIND_LETTER_SHOW, page);
-        RetrofitHelper.enqueue(callGet, null, new RetrofitHelper.CallBack() {
+        Call<Result> api = new RetrofitHelper().call(API.class).moreMatchWordOurListGet(MatchPeriod.MATCH_KIND_LETTER_SHOW, page);
+        RetrofitHelper.enqueue(api, null, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 if (recyclerHelper == null) return;
@@ -116,6 +114,7 @@ public class MatchLetterListFragment extends BasePagerFragment<MatchLetterListFr
                 recyclerHelper.dataFail(more, message);
             }
         });
+        pushApi(api);
     }
 
 }

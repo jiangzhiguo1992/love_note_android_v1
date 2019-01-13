@@ -45,7 +45,6 @@ public class TopicFragment extends BasePagerFragment<TopicFragment> {
     @BindView(R.id.rv)
     RecyclerView rv;
 
-    private Call<Result> call;
     private RecyclerHelper recyclerHelper;
 
     public static TopicFragment newFragment() {
@@ -91,7 +90,6 @@ public class TopicFragment extends BasePagerFragment<TopicFragment> {
 
     @Override
     protected void onFinish(Bundle state) {
-        RetrofitHelper.cancel(call);
     }
 
     @Override
@@ -122,8 +120,8 @@ public class TopicFragment extends BasePagerFragment<TopicFragment> {
         if (!srl.isRefreshing()) {
             srl.setRefreshing(true);
         }
-        call = new RetrofitHelper().call(API.class).topicHomeGet();
-        RetrofitHelper.enqueue(call, null, new RetrofitHelper.CallBack() {
+        Call<Result> api = new RetrofitHelper().call(API.class).topicHomeGet();
+        RetrofitHelper.enqueue(api, null, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 if (recyclerHelper == null) return;
@@ -139,6 +137,7 @@ public class TopicFragment extends BasePagerFragment<TopicFragment> {
                 recyclerHelper.viewEmptyShow(message);
             }
         });
+        pushApi(api);
     }
 
     // getPostKindInfoEnableList 获取可以显示的kind

@@ -94,12 +94,9 @@ public class NoteFragment extends BasePagerFragment<NoteFragment> {
 
     private Lock lock; // 默认没锁 + 没解开
     private Souvenir souvenirLatest;
-    private Observable<Lock> obLockRefresh;
-    private Observable<NoteCustom> obCustomRefresh;
     private Runnable souvenirCountDownTask;
     private String souvenirCountDownFormat;
     private RecyclerHelper rhLive, rhNote, rhMedia, rhOther;
-    private Call<Result> call;
 
     public static NoteFragment newFragment() {
         Bundle bundle = new Bundle();
@@ -168,20 +165,19 @@ public class NoteFragment extends BasePagerFragment<NoteFragment> {
 
     protected void loadData() {
         // event
-        obLockRefresh = RxBus.register(RxBus.EVENT_LOCK_REFRESH, lock -> {
+        Observable<Lock> obLockRefresh = RxBus.register(RxBus.EVENT_LOCK_REFRESH, lock -> {
             NoteFragment.this.lock = lock;
             refreshData();
         });
-        obCustomRefresh = RxBus.register(RxBus.EVENT_CUSTOM_REFRESH, custom -> customView());
+        pushBus(RxBus.EVENT_LOCK_REFRESH, obLockRefresh);
+        Observable<NoteCustom> obCustomRefresh = RxBus.register(RxBus.EVENT_CUSTOM_REFRESH, custom -> customView());
+        pushBus(RxBus.EVENT_CUSTOM_REFRESH, obCustomRefresh);
         // data
         refreshData();
     }
 
     @Override
     protected void onFinish(Bundle state) {
-        RetrofitHelper.cancel(call);
-        RxBus.unregister(RxBus.EVENT_LOCK_REFRESH, obLockRefresh);
-        RxBus.unregister(RxBus.EVENT_CUSTOM_REFRESH, obCustomRefresh);
         stopSouvenirCountDownTask();
         RecyclerHelper.release(rhLive);
         RecyclerHelper.release(rhNote);
@@ -314,10 +310,10 @@ public class NoteFragment extends BasePagerFragment<NoteFragment> {
         if (!srl.isRefreshing()) {
             srl.setRefreshing(true);
         }
-        // api
         long near = TimeHelper.getGoTimeByJava(DateUtils.getCurrentLong());
-        call = new RetrofitHelper().call(API.class).noteHomeGet(near);
-        RetrofitHelper.enqueue(call, null, new RetrofitHelper.CallBack() {
+        // api
+        Call<Result> api = new RetrofitHelper().call(API.class).noteHomeGet(near);
+        RetrofitHelper.enqueue(api, null, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 srl.setRefreshing(false);
@@ -336,6 +332,7 @@ public class NoteFragment extends BasePagerFragment<NoteFragment> {
                 srl.setRefreshing(false);
             }
         });
+        pushApi(api);
     }
 
     private void refreshMenu() {

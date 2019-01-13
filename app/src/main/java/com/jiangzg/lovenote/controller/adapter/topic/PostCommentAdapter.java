@@ -132,9 +132,8 @@ public class PostCommentAdapter extends BaseMultiItemQuickAdapter<PostComment, B
 
     private void delCommentApi(final int position) {
         final PostComment item = getItem(position);
-        Call<Result> call = new RetrofitHelper().call(API.class).topicPostCommentDel(item.getId());
-        MaterialDialog loading = mActivity.getLoading(true);
-        RetrofitHelper.enqueue(call, loading, new RetrofitHelper.CallBack() {
+        Call<Result> api = new RetrofitHelper().call(API.class).topicPostCommentDel(item.getId());
+        RetrofitHelper.enqueue(api, mActivity.getLoading(true), new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 remove(position);
@@ -149,9 +148,10 @@ public class PostCommentAdapter extends BaseMultiItemQuickAdapter<PostComment, B
             public void onFailure(int code, String message, Result.Data data) {
             }
         });
+        mActivity.pushApi(api);
     }
 
-    public void pointPush(final int position, boolean api) {
+    public void pointPush(final int position, boolean isApi) {
         final PostComment item = getItem(position);
         boolean newPoint = !item.isPoint();
         int newPointCount = newPoint ? item.getPointCount() + 1 : item.getPointCount() - 1;
@@ -161,11 +161,12 @@ public class PostCommentAdapter extends BaseMultiItemQuickAdapter<PostComment, B
         item.setPoint(newPoint);
         item.setPointCount(newPointCount);
         notifyItemChanged(position + getHeaderLayoutCount());
-        if (!api) return;
+        if (!isApi) return;
         PostCommentPoint body = new PostCommentPoint();
         body.setPostCommentId(item.getId());
-        Call<Result> call = new RetrofitHelper().call(API.class).topicPostCommentPointToggle(body);
-        RetrofitHelper.enqueue(call, null, new RetrofitHelper.CallBack() {
+        // api
+        Call<Result> api = new RetrofitHelper().call(API.class).topicPostCommentPointToggle(body);
+        RetrofitHelper.enqueue(api, null, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
             }
@@ -175,18 +176,20 @@ public class PostCommentAdapter extends BaseMultiItemQuickAdapter<PostComment, B
                 pointPush(position, false);
             }
         });
+        mActivity.pushApi(api);
     }
 
-    public void reportPush(final int position, boolean api) {
+    public void reportPush(final int position, boolean isApi) {
         final PostComment item = getItem(position);
         if (item.isReport() || item.isOfficial()) return;
         item.setReport(true);
         notifyItemChanged(position + getHeaderLayoutCount());
-        if (!api) return;
+        if (!isApi) return;
         PostCommentReport body = new PostCommentReport();
         body.setPostCommentId(item.getId());
-        Call<Result> call = new RetrofitHelper().call(API.class).topicPostCommentReportAdd(body);
-        RetrofitHelper.enqueue(call, null, new RetrofitHelper.CallBack() {
+        // api
+        Call<Result> api = new RetrofitHelper().call(API.class).topicPostCommentReportAdd(body);
+        RetrofitHelper.enqueue(api, null, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
             }
@@ -196,6 +199,7 @@ public class PostCommentAdapter extends BaseMultiItemQuickAdapter<PostComment, B
                 reportPush(position, false);
             }
         });
+        mActivity.pushApi(api);
     }
 
     public void goSubCommentDetail(int position) {

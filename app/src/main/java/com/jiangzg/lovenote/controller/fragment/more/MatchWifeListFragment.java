@@ -36,7 +36,6 @@ public class MatchWifeListFragment extends BasePagerFragment<MatchWifeListFragme
     RecyclerView rv;
 
     private RecyclerHelper recyclerHelper;
-    private Call<Result> callGet;
     private int page;
 
     public static MatchWifeListFragment newFragment() {
@@ -101,15 +100,14 @@ public class MatchWifeListFragment extends BasePagerFragment<MatchWifeListFragme
 
     @Override
     protected void onFinish(Bundle state) {
-        RetrofitHelper.cancel(callGet);
         RecyclerHelper.release(recyclerHelper);
     }
 
     private void getData(final boolean more) {
         page = more ? page + 1 : 0;
         // api
-        callGet = new RetrofitHelper().call(API.class).moreMatchWordOurListGet(MatchPeriod.MATCH_KIND_WIFE_PICTURE, page);
-        RetrofitHelper.enqueue(callGet, null, new RetrofitHelper.CallBack() {
+        Call<Result> api = new RetrofitHelper().call(API.class).moreMatchWordOurListGet(MatchPeriod.MATCH_KIND_WIFE_PICTURE, page);
+        RetrofitHelper.enqueue(api, null, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 if (recyclerHelper == null) return;
@@ -124,6 +122,7 @@ public class MatchWifeListFragment extends BasePagerFragment<MatchWifeListFragme
                 recyclerHelper.dataFail(more, message);
             }
         });
+        pushApi(api);
     }
 
 }

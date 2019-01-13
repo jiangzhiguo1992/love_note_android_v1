@@ -121,11 +121,7 @@ public class CoupleFragment extends BasePagerFragment<CoupleFragment> {
     private Place taPlace;
     private WeatherToday myWeatherToday;
     private WeatherToday taWeatherToday;
-    private Observable<WallPaper> obWallPaperRefresh;
-    private Observable<Couple> obCoupleRefresh;
     private Runnable coupleCountDownTask;
-    private Call<Result> callHomeGet;
-    private Call<Result> callPlaceGet;
 
     public static CoupleFragment newFragment() {
         Bundle bundle = new Bundle();
@@ -159,22 +155,20 @@ public class CoupleFragment extends BasePagerFragment<CoupleFragment> {
 
     protected void loadData() {
         // event
-        obWallPaperRefresh = RxBus.register(RxBus.EVENT_WALL_PAPER_REFRESH, wallPaper -> refreshWallPaperView());
-        obCoupleRefresh = RxBus.register(RxBus.EVENT_COUPLE_REFRESH, couple -> {
+        Observable<Couple> obCoupleRefresh = RxBus.register(RxBus.EVENT_COUPLE_REFRESH, couple -> {
             refreshView();
             // oss 这里配对状态变化 oss也会变化
             ApiHelper.ossInfoUpdate();
         });
+        pushBus(RxBus.EVENT_COUPLE_REFRESH, obCoupleRefresh);
+        Observable<WallPaper> obWallPaperRefresh = RxBus.register(RxBus.EVENT_WALL_PAPER_REFRESH, wallPaper -> refreshWallPaperView());
+        pushBus(RxBus.EVENT_WALL_PAPER_REFRESH, obWallPaperRefresh);
         // refresh
         refreshData();
     }
 
     @Override
     protected void onFinish(Bundle state) {
-        RetrofitHelper.cancel(callHomeGet);
-        RetrofitHelper.cancel(callPlaceGet);
-        RxBus.unregister(RxBus.EVENT_WALL_PAPER_REFRESH, obWallPaperRefresh);
-        RxBus.unregister(RxBus.EVENT_COUPLE_REFRESH, obCoupleRefresh);
         stopCoupleCountDownTask();
     }
 
@@ -210,8 +204,8 @@ public class CoupleFragment extends BasePagerFragment<CoupleFragment> {
         // oss 最好是刷新一次，防止状态变化 oss不同步
         ApiHelper.ossInfoUpdate();
         // api
-        callHomeGet = new RetrofitHelper().call(API.class).coupleHomeGet();
-        RetrofitHelper.enqueue(callHomeGet, null, new RetrofitHelper.CallBack() {
+        Call<Result> api = new RetrofitHelper().call(API.class).coupleHomeGet();
+        RetrofitHelper.enqueue(api, null, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 srl.setRefreshing(false);
@@ -228,6 +222,7 @@ public class CoupleFragment extends BasePagerFragment<CoupleFragment> {
                 srl.setRefreshing(false);
             }
         });
+        pushApi(api);
     }
 
     // 获取自己的位置并上传
@@ -252,8 +247,8 @@ public class CoupleFragment extends BasePagerFragment<CoupleFragment> {
                 body.setStreet(info.getStreet());
                 body.setCityId(info.getCityId());
                 // api
-                callPlaceGet = new RetrofitHelper().call(API.class).couplePlacePush(body);
-                RetrofitHelper.enqueue(callPlaceGet, null, new RetrofitHelper.CallBack() {
+                Call<Result> api = new RetrofitHelper().call(API.class).couplePlacePush(body);
+                RetrofitHelper.enqueue(api, null, new RetrofitHelper.CallBack() {
                     @Override
                     public void onResponse(int code, String message, Result.Data data) {
                         myPlace = data.getPlaceMe();
@@ -268,6 +263,7 @@ public class CoupleFragment extends BasePagerFragment<CoupleFragment> {
                     public void onFailure(int code, String message, Result.Data data) {
                     }
                 });
+                pushApi(api);
             }
 
             @Override
