@@ -149,9 +149,10 @@ public class CoupleFragment extends BasePagerFragment<CoupleFragment> {
         ivWallPaper.setLayoutParams(paramsSettings);
         // show
         ModelShow modelShow = SPHelper.getModelShow();
-        vLinePlaceWeather.setVisibility((modelShow.isCouplePlace() && modelShow.isCoupleWeather()) ? View.VISIBLE : View.GONE);
         llPlace.setVisibility(modelShow.isCouplePlace() ? View.VISIBLE : View.GONE);
         llWeather.setVerticalGravity(modelShow.isCoupleWeather() ? View.VISIBLE : View.GONE);
+        vLinePlaceWeather.setVisibility((modelShow.isCouplePlace() && modelShow.isCoupleWeather()) ? View.VISIBLE : View.GONE);
+        cvPlaceWeather.setVisibility((modelShow.isCouplePlace() || modelShow.isCoupleWeather()) ? View.VISIBLE : View.GONE);
         // listener
         srl.setOnRefreshListener(this::refreshData);
     }
