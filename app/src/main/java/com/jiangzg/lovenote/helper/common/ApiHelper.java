@@ -230,9 +230,9 @@ public class ApiHelper {
     public static void postEntry(final BaseActivity mActivity) {
         long start = DateUtils.getCurrentLong();
         Entry entry = getEntryBody();
-        Call<Result> call = new RetrofitHelper().call(API.class).entryPush(entry);
-        MaterialDialog loading = mActivity.getLoading(true);
-        RetrofitHelper.enqueue(call, loading, new RetrofitHelper.CallBack() {
+        // api
+        Call<Result> api = new RetrofitHelper().call(API.class).entryPush(entry);
+        RetrofitHelper.enqueue(api, mActivity.getLoading(true), new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 onEntryFinish(start, 0, mActivity, code, data);
@@ -242,6 +242,7 @@ public class ApiHelper {
             public void onFailure(int code, String message, Result.Data data) {
             }
         });
+        mActivity.pushApi(api);
     }
 
     public static void onEntryFinish(long startTime, long totalWait, final Activity mActivity, int code, Result.Data data) {
@@ -320,7 +321,7 @@ public class ApiHelper {
         });
     }
 
-    public static void showMatchWorksDeleteDialog(Activity activity, final BaseQuickAdapter adapter, final int position) {
+    public static void showMatchWorksDeleteDialog(BaseActivity activity, final BaseQuickAdapter adapter, final int position) {
         MatchWork item = (MatchWork) adapter.getItem(position);
         if (!item.isMine()) return;
         MaterialDialog dialog = DialogHelper.getBuild(activity)
@@ -329,15 +330,15 @@ public class ApiHelper {
                 .content(R.string.confirm_del_this_work)
                 .positiveText(R.string.confirm_no_wrong)
                 .negativeText(R.string.i_think_again)
-                .onPositive((dialog1, which) -> delMatchWorks(adapter, position))
+                .onPositive((dialog1, which) -> delMatchWorks(activity, adapter, position))
                 .build();
         DialogHelper.showWithAnim(dialog);
     }
 
-    private static void delMatchWorks(final BaseQuickAdapter adapter, final int position) {
+    private static void delMatchWorks(BaseActivity activity, final BaseQuickAdapter adapter, final int position) {
         MatchWork item = (MatchWork) adapter.getItem(position);
-        Call<Result> call = new RetrofitHelper().call(API.class).moreMatchWorkDel(item.getId());
-        RetrofitHelper.enqueue(call, null, new RetrofitHelper.CallBack() {
+        Call<Result> api = new RetrofitHelper().call(API.class).moreMatchWorkDel(item.getId());
+        RetrofitHelper.enqueue(api, null, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 adapter.remove(position);
@@ -347,30 +348,33 @@ public class ApiHelper {
             public void onFailure(int code, String message, Result.Data data) {
             }
         });
+        activity.pushApi(api);
     }
 
-    public static void matchReportAdd(final BaseQuickAdapter adapter, final int position, boolean api) {
+    public static void matchReportAdd(BaseActivity activity, final BaseQuickAdapter adapter, final int position, boolean isApi) {
         final MatchWork item = (MatchWork) adapter.getItem(position);
         if (item.isReport()) return;
         item.setReport(true);
         adapter.notifyItemChanged(position + adapter.getHeaderLayoutCount());
-        if (!api) return;
+        if (!isApi) return;
         MatchReport body = new MatchReport();
         body.setMatchWorkId(item.getId());
-        Call<Result> call = new RetrofitHelper().call(API.class).moreMatchReportAdd(body);
-        RetrofitHelper.enqueue(call, null, new RetrofitHelper.CallBack() {
+        // api
+        Call<Result> api = new RetrofitHelper().call(API.class).moreMatchReportAdd(body);
+        RetrofitHelper.enqueue(api, null, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
             }
 
             @Override
             public void onFailure(int code, String message, Result.Data data) {
-                matchReportAdd(adapter, position, false);
+                matchReportAdd(activity, adapter, position, false);
             }
         });
+        activity.pushApi(api);
     }
 
-    public static void matchPointToggle(final BaseQuickAdapter adapter, final int position, boolean api) {
+    public static void matchPointToggle(BaseActivity activity, final BaseQuickAdapter adapter, final int position, boolean isApi) {
         final MatchWork item = (MatchWork) adapter.getItem(position);
         boolean newPoint = !item.isPoint();
         int newPointCount = newPoint ? item.getPointCount() + 1 : item.getPointCount() - 1;
@@ -380,23 +384,25 @@ public class ApiHelper {
         item.setPoint(newPoint);
         item.setPointCount(newPointCount);
         adapter.notifyItemChanged(position + adapter.getHeaderLayoutCount());
-        if (!api) return;
+        if (!isApi) return;
         MatchPoint body = new MatchPoint();
         body.setMatchWorkId(item.getId());
-        Call<Result> call = new RetrofitHelper().call(API.class).moreMatchPointAdd(body);
-        RetrofitHelper.enqueue(call, null, new RetrofitHelper.CallBack() {
+        // api
+        Call<Result> api = new RetrofitHelper().call(API.class).moreMatchPointAdd(body);
+        RetrofitHelper.enqueue(api, null, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
             }
 
             @Override
             public void onFailure(int code, String message, Result.Data data) {
-                matchPointToggle(adapter, position, false);
+                matchPointToggle(activity, adapter, position, false);
             }
         });
+        activity.pushApi(api);
     }
 
-    public static void matchCoinAdd(Activity activity, final BaseQuickAdapter adapter, final int position) {
+    public static void matchCoinAdd(BaseActivity activity, final BaseQuickAdapter adapter, final int position) {
         String hint = activity.getString(R.string.input_coin_count);
         MaterialDialog dialogName = DialogHelper.getBuild(activity)
                 .cancelable(true)
@@ -412,22 +418,23 @@ public class ApiHelper {
                     EditText editText = dialog.getInputEditText();
                     if (editText != null) {
                         String input = editText.getText().toString();
-                        matchCoinApi(adapter, position, input);
+                        matchCoinApi(activity, adapter, position, input);
                     }
                 })
                 .build();
         DialogHelper.showWithAnim(dialogName);
     }
 
-    private static void matchCoinApi(final BaseQuickAdapter adapter, final int position, String input) {
+    private static void matchCoinApi(BaseActivity activity, final BaseQuickAdapter adapter, final int position, String input) {
         final MatchWork item = (MatchWork) adapter.getItem(position);
         if (!StringUtils.isNumber(input)) return;
         final int coinCount = Integer.parseInt(input);
         MatchCoin body = new MatchCoin();
         body.setMatchWorkId(item.getId());
         body.setCoinCount(coinCount);
-        Call<Result> call = new RetrofitHelper().call(API.class).moreMatchCoinAdd(body);
-        RetrofitHelper.enqueue(call, null, new RetrofitHelper.CallBack() {
+        // api
+        Call<Result> api = new RetrofitHelper().call(API.class).moreMatchCoinAdd(body);
+        RetrofitHelper.enqueue(api, null, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 item.setCoinCount(item.getCoinCount() + coinCount);
@@ -438,6 +445,7 @@ public class ApiHelper {
             public void onFailure(int code, String message, Result.Data data) {
             }
         });
+        activity.pushApi(api);
     }
 
 }

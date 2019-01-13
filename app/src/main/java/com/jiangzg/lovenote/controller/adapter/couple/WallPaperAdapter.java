@@ -77,9 +77,8 @@ public class WallPaperAdapter extends BaseQuickAdapter<String, BaseViewHolder> {
         WallPaper body = new WallPaper();
         body.setContentImageList(objects);
         // api
-        MaterialDialog loading = mActivity.getLoading(true);
-        Call<Result> call = new RetrofitHelper().call(API.class).coupleWallPaperUpdate(body);
-        RetrofitHelper.enqueue(call, loading, new RetrofitHelper.CallBack() {
+        Call<Result> api = new RetrofitHelper().call(API.class).coupleWallPaperUpdate(body);
+        RetrofitHelper.enqueue(api, mActivity.getLoading(true), new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 WallPaperAdapter.this.remove(position);
@@ -92,6 +91,7 @@ public class WallPaperAdapter extends BaseQuickAdapter<String, BaseViewHolder> {
             public void onFailure(int code, String message, Result.Data data) {
             }
         });
+        mActivity.pushApi(api);
     }
 
 }

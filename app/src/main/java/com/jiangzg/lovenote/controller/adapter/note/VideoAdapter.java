@@ -144,9 +144,8 @@ public class VideoAdapter extends BaseMultiItemQuickAdapter<Video, BaseViewHolde
 
     private void deleteApi(int position) {
         final Video item = getItem(position);
-        Call<Result> call = new RetrofitHelper().call(API.class).noteVideoDel(item.getId());
-        MaterialDialog loading = mActivity.getLoading(true);
-        RetrofitHelper.enqueue(call, loading, new RetrofitHelper.CallBack() {
+        Call<Result> api = new RetrofitHelper().call(API.class).noteVideoDel(item.getId());
+        RetrofitHelper.enqueue(api, mActivity.getLoading(true), new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 // event
@@ -157,6 +156,7 @@ public class VideoAdapter extends BaseMultiItemQuickAdapter<Video, BaseViewHolde
             public void onFailure(int code, String message, Result.Data data) {
             }
         });
+        mActivity.pushApi(api);
     }
 
     public void selectGift(int position) {

@@ -65,9 +65,8 @@ public class ShyAdapter extends BaseQuickAdapter<Shy, BaseViewHolder> {
 
     private void deleteApi(int position) {
         final Shy item = getItem(position);
-        Call<Result> call = new RetrofitHelper().call(API.class).noteShyDel(item.getId());
-        MaterialDialog loading = mActivity.getLoading(true);
-        RetrofitHelper.enqueue(call, loading, new RetrofitHelper.CallBack() {
+        Call<Result> api = new RetrofitHelper().call(API.class).noteShyDel(item.getId());
+        RetrofitHelper.enqueue(api, mActivity.getLoading(true), new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 // event
@@ -78,6 +77,7 @@ public class ShyAdapter extends BaseQuickAdapter<Shy, BaseViewHolder> {
             public void onFailure(int code, String message, Result.Data data) {
             }
         });
+        mActivity.pushApi(api);
     }
 
 }

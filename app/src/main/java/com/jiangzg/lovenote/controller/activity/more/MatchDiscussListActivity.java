@@ -140,10 +140,10 @@ public class MatchDiscussListActivity extends BaseActivity<MatchDiscussListActiv
                     public void onSimpleItemChildClick(BaseQuickAdapter adapter, View view, int position) {
                         switch (view.getId()) {
                             case R.id.llReport: // 举报
-                                ApiHelper.matchReportAdd(adapter, position, true);
+                                ApiHelper.matchReportAdd(mActivity, adapter, position, true);
                                 break;
                             case R.id.llPoint: // 点赞
-                                ApiHelper.matchPointToggle(adapter, position, true);
+                                ApiHelper.matchPointToggle(mActivity, adapter, position, true);
                                 break;
                             case R.id.llCoin: // 金币
                                 ApiHelper.matchCoinAdd(mActivity, adapter, position);
