@@ -49,9 +49,6 @@ public class VideoListActivity extends BaseActivity<VideoListActivity> {
     FloatingActionButton fabAdd;
 
     private RecyclerHelper recyclerHelper;
-    private Observable<List<Video>> obListRefresh;
-    private Observable<Video> obListItemDelete;
-    private Call<Result> call;
     private int page;
 
     public static void goActivity(Activity from) {
@@ -134,23 +131,22 @@ public class VideoListActivity extends BaseActivity<VideoListActivity> {
     protected void initData(Intent intent, Bundle state) {
         page = 0;
         // event
-        obListRefresh = RxBus.register(RxBus.EVENT_VIDEO_LIST_REFRESH, videoList -> {
+        Observable<List<Video>> obListRefresh = RxBus.register(RxBus.EVENT_VIDEO_LIST_REFRESH, videoList -> {
             if (recyclerHelper == null) return;
             recyclerHelper.dataRefresh();
         });
-        obListItemDelete = RxBus.register(RxBus.EVENT_VIDEO_LIST_ITEM_DELETE, video -> {
+        pushBus(RxBus.EVENT_VIDEO_LIST_REFRESH, obListRefresh);
+        Observable<Video> obListItemDelete = RxBus.register(RxBus.EVENT_VIDEO_LIST_ITEM_DELETE, video -> {
             if (recyclerHelper == null) return;
             ListHelper.removeObjInAdapter(recyclerHelper.getAdapter(), video);
         });
+        pushBus(RxBus.EVENT_VIDEO_LIST_ITEM_DELETE, obListItemDelete);
         // refresh
         recyclerHelper.dataRefresh();
     }
 
     @Override
     protected void onFinish(Bundle state) {
-        RetrofitHelper.cancel(call);
-        RxBus.unregister(RxBus.EVENT_VIDEO_LIST_REFRESH, obListRefresh);
-        RxBus.unregister(RxBus.EVENT_VIDEO_LIST_ITEM_DELETE, obListItemDelete);
         RecyclerHelper.release(recyclerHelper);
     }
 
@@ -186,8 +182,8 @@ public class VideoListActivity extends BaseActivity<VideoListActivity> {
     private void getData(final boolean more) {
         page = more ? page + 1 : 0;
         // api
-        call = new RetrofitHelper().call(API.class).noteVideoListGet(page);
-        RetrofitHelper.enqueue(call, null, new RetrofitHelper.CallBack() {
+        Call<Result> api = new RetrofitHelper().call(API.class).noteVideoListGet(page);
+        RetrofitHelper.enqueue(api, null, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 if (recyclerHelper == null) return;
@@ -207,6 +203,7 @@ public class VideoListActivity extends BaseActivity<VideoListActivity> {
                 recyclerHelper.dataFail(more, message);
             }
         });
+        pushApi(api);
     }
 
 }

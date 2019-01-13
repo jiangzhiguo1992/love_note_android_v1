@@ -10,7 +10,6 @@ import android.text.Editable;
 import android.view.View;
 import android.widget.Button;
 
-import com.afollestad.materialdialogs.MaterialDialog;
 import com.jiangzg.base.common.TimeUnit;
 import com.jiangzg.base.component.ActivityTrans;
 import com.jiangzg.lovenote.R;
@@ -43,8 +42,6 @@ public class PhoneActivity extends BaseActivity<PhoneActivity> {
     @BindView(R.id.btnChange)
     Button btnChange;
 
-    private Call<Result> callSms;
-    private Call<Result> callModify;
     private boolean isGo = false;
     private int countDownGo = -1;
     private Runnable countDownTask;
@@ -73,8 +70,6 @@ public class PhoneActivity extends BaseActivity<PhoneActivity> {
     @Override
     protected void onFinish(Bundle state) {
         stopCountDownTask();
-        RetrofitHelper.cancel(callSms);
-        RetrofitHelper.cancel(callModify);
     }
 
     @OnTextChanged({R.id.etPhone, R.id.etCode})
@@ -109,11 +104,10 @@ public class PhoneActivity extends BaseActivity<PhoneActivity> {
     private void sendCode() {
         btnSendCode.setEnabled(false);
         String phone = etPhone.getText().toString().trim();
-        // 发送验证码
         Sms body = ApiHelper.getSmsPhoneBody(phone);
-        callSms = new RetrofitHelper().call(API.class).smsSend(body);
-        MaterialDialog loading = getLoading(getString(R.string.are_send_validate_code), true);
-        RetrofitHelper.enqueue(callSms, loading, new RetrofitHelper.CallBack() {
+        // api
+        Call<Result> api = new RetrofitHelper().call(API.class).smsSend(body);
+        RetrofitHelper.enqueue(api, getLoading(getString(R.string.are_send_validate_code), true), new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 countDownGo = 0;
@@ -125,6 +119,7 @@ public class PhoneActivity extends BaseActivity<PhoneActivity> {
                 btnSendCode.setEnabled(true);
             }
         });
+        pushApi(api);
     }
 
     private Runnable getCountDownTask() {
@@ -162,12 +157,10 @@ public class PhoneActivity extends BaseActivity<PhoneActivity> {
     private void change() {
         String phone = etPhone.getText().toString().trim();
         String code = etCode.getText().toString().trim();
-        // api调用
         User user = ApiHelper.getUserBody(phone, "");
-        // api调用
-        callModify = new RetrofitHelper().call(API.class).userModify(ApiHelper.MODIFY_PHONE, code, "", user);
-        MaterialDialog loading = getLoading(true);
-        RetrofitHelper.enqueue(callModify, loading, new RetrofitHelper.CallBack() {
+        // api
+        Call<Result> api = new RetrofitHelper().call(API.class).userModify(ApiHelper.MODIFY_PHONE, code, "", user);
+        RetrofitHelper.enqueue(api, getLoading(true), new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 isGo = true;
@@ -181,6 +174,7 @@ public class PhoneActivity extends BaseActivity<PhoneActivity> {
             public void onFailure(int code, String message, Result.Data data) {
             }
         });
+        pushApi(api);
     }
 
 }

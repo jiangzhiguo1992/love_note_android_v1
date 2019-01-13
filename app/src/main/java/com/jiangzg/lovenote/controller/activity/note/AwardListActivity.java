@@ -64,10 +64,6 @@ public class AwardListActivity extends BaseActivity<AwardListActivity> {
     LinearLayout llAdd;
 
     private RecyclerHelper recyclerHelper;
-    private Observable<List<Award>> obListRefresh;
-    private Observable<Award> obListItemDelete;
-    private Call<Result> callList;
-    private Call<Result> callScore;
     private int page;
     private int searchIndex;
 
@@ -119,25 +115,23 @@ public class AwardListActivity extends BaseActivity<AwardListActivity> {
     protected void initData(Intent intent, Bundle state) {
         page = 0;
         // event
-        obListRefresh = RxBus.register(RxBus.EVENT_AWARD_LIST_REFRESH, awardList -> {
+        Observable<List<Award>> obListRefresh = RxBus.register(RxBus.EVENT_AWARD_LIST_REFRESH, awardList -> {
             if (recyclerHelper == null) return;
             recyclerHelper.dataRefresh();
         });
-        obListItemDelete = RxBus.register(RxBus.EVENT_AWARD_LIST_ITEM_DELETE, award -> {
+        pushBus(RxBus.EVENT_AWARD_LIST_REFRESH, obListRefresh);
+        Observable<Award> obListItemDelete = RxBus.register(RxBus.EVENT_AWARD_LIST_ITEM_DELETE, award -> {
             if (recyclerHelper == null) return;
             ListHelper.removeObjInAdapter(recyclerHelper.getAdapter(), award);
             refreshScoreData();
         });
+        pushBus(RxBus.EVENT_AWARD_LIST_ITEM_DELETE, obListItemDelete);
         // refresh
         recyclerHelper.dataRefresh();
     }
 
     @Override
     protected void onFinish(Bundle state) {
-        RetrofitHelper.cancel(callList);
-        RetrofitHelper.cancel(callScore);
-        RxBus.unregister(RxBus.EVENT_AWARD_LIST_REFRESH, obListRefresh);
-        RxBus.unregister(RxBus.EVENT_AWARD_LIST_ITEM_DELETE, obListItemDelete);
         RecyclerHelper.release(recyclerHelper);
     }
 
@@ -175,10 +169,10 @@ public class AwardListActivity extends BaseActivity<AwardListActivity> {
     private void getData(final boolean more) {
         if (!more) refreshScoreData(); // 加载分数
         page = more ? page + 1 : 0;
-        // api
         int searchType = ApiHelper.LIST_NOTE_TYPE[searchIndex];
-        callList = new RetrofitHelper().call(API.class).noteAwardListGet(searchType, page);
-        RetrofitHelper.enqueue(callList, null, new RetrofitHelper.CallBack() {
+        // api
+        Call<Result> api = new RetrofitHelper().call(API.class).noteAwardListGet(searchType, page);
+        RetrofitHelper.enqueue(api, null, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 if (recyclerHelper == null) return;
@@ -193,6 +187,7 @@ public class AwardListActivity extends BaseActivity<AwardListActivity> {
                 recyclerHelper.dataFail(more, message);
             }
         });
+        pushApi(api);
     }
 
     private void showSearchDialog() {
@@ -217,8 +212,8 @@ public class AwardListActivity extends BaseActivity<AwardListActivity> {
     }
 
     private void refreshScoreData() {
-        callScore = new RetrofitHelper().call(API.class).noteAwardScoreGet();
-        RetrofitHelper.enqueue(callScore, null, new RetrofitHelper.CallBack() {
+        Call<Result> api = new RetrofitHelper().call(API.class).noteAwardScoreGet();
+        RetrofitHelper.enqueue(api, null, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 AwardScore awardScoreMe = data.getAwardScoreMe();
@@ -247,6 +242,7 @@ public class AwardListActivity extends BaseActivity<AwardListActivity> {
             public void onFailure(int code, String message, Result.Data data) {
             }
         });
+        pushApi(api);
     }
 
 }

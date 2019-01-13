@@ -40,7 +40,6 @@ public class TrendsListActivity extends BaseActivity<TrendsListActivity> {
     RecyclerView rv;
 
     private RecyclerHelper recyclerHelper;
-    private Call<Result> call;
     private long createAt;
     private int page;
 
@@ -99,15 +98,14 @@ public class TrendsListActivity extends BaseActivity<TrendsListActivity> {
 
     @Override
     protected void onFinish(Bundle state) {
-        RetrofitHelper.cancel(call);
         RecyclerHelper.release(recyclerHelper);
     }
 
     private void getData(final boolean more) {
         page = more ? page + 1 : 0;
         // api
-        call = new RetrofitHelper().call(API.class).noteTrendsListGet(createAt, page);
-        RetrofitHelper.enqueue(call, null, new RetrofitHelper.CallBack() {
+        Call<Result> api = new RetrofitHelper().call(API.class).noteTrendsListGet(createAt, page);
+        RetrofitHelper.enqueue(api, null, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 if (recyclerHelper == null) return;
@@ -122,6 +120,7 @@ public class TrendsListActivity extends BaseActivity<TrendsListActivity> {
                 recyclerHelper.dataFail(more, message);
             }
         });
+        pushApi(api);
     }
 
 }

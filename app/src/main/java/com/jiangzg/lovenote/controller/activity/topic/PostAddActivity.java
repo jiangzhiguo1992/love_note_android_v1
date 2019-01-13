@@ -69,10 +69,9 @@ public class PostAddActivity extends BaseActivity<PostAddActivity> {
     @BindView(R.id.rvImage)
     RecyclerView rvImage;
 
-    private PostKindInfo kindInfo;
     private Post post;
+    private PostKindInfo kindInfo;
     private RecyclerHelper recyclerHelper;
-    private Call<Result> callAdd;
     private int limitContentLength;
 
     public static void goActivity(Activity from, PostKindInfo kindInfo, int subKind) {
@@ -137,7 +136,6 @@ public class PostAddActivity extends BaseActivity<PostAddActivity> {
 
     @Override
     protected void onFinish(Bundle state) {
-        RetrofitHelper.cancel(callAdd);
         RecyclerHelper.release(recyclerHelper);
     }
 
@@ -323,9 +321,9 @@ public class PostAddActivity extends BaseActivity<PostAddActivity> {
     private void addApi(List<String> ossPathList) {
         if (post == null) return;
         post.setContentImageList(ossPathList);
-        MaterialDialog loading = getLoading(false);
-        callAdd = new RetrofitHelper().call(API.class).topicPostAdd(post);
-        RetrofitHelper.enqueue(callAdd, loading, new RetrofitHelper.CallBack() {
+        // api
+        Call<Result> api = new RetrofitHelper().call(API.class).topicPostAdd(post);
+        RetrofitHelper.enqueue(api, getLoading(false), new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 // event 先不刷新
@@ -340,6 +338,7 @@ public class PostAddActivity extends BaseActivity<PostAddActivity> {
             public void onFailure(int code, String message, Result.Data data) {
             }
         });
+        pushApi(api);
     }
 
 }

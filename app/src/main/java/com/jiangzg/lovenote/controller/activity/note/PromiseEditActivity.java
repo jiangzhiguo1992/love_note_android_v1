@@ -14,7 +14,6 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
-import com.afollestad.materialdialogs.MaterialDialog;
 import com.jiangzg.base.common.DateUtils;
 import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.base.component.ActivityTrans;
@@ -59,8 +58,6 @@ public class PromiseEditActivity extends BaseActivity<PromiseEditActivity> {
     TextView tvContentLimit;
 
     private Promise promise;
-    private Call<Result> callUpdate;
-    private Call<Result> callAdd;
     private int limitContentLength;
 
     public static void goActivity(Activity from) {
@@ -117,8 +114,6 @@ public class PromiseEditActivity extends BaseActivity<PromiseEditActivity> {
 
     @Override
     protected void onFinish(Bundle state) {
-        RetrofitHelper.cancel(callAdd);
-        RetrofitHelper.cancel(callUpdate);
     }
 
     @Override
@@ -231,9 +226,8 @@ public class PromiseEditActivity extends BaseActivity<PromiseEditActivity> {
 
     private void updateApi() {
         if (promise == null) return;
-        MaterialDialog loading = getLoading(false);
-        callUpdate = new RetrofitHelper().call(API.class).notePromiseUpdate(promise);
-        RetrofitHelper.enqueue(callUpdate, loading, new RetrofitHelper.CallBack() {
+        Call<Result> api = new RetrofitHelper().call(API.class).notePromiseUpdate(promise);
+        RetrofitHelper.enqueue(api, getLoading(false), new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 // event
@@ -248,13 +242,13 @@ public class PromiseEditActivity extends BaseActivity<PromiseEditActivity> {
             public void onFailure(int code, String message, Result.Data data) {
             }
         });
+        pushApi(api);
     }
 
     private void addApi() {
         if (promise == null) return;
-        MaterialDialog loading = getLoading(false);
-        callAdd = new RetrofitHelper().call(API.class).notePromiseAdd(promise);
-        RetrofitHelper.enqueue(callAdd, loading, new RetrofitHelper.CallBack() {
+        Call<Result> api = new RetrofitHelper().call(API.class).notePromiseAdd(promise);
+        RetrofitHelper.enqueue(api, getLoading(false), new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 // event
@@ -267,6 +261,7 @@ public class PromiseEditActivity extends BaseActivity<PromiseEditActivity> {
             public void onFailure(int code, String message, Result.Data data) {
             }
         });
+        pushApi(api);
     }
 
 }

@@ -86,12 +86,6 @@ public class SuggestDetailActivity extends BaseActivity<SuggestDetailActivity> {
     private Suggest suggest;
     private RecyclerHelper recyclerHelper;
     private BottomSheetBehavior behaviorComment;
-    private Observable<Suggest> obDetailRefresh;
-    private Call<Result> callGet;
-    private Call<Result> callDel;
-    private Call<Result> callCommentAdd;
-    private Call<Result> callCommentListGet;
-    private Call<Result> callFollow;
     private int page, limitCommentContentLength;
 
     public static void goActivity(Activity from, Suggest suggest) {
@@ -155,7 +149,8 @@ public class SuggestDetailActivity extends BaseActivity<SuggestDetailActivity> {
     protected void initData(Intent intent, Bundle state) {
         page = 0;
         // event
-        obDetailRefresh = RxBus.register(RxBus.EVENT_SUGGEST_DETAIL_REFRESH, suggest -> refreshSuggest());
+        Observable<Suggest> obDetailRefresh = RxBus.register(RxBus.EVENT_SUGGEST_DETAIL_REFRESH, suggest -> refreshSuggest());
+        pushBus(RxBus.EVENT_SUGGEST_DETAIL_REFRESH, obDetailRefresh);
         // refresh
         //recyclerHelper.dataRefresh();
         refreshSuggest();
@@ -163,12 +158,6 @@ public class SuggestDetailActivity extends BaseActivity<SuggestDetailActivity> {
 
     @Override
     protected void onFinish(Bundle state) {
-        RetrofitHelper.cancel(callGet);
-        RetrofitHelper.cancel(callDel);
-        RetrofitHelper.cancel(callFollow);
-        RetrofitHelper.cancel(callCommentListGet);
-        RetrofitHelper.cancel(callCommentAdd);
-        RxBus.unregister(RxBus.EVENT_SUGGEST_DETAIL_REFRESH, obDetailRefresh);
         RecyclerHelper.release(recyclerHelper);
     }
 
@@ -228,8 +217,8 @@ public class SuggestDetailActivity extends BaseActivity<SuggestDetailActivity> {
         if (!srl.isRefreshing()) {
             srl.setRefreshing(true);
         }
-        callGet = new RetrofitHelper().call(API.class).setSuggestGet(suggest.getId());
-        RetrofitHelper.enqueue(callGet, null, new RetrofitHelper.CallBack() {
+        Call<Result> api = new RetrofitHelper().call(API.class).setSuggestGet(suggest.getId());
+        RetrofitHelper.enqueue(api, null, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 srl.setRefreshing(false);
@@ -250,6 +239,7 @@ public class SuggestDetailActivity extends BaseActivity<SuggestDetailActivity> {
                 srl.setRefreshing(false);
             }
         });
+        pushApi(api);
     }
 
     private void initHead() {
@@ -311,8 +301,8 @@ public class SuggestDetailActivity extends BaseActivity<SuggestDetailActivity> {
         if (suggest == null) return;
         page = more ? page + 1 : 0;
         // api
-        callCommentListGet = new RetrofitHelper().call(API.class).setSuggestCommentListGet(suggest.getId(), page);
-        RetrofitHelper.enqueue(callCommentListGet, null, new RetrofitHelper.CallBack() {
+        Call<Result> api = new RetrofitHelper().call(API.class).setSuggestCommentListGet(suggest.getId(), page);
+        RetrofitHelper.enqueue(api, null, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 if (recyclerHelper == null) return;
@@ -327,6 +317,7 @@ public class SuggestDetailActivity extends BaseActivity<SuggestDetailActivity> {
                 recyclerHelper.dataFail(more, message);
             }
         });
+        pushApi(api);
     }
 
     private void initFollowView() {
@@ -390,7 +381,7 @@ public class SuggestDetailActivity extends BaseActivity<SuggestDetailActivity> {
     }
 
     // 关注
-    private void follow(boolean api) {
+    private void follow(boolean isApi) {
         boolean newFollow = !suggest.isFollow();
         int newFollowCount = newFollow ? suggest.getFollowCount() + 1 : suggest.getFollowCount() - 1;
         if (newFollowCount < 0) {
@@ -399,10 +390,11 @@ public class SuggestDetailActivity extends BaseActivity<SuggestDetailActivity> {
         suggest.setFollow(newFollow);
         suggest.setFollowCount(newFollowCount);
         initFollowView();
-        if (!api) return;
+        if (!isApi) return;
         SuggestFollow suggestFollow = new SuggestFollow(suggest.getId());
-        callFollow = new RetrofitHelper().call(API.class).setSuggestFollowToggle(suggestFollow);
-        RetrofitHelper.enqueue(callFollow, null, new RetrofitHelper.CallBack() {
+        // api
+        Call<Result> api = new RetrofitHelper().call(API.class).setSuggestFollowToggle(suggestFollow);
+        RetrofitHelper.enqueue(api, null, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 // event
@@ -414,6 +406,7 @@ public class SuggestDetailActivity extends BaseActivity<SuggestDetailActivity> {
                 follow(false);
             }
         });
+        pushApi(api);
     }
 
     // 评论
@@ -424,14 +417,13 @@ public class SuggestDetailActivity extends BaseActivity<SuggestDetailActivity> {
             ToastUtils.show(etComment.getHint());
             return;
         }
+        InputUtils.hideSoftInput(etComment);
         SuggestComment body = new SuggestComment();
         body.setSuggestId(suggest.getId());
         body.setContentText(content);
         // api
-        InputUtils.hideSoftInput(etComment);
-        MaterialDialog loading = getLoading(true);
-        callCommentAdd = new RetrofitHelper().call(API.class).setSuggestCommentAdd(body);
-        RetrofitHelper.enqueue(callCommentAdd, loading, new RetrofitHelper.CallBack() {
+        Call<Result> api = new RetrofitHelper().call(API.class).setSuggestCommentAdd(body);
+        RetrofitHelper.enqueue(api, getLoading(true), new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 etComment.setText("");
@@ -444,6 +436,7 @@ public class SuggestDetailActivity extends BaseActivity<SuggestDetailActivity> {
             public void onFailure(int code, String message, Result.Data data) {
             }
         });
+        pushApi(api);
     }
 
     private void showDelDialog() {
@@ -461,9 +454,8 @@ public class SuggestDetailActivity extends BaseActivity<SuggestDetailActivity> {
     // 删除意见
     private void delSuggest() {
         if (suggest == null) return;
-        MaterialDialog loading = getLoading(getString(R.string.are_deleting), true);
-        callDel = new RetrofitHelper().call(API.class).setSuggestDel(suggest.getId());
-        RetrofitHelper.enqueue(callDel, loading, new RetrofitHelper.CallBack() {
+        Call<Result> api = new RetrofitHelper().call(API.class).setSuggestDel(suggest.getId());
+        RetrofitHelper.enqueue(api, getLoading(getString(R.string.are_deleting), true), new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 // event
@@ -475,6 +467,7 @@ public class SuggestDetailActivity extends BaseActivity<SuggestDetailActivity> {
             public void onFailure(int code, String message, Result.Data data) {
             }
         });
+        pushApi(api);
     }
 
 }

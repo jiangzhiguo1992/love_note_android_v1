@@ -15,7 +15,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
-import com.afollestad.materialdialogs.MaterialDialog;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemLongClickListener;
 import com.haibin.calendarview.CalendarView;
@@ -90,10 +89,6 @@ public class SleepActivity extends BaseActivity<SleepActivity> {
     private List<Sleep> sleepList;
     private RecyclerHelper recyclerLeft;
     private RecyclerHelper recyclerRight;
-    private Observable<Sleep> obListItemDelete;
-    private Call<Result> callAdd;
-    private Call<Result> callGet;
-    private Call<Result> callListGet;
     private int selectYear, selectMonth, selectDay;
 
     public static void goActivity(Activity from) {
@@ -187,7 +182,7 @@ public class SleepActivity extends BaseActivity<SleepActivity> {
     @Override
     protected void initData(Intent intent, Bundle state) {
         // event
-        obListItemDelete = RxBus.register(RxBus.EVENT_SLEEP_LIST_ITEM_DELETE, sleep -> {
+        Observable<Sleep> obListItemDelete = RxBus.register(RxBus.EVENT_SLEEP_LIST_ITEM_DELETE, sleep -> {
             if (recyclerLeft != null) {
                 ListHelper.removeObjInAdapter(recyclerLeft.getAdapter(), sleep);
             }
@@ -197,6 +192,7 @@ public class SleepActivity extends BaseActivity<SleepActivity> {
             getLatestData();
             refreshMonthData();
         });
+        pushBus(RxBus.EVENT_SLEEP_LIST_ITEM_DELETE, obListItemDelete);
         // 设置当前日期
         refreshDateToCurrent();
         // 显示当前数据
@@ -210,12 +206,8 @@ public class SleepActivity extends BaseActivity<SleepActivity> {
 
     @Override
     protected void onFinish(Bundle state) {
-        RetrofitHelper.cancel(callAdd);
-        RetrofitHelper.cancel(callGet);
-        RetrofitHelper.cancel(callListGet);
         RecyclerHelper.release(recyclerLeft);
         RecyclerHelper.release(recyclerRight);
-        RxBus.unregister(RxBus.EVENT_SLEEP_LIST_ITEM_DELETE, obListItemDelete);
     }
 
     @Override
@@ -376,8 +368,8 @@ public class SleepActivity extends BaseActivity<SleepActivity> {
         if (!srl.isRefreshing()) {
             srl.setRefreshing(true);
         }
-        callGet = new RetrofitHelper().call(API.class).noteSleepLatestGet();
-        RetrofitHelper.enqueue(callGet, null, new RetrofitHelper.CallBack() {
+        Call<Result> api = new RetrofitHelper().call(API.class).noteSleepLatestGet();
+        RetrofitHelper.enqueue(api, null, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 srl.setRefreshing(false);
@@ -392,6 +384,7 @@ public class SleepActivity extends BaseActivity<SleepActivity> {
                 srl.setRefreshing(false);
             }
         });
+        pushApi(api);
     }
 
     private void refreshMonthData() {
@@ -402,8 +395,8 @@ public class SleepActivity extends BaseActivity<SleepActivity> {
         sleepList = null;
         refreshDayView();
         // call
-        callListGet = new RetrofitHelper().call(API.class).noteSleepListGetByDate(selectYear, selectMonth);
-        RetrofitHelper.enqueue(callListGet, null, new RetrofitHelper.CallBack() {
+        Call<Result> api = new RetrofitHelper().call(API.class).noteSleepListGetByDate(selectYear, selectMonth);
+        RetrofitHelper.enqueue(api, null, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 srl.setRefreshing(false);
@@ -418,14 +411,15 @@ public class SleepActivity extends BaseActivity<SleepActivity> {
                 srl.setRefreshing(false);
             }
         });
+        pushApi(api);
     }
 
     private void sleepPush() {
         Sleep sleep = new Sleep();
         sleep.setSleep(sleepMe == null || !sleepMe.isSleep());
-        callAdd = new RetrofitHelper().call(API.class).noteSleepAdd(sleep);
-        MaterialDialog loading = mActivity.getLoading(true);
-        RetrofitHelper.enqueue(callAdd, loading, new RetrofitHelper.CallBack() {
+        // api
+        Call<Result> api = new RetrofitHelper().call(API.class).noteSleepAdd(sleep);
+        RetrofitHelper.enqueue(api, mActivity.getLoading(true), new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 sleepMe = data.getSleep();
@@ -439,6 +433,7 @@ public class SleepActivity extends BaseActivity<SleepActivity> {
             public void onFailure(int code, String message, Result.Data data) {
             }
         });
+        pushApi(api);
     }
 
 }

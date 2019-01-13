@@ -57,10 +57,6 @@ public class PromiseListActivity extends BaseActivity<PromiseListActivity> {
     LinearLayout llAdd;
 
     private RecyclerHelper recyclerHelper;
-    private Observable<List<Promise>> obListRefresh;
-    private Observable<Promise> obListItemRefresh;
-    private Observable<Promise> obListItemDelete;
-    private Call<Result> call;
     private int page;
     private int searchIndex;
 
@@ -131,28 +127,27 @@ public class PromiseListActivity extends BaseActivity<PromiseListActivity> {
     protected void initData(Intent intent, Bundle state) {
         page = 0;
         // event
-        obListRefresh = RxBus.register(RxBus.EVENT_PROMISE_LIST_REFRESH, promiseList -> {
+        Observable<List<Promise>> obListRefresh = RxBus.register(RxBus.EVENT_PROMISE_LIST_REFRESH, promiseList -> {
             if (recyclerHelper == null) return;
             recyclerHelper.dataRefresh();
         });
-        obListItemDelete = RxBus.register(RxBus.EVENT_PROMISE_LIST_ITEM_DELETE, promise -> {
+        pushBus(RxBus.EVENT_PROMISE_LIST_REFRESH, obListRefresh);
+        Observable<Promise> obListItemDelete = RxBus.register(RxBus.EVENT_PROMISE_LIST_ITEM_DELETE, promise -> {
             if (recyclerHelper == null) return;
             ListHelper.removeObjInAdapter(recyclerHelper.getAdapter(), promise);
         });
-        obListItemRefresh = RxBus.register(RxBus.EVENT_PROMISE_LIST_ITEM_REFRESH, promise -> {
+        pushBus(RxBus.EVENT_PROMISE_LIST_ITEM_DELETE, obListItemDelete);
+        Observable<Promise> obListItemRefresh = RxBus.register(RxBus.EVENT_PROMISE_LIST_ITEM_REFRESH, promise -> {
             if (recyclerHelper == null) return;
             ListHelper.refreshObjInAdapter(recyclerHelper.getAdapter(), promise);
         });
+        pushBus(RxBus.EVENT_PROMISE_LIST_ITEM_REFRESH, obListItemRefresh);
         // refresh
         recyclerHelper.dataRefresh();
     }
 
     @Override
     protected void onFinish(Bundle state) {
-        RetrofitHelper.cancel(call);
-        RxBus.unregister(RxBus.EVENT_PROMISE_LIST_REFRESH, obListRefresh);
-        RxBus.unregister(RxBus.EVENT_PROMISE_LIST_ITEM_DELETE, obListItemDelete);
-        RxBus.unregister(RxBus.EVENT_PROMISE_LIST_ITEM_REFRESH, obListItemRefresh);
         RecyclerHelper.release(recyclerHelper);
     }
 
@@ -192,10 +187,10 @@ public class PromiseListActivity extends BaseActivity<PromiseListActivity> {
 
     private void getData(final boolean more) {
         page = more ? page + 1 : 0;
-        // api
         int searchType = ApiHelper.LIST_NOTE_TYPE[searchIndex];
-        call = new RetrofitHelper().call(API.class).notePromiseListGet(searchType, page);
-        RetrofitHelper.enqueue(call, null, new RetrofitHelper.CallBack() {
+        // api
+        Call<Result> api = new RetrofitHelper().call(API.class).notePromiseListGet(searchType, page);
+        RetrofitHelper.enqueue(api, null, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 if (recyclerHelper == null) return;
@@ -210,6 +205,7 @@ public class PromiseListActivity extends BaseActivity<PromiseListActivity> {
                 recyclerHelper.dataFail(more, message);
             }
         });
+        pushApi(api);
     }
 
     private void showSearchDialog() {

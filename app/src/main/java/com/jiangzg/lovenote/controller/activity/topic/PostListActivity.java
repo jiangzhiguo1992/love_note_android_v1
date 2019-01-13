@@ -51,8 +51,8 @@ public class PostListActivity extends BaseActivity<PostListActivity> {
     LinearLayout llAdd;
 
     private PostKindInfo kindInfo;
-    private int searchIndex;
     private PostSubKindInfo subKindInfo;
+    private int searchIndex;
 
     public static void goActivity(Fragment from, PostKindInfo kindInfo) {
         if (kindInfo == null) {

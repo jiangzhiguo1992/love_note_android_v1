@@ -55,10 +55,6 @@ public class DiaryListActivity extends BaseActivity<DiaryListActivity> {
     LinearLayout llAdd;
 
     private RecyclerHelper recyclerHelper;
-    private Observable<List<Diary>> obListRefresh;
-    private Observable<Diary> obListItemRefresh;
-    private Observable<Diary> obListItemDelete;
-    private Call<Result> call;
     private int page;
     private int searchIndex;
 
@@ -129,28 +125,27 @@ public class DiaryListActivity extends BaseActivity<DiaryListActivity> {
     protected void initData(Intent intent, Bundle state) {
         page = 0;
         // event
-        obListRefresh = RxBus.register(RxBus.EVENT_DIARY_LIST_REFRESH, diaryList -> {
+        Observable<List<Diary>> obListRefresh = RxBus.register(RxBus.EVENT_DIARY_LIST_REFRESH, diaryList -> {
             if (recyclerHelper == null) return;
             recyclerHelper.dataRefresh();
         });
-        obListItemDelete = RxBus.register(RxBus.EVENT_DIARY_LIST_ITEM_DELETE, diary -> {
+        pushBus(RxBus.EVENT_DIARY_LIST_REFRESH, obListRefresh);
+        Observable<Diary> obListItemDelete = RxBus.register(RxBus.EVENT_DIARY_LIST_ITEM_DELETE, diary -> {
             if (recyclerHelper == null) return;
             ListHelper.removeObjInAdapter(recyclerHelper.getAdapter(), diary);
         });
-        obListItemRefresh = RxBus.register(RxBus.EVENT_DIARY_LIST_ITEM_REFRESH, diary -> {
+        pushBus(RxBus.EVENT_DIARY_LIST_ITEM_DELETE, obListItemDelete);
+        Observable<Diary> obListItemRefresh = RxBus.register(RxBus.EVENT_DIARY_LIST_ITEM_REFRESH, diary -> {
             if (recyclerHelper == null) return;
             ListHelper.refreshObjInAdapter(recyclerHelper.getAdapter(), diary);
         });
+        pushBus(RxBus.EVENT_DIARY_LIST_ITEM_REFRESH, obListItemRefresh);
         // refresh
         recyclerHelper.dataRefresh();
     }
 
     @Override
     protected void onFinish(Bundle state) {
-        RetrofitHelper.cancel(call);
-        RxBus.unregister(RxBus.EVENT_DIARY_LIST_REFRESH, obListRefresh);
-        RxBus.unregister(RxBus.EVENT_DIARY_LIST_ITEM_DELETE, obListItemDelete);
-        RxBus.unregister(RxBus.EVENT_DIARY_LIST_ITEM_REFRESH, obListItemRefresh);
         RecyclerHelper.release(recyclerHelper);
     }
 
@@ -172,10 +167,10 @@ public class DiaryListActivity extends BaseActivity<DiaryListActivity> {
 
     private void getData(final boolean more) {
         page = more ? page + 1 : 0;
-        // api
         int searchType = ApiHelper.LIST_NOTE_TYPE[searchIndex];
-        call = new RetrofitHelper().call(API.class).noteDiaryListGet(searchType, page);
-        RetrofitHelper.enqueue(call, null, new RetrofitHelper.CallBack() {
+        // api
+        Call<Result> api = new RetrofitHelper().call(API.class).noteDiaryListGet(searchType, page);
+        RetrofitHelper.enqueue(api, null, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 if (recyclerHelper == null) return;
@@ -193,6 +188,7 @@ public class DiaryListActivity extends BaseActivity<DiaryListActivity> {
                 recyclerHelper.dataFail(more, message);
             }
         });
+        pushApi(api);
     }
 
     private void showSearchDialog() {

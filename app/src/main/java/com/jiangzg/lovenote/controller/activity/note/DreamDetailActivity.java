@@ -48,9 +48,6 @@ public class DreamDetailActivity extends BaseActivity<DreamDetailActivity> {
     TextView tvContent;
 
     private Dream dream;
-    private Observable<Dream> obDetailRefresh;
-    private Call<Result> callGet;
-    private Call<Result> callDel;
 
     public static void goActivity(Activity from, Dream dream) {
         Intent intent = new Intent(from, DreamDetailActivity.class);
@@ -95,17 +92,15 @@ public class DreamDetailActivity extends BaseActivity<DreamDetailActivity> {
     @Override
     protected void initData(Intent intent, Bundle state) {
         // event
-        obDetailRefresh = RxBus.register(RxBus.EVENT_DREAM_DETAIL_REFRESH, dream -> {
+        Observable<Dream> obDetailRefresh = RxBus.register(RxBus.EVENT_DREAM_DETAIL_REFRESH, dream -> {
             if (dream == null) return;
             refreshData(dream.getId());
         });
+        pushBus(RxBus.EVENT_DREAM_DETAIL_REFRESH, obDetailRefresh);
     }
 
     @Override
     protected void onFinish(Bundle state) {
-        RetrofitHelper.cancel(callDel);
-        RetrofitHelper.cancel(callGet);
-        RxBus.unregister(RxBus.EVENT_DREAM_DETAIL_REFRESH, obDetailRefresh);
     }
 
     @Override
@@ -132,8 +127,9 @@ public class DreamDetailActivity extends BaseActivity<DreamDetailActivity> {
         if (!srl.isRefreshing()) {
             srl.setRefreshing(true);
         }
-        callGet = new RetrofitHelper().call(API.class).noteDreamGet(did);
-        RetrofitHelper.enqueue(callGet, null, new RetrofitHelper.CallBack() {
+        // api
+        Call<Result> api = new RetrofitHelper().call(API.class).noteDreamGet(did);
+        RetrofitHelper.enqueue(api, null, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 srl.setRefreshing(false);
@@ -146,6 +142,7 @@ public class DreamDetailActivity extends BaseActivity<DreamDetailActivity> {
                 srl.setRefreshing(false);
             }
         });
+        pushApi(api);
     }
 
     private void refreshView() {
@@ -184,9 +181,8 @@ public class DreamDetailActivity extends BaseActivity<DreamDetailActivity> {
 
     private void deleteApi() {
         if (dream == null) return;
-        MaterialDialog loading = getLoading(true);
-        callDel = new RetrofitHelper().call(API.class).noteDreamDel(dream.getId());
-        RetrofitHelper.enqueue(callDel, loading, new RetrofitHelper.CallBack() {
+        Call<Result> api = new RetrofitHelper().call(API.class).noteDreamDel(dream.getId());
+        RetrofitHelper.enqueue(api, getLoading(true), new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 // event
@@ -199,6 +195,7 @@ public class DreamDetailActivity extends BaseActivity<DreamDetailActivity> {
             public void onFailure(int code, String message, Result.Data data) {
             }
         });
+        pushApi(api);
     }
 
 }

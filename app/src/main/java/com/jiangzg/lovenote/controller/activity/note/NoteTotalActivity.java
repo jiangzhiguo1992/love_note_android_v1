@@ -65,8 +65,6 @@ public class NoteTotalActivity extends BaseActivity<NoteTotalActivity> {
     @BindView(R.id.tvMovie)
     TextView tvMovie;
 
-    private Call<Result> call;
-
     public static void goActivity(Fragment from) {
         if (!SPHelper.getVipLimit().isNoteTotalEnable()) {
             VipActivity.goActivity(from);
@@ -109,15 +107,14 @@ public class NoteTotalActivity extends BaseActivity<NoteTotalActivity> {
 
     @Override
     protected void onFinish(Bundle state) {
-        RetrofitHelper.cancel(call);
     }
 
     private void refreshData() {
         if (!srl.isRefreshing()) {
             srl.setRefreshing(true);
         }
-        call = new RetrofitHelper().call(API.class).noteTrendsTotalGet();
-        RetrofitHelper.enqueue(call, null, new RetrofitHelper.CallBack() {
+        Call<Result> api = new RetrofitHelper().call(API.class).noteTrendsTotalGet();
+        RetrofitHelper.enqueue(api, null, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 srl.setRefreshing(false);
@@ -129,6 +126,7 @@ public class NoteTotalActivity extends BaseActivity<NoteTotalActivity> {
                 srl.setRefreshing(false);
             }
         });
+        pushApi(api);
     }
 
     private void refreshView(Result.Data data) {

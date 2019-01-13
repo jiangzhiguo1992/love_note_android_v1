@@ -52,9 +52,6 @@ public class AudioListActivity extends BaseActivity<AudioListActivity> {
 
     private MediaPlayer mediaPlayer;
     private RecyclerHelper recyclerHelper;
-    private Observable<List<Audio>> obListRefresh;
-    private Observable<Audio> obListItemDelete;
-    private Call<Result> call;
     private int page;
 
     public static void goActivity(Activity from) {
@@ -115,23 +112,22 @@ public class AudioListActivity extends BaseActivity<AudioListActivity> {
     protected void initData(Intent intent, Bundle state) {
         page = 0;
         // event
-        obListRefresh = RxBus.register(RxBus.EVENT_AUDIO_LIST_REFRESH, audioList -> {
+        Observable<List<Audio>> obListRefresh = RxBus.register(RxBus.EVENT_AUDIO_LIST_REFRESH, audioList -> {
             if (recyclerHelper == null) return;
             recyclerHelper.dataRefresh();
         });
-        obListItemDelete = RxBus.register(RxBus.EVENT_AUDIO_LIST_ITEM_DELETE, audio -> {
+        pushBus(RxBus.EVENT_AUDIO_LIST_REFRESH, obListRefresh);
+        Observable<Audio> obListItemDelete = RxBus.register(RxBus.EVENT_AUDIO_LIST_ITEM_DELETE, audio -> {
             if (recyclerHelper == null) return;
             ListHelper.removeObjInAdapter(recyclerHelper.getAdapter(), audio);
         });
+        pushBus(RxBus.EVENT_AUDIO_LIST_ITEM_DELETE, obListItemDelete);
         // refresh
         recyclerHelper.dataRefresh();
     }
 
     @Override
     protected void onFinish(Bundle state) {
-        RetrofitHelper.cancel(call);
-        RxBus.unregister(RxBus.EVENT_AUDIO_LIST_REFRESH, obListRefresh);
-        RxBus.unregister(RxBus.EVENT_AUDIO_LIST_ITEM_DELETE, obListItemDelete);
         RecyclerHelper.release(recyclerHelper);
     }
 
@@ -177,8 +173,8 @@ public class AudioListActivity extends BaseActivity<AudioListActivity> {
     private void getData(final boolean more) {
         page = more ? page + 1 : 0;
         // api
-        call = new RetrofitHelper().call(API.class).noteAudioListGet(page);
-        RetrofitHelper.enqueue(call, null, new RetrofitHelper.CallBack() {
+        Call<Result> api = new RetrofitHelper().call(API.class).noteAudioListGet(page);
+        RetrofitHelper.enqueue(api, null, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 if (recyclerHelper == null) return;
@@ -196,6 +192,7 @@ public class AudioListActivity extends BaseActivity<AudioListActivity> {
                 recyclerHelper.dataFail(more, message);
             }
         });
+        pushApi(api);
     }
 
 }

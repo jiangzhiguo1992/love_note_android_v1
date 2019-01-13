@@ -104,9 +104,6 @@ public class CoupleInfoActivity extends BaseActivity<CoupleInfoActivity> {
     RecyclerView rv;
 
     private RecyclerHelper recyclerHelper;
-    private Call<Result> callStateListGet;
-    private Call<Result> callUpdateInfo;
-    private Call<Result> callUpdateStatus;
     private File cropFile;
     private int page;
 
@@ -159,9 +156,6 @@ public class CoupleInfoActivity extends BaseActivity<CoupleInfoActivity> {
 
     @Override
     protected void onFinish(Bundle state) {
-        RetrofitHelper.cancel(callStateListGet);
-        RetrofitHelper.cancel(callUpdateInfo);
-        RetrofitHelper.cancel(callUpdateStatus);
         RecyclerHelper.release(recyclerHelper);
         // 创建成功的cropFile都要删除
         ResHelper.deleteFileInBackground(cropFile);
@@ -259,8 +253,8 @@ public class CoupleInfoActivity extends BaseActivity<CoupleInfoActivity> {
         if (couple == null) return;
         page = more ? page + 1 : 0;
         // api
-        callStateListGet = new RetrofitHelper().call(API.class).coupleStateListGet(couple.getId(), page);
-        RetrofitHelper.enqueue(callStateListGet, null, new RetrofitHelper.CallBack() {
+        Call<Result> api = new RetrofitHelper().call(API.class).coupleStateListGet(couple.getId(), page);
+        RetrofitHelper.enqueue(api, null, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 if (recyclerHelper == null) return;
@@ -275,6 +269,7 @@ public class CoupleInfoActivity extends BaseActivity<CoupleInfoActivity> {
                 recyclerHelper.dataFail(more, message);
             }
         });
+        pushApi(api);
     }
 
     private void setViewData() {
@@ -383,9 +378,8 @@ public class CoupleInfoActivity extends BaseActivity<CoupleInfoActivity> {
             body.setCreatorName(name);
         }
         // api
-        MaterialDialog loading = getLoading(true);
-        callUpdateInfo = new RetrofitHelper().call(API.class).coupleUpdate(ApiHelper.COUPLE_UPDATE_INFO, body);
-        RetrofitHelper.enqueue(callUpdateInfo, loading, new RetrofitHelper.CallBack() {
+        Call<Result> api = new RetrofitHelper().call(API.class).coupleUpdate(ApiHelper.COUPLE_UPDATE_INFO, body);
+        RetrofitHelper.enqueue(api, getLoading(true), new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 Couple couple = data.getCouple();
@@ -398,6 +392,7 @@ public class CoupleInfoActivity extends BaseActivity<CoupleInfoActivity> {
             public void onFailure(int code, String message, Result.Data data) {
             }
         });
+        pushApi(api);
     }
 
     // 拨打电话
@@ -428,8 +423,8 @@ public class CoupleInfoActivity extends BaseActivity<CoupleInfoActivity> {
         Couple couple = SPHelper.getCouple();
         MaterialDialog loading = getLoading(true);
         // api
-        callUpdateStatus = new RetrofitHelper().call(API.class).coupleUpdate(type, couple);
-        RetrofitHelper.enqueue(callUpdateStatus, loading, new RetrofitHelper.CallBack() {
+        Call<Result> api = new RetrofitHelper().call(API.class).coupleUpdate(type, couple);
+        RetrofitHelper.enqueue(api, loading, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 Couple couple = data.getCouple();
@@ -442,6 +437,7 @@ public class CoupleInfoActivity extends BaseActivity<CoupleInfoActivity> {
             public void onFailure(int code, String message, Result.Data data) {
             }
         });
+        pushApi(api);
     }
 
 }

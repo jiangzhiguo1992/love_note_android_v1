@@ -45,10 +45,6 @@ public class SuggestListActivity extends BaseActivity<SuggestListActivity> {
 
     private int entry;
     private RecyclerHelper recyclerHelper;
-    private Observable<List<Suggest>> obListRefresh;
-    private Observable<Suggest> obListItemDelete;
-    private Observable<Suggest> obListItemRefresh;
-    private Call<Result> call;
     private int page;
 
     public static void goActivity(Activity from, int entry) {
@@ -96,45 +92,45 @@ public class SuggestListActivity extends BaseActivity<SuggestListActivity> {
             ViewHelper.initTopBar(mActivity, tb, getString(R.string.my_push), true);
         }
         // event
-        obListRefresh = RxBus.register(RxBus.EVENT_SUGGEST_LIST_REFRESH, suggests -> {
+        Observable<List<Suggest>> obListRefresh = RxBus.register(RxBus.EVENT_SUGGEST_LIST_REFRESH, suggests -> {
             if (recyclerHelper == null) return;
             recyclerHelper.dataRefresh();
         });
-        obListItemDelete = RxBus.register(RxBus.EVENT_SUGGEST_LIST_ITEM_DELETE, suggest -> {
+        pushBus(RxBus.EVENT_SUGGEST_LIST_REFRESH, obListRefresh);
+        Observable<Suggest> obListItemDelete = RxBus.register(RxBus.EVENT_SUGGEST_LIST_ITEM_DELETE, suggest -> {
             if (recyclerHelper == null) return;
             ListHelper.removeObjInAdapter(recyclerHelper.getAdapter(), suggest);
         });
-        obListItemRefresh = RxBus.register(RxBus.EVENT_SUGGEST_LIST_ITEM_REFRESH, suggest -> {
+        pushBus(RxBus.EVENT_SUGGEST_LIST_ITEM_DELETE, obListItemDelete);
+        Observable<Suggest> obListItemRefresh = RxBus.register(RxBus.EVENT_SUGGEST_LIST_ITEM_REFRESH, suggest -> {
             if (recyclerHelper == null) return;
             ListHelper.refreshObjInAdapter(recyclerHelper.getAdapter(), suggest);
         });
+        pushBus(RxBus.EVENT_SUGGEST_LIST_ITEM_REFRESH, obListItemRefresh);
         // api
         recyclerHelper.dataRefresh();
     }
 
     @Override
     protected void onFinish(Bundle state) {
-        RetrofitHelper.cancel(call);
-        RxBus.unregister(RxBus.EVENT_SUGGEST_LIST_REFRESH, obListRefresh);
-        RxBus.unregister(RxBus.EVENT_SUGGEST_LIST_ITEM_DELETE, obListItemDelete);
-        RxBus.unregister(RxBus.EVENT_SUGGEST_LIST_ITEM_REFRESH, obListItemRefresh);
         RecyclerHelper.release(recyclerHelper);
     }
 
     private void getData(final boolean more) {
         page = more ? page + 1 : 0;
         // api
+        Call<Result> api;
         if (entry == ENTRY_MINE) {
-            call = new RetrofitHelper().call(API.class).setSuggestListMineGet(page);
+            api = new RetrofitHelper().call(API.class).setSuggestListMineGet(page);
         } else if (entry == ENTRY_FOLLOW) {
-            call = new RetrofitHelper().call(API.class).setSuggestListFollowGet(page);
+            api = new RetrofitHelper().call(API.class).setSuggestListFollowGet(page);
         } else {
             SuggestInfo suggestInfo = SuggestInfo.getInstance();
             int status = suggestInfo.getStatusList().get(0).getStatus();
             int kind = suggestInfo.getKindList().get(0).getKind();
-            call = new RetrofitHelper().call(API.class).setSuggestListGet(status, kind, page);
+            api = new RetrofitHelper().call(API.class).setSuggestListGet(status, kind, page);
         }
-        RetrofitHelper.enqueue(call, null, new RetrofitHelper.CallBack() {
+        RetrofitHelper.enqueue(api, null, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 if (recyclerHelper == null) return;
@@ -149,6 +145,7 @@ public class SuggestListActivity extends BaseActivity<SuggestListActivity> {
                 recyclerHelper.dataFail(more, message);
             }
         });
+        pushApi(api);
     }
 
 }

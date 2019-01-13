@@ -57,9 +57,6 @@ public class CoinActivity extends BaseActivity<CoinActivity> {
 
     private Coin coin;
     private RecyclerHelper recyclerHelper;
-    private Observable<Coin> obRefresh;
-    private Call<Result> callGet;
-    private Call<Result> callList;
     private int page;
 
     public static void goActivity(Fragment from) {
@@ -102,19 +99,17 @@ public class CoinActivity extends BaseActivity<CoinActivity> {
     protected void initData(Intent intent, Bundle state) {
         page = 0;
         // event
-        obRefresh = RxBus.register(RxBus.EVENT_COIN_INFO_REFRESH, coin -> {
+        Observable<Coin> bus = RxBus.register(RxBus.EVENT_COIN_INFO_REFRESH, coin -> {
             refreshData();
             if (recyclerHelper != null) recyclerHelper.dataRefresh();
         });
+        pushBus(RxBus.EVENT_COIN_INFO_REFRESH, bus);
         // recyclerHelper
         recyclerHelper.dataRefresh();
     }
 
     @Override
     protected void onFinish(Bundle state) {
-        RetrofitHelper.cancel(callGet);
-        RetrofitHelper.cancel(callList);
-        RxBus.unregister(RxBus.EVENT_COIN_INFO_REFRESH, obRefresh);
         RecyclerHelper.release(recyclerHelper);
     }
 
@@ -165,8 +160,9 @@ public class CoinActivity extends BaseActivity<CoinActivity> {
         if (!srl.isRefreshing()) {
             srl.setRefreshing(true);
         }
-        callGet = new RetrofitHelper().call(API.class).moreCoinHomeGet();
-        RetrofitHelper.enqueue(callGet, null, new RetrofitHelper.CallBack() {
+        // api
+        Call<Result> api = new RetrofitHelper().call(API.class).moreCoinHomeGet();
+        RetrofitHelper.enqueue(api, null, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 srl.setRefreshing(false);
@@ -179,13 +175,14 @@ public class CoinActivity extends BaseActivity<CoinActivity> {
                 srl.setRefreshing(false);
             }
         });
+        pushApi(api);
     }
 
     private void getCoinListData(final boolean more) {
         page = more ? page + 1 : 0;
         // api
-        callList = new RetrofitHelper().call(API.class).moreCoinListGet(page);
-        RetrofitHelper.enqueue(callList, null, new RetrofitHelper.CallBack() {
+        Call<Result> api = new RetrofitHelper().call(API.class).moreCoinListGet(page);
+        RetrofitHelper.enqueue(api, null, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 if (recyclerHelper == null) return;
@@ -200,6 +197,7 @@ public class CoinActivity extends BaseActivity<CoinActivity> {
                 recyclerHelper.dataFail(more, message);
             }
         });
+        pushApi(api);
     }
 
 }

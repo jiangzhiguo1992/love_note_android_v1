@@ -79,8 +79,6 @@ public class VideoEditActivity extends BaseActivity<VideoEditActivity> {
     ImageView ivPlay;
 
     private Video video;
-    private Observable<LocationInfo> obSelectMap;
-    private Call<Result> callAdd;
     private File thumbFile;
     private File videoFile;
 
@@ -118,7 +116,7 @@ public class VideoEditActivity extends BaseActivity<VideoEditActivity> {
     @Override
     protected void initData(Intent intent, Bundle state) {
         // event
-        obSelectMap = RxBus.register(RxBus.EVENT_MAP_SELECT, info -> {
+        Observable<LocationInfo> obSelectMap = RxBus.register(RxBus.EVENT_MAP_SELECT, info -> {
             if (info == null || video == null) return;
             video.setLatitude(info.getLatitude());
             video.setLongitude(info.getLongitude());
@@ -126,12 +124,11 @@ public class VideoEditActivity extends BaseActivity<VideoEditActivity> {
             video.setCityId(info.getCityId());
             refreshLocationView();
         });
+        pushBus(RxBus.EVENT_MAP_SELECT, obSelectMap);
     }
 
     @Override
     protected void onFinish(Bundle state) {
-        RetrofitHelper.cancel(callAdd);
-        RxBus.unregister(RxBus.EVENT_MAP_SELECT, obSelectMap);
         // 记得删除临时文件
         ResHelper.deleteFileInBackground(thumbFile);
     }
@@ -322,9 +319,8 @@ public class VideoEditActivity extends BaseActivity<VideoEditActivity> {
 
     private void addApi() {
         if (video == null) return;
-        callAdd = new RetrofitHelper().call(API.class).noteVideoAdd(video);
-        MaterialDialog loading = getLoading(true);
-        RetrofitHelper.enqueue(callAdd, loading, new RetrofitHelper.CallBack() {
+        Call<Result> api = new RetrofitHelper().call(API.class).noteVideoAdd(video);
+        RetrofitHelper.enqueue(api, getLoading(true), new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 // event
@@ -336,6 +332,7 @@ public class VideoEditActivity extends BaseActivity<VideoEditActivity> {
             public void onFailure(int code, String message, Result.Data data) {
             }
         });
+        pushApi(api);
     }
 
 }

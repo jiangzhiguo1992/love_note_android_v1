@@ -14,7 +14,6 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
-import com.afollestad.materialdialogs.MaterialDialog;
 import com.jiangzg.base.common.DateUtils;
 import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.base.component.ActivityTrans;
@@ -59,7 +58,6 @@ public class AngryEditActivity extends BaseActivity<AngryEditActivity> {
     TextView tvContentLimit;
 
     private Angry angry;
-    private Call<Result> callAdd;
     private int limitContentLength;
 
     public static void goActivity(Activity from) {
@@ -94,7 +92,6 @@ public class AngryEditActivity extends BaseActivity<AngryEditActivity> {
 
     @Override
     protected void onFinish(Bundle state) {
-        RetrofitHelper.cancel(callAdd);
     }
 
     @Override
@@ -181,9 +178,9 @@ public class AngryEditActivity extends BaseActivity<AngryEditActivity> {
             ToastUtils.show(etContent.getHint().toString());
             return;
         }
-        MaterialDialog loading = getLoading(false);
-        callAdd = new RetrofitHelper().call(API.class).noteAngryAdd(angry);
-        RetrofitHelper.enqueue(callAdd, loading, new RetrofitHelper.CallBack() {
+        // api
+        Call<Result> api = new RetrofitHelper().call(API.class).noteAngryAdd(angry);
+        RetrofitHelper.enqueue(api, getLoading(false), new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 // event
@@ -196,6 +193,7 @@ public class AngryEditActivity extends BaseActivity<AngryEditActivity> {
             public void onFailure(int code, String message, Result.Data data) {
             }
         });
+        pushApi(api);
     }
 
 }

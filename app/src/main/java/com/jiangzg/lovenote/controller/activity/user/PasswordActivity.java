@@ -9,7 +9,6 @@ import android.text.Editable;
 import android.view.View;
 import android.widget.Button;
 
-import com.afollestad.materialdialogs.MaterialDialog;
 import com.jiangzg.base.common.EncryptUtils;
 import com.jiangzg.base.component.ActivityTrans;
 import com.jiangzg.base.view.ToastUtils;
@@ -41,8 +40,6 @@ public class PasswordActivity extends BaseActivity<PasswordActivity> {
     @BindView(R.id.btnModify)
     Button btnModify;
 
-    private Call<Result> call;
-
     public static void goActivity(Activity from) {
         Intent intent = new Intent(from, PasswordActivity.class);
         // intent.putExtra();
@@ -66,7 +63,6 @@ public class PasswordActivity extends BaseActivity<PasswordActivity> {
 
     @Override
     protected void onFinish(Bundle state) {
-        RetrofitHelper.cancel(call);
     }
 
     @OnTextChanged({R.id.etOldPwd, R.id.etNewPwd, R.id.etNewPwdConfirm})
@@ -97,12 +93,11 @@ public class PasswordActivity extends BaseActivity<PasswordActivity> {
             ToastUtils.show(getString(R.string.twice_pwd_no_equals));
             return;
         }
-        // api调用
         String md5OldPwd = EncryptUtils.encryptMD5ToString(oldPwd);
         User user = ApiHelper.getUserBody("", newPwd);
-        call = new RetrofitHelper().call(API.class).userModify(ApiHelper.MODIFY_PASSWORD, "", md5OldPwd, user);
-        MaterialDialog loading = getLoading(true);
-        RetrofitHelper.enqueue(call, loading, new RetrofitHelper.CallBack() {
+        // api
+        Call<Result> api = new RetrofitHelper().call(API.class).userModify(ApiHelper.MODIFY_PASSWORD, "", md5OldPwd, user);
+        RetrofitHelper.enqueue(api, getLoading(true), new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 User user = data.getUser();
@@ -114,6 +109,7 @@ public class PasswordActivity extends BaseActivity<PasswordActivity> {
             public void onFailure(int code, String message, Result.Data data) {
             }
         });
+        pushApi(api);
     }
 
 }

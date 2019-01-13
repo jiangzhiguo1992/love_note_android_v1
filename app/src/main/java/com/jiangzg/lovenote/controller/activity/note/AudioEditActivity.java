@@ -13,7 +13,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.afollestad.materialdialogs.MaterialDialog;
 import com.jiangzg.base.common.DateUtils;
 import com.jiangzg.base.common.FileUtils;
 import com.jiangzg.base.common.StringUtils;
@@ -61,7 +60,6 @@ public class AudioEditActivity extends BaseActivity<AudioEditActivity> {
     TextView tvAudio;
 
     private Audio audio;
-    private Call<Result> callAdd;
     private File audioFile;
 
     public static void goActivity(Activity from) {
@@ -99,7 +97,6 @@ public class AudioEditActivity extends BaseActivity<AudioEditActivity> {
 
     @Override
     protected void onFinish(Bundle state) {
-        RetrofitHelper.cancel(callAdd);
     }
 
     @Override
@@ -236,9 +233,8 @@ public class AudioEditActivity extends BaseActivity<AudioEditActivity> {
 
     private void addApi() {
         if (audio == null) return;
-        callAdd = new RetrofitHelper().call(API.class).noteAudioAdd(audio);
-        MaterialDialog loading = getLoading(true);
-        RetrofitHelper.enqueue(callAdd, loading, new RetrofitHelper.CallBack() {
+        Call<Result> api = new RetrofitHelper().call(API.class).noteAudioAdd(audio);
+        RetrofitHelper.enqueue(api, getLoading(true), new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 // event
@@ -250,6 +246,7 @@ public class AudioEditActivity extends BaseActivity<AudioEditActivity> {
             public void onFailure(int code, String message, Result.Data data) {
             }
         });
+        pushApi(api);
     }
 
 }

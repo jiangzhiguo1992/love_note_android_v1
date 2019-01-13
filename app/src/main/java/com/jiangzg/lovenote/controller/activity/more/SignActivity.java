@@ -11,7 +11,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
-import com.afollestad.materialdialogs.MaterialDialog;
 import com.haibin.calendarview.CalendarView;
 import com.haibin.calendarview.WeekView;
 import com.jiangzg.base.common.DateUtils;
@@ -74,8 +73,6 @@ public class SignActivity extends BaseActivity<SignActivity> {
 
     private Sign today;
     private List<Sign> signList;
-    private Call<Result> callAdd;
-    private Call<Result> callListGet;
     private int selectYear, selectMonth, selectDay;
 
     public static void goActivity(Fragment from) {
@@ -153,8 +150,6 @@ public class SignActivity extends BaseActivity<SignActivity> {
 
     @Override
     protected void onFinish(Bundle state) {
-        RetrofitHelper.cancel(callAdd);
-        RetrofitHelper.cancel(callListGet);
     }
 
     @Override
@@ -313,9 +308,9 @@ public class SignActivity extends BaseActivity<SignActivity> {
         // clear (data + view)
         signList = null;
         refreshDayView();
-        // call
-        callListGet = new RetrofitHelper().call(API.class).moreSignDateGet(selectYear, selectMonth);
-        RetrofitHelper.enqueue(callListGet, null, new RetrofitHelper.CallBack() {
+        // api
+        Call<Result> api = new RetrofitHelper().call(API.class).moreSignDateGet(selectYear, selectMonth);
+        RetrofitHelper.enqueue(api, null, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 srl.setRefreshing(false);
@@ -330,12 +325,12 @@ public class SignActivity extends BaseActivity<SignActivity> {
                 srl.setRefreshing(false);
             }
         });
+        pushApi(api);
     }
 
     private void signPush() {
-        callAdd = new RetrofitHelper().call(API.class).moreSignAdd();
-        MaterialDialog loading = mActivity.getLoading(true);
-        RetrofitHelper.enqueue(callAdd, loading, new RetrofitHelper.CallBack() {
+        Call<Result> api = new RetrofitHelper().call(API.class).moreSignAdd();
+        RetrofitHelper.enqueue(api, mActivity.getLoading(true), new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 today = data.getSign();
@@ -352,6 +347,7 @@ public class SignActivity extends BaseActivity<SignActivity> {
             public void onFailure(int code, String message, Result.Data data) {
             }
         });
+        pushApi(api);
     }
 
 }

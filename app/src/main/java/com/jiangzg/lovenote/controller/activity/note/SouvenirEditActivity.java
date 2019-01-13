@@ -13,7 +13,6 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
-import com.afollestad.materialdialogs.MaterialDialog;
 import com.jiangzg.base.common.DateUtils;
 import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.base.component.ActivityTrans;
@@ -62,9 +61,6 @@ public class SouvenirEditActivity extends BaseActivity<SouvenirEditActivity> {
     RadioButton rbWish;
 
     private Souvenir souvenir;
-    private Observable<LocationInfo> obSelectMap;
-    private Call<Result> callAdd;
-    private Call<Result> callUpdate;
 
     public static void goActivity(Activity from) {
         Intent intent = new Intent(from, SouvenirEditActivity.class);
@@ -125,7 +121,7 @@ public class SouvenirEditActivity extends BaseActivity<SouvenirEditActivity> {
     @Override
     protected void initData(Intent intent, Bundle state) {
         // event
-        obSelectMap = RxBus.register(RxBus.EVENT_MAP_SELECT, info -> {
+        Observable<LocationInfo> obSelectMap = RxBus.register(RxBus.EVENT_MAP_SELECT, info -> {
             if (info == null || souvenir == null) return;
             souvenir.setLatitude(info.getLatitude());
             souvenir.setLongitude(info.getLongitude());
@@ -133,13 +129,11 @@ public class SouvenirEditActivity extends BaseActivity<SouvenirEditActivity> {
             souvenir.setCityId(info.getCityId());
             refreshLocationView();
         });
+        pushBus(RxBus.EVENT_MAP_SELECT, obSelectMap);
     }
 
     @Override
     protected void onFinish(Bundle state) {
-        RetrofitHelper.cancel(callAdd);
-        RetrofitHelper.cancel(callUpdate);
-        RxBus.unregister(RxBus.EVENT_MAP_SELECT, obSelectMap);
     }
 
     @Override
@@ -236,9 +230,8 @@ public class SouvenirEditActivity extends BaseActivity<SouvenirEditActivity> {
 
     private void updateApi() {
         if (souvenir == null) return;
-        MaterialDialog loading = getLoading(false);
-        callUpdate = new RetrofitHelper().call(API.class).noteSouvenirUpdateBody(souvenir);
-        RetrofitHelper.enqueue(callUpdate, loading, new RetrofitHelper.CallBack() {
+        Call<Result> api = new RetrofitHelper().call(API.class).noteSouvenirUpdateBody(souvenir);
+        RetrofitHelper.enqueue(api, getLoading(false), new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 // event
@@ -253,13 +246,13 @@ public class SouvenirEditActivity extends BaseActivity<SouvenirEditActivity> {
             public void onFailure(int code, String message, Result.Data data) {
             }
         });
+        pushApi(api);
     }
 
     private void addApi() {
         if (souvenir == null) return;
-        MaterialDialog loading = getLoading(false);
-        callAdd = new RetrofitHelper().call(API.class).noteSouvenirAdd(souvenir);
-        RetrofitHelper.enqueue(callAdd, loading, new RetrofitHelper.CallBack() {
+        Call<Result> api = new RetrofitHelper().call(API.class).noteSouvenirAdd(souvenir);
+        RetrofitHelper.enqueue(api, getLoading(false), new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 // event
@@ -272,6 +265,7 @@ public class SouvenirEditActivity extends BaseActivity<SouvenirEditActivity> {
             public void onFailure(int code, String message, Result.Data data) {
             }
         });
+        pushApi(api);
     }
 
 }

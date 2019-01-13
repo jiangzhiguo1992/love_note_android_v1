@@ -60,9 +60,6 @@ public class DiaryDetailActivity extends BaseActivity<DiaryDetailActivity> {
 
     private Diary diary;
     private RecyclerHelper recyclerHelper;
-    private Observable<Diary> obDetailRefresh;
-    private Call<Result> callGet;
-    private Call<Result> callDel;
 
     public static void goActivity(Activity from, Diary diary) {
         Intent intent = new Intent(from, DiaryDetailActivity.class);
@@ -107,17 +104,15 @@ public class DiaryDetailActivity extends BaseActivity<DiaryDetailActivity> {
     @Override
     protected void initData(Intent intent, Bundle state) {
         // event
-        obDetailRefresh = RxBus.register(RxBus.EVENT_DIARY_DETAIL_REFRESH, diary -> {
+        Observable<Diary> obDetailRefresh = RxBus.register(RxBus.EVENT_DIARY_DETAIL_REFRESH, diary -> {
             if (diary == null) return;
             refreshData(diary.getId());
         });
+        pushBus(RxBus.EVENT_DIARY_DETAIL_REFRESH, obDetailRefresh);
     }
 
     @Override
     protected void onFinish(Bundle state) {
-        RetrofitHelper.cancel(callDel);
-        RetrofitHelper.cancel(callGet);
-        RxBus.unregister(RxBus.EVENT_DIARY_DETAIL_REFRESH, obDetailRefresh);
         RecyclerHelper.release(recyclerHelper);
     }
 
@@ -145,8 +140,8 @@ public class DiaryDetailActivity extends BaseActivity<DiaryDetailActivity> {
         if (!srl.isRefreshing()) {
             srl.setRefreshing(true);
         }
-        callGet = new RetrofitHelper().call(API.class).noteDiaryGet(did);
-        RetrofitHelper.enqueue(callGet, null, new RetrofitHelper.CallBack() {
+        Call<Result> api = new RetrofitHelper().call(API.class).noteDiaryGet(did);
+        RetrofitHelper.enqueue(api, null, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 srl.setRefreshing(false);
@@ -159,6 +154,7 @@ public class DiaryDetailActivity extends BaseActivity<DiaryDetailActivity> {
                 srl.setRefreshing(false);
             }
         });
+        pushApi(api);
     }
 
     private void refreshView() {
@@ -216,9 +212,8 @@ public class DiaryDetailActivity extends BaseActivity<DiaryDetailActivity> {
 
     private void deleteApi() {
         if (diary == null) return;
-        MaterialDialog loading = getLoading(true);
-        callDel = new RetrofitHelper().call(API.class).noteDiaryDel(diary.getId());
-        RetrofitHelper.enqueue(callDel, loading, new RetrofitHelper.CallBack() {
+        Call<Result> api = new RetrofitHelper().call(API.class).noteDiaryDel(diary.getId());
+        RetrofitHelper.enqueue(api, getLoading(true), new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 // event
@@ -231,6 +226,7 @@ public class DiaryDetailActivity extends BaseActivity<DiaryDetailActivity> {
             public void onFailure(int code, String message, Result.Data data) {
             }
         });
+        pushApi(api);
     }
 
 }

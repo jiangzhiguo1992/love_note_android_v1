@@ -59,14 +59,9 @@ public class SuggestHomeActivity extends BaseActivity<SuggestHomeActivity> {
     private int dp14;
 
     private RecyclerHelper recyclerHelper;
-    private Observable<List<Suggest>> obListRefresh;
-    private Observable<Suggest> obListItemDelete;
-    private Observable<Suggest> obListItemRefresh;
-    private Call<Result> call;
-    private int page;
-    private int searchStatus;
-    private int searchKind;
     private SuggestInfo suggestInfo;
+    private int page;
+    private int searchStatus, searchKind;
 
     public static void goActivity(Activity from) {
         Intent intent = new Intent(from, SuggestHomeActivity.class);
@@ -115,28 +110,27 @@ public class SuggestHomeActivity extends BaseActivity<SuggestHomeActivity> {
     protected void initData(Intent intent, Bundle state) {
         page = 0;
         // event
-        obListRefresh = RxBus.register(RxBus.EVENT_SUGGEST_LIST_REFRESH, suggests -> {
+        Observable<List<Suggest>> obListRefresh = RxBus.register(RxBus.EVENT_SUGGEST_LIST_REFRESH, suggests -> {
             if (recyclerHelper == null) return;
             recyclerHelper.dataRefresh();
         });
-        obListItemDelete = RxBus.register(RxBus.EVENT_SUGGEST_LIST_ITEM_DELETE, suggest -> {
+        pushBus(RxBus.EVENT_SUGGEST_LIST_REFRESH, obListRefresh);
+        Observable<Suggest> obListItemDelete = RxBus.register(RxBus.EVENT_SUGGEST_LIST_ITEM_DELETE, suggest -> {
             if (recyclerHelper == null) return;
             ListHelper.removeObjInAdapter(recyclerHelper.getAdapter(), suggest);
         });
-        obListItemRefresh = RxBus.register(RxBus.EVENT_SUGGEST_LIST_ITEM_REFRESH, suggest -> {
+        pushBus(RxBus.EVENT_SUGGEST_LIST_ITEM_DELETE, obListItemDelete);
+        Observable<Suggest> obListItemRefresh = RxBus.register(RxBus.EVENT_SUGGEST_LIST_ITEM_REFRESH, suggest -> {
             if (recyclerHelper == null) return;
             ListHelper.refreshObjInAdapter(recyclerHelper.getAdapter(), suggest);
         });
+        pushBus(RxBus.EVENT_SUGGEST_LIST_ITEM_REFRESH, obListItemRefresh);
         // refresh
         recyclerHelper.dataRefresh();
     }
 
     @Override
     protected void onFinish(Bundle state) {
-        RetrofitHelper.cancel(call);
-        RxBus.unregister(RxBus.EVENT_SUGGEST_LIST_REFRESH, obListRefresh);
-        RxBus.unregister(RxBus.EVENT_SUGGEST_LIST_ITEM_DELETE, obListItemDelete);
-        RxBus.unregister(RxBus.EVENT_SUGGEST_LIST_ITEM_REFRESH, obListItemRefresh);
         RecyclerHelper.release(recyclerHelper);
     }
 
@@ -261,8 +255,8 @@ public class SuggestHomeActivity extends BaseActivity<SuggestHomeActivity> {
     public void getData(final boolean more) {
         page = more ? page + 1 : 0;
         // api
-        call = new RetrofitHelper().call(API.class).setSuggestListGet(searchStatus, searchKind, page);
-        RetrofitHelper.enqueue(call, null, new RetrofitHelper.CallBack() {
+        Call<Result> api = new RetrofitHelper().call(API.class).setSuggestListGet(searchStatus, searchKind, page);
+        RetrofitHelper.enqueue(api, null, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 if (recyclerHelper == null) return;
@@ -277,6 +271,7 @@ public class SuggestHomeActivity extends BaseActivity<SuggestHomeActivity> {
                 recyclerHelper.dataFail(more, message);
             }
         });
+        pushApi(api);
     }
 
 }

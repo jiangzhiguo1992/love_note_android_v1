@@ -15,7 +15,6 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
-import com.afollestad.materialdialogs.MaterialDialog;
 import com.jiangzg.base.common.DateUtils;
 import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.base.component.ActivityTrans;
@@ -67,8 +66,6 @@ public class AwardEditActivity extends BaseActivity<AwardEditActivity> {
 
     private Award award;
     private AwardRule rule;
-    private Observable<AwardRule> obSelectAwardRule;
-    private Call<Result> callAdd;
     private int limitContentLength;
 
     public static void goActivity(Activity from) {
@@ -102,18 +99,17 @@ public class AwardEditActivity extends BaseActivity<AwardEditActivity> {
     @Override
     protected void initData(Intent intent, Bundle state) {
         // event
-        obSelectAwardRule = RxBus.register(RxBus.EVENT_AWARD_RULE_SELECT, awardRule -> {
+        Observable<AwardRule> obSelectAwardRule = RxBus.register(RxBus.EVENT_AWARD_RULE_SELECT, awardRule -> {
             if (awardRule == null) return;
             award.setAwardRuleId(awardRule.getId());
             rule = awardRule;
             refreshRuleView();
         });
+        pushBus(RxBus.EVENT_AWARD_RULE_SELECT, obSelectAwardRule);
     }
 
     @Override
     protected void onFinish(Bundle state) {
-        RetrofitHelper.cancel(callAdd);
-        RxBus.unregister(RxBus.EVENT_AWARD_RULE_SELECT, obSelectAwardRule);
     }
 
     @Override
@@ -223,9 +219,9 @@ public class AwardEditActivity extends BaseActivity<AwardEditActivity> {
             ToastUtils.show(etContent.getHint().toString());
             return;
         }
-        MaterialDialog loading = getLoading(false);
-        callAdd = new RetrofitHelper().call(API.class).noteAwardAdd(award);
-        RetrofitHelper.enqueue(callAdd, loading, new RetrofitHelper.CallBack() {
+        // api
+        Call<Result> api = new RetrofitHelper().call(API.class).noteAwardAdd(award);
+        RetrofitHelper.enqueue(api, getLoading(false), new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 // event
@@ -238,6 +234,7 @@ public class AwardEditActivity extends BaseActivity<AwardEditActivity> {
             public void onFailure(int code, String message, Result.Data data) {
             }
         });
+        pushApi(api);
     }
 
 }

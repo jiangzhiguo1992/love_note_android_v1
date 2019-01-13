@@ -13,7 +13,6 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
-import com.afollestad.materialdialogs.MaterialDialog;
 import com.jiangzg.base.component.ActivityTrans;
 import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.controller.activity.base.BaseActivity;
@@ -58,9 +57,6 @@ public class VipBuyActivity extends BaseActivity<VipBuyActivity> {
     @BindView(R.id.tvBillCheck)
     TextView tvBillCheck;
 
-    private Call<Result> callBefore;
-    private Call<Result> callAfter;
-
     public static void goActivity(Activity from) {
         Intent intent = new Intent(from, VipBuyActivity.class);
         // intent.putExtra();
@@ -85,8 +81,6 @@ public class VipBuyActivity extends BaseActivity<VipBuyActivity> {
 
     @Override
     protected void onFinish(Bundle state) {
-        RetrofitHelper.cancel(callBefore);
-        RetrofitHelper.cancel(callAfter);
     }
 
     @Override
@@ -154,9 +148,9 @@ public class VipBuyActivity extends BaseActivity<VipBuyActivity> {
         } else {
             return;
         }
-        callBefore = new RetrofitHelper().call(API.class).morePayBeforeGet(payPlatform, goods);
-        MaterialDialog loading = mActivity.getLoading(true);
-        RetrofitHelper.enqueue(callBefore, loading, new RetrofitHelper.CallBack() {
+        // api
+        Call<Result> api = new RetrofitHelper().call(API.class).morePayBeforeGet(payPlatform, goods);
+        RetrofitHelper.enqueue(api, mActivity.getLoading(true), new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 OrderBefore orderBefore = data.getOrderBefore();
@@ -175,6 +169,7 @@ public class VipBuyActivity extends BaseActivity<VipBuyActivity> {
             public void onFailure(int code, String message, Result.Data data) {
             }
         });
+        pushApi(api);
     }
 
     // 支付宝
@@ -201,9 +196,8 @@ public class VipBuyActivity extends BaseActivity<VipBuyActivity> {
     }
 
     private void checkPayResult() {
-        callAfter = new RetrofitHelper().call(API.class).morePayAfterCheck();
-        MaterialDialog loading = mActivity.getLoading(false);
-        RetrofitHelper.enqueue(callAfter, loading, new RetrofitHelper.CallBack() {
+        Call<Result> api = new RetrofitHelper().call(API.class).morePayAfterCheck();
+        RetrofitHelper.enqueue(api, mActivity.getLoading(false), new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 RxBus.post(new RxBus.Event<>(RxBus.EVENT_VIP_INFO_REFRESH, new Vip()));
@@ -213,6 +207,7 @@ public class VipBuyActivity extends BaseActivity<VipBuyActivity> {
             public void onFailure(int code, String message, Result.Data data) {
             }
         });
+        pushApi(api);
     }
 
 }

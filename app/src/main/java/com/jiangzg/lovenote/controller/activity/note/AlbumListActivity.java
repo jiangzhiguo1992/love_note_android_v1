@@ -51,10 +51,6 @@ public class AlbumListActivity extends BaseActivity<AlbumListActivity> {
     FloatingActionButton fabAdd;
 
     private RecyclerHelper recyclerHelper;
-    private Observable<List<Album>> obListRefresh;
-    private Observable<Album> obListItemRefresh;
-    private Observable<Picture> obPictureSelect;
-    private Call<Result> call;
     private int page;
 
     public static void goActivity(Activity from) {
@@ -170,29 +166,28 @@ public class AlbumListActivity extends BaseActivity<AlbumListActivity> {
     protected void initData(Intent intent, Bundle state) {
         page = 0;
         // event
-        obListRefresh = RxBus.register(RxBus.EVENT_ALBUM_LIST_REFRESH, albumList -> {
+        Observable<List<Album>> busListRefresh = RxBus.register(RxBus.EVENT_ALBUM_LIST_REFRESH, albumList -> {
             if (recyclerHelper == null) return;
             recyclerHelper.dataRefresh();
         });
-        obListItemRefresh = RxBus.register(RxBus.EVENT_ALBUM_LIST_ITEM_REFRESH, album -> {
+        pushBus(RxBus.EVENT_ALBUM_LIST_REFRESH, busListRefresh);
+        Observable<Album> busListItemRefresh = RxBus.register(RxBus.EVENT_ALBUM_LIST_ITEM_REFRESH, album -> {
             if (recyclerHelper == null) return;
             ListHelper.refreshObjInAdapter(recyclerHelper.getAdapter(), album);
         });
-        obPictureSelect = RxBus.register(RxBus.EVENT_PICTURE_SELECT, picture -> {
+        pushBus(RxBus.EVENT_ALBUM_LIST_ITEM_REFRESH, busListItemRefresh);
+        Observable<Picture> busPictureSelect = RxBus.register(RxBus.EVENT_PICTURE_SELECT, picture -> {
             if (!mActivity.isFinishing()) {
                 mActivity.finish();
             }
         });
+        pushBus(RxBus.EVENT_PICTURE_SELECT, busPictureSelect);
         // refresh
         recyclerHelper.dataRefresh();
     }
 
     @Override
     protected void onFinish(Bundle state) {
-        RetrofitHelper.cancel(call);
-        RxBus.unregister(RxBus.EVENT_ALBUM_LIST_REFRESH, obListRefresh);
-        RxBus.unregister(RxBus.EVENT_ALBUM_LIST_ITEM_REFRESH, obListItemRefresh);
-        RxBus.unregister(RxBus.EVENT_PICTURE_SELECT, obPictureSelect);
         RecyclerHelper.release(recyclerHelper);
     }
 
@@ -232,8 +227,8 @@ public class AlbumListActivity extends BaseActivity<AlbumListActivity> {
     private void getData(final boolean more) {
         page = more ? page + 1 : 0;
         // api
-        call = new RetrofitHelper().call(API.class).noteAlbumListGet(page);
-        RetrofitHelper.enqueue(call, null, new RetrofitHelper.CallBack() {
+        Call<Result> api = new RetrofitHelper().call(API.class).noteAlbumListGet(page);
+        RetrofitHelper.enqueue(api, null, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 if (recyclerHelper == null) return;
@@ -251,6 +246,7 @@ public class AlbumListActivity extends BaseActivity<AlbumListActivity> {
                 recyclerHelper.dataFail(more, message);
             }
         });
+        pushApi(api);
     }
 
 }

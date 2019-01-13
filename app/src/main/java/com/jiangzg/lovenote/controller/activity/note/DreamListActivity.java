@@ -57,10 +57,6 @@ public class DreamListActivity extends BaseActivity<DreamListActivity> {
     LinearLayout llAdd;
 
     private RecyclerHelper recyclerHelper;
-    private Observable<List<Dream>> obListRefresh;
-    private Observable<Dream> obListItemRefresh;
-    private Observable<Dream> obListItemDelete;
-    private Call<Result> call;
     private int page;
     private int searchIndex;
 
@@ -112,28 +108,27 @@ public class DreamListActivity extends BaseActivity<DreamListActivity> {
     protected void initData(Intent intent, Bundle state) {
         page = 0;
         // event
-        obListRefresh = RxBus.register(RxBus.EVENT_DREAM_LIST_REFRESH, dreamList -> {
+        Observable<List<Dream>> obListRefresh = RxBus.register(RxBus.EVENT_DREAM_LIST_REFRESH, dreamList -> {
             if (recyclerHelper == null) return;
             recyclerHelper.dataRefresh();
         });
-        obListItemDelete = RxBus.register(RxBus.EVENT_DREAM_LIST_ITEM_DELETE, dream -> {
+        pushBus(RxBus.EVENT_DREAM_LIST_REFRESH, obListRefresh);
+        Observable<Dream> obListItemDelete = RxBus.register(RxBus.EVENT_DREAM_LIST_ITEM_DELETE, dream -> {
             if (recyclerHelper == null) return;
             ListHelper.removeObjInAdapter(recyclerHelper.getAdapter(), dream);
         });
-        obListItemRefresh = RxBus.register(RxBus.EVENT_DREAM_LIST_ITEM_REFRESH, dream -> {
+        pushBus(RxBus.EVENT_DREAM_LIST_ITEM_DELETE, obListItemDelete);
+        Observable<Dream> obListItemRefresh = RxBus.register(RxBus.EVENT_DREAM_LIST_ITEM_REFRESH, dream -> {
             if (recyclerHelper == null) return;
             ListHelper.refreshObjInAdapter(recyclerHelper.getAdapter(), dream);
         });
+        pushBus(RxBus.EVENT_DREAM_LIST_ITEM_REFRESH, obListItemRefresh);
         // refresh
         recyclerHelper.dataRefresh();
     }
 
     @Override
     protected void onFinish(Bundle state) {
-        RetrofitHelper.cancel(call);
-        RxBus.unregister(RxBus.EVENT_DREAM_LIST_REFRESH, obListRefresh);
-        RxBus.unregister(RxBus.EVENT_DREAM_LIST_ITEM_DELETE, obListItemDelete);
-        RxBus.unregister(RxBus.EVENT_DREAM_LIST_ITEM_REFRESH, obListItemRefresh);
         RecyclerHelper.release(recyclerHelper);
     }
 
@@ -167,10 +162,10 @@ public class DreamListActivity extends BaseActivity<DreamListActivity> {
 
     private void getData(final boolean more) {
         page = more ? page + 1 : 0;
-        // api
         int searchType = ApiHelper.LIST_NOTE_TYPE[searchIndex];
-        call = new RetrofitHelper().call(API.class).noteDreamListGet(searchType, page);
-        RetrofitHelper.enqueue(call, null, new RetrofitHelper.CallBack() {
+        // api
+        Call<Result> api = new RetrofitHelper().call(API.class).noteDreamListGet(searchType, page);
+        RetrofitHelper.enqueue(api, null, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 if (recyclerHelper == null) return;
@@ -185,6 +180,7 @@ public class DreamListActivity extends BaseActivity<DreamListActivity> {
                 recyclerHelper.dataFail(more, message);
             }
         });
+        pushApi(api);
     }
 
     private void showSearchDialog() {

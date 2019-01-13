@@ -98,9 +98,6 @@ public class TravelDetailActivity extends BaseActivity<TravelDetailActivity> {
     private RecyclerHelper recyclerFood;
     private RecyclerHelper recyclerMovie;
     private RecyclerHelper recyclerDiary;
-    private Call<Result> callGet;
-    private Call<Result> callDel;
-    private Observable<Travel> obDetailRefresh;
 
     public static void goActivity(Activity from, Travel travel) {
         Intent intent = new Intent(from, TravelDetailActivity.class);
@@ -145,17 +142,15 @@ public class TravelDetailActivity extends BaseActivity<TravelDetailActivity> {
     @Override
     protected void initData(Intent intent, Bundle state) {
         // event
-        obDetailRefresh = RxBus.register(RxBus.EVENT_TRAVEL_DETAIL_REFRESH, travel -> {
+        Observable<Travel> obDetailRefresh = RxBus.register(RxBus.EVENT_TRAVEL_DETAIL_REFRESH, travel -> {
             if (TravelDetailActivity.this.travel == null) return;
             refreshTravel(TravelDetailActivity.this.travel.getId());
         });
+        pushBus(RxBus.EVENT_TRAVEL_DETAIL_REFRESH, obDetailRefresh);
     }
 
     @Override
     protected void onFinish(Bundle state) {
-        RetrofitHelper.cancel(callGet);
-        RetrofitHelper.cancel(callDel);
-        RxBus.unregister(RxBus.EVENT_TRAVEL_DETAIL_REFRESH, obDetailRefresh);
         RecyclerHelper.release(recyclerPlace);
         RecyclerHelper.release(recyclerAlbum);
         RecyclerHelper.release(recyclerVideo);
@@ -188,8 +183,8 @@ public class TravelDetailActivity extends BaseActivity<TravelDetailActivity> {
         if (!srl.isRefreshing()) {
             srl.setRefreshing(true);
         }
-        callGet = new RetrofitHelper().call(API.class).noteTravelGet(tid);
-        RetrofitHelper.enqueue(callGet, null, new RetrofitHelper.CallBack() {
+        Call<Result> api = new RetrofitHelper().call(API.class).noteTravelGet(tid);
+        RetrofitHelper.enqueue(api, null, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 srl.setRefreshing(false);
@@ -202,6 +197,7 @@ public class TravelDetailActivity extends BaseActivity<TravelDetailActivity> {
                 srl.setRefreshing(false);
             }
         });
+        pushApi(api);
     }
 
     private void refreshView() {
@@ -418,9 +414,8 @@ public class TravelDetailActivity extends BaseActivity<TravelDetailActivity> {
 
     private void delTravel() {
         if (travel == null) return;
-        MaterialDialog loading = getLoading(getString(R.string.are_deleting), true);
-        callDel = new RetrofitHelper().call(API.class).noteTravelDel(travel.getId());
-        RetrofitHelper.enqueue(callDel, loading, new RetrofitHelper.CallBack() {
+        Call<Result> api = new RetrofitHelper().call(API.class).noteTravelDel(travel.getId());
+        RetrofitHelper.enqueue(api, getLoading(getString(R.string.are_deleting), true), new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 // ListItemDelete
@@ -432,6 +427,7 @@ public class TravelDetailActivity extends BaseActivity<TravelDetailActivity> {
             public void onFailure(int code, String message, Result.Data data) {
             }
         });
+        pushApi(api);
     }
 
 }

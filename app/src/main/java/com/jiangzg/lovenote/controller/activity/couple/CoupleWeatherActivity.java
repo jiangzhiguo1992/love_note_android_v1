@@ -87,7 +87,6 @@ public class CoupleWeatherActivity extends BaseActivity<CoupleWeatherActivity> {
     RecyclerView rv;
 
     private RecyclerHelper recyclerHelper;
-    private Call<Result> call;
 
     public static void goActivity(Fragment from) {
         if (!LocationHelper.checkLocationEnable(from)) return;
@@ -126,7 +125,6 @@ public class CoupleWeatherActivity extends BaseActivity<CoupleWeatherActivity> {
 
     @Override
     protected void onFinish(Bundle state) {
-        RetrofitHelper.cancel(call);
         RecyclerHelper.release(recyclerHelper);
     }
 
@@ -143,8 +141,9 @@ public class CoupleWeatherActivity extends BaseActivity<CoupleWeatherActivity> {
         if (!srl.isRefreshing()) {
             srl.setRefreshing(true);
         }
-        call = new RetrofitHelper().call(API.class).coupleWeatherForecastListGet();
-        RetrofitHelper.enqueue(call, null, new RetrofitHelper.CallBack() {
+        // api
+        Call<Result> api = new RetrofitHelper().call(API.class).coupleWeatherForecastListGet();
+        RetrofitHelper.enqueue(api, null, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 if (srl == null || recyclerHelper == null) return;
@@ -177,6 +176,7 @@ public class CoupleWeatherActivity extends BaseActivity<CoupleWeatherActivity> {
                 recyclerHelper.dataFail(false, message);
             }
         });
+        pushApi(api);
     }
 
     private void setTopViewRight(String myShow, List<WeatherForecast> myWeatherForecastList) {

@@ -17,7 +17,6 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
-import com.afollestad.materialdialogs.MaterialDialog;
 import com.jiangzg.base.common.TimeUnit;
 import com.jiangzg.base.component.ActivityTrans;
 import com.jiangzg.base.view.ViewUtils;
@@ -71,8 +70,6 @@ public class LoginActivity extends BaseActivity<LoginActivity> {
     @BindView(R.id.tvForget)
     TextView tvForget;
 
-    private Call<Result> callSms;
-    private Call<Result> callLogin;
     private boolean isGo = false;
     private int logType;
     private int countDownGo = -1;
@@ -106,8 +103,6 @@ public class LoginActivity extends BaseActivity<LoginActivity> {
     @Override
     protected void onFinish(Bundle state) {
         stopCountDownTask();
-        RetrofitHelper.cancel(callSms);
-        RetrofitHelper.cancel(callLogin);
     }
 
     @Override
@@ -190,11 +185,10 @@ public class LoginActivity extends BaseActivity<LoginActivity> {
     private void sendCode() {
         btnSendCode.setEnabled(false);
         String phone = etPhone.getText().toString().trim();
-        // 发送验证码
         Sms body = ApiHelper.getSmsLoginBody(phone);
-        callSms = new RetrofitHelper().call(API.class).smsSend(body);
-        MaterialDialog loading = getLoading(getString(R.string.are_send_validate_code), true);
-        RetrofitHelper.enqueue(callSms, loading, new RetrofitHelper.CallBack() {
+        // api
+        Call<Result> api = new RetrofitHelper().call(API.class).smsSend(body);
+        RetrofitHelper.enqueue(api, getLoading(getString(R.string.are_send_validate_code), true), new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 countDownGo = 0;
@@ -206,6 +200,7 @@ public class LoginActivity extends BaseActivity<LoginActivity> {
                 btnSendCode.setEnabled(true);
             }
         });
+        pushApi(api);
     }
 
     private Runnable getCountDownTask() {
@@ -245,10 +240,9 @@ public class LoginActivity extends BaseActivity<LoginActivity> {
         String password = etPwd.getText().toString();
         String code = etCode.getText().toString().trim();
         User user = ApiHelper.getUserBody(phone, password);
-        // api调用
-        callLogin = new RetrofitHelper().call(API.class).userLogin(logType, code, user);
-        MaterialDialog loading = getLoading(true);
-        RetrofitHelper.enqueue(callLogin, loading, new RetrofitHelper.CallBack() {
+        // api
+        Call<Result> api = new RetrofitHelper().call(API.class).userLogin(logType, code, user);
+        RetrofitHelper.enqueue(api, getLoading(true), new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 isGo = true;
@@ -262,6 +256,7 @@ public class LoginActivity extends BaseActivity<LoginActivity> {
             public void onFailure(int code, String message, Result.Data data) {
             }
         });
+        pushApi(api);
     }
 
 }

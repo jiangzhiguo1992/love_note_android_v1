@@ -12,7 +12,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
-import com.afollestad.materialdialogs.MaterialDialog;
 import com.jiangzg.base.common.TimeUnit;
 import com.jiangzg.base.component.ActivityTrans;
 import com.jiangzg.base.view.ToastUtils;
@@ -51,8 +50,6 @@ public class RegisterActivity extends BaseActivity<RegisterActivity> {
     @BindView(R.id.btnRegister)
     Button btnRegister;
 
-    private Call<Result> callSms;
-    private Call<Result> callRegister;
     private int countDownGo = -1;
     private boolean isGo = false;
     private Runnable countDownTask;
@@ -79,8 +76,6 @@ public class RegisterActivity extends BaseActivity<RegisterActivity> {
 
     @Override
     protected void onFinish(Bundle state) {
-        RetrofitHelper.cancel(callSms);
-        RetrofitHelper.cancel(callRegister);
         stopCountDownTask();
     }
 
@@ -142,11 +137,10 @@ public class RegisterActivity extends BaseActivity<RegisterActivity> {
     private void sendCode() {
         btnSendCode.setEnabled(false);
         String phone = etPhone.getText().toString().trim();
-        // 发送验证码
         Sms body = ApiHelper.getSmsRegisterBody(phone);
-        callSms = new RetrofitHelper().call(API.class).smsSend(body);
-        MaterialDialog loading = getLoading(getString(R.string.are_send_validate_code), true);
-        RetrofitHelper.enqueue(callSms, loading, new RetrofitHelper.CallBack() {
+        // api
+        Call<Result> api = new RetrofitHelper().call(API.class).smsSend(body);
+        RetrofitHelper.enqueue(api, getLoading(getString(R.string.are_send_validate_code), true), new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 countDownGo = 0;
@@ -158,6 +152,7 @@ public class RegisterActivity extends BaseActivity<RegisterActivity> {
                 btnSendCode.setEnabled(true);
             }
         });
+        pushApi(api);
     }
 
     private Runnable getCountDownTask() {
@@ -199,13 +194,12 @@ public class RegisterActivity extends BaseActivity<RegisterActivity> {
             ToastUtils.show(getString(R.string.twice_pwd_no_equals));
             return;
         }
+        String code = etCode.getText().toString().trim();
         String phone = etPhone.getText().toString().trim();
         User user = ApiHelper.getUserBody(phone, pwd);
-        String code = etCode.getText().toString().trim();
-        // api调用
-        callRegister = new RetrofitHelper().call(API.class).userRegister(code, user);
-        MaterialDialog loading = getLoading(true);
-        RetrofitHelper.enqueue(callRegister, loading, new RetrofitHelper.CallBack() {
+        // api
+        Call<Result> api = new RetrofitHelper().call(API.class).userRegister(code, user);
+        RetrofitHelper.enqueue(api, getLoading(true), new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 isGo = true;
@@ -224,6 +218,7 @@ public class RegisterActivity extends BaseActivity<RegisterActivity> {
             public void onFailure(int code, String message, Result.Data data) {
             }
         });
+        pushApi(api);
     }
 
 }

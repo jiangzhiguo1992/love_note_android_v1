@@ -14,7 +14,6 @@ import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.afollestad.materialdialogs.MaterialDialog;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemChildClickListener;
 import com.chad.library.adapter.base.listener.OnItemLongClickListener;
@@ -83,12 +82,6 @@ public class PictureListActivity extends BaseActivity<PictureListActivity> {
 
     private Album album;
     private RecyclerHelper recyclerHelper;
-    private Call<Result> callPictureList;
-    private Call<Result> callAlbum;
-    private Observable<Album> obAlbumRefresh;
-    private Observable<List<Picture>> obListRefresh;
-    private Observable<Picture> obListItemRefresh;
-    private Observable<Picture> obListItemDelete;
     private int page;
 
     public static void goActivity(Activity from, long albumId) {
@@ -197,37 +190,35 @@ public class PictureListActivity extends BaseActivity<PictureListActivity> {
     protected void initData(Intent intent, Bundle state) {
         page = 0;
         // event
-        obAlbumRefresh = RxBus.register(RxBus.EVENT_ALBUM_DETAIL_REFRESH, a -> {
+        Observable<Album> obAlbumRefresh = RxBus.register(RxBus.EVENT_ALBUM_DETAIL_REFRESH, a -> {
             if (album == null) return;
             refreshAlbum(album.getId());
         });
-        obListRefresh = RxBus.register(RxBus.EVENT_PICTURE_LIST_REFRESH, pictureList -> {
+        pushBus(RxBus.EVENT_ALBUM_DETAIL_REFRESH, obAlbumRefresh);
+        Observable<List<Picture>> obListRefresh = RxBus.register(RxBus.EVENT_PICTURE_LIST_REFRESH, pictureList -> {
             if (recyclerHelper == null) return;
             recyclerHelper.dataRefresh();
         });
-        obListItemRefresh = RxBus.register(RxBus.EVENT_PICTURE_LIST_ITEM_REFRESH, picture -> {
+        pushBus(RxBus.EVENT_PICTURE_LIST_REFRESH, obListRefresh);
+        Observable<Picture> obListItemRefresh = RxBus.register(RxBus.EVENT_PICTURE_LIST_ITEM_REFRESH, picture -> {
             if (recyclerHelper == null) return;
             ListHelper.refreshObjInAdapter(recyclerHelper.getAdapter(), picture);
         });
-        obListItemDelete = RxBus.register(RxBus.EVENT_PICTURE_LIST_ITEM_DELETE, picture -> {
+        pushBus(RxBus.EVENT_PICTURE_LIST_ITEM_REFRESH, obListItemRefresh);
+        Observable<Picture> obListItemDelete = RxBus.register(RxBus.EVENT_PICTURE_LIST_ITEM_DELETE, picture -> {
             if (recyclerHelper == null) return;
             ListHelper.removeObjInAdapter(recyclerHelper.getAdapter(), picture);
             if (album == null) return;
             album.setPictureCount(album.getPictureCount() - 1);
             refreshAlbumView();
         });
+        pushBus(RxBus.EVENT_PICTURE_LIST_ITEM_DELETE, obListItemDelete);
         // refresh
         recyclerHelper.dataRefresh();
     }
 
     @Override
     protected void onFinish(Bundle state) {
-        RetrofitHelper.cancel(callPictureList);
-        RetrofitHelper.cancel(callAlbum);
-        RxBus.unregister(RxBus.EVENT_ALBUM_DETAIL_REFRESH, obAlbumRefresh);
-        RxBus.unregister(RxBus.EVENT_PICTURE_LIST_REFRESH, obListRefresh);
-        RxBus.unregister(RxBus.EVENT_PICTURE_LIST_ITEM_REFRESH, obListItemRefresh);
-        RxBus.unregister(RxBus.EVENT_PICTURE_LIST_ITEM_DELETE, obListItemDelete);
         RecyclerHelper.release(recyclerHelper);
     }
 
@@ -286,8 +277,8 @@ public class PictureListActivity extends BaseActivity<PictureListActivity> {
         }
         page = more ? page + 1 : 0;
         // api
-        callPictureList = new RetrofitHelper().call(API.class).notePictureListGet(album.getId(), page);
-        RetrofitHelper.enqueue(callPictureList, null, new RetrofitHelper.CallBack() {
+        Call<Result> api = new RetrofitHelper().call(API.class).notePictureListGet(album.getId(), page);
+        RetrofitHelper.enqueue(api, null, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 if (recyclerHelper == null) return;
@@ -306,12 +297,12 @@ public class PictureListActivity extends BaseActivity<PictureListActivity> {
                 recyclerHelper.dataFail(more, message);
             }
         });
+        pushApi(api);
     }
 
     private void refreshAlbum(long albumId) {
-        callAlbum = new RetrofitHelper().call(API.class).noteAlbumGet(albumId);
-        MaterialDialog loading = getLoading(true);
-        RetrofitHelper.enqueue(callAlbum, loading, new RetrofitHelper.CallBack() {
+        Call<Result> api = new RetrofitHelper().call(API.class).noteAlbumGet(albumId);
+        RetrofitHelper.enqueue(api, getLoading(true), new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 if (recyclerHelper == null) return;
@@ -327,6 +318,7 @@ public class PictureListActivity extends BaseActivity<PictureListActivity> {
                 recyclerHelper.dataFail(false, message);
             }
         });
+        pushApi(api);
     }
 
 }

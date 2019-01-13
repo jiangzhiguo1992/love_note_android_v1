@@ -56,7 +56,6 @@ public class UserInfoActivity extends BaseActivity<UserInfoActivity> {
     Button btnOk;
 
     private User me;
-    private Call<Result> call;
 
     public static void goActivity(Activity from, User user) {
         Intent intent = new Intent(from, UserInfoActivity.class);
@@ -93,7 +92,6 @@ public class UserInfoActivity extends BaseActivity<UserInfoActivity> {
 
     @Override
     protected void onFinish(Bundle state) {
-        RetrofitHelper.cancel(call);
     }
 
     @Override
@@ -166,10 +164,9 @@ public class UserInfoActivity extends BaseActivity<UserInfoActivity> {
         user.setSex(sex);
         user.setBirthday(birth);
         SPHelper.setMe(me); // api要用token
-        // api调用
-        call = new RetrofitHelper().call(API.class).userModify(ApiHelper.MODIFY_INFO, "", "", user);
-        MaterialDialog loading = getLoading(true);
-        RetrofitHelper.enqueue(call, loading, new RetrofitHelper.CallBack() {
+        // api
+        Call<Result> api = new RetrofitHelper().call(API.class).userModify(ApiHelper.MODIFY_INFO, "", "", user);
+        RetrofitHelper.enqueue(api, getLoading(true), new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 User user = data.getUser();
@@ -182,6 +179,7 @@ public class UserInfoActivity extends BaseActivity<UserInfoActivity> {
                 SPHelper.clearMe();
             }
         });
+        pushApi(api);
     }
 
     private void setYeas() {

@@ -51,8 +51,6 @@ public class ForgetActivity extends BaseActivity<ForgetActivity> {
     @BindView(R.id.btnOk)
     Button btnOk;
 
-    private Call<Result> callSms;
-    private Call<Result> callModify;
     private int countDownGo = -1;
     private Runnable countDownTask;
     private boolean isGo = false;
@@ -80,8 +78,6 @@ public class ForgetActivity extends BaseActivity<ForgetActivity> {
     @Override
     protected void onFinish(Bundle state) {
         stopCountDownTask();
-        RetrofitHelper.cancel(callSms);
-        RetrofitHelper.cancel(callModify);
     }
 
     @Override
@@ -142,11 +138,10 @@ public class ForgetActivity extends BaseActivity<ForgetActivity> {
     private void sendCode() {
         btnSendCode.setEnabled(false);
         String phone = etPhone.getText().toString().trim();
-        // 发送验证码
         Sms body = ApiHelper.getSmsForgetBody(phone);
-        callSms = new RetrofitHelper().call(API.class).smsSend(body);
-        MaterialDialog loading = getLoading(getString(R.string.are_send_validate_code), true);
-        RetrofitHelper.enqueue(callSms, loading, new RetrofitHelper.CallBack() {
+        // api
+        Call<Result> api = new RetrofitHelper().call(API.class).smsSend(body);
+        RetrofitHelper.enqueue(api, getLoading(getString(R.string.are_send_validate_code), true), new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 countDownGo = 0;
@@ -158,6 +153,7 @@ public class ForgetActivity extends BaseActivity<ForgetActivity> {
                 btnSendCode.setEnabled(true);
             }
         });
+        pushApi(api);
     }
 
     private Runnable getCountDownTask() {
@@ -202,10 +198,9 @@ public class ForgetActivity extends BaseActivity<ForgetActivity> {
         String phone = etPhone.getText().toString().trim();
         String code = etCode.getText().toString().trim();
         User user = ApiHelper.getUserBody(phone, pwd);
-        // api调用
-        callModify = new RetrofitHelper().call(API.class).userModify(ApiHelper.MODIFY_FORGET, code, "", user);
-        MaterialDialog loading = getLoading(true);
-        RetrofitHelper.enqueue(callModify, loading, new RetrofitHelper.CallBack() {
+        // api
+        Call<Result> api = new RetrofitHelper().call(API.class).userModify(ApiHelper.MODIFY_FORGET, code, "", user);
+        RetrofitHelper.enqueue(api, getLoading(true), new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 isGo = true;
@@ -219,6 +214,7 @@ public class ForgetActivity extends BaseActivity<ForgetActivity> {
             public void onFailure(int code, String message, Result.Data data) {
             }
         });
+        pushApi(api);
     }
 
 }

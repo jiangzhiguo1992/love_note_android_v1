@@ -69,7 +69,6 @@ public class SuggestAddActivity extends BaseActivity<SuggestAddActivity> {
     private List<SuggestInfo.SuggestKind> suggestKindList;
     private int limitTitleLength;
     private int limitContentLength;
-    private Call<Result> call;
 
     public static void goActivity(Activity from) {
         Intent intent = new Intent(from, SuggestAddActivity.class);
@@ -135,7 +134,6 @@ public class SuggestAddActivity extends BaseActivity<SuggestAddActivity> {
 
     @Override
     protected void onFinish(Bundle state) {
-        RetrofitHelper.cancel(call);
     }
 
     @Override
@@ -305,9 +303,8 @@ public class SuggestAddActivity extends BaseActivity<SuggestAddActivity> {
         body.setContentText(etContent.getText().toString());
         body.setContentImage(imgPath);
         // api
-        MaterialDialog loading = mActivity.getLoading(false);
-        call = new RetrofitHelper().call(API.class).setSuggestAdd(body);
-        RetrofitHelper.enqueue(call, loading, new RetrofitHelper.CallBack() {
+        Call<Result> api = new RetrofitHelper().call(API.class).setSuggestAdd(body);
+        RetrofitHelper.enqueue(api, getLoading(false), new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 RxBus.post(new RxBus.Event<>(RxBus.EVENT_SUGGEST_LIST_REFRESH, new ArrayList<>()));
@@ -318,6 +315,7 @@ public class SuggestAddActivity extends BaseActivity<SuggestAddActivity> {
             public void onFailure(int code, String message, Result.Data data) {
             }
         });
+        pushApi(api);
     }
 
     private int getKindIndex(int kind) {

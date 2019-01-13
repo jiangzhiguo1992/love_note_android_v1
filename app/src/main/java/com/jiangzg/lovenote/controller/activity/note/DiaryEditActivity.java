@@ -14,7 +14,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.afollestad.materialdialogs.MaterialDialog;
 import com.jiangzg.base.common.DateUtils;
 import com.jiangzg.base.component.ActivityTrans;
 import com.jiangzg.base.view.ToastUtils;
@@ -59,8 +58,6 @@ public class DiaryEditActivity extends BaseActivity<DiaryEditActivity> {
 
     private Diary diary;
     private RecyclerHelper recyclerHelper;
-    private Call<Result> callUpdate;
-    private Call<Result> callAdd;
     private int limitContentLength;
 
     public static void goActivity(Activity from) {
@@ -133,8 +130,6 @@ public class DiaryEditActivity extends BaseActivity<DiaryEditActivity> {
 
     @Override
     protected void onFinish(Bundle state) {
-        RetrofitHelper.cancel(callAdd);
-        RetrofitHelper.cancel(callUpdate);
         RecyclerHelper.release(recyclerHelper);
     }
 
@@ -301,9 +296,8 @@ public class DiaryEditActivity extends BaseActivity<DiaryEditActivity> {
 
     private void updateApi() {
         if (diary == null) return;
-        MaterialDialog loading = getLoading(false);
-        callUpdate = new RetrofitHelper().call(API.class).noteDiaryUpdate(diary);
-        RetrofitHelper.enqueue(callUpdate, loading, new RetrofitHelper.CallBack() {
+        Call<Result> api = new RetrofitHelper().call(API.class).noteDiaryUpdate(diary);
+        RetrofitHelper.enqueue(api, getLoading(false), new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 // event
@@ -319,13 +313,13 @@ public class DiaryEditActivity extends BaseActivity<DiaryEditActivity> {
                 // 上传失败不要删除，还可以继续上传
             }
         });
+        pushApi(api);
     }
 
     private void addApi() {
         if (diary == null) return;
-        MaterialDialog loading = getLoading(false);
-        callAdd = new RetrofitHelper().call(API.class).noteDiaryAdd(diary);
-        RetrofitHelper.enqueue(callAdd, loading, new RetrofitHelper.CallBack() {
+        Call<Result> api = new RetrofitHelper().call(API.class).noteDiaryAdd(diary);
+        RetrofitHelper.enqueue(api, getLoading(false), new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 // event
@@ -340,6 +334,7 @@ public class DiaryEditActivity extends BaseActivity<DiaryEditActivity> {
             public void onFailure(int code, String message, Result.Data data) {
             }
         });
+        pushApi(api);
     }
 
 }

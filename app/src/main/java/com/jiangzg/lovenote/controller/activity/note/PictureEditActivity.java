@@ -13,7 +13,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.afollestad.materialdialogs.MaterialDialog;
 import com.jiangzg.base.common.DateUtils;
 import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.base.component.ActivityTrans;
@@ -67,10 +66,6 @@ public class PictureEditActivity extends BaseActivity<PictureEditActivity> {
     private Album album;
     private Picture picture;
     private RecyclerHelper recyclerHelper;
-    private Observable<Album> obSelectAlbum;
-    private Observable<LocationInfo> obSelectMap;
-    private Call<Result> callAdd;
-    private Call<Result> callUpdate;
     private boolean isChangeAlbum;
 
     public static void goActivity(Activity from, Album album) {
@@ -162,12 +157,13 @@ public class PictureEditActivity extends BaseActivity<PictureEditActivity> {
     @Override
     protected void initData(Intent intent, Bundle state) {
         // event
-        obSelectAlbum = RxBus.register(RxBus.EVENT_ALBUM_SELECT, album -> {
+        Observable<Album> obSelectAlbum = RxBus.register(RxBus.EVENT_ALBUM_SELECT, album -> {
             PictureEditActivity.this.isChangeAlbum = true;
             PictureEditActivity.this.album = album;
             PictureEditActivity.this.refreshAlbum();
         });
-        obSelectMap = RxBus.register(RxBus.EVENT_MAP_SELECT, info -> {
+        pushBus(RxBus.EVENT_ALBUM_SELECT, obSelectAlbum);
+        Observable<LocationInfo> obSelectMap = RxBus.register(RxBus.EVENT_MAP_SELECT, info -> {
             if (info == null || picture == null) return;
             picture.setLatitude(info.getLatitude());
             picture.setLongitude(info.getLongitude());
@@ -175,14 +171,11 @@ public class PictureEditActivity extends BaseActivity<PictureEditActivity> {
             picture.setCityId(info.getCityId());
             refreshLocationView();
         });
+        pushBus(RxBus.EVENT_MAP_SELECT, obSelectMap);
     }
 
     @Override
     protected void onFinish(Bundle state) {
-        RetrofitHelper.cancel(callAdd);
-        RetrofitHelper.cancel(callUpdate);
-        RxBus.unregister(RxBus.EVENT_ALBUM_SELECT, obSelectAlbum);
-        RxBus.unregister(RxBus.EVENT_MAP_SELECT, obSelectMap);
         RecyclerHelper.release(recyclerHelper);
     }
 
@@ -342,9 +335,9 @@ public class PictureEditActivity extends BaseActivity<PictureEditActivity> {
         }
         Album body = new Album();
         body.setPictureList(pictureList);
-        callAdd = new RetrofitHelper().call(API.class).notePictureListAdd(body);
-        MaterialDialog loading = getLoading(true);
-        RetrofitHelper.enqueue(callAdd, loading, new RetrofitHelper.CallBack() {
+        // api
+        Call<Result> api = new RetrofitHelper().call(API.class).notePictureListAdd(body);
+        RetrofitHelper.enqueue(api, getLoading(true), new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 List<Picture> pictureList = data.getPictureList();
@@ -363,13 +356,13 @@ public class PictureEditActivity extends BaseActivity<PictureEditActivity> {
             public void onFailure(int code, String message, Result.Data data) {
             }
         });
+        pushApi(api);
     }
 
     private void commitUpdate() {
         if (picture == null) return;
-        callUpdate = new RetrofitHelper().call(API.class).notePictureUpdate(picture);
-        MaterialDialog loading = getLoading(true);
-        RetrofitHelper.enqueue(callUpdate, loading, new RetrofitHelper.CallBack() {
+        Call<Result> api = new RetrofitHelper().call(API.class).notePictureUpdate(picture);
+        RetrofitHelper.enqueue(api, getLoading(true), new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 // event
@@ -389,5 +382,6 @@ public class PictureEditActivity extends BaseActivity<PictureEditActivity> {
             public void onFailure(int code, String message, Result.Data data) {
             }
         });
+        pushApi(api);
     }
 }

@@ -55,9 +55,6 @@ public class PostSearchActivity extends BaseActivity<PostSearchActivity> {
     private PostKindInfo kindInfo;
     private PostSubKindInfo subKindInfo;
     private RecyclerHelper recyclerHelper;
-    private Observable<Post> obListItemRefresh;
-    private Observable<Post> obListItemDelete;
-    private Call<Result> call;
     private int page;
     private long create;
 
@@ -102,21 +99,20 @@ public class PostSearchActivity extends BaseActivity<PostSearchActivity> {
     protected void initData(Intent intent, Bundle state) {
         page = 0;
         // event
-        obListItemDelete = RxBus.register(RxBus.EVENT_POST_LIST_ITEM_DELETE, post -> {
+        Observable<Post> obListItemDelete = RxBus.register(RxBus.EVENT_POST_LIST_ITEM_DELETE, post -> {
             if (recyclerHelper == null) return;
             ListHelper.removeObjInAdapter(recyclerHelper.getAdapter(), post);
         });
-        obListItemRefresh = RxBus.register(RxBus.EVENT_POST_LIST_ITEM_REFRESH, post -> {
+        pushBus(RxBus.EVENT_POST_LIST_ITEM_DELETE, obListItemDelete);
+        Observable<Post> obListItemRefresh = RxBus.register(RxBus.EVENT_POST_LIST_ITEM_REFRESH, post -> {
             if (recyclerHelper == null) return;
             ListHelper.refreshObjInAdapter(recyclerHelper.getAdapter(), post);
         });
+        pushBus(RxBus.EVENT_POST_LIST_ITEM_REFRESH, obListItemRefresh);
     }
 
     @Override
     protected void onFinish(Bundle state) {
-        RetrofitHelper.cancel(call);
-        RxBus.unregister(RxBus.EVENT_POST_LIST_ITEM_DELETE, obListItemDelete);
-        RxBus.unregister(RxBus.EVENT_POST_LIST_ITEM_REFRESH, obListItemRefresh);
         RecyclerHelper.release(recyclerHelper);
     }
 
@@ -149,8 +145,8 @@ public class PostSearchActivity extends BaseActivity<PostSearchActivity> {
                 subKindId = subKindInfo.getKind();
             }
         }
-        call = new RetrofitHelper().call(API.class).topicPostListGet(create, kindId, subKindId, title, false, false, page);
-        RetrofitHelper.enqueue(call, null, new RetrofitHelper.CallBack() {
+        Call<Result> api = new RetrofitHelper().call(API.class).topicPostListGet(create, kindId, subKindId, title, false, false, page);
+        RetrofitHelper.enqueue(api, null, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 if (recyclerHelper == null) return;
@@ -165,6 +161,7 @@ public class PostSearchActivity extends BaseActivity<PostSearchActivity> {
                 recyclerHelper.dataFail(more, message);
             }
         });
+        pushApi(api);
     }
 
 }

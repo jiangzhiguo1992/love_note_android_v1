@@ -71,10 +71,6 @@ public class FoodEditActivity extends BaseActivity<FoodEditActivity> {
 
     private Food food;
     private RecyclerHelper recyclerHelper;
-    private Observable<LocationInfo> obSelectMap;
-    private Call<Result> callUpdate;
-    private Call<Result> callAdd;
-    private Call<Result> callDel;
     private int limitContentLength;
 
     public static void goActivity(Activity from) {
@@ -149,7 +145,7 @@ public class FoodEditActivity extends BaseActivity<FoodEditActivity> {
     @Override
     protected void initData(Intent intent, Bundle state) {
         // event
-        obSelectMap = RxBus.register(RxBus.EVENT_MAP_SELECT, info -> {
+        Observable<LocationInfo> obSelectMap = RxBus.register(RxBus.EVENT_MAP_SELECT, info -> {
             if (info == null || food == null) return;
             food.setLatitude(info.getLatitude());
             food.setLongitude(info.getLongitude());
@@ -157,14 +153,11 @@ public class FoodEditActivity extends BaseActivity<FoodEditActivity> {
             food.setCityId(info.getCityId());
             refreshLocationView();
         });
+        pushBus(RxBus.EVENT_MAP_SELECT, obSelectMap);
     }
 
     @Override
     protected void onFinish(Bundle state) {
-        RetrofitHelper.cancel(callAdd);
-        RetrofitHelper.cancel(callUpdate);
-        RetrofitHelper.cancel(callDel);
-        RxBus.unregister(RxBus.EVENT_MAP_SELECT, obSelectMap);
         RecyclerHelper.release(recyclerHelper);
     }
 
@@ -349,9 +342,8 @@ public class FoodEditActivity extends BaseActivity<FoodEditActivity> {
 
     private void updateApi() {
         if (food == null) return;
-        MaterialDialog loading = getLoading(false);
-        callUpdate = new RetrofitHelper().call(API.class).noteFoodUpdate(food);
-        RetrofitHelper.enqueue(callUpdate, loading, new RetrofitHelper.CallBack() {
+        Call<Result> api = new RetrofitHelper().call(API.class).noteFoodUpdate(food);
+        RetrofitHelper.enqueue(api, getLoading(false), new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 // event
@@ -366,13 +358,13 @@ public class FoodEditActivity extends BaseActivity<FoodEditActivity> {
                 // 上传失败不要删除，还可以继续上传
             }
         });
+        pushApi(api);
     }
 
     private void addApi() {
         if (food == null) return;
-        MaterialDialog loading = getLoading(false);
-        callAdd = new RetrofitHelper().call(API.class).noteFoodAdd(food);
-        RetrofitHelper.enqueue(callAdd, loading, new RetrofitHelper.CallBack() {
+        Call<Result> api = new RetrofitHelper().call(API.class).noteFoodAdd(food);
+        RetrofitHelper.enqueue(api, getLoading(false), new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 // event
@@ -385,6 +377,7 @@ public class FoodEditActivity extends BaseActivity<FoodEditActivity> {
             public void onFailure(int code, String message, Result.Data data) {
             }
         });
+        pushApi(api);
     }
 
     public void showDeleteDialog() {
@@ -401,9 +394,8 @@ public class FoodEditActivity extends BaseActivity<FoodEditActivity> {
 
     private void deleteApi() {
         if (food == null) return;
-        MaterialDialog loading = getLoading(true);
-        callDel = new RetrofitHelper().call(API.class).noteFoodDel(food.getId());
-        RetrofitHelper.enqueue(callDel, loading, new RetrofitHelper.CallBack() {
+        Call<Result> api = new RetrofitHelper().call(API.class).noteFoodDel(food.getId());
+        RetrofitHelper.enqueue(api, getLoading(true), new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 // event
@@ -416,6 +408,7 @@ public class FoodEditActivity extends BaseActivity<FoodEditActivity> {
             public void onFailure(int code, String message, Result.Data data) {
             }
         });
+        pushApi(api);
     }
 
 }

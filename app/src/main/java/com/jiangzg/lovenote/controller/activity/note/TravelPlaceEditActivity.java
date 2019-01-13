@@ -52,7 +52,6 @@ public class TravelPlaceEditActivity extends BaseActivity<TravelPlaceEditActivit
     TextView tvContentLimit;
 
     private TravelPlace place;
-    private Observable<LocationInfo> obSelectMap;
     private int limitContentLength;
 
     public static void goActivity(Activity from) {
@@ -84,7 +83,7 @@ public class TravelPlaceEditActivity extends BaseActivity<TravelPlaceEditActivit
     @Override
     protected void initData(Intent intent, Bundle state) {
         // event
-        obSelectMap = RxBus.register(RxBus.EVENT_MAP_SELECT, info -> {
+        Observable<LocationInfo> obSelectMap = RxBus.register(RxBus.EVENT_MAP_SELECT, info -> {
             if (info == null || place == null) return;
             place.setLatitude(info.getLatitude());
             place.setLongitude(info.getLongitude());
@@ -92,11 +91,11 @@ public class TravelPlaceEditActivity extends BaseActivity<TravelPlaceEditActivit
             place.setCityId(info.getCityId());
             refreshLocationView();
         });
+        pushBus(RxBus.EVENT_MAP_SELECT, obSelectMap);
     }
 
     @Override
     protected void onFinish(Bundle state) {
-        RxBus.unregister(RxBus.EVENT_MAP_SELECT, obSelectMap);
     }
 
     @Override

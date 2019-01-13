@@ -89,13 +89,6 @@ public class PostSubCommentListActivity extends BaseActivity<PostSubCommentListA
     private PostComment postComment;
     private RecyclerHelper recyclerHelper;
     private BottomSheetBehavior behaviorComment;
-    private Observable<Long> obPostCommentDetail;
-    private Call<Result> callGet;
-    private Call<Result> callDel;
-    private Call<Result> callCommentAdd;
-    private Call<Result> callSubCommentListGet;
-    private Call<Result> callReport;
-    private Call<Result> callPoint;
     private int page, orderIndex, limitCommentContentLength;
 
     public static void goActivity(Activity from, PostComment postComment) {
@@ -187,20 +180,14 @@ public class PostSubCommentListActivity extends BaseActivity<PostSubCommentListA
         page = 0;
         orderIndex = 0;
         // event
-        obPostCommentDetail = RxBus.register(RxBus.EVENT_POST_COMMENT_DETAIL_REFRESH, pcid -> refreshPostComment(pcid, false));
+        Observable<Long> obPostCommentDetail = RxBus.register(RxBus.EVENT_POST_COMMENT_DETAIL_REFRESH, pcid -> refreshPostComment(pcid, false));
+        pushBus(RxBus.EVENT_POST_COMMENT_DETAIL_REFRESH, obPostCommentDetail);
         // refresh
         recyclerHelper.dataRefresh();
     }
 
     @Override
     protected void onFinish(Bundle state) {
-        RetrofitHelper.cancel(callGet);
-        RetrofitHelper.cancel(callDel);
-        RetrofitHelper.cancel(callCommentAdd);
-        RetrofitHelper.cancel(callSubCommentListGet);
-        RetrofitHelper.cancel(callReport);
-        RetrofitHelper.cancel(callPoint);
-        RxBus.unregister(RxBus.EVENT_POST_COMMENT_DETAIL_REFRESH, obPostCommentDetail);
         RecyclerHelper.release(recyclerHelper);
     }
 
@@ -266,8 +253,8 @@ public class PostSubCommentListActivity extends BaseActivity<PostSubCommentListA
         if (!srl.isRefreshing()) {
             srl.setRefreshing(true);
         }
-        callGet = new RetrofitHelper().call(API.class).topicPostCommentGet(pcid);
-        RetrofitHelper.enqueue(callGet, null, new RetrofitHelper.CallBack() {
+        Call<Result> api = new RetrofitHelper().call(API.class).topicPostCommentGet(pcid);
+        RetrofitHelper.enqueue(api, null, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 if (recyclerHelper == null) return;
@@ -287,6 +274,7 @@ public class PostSubCommentListActivity extends BaseActivity<PostSubCommentListA
                 srl.setRefreshing(false);
             }
         });
+        pushApi(api);
     }
 
     private void initHeadAndBottom() {
@@ -422,10 +410,10 @@ public class PostSubCommentListActivity extends BaseActivity<PostSubCommentListA
     private void getSubCommentData(final boolean more) {
         if (postComment == null) return;
         page = more ? page + 1 : 0;
-        // api
         int orderType = ApiHelper.LIST_COMMENT_ORDER_TYPE[orderIndex];
-        callSubCommentListGet = new RetrofitHelper().call(API.class).topicPostCommentSubListGet(postComment.getPostId(), postComment.getId(), orderType, page);
-        RetrofitHelper.enqueue(callSubCommentListGet, null, new RetrofitHelper.CallBack() {
+        // api
+        Call<Result> api = new RetrofitHelper().call(API.class).topicPostCommentSubListGet(postComment.getPostId(), postComment.getId(), orderType, page);
+        RetrofitHelper.enqueue(api, null, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 if (recyclerHelper == null) return;
@@ -440,9 +428,10 @@ public class PostSubCommentListActivity extends BaseActivity<PostSubCommentListA
                 recyclerHelper.dataFail(more, message);
             }
         });
+        pushApi(api);
     }
 
-    private void point(boolean api) {
+    private void point(boolean isApi) {
         if (postComment == null) return;
         boolean newPoint = !postComment.isPoint();
         int newPointCount = newPoint ? postComment.getPointCount() + 1 : postComment.getPointCount() - 1;
@@ -452,11 +441,12 @@ public class PostSubCommentListActivity extends BaseActivity<PostSubCommentListA
         postComment.setPoint(newPoint);
         postComment.setPointCount(newPointCount);
         initHeadAndBottom();
-        if (!api) return;
+        if (!isApi) return;
         PostCommentPoint postCommentPoint = new PostCommentPoint();
         postCommentPoint.setPostCommentId(postComment.getId());
-        callPoint = new RetrofitHelper().call(API.class).topicPostCommentPointToggle(postCommentPoint);
-        RetrofitHelper.enqueue(callPoint, null, new RetrofitHelper.CallBack() {
+        // api
+        Call<Result> api = new RetrofitHelper().call(API.class).topicPostCommentPointToggle(postCommentPoint);
+        RetrofitHelper.enqueue(api, null, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 // event
@@ -468,19 +458,21 @@ public class PostSubCommentListActivity extends BaseActivity<PostSubCommentListA
                 point(false);
             }
         });
+        pushApi(api);
     }
 
-    private void report(boolean api) {
+    private void report(boolean isApi) {
         if (postComment == null) return;
         // view
         postComment.setReport(true);
         postComment.setReportCount(postComment.getReportCount() + 1);
         initHeadAndBottom();
-        if (!api) return;
+        if (!isApi) return;
         PostCommentReport postCommentReport = new PostCommentReport();
         postCommentReport.setPostCommentId(postComment.getId());
-        callReport = new RetrofitHelper().call(API.class).topicPostCommentReportAdd(postCommentReport);
-        RetrofitHelper.enqueue(callReport, null, new RetrofitHelper.CallBack() {
+        // api
+        Call<Result> api = new RetrofitHelper().call(API.class).topicPostCommentReportAdd(postCommentReport);
+        RetrofitHelper.enqueue(api, null, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 // event
@@ -492,14 +484,15 @@ public class PostSubCommentListActivity extends BaseActivity<PostSubCommentListA
                 report(false);
             }
         });
+        pushApi(api);
     }
 
     private void jab() {
         if (postComment == null) return;
         PostComment body = ApiHelper.getPostCommentJabBody(postComment.getPostId(), postComment.getId());
-        MaterialDialog loading = mActivity.getLoading(true);
-        callCommentAdd = new RetrofitHelper().call(API.class).topicPostCommentAdd(body);
-        RetrofitHelper.enqueue(callCommentAdd, loading, new RetrofitHelper.CallBack() {
+        // api
+        Call<Result> api = new RetrofitHelper().call(API.class).topicPostCommentAdd(body);
+        RetrofitHelper.enqueue(api, getLoading(true), new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 if (recyclerHelper == null) return;
@@ -517,6 +510,7 @@ public class PostSubCommentListActivity extends BaseActivity<PostSubCommentListA
             public void onFailure(int code, String message, Result.Data data) {
             }
         });
+        pushApi(api);
     }
 
     private void commentShow(boolean show) {
@@ -552,9 +546,9 @@ public class PostSubCommentListActivity extends BaseActivity<PostSubCommentListA
         }
         InputUtils.hideSoftInput(etComment);
         PostComment body = ApiHelper.getPostCommentTextBody(postComment.getPostId(), postComment.getId(), content);
-        MaterialDialog loading = getLoading(true);
-        callCommentAdd = new RetrofitHelper().call(API.class).topicPostCommentAdd(body);
-        RetrofitHelper.enqueue(callCommentAdd, loading, new RetrofitHelper.CallBack() {
+        // api
+        Call<Result> api = new RetrofitHelper().call(API.class).topicPostCommentAdd(body);
+        RetrofitHelper.enqueue(api, getLoading(true), new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 if (recyclerHelper == null) return;
@@ -574,6 +568,7 @@ public class PostSubCommentListActivity extends BaseActivity<PostSubCommentListA
             public void onFailure(int code, String message, Result.Data data) {
             }
         });
+        pushApi(api);
     }
 
     private void showPostCommentDelDialog() {
@@ -591,9 +586,8 @@ public class PostSubCommentListActivity extends BaseActivity<PostSubCommentListA
 
     private void delPostComment() {
         if (postComment == null) return;
-        MaterialDialog loading = getLoading(getString(R.string.are_deleting), true);
-        callDel = new RetrofitHelper().call(API.class).topicPostCommentDel(postComment.getId());
-        RetrofitHelper.enqueue(callDel, loading, new RetrofitHelper.CallBack() {
+        Call<Result> api = new RetrofitHelper().call(API.class).topicPostCommentDel(postComment.getId());
+        RetrofitHelper.enqueue(api, getLoading(getString(R.string.are_deleting), true), new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 // event
@@ -606,6 +600,7 @@ public class PostSubCommentListActivity extends BaseActivity<PostSubCommentListA
             public void onFailure(int code, String message, Result.Data data) {
             }
         });
+        pushApi(api);
     }
 
 }

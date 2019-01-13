@@ -58,8 +58,6 @@ public class AlbumEditActivity extends BaseActivity<AlbumEditActivity> {
     private Album album;
     private int limitTitleLength;
     private File pictureFile;
-    private Call<Result> callAdd;
-    private Call<Result> callUpdate;
 
     public static void goActivity(Activity from) {
         Intent intent = new Intent(from, AlbumEditActivity.class);
@@ -121,8 +119,6 @@ public class AlbumEditActivity extends BaseActivity<AlbumEditActivity> {
 
     @Override
     protected void onFinish(Bundle state) {
-        RetrofitHelper.cancel(callAdd);
-        RetrofitHelper.cancel(callUpdate);
     }
 
     @Override
@@ -283,9 +279,8 @@ public class AlbumEditActivity extends BaseActivity<AlbumEditActivity> {
 
     private void addApi() {
         if (album == null) return;
-        callAdd = new RetrofitHelper().call(API.class).noteAlbumAdd(album);
-        MaterialDialog loading = getLoading(true);
-        RetrofitHelper.enqueue(callAdd, loading, new RetrofitHelper.CallBack() {
+        Call<Result> api = new RetrofitHelper().call(API.class).noteAlbumAdd(album);
+        RetrofitHelper.enqueue(api, getLoading(true), new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 // event
@@ -297,13 +292,13 @@ public class AlbumEditActivity extends BaseActivity<AlbumEditActivity> {
             public void onFailure(int code, String message, Result.Data data) {
             }
         });
+        pushApi(api);
     }
 
     private void updateApi() {
         if (album == null) return;
-        callUpdate = new RetrofitHelper().call(API.class).noteAlbumUpdate(album);
-        MaterialDialog loading = getLoading(true);
-        RetrofitHelper.enqueue(callUpdate, loading, new RetrofitHelper.CallBack() {
+        Call<Result> api = new RetrofitHelper().call(API.class).noteAlbumUpdate(album);
+        RetrofitHelper.enqueue(api, getLoading(true), new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 // event
@@ -316,6 +311,7 @@ public class AlbumEditActivity extends BaseActivity<AlbumEditActivity> {
             public void onFailure(int code, String message, Result.Data data) {
             }
         });
+        pushApi(api);
     }
 
 }

@@ -133,8 +133,6 @@ public class VipActivity extends BaseActivity<VipActivity> {
 
     private Vip vip;
     private VipLimit vipYesLimit, vipNoLimit;
-    private Observable<Vip> obRefresh;
-    private Call<Result> callGet;
 
     public static void goActivity(Fragment from) {
         if (UserHelper.isCoupleBreak(SPHelper.getCouple())) {
@@ -187,13 +185,12 @@ public class VipActivity extends BaseActivity<VipActivity> {
     @Override
     protected void initData(Intent intent, Bundle state) {
         // event
-        obRefresh = RxBus.register(RxBus.EVENT_VIP_INFO_REFRESH, vip -> refreshData());
+        Observable<Vip> bus = RxBus.register(RxBus.EVENT_VIP_INFO_REFRESH, vip -> refreshData());
+        pushBus(RxBus.EVENT_VIP_INFO_REFRESH, bus);
     }
 
     @Override
     protected void onFinish(Bundle state) {
-        RetrofitHelper.cancel(callGet);
-        RxBus.unregister(RxBus.EVENT_VIP_INFO_REFRESH, obRefresh);
     }
 
     @Override
@@ -326,8 +323,8 @@ public class VipActivity extends BaseActivity<VipActivity> {
         if (!srl.isRefreshing()) {
             srl.setRefreshing(true);
         }
-        callGet = new RetrofitHelper().call(API.class).moreVipHomeGet();
-        RetrofitHelper.enqueue(callGet, null, new RetrofitHelper.CallBack() {
+        Call<Result> api = new RetrofitHelper().call(API.class).moreVipHomeGet();
+        RetrofitHelper.enqueue(api, null, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 srl.setRefreshing(false);
@@ -344,6 +341,7 @@ public class VipActivity extends BaseActivity<VipActivity> {
                 srl.setRefreshing(false);
             }
         });
+        pushApi(api);
     }
 
 }

@@ -50,11 +50,7 @@ public class FoodListActivity extends BaseActivity<FoodListActivity> {
     FloatingActionButton fabAdd;
 
     private RecyclerHelper recyclerHelper;
-    private Call<Result> call;
     private int page;
-    private Observable<List<Food>> obListRefresh;
-    private Observable<Food> obListItemRefresh;
-    private Observable<Food> obListItemDelete;
 
     public static void goActivity(Activity from) {
         Intent intent = new Intent(from, FoodListActivity.class);
@@ -135,28 +131,27 @@ public class FoodListActivity extends BaseActivity<FoodListActivity> {
     protected void initData(Intent intent, Bundle state) {
         page = 0;
         // event
-        obListRefresh = RxBus.register(RxBus.EVENT_FOOD_LIST_REFRESH, foodList -> {
+        Observable<List<Food>> obListRefresh = RxBus.register(RxBus.EVENT_FOOD_LIST_REFRESH, foodList -> {
             if (recyclerHelper == null) return;
             recyclerHelper.dataRefresh();
         });
-        obListItemDelete = RxBus.register(RxBus.EVENT_FOOD_LIST_ITEM_DELETE, food -> {
+        pushBus(RxBus.EVENT_FOOD_LIST_REFRESH, obListRefresh);
+        Observable<Food> obListItemDelete = RxBus.register(RxBus.EVENT_FOOD_LIST_ITEM_DELETE, food -> {
             if (recyclerHelper == null) return;
             ListHelper.removeObjInAdapter(recyclerHelper.getAdapter(), food);
         });
-        obListItemRefresh = RxBus.register(RxBus.EVENT_FOOD_LIST_ITEM_REFRESH, food -> {
+        pushBus(RxBus.EVENT_FOOD_LIST_ITEM_DELETE, obListItemDelete);
+        Observable<Food> obListItemRefresh = RxBus.register(RxBus.EVENT_FOOD_LIST_ITEM_REFRESH, food -> {
             if (recyclerHelper == null) return;
             ListHelper.refreshObjInAdapter(recyclerHelper.getAdapter(), food);
         });
+        pushBus(RxBus.EVENT_FOOD_LIST_ITEM_REFRESH, obListItemRefresh);
         // refresh
         recyclerHelper.dataRefresh();
     }
 
     @Override
     protected void onFinish(Bundle state) {
-        RetrofitHelper.cancel(call);
-        RxBus.unregister(RxBus.EVENT_FOOD_LIST_REFRESH, obListRefresh);
-        RxBus.unregister(RxBus.EVENT_FOOD_LIST_ITEM_DELETE, obListItemDelete);
-        RxBus.unregister(RxBus.EVENT_FOOD_LIST_ITEM_REFRESH, obListItemRefresh);
         RecyclerHelper.release(recyclerHelper);
     }
 
@@ -192,8 +187,8 @@ public class FoodListActivity extends BaseActivity<FoodListActivity> {
     private void getData(final boolean more) {
         page = more ? page + 1 : 0;
         // api
-        call = new RetrofitHelper().call(API.class).noteFoodListGet(page);
-        RetrofitHelper.enqueue(call, null, new RetrofitHelper.CallBack() {
+        Call<Result> api = new RetrofitHelper().call(API.class).noteFoodListGet(page);
+        RetrofitHelper.enqueue(api, null, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 if (recyclerHelper == null) return;
@@ -211,6 +206,7 @@ public class FoodListActivity extends BaseActivity<FoodListActivity> {
                 recyclerHelper.dataFail(more, message);
             }
         });
+        pushApi(api);
     }
 
 }

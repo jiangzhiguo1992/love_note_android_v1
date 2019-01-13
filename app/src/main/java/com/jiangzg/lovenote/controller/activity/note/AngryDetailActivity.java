@@ -71,12 +71,6 @@ public class AngryDetailActivity extends BaseActivity<AngryDetailActivity> {
     private Angry angry;
     private RecyclerHelper recyclerPromise;
     private RecyclerHelper recyclerGift;
-    private Observable<Gift> obGiftSelect;
-    private Observable<Promise> obPromiseSelect;
-    private Observable<Promise> obPromiseListDelete;
-    private Observable<Promise> obPromiseListRefresh;
-    private Call<Result> callGet;
-    private Call<Result> callDel;
 
     public static void goActivity(Activity from, Angry angry) {
         Intent intent = new Intent(from, AngryDetailActivity.class);
@@ -121,9 +115,11 @@ public class AngryDetailActivity extends BaseActivity<AngryDetailActivity> {
     @Override
     protected void initData(Intent intent, Bundle state) {
         // event
-        obGiftSelect = RxBus.register(RxBus.EVENT_GIFT_SELECT, this::updateGift);
-        obPromiseSelect = RxBus.register(RxBus.EVENT_PROMISE_SELECT, this::updatePromise);
-        obPromiseListDelete = RxBus.register(RxBus.EVENT_PROMISE_LIST_ITEM_DELETE, promise -> {
+        Observable<Gift> busGiftSelect = RxBus.register(RxBus.EVENT_GIFT_SELECT, this::updateGift);
+        pushBus(RxBus.EVENT_GIFT_SELECT, busGiftSelect);
+        Observable<Promise> busPromiseSelect = RxBus.register(RxBus.EVENT_PROMISE_SELECT, this::updatePromise);
+        pushBus(RxBus.EVENT_PROMISE_SELECT, busPromiseSelect);
+        Observable<Promise> busPromiseListDelete = RxBus.register(RxBus.EVENT_PROMISE_LIST_ITEM_DELETE, promise -> {
             if (recyclerPromise == null) return;
             ListHelper.removeObjInAdapter(recyclerPromise.getAdapter(), promise);
             if (recyclerPromise.getAdapter().getData().size() <= 0) {
@@ -132,20 +128,16 @@ public class AngryDetailActivity extends BaseActivity<AngryDetailActivity> {
                 rvPromise.setVisibility(View.GONE);
             }
         });
-        obPromiseListRefresh = RxBus.register(RxBus.EVENT_PROMISE_LIST_ITEM_REFRESH, promise -> {
+        pushBus(RxBus.EVENT_PROMISE_LIST_ITEM_DELETE, busPromiseListDelete);
+        Observable<Promise> busPromiseListRefresh = RxBus.register(RxBus.EVENT_PROMISE_LIST_ITEM_REFRESH, promise -> {
             if (recyclerPromise == null) return;
             ListHelper.refreshObjInAdapter(recyclerPromise.getAdapter(), promise);
         });
+        pushBus(RxBus.EVENT_PROMISE_LIST_ITEM_REFRESH, busPromiseListRefresh);
     }
 
     @Override
     protected void onFinish(Bundle state) {
-        RetrofitHelper.cancel(callDel);
-        RetrofitHelper.cancel(callGet);
-        RxBus.unregister(RxBus.EVENT_GIFT_SELECT, obGiftSelect);
-        RxBus.unregister(RxBus.EVENT_PROMISE_SELECT, obPromiseSelect);
-        RxBus.unregister(RxBus.EVENT_PROMISE_LIST_ITEM_DELETE, obPromiseListDelete);
-        RxBus.unregister(RxBus.EVENT_PROMISE_LIST_ITEM_REFRESH, obPromiseListRefresh);
         RecyclerHelper.release(recyclerPromise);
     }
 
@@ -181,8 +173,8 @@ public class AngryDetailActivity extends BaseActivity<AngryDetailActivity> {
         if (!srl.isRefreshing()) {
             srl.setRefreshing(true);
         }
-        callGet = new RetrofitHelper().call(API.class).noteAngryGet(aid);
-        RetrofitHelper.enqueue(callGet, null, new RetrofitHelper.CallBack() {
+        Call<Result> api = new RetrofitHelper().call(API.class).noteAngryGet(aid);
+        RetrofitHelper.enqueue(api, null, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 srl.setRefreshing(false);
@@ -195,6 +187,7 @@ public class AngryDetailActivity extends BaseActivity<AngryDetailActivity> {
                 srl.setRefreshing(false);
             }
         });
+        pushApi(api);
     }
 
     private void refreshView() {
@@ -290,9 +283,8 @@ public class AngryDetailActivity extends BaseActivity<AngryDetailActivity> {
 
     private void deleteApi() {
         if (angry == null) return;
-        MaterialDialog loading = getLoading(true);
-        callDel = new RetrofitHelper().call(API.class).noteAngryDel(angry.getId());
-        RetrofitHelper.enqueue(callDel, loading, new RetrofitHelper.CallBack() {
+        Call<Result> api = new RetrofitHelper().call(API.class).noteAngryDel(angry.getId());
+        RetrofitHelper.enqueue(api, getLoading(true), new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 // event
@@ -305,6 +297,7 @@ public class AngryDetailActivity extends BaseActivity<AngryDetailActivity> {
             public void onFailure(int code, String message, Result.Data data) {
             }
         });
+        pushApi(api);
     }
 
     private void showDeleteGiftDialog() {
@@ -335,10 +328,10 @@ public class AngryDetailActivity extends BaseActivity<AngryDetailActivity> {
 
     private void updateGift(Gift gift) {
         if (angry == null || gift == null) return;
-        MaterialDialog loading = getLoading(true);
         angry.setGiftId(gift.getId());
-        callDel = new RetrofitHelper().call(API.class).noteAngryUpdate(angry);
-        RetrofitHelper.enqueue(callDel, loading, new RetrofitHelper.CallBack() {
+        // api
+        Call<Result> api = new RetrofitHelper().call(API.class).noteAngryUpdate(angry);
+        RetrofitHelper.enqueue(api, getLoading(true), new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 angry = data.getAngry();
@@ -352,14 +345,15 @@ public class AngryDetailActivity extends BaseActivity<AngryDetailActivity> {
             public void onFailure(int code, String message, Result.Data data) {
             }
         });
+        pushApi(api);
     }
 
     private void updatePromise(Promise promise) {
         if (angry == null || promise == null) return;
-        MaterialDialog loading = getLoading(true);
         angry.setPromiseId(promise.getId());
-        callDel = new RetrofitHelper().call(API.class).noteAngryUpdate(angry);
-        RetrofitHelper.enqueue(callDel, loading, new RetrofitHelper.CallBack() {
+        // api
+        Call<Result> api = new RetrofitHelper().call(API.class).noteAngryUpdate(angry);
+        RetrofitHelper.enqueue(api, getLoading(true), new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 angry = data.getAngry();
@@ -373,6 +367,7 @@ public class AngryDetailActivity extends BaseActivity<AngryDetailActivity> {
             public void onFailure(int code, String message, Result.Data data) {
             }
         });
+        pushApi(api);
     }
 
 }

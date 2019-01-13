@@ -48,10 +48,6 @@ public class TravelListActivity extends BaseActivity<TravelListActivity> {
     FloatingActionButton fabAdd;
 
     private RecyclerHelper recyclerHelper;
-    private Observable<List<Travel>> obListRefresh;
-    private Observable<Travel> obListItemDelete;
-    private Observable<Travel> obListItemRefresh;
-    private Call<Result> call;
     private int page;
 
     public static void goActivity(Activity from) {
@@ -117,28 +113,27 @@ public class TravelListActivity extends BaseActivity<TravelListActivity> {
     protected void initData(Intent intent, Bundle state) {
         page = 0;
         // event
-        obListRefresh = RxBus.register(RxBus.EVENT_TRAVEL_LIST_REFRESH, travelList -> {
+        Observable<List<Travel>> obListRefresh = RxBus.register(RxBus.EVENT_TRAVEL_LIST_REFRESH, travelList -> {
             if (recyclerHelper == null) return;
             recyclerHelper.dataRefresh();
         });
-        obListItemDelete = RxBus.register(RxBus.EVENT_TRAVEL_LIST_ITEM_DELETE, travel -> {
+        pushBus(RxBus.EVENT_TRAVEL_LIST_REFRESH, obListRefresh);
+        Observable<Travel> obListItemDelete = RxBus.register(RxBus.EVENT_TRAVEL_LIST_ITEM_DELETE, travel -> {
             if (recyclerHelper == null) return;
             ListHelper.removeObjInAdapter(recyclerHelper.getAdapter(), travel);
         });
-        obListItemRefresh = RxBus.register(RxBus.EVENT_TRAVEL_LIST_ITEM_REFRESH, travel -> {
+        pushBus(RxBus.EVENT_TRAVEL_LIST_ITEM_DELETE, obListItemDelete);
+        Observable<Travel> obListItemRefresh = RxBus.register(RxBus.EVENT_TRAVEL_LIST_ITEM_REFRESH, travel -> {
             if (recyclerHelper == null) return;
             ListHelper.refreshObjInAdapter(recyclerHelper.getAdapter(), travel);
         });
+        pushBus(RxBus.EVENT_TRAVEL_LIST_ITEM_REFRESH, obListItemRefresh);
         // refresh
         recyclerHelper.dataRefresh();
     }
 
     @Override
     protected void onFinish(Bundle state) {
-        RetrofitHelper.cancel(call);
-        RxBus.unregister(RxBus.EVENT_TRAVEL_LIST_REFRESH, obListRefresh);
-        RxBus.unregister(RxBus.EVENT_TRAVEL_LIST_ITEM_DELETE, obListItemDelete);
-        RxBus.unregister(RxBus.EVENT_TRAVEL_LIST_ITEM_REFRESH, obListItemRefresh);
         RecyclerHelper.release(recyclerHelper);
     }
 
@@ -176,8 +171,8 @@ public class TravelListActivity extends BaseActivity<TravelListActivity> {
     private void getData(final boolean more) {
         page = more ? page + 1 : 0;
         // api
-        call = new RetrofitHelper().call(API.class).noteTravelListGet(page);
-        RetrofitHelper.enqueue(call, null, new RetrofitHelper.CallBack() {
+        Call<Result> api = new RetrofitHelper().call(API.class).noteTravelListGet(page);
+        RetrofitHelper.enqueue(api, null, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 if (recyclerHelper == null) return;
@@ -192,6 +187,7 @@ public class TravelListActivity extends BaseActivity<TravelListActivity> {
                 recyclerHelper.dataFail(more, message);
             }
         });
+        pushApi(api);
     }
 
 }

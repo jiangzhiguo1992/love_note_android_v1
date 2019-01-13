@@ -15,7 +15,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
-import com.afollestad.materialdialogs.MaterialDialog;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemLongClickListener;
 import com.haibin.calendarview.CalendarView;
@@ -73,9 +72,6 @@ public class ShyActivity extends BaseActivity<ShyActivity> {
 
     private List<Shy> shyList;
     private RecyclerHelper recyclerHelper;
-    private Observable<Shy> obListItemDelete;
-    private Call<Result> callAdd;
-    private Call<Result> callListGet;
     private int selectYear, selectMonth, selectDay;
 
     public static void goActivity(Activity from) {
@@ -152,11 +148,12 @@ public class ShyActivity extends BaseActivity<ShyActivity> {
     @Override
     protected void initData(Intent intent, Bundle state) {
         // event
-        obListItemDelete = RxBus.register(RxBus.EVENT_SHY_LIST_ITEM_DELETE, shy -> {
+        Observable<Shy> obListItemDelete = RxBus.register(RxBus.EVENT_SHY_LIST_ITEM_DELETE, shy -> {
             if (recyclerHelper == null) return;
             ListHelper.removeObjInAdapter(recyclerHelper.getAdapter(), shy);
             refreshMonthData();
         });
+        pushBus(RxBus.EVENT_SHY_LIST_ITEM_DELETE, obListItemDelete);
         // 设置当前日期
         refreshDateToCurrent();
         // 显示当前数据
@@ -168,10 +165,7 @@ public class ShyActivity extends BaseActivity<ShyActivity> {
 
     @Override
     protected void onFinish(Bundle state) {
-        RetrofitHelper.cancel(callAdd);
-        RetrofitHelper.cancel(callListGet);
         RecyclerHelper.release(recyclerHelper);
-        RxBus.unregister(RxBus.EVENT_SHY_LIST_ITEM_DELETE, obListItemDelete);
     }
 
     @Override
@@ -294,8 +288,8 @@ public class ShyActivity extends BaseActivity<ShyActivity> {
         shyList = null;
         refreshDayView();
         // call
-        callListGet = new RetrofitHelper().call(API.class).noteShyListGetByDate(selectYear, selectMonth);
-        RetrofitHelper.enqueue(callListGet, null, new RetrofitHelper.CallBack() {
+        Call<Result> api = new RetrofitHelper().call(API.class).noteShyListGetByDate(selectYear, selectMonth);
+        RetrofitHelper.enqueue(api, null, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 srl.setRefreshing(false);
@@ -310,6 +304,7 @@ public class ShyActivity extends BaseActivity<ShyActivity> {
                 srl.setRefreshing(false);
             }
         });
+        pushApi(api);
     }
 
     private void refreshTopDateShow() {
@@ -333,9 +328,9 @@ public class ShyActivity extends BaseActivity<ShyActivity> {
     private void shyPush(long happenAt) {
         Shy shy = new Shy();
         shy.setHappenAt(happenAt);
-        callAdd = new RetrofitHelper().call(API.class).noteShyAdd(shy);
-        MaterialDialog loading = mActivity.getLoading(true);
-        RetrofitHelper.enqueue(callAdd, loading, new RetrofitHelper.CallBack() {
+        // api
+        Call<Result> api = new RetrofitHelper().call(API.class).noteShyAdd(shy);
+        RetrofitHelper.enqueue(api, mActivity.getLoading(true), new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 refreshMonthData();
@@ -345,6 +340,7 @@ public class ShyActivity extends BaseActivity<ShyActivity> {
             public void onFailure(int code, String message, Result.Data data) {
             }
         });
+        pushApi(api);
     }
 
 }

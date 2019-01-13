@@ -11,7 +11,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
-import com.afollestad.materialdialogs.MaterialDialog;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemLongClickListener;
 import com.jiangzg.base.common.FileUtils;
@@ -53,8 +52,6 @@ public class CoupleWallPaperActivity extends BaseActivity<CoupleWallPaperActivit
     RecyclerView rv;
 
     private RecyclerHelper recyclerHelper;
-    private Call<Result> callUpdate;
-    private Call<Result> callGet;
     private File cropFile;
 
     public static void goActivity(Fragment from) {
@@ -100,8 +97,6 @@ public class CoupleWallPaperActivity extends BaseActivity<CoupleWallPaperActivit
 
     @Override
     protected void onFinish(Bundle state) {
-        RetrofitHelper.cancel(callGet);
-        RetrofitHelper.cancel(callUpdate);
         RecyclerHelper.release(recyclerHelper);
         // 创建成功的cropFile都要删除
         ResHelper.deleteFileInBackground(cropFile);
@@ -147,8 +142,8 @@ public class CoupleWallPaperActivity extends BaseActivity<CoupleWallPaperActivit
     }
 
     private void refreshData() {
-        callGet = new RetrofitHelper().call(API.class).coupleWallPaperGet();
-        RetrofitHelper.enqueue(callGet, null, new RetrofitHelper.CallBack() {
+        Call<Result> api = new RetrofitHelper().call(API.class).coupleWallPaperGet();
+        RetrofitHelper.enqueue(api, null, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 viewRefresh(data);
@@ -160,6 +155,7 @@ public class CoupleWallPaperActivity extends BaseActivity<CoupleWallPaperActivit
                 recyclerHelper.dataFail(false, message);
             }
         });
+        pushApi(api);
     }
 
     private void addWallPaper() {
@@ -200,9 +196,8 @@ public class CoupleWallPaperActivity extends BaseActivity<CoupleWallPaperActivit
         WallPaper body = new WallPaper();
         body.setContentImageList(objects);
         // api
-        MaterialDialog loading = getLoading(getString(R.string.are_upload), true);
-        callUpdate = new RetrofitHelper().call(API.class).coupleWallPaperUpdate(body);
-        RetrofitHelper.enqueue(callUpdate, loading, new RetrofitHelper.CallBack() {
+        Call<Result> api = new RetrofitHelper().call(API.class).coupleWallPaperUpdate(body);
+        RetrofitHelper.enqueue(api, getLoading(getString(R.string.are_upload), true), new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 SPHelper.setWallPaper(data.getWallPaper());
@@ -215,6 +210,7 @@ public class CoupleWallPaperActivity extends BaseActivity<CoupleWallPaperActivit
             public void onFailure(int code, String message, Result.Data data) {
             }
         });
+        pushApi(api);
     }
 
     private void viewRefresh(Result.Data data) {

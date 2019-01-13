@@ -19,7 +19,6 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.afollestad.materialdialogs.MaterialDialog;
 import com.jiangzg.base.common.FileUtils;
 import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.base.component.ActivityTrans;
@@ -80,8 +79,6 @@ public class WhisperListActivity extends BaseActivity<WhisperListActivity> {
     private int limitChannelLength;
     private RecyclerHelper recyclerHelper;
     private BottomSheetBehavior behaviorComment;
-    private Call<Result> callAdd;
-    private Call<Result> callGet;
     private int page, limitContentLength;
 
     public static void goActivity(Activity from) {
@@ -162,8 +159,6 @@ public class WhisperListActivity extends BaseActivity<WhisperListActivity> {
 
     @Override
     protected void onFinish(Bundle state) {
-        RetrofitHelper.cancel(callGet);
-        RetrofitHelper.cancel(callAdd);
         RecyclerHelper.release(recyclerHelper);
     }
 
@@ -235,8 +230,9 @@ public class WhisperListActivity extends BaseActivity<WhisperListActivity> {
         InputUtils.hideSoftInput(etChannel);
         channel = etChannel.getText().toString().trim();
         tvCurrentChannel.setText(getChannelShow());
-        callGet = new RetrofitHelper().call(API.class).noteWhisperListGet(channel, page);
-        RetrofitHelper.enqueue(callGet, null, new RetrofitHelper.CallBack() {
+        // api
+        Call<Result> api = new RetrofitHelper().call(API.class).noteWhisperListGet(channel, page);
+        RetrofitHelper.enqueue(api, null, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 if (recyclerHelper == null) return;
@@ -254,6 +250,7 @@ public class WhisperListActivity extends BaseActivity<WhisperListActivity> {
                 recyclerHelper.dataFail(more, message);
             }
         });
+        pushApi(api);
     }
 
     private String getChannelShow() {
@@ -346,9 +343,9 @@ public class WhisperListActivity extends BaseActivity<WhisperListActivity> {
 
     private void api(Whisper whisper) {
         InputUtils.hideSoftInput(etComment);
-        callAdd = new RetrofitHelper().call(API.class).noteWhisperAdd(whisper);
-        MaterialDialog loading = getLoading(true);
-        RetrofitHelper.enqueue(callAdd, loading, new RetrofitHelper.CallBack() {
+        // api
+        Call<Result> api = new RetrofitHelper().call(API.class).noteWhisperAdd(whisper);
+        RetrofitHelper.enqueue(api, getLoading(true), new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 if (recyclerHelper == null) return;
@@ -365,6 +362,7 @@ public class WhisperListActivity extends BaseActivity<WhisperListActivity> {
             public void onFailure(int code, String message, Result.Data data) {
             }
         });
+        pushApi(api);
     }
 
 }

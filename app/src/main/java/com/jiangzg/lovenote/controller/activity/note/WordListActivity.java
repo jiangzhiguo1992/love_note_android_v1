@@ -14,7 +14,6 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 
-import com.afollestad.materialdialogs.MaterialDialog;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemChildLongClickListener;
 import com.jiangzg.base.common.StringUtils;
@@ -58,9 +57,6 @@ public class WordListActivity extends BaseActivity<WordListActivity> {
     ImageView ivSend;
 
     private RecyclerHelper recyclerHelper;
-    private Observable<Word> obListItemDelete;
-    private Call<Result> callGet;
-    private Call<Result> callAdd;
     private int limitContentLength;
     private int page;
 
@@ -118,19 +114,17 @@ public class WordListActivity extends BaseActivity<WordListActivity> {
     protected void initData(Intent intent, Bundle state) {
         page = 0;
         // event
-        obListItemDelete = RxBus.register(RxBus.EVENT_WORD_LIST_ITEM_DELETE, word -> {
+        Observable<Word> obListItemDelete = RxBus.register(RxBus.EVENT_WORD_LIST_ITEM_DELETE, word -> {
             if (recyclerHelper == null) return;
             ListHelper.removeObjInAdapter(recyclerHelper.getAdapter(), word);
         });
+        pushBus(RxBus.EVENT_WORD_LIST_ITEM_DELETE, obListItemDelete);
         // refresh
         recyclerHelper.dataRefresh();
     }
 
     @Override
     protected void onFinish(Bundle state) {
-        RetrofitHelper.cancel(callGet);
-        RetrofitHelper.cancel(callAdd);
-        RxBus.unregister(RxBus.EVENT_WORD_LIST_ITEM_DELETE, obListItemDelete);
         RecyclerHelper.release(recyclerHelper);
     }
 
@@ -180,8 +174,8 @@ public class WordListActivity extends BaseActivity<WordListActivity> {
 
     private void getData(final boolean more) {
         page = more ? page + 1 : 0;
-        callGet = new RetrofitHelper().call(API.class).noteWordListGet(page);
-        RetrofitHelper.enqueue(callGet, null, new RetrofitHelper.CallBack() {
+        Call<Result> api = new RetrofitHelper().call(API.class).noteWordListGet(page);
+        RetrofitHelper.enqueue(api, null, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 if (recyclerHelper == null) return;
@@ -196,15 +190,15 @@ public class WordListActivity extends BaseActivity<WordListActivity> {
                 recyclerHelper.dataFail(more, message);
             }
         });
+        pushApi(api);
     }
 
     private void wordPush() {
         Word body = new Word();
         body.setContentText(etContent.getText().toString());
         // api
-        MaterialDialog loading = mActivity.getLoading(true);
-        callAdd = new RetrofitHelper().call(API.class).noteWordAdd(body);
-        RetrofitHelper.enqueue(callAdd, loading, new RetrofitHelper.CallBack() {
+        Call<Result> api = new RetrofitHelper().call(API.class).noteWordAdd(body);
+        RetrofitHelper.enqueue(api, getLoading(true), new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 if (recyclerHelper == null) return;
@@ -221,6 +215,7 @@ public class WordListActivity extends BaseActivity<WordListActivity> {
             public void onFailure(int code, String message, Result.Data data) {
             }
         });
+        pushApi(api);
     }
 
 }

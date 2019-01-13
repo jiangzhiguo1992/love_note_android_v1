@@ -81,9 +81,6 @@ public class MensesActivity extends BaseActivity<MensesActivity> {
     private Menses mensesMe;
     private Menses mensesTa;
     private List<Menses> mensesList;
-    private Call<Result> callAdd;
-    private Call<Result> callGet;
-    private Call<Result> callListGet;
     private int selectYear, selectMonth;
 
     public static void goActivity(Activity from) {
@@ -182,9 +179,6 @@ public class MensesActivity extends BaseActivity<MensesActivity> {
 
     @Override
     protected void onFinish(Bundle state) {
-        RetrofitHelper.cancel(callAdd);
-        RetrofitHelper.cancel(callGet);
-        RetrofitHelper.cancel(callListGet);
     }
 
     @Override
@@ -373,8 +367,8 @@ public class MensesActivity extends BaseActivity<MensesActivity> {
         if (!srl.isRefreshing()) {
             srl.setRefreshing(true);
         }
-        callGet = new RetrofitHelper().call(API.class).noteMensesLatestGet();
-        RetrofitHelper.enqueue(callGet, null, new RetrofitHelper.CallBack() {
+        Call<Result> api = new RetrofitHelper().call(API.class).noteMensesLatestGet();
+        RetrofitHelper.enqueue(api, null, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 srl.setRefreshing(false);
@@ -390,6 +384,7 @@ public class MensesActivity extends BaseActivity<MensesActivity> {
                 srl.setRefreshing(false);
             }
         });
+        pushApi(api);
     }
 
     private void refreshMonthData() {
@@ -400,9 +395,9 @@ public class MensesActivity extends BaseActivity<MensesActivity> {
         if (mensesList != null) {
             mensesList.clear();
         }
-        // call
-        callListGet = new RetrofitHelper().call(API.class).noteMensesListGetByDate(isMine, selectYear, selectMonth);
-        RetrofitHelper.enqueue(callListGet, null, new RetrofitHelper.CallBack() {
+        // api
+        Call<Result> api = new RetrofitHelper().call(API.class).noteMensesListGetByDate(isMine, selectYear, selectMonth);
+        RetrofitHelper.enqueue(api, null, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 srl.setRefreshing(false);
@@ -416,6 +411,7 @@ public class MensesActivity extends BaseActivity<MensesActivity> {
                 srl.setRefreshing(false);
             }
         });
+        pushApi(api);
     }
 
     private void showDatePicker() {
@@ -433,9 +429,9 @@ public class MensesActivity extends BaseActivity<MensesActivity> {
         menses.setYear(year);
         menses.setMonthOfYear(month);
         menses.setDayOfMonth(day);
-        callAdd = new RetrofitHelper().call(API.class).noteMensesAdd(menses);
-        MaterialDialog loading = mActivity.getLoading(true);
-        RetrofitHelper.enqueue(callAdd, loading, new RetrofitHelper.CallBack() {
+        // api
+        Call<Result> api = new RetrofitHelper().call(API.class).noteMensesAdd(menses);
+        RetrofitHelper.enqueue(api, mActivity.getLoading(true), new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 mensesMe = data.getMenses();
@@ -449,6 +445,7 @@ public class MensesActivity extends BaseActivity<MensesActivity> {
             public void onFailure(int code, String message, Result.Data data) {
             }
         });
+        pushApi(api);
     }
 
     public void showDeleteDialog(final int year, final int month, final int day) {

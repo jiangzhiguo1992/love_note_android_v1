@@ -47,9 +47,6 @@ public class AwardRuleListActivity extends BaseActivity<AwardRuleListActivity> {
     FloatingActionButton fabAdd;
 
     private RecyclerHelper recyclerHelper;
-    private Observable<List<AwardRule>> obListRefresh;
-    private Observable<AwardRule> obListItemDelete;
-    private Call<Result> call;
     private int page;
 
     public static void goActivity(Activity from) {
@@ -113,23 +110,22 @@ public class AwardRuleListActivity extends BaseActivity<AwardRuleListActivity> {
     protected void initData(Intent intent, Bundle state) {
         page = 0;
         // event
-        obListRefresh = RxBus.register(RxBus.EVENT_AWARD_RULE_LIST_REFRESH, awardRuleList -> {
+        Observable<List<AwardRule>> obListRefresh = RxBus.register(RxBus.EVENT_AWARD_RULE_LIST_REFRESH, awardRuleList -> {
             if (recyclerHelper == null) return;
             recyclerHelper.dataRefresh();
         });
-        obListItemDelete = RxBus.register(RxBus.EVENT_AWARD_RULE_LIST_ITEM_DELETE, awardRule -> {
+        pushBus(RxBus.EVENT_AWARD_RULE_LIST_REFRESH, obListRefresh);
+        Observable<AwardRule> obListItemDelete = RxBus.register(RxBus.EVENT_AWARD_RULE_LIST_ITEM_DELETE, awardRule -> {
             if (recyclerHelper == null) return;
             ListHelper.removeObjInAdapter(recyclerHelper.getAdapter(), awardRule);
         });
+        pushBus(RxBus.EVENT_AWARD_RULE_LIST_ITEM_DELETE, obListItemDelete);
         // refresh
         recyclerHelper.dataRefresh();
     }
 
     @Override
     protected void onFinish(Bundle state) {
-        RetrofitHelper.cancel(call);
-        RxBus.unregister(RxBus.EVENT_AWARD_RULE_LIST_REFRESH, obListRefresh);
-        RxBus.unregister(RxBus.EVENT_AWARD_RULE_LIST_ITEM_DELETE, obListItemDelete);
         RecyclerHelper.release(recyclerHelper);
     }
 
@@ -164,9 +160,8 @@ public class AwardRuleListActivity extends BaseActivity<AwardRuleListActivity> {
 
     private void getData(final boolean more) {
         page = more ? page + 1 : 0;
-        // api
-        call = new RetrofitHelper().call(API.class).noteAwardRuleListGet(page);
-        RetrofitHelper.enqueue(call, null, new RetrofitHelper.CallBack() {
+        Call<Result> api = new RetrofitHelper().call(API.class).noteAwardRuleListGet(page);
+        RetrofitHelper.enqueue(api, null, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 if (recyclerHelper == null) return;
@@ -181,6 +176,7 @@ public class AwardRuleListActivity extends BaseActivity<AwardRuleListActivity> {
                 recyclerHelper.dataFail(more, message);
             }
         });
+        pushApi(api);
     }
 
 }

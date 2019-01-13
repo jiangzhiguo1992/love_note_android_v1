@@ -54,10 +54,6 @@ public class AngryListActivity extends BaseActivity<AngryListActivity> {
     LinearLayout llAdd;
 
     private RecyclerHelper recyclerHelper;
-    private Observable<List<Angry>> obListRefresh;
-    private Observable<Angry> obListItemRefresh;
-    private Observable<Angry> obListItemDelete;
-    private Call<Result> call;
     private int page;
     private int searchIndex;
 
@@ -109,18 +105,21 @@ public class AngryListActivity extends BaseActivity<AngryListActivity> {
     protected void initData(Intent intent, Bundle state) {
         page = 0;
         // event
-        obListRefresh = RxBus.register(RxBus.EVENT_ANGRY_LIST_REFRESH, angryList -> {
+        Observable<List<Angry>> obListRefresh = RxBus.register(RxBus.EVENT_ANGRY_LIST_REFRESH, angryList -> {
             if (recyclerHelper == null) return;
             recyclerHelper.dataRefresh();
         });
-        obListItemDelete = RxBus.register(RxBus.EVENT_ANGRY_LIST_ITEM_DELETE, angry -> {
+        pushBus(RxBus.EVENT_ANGRY_LIST_REFRESH, obListRefresh);
+        Observable<Angry> obListItemDelete = RxBus.register(RxBus.EVENT_ANGRY_LIST_ITEM_DELETE, angry -> {
             if (recyclerHelper == null) return;
             ListHelper.removeObjInAdapter(recyclerHelper.getAdapter(), angry);
         });
-        obListItemRefresh = RxBus.register(RxBus.EVENT_ANGRY_LIST_ITEM_REFRESH, angry -> {
+        pushBus(RxBus.EVENT_ANGRY_LIST_ITEM_DELETE, obListItemDelete);
+        Observable<Angry> obListItemRefresh = RxBus.register(RxBus.EVENT_ANGRY_LIST_ITEM_REFRESH, angry -> {
             if (recyclerHelper == null) return;
             ListHelper.refreshObjInAdapter(recyclerHelper.getAdapter(), angry);
         });
+        pushBus(RxBus.EVENT_ANGRY_LIST_ITEM_REFRESH, obListItemRefresh);
         // refresh
         recyclerHelper.dataRefresh();
     }
@@ -128,10 +127,6 @@ public class AngryListActivity extends BaseActivity<AngryListActivity> {
     @Override
     protected void onFinish(Bundle state) {
         RecyclerHelper.release(recyclerHelper);
-        RxBus.unregister(RxBus.EVENT_ANGRY_LIST_REFRESH, obListRefresh);
-        RxBus.unregister(RxBus.EVENT_ANGRY_LIST_ITEM_DELETE, obListItemDelete);
-        RxBus.unregister(RxBus.EVENT_ANGRY_LIST_ITEM_REFRESH, obListItemRefresh);
-        RetrofitHelper.cancel(call);
     }
 
     @OnClick({R.id.llSearch, R.id.llAdd})
@@ -148,10 +143,10 @@ public class AngryListActivity extends BaseActivity<AngryListActivity> {
 
     private void getData(final boolean more) {
         page = more ? page + 1 : 0;
-        // api
         int searchType = ApiHelper.LIST_NOTE_TYPE[searchIndex];
-        call = new RetrofitHelper().call(API.class).noteAngryListGet(searchType, page);
-        RetrofitHelper.enqueue(call, null, new RetrofitHelper.CallBack() {
+        // api
+        Call<Result> api = new RetrofitHelper().call(API.class).noteAngryListGet(searchType, page);
+        RetrofitHelper.enqueue(api, null, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 if (recyclerHelper == null) return;
@@ -166,6 +161,7 @@ public class AngryListActivity extends BaseActivity<AngryListActivity> {
                 recyclerHelper.dataFail(more, message);
             }
         });
+        pushApi(api);
     }
 
     private void showSearchDialog() {

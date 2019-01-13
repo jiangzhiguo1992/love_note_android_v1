@@ -62,7 +62,6 @@ public class MapSelectActivity extends BaseActivity<MapSelectActivity> {
     private LocationInfo locationSelect;
     private PoiSearch poiSearch;
     private PoiSearch.OnPoiSearchListener poiSearchListener;
-    private Observable<LocationInfo> obMapSearch;
     private RecyclerHelper recyclerHelper;
     private boolean moveWithSearch;
 
@@ -146,11 +145,12 @@ public class MapSelectActivity extends BaseActivity<MapSelectActivity> {
             }
         });
         // 地图搜索
-        obMapSearch = RxBus.register(RxBus.EVENT_MAP_SELECT, info -> {
+        Observable<LocationInfo> bus = RxBus.register(RxBus.EVENT_MAP_SELECT, info -> {
             // 修改选中位置
             //setLocationSelect(info, true, true);
             mActivity.finish();
         });
+        pushBus(RxBus.EVENT_MAP_SELECT, bus);
         // 传入的位置
         LocationInfo info = null;
         String address = intent.getStringExtra("address");
@@ -170,7 +170,6 @@ public class MapSelectActivity extends BaseActivity<MapSelectActivity> {
     @Override
     protected void onFinish(Bundle state) {
         RecyclerHelper.release(recyclerHelper);
-        RxBus.unregister(RxBus.EVENT_MAP_SELECT, obMapSearch);
         if (poiSearch != null) {
             poiSearch.setOnPoiSearchListener(null);
         }

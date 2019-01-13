@@ -12,7 +12,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.afollestad.materialdialogs.MaterialDialog;
 import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.base.component.ActivityTrans;
 import com.jiangzg.base.view.ToastUtils;
@@ -50,7 +49,6 @@ public class AwardRuleEditActivity extends BaseActivity<AwardRuleEditActivity> {
     TextView tvTitleLimit;
 
     private AwardRule awardRule;
-    private Call<Result> callAdd;
     private int limitTitleLength;
     private int scoreMax;
 
@@ -83,7 +81,6 @@ public class AwardRuleEditActivity extends BaseActivity<AwardRuleEditActivity> {
 
     @Override
     protected void onFinish(Bundle state) {
-        RetrofitHelper.cancel(callAdd);
     }
 
     @Override
@@ -170,9 +167,9 @@ public class AwardRuleEditActivity extends BaseActivity<AwardRuleEditActivity> {
             ToastUtils.show(etTitle.getHint().toString());
             return;
         }
-        MaterialDialog loading = getLoading(false);
-        callAdd = new RetrofitHelper().call(API.class).noteAwardRuleAdd(awardRule);
-        RetrofitHelper.enqueue(callAdd, loading, new RetrofitHelper.CallBack() {
+        // api
+        Call<Result> api = new RetrofitHelper().call(API.class).noteAwardRuleAdd(awardRule);
+        RetrofitHelper.enqueue(api, getLoading(false), new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 // event
@@ -185,6 +182,7 @@ public class AwardRuleEditActivity extends BaseActivity<AwardRuleEditActivity> {
             public void onFailure(int code, String message, Result.Data data) {
             }
         });
+        pushApi(api);
     }
 
 }

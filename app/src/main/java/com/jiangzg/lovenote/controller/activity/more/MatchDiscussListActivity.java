@@ -88,8 +88,6 @@ public class MatchDiscussListActivity extends BaseActivity<MatchDiscussListActiv
     private MatchPeriod period;
     private boolean showNew;
     private RecyclerHelper recyclerHelper;
-    private Call<Result> callGet;
-    private Call<Result> callAdd;
     private BottomSheetBehavior behaviorAdd;
     private int page, orderIndex, limitContentLength;
 
@@ -172,8 +170,6 @@ public class MatchDiscussListActivity extends BaseActivity<MatchDiscussListActiv
 
     @Override
     protected void onFinish(Bundle state) {
-        RetrofitHelper.cancel(callGet);
-        RetrofitHelper.cancel(callAdd);
         RecyclerHelper.release(recyclerHelper);
     }
 
@@ -274,10 +270,10 @@ public class MatchDiscussListActivity extends BaseActivity<MatchDiscussListActiv
             srl.setRefreshing(false);
         }
         page = more ? page + 1 : 0;
-        // api
         int orderType = ApiHelper.LIST_MATCH_ORDER_TYPE[orderIndex];
-        callGet = new RetrofitHelper().call(API.class).moreMatchWordListGet(period.getId(), orderType, page);
-        RetrofitHelper.enqueue(callGet, null, new RetrofitHelper.CallBack() {
+        // api
+        Call<Result> api = new RetrofitHelper().call(API.class).moreMatchWordListGet(period.getId(), orderType, page);
+        RetrofitHelper.enqueue(api, null, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 if (recyclerHelper == null) return;
@@ -292,6 +288,7 @@ public class MatchDiscussListActivity extends BaseActivity<MatchDiscussListActiv
                 recyclerHelper.dataFail(more, message);
             }
         });
+        pushApi(api);
     }
 
     private void showSearchDialog() {
@@ -354,14 +351,13 @@ public class MatchDiscussListActivity extends BaseActivity<MatchDiscussListActiv
             ToastUtils.show(etContent.getHint());
             return;
         }
+        InputUtils.hideSoftInput(etContent);
         MatchWork body = new MatchWork();
         body.setMatchPeriodId(period.getId());
         body.setContentText(content);
         // api
-        InputUtils.hideSoftInput(etContent);
-        MaterialDialog loading = getLoading(true);
-        callAdd = new RetrofitHelper().call(API.class).moreMatchWorkAdd(body);
-        RetrofitHelper.enqueue(callAdd, loading, new RetrofitHelper.CallBack() {
+        Call<Result> api = new RetrofitHelper().call(API.class).moreMatchWorkAdd(body);
+        RetrofitHelper.enqueue(api, getLoading(true), new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 etContent.setText("");
@@ -372,6 +368,7 @@ public class MatchDiscussListActivity extends BaseActivity<MatchDiscussListActiv
             public void onFailure(int code, String message, Result.Data data) {
             }
         });
+        pushApi(api);
     }
 
 }

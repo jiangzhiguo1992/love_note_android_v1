@@ -81,11 +81,6 @@ public class PromiseDetailActivity extends BaseActivity<PromiseDetailActivity> {
     private Promise promise;
     private RecyclerHelper recyclerHelper;
     private BottomSheetBehavior behaviorBreak;
-    private Observable<Promise> obDetailRefresh;
-    private Call<Result> callGet;
-    private Call<Result> callDel;
-    private Call<Result> callBreakAdd;
-    private Call<Result> callBreakListGet;
     private int page;
     private int limitBreakContentLength;
     private long breakHappen;
@@ -159,19 +154,15 @@ public class PromiseDetailActivity extends BaseActivity<PromiseDetailActivity> {
     protected void initData(Intent intent, Bundle state) {
         page = 0;
         // event
-        obDetailRefresh = RxBus.register(RxBus.EVENT_PROMISE_DETAIL_REFRESH, promise -> {
+        Observable<Promise> obDetailRefresh = RxBus.register(RxBus.EVENT_PROMISE_DETAIL_REFRESH, promise -> {
             if (PromiseDetailActivity.this.promise == null) return;
             refreshPromise(PromiseDetailActivity.this.promise.getId());
         });
+        pushBus(RxBus.EVENT_PROMISE_DETAIL_REFRESH, obDetailRefresh);
     }
 
     @Override
     protected void onFinish(Bundle state) {
-        RetrofitHelper.cancel(callGet);
-        RetrofitHelper.cancel(callDel);
-        RetrofitHelper.cancel(callBreakAdd);
-        RetrofitHelper.cancel(callBreakListGet);
-        RxBus.unregister(RxBus.EVENT_PROMISE_DETAIL_REFRESH, obDetailRefresh);
         RecyclerHelper.release(recyclerHelper);
     }
 
@@ -219,8 +210,8 @@ public class PromiseDetailActivity extends BaseActivity<PromiseDetailActivity> {
         if (!srl.isRefreshing()) {
             srl.setRefreshing(true);
         }
-        callGet = new RetrofitHelper().call(API.class).notePromiseGet(pid);
-        RetrofitHelper.enqueue(callGet, null, new RetrofitHelper.CallBack() {
+        Call<Result> api = new RetrofitHelper().call(API.class).notePromiseGet(pid);
+        RetrofitHelper.enqueue(api, null, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 if (recyclerHelper == null) return;
@@ -236,6 +227,7 @@ public class PromiseDetailActivity extends BaseActivity<PromiseDetailActivity> {
                 srl.setRefreshing(false);
             }
         });
+        pushApi(api);
     }
 
     private void initHead() {
@@ -263,8 +255,8 @@ public class PromiseDetailActivity extends BaseActivity<PromiseDetailActivity> {
         if (promise == null) return;
         page = more ? page + 1 : 0;
         // api
-        callBreakListGet = new RetrofitHelper().call(API.class).notePromiseBreakListGet(promise.getId(), page);
-        RetrofitHelper.enqueue(callBreakListGet, null, new RetrofitHelper.CallBack() {
+        Call<Result> api = new RetrofitHelper().call(API.class).notePromiseBreakListGet(promise.getId(), page);
+        RetrofitHelper.enqueue(api, null, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 if (recyclerHelper == null) return;
@@ -279,6 +271,7 @@ public class PromiseDetailActivity extends BaseActivity<PromiseDetailActivity> {
                 recyclerHelper.dataFail(more, message);
             }
         });
+        pushApi(api);
     }
 
     private void onBreakContentInput(String input) {
@@ -323,9 +316,8 @@ public class PromiseDetailActivity extends BaseActivity<PromiseDetailActivity> {
 
     private void delPromise() {
         if (promise == null) return;
-        MaterialDialog loading = getLoading(getString(R.string.are_deleting), true);
-        callDel = new RetrofitHelper().call(API.class).notePromiseDel(promise.getId());
-        RetrofitHelper.enqueue(callDel, loading, new RetrofitHelper.CallBack() {
+        Call<Result> api = new RetrofitHelper().call(API.class).notePromiseDel(promise.getId());
+        RetrofitHelper.enqueue(api, getLoading(getString(R.string.are_deleting), true), new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 // event
@@ -337,6 +329,7 @@ public class PromiseDetailActivity extends BaseActivity<PromiseDetailActivity> {
             public void onFailure(int code, String message, Result.Data data) {
             }
         });
+        pushApi(api);
     }
 
     private void showBreakTimePicker() {
@@ -361,15 +354,14 @@ public class PromiseDetailActivity extends BaseActivity<PromiseDetailActivity> {
             ToastUtils.show(etBreakContent.getHint());
             return;
         }
+        InputUtils.hideSoftInput(etBreakContent);
         PromiseBreak promiseBreak = new PromiseBreak();
         promiseBreak.setPromiseId(promise.getId());
         promiseBreak.setHappenAt(breakHappen);
         promiseBreak.setContentText(content);
         // api
-        InputUtils.hideSoftInput(etBreakContent);
-        MaterialDialog loading = getLoading(getString(R.string.are_deleting), true);
-        callBreakAdd = new RetrofitHelper().call(API.class).notePromiseBreakAdd(promiseBreak);
-        RetrofitHelper.enqueue(callBreakAdd, loading, new RetrofitHelper.CallBack() {
+        Call<Result> api = new RetrofitHelper().call(API.class).notePromiseBreakAdd(promiseBreak);
+        RetrofitHelper.enqueue(api, getLoading(getString(R.string.are_deleting), true), new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 etBreakContent.setText("");
@@ -386,6 +378,7 @@ public class PromiseDetailActivity extends BaseActivity<PromiseDetailActivity> {
             public void onFailure(int code, String message, Result.Data data) {
             }
         });
+        pushApi(api);
     }
 
 }

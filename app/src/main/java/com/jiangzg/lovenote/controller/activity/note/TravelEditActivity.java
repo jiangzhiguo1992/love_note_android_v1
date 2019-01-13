@@ -104,14 +104,6 @@ public class TravelEditActivity extends BaseActivity<TravelEditActivity> {
     private RecyclerHelper recyclerFood;
     private RecyclerHelper recyclerMovie;
     private RecyclerHelper recyclerDiary;
-    private Observable<TravelPlace> obAddPlace;
-    private Observable<Album> obSelectAlbum;
-    private Observable<Video> obSelectVideo;
-    private Observable<Food> obSelectFood;
-    private Observable<Movie> obSelectMovie;
-    private Observable<Diary> obSelectDiary;
-    private Call<Result> callAdd;
-    private Call<Result> callUpdate;
 
     public static void goActivity(Activity from) {
         Intent intent = new Intent(from, TravelEditActivity.class);
@@ -330,60 +322,58 @@ public class TravelEditActivity extends BaseActivity<TravelEditActivity> {
     @Override
     protected void initData(Intent intent, Bundle state) {
         // event
-        obAddPlace = RxBus.register(RxBus.EVENT_TRAVEL_EDIT_ADD_PLACE, travelPlace -> {
+        Observable<TravelPlace> obAddPlace = RxBus.register(RxBus.EVENT_TRAVEL_EDIT_ADD_PLACE, travelPlace -> {
             if (recyclerPlace == null) return;
             List<TravelPlace> placeList = new ArrayList<>();
             placeList.add(travelPlace);
             recyclerPlace.dataAdd(placeList);
             refreshAddView();
         });
-        obSelectAlbum = RxBus.register(RxBus.EVENT_ALBUM_SELECT, album -> {
+        pushBus(RxBus.EVENT_TRAVEL_EDIT_ADD_PLACE, obAddPlace);
+        Observable<Album> obSelectAlbum = RxBus.register(RxBus.EVENT_ALBUM_SELECT, album -> {
             if (recyclerAlbum == null) return;
             List<Album> albumList = new ArrayList<>();
             albumList.add(album);
             recyclerAlbum.dataAdd(albumList);
             refreshAddView();
         });
-        obSelectVideo = RxBus.register(RxBus.EVENT_VIDEO_SELECT, video -> {
+        pushBus(RxBus.EVENT_ALBUM_SELECT, obSelectAlbum);
+        Observable<Video> obSelectVideo = RxBus.register(RxBus.EVENT_VIDEO_SELECT, video -> {
             if (recyclerVideo == null) return;
             List<Video> videoList = new ArrayList<>();
             videoList.add(video);
             recyclerVideo.dataAdd(videoList);
             refreshAddView();
         });
-        obSelectFood = RxBus.register(RxBus.EVENT_FOOD_SELECT, food -> {
+        pushBus(RxBus.EVENT_VIDEO_SELECT, obSelectVideo);
+        Observable<Food> obSelectFood = RxBus.register(RxBus.EVENT_FOOD_SELECT, food -> {
             if (recyclerFood == null) return;
             List<Food> foodList = new ArrayList<>();
             foodList.add(food);
             recyclerFood.dataAdd(foodList);
             refreshAddView();
         });
-        obSelectMovie = RxBus.register(RxBus.EVENT_MOVIE_SELECT, movie -> {
+        pushBus(RxBus.EVENT_FOOD_SELECT, obSelectFood);
+        Observable<Movie> obSelectMovie = RxBus.register(RxBus.EVENT_MOVIE_SELECT, movie -> {
             if (recyclerMovie == null) return;
             List<Movie> movieList = new ArrayList<>();
             movieList.add(movie);
             recyclerMovie.dataAdd(movieList);
             refreshAddView();
         });
-        obSelectDiary = RxBus.register(RxBus.EVENT_DIARY_SELECT, diary -> {
+        pushBus(RxBus.EVENT_MOVIE_SELECT, obSelectMovie);
+        Observable<Diary> obSelectDiary = RxBus.register(RxBus.EVENT_DIARY_SELECT, diary -> {
             if (recyclerDiary == null) return;
             List<Diary> diaryList = new ArrayList<>();
             diaryList.add(diary);
             recyclerDiary.dataAdd(diaryList);
             refreshAddView();
         });
+        pushBus(RxBus.EVENT_DIARY_SELECT, obSelectDiary);
     }
 
     @Override
     protected void onFinish(Bundle state) {
-        RetrofitHelper.cancel(callAdd);
-        RetrofitHelper.cancel(callUpdate);
-        RxBus.unregister(RxBus.EVENT_TRAVEL_EDIT_ADD_PLACE, obAddPlace);
-        RxBus.unregister(RxBus.EVENT_ALBUM_SELECT, obSelectAlbum);
-        RxBus.unregister(RxBus.EVENT_VIDEO_SELECT, obSelectVideo);
-        RxBus.unregister(RxBus.EVENT_FOOD_SELECT, obSelectFood);
-        RxBus.unregister(RxBus.EVENT_MOVIE_SELECT, obSelectMovie);
-        RxBus.unregister(RxBus.EVENT_DIARY_SELECT, obSelectDiary);
         RecyclerHelper.release(recyclerPlace);
         RecyclerHelper.release(recyclerAlbum);
         RecyclerHelper.release(recyclerVideo);
@@ -634,9 +624,8 @@ public class TravelEditActivity extends BaseActivity<TravelEditActivity> {
 
     private void updateApi(Travel travel) {
         if (travel == null) return;
-        callUpdate = new RetrofitHelper().call(API.class).noteTravelUpdate(travel);
-        MaterialDialog loading = getLoading(false);
-        RetrofitHelper.enqueue(callUpdate, loading, new RetrofitHelper.CallBack() {
+        Call<Result> api = new RetrofitHelper().call(API.class).noteTravelUpdate(travel);
+        RetrofitHelper.enqueue(api, getLoading(false), new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 // event
@@ -651,13 +640,13 @@ public class TravelEditActivity extends BaseActivity<TravelEditActivity> {
             public void onFailure(int code, String message, Result.Data data) {
             }
         });
+        pushApi(api);
     }
 
     private void addApi(Travel travel) {
         if (travel == null) return;
-        callAdd = new RetrofitHelper().call(API.class).noteTravelAdd(travel);
-        MaterialDialog loading = getLoading(false);
-        RetrofitHelper.enqueue(callAdd, loading, new RetrofitHelper.CallBack() {
+        Call<Result> api = new RetrofitHelper().call(API.class).noteTravelAdd(travel);
+        RetrofitHelper.enqueue(api, getLoading(false), new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 // event
@@ -670,6 +659,7 @@ public class TravelEditActivity extends BaseActivity<TravelEditActivity> {
             public void onFailure(int code, String message, Result.Data data) {
             }
         });
+        pushApi(api);
     }
 
 }

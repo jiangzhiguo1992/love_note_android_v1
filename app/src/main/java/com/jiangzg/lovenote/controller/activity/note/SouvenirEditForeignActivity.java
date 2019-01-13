@@ -104,14 +104,6 @@ public class SouvenirEditForeignActivity extends BaseActivity<SouvenirEditForeig
     private RecyclerHelper recyclerFood;
     private RecyclerHelper recyclerMovie;
     private RecyclerHelper recyclerDiary;
-    private Observable<Gift> obSelectGift;
-    private Observable<Travel> obSelectTravel;
-    private Observable<Album> obSelectAlbum;
-    private Observable<Video> obSelectVideo;
-    private Observable<Food> obSelectFood;
-    private Observable<Movie> obSelectMovie;
-    private Observable<Diary> obSelectDiary;
-    private Call<Result> call;
 
     public static void goActivity(Fragment from, int year, Souvenir souvenir) {
         if (souvenir == null || !souvenir.isMine()) {
@@ -326,67 +318,66 @@ public class SouvenirEditForeignActivity extends BaseActivity<SouvenirEditForeig
     @Override
     protected void initData(Intent intent, Bundle state) {
         // event
-        obSelectGift = RxBus.register(RxBus.EVENT_GIFT_SELECT, gift -> {
+        Observable<Gift> obSelectGift = RxBus.register(RxBus.EVENT_GIFT_SELECT, gift -> {
             if (recyclerGift == null) return;
             List<Gift> giftList = new ArrayList<>();
             giftList.add(gift);
             recyclerGift.dataAdd(giftList);
             refreshAddView();
         });
-        obSelectTravel = RxBus.register(RxBus.EVENT_TRAVEL_SELECT, travel -> {
+        pushBus(RxBus.EVENT_GIFT_SELECT, obSelectGift);
+        Observable<Travel> obSelectTravel = RxBus.register(RxBus.EVENT_TRAVEL_SELECT, travel -> {
             if (recyclerTravel == null) return;
             List<Travel> travelList = new ArrayList<>();
             travelList.add(travel);
             recyclerTravel.dataAdd(travelList);
             refreshAddView();
         });
-        obSelectAlbum = RxBus.register(RxBus.EVENT_ALBUM_SELECT, album -> {
+        pushBus(RxBus.EVENT_TRAVEL_SELECT, obSelectTravel);
+        Observable<Album> obSelectAlbum = RxBus.register(RxBus.EVENT_ALBUM_SELECT, album -> {
             if (recyclerAlbum == null) return;
             List<Album> albumList = new ArrayList<>();
             albumList.add(album);
             recyclerAlbum.dataAdd(albumList);
             refreshAddView();
         });
-        obSelectVideo = RxBus.register(RxBus.EVENT_VIDEO_SELECT, video -> {
+        pushBus(RxBus.EVENT_ALBUM_SELECT, obSelectAlbum);
+        Observable<Video> obSelectVideo = RxBus.register(RxBus.EVENT_VIDEO_SELECT, video -> {
             if (recyclerVideo == null) return;
             List<Video> videoList = new ArrayList<>();
             videoList.add(video);
             recyclerVideo.dataAdd(videoList);
             refreshAddView();
         });
-        obSelectFood = RxBus.register(RxBus.EVENT_FOOD_SELECT, food -> {
+        pushBus(RxBus.EVENT_VIDEO_SELECT, obSelectVideo);
+        Observable<Food> obSelectFood = RxBus.register(RxBus.EVENT_FOOD_SELECT, food -> {
             if (recyclerFood == null) return;
             List<Food> foodList = new ArrayList<>();
             foodList.add(food);
             recyclerFood.dataAdd(foodList);
             refreshAddView();
         });
-        obSelectMovie = RxBus.register(RxBus.EVENT_MOVIE_SELECT, movie -> {
+        pushBus(RxBus.EVENT_FOOD_SELECT, obSelectFood);
+        Observable<Movie> obSelectMovie = RxBus.register(RxBus.EVENT_MOVIE_SELECT, movie -> {
             if (recyclerMovie == null) return;
             List<Movie> movieList = new ArrayList<>();
             movieList.add(movie);
             recyclerMovie.dataAdd(movieList);
             refreshAddView();
         });
-        obSelectDiary = RxBus.register(RxBus.EVENT_DIARY_SELECT, diary -> {
+        pushBus(RxBus.EVENT_MOVIE_SELECT, obSelectMovie);
+        Observable<Diary> obSelectDiary = RxBus.register(RxBus.EVENT_DIARY_SELECT, diary -> {
             if (recyclerDiary == null) return;
             List<Diary> diaryList = new ArrayList<>();
             diaryList.add(diary);
             recyclerDiary.dataAdd(diaryList);
             refreshAddView();
         });
+        pushBus(RxBus.EVENT_DIARY_SELECT, obSelectDiary);
     }
 
     @Override
     protected void onFinish(Bundle state) {
-        RetrofitHelper.cancel(call);
-        RxBus.unregister(RxBus.EVENT_GIFT_SELECT, obSelectGift);
-        RxBus.unregister(RxBus.EVENT_TRAVEL_SELECT, obSelectTravel);
-        RxBus.unregister(RxBus.EVENT_ALBUM_SELECT, obSelectAlbum);
-        RxBus.unregister(RxBus.EVENT_VIDEO_SELECT, obSelectVideo);
-        RxBus.unregister(RxBus.EVENT_FOOD_SELECT, obSelectFood);
-        RxBus.unregister(RxBus.EVENT_MOVIE_SELECT, obSelectMovie);
-        RxBus.unregister(RxBus.EVENT_DIARY_SELECT, obSelectDiary);
         RecyclerHelper.release(recyclerGift);
         RecyclerHelper.release(recyclerTravel);
         RecyclerHelper.release(recyclerAlbum);
@@ -619,9 +610,8 @@ public class SouvenirEditForeignActivity extends BaseActivity<SouvenirEditForeig
 
     private void updateApi(Souvenir souvenir) {
         if (souvenir == null) return;
-        call = new RetrofitHelper().call(API.class).noteSouvenirUpdateForeign(year, souvenir);
-        MaterialDialog loading = getLoading(false);
-        RetrofitHelper.enqueue(call, loading, new RetrofitHelper.CallBack() {
+        Call<Result> api = new RetrofitHelper().call(API.class).noteSouvenirUpdateForeign(year, souvenir);
+        RetrofitHelper.enqueue(api, getLoading(false), new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 // event
@@ -635,6 +625,7 @@ public class SouvenirEditForeignActivity extends BaseActivity<SouvenirEditForeig
             public void onFailure(int code, String message, Result.Data data) {
             }
         });
+        pushApi(api);
     }
 
 }

@@ -59,9 +59,6 @@ public class SouvenirDetailWishActivity extends BaseActivity<SouvenirDetailDoneA
     TextView tvCreateAt;
 
     private Souvenir souvenir;
-    private Call<Result> callGet;
-    private Call<Result> callDel;
-    private Observable<Souvenir> obDetailRefresh;
 
     public static void goActivity(Fragment from, Souvenir souvenir) {
         Intent intent = new Intent(from.getActivity(), SouvenirDetailWishActivity.class);
@@ -106,17 +103,15 @@ public class SouvenirDetailWishActivity extends BaseActivity<SouvenirDetailDoneA
     @Override
     protected void initData(Intent intent, Bundle state) {
         // event
-        obDetailRefresh = RxBus.register(RxBus.EVENT_SOUVENIR_DETAIL_REFRESH, souvenir -> {
+        Observable<Souvenir> obDetailRefresh = RxBus.register(RxBus.EVENT_SOUVENIR_DETAIL_REFRESH, souvenir -> {
             if (souvenir == null) return;
             refreshData(souvenir.getId());
         });
+        pushBus(RxBus.EVENT_SOUVENIR_DETAIL_REFRESH, obDetailRefresh);
     }
 
     @Override
     protected void onFinish(Bundle state) {
-        RetrofitHelper.cancel(callGet);
-        RetrofitHelper.cancel(callDel);
-        RxBus.unregister(RxBus.EVENT_SOUVENIR_DETAIL_REFRESH, obDetailRefresh);
     }
 
     @Override
@@ -153,8 +148,8 @@ public class SouvenirDetailWishActivity extends BaseActivity<SouvenirDetailDoneA
         if (!srl.isRefreshing()) {
             srl.setRefreshing(true);
         }
-        callGet = new RetrofitHelper().call(API.class).noteSouvenirGet(sid);
-        RetrofitHelper.enqueue(callGet, null, new RetrofitHelper.CallBack() {
+        Call<Result> api = new RetrofitHelper().call(API.class).noteSouvenirGet(sid);
+        RetrofitHelper.enqueue(api, null, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 srl.setRefreshing(false);
@@ -167,6 +162,7 @@ public class SouvenirDetailWishActivity extends BaseActivity<SouvenirDetailDoneA
                 srl.setRefreshing(false);
             }
         });
+        pushApi(api);
     }
 
     private void refreshView() {
@@ -224,9 +220,8 @@ public class SouvenirDetailWishActivity extends BaseActivity<SouvenirDetailDoneA
 
     private void deleteApi() {
         if (souvenir == null) return;
-        MaterialDialog loading = getLoading(true);
-        callDel = new RetrofitHelper().call(API.class).noteSouvenirDel(souvenir.getId());
-        RetrofitHelper.enqueue(callDel, loading, new RetrofitHelper.CallBack() {
+        Call<Result> api = new RetrofitHelper().call(API.class).noteSouvenirDel(souvenir.getId());
+        RetrofitHelper.enqueue(api, getLoading(true), new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 // event
@@ -239,6 +234,7 @@ public class SouvenirDetailWishActivity extends BaseActivity<SouvenirDetailDoneA
             public void onFailure(int code, String message, Result.Data data) {
             }
         });
+        pushApi(api);
     }
 
 }

@@ -40,7 +40,6 @@ public class CouplePlaceActivity extends BaseActivity<CouplePlaceActivity> {
     RecyclerView rv;
 
     private RecyclerHelper recyclerHelper;
-    private Call<Result> call;
     private int page;
 
     public static void goActivity(Fragment from) {
@@ -93,15 +92,14 @@ public class CouplePlaceActivity extends BaseActivity<CouplePlaceActivity> {
 
     @Override
     protected void onFinish(Bundle state) {
-        RetrofitHelper.cancel(call);
         RecyclerHelper.release(recyclerHelper);
     }
 
     private void getData(final boolean more) {
         page = more ? page + 1 : 0;
         // api
-        call = new RetrofitHelper().call(API.class).couplePlaceListGet(page);
-        RetrofitHelper.enqueue(call, null, new RetrofitHelper.CallBack() {
+        Call<Result> api = new RetrofitHelper().call(API.class).couplePlaceListGet(page);
+        RetrofitHelper.enqueue(api, null, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 if (recyclerHelper == null) return;
@@ -116,6 +114,7 @@ public class CouplePlaceActivity extends BaseActivity<CouplePlaceActivity> {
                 recyclerHelper.dataFail(more, message);
             }
         });
+        pushApi(api);
     }
 
 }

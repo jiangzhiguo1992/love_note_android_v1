@@ -50,10 +50,6 @@ public class MovieListActivity extends BaseActivity<MovieListActivity> {
     FloatingActionButton fabAdd;
 
     private RecyclerHelper recyclerHelper;
-    private Observable<List<Movie>> obListRefresh;
-    private Observable<Movie> obListItemRefresh;
-    private Observable<Movie> obListItemDelete;
-    private Call<Result> call;
     private int page;
 
     public static void goActivity(Activity from) {
@@ -135,28 +131,27 @@ public class MovieListActivity extends BaseActivity<MovieListActivity> {
     protected void initData(Intent intent, Bundle state) {
         page = 0;
         // event
-        obListRefresh = RxBus.register(RxBus.EVENT_MOVIE_LIST_REFRESH, movieList -> {
+        Observable<List<Movie>> obListRefresh = RxBus.register(RxBus.EVENT_MOVIE_LIST_REFRESH, movieList -> {
             if (recyclerHelper == null) return;
             recyclerHelper.dataRefresh();
         });
-        obListItemDelete = RxBus.register(RxBus.EVENT_MOVIE_LIST_ITEM_DELETE, movie -> {
+        pushBus(RxBus.EVENT_MOVIE_LIST_REFRESH, obListRefresh);
+        Observable<Movie> obListItemDelete = RxBus.register(RxBus.EVENT_MOVIE_LIST_ITEM_DELETE, movie -> {
             if (recyclerHelper == null) return;
             ListHelper.removeObjInAdapter(recyclerHelper.getAdapter(), movie);
         });
-        obListItemRefresh = RxBus.register(RxBus.EVENT_MOVIE_LIST_ITEM_REFRESH, movie -> {
+        pushBus(RxBus.EVENT_MOVIE_LIST_ITEM_DELETE, obListItemDelete);
+        Observable<Movie> obListItemRefresh = RxBus.register(RxBus.EVENT_MOVIE_LIST_ITEM_REFRESH, movie -> {
             if (recyclerHelper == null) return;
             ListHelper.refreshObjInAdapter(recyclerHelper.getAdapter(), movie);
         });
+        pushBus(RxBus.EVENT_MOVIE_LIST_ITEM_REFRESH, obListItemRefresh);
         // refresh
         recyclerHelper.dataRefresh();
     }
 
     @Override
     protected void onFinish(Bundle state) {
-        RetrofitHelper.cancel(call);
-        RxBus.unregister(RxBus.EVENT_MOVIE_LIST_REFRESH, obListRefresh);
-        RxBus.unregister(RxBus.EVENT_MOVIE_LIST_ITEM_DELETE, obListItemDelete);
-        RxBus.unregister(RxBus.EVENT_MOVIE_LIST_ITEM_REFRESH, obListItemRefresh);
         RecyclerHelper.release(recyclerHelper);
     }
 
@@ -192,8 +187,8 @@ public class MovieListActivity extends BaseActivity<MovieListActivity> {
     private void getData(final boolean more) {
         page = more ? page + 1 : 0;
         // api
-        call = new RetrofitHelper().call(API.class).noteMovieListGet(page);
-        RetrofitHelper.enqueue(call, null, new RetrofitHelper.CallBack() {
+        Call<Result> api = new RetrofitHelper().call(API.class).noteMovieListGet(page);
+        RetrofitHelper.enqueue(api, null, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 if (recyclerHelper == null) return;
@@ -211,6 +206,7 @@ public class MovieListActivity extends BaseActivity<MovieListActivity> {
                 recyclerHelper.dataFail(more, message);
             }
         });
+        pushApi(api);
     }
 
 }

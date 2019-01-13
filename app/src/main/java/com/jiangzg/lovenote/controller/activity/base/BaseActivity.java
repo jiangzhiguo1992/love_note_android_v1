@@ -27,15 +27,23 @@ import com.jiangzg.base.view.ScreenUtils;
 import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.controller.activity.main.HomeActivity;
+import com.jiangzg.lovenote.helper.common.RxBus;
+import com.jiangzg.lovenote.helper.system.RetrofitHelper;
 import com.jiangzg.lovenote.helper.view.DialogHelper;
 import com.jiangzg.lovenote.helper.view.ThemeHelper;
+import com.jiangzg.lovenote.model.api.Result;
+import com.jiangzg.lovenote.model.engine.RxRegister;
 
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Stack;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+import retrofit2.Call;
+import rx.Observable;
 
 /**
  * Created by JiangZhiGuo on 2016-12-2.
@@ -75,6 +83,8 @@ public abstract class BaseActivity<T> extends AppCompatActivity {
     private MaterialDialog mLoading;
     private Long mLastExitTime = 0L; //最后一次退出时间
     private boolean isLoad = false; // 是否加载过数据，主要用于换肤
+    private List<Call<Result>> apiList = new ArrayList<>(); // api队列
+    private List<RxRegister> busList = new ArrayList<>(); // bus队列
 
     /* activity跳转demo */
     private static void goActivity(Activity from) {
@@ -95,6 +105,16 @@ public abstract class BaseActivity<T> extends AppCompatActivity {
 
     /* 注销 */
     protected abstract void onFinish(Bundle state);
+
+    public void pushApi(Call<Result> api) {
+        if (api == null) return;
+        apiList.add(api);
+    }
+
+    public void pushBus(int event, Observable bus) {
+        if (bus == null) return;
+        busList.add(new RxRegister(event, bus));
+    }
 
     public MaterialDialog getLoading(String msg, boolean cancelable, DialogInterface.OnDismissListener listener) {
         MaterialDialog loading = getLoading(msg, cancelable);
@@ -182,6 +202,15 @@ public abstract class BaseActivity<T> extends AppCompatActivity {
         super.onPause();
         if (isFinishing()) {
             onFinish(null);
+            // 取消网络操作
+            for (Call<Result> api : apiList) {
+                RetrofitHelper.cancel(api);
+            }
+            // 注销bus
+            for (RxRegister bus : busList) {
+                if (bus == null) continue;
+                RxBus.unregister(bus.getEvent(), bus.getOb());
+            }
         }
     }
 

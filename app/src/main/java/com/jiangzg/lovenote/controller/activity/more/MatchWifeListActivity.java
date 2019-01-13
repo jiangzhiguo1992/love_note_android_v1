@@ -75,8 +75,6 @@ public class MatchWifeListActivity extends BaseActivity<MatchWifeListActivity> {
     private MatchPeriod period;
     private boolean showNew;
     private RecyclerHelper recyclerHelper;
-    private Call<Result> callGet;
-    private Call<Result> callAdd;
     private int page;
     private int orderIndex;
 
@@ -162,8 +160,6 @@ public class MatchWifeListActivity extends BaseActivity<MatchWifeListActivity> {
 
     @Override
     protected void onFinish(Bundle state) {
-        RetrofitHelper.cancel(callGet);
-        RetrofitHelper.cancel(callAdd);
         RecyclerHelper.release(recyclerHelper);
     }
 
@@ -255,10 +251,10 @@ public class MatchWifeListActivity extends BaseActivity<MatchWifeListActivity> {
             srl.setRefreshing(false);
         }
         page = more ? page + 1 : 0;
-        // api
         int orderType = ApiHelper.LIST_MATCH_ORDER_TYPE[orderIndex];
-        callGet = new RetrofitHelper().call(API.class).moreMatchWordListGet(period.getId(), orderType, page);
-        RetrofitHelper.enqueue(callGet, null, new RetrofitHelper.CallBack() {
+        // api
+        Call<Result> api = new RetrofitHelper().call(API.class).moreMatchWordListGet(period.getId(), orderType, page);
+        RetrofitHelper.enqueue(api, null, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 if (recyclerHelper == null) return;
@@ -273,6 +269,7 @@ public class MatchWifeListActivity extends BaseActivity<MatchWifeListActivity> {
                 recyclerHelper.dataFail(more, message);
             }
         });
+        pushApi(api);
     }
 
     private void showSearchDialog() {
@@ -328,9 +325,8 @@ public class MatchWifeListActivity extends BaseActivity<MatchWifeListActivity> {
     }
 
     private void api(MatchWork body) {
-        callAdd = new RetrofitHelper().call(API.class).moreMatchWorkAdd(body);
-        MaterialDialog loading = getLoading(true);
-        RetrofitHelper.enqueue(callAdd, loading, new RetrofitHelper.CallBack() {
+        Call<Result> api = new RetrofitHelper().call(API.class).moreMatchWorkAdd(body);
+        RetrofitHelper.enqueue(api, getLoading(true), new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
             }
@@ -339,6 +335,7 @@ public class MatchWifeListActivity extends BaseActivity<MatchWifeListActivity> {
             public void onFailure(int code, String message, Result.Data data) {
             }
         });
+        pushApi(api);
     }
 
 }

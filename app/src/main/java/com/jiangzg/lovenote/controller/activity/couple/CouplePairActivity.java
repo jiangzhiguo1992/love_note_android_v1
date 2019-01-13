@@ -74,10 +74,6 @@ public class CouplePairActivity extends BaseActivity<CouplePairActivity> {
     Button btnCardGood;
 
     private long coupleId;
-    private Call<Result> callRefreshSelf;
-    private Call<Result> callInvitee;
-    private Call<Result> callUpdate;
-    private Call<Result> callGetVisible;
 
     public static void goActivity(Fragment from) {
         Intent intent = new Intent(from.getActivity(), CouplePairActivity.class);
@@ -119,10 +115,6 @@ public class CouplePairActivity extends BaseActivity<CouplePairActivity> {
 
     @Override
     protected void onFinish(Bundle state) {
-        RetrofitHelper.cancel(callRefreshSelf);
-        RetrofitHelper.cancel(callGetVisible);
-        RetrofitHelper.cancel(callInvitee);
-        RetrofitHelper.cancel(callUpdate);
     }
 
     @Override
@@ -194,9 +186,9 @@ public class CouplePairActivity extends BaseActivity<CouplePairActivity> {
         if (!srl.isRefreshing()) {
             srl.setRefreshing(true);
         }
-        // api获取和ta的以往cp
-        callRefreshSelf = new RetrofitHelper().call(API.class).coupleSelfGet();
-        RetrofitHelper.enqueue(callRefreshSelf, null, new RetrofitHelper.CallBack() {
+        // api 获取和ta的以往cp
+        Call<Result> api = new RetrofitHelper().call(API.class).coupleSelfGet();
+        RetrofitHelper.enqueue(api, null, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 srl.setRefreshing(false);
@@ -209,6 +201,7 @@ public class CouplePairActivity extends BaseActivity<CouplePairActivity> {
                 refreshSelfCoupleView(null);
             }
         });
+        pushApi(api);
     }
 
     // 邀请ta
@@ -217,11 +210,11 @@ public class CouplePairActivity extends BaseActivity<CouplePairActivity> {
         if (!srl.isRefreshing()) {
             srl.setRefreshing(true);
         }
-        // api邀请
         User user = new User();
         user.setPhone(etPhone.getText().toString().trim());
-        callInvitee = new RetrofitHelper().call(API.class).coupleInvitee(user);
-        RetrofitHelper.enqueue(callInvitee, null, new RetrofitHelper.CallBack() {
+        // api
+        Call<Result> api = new RetrofitHelper().call(API.class).coupleInvitee(user);
+        RetrofitHelper.enqueue(api, null, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 srl.setRefreshing(false);
@@ -235,6 +228,7 @@ public class CouplePairActivity extends BaseActivity<CouplePairActivity> {
                 refreshSelfCoupleView(null);
             }
         });
+        pushApi(api);
     }
 
     // 刷新view
@@ -322,8 +316,9 @@ public class CouplePairActivity extends BaseActivity<CouplePairActivity> {
     private void coupleUpdate(int type, long coupleId) {
         Couple couple = new Couple();
         couple.setId(coupleId);
-        callUpdate = new RetrofitHelper().call(API.class).coupleUpdate(type, couple);
-        RetrofitHelper.enqueue(callUpdate, null, new RetrofitHelper.CallBack() {
+        // api
+        Call<Result> api = new RetrofitHelper().call(API.class).coupleUpdate(type, couple);
+        RetrofitHelper.enqueue(api, null, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 srl.setRefreshing(false);
@@ -336,6 +331,7 @@ public class CouplePairActivity extends BaseActivity<CouplePairActivity> {
                 refreshSelfCoupleView(null);
             }
         });
+        pushApi(api);
     }
 
     // 查看是否有配对成功的
@@ -343,12 +339,12 @@ public class CouplePairActivity extends BaseActivity<CouplePairActivity> {
         if (!srl.isRefreshing()) {
             srl.setRefreshing(true);
         }
-        // api获取和ta的以往cp
         User me = SPHelper.getMe();
         if (me == null) return;
         long uid = me.getId();
-        callGetVisible = new RetrofitHelper().call(API.class).coupleGet(uid);
-        RetrofitHelper.enqueue(callGetVisible, null, new RetrofitHelper.CallBack() {
+        // api 获取和ta的以往cp
+        Call<Result> api = new RetrofitHelper().call(API.class).coupleGet(uid);
+        RetrofitHelper.enqueue(api, null, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 srl.setRefreshing(false);
@@ -370,6 +366,7 @@ public class CouplePairActivity extends BaseActivity<CouplePairActivity> {
                 refreshSelfCoupleView(null);
             }
         });
+        pushApi(api);
     }
 
 }

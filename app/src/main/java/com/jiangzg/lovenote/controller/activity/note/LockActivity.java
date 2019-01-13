@@ -17,7 +17,6 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
-import com.afollestad.materialdialogs.MaterialDialog;
 import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.base.common.TimeUnit;
 import com.jiangzg.base.component.ActivityTrans;
@@ -82,11 +81,6 @@ public class LockActivity extends BaseActivity<LockActivity> {
     Button btnPwd;
 
     private Lock lock;
-    private Call<Result> callGet;
-    private Call<Result> callToggle;
-    private Call<Result> callAddPwd;
-    private Call<Result> callModifyPwd;
-    private Call<Result> callSms;
     private boolean open;
     private int countDownGo = -1;
     private Runnable countDownTask;
@@ -134,11 +128,6 @@ public class LockActivity extends BaseActivity<LockActivity> {
 
     @Override
     protected void onFinish(Bundle state) {
-        RetrofitHelper.cancel(callGet);
-        RetrofitHelper.cancel(callToggle);
-        RetrofitHelper.cancel(callAddPwd);
-        RetrofitHelper.cancel(callModifyPwd);
-        RetrofitHelper.cancel(callSms);
         stopCountDownTask();
     }
 
@@ -190,8 +179,9 @@ public class LockActivity extends BaseActivity<LockActivity> {
         if (!srl.isRefreshing()) {
             srl.setRefreshing(true);
         }
-        callGet = new RetrofitHelper().call(API.class).noteLockGet();
-        RetrofitHelper.enqueue(callGet, null, new RetrofitHelper.CallBack() {
+        // api
+        Call<Result> api = new RetrofitHelper().call(API.class).noteLockGet();
+        RetrofitHelper.enqueue(api, null, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 srl.setRefreshing(false);
@@ -206,6 +196,7 @@ public class LockActivity extends BaseActivity<LockActivity> {
                 srl.setRefreshing(false);
             }
         });
+        pushApi(api);
     }
 
     private void refreshView() {
@@ -257,8 +248,9 @@ public class LockActivity extends BaseActivity<LockActivity> {
             srl.setRefreshing(true);
         }
         Lock body = ApiHelper.getLockBody(pwd);
-        callToggle = new RetrofitHelper().call(API.class).noteLockToggle(body);
-        RetrofitHelper.enqueue(callToggle, null, new RetrofitHelper.CallBack() {
+        // api
+        Call<Result> api = new RetrofitHelper().call(API.class).noteLockToggle(body);
+        RetrofitHelper.enqueue(api, null, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 srl.setRefreshing(false);
@@ -277,6 +269,7 @@ public class LockActivity extends BaseActivity<LockActivity> {
                 srl.setRefreshing(false);
             }
         });
+        pushApi(api);
     }
 
     private void onInputChange() {
@@ -328,9 +321,9 @@ public class LockActivity extends BaseActivity<LockActivity> {
             srl.setRefreshing(true);
         }
         Lock body = ApiHelper.getLockBody(pwd);
-        callAddPwd = new RetrofitHelper().call(API.class).noteLockAdd(body);
-        MaterialDialog loading = getLoading(getString(R.string.are_send_validate_code), true);
-        RetrofitHelper.enqueue(callAddPwd, loading, new RetrofitHelper.CallBack() {
+        // api
+        Call<Result> api = new RetrofitHelper().call(API.class).noteLockAdd(body);
+        RetrofitHelper.enqueue(api, getLoading(getString(R.string.are_send_validate_code), true), new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 srl.setRefreshing(false);
@@ -345,6 +338,7 @@ public class LockActivity extends BaseActivity<LockActivity> {
                 srl.setRefreshing(false);
             }
         });
+        pushApi(api);
     }
 
     private void modifyPwd(String pwd) {
@@ -353,9 +347,9 @@ public class LockActivity extends BaseActivity<LockActivity> {
         }
         String code = etCode.getText().toString().trim();
         Lock body = ApiHelper.getLockBody(pwd);
-        callModifyPwd = new RetrofitHelper().call(API.class).noteLockUpdatePwd(code, body);
-        MaterialDialog loading = getLoading(getString(R.string.are_send_validate_code), true);
-        RetrofitHelper.enqueue(callModifyPwd, loading, new RetrofitHelper.CallBack() {
+        // api
+        Call<Result> api = new RetrofitHelper().call(API.class).noteLockUpdatePwd(code, body);
+        RetrofitHelper.enqueue(api, getLoading(getString(R.string.are_send_validate_code), true), new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 srl.setRefreshing(false);
@@ -370,6 +364,7 @@ public class LockActivity extends BaseActivity<LockActivity> {
                 srl.setRefreshing(false);
             }
         });
+        pushApi(api);
     }
 
     private void sendCode() {
@@ -381,9 +376,9 @@ public class LockActivity extends BaseActivity<LockActivity> {
             return;
         }
         Sms body = ApiHelper.getSmsLockBody(ta.getPhone());
-        callSms = new RetrofitHelper().call(API.class).smsSend(body);
-        MaterialDialog loading = getLoading(getString(R.string.are_send_validate_code), true);
-        RetrofitHelper.enqueue(callSms, loading, new RetrofitHelper.CallBack() {
+        // api
+        Call<Result> api = new RetrofitHelper().call(API.class).smsSend(body);
+        RetrofitHelper.enqueue(api, getLoading(getString(R.string.are_send_validate_code), true), new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 countDownGo = 0;
@@ -395,6 +390,7 @@ public class LockActivity extends BaseActivity<LockActivity> {
                 btnSendCode.setEnabled(true);
             }
         });
+        pushApi(api);
     }
 
     private Runnable getCountDownTask() {

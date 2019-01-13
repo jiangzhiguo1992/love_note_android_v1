@@ -65,9 +65,6 @@ public class GiftEditActivity extends BaseActivity<GiftEditActivity> {
 
     private Gift gift;
     private RecyclerHelper recyclerHelper;
-    private Call<Result> callUpdate;
-    private Call<Result> callAdd;
-    private Call<Result> callDel;
 
     public static void goActivity(Activity from) {
         Intent intent = new Intent(from, GiftEditActivity.class);
@@ -142,9 +139,6 @@ public class GiftEditActivity extends BaseActivity<GiftEditActivity> {
 
     @Override
     protected void onFinish(Bundle state) {
-        RetrofitHelper.cancel(callAdd);
-        RetrofitHelper.cancel(callUpdate);
-        RetrofitHelper.cancel(callDel);
         RecyclerHelper.release(recyclerHelper);
     }
 
@@ -320,9 +314,8 @@ public class GiftEditActivity extends BaseActivity<GiftEditActivity> {
 
     private void updateApi() {
         if (gift == null) return;
-        MaterialDialog loading = getLoading(false);
-        callUpdate = new RetrofitHelper().call(API.class).noteGiftUpdate(gift);
-        RetrofitHelper.enqueue(callUpdate, loading, new RetrofitHelper.CallBack() {
+        Call<Result> api = new RetrofitHelper().call(API.class).noteGiftUpdate(gift);
+        RetrofitHelper.enqueue(api, getLoading(false), new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 // event
@@ -337,13 +330,13 @@ public class GiftEditActivity extends BaseActivity<GiftEditActivity> {
                 // 上传失败不要删除，还可以继续上传
             }
         });
+        pushApi(api);
     }
 
     private void addApi() {
         if (gift == null) return;
-        MaterialDialog loading = getLoading(false);
-        callAdd = new RetrofitHelper().call(API.class).noteGiftAdd(gift);
-        RetrofitHelper.enqueue(callAdd, loading, new RetrofitHelper.CallBack() {
+        Call<Result> api = new RetrofitHelper().call(API.class).noteGiftAdd(gift);
+        RetrofitHelper.enqueue(api, getLoading(false), new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 // event
@@ -356,6 +349,7 @@ public class GiftEditActivity extends BaseActivity<GiftEditActivity> {
             public void onFailure(int code, String message, Result.Data data) {
             }
         });
+        pushApi(api);
     }
 
     private void showDeleteDialog() {
@@ -372,9 +366,8 @@ public class GiftEditActivity extends BaseActivity<GiftEditActivity> {
 
     private void deleteApi() {
         if (gift == null) return;
-        MaterialDialog loading = getLoading(true);
-        callDel = new RetrofitHelper().call(API.class).noteGiftDel(gift.getId());
-        RetrofitHelper.enqueue(callDel, loading, new RetrofitHelper.CallBack() {
+        Call<Result> api = new RetrofitHelper().call(API.class).noteGiftDel(gift.getId());
+        RetrofitHelper.enqueue(api, getLoading(true), new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 // event
@@ -387,6 +380,7 @@ public class GiftEditActivity extends BaseActivity<GiftEditActivity> {
             public void onFailure(int code, String message, Result.Data data) {
             }
         });
+        pushApi(api);
     }
 
 }

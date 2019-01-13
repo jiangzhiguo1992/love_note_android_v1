@@ -12,7 +12,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.afollestad.materialdialogs.MaterialDialog;
 import com.jiangzg.base.common.DateUtils;
 import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.base.component.ActivityTrans;
@@ -49,8 +48,6 @@ public class DreamEditActivity extends BaseActivity<DreamEditActivity> {
     TextView tvContentLimit;
 
     private Dream dream;
-    private Call<Result> callUpdate;
-    private Call<Result> callAdd;
     private int limitContentLength;
 
     public static void goActivity(Activity from) {
@@ -107,8 +104,6 @@ public class DreamEditActivity extends BaseActivity<DreamEditActivity> {
 
     @Override
     protected void onFinish(Bundle state) {
-        RetrofitHelper.cancel(callAdd);
-        RetrofitHelper.cancel(callUpdate);
     }
 
     @Override
@@ -200,9 +195,8 @@ public class DreamEditActivity extends BaseActivity<DreamEditActivity> {
 
     private void updateApi() {
         if (dream == null) return;
-        MaterialDialog loading = getLoading(false);
-        callUpdate = new RetrofitHelper().call(API.class).noteDreamUpdate(dream);
-        RetrofitHelper.enqueue(callUpdate, loading, new RetrofitHelper.CallBack() {
+        Call<Result> api = new RetrofitHelper().call(API.class).noteDreamUpdate(dream);
+        RetrofitHelper.enqueue(api, getLoading(false), new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 // event
@@ -217,13 +211,13 @@ public class DreamEditActivity extends BaseActivity<DreamEditActivity> {
             public void onFailure(int code, String message, Result.Data data) {
             }
         });
+        pushApi(api);
     }
 
     private void addApi() {
         if (dream == null) return;
-        MaterialDialog loading = getLoading(false);
-        callAdd = new RetrofitHelper().call(API.class).noteDreamAdd(dream);
-        RetrofitHelper.enqueue(callAdd, loading, new RetrofitHelper.CallBack() {
+        Call<Result> api = new RetrofitHelper().call(API.class).noteDreamAdd(dream);
+        RetrofitHelper.enqueue(api, getLoading(false), new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 // event
@@ -238,6 +232,7 @@ public class DreamEditActivity extends BaseActivity<DreamEditActivity> {
             public void onFailure(int code, String message, Result.Data data) {
             }
         });
+        pushApi(api);
     }
 
 }
