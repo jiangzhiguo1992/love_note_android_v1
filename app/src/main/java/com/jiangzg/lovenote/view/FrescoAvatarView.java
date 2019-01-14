@@ -40,6 +40,7 @@ import com.jiangzg.lovenote.helper.common.ApiHelper;
 import com.jiangzg.lovenote.helper.common.OssHelper;
 import com.jiangzg.lovenote.helper.common.OssResHelper;
 import com.jiangzg.lovenote.helper.common.ResHelper;
+import com.jiangzg.lovenote.helper.common.UserHelper;
 import com.jiangzg.lovenote.helper.media.FrescoHelper;
 import com.jiangzg.lovenote.main.MyApp;
 
@@ -97,7 +98,7 @@ public class FrescoAvatarView extends SimpleDraweeView {
         hierarchy.setActualImageScaleType(ScalingUtils.ScaleType.CENTER_CROP);
         hierarchy.setRoundingParams(RoundingParams.asCircle());
         //hierarchy.setPlaceholderImage(new ImageLoadingCircleDrawable(), ScalingUtils.ScaleType.CENTER_CROP);
-        hierarchy.setPlaceholderImage(R.mipmap.ic_account_circle_grey_48dp);
+        hierarchy.setPlaceholderImage(UserHelper.getSexAvatarResId(null));
         hierarchy.setProgressBarImage(new ImageProgressCircleDrawable(), ScalingUtils.ScaleType.CENTER_INSIDE);
     }
 
@@ -155,7 +156,7 @@ public class FrescoAvatarView extends SimpleDraweeView {
 
     public void setData(String ossKey) {
         if (StringUtils.isEmpty(ossKey)) {
-            this.setImageResource(R.mipmap.ic_account_circle_grey_48dp);
+            this.setImageResource(UserHelper.getSexAvatarResId(null));
             return;
         }
         if (OssResHelper.isKeyFileExists(ossKey)) {

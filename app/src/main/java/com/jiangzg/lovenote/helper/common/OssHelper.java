@@ -63,7 +63,7 @@ public class OssHelper {
                 ossInfo.getAccessKeySecret(), ossInfo.getSecurityToken());
         // oss配置
         ClientConfiguration conf = new ClientConfiguration();
-        conf.setConnectionTimeout(60 * 1000); // 连接超时，默认15秒
+        conf.setConnectionTimeout(600 * 1000); // 连接超时，默认15秒
         conf.setSocketTimeout(60 * 1000); // socket超时，默认15秒
         conf.setMaxConcurrentRequest(10); // 最大并发请求数，默认5个
         conf.setMaxErrorRetry(5); // 失败后最大重试次数，默认2次
