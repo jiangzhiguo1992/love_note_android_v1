@@ -100,8 +100,7 @@ public class PasswordActivity extends BaseActivity<PasswordActivity> {
         RetrofitHelper.enqueue(api, getLoading(true), new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
-                User user = data.getUser();
-                SPHelper.setMe(user);
+                SPHelper.setMe(data.getUser());
                 mActivity.finish();
             }
 

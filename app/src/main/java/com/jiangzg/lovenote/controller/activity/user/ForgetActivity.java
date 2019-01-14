@@ -205,8 +205,7 @@ public class ForgetActivity extends BaseActivity<ForgetActivity> {
             public void onResponse(int code, String message, Result.Data data) {
                 isGo = true;
                 stopCountDownTask();
-                User user = data.getUser();
-                SPHelper.setMe(user);
+                SPHelper.setMe(data.getUser());
                 ApiHelper.postEntry(mActivity);
             }
 

@@ -165,8 +165,7 @@ public class PhoneActivity extends BaseActivity<PhoneActivity> {
             public void onResponse(int code, String message, Result.Data data) {
                 isGo = true;
                 stopCountDownTask();
-                User user = data.getUser();
-                SPHelper.setMe(user);
+                SPHelper.setMe(data.getUser());
                 mActivity.finish();
             }
 
