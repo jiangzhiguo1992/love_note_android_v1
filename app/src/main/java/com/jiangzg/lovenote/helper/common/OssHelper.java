@@ -58,17 +58,14 @@ public class OssHelper {
         OssInfo ossInfo = SPHelper.getOssInfo();
         String expireTime = DateUtils.getStr(TimeHelper.getJavaTimeByGo(ossInfo.getStsExpireTime()), DateUtils.FORMAT_LINE_M_D_H_M);
         LogUtils.i(OssHelper.class, "refreshOssClient", "sts将在 " + expireTime + " 过期");
-        //String bucket = ossInfo.getBucket();
-        String accessKeyId = ossInfo.getAccessKeyId();
-        String accessKeySecret = ossInfo.getAccessKeySecret();
-        String securityToken = ossInfo.getSecurityToken();
         // oss信息 也可用OSSFederationCredentialProvider来实现动态更新
-        OSSCredentialProvider credentialProvider = new OSSStsTokenCredentialProvider(accessKeyId, accessKeySecret, securityToken);
+        OSSCredentialProvider credentialProvider = new OSSStsTokenCredentialProvider(ossInfo.getAccessKeyId(),
+                ossInfo.getAccessKeySecret(), ossInfo.getSecurityToken());
         // oss配置
         ClientConfiguration conf = new ClientConfiguration();
-        conf.setConnectionTimeout(15 * 1000);  // 连接超时，默认15秒
-        conf.setSocketTimeout(15 * 1000); // socket超时，默认15秒
-        conf.setMaxConcurrentRequest(5); // 最大并发请求数，默认5个
+        conf.setConnectionTimeout(60 * 1000); // 连接超时，默认15秒
+        conf.setSocketTimeout(60 * 1000); // socket超时，默认15秒
+        conf.setMaxConcurrentRequest(10); // 最大并发请求数，默认5个
         conf.setMaxErrorRetry(5); // 失败后最大重试次数，默认2次
         //OSSLog.enableLog(); // 写入日志文件, 路径SDCard_path\OSSLog\logs.csv
         // oss客户端
@@ -90,10 +87,9 @@ public class OssHelper {
         }
         try {
             OssInfo ossInfo = SPHelper.getOssInfo();
-            String bucket = ossInfo.getBucket();
-            long urlExpireTime = SPHelper.getOssInfo().getUrlExpireSec() * 1000;
             // 十分钟过期时间
-            String url = getOssClient().presignConstrainedObjectURL(bucket, objKey, urlExpireTime);
+            String url = getOssClient().presignConstrainedObjectURL(ossInfo.getBucket(), objKey,
+                    ossInfo.getUrlExpireSec() * 1000);
             LogUtils.d(OssHelper.class, "getUrl", url);
             return url;
         } catch (ClientException e) {

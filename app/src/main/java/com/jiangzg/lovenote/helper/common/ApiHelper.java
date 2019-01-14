@@ -304,9 +304,8 @@ public class ApiHelper {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 LogUtils.i(ApiHelper.class, "ossInfoUpdate", "oss更新成功");
-                OssInfo ossInfo = data.getOssInfo();
                 // 刷新ossInfo
-                SPHelper.setOssInfo(ossInfo);
+                SPHelper.setOssInfo(data.getOssInfo());
                 // 刷新ossClient
                 OssHelper.refreshOssClient();
             }

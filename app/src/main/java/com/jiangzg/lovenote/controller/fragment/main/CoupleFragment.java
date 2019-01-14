@@ -274,7 +274,6 @@ public class CoupleFragment extends BasePagerFragment<CoupleFragment> {
         });
     }
 
-    // 视图刷新 所有cp的更新都要放到sp里，集中存放
     private void refreshView() {
         if (mActivity == null || !mFragment.isAdded()) return; // 防止已经脱离后加载
         ivBg.setVisibility(View.GONE);
@@ -299,7 +298,6 @@ public class CoupleFragment extends BasePagerFragment<CoupleFragment> {
             } else {
                 // 没分手
                 vpWallPaper.setVisibility(View.VISIBLE);
-                // 开始墙纸动画
                 refreshWallPaperView();
             }
             // 头像文件刷新
@@ -328,6 +326,7 @@ public class CoupleFragment extends BasePagerFragment<CoupleFragment> {
             tvNameLeft.setText(taName);
             tvNameRight.setText(myName);
             tvTogether.setText(String.valueOf(togetherDay));
+            // 刷新位置+天气
             refreshPlaceView();
             refreshWeatherView();
         }
