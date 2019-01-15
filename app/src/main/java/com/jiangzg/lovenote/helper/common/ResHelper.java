@@ -3,7 +3,6 @@ package com.jiangzg.lovenote.helper.common;
 import android.app.Activity;
 import android.content.pm.ProviderInfo;
 import android.content.res.Configuration;
-import android.os.Build;
 
 import com.jiangzg.base.application.AppInfo;
 import com.jiangzg.base.application.AppListener;
