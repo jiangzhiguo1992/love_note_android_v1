@@ -49,7 +49,7 @@ public class PickHelper {
     private static void selectImageWithOutPermission(Activity activity, int maxCount) {
         if (activity == null) return;
         Matisse.from(activity)
-                .choose(MimeType.ofImage(), false) // 文件类型
+                .choose(MimeType.ofImage(), true) // 文件类型
                 .showSingleMediaType(true) // 只显示选择类型
                 .spanCount(3) // 行列数(默认3)
                 .theme(R.style.Matisse_Dracula) // 样式(自带暗黑)

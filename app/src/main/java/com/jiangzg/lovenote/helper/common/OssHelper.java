@@ -119,12 +119,6 @@ public class OssHelper {
     }
 
     // 给后台看的 所以用CST时区
-    private static String createJpegKey(String dir) {
-        String uuid = StringUtils.getUUID(8);
-        return dir + DateUtils.getCurrentStr(DateUtils.FORMAT_CHINA_Y_M_D__H_M_S_S) + "-" + uuid + ".jpeg";
-    }
-
-    // 给后台看的 所以用CST时区
     private static String createExtensionKey(String dir, File source) {
         String uuid = StringUtils.getUUID(8);
         String extension = FileUtils.getFileExtension(source);
@@ -219,7 +213,7 @@ public class OssHelper {
             return null;
         }
         // objectKey
-        String objectKey = createJpegKey(ossDirPath);
+        String objectKey = createExtensionKey(ossDirPath, source);
         // 开始时上传
         return uploadFileWithDialogToast(activity, source, objectKey, callBack);
     }
@@ -529,7 +523,7 @@ public class OssHelper {
             });
         }
         // objectKey生成
-        String objectKey = createJpegKey(ossDirPath);
+        String objectKey = createExtensionKey(ossDirPath, source);
         // 构造上传请求
         String bucket = SPHelper.getOssInfo().getBucket();
         PutObjectRequest put = new PutObjectRequest(bucket, objectKey, source.getAbsolutePath());
