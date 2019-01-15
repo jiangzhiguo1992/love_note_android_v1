@@ -296,8 +296,7 @@ public class CoupleFragment extends BasePagerFragment<CoupleFragment> {
                 tvCoupleCountDown.setVisibility(View.VISIBLE);
                 MyApp.get().getHandler().post(getCoupleCountDownTask());
             } else {
-                // 没分手
-                vpWallPaper.setVisibility(View.VISIBLE);
+                // 在一起
                 refreshWallPaperView();
             }
             // 头像文件刷新
