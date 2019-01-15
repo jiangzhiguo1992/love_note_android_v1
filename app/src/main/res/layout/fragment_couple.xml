@@ -84,7 +84,6 @@
                     android:paddingStart="10dp"
                     android:paddingEnd="10dp"
                     android:text="@string/quick_pair_deblock_more_posture"
-                    android:textStyle="italic"
                     android:visibility="gone"
                     tools:visibility="visible"/>
 
