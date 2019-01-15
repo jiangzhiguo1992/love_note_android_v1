@@ -27,7 +27,7 @@ public class CountHelper {
         } else if (distance >= 1000) {
             float km = distance / 1000;
             distanceShow = String.format(Locale.getDefault(), "%.1fkm", km);
-        } else if (distance > 0) {
+        } else if (distance >= 0) {
             distanceShow = String.format(Locale.getDefault(), "%.0fm", distance);
         }
         return distanceShow;

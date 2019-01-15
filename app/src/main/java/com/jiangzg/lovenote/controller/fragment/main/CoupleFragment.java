@@ -239,12 +239,12 @@ public class CoupleFragment extends BasePagerFragment<CoupleFragment> {
                 Place body = new Place();
                 body.setLongitude(info.getLongitude());
                 body.setLatitude(info.getLatitude());
-                body.setAddress(info.getAddress());
                 body.setCountry(info.getCountry());
                 body.setProvince(info.getProvince());
                 body.setCity(info.getCity());
                 body.setDistrict(info.getDistrict());
                 body.setStreet(info.getStreet());
+                body.setAddress(info.getAddress());
                 body.setCityId(info.getCityId());
                 // api
                 Call<Result> api = new RetrofitHelper().call(API.class).couplePlacePush(body);
