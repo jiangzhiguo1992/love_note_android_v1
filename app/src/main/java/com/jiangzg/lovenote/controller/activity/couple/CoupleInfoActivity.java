@@ -5,8 +5,6 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
 import android.view.Menu;
@@ -33,7 +31,6 @@ import com.jiangzg.lovenote.controller.activity.base.BaseActivity;
 import com.jiangzg.lovenote.controller.activity.common.BigImageActivity;
 import com.jiangzg.lovenote.controller.activity.note.SouvenirListActivity;
 import com.jiangzg.lovenote.controller.activity.settings.HelpActivity;
-import com.jiangzg.lovenote.controller.adapter.couple.CoupleStateAdapter;
 import com.jiangzg.lovenote.helper.common.ApiHelper;
 import com.jiangzg.lovenote.helper.common.OssHelper;
 import com.jiangzg.lovenote.helper.common.ResHelper;
@@ -44,17 +41,14 @@ import com.jiangzg.lovenote.helper.common.UserHelper;
 import com.jiangzg.lovenote.helper.media.PickHelper;
 import com.jiangzg.lovenote.helper.system.RetrofitHelper;
 import com.jiangzg.lovenote.helper.view.DialogHelper;
-import com.jiangzg.lovenote.helper.view.RecyclerHelper;
 import com.jiangzg.lovenote.helper.view.ViewHelper;
 import com.jiangzg.lovenote.model.api.API;
 import com.jiangzg.lovenote.model.api.Result;
 import com.jiangzg.lovenote.model.entity.Couple;
-import com.jiangzg.lovenote.model.entity.CoupleState;
 import com.jiangzg.lovenote.model.entity.User;
 import com.jiangzg.lovenote.view.FrescoAvatarView;
 
 import java.io.File;
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -68,11 +62,6 @@ public class CoupleInfoActivity extends BaseActivity<CoupleInfoActivity> {
     AppBarLayout abl;
     @BindView(R.id.tb)
     Toolbar tb;
-
-    @BindView(R.id.rlTogether)
-    RelativeLayout rlTogether;
-    @BindView(R.id.tvTogether)
-    TextView tvTogether;
 
     @BindView(R.id.ivAvatarLeft)
     FrescoAvatarView ivAvatarLeft;
@@ -100,12 +89,12 @@ public class CoupleInfoActivity extends BaseActivity<CoupleInfoActivity> {
     @BindView(R.id.tvBirthRight)
     TextView tvBirthRight;
 
-    @BindView(R.id.rv)
-    RecyclerView rv;
+    @BindView(R.id.rlTogether)
+    RelativeLayout rlTogether;
+    @BindView(R.id.tvTogether)
+    TextView tvTogether;
 
-    private RecyclerHelper recyclerHelper;
     private File cropFile;
-    private int page;
 
     public static void goActivity(Fragment from) {
         if (UserHelper.isCoupleBreak(SPHelper.getCouple())) {
@@ -135,28 +124,16 @@ public class CoupleInfoActivity extends BaseActivity<CoupleInfoActivity> {
         layoutParams.topMargin += statusBarHeight;
         abl.setLayoutParams(layoutParams);
         abl.setTargetElevation(0);
-        // recycler
-        recyclerHelper = new RecyclerHelper(rv)
-                .initLayoutManager(new LinearLayoutManager(mActivity))
-                .initAdapter(new CoupleStateAdapter(mActivity))
-                .viewEmpty(mActivity, R.layout.list_empty_white, true, true)
-                .viewLoadMore(new RecyclerHelper.MoreTransView())
-                .setAdapter()
-                .listenerMore(currentCount -> getCoupleStateList(true));
         // view
         setViewData();
     }
 
     @Override
     protected void initData(Intent intent, Bundle state) {
-        page = 0;
-        // coupleState
-        getCoupleStateList(false);
     }
 
     @Override
     protected void onFinish(Bundle state) {
-        RecyclerHelper.release(recyclerHelper);
         // 创建成功的cropFile都要删除
         ResHelper.deleteFileInBackground(cropFile);
     }
@@ -246,30 +223,6 @@ public class CoupleInfoActivity extends BaseActivity<CoupleInfoActivity> {
                 SouvenirListActivity.goActivity(mActivity);
                 break;
         }
-    }
-
-    private void getCoupleStateList(final boolean more) {
-        Couple couple = SPHelper.getCouple();
-        if (couple == null) return;
-        page = more ? page + 1 : 0;
-        // api
-        Call<Result> api = new RetrofitHelper().call(API.class).coupleStateListGet(couple.getId(), page);
-        RetrofitHelper.enqueue(api, null, new RetrofitHelper.CallBack() {
-            @Override
-            public void onResponse(int code, String message, Result.Data data) {
-                if (recyclerHelper == null) return;
-                recyclerHelper.viewEmptyShow(data.getShow());
-                List<CoupleState> coupleStateList = data.getCoupleStateList();
-                recyclerHelper.dataOk(coupleStateList, more);
-            }
-
-            @Override
-            public void onFailure(int code, String message, Result.Data data) {
-                if (recyclerHelper == null) return;
-                recyclerHelper.dataFail(more, message);
-            }
-        });
-        pushApi(api);
     }
 
     private void setViewData() {

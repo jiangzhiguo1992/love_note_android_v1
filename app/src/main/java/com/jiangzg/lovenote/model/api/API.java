@@ -175,10 +175,6 @@ public interface API {
     @GET("couple?self=1")
     Call<Result> coupleSelfGet();
 
-    // 配对状态查询
-    @GET("couple?list=1&state=1")
-    Call<Result> coupleStateListGet(@Query("cid") long cid, @Query("page") int page);
-
     // 添加墙纸
     @POST("couple/wallPaper")
     Call<Result> coupleWallPaperUpdate(@Body WallPaper wallPaper);
