@@ -99,7 +99,7 @@ public class FrescoHelper {
     public static PipelineDraweeControllerBuilder getPipelineControllerBuilder(DraweeView view, Uri uri, ImageRequest imageRequest) {
         PipelineDraweeControllerBuilder builder = Fresco.newDraweeControllerBuilder()
                 .setOldController(view.getController()) // 减少内存消耗
-                .setAutoPlayAnimations(false); // gif不支持自动播放，(此app不支持gif播放)
+                .setAutoPlayAnimations(true); // gif支持自动播放
         if (imageRequest != null) {
             builder = builder.setImageRequest(imageRequest);
         }

@@ -14,6 +14,7 @@ import android.view.View;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemLongClickListener;
 import com.jiangzg.base.common.FileUtils;
+import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.base.component.ActivityTrans;
 import com.jiangzg.base.component.IntentFactory;
 import com.jiangzg.base.view.ToastUtils;
@@ -122,12 +123,17 @@ public class CoupleWallPaperActivity extends BaseActivity<CoupleWallPaperActivit
                 ToastUtils.show(getString(R.string.file_no_exits));
                 return;
             }
+            String extension = FileUtils.getFileExtension(pictureFile);
+            if (!StringUtils.isEmpty(extension) && extension.contains("gif")) {
+                ossUploadWall(pictureFile);
+                return;
+            }
             cropFile = ResHelper.newImageCacheFile();
             Intent intent = IntentFactory.getImageCrop(ResHelper.getFileProviderAuth(), pictureFile, cropFile);
             ActivityTrans.startResult(mActivity, intent, BaseActivity.REQUEST_CROP);
         } else if (requestCode == BaseActivity.REQUEST_CROP) {
             // 裁剪
-            ossUploadWall();
+            ossUploadWall(null);
         }
     }
 
@@ -172,8 +178,9 @@ public class CoupleWallPaperActivity extends BaseActivity<CoupleWallPaperActivit
     }
 
     // oss上传头像
-    private void ossUploadWall() {
-        OssHelper.uploadWall(mActivity, cropFile, new OssHelper.OssUploadCallBack() {
+    private void ossUploadWall(final File picture) {
+        File uploadFile = FileUtils.isFileEmpty(picture) ? cropFile : picture;
+        OssHelper.uploadWall(mActivity, uploadFile, new OssHelper.OssUploadCallBack() {
             @Override
             public void success(File source, String ossPath) {
                 apiPushData(ossPath);

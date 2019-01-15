@@ -173,12 +173,17 @@ public class CoupleInfoActivity extends BaseActivity<CoupleInfoActivity> {
                 ToastUtils.show(getString(R.string.file_no_exits));
                 return;
             }
+            String extension = FileUtils.getFileExtension(pictureFile);
+            if (!StringUtils.isEmpty(extension) && extension.contains("gif")) {
+                ossUploadAvatar(pictureFile);
+                return;
+            }
             cropFile = ResHelper.newImageCacheFile();
             Intent intent = IntentFactory.getImageCrop(ResHelper.getFileProviderAuth(), pictureFile, cropFile, 1, 1);
             ActivityTrans.startResult(mActivity, intent, BaseActivity.REQUEST_CROP);
         } else if (requestCode == BaseActivity.REQUEST_CROP) {
             // 裁剪
-            ossUploadAvatar();
+            ossUploadAvatar(null);
         }
     }
 
@@ -301,8 +306,9 @@ public class CoupleInfoActivity extends BaseActivity<CoupleInfoActivity> {
     }
 
     // oss上传头像
-    private void ossUploadAvatar() {
-        OssHelper.uploadAvatar(mActivity, cropFile, new OssHelper.OssUploadCallBack() {
+    private void ossUploadAvatar(final File picture) {
+        File uploadFile = FileUtils.isFileEmpty(picture) ? cropFile : picture;
+        OssHelper.uploadAvatar(mActivity, uploadFile, new OssHelper.OssUploadCallBack() {
             @Override
             public void success(File source, String ossPath) {
                 apiCoupleInfo(0, ossPath, "");
