@@ -154,12 +154,7 @@ public class ResHelper {
      */
     // 图片-oss目录
     public static String getOssResDirPath() {
-        String dir; // 7.0以下不能分享文件给外部应用(主要是音视频播放)
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            dir = AppInfo.get().getInFilesDir();
-        } else {
-            dir = AppInfo.get().getOutFilesDir();
-        }
+        String dir = AppInfo.get().getOutFilesDir();
         return dir + File.separator + "oss" + File.separator;
     }
 
