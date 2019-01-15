@@ -302,9 +302,9 @@
                             android:gravity="center_vertical"
                             android:orientation="horizontal"
                             android:paddingStart="5dp"
-                            android:paddingTop="7dp"
+                            android:paddingTop="10dp"
                             android:paddingEnd="5dp"
-                            android:paddingBottom="7dp">
+                            android:paddingBottom="10dp">
 
                             <RelativeLayout
                                 android:layout_width="0dp"
@@ -326,7 +326,6 @@
                                     android:marqueeRepeatLimit="marquee_forever"
                                     android:scrollHorizontally="true"
                                     android:singleLine="true"
-                                    tools:drawableStart="@mipmap/w1"
                                     tools:text="@string/now_no_weather_info"/>
                             </RelativeLayout>
 
@@ -360,7 +359,6 @@
                                     android:marqueeRepeatLimit="marquee_forever"
                                     android:scrollHorizontally="true"
                                     android:singleLine="true"
-                                    tools:drawableStart="@mipmap/w45"
                                     tools:text="@string/now_no_weather_info"/>
                             </RelativeLayout>
                         </LinearLayout>

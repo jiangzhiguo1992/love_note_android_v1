@@ -28,6 +28,14 @@ public class ViewUtils {
         return icon;
     }
 
+    public static Drawable getDrawable(Context context, int draResId, int width, int height) {
+        if (draResId == 0) return null;
+        Drawable icon = ContextCompat.getDrawable(context, draResId);
+        if (icon == null) return null;
+        icon.setBounds(0, 0, width, height);
+        return icon;
+    }
+
     /**
      * 底划线
      */

@@ -367,11 +367,10 @@ public class CoupleFragment extends BasePagerFragment<CoupleFragment> {
 
     private void refreshPlaceView() {
         if (mActivity == null || !mFragment.isAdded()) return; // 防止已经脱离后加载
+        // address
         String addressDef = mActivity.getString(R.string.now_no_address_info);
-        // myAddress
         String myAddress = (myPlace == null) ? "" : myPlace.getAddress();
         myAddress = StringUtils.isEmpty(myAddress) ? addressDef : myAddress;
-        // taAddress
         String taAddress = (taPlace == null) ? "" : taPlace.getAddress();
         taAddress = StringUtils.isEmpty(taAddress) ? addressDef : taAddress;
         // distance
@@ -399,11 +398,11 @@ public class CoupleFragment extends BasePagerFragment<CoupleFragment> {
         String weatherDef = mActivity.getString(R.string.now_no_weather_info);
         // myWeather
         int myTemp = 520;
-        String myWeatherShow = "";
+        String myWeatherShow = weatherDef;
         Drawable myIcon = null;
         if (myWeatherToday != null && !StringUtils.isEmpty(myWeatherToday.getTemp())) {
             int weatherIcon = WeatherHelper.getIconById(myWeatherToday.getIcon());
-            myIcon = ViewUtils.getDrawable(mActivity, weatherIcon);
+            myIcon = ViewUtils.getDrawable(mActivity, weatherIcon, tvWeatherRight.getHeight(), tvWeatherRight.getHeight());
             if (myIcon != null) {
                 myIcon.setTint(colorIcon);
             }
@@ -413,14 +412,13 @@ public class CoupleFragment extends BasePagerFragment<CoupleFragment> {
             }
             myWeatherShow = temp + "℃ " + myWeatherToday.getCondition() + " " + myWeatherToday.getHumidity();
         }
-        myWeatherShow = StringUtils.isEmpty(myWeatherShow) ? weatherDef : myWeatherShow;
         // taWeather
         int taTemp = 520;
-        String taWeatherShow = "";
+        String taWeatherShow = weatherDef;
         Drawable taIcon = null;
         if (taWeatherToday != null && !StringUtils.isEmpty(taWeatherToday.getTemp())) {
             int weatherIcon = WeatherHelper.getIconById(taWeatherToday.getIcon());
-            taIcon = ViewUtils.getDrawable(mActivity, weatherIcon);
+            taIcon = ViewUtils.getDrawable(mActivity, weatherIcon, tvWeatherLeft.getHeight(), tvWeatherLeft.getHeight());
             if (taIcon != null) {
                 taIcon.setTint(colorIcon);
             }
@@ -430,7 +428,6 @@ public class CoupleFragment extends BasePagerFragment<CoupleFragment> {
             }
             taWeatherShow = temp + "℃ " + taWeatherToday.getCondition() + " " + taWeatherToday.getHumidity();
         }
-        taWeatherShow = StringUtils.isEmpty(taWeatherShow) ? weatherDef : taWeatherShow;
         // diff
         String diff;
         if (myTemp == 520 || taTemp == 520) {
