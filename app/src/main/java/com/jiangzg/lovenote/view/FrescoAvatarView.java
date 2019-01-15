@@ -35,7 +35,6 @@ import com.jiangzg.base.common.LogUtils;
 import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.base.component.ProviderUtils;
 import com.jiangzg.base.view.ScreenUtils;
-import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.helper.common.ApiHelper;
 import com.jiangzg.lovenote.helper.common.OssHelper;
 import com.jiangzg.lovenote.helper.common.OssResHelper;
@@ -191,13 +190,11 @@ public class FrescoAvatarView extends SimpleDraweeView {
     // http:// https:// 需要现场获取oss的url
     private void setDataOss(String objPath) {
         String url = OssHelper.getUrl(objPath);
-        Uri parse;
         if (StringUtils.isEmpty(url)) {
-            parse = Uri.parse("");
-        } else {
-            parse = Uri.parse(url);
+            this.setImageResource(UserHelper.getSexAvatarResId(null));
+            return;
         }
-        setController(parse);
+        setController(Uri.parse(url));
     }
 
     public class ImageLoadingCircleDrawable extends Drawable {

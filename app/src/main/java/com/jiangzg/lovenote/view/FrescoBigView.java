@@ -182,13 +182,8 @@ public class FrescoBigView extends PhotoDraweeView {
     // http:// https:// 需要现场获取oss的url
     private void setDataOss(String objPath) {
         String url = OssHelper.getUrl(objPath);
-        Uri parse;
-        if (StringUtils.isEmpty(url)) {
-            parse = Uri.parse("");
-        } else {
-            parse = Uri.parse(url);
-        }
-        setController(parse);
+        if (StringUtils.isEmpty(url)) return;
+        setController(Uri.parse(url));
     }
 
     public class ImageProgressFullDrawable extends Drawable {

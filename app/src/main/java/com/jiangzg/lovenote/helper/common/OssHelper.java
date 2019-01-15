@@ -787,7 +787,7 @@ public class OssHelper {
         PermUtils.requestPermissions(activity, BaseActivity.REQUEST_APP_INFO, PermUtils.appInfo, new PermUtils.OnPermissionListener() {
             @Override
             public void onPermissionGranted(int requestCode, String[] permissions) {
-                final File target = ResHelper.newSdCardImageFile(objectKey);
+                final File target = ResHelper.newImageDownLoadFile(objectKey);
                 // 目标文件创建检查
                 if (target == null) {
                     ToastUtils.show(MyApp.get().getString(R.string.file_create_fail));

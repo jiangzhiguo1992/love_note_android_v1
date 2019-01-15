@@ -206,19 +206,19 @@ public class ResHelper {
     }
 
     // 图片-downLoad文件
-    public static File newSdCardImageFile(String objectKey) {
+    public static File newImageDownLoadFile(String objectKey) {
         if (StringUtils.isEmpty(objectKey)) {
-            LogUtils.w(ResHelper.class, "newSdCardImageFile", "objectKey == null");
+            LogUtils.w(ResHelper.class, "newImageDownLoadFile", "objectKey == null");
             return null;
         }
         String[] split = objectKey.split("/");
         if (split.length <= 0) {
-            LogUtils.w(ResHelper.class, "newSdCardImageFile", "split == null");
+            LogUtils.w(ResHelper.class, "newImageDownLoadFile", "split == null");
             return null;
         }
         String fileName = split[split.length - 1];
         File file = new File(createSdCardImageDir(), fileName);
-        LogUtils.d(ResHelper.class, "newSdCardImageFile", file.getAbsolutePath());
+        LogUtils.d(ResHelper.class, "newImageDownLoadFile", file.getAbsolutePath());
         return file;
     }
 
