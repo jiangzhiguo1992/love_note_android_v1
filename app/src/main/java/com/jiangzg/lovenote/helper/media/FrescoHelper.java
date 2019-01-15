@@ -87,6 +87,14 @@ public class FrescoHelper {
         return mainFileCache.getSize();
     }
 
+    public static void imagePaush() {
+        Fresco.getImagePipeline().pause();
+    }
+
+    public static void imageResume() {
+        Fresco.getImagePipeline().resume();
+    }
+
     // ImageRequest构造
     public static ImageRequestBuilder getImageRequestBuilder(Uri uri, int width, int height) {
         if (uri == null) return null;

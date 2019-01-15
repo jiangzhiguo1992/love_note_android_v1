@@ -28,6 +28,7 @@ import com.jiangzg.lovenote.helper.common.ListHelper;
 import com.jiangzg.lovenote.helper.common.OssResHelper;
 import com.jiangzg.lovenote.helper.common.RxBus;
 import com.jiangzg.lovenote.helper.common.TimeHelper;
+import com.jiangzg.lovenote.helper.media.FrescoHelper;
 import com.jiangzg.lovenote.helper.system.RetrofitHelper;
 import com.jiangzg.lovenote.helper.view.RecyclerHelper;
 import com.jiangzg.lovenote.helper.view.ViewHelper;
@@ -175,6 +176,16 @@ public class PictureListActivity extends BaseActivity<PictureListActivity> {
                 if (recyclerHelper == null) return;
                 PictureAdapter adapter = recyclerHelper.getAdapter();
                 if (adapter != null) adapter.hideOperation();
+                if (newState == RecyclerView.SCROLL_STATE_IDLE) {
+                    // 停止滑动
+                    FrescoHelper.imageResume();
+                } else if (newState == RecyclerView.SCROLL_STATE_DRAGGING) {
+                    // 手指触碰
+                    FrescoHelper.imagePaush();
+                } else if (newState == RecyclerView.SCROLL_STATE_SETTLING) {
+                    // 惯性滑动
+                    FrescoHelper.imagePaush();
+                }
             }
 
             @Override
