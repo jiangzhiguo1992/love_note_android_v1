@@ -80,7 +80,6 @@
                     android:layout_marginStart="30dp"
                     android:layout_marginEnd="30dp"
                     android:background="@drawable/selector_enable_press_solid_light_primary_dark_r100"
-                    android:foreground="?attr/selectableItemBackground"
                     android:paddingStart="10dp"
                     android:paddingEnd="10dp"
                     android:text="@string/quick_pair_deblock_more_posture"
