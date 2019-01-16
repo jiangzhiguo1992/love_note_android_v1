@@ -41,8 +41,8 @@
                 android:layout_marginTop="30dp"
                 android:background="@drawable/shape_stroke_white_r100"
                 android:gravity="center"
-                android:paddingTop="7dp"
-                android:paddingBottom="7dp"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
                 tools:text="名字最多六字"/>
 
             <LinearLayout
@@ -53,15 +53,14 @@
                 android:background="@drawable/shape_stroke_white_r100"
                 android:gravity="center"
                 android:orientation="horizontal"
-                android:paddingTop="7dp"
-                android:paddingBottom="7dp">
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp">
 
                 <TextView
                     android:id="@+id/tvPhoneLeft"
                     style="@style/FontWhiteNormalBold"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:drawableStart="@mipmap/ic_call_white_18dp"
                     android:drawablePadding="3dp"
                     android:gravity="center"
                     tools:text="18600757123"/>
@@ -75,8 +74,8 @@
                 android:background="@drawable/shape_stroke_white_r100"
                 android:gravity="center"
                 android:orientation="horizontal"
-                android:paddingTop="7dp"
-                android:paddingBottom="7dp">
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp">
 
                 <TextView
                     android:id="@+id/tvBirthLeft"
@@ -84,7 +83,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="5dp"
-                    android:drawableStart="@mipmap/ic_cake_white_18dp"
                     android:drawablePadding="6dp"
                     android:gravity="center"
                     tools:text="92.07.12"/>
@@ -113,8 +111,8 @@
                 android:layout_marginTop="30dp"
                 android:background="@drawable/shape_stroke_white_r100"
                 android:gravity="center"
-                android:paddingTop="7dp"
-                android:paddingBottom="7dp"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
                 tools:text="名字最多六字"/>
 
             <LinearLayout
@@ -125,15 +123,14 @@
                 android:background="@drawable/shape_stroke_white_r100"
                 android:gravity="center"
                 android:orientation="horizontal"
-                android:paddingTop="7dp"
-                android:paddingBottom="7dp">
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp">
 
                 <TextView
                     android:id="@+id/tvPhoneRight"
                     style="@style/FontWhiteNormalBold"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:drawableStart="@mipmap/ic_call_white_18dp"
                     android:drawablePadding="3dp"
                     android:gravity="center"
                     tools:text="18600757123"/>
@@ -147,8 +144,8 @@
                 android:background="@drawable/shape_stroke_white_r100"
                 android:gravity="center"
                 android:orientation="horizontal"
-                android:paddingTop="7dp"
-                android:paddingBottom="7dp">
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp">
 
                 <TextView
                     android:id="@+id/tvBirthRight"
@@ -156,7 +153,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="5dp"
-                    android:drawableStart="@mipmap/ic_cake_white_18dp"
                     android:drawablePadding="6dp"
                     android:gravity="center"
                     tools:text="92.07.12"/>
