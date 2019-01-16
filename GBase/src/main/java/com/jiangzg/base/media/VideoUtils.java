@@ -14,7 +14,7 @@ public class VideoUtils {
     // getVideoDuration cursor有时候获取不到 就用这个
     public static String getVideoDuration(String vPath) {
         if (StringUtils.isEmpty(vPath)) return "0";
-        String duration = null;
+        String duration = "0";
         MediaMetadataRetriever mmr = new MediaMetadataRetriever();
         try {
             mmr.setDataSource(vPath);
