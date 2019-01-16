@@ -31,6 +31,7 @@ import com.jiangzg.lovenote.controller.activity.base.BaseActivity;
 import com.jiangzg.lovenote.controller.activity.common.BigImageActivity;
 import com.jiangzg.lovenote.controller.activity.note.SouvenirListActivity;
 import com.jiangzg.lovenote.controller.activity.settings.HelpActivity;
+import com.jiangzg.lovenote.controller.activity.user.PhoneActivity;
 import com.jiangzg.lovenote.helper.common.ApiHelper;
 import com.jiangzg.lovenote.helper.common.OssHelper;
 import com.jiangzg.lovenote.helper.common.ResHelper;
@@ -190,29 +191,32 @@ public class CoupleInfoActivity extends BaseActivity<CoupleInfoActivity> {
         return super.onOptionsItemSelected(item);
     }
 
-    @OnClick({R.id.rlTogether, R.id.ivAvatarRight, R.id.ivAvatarLeft, R.id.tvNameLeft, R.id.tvPhoneLeft,
-            R.id.tvBirthLeft, R.id.tvBirthRight})
+    @OnClick({R.id.ivAvatarLeft, R.id.ivAvatarRight, R.id.tvNameLeft, R.id.tvPhoneLeft, R.id.tvPhoneRight,
+            R.id.tvBirthLeft, R.id.tvBirthRight, R.id.rlTogether})
     public void onViewClicked(View view) {
         switch (view.getId()) {
-            case R.id.rlTogether: // 在一起
-                showTogetherTimePicker();
+            case R.id.ivAvatarLeft: // 左头像
+                showLeftAvatarPop();
                 break;
             case R.id.ivAvatarRight: // 右头像
                 String myAvatar = UserHelper.getMyAvatar(SPHelper.getMe());
                 BigImageActivity.goActivityByOss(mActivity, myAvatar, ivAvatarRight);
                 break;
-            case R.id.ivAvatarLeft: // 左头像
-                showLeftAvatarPop();
-                break;
-            case R.id.tvNameLeft: // 修改ta的昵称
+            case R.id.tvNameLeft: // 左昵称
                 showNameInput();
                 break;
-            case R.id.tvPhoneLeft: // 拨打ta的电话
+            case R.id.tvPhoneLeft: // 左电话
                 showDial();
+                break;
+            case R.id.tvPhoneRight: // 右电话
+                PhoneActivity.goActivity(mActivity);
                 break;
             case R.id.tvBirthLeft: // ta的生日
             case R.id.tvBirthRight: // 我的生日
                 SouvenirListActivity.goActivity(mActivity);
+                break;
+            case R.id.rlTogether: // 在一起
+                showTogetherTimePicker();
                 break;
         }
     }
@@ -226,13 +230,13 @@ public class CoupleInfoActivity extends BaseActivity<CoupleInfoActivity> {
         String taName = UserHelper.getTaName(me);
         String myAvatar = UserHelper.getMyAvatar(me);
         String taAvatar = UserHelper.getTaAvatar(me);
-        String mePhone = me == null ? "" : me.getPhone();
+        String myPhone = me == null ? "" : me.getPhone();
         String taPhone = ta == null ? "" : ta.getPhone();
-        long meBirth = TimeHelper.getJavaTimeByGo(me == null ? 0 : me.getBirthday());
+        long myBirth = TimeHelper.getJavaTimeByGo(me == null ? 0 : me.getBirthday());
         long taBirth = TimeHelper.getJavaTimeByGo(ta == null ? 0 : ta.getBirthday());
-        String meBirthShow = DateUtils.getStr(meBirth, DateUtils.FORMAT_POINT_Y_M_D);
+        String myBirthShow = DateUtils.getStr(myBirth, DateUtils.FORMAT_POINT_Y_M_D);
         String taBirthShow = DateUtils.getStr(taBirth, DateUtils.FORMAT_POINT_Y_M_D);
-        int togetherDay = UserHelper.getCoupleTogetherDay(couple);
+        String togetherDay = String.valueOf(UserHelper.getCoupleTogetherDay(couple));
         // view
         if (StringUtils.isEmpty(taAvatar)) {
             ivAvatarLeft.setImageResource(UserHelper.getSexAvatarResId(ta));
@@ -247,10 +251,10 @@ public class CoupleInfoActivity extends BaseActivity<CoupleInfoActivity> {
         tvNameLeft.setText(taName);
         tvNameRight.setText(myName);
         tvPhoneLeft.setText(taPhone);
-        tvPhoneRight.setText(mePhone);
+        tvPhoneRight.setText(myPhone);
         tvBirthLeft.setText(taBirthShow);
-        tvBirthRight.setText(meBirthShow);
-        tvTogether.setText(String.valueOf(togetherDay));
+        tvBirthRight.setText(myBirthShow);
+        tvTogether.setText(togetherDay);
     }
 
     private void showTogetherTimePicker() {
