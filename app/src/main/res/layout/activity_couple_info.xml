@@ -45,48 +45,29 @@
                 android:paddingBottom="10dp"
                 tools:text="名字最多六字"/>
 
-            <LinearLayout
-                android:id="@+id/llPhoneLeft"
+            <TextView
+                android:id="@+id/tvPhoneLeft"
+                style="@style/FontWhiteNormalBold"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="30dp"
                 android:background="@drawable/shape_stroke_white_r100"
                 android:gravity="center"
-                android:orientation="horizontal"
                 android:paddingTop="10dp"
-                android:paddingBottom="10dp">
+                android:paddingBottom="10dp"
+                tools:text="18600757123"/>
 
-                <TextView
-                    android:id="@+id/tvPhoneLeft"
-                    style="@style/FontWhiteNormalBold"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:drawablePadding="3dp"
-                    android:gravity="center"
-                    tools:text="18600757123"/>
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/llUserInfoLeft"
+            <TextView
+                android:id="@+id/tvBirthLeft"
+                style="@style/FontWhiteNormalBold"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="30dp"
                 android:background="@drawable/shape_stroke_white_r100"
                 android:gravity="center"
-                android:orientation="horizontal"
                 android:paddingTop="10dp"
-                android:paddingBottom="10dp">
-
-                <TextView
-                    android:id="@+id/tvBirthLeft"
-                    style="@style/FontWhiteNormalBold"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="5dp"
-                    android:drawablePadding="6dp"
-                    android:gravity="center"
-                    tools:text="92.07.12"/>
-            </LinearLayout>
+                android:paddingBottom="10dp"
+                tools:text="92.07.12"/>
         </LinearLayout>
 
         <LinearLayout
@@ -115,48 +96,29 @@
                 android:paddingBottom="10dp"
                 tools:text="名字最多六字"/>
 
-            <LinearLayout
-                android:id="@+id/llPhoneRight"
+            <TextView
+                android:id="@+id/tvPhoneRight"
+                style="@style/FontWhiteNormalBold"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="30dp"
                 android:background="@drawable/shape_stroke_white_r100"
                 android:gravity="center"
-                android:orientation="horizontal"
                 android:paddingTop="10dp"
-                android:paddingBottom="10dp">
+                android:paddingBottom="10dp"
+                tools:text="18600757123"/>
 
-                <TextView
-                    android:id="@+id/tvPhoneRight"
-                    style="@style/FontWhiteNormalBold"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:drawablePadding="3dp"
-                    android:gravity="center"
-                    tools:text="18600757123"/>
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/llUserInfoRight"
+            <TextView
+                android:id="@+id/tvBirthRight"
+                style="@style/FontWhiteNormalBold"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="30dp"
                 android:background="@drawable/shape_stroke_white_r100"
                 android:gravity="center"
-                android:orientation="horizontal"
                 android:paddingTop="10dp"
-                android:paddingBottom="10dp">
-
-                <TextView
-                    android:id="@+id/tvBirthRight"
-                    style="@style/FontWhiteNormalBold"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="5dp"
-                    android:drawablePadding="6dp"
-                    android:gravity="center"
-                    tools:text="92.07.12"/>
-            </LinearLayout>
+                android:paddingBottom="10dp"
+                tools:text="92.07.12"/>
         </LinearLayout>
     </LinearLayout>
 
@@ -172,8 +134,8 @@
             android:layout_height="wrap_content"
             android:layout_above="@+id/tvTogetherBefore"
             android:layout_alignStart="@+id/tvTogetherBefore"
-            android:layout_marginStart="3dp"
-            android:layout_marginEnd="3dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginBottom="5dp"
             android:src="@mipmap/ic_favorite_grey_18dp"
             android:tint="?attr/colorPrimary"/>
 

@@ -67,12 +67,8 @@ public class CoupleInfoActivity extends BaseActivity<CoupleInfoActivity> {
     FrescoAvatarView ivAvatarLeft;
     @BindView(R.id.tvNameLeft)
     TextView tvNameLeft;
-    @BindView(R.id.llPhoneLeft)
-    LinearLayout llPhoneLeft;
     @BindView(R.id.tvPhoneLeft)
     TextView tvPhoneLeft;
-    @BindView(R.id.llUserInfoLeft)
-    LinearLayout llUserInfoLeft;
     @BindView(R.id.tvBirthLeft)
     TextView tvBirthLeft;
 
@@ -80,12 +76,8 @@ public class CoupleInfoActivity extends BaseActivity<CoupleInfoActivity> {
     FrescoAvatarView ivAvatarRight;
     @BindView(R.id.tvNameRight)
     TextView tvNameRight;
-    @BindView(R.id.llPhoneRight)
-    LinearLayout llPhoneRight;
     @BindView(R.id.tvPhoneRight)
     TextView tvPhoneRight;
-    @BindView(R.id.llUserInfoRight)
-    LinearLayout llUserInfoRight;
     @BindView(R.id.tvBirthRight)
     TextView tvBirthRight;
 
@@ -198,8 +190,8 @@ public class CoupleInfoActivity extends BaseActivity<CoupleInfoActivity> {
         return super.onOptionsItemSelected(item);
     }
 
-    @OnClick({R.id.rlTogether, R.id.ivAvatarRight, R.id.ivAvatarLeft, R.id.tvNameLeft, R.id.llPhoneLeft,
-            R.id.llUserInfoLeft, R.id.llUserInfoRight})
+    @OnClick({R.id.rlTogether, R.id.ivAvatarRight, R.id.ivAvatarLeft, R.id.tvNameLeft, R.id.tvPhoneLeft,
+            R.id.tvBirthLeft, R.id.tvBirthRight})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.rlTogether: // 在一起
@@ -215,11 +207,11 @@ public class CoupleInfoActivity extends BaseActivity<CoupleInfoActivity> {
             case R.id.tvNameLeft: // 修改ta的昵称
                 showNameInput();
                 break;
-            case R.id.llPhoneLeft: // 拨打ta的电话
+            case R.id.tvPhoneLeft: // 拨打ta的电话
                 showDial();
                 break;
-            case R.id.llUserInfoLeft: // ta的生日
-            case R.id.llUserInfoRight: // 我的生日
+            case R.id.tvBirthLeft: // ta的生日
+            case R.id.tvBirthRight: // 我的生日
                 SouvenirListActivity.goActivity(mActivity);
                 break;
         }
