@@ -102,8 +102,8 @@ public class VideoListActivity extends BaseActivity<VideoListActivity> {
                         VideoAdapter videoAdapter = (VideoAdapter) adapter;
                         switch (view.getId()) {
                             case R.id.cvVideo:
-                                if (isFromSelect()) { // 礼物选择
-                                    videoAdapter.selectGift(position);
+                                if (isFromSelect()) { // 视频选择
+                                    videoAdapter.selectVideo(position);
                                 } else { // 播放
                                     videoAdapter.playVideo(position);
                                 }

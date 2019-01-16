@@ -105,6 +105,9 @@ public class VideoAdapter extends BaseMultiItemQuickAdapter<Video, BaseViewHolde
     public void playVideo(int position) {
         Video item = getItem(position);
         if (item == null) return;
+        //// 跳转视频播放页面
+        //String contentVideo = item.getContentVideo();
+        //VideoPlayActivity.goActivity(mActivity, contentVideo);
         // 检查是否下载完毕
         String contentVideo = item.getContentVideo();
         File file = OssResHelper.newKeyFile(contentVideo);
@@ -159,7 +162,7 @@ public class VideoAdapter extends BaseMultiItemQuickAdapter<Video, BaseViewHolde
         mActivity.pushApi(api);
     }
 
-    public void selectGift(int position) {
+    public void selectVideo(int position) {
         mActivity.finish(); // 必须先关闭
         Video item = getItem(position);
         RxBus.post(new RxBus.Event<>(RxBus.EVENT_VIDEO_SELECT, item));

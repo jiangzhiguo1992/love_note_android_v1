@@ -75,6 +75,7 @@
         <meta-data
             android:name="com.amap.api.v2.apikey"
             android:value="8d050bd3da20cc18f5f066710b8b8974"/>
+
         <service
             android:name="com.amap.api.location.APSService"
             android:enabled="true"
@@ -104,6 +105,7 @@
             android:screenOrientation="behind"
             android:windowSoftInputMode="adjustResize|stateHidden">
         </activity>
+
         <activity
             android:name="com.alipay.sdk.app.H5AuthActivity"
             android:configChanges="orientation|keyboardHidden|navigation"
@@ -116,6 +118,7 @@
         <meta-data
             android:name="wx_app_id"
             android:value="wx956330a3fd0ef37e"/>
+
         <activity
             android:name=".wxapi.WXEntryActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
@@ -123,6 +126,7 @@
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Translucent.NoTitleBar"/>
+
         <activity
             android:name=".wxapi.WXPayEntryActivity"
             android:exported="true"
@@ -144,6 +148,7 @@
         <activity android:name=".controller.activity.common.MapShowActivity"/>
         <activity android:name=".controller.activity.common.MapSelectActivity"/>
         <activity android:name=".controller.activity.common.MapSearchActivity"/>
+        <activity android:name=".controller.activity.common.VideoPlayActivity"/>
         <!-- user -->
         <activity android:name=".controller.activity.user.LoginActivity"/>
         <activity android:name=".controller.activity.user.RegisterActivity"/>
