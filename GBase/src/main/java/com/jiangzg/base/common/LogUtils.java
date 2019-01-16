@@ -35,7 +35,7 @@ public class LogUtils {
             @Override
             public void uncaughtException(Thread t, Throwable e) {
                 // 记得先打印，要不系统拦截了异常之后，程序会退出
-                LogUtils.e(LogUtils.class, "uncaughtException", e);
+                LogUtils.e(LogUtils.class, "未捕获异常", e);
                 // 获取系统默认的异常处理器
                 Thread.UncaughtExceptionHandler defHandler = Thread.getDefaultUncaughtExceptionHandler();
                 if (e != null && defHandler != null) {

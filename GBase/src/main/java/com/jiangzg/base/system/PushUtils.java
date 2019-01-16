@@ -1,5 +1,6 @@
 package com.jiangzg.base.system;
 
+import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.graphics.Color;
@@ -38,6 +39,12 @@ public class PushUtils {
         if (vibrate) {
             mChannel.setVibrationPattern(new long[]{100, 200, 300, 400, 500, 400, 300, 200, 400});
         }
+        // 锁屏显示
+        mChannel.setLockscreenVisibility(Notification.VISIBILITY_PUBLIC);
+        // 角标
+        mChannel.setShowBadge(true);
+        // 不绕过免打扰
+        mChannel.setBypassDnd(false);
         //最后在notificationManager中创建该通知渠道
         manager.createNotificationChannel(mChannel);
     }
