@@ -180,13 +180,12 @@ public class CouplePairActivity extends BaseActivity<CouplePairActivity> {
         cardResult.setVisibility(View.GONE);
     }
 
-    // 获取自身可见的cp
     private void refreshSelfCouple() {
         allViewGone();
         if (!srl.isRefreshing()) {
             srl.setRefreshing(true);
         }
-        // api 获取和ta的以往cp
+        // api 获取自身可见的cp
         Call<Result> api = new RetrofitHelper().call(API.class).coupleSelfGet();
         RetrofitHelper.enqueue(api, null, new RetrofitHelper.CallBack() {
             @Override
@@ -204,7 +203,6 @@ public class CouplePairActivity extends BaseActivity<CouplePairActivity> {
         pushApi(api);
     }
 
-    // 邀请ta
     private void inviteeTa() {
         allViewGone();
         if (!srl.isRefreshing()) {
@@ -212,7 +210,7 @@ public class CouplePairActivity extends BaseActivity<CouplePairActivity> {
         }
         User user = new User();
         user.setPhone(etPhone.getText().toString().trim());
-        // api
+        // api 邀请
         Call<Result> api = new RetrofitHelper().call(API.class).coupleInvitee(user);
         RetrofitHelper.enqueue(api, null, new RetrofitHelper.CallBack() {
             @Override
@@ -231,32 +229,29 @@ public class CouplePairActivity extends BaseActivity<CouplePairActivity> {
         pushApi(api);
     }
 
-    // 刷新view
     private void refreshSelfCoupleView(Result.Data data) {
-        if (data == null || UserHelper.isEmpty(data.getCouple())) {
+        if (data == null || UserHelper.isEmpty(data.getCouple()) || data.getPairCard() == null) {
             // 没有等待处理的
             coupleId = 0;
             llInput.setVisibility(View.VISIBLE);
             cardResult.setVisibility(View.GONE);
             return;
         }
-        Couple couple = data.getCouple();
         // 有等待处理的
-        coupleId = couple.getId();
+        coupleId = data.getCouple().getId();
         llInput.setVisibility(View.GONE);
-        PairCard pairCard = data.getPairCard();
-        // card
         cardResult.setVisibility(View.VISIBLE);
-        // taPhone
+        PairCard pairCard = data.getPairCard();
+        // phone
         String taPhone = pairCard.getTaPhone();
-        String phone = String.format(Locale.getDefault(), getString(R.string.ta_colon_space_holder), taPhone);
         if (StringUtils.isEmpty(taPhone)) {
             tvCardPhone.setVisibility(View.GONE);
         } else {
             tvCardPhone.setVisibility(View.VISIBLE);
+            String phone = String.format(Locale.getDefault(), getString(R.string.ta_colon_space_holder), taPhone);
             tvCardPhone.setText(phone);
         }
-
+        // title
         String title = pairCard.getTitle();
         if (StringUtils.isEmpty(title)) {
             tvCardTitle.setVisibility(View.GONE);
@@ -264,6 +259,7 @@ public class CouplePairActivity extends BaseActivity<CouplePairActivity> {
             tvCardTitle.setVisibility(View.VISIBLE);
             tvCardTitle.setText(title);
         }
+        // message
         String message = pairCard.getMessage();
         if (StringUtils.isEmpty(message)) {
             if (StringUtils.isEmpty(data.getShow())) {
@@ -276,13 +272,7 @@ public class CouplePairActivity extends BaseActivity<CouplePairActivity> {
             tvCardMessage.setVisibility(View.VISIBLE);
             tvCardMessage.setText(message);
         }
-        String btnGood = pairCard.getBtnGood();
-        if (StringUtils.isEmpty(btnGood)) {
-            btnCardGood.setVisibility(View.GONE);
-        } else {
-            btnCardGood.setVisibility(View.VISIBLE);
-            btnCardGood.setText(btnGood);
-        }
+        // bad
         String btnBad = pairCard.getBtnBad();
         if (StringUtils.isEmpty(btnBad)) {
             btnCardBad.setVisibility(View.GONE);
@@ -290,33 +280,32 @@ public class CouplePairActivity extends BaseActivity<CouplePairActivity> {
             btnCardBad.setVisibility(View.VISIBLE);
             btnCardBad.setText(btnBad);
         }
-    }
-
-    // 变好
-    private void updateCouple2Good() {
-        allViewGone();
-        if (!srl.isRefreshing()) {
-            srl.setRefreshing(true);
+        // good
+        String btnGood = pairCard.getBtnGood();
+        if (StringUtils.isEmpty(btnGood)) {
+            btnCardGood.setVisibility(View.GONE);
+        } else {
+            btnCardGood.setVisibility(View.VISIBLE);
+            btnCardGood.setText(btnGood);
         }
-        // api
-        coupleUpdate(ApiHelper.COUPLE_UPDATE_GOOD, coupleId);
     }
 
-    // 变坏
     private void updateCouple2Bad() {
-        allViewGone();
-        if (!srl.isRefreshing()) {
-            srl.setRefreshing(true);
-        }
-        // api
         coupleUpdate(ApiHelper.COUPLE_UPDATE_BAD, coupleId);
     }
 
-    // 提交状态更新
-    private void coupleUpdate(int type, long coupleId) {
+    private void updateCouple2Good() {
+        coupleUpdate(ApiHelper.COUPLE_UPDATE_GOOD, coupleId);
+    }
+
+    private void coupleUpdate(int type, long cid) {
+        allViewGone();
+        if (!srl.isRefreshing()) {
+            srl.setRefreshing(true);
+        }
         Couple couple = new Couple();
-        couple.setId(coupleId);
-        // api
+        couple.setId(cid);
+        // api 提交状态更新
         Call<Result> api = new RetrofitHelper().call(API.class).coupleUpdate(type, couple);
         RetrofitHelper.enqueue(api, null, new RetrofitHelper.CallBack() {
             @Override
@@ -334,16 +323,14 @@ public class CouplePairActivity extends BaseActivity<CouplePairActivity> {
         pushApi(api);
     }
 
-    // 查看是否有配对成功的
     private void coupleGetVisible() {
         if (!srl.isRefreshing()) {
             srl.setRefreshing(true);
         }
         User me = SPHelper.getMe();
-        if (me == null) return;
-        long uid = me.getId();
-        // api 获取和ta的以往cp
-        Call<Result> api = new RetrofitHelper().call(API.class).coupleGet(uid);
+        if (UserHelper.isEmpty(me)) return;
+        // api 查看是否有配对成功的
+        Call<Result> api = new RetrofitHelper().call(API.class).coupleGet(me.getId());
         RetrofitHelper.enqueue(api, null, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
@@ -352,7 +339,7 @@ public class CouplePairActivity extends BaseActivity<CouplePairActivity> {
                     // 有配对成功的，退出本界面
                     Couple couple = data.getCouple();
                     SPHelper.setCouple(couple);
-                    RxBus.post(new RxBus.Event<>(RxBus.EVENT_COUPLE_REFRESH, new Couple()));
+                    RxBus.post(new RxBus.Event<>(RxBus.EVENT_COUPLE_REFRESH, couple));
                     mActivity.finish();
                 } else {
                     // 没有则刷新数据和view
