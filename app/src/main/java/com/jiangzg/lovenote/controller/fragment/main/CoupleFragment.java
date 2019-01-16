@@ -155,11 +155,7 @@ public class CoupleFragment extends BasePagerFragment<CoupleFragment> {
 
     protected void loadData() {
         // event
-        Observable<Couple> obCoupleRefresh = RxBus.register(RxBus.EVENT_COUPLE_REFRESH, couple -> {
-            refreshView();
-            // oss 这里配对状态变化 oss也会变化
-            ApiHelper.ossInfoUpdate();
-        });
+        Observable<Couple> obCoupleRefresh = RxBus.register(RxBus.EVENT_COUPLE_REFRESH, couple -> refreshData());
         pushBus(RxBus.EVENT_COUPLE_REFRESH, obCoupleRefresh);
         Observable<WallPaper> obWallPaperRefresh = RxBus.register(RxBus.EVENT_WALL_PAPER_REFRESH, wallPaper -> refreshWallPaperView());
         pushBus(RxBus.EVENT_WALL_PAPER_REFRESH, obWallPaperRefresh);
