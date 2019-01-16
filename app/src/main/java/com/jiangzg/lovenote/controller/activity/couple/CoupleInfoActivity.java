@@ -367,13 +367,11 @@ public class CoupleInfoActivity extends BaseActivity<CoupleInfoActivity> {
         DialogHelper.showWithAnim(dialog);
     }
 
-    // 分手
     private void coupleStatus(int type) {
         Couple couple = SPHelper.getCouple();
-        MaterialDialog loading = getLoading(true);
         // api
         Call<Result> api = new RetrofitHelper().call(API.class).coupleUpdate(type, couple);
-        RetrofitHelper.enqueue(api, loading, new RetrofitHelper.CallBack() {
+        RetrofitHelper.enqueue(api, getLoading(true), new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 Couple couple = data.getCouple();
