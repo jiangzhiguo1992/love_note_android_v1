@@ -148,11 +148,11 @@ public class OssHelper {
         void end();
     }
 
-    // 给后台看的 所以用CST时区
-    private static String createExtensionKey(String dir, File source) {
+    // 创建oss文件名 给后台看的，所以用CST时区
+    private static String createOssKey(String ossDir, File source) {
         String uuid = StringUtils.getUUID(8);
         String extension = FileUtils.getFileExtension(source);
-        return dir + DateUtils.getCurrentStr(DateUtils.FORMAT_CHINA_Y_M_D__H_M_S_S) + "-" + uuid + extension;
+        return ossDir + DateUtils.getCurrentStr(DateUtils.FORMAT_CHINA_Y_M_D__H_M_S_S) + "-" + uuid + extension;
     }
 
     // 取消任务
@@ -430,7 +430,7 @@ public class OssHelper {
             return;
         }
         // objectKey
-        String objectKey = createExtensionKey(ossDirPath, source);
+        String objectKey = createOssKey(ossDirPath, source);
         // 开始时上传
         uploadFileInForeground(activity, source, objectKey, callBack);
     }
@@ -736,7 +736,7 @@ public class OssHelper {
                     ossKeyList.add("");
                     continue;
                 }
-                String objectKey = createExtensionKey(ossDirPath, source);
+                String objectKey = createOssKey(ossDirPath, source);
                 ossKeyList.add(objectKey);
             }
         }
@@ -1031,16 +1031,14 @@ public class OssHelper {
 
     // 意见 (压缩)
     public static void uploadSuggest(Activity activity, final File source, final OssUploadCallBack callBack) {
-        OssInfo ossInfo = SPHelper.getOssInfo();
-        String pathSuggest = ossInfo.getPathSuggest();
+        String pathSuggest = SPHelper.getOssInfo().getPathSuggest();
         uploadMiniFileInForegroundWithName(activity, pathSuggest, source, callBack);
     }
 
     // 头像 (压缩 + 持久化)
     public static void uploadAvatar(Activity activity, final File source, final OssUploadCallBack callBack) {
-        OssInfo ossInfo = SPHelper.getOssInfo();
-        String pathCoupleAvatar = ossInfo.getPathCoupleAvatar();
-        uploadMiniFileInForegroundWithName(activity, pathCoupleAvatar, source, callBack);
+        String ossDirPath = SPHelper.getOssInfo().getPathCoupleAvatar();
+        uploadMiniFileInForegroundWithName(activity, ossDirPath, source, callBack);
     }
 
     // 墙纸 (限制 + 持久化)
@@ -1057,9 +1055,8 @@ public class OssHelper {
             VipActivity.goActivity(activity);
             return;
         }
-        OssInfo ossInfo = SPHelper.getOssInfo();
-        String pathCoupleWall = ossInfo.getPathCoupleWall();
-        uploadFileInForegroundWithName(activity, pathCoupleWall, source, callBack);
+        String ossDirPath = SPHelper.getOssInfo().getPathCoupleWall();
+        uploadFileInForegroundWithName(activity, ossDirPath, source, callBack);
     }
 
     // 音频 (持久化)
@@ -1076,16 +1073,14 @@ public class OssHelper {
             VipActivity.goActivity(activity);
             return;
         }
-        OssInfo ossInfo = SPHelper.getOssInfo();
-        String pathNoteAudio = ossInfo.getPathNoteAudio();
-        uploadFileInForegroundWithName(activity, pathNoteAudio, source, callBack);
+        String ossDirPath = SPHelper.getOssInfo().getPathNoteAudio();
+        uploadFileInForegroundWithName(activity, ossDirPath, source, callBack);
     }
 
     // 视频封面 (压缩 +  持久化)
     public static void uploadVideoThumb(Activity activity, final File source, final OssUploadCallBack callBack) {
-        OssInfo ossInfo = SPHelper.getOssInfo();
-        String pathNoteVideoThumb = ossInfo.getPathNoteVideoThumb();
-        uploadMiniFileInForegroundWithName(activity, pathNoteVideoThumb, source, callBack);
+        String ossDirPath = SPHelper.getOssInfo().getPathNoteVideoThumb();
+        uploadMiniFileInForegroundWithName(activity, ossDirPath, source, callBack);
     }
 
     // 视频 (持久化)
@@ -1102,16 +1097,14 @@ public class OssHelper {
             VipActivity.goActivity(activity);
             return;
         }
-        OssInfo ossInfo = SPHelper.getOssInfo();
-        String pathNoteVideo = ossInfo.getPathNoteVideo();
-        uploadFileInForegroundWithName(activity, pathNoteVideo, source, callBack);
+        String ossDirPath = SPHelper.getOssInfo().getPathNoteVideo();
+        uploadFileInForegroundWithName(activity, ossDirPath, source, callBack);
     }
 
     // 相册 (压缩 + 持久化)
     public static void uploadAlbum(Activity activity, final File source, final OssUploadCallBack callBack) {
-        OssInfo ossInfo = SPHelper.getOssInfo();
-        String pathNoteAlbum = ossInfo.getPathNoteAlbum();
-        uploadMiniFileInForegroundWithName(activity, pathNoteAlbum, source, callBack);
+        String ossDirPath = SPHelper.getOssInfo().getPathNoteAlbum();
+        uploadMiniFileInForegroundWithName(activity, ossDirPath, source, callBack);
     }
 
     // 照片 (限制 + 持久化)
@@ -1137,16 +1130,14 @@ public class OssHelper {
             VipActivity.goActivity(activity);
             return;
         }
-        OssInfo ossInfo = SPHelper.getOssInfo();
-        String pathNotePicture = ossInfo.getPathNotePicture();
-        uploadFilesInForegroundWithName(activity, fileList, pathNotePicture, true, callBack);
+        String ossDirPath = SPHelper.getOssInfo().getPathNotePicture();
+        uploadFilesInForegroundWithName(activity, fileList, ossDirPath, true, callBack);
     }
 
     // 耳语 (压缩 + 持久化)
     public static void uploadWhisper(Activity activity, final File source, final OssUploadCallBack callBack) {
-        OssInfo ossInfo = SPHelper.getOssInfo();
-        String pathNoteWhisper = ossInfo.getPathNoteWhisper();
-        uploadMiniFileInForegroundWithName(activity, pathNoteWhisper, source, callBack);
+        String ossDirPath = SPHelper.getOssInfo().getPathNoteWhisper();
+        uploadMiniFileInForegroundWithName(activity, ossDirPath, source, callBack);
     }
 
     // 日记 (限制 + 持久化)
@@ -1172,48 +1163,42 @@ public class OssHelper {
             VipActivity.goActivity(activity);
             return;
         }
-        OssInfo ossInfo = SPHelper.getOssInfo();
-        String pathNoteDiary = ossInfo.getPathNoteDiary();
-        uploadFilesInForegroundWithName(activity, fileList, pathNoteDiary, true, callBack);
+        String ossDirPath = SPHelper.getOssInfo().getPathNoteDiary();
+        uploadFilesInForegroundWithName(activity, fileList, ossDirPath, true, callBack);
     }
 
     // 美食 (压缩 + 持久化)
     public static void uploadFood(Activity activity, final List<String> sourceList, final OssUploadsCallBack callBack) {
-        OssInfo ossInfo = SPHelper.getOssInfo();
-        String pathNoteFood = ossInfo.getPathNoteFood();
+        String ossDirPath = SPHelper.getOssInfo().getPathNoteFood();
         List<File> fileList = ListHelper.getFileListByPath(sourceList);
-        uploadMiniFilesInForegroundWithName(activity, pathNoteFood, fileList, false, callBack);
+        uploadMiniFilesInForegroundWithName(activity, ossDirPath, fileList, false, callBack);
     }
 
     // 礼物 (压缩 + 持久化)
     public static void uploadGift(Activity activity, final List<String> sourceList, final OssUploadsCallBack callBack) {
-        OssInfo ossInfo = SPHelper.getOssInfo();
-        String pathNoteGift = ossInfo.getPathNoteGift();
+        String ossDirPath = SPHelper.getOssInfo().getPathNoteGift();
         List<File> fileList = ListHelper.getFileListByPath(sourceList);
-        uploadMiniFilesInForegroundWithName(activity, pathNoteGift, fileList, false, callBack);
+        uploadMiniFilesInForegroundWithName(activity, ossDirPath, fileList, false, callBack);
     }
 
     // 电影 (压缩 + 持久化)
     public static void uploadMovie(Activity activity, final List<String> sourceList, final OssUploadsCallBack callBack) {
-        OssInfo ossInfo = SPHelper.getOssInfo();
-        String pathNoteMovie = ossInfo.getPathNoteMovie();
+        String ossDirPath = SPHelper.getOssInfo().getPathNoteMovie();
         List<File> fileList = ListHelper.getFileListByPath(sourceList);
-        uploadMiniFilesInForegroundWithName(activity, pathNoteMovie, fileList, false, callBack);
+        uploadMiniFilesInForegroundWithName(activity, ossDirPath, fileList, false, callBack);
     }
 
     // 帖子 (压缩)
     public static void uploadTopicPost(Activity activity, final List<String> sourceList, final OssUploadsCallBack callBack) {
-        OssInfo ossInfo = SPHelper.getOssInfo();
-        String pathTopicPost = ossInfo.getPathTopicPost();
+        String ossDirPath = SPHelper.getOssInfo().getPathTopicPost();
         List<File> fileList = ListHelper.getFileListByPath(sourceList);
-        uploadMiniFilesInForegroundWithName(activity, pathTopicPost, fileList, false, callBack);
+        uploadMiniFilesInForegroundWithName(activity, ossDirPath, fileList, false, callBack);
     }
 
     // 作品 (压缩)
     public static void uploadMoreMatch(Activity activity, final File source, final OssUploadCallBack callBack) {
-        OssInfo ossInfo = SPHelper.getOssInfo();
-        String pathMoreMatch = ossInfo.getPathMoreMatch();
-        uploadMiniFileInForegroundWithName(activity, pathMoreMatch, source, callBack);
+        String ossDirPath = SPHelper.getOssInfo().getPathMoreMatch();
+        uploadMiniFileInForegroundWithName(activity, ossDirPath, source, callBack);
     }
 
 }
