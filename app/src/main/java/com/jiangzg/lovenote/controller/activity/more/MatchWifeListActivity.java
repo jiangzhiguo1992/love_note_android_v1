@@ -303,7 +303,7 @@ public class MatchWifeListActivity extends BaseActivity<MatchWifeListActivity> {
             CouplePairActivity.goActivity(mActivity);
             return;
         }
-        PickHelper.selectImage(mActivity, 1);
+        PickHelper.selectImage(mActivity, 1, true);
     }
 
     // 上传

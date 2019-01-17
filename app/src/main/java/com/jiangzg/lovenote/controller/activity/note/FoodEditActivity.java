@@ -235,7 +235,7 @@ public class FoodEditActivity extends BaseActivity<FoodEditActivity> {
         ImgSquareEditAdapter imgAdapter = new ImgSquareEditAdapter(mActivity, spanCount, childCount);
         imgAdapter.setOnAddClick(() -> {
             int maxCount = childCount - imgAdapter.getOssData().size() - imgAdapter.getFileData().size();
-            PickHelper.selectImage(mActivity, maxCount);
+            PickHelper.selectImage(mActivity, maxCount, true);
         });
         if (food.getContentImageList() != null && food.getContentImageList().size() > 0) {
             imgAdapter.setOssData(food.getContentImageList());

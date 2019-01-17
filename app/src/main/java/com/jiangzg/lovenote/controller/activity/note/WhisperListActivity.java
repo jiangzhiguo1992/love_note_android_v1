@@ -320,7 +320,7 @@ public class WhisperListActivity extends BaseActivity<WhisperListActivity> {
             VipActivity.goActivity(mActivity);
             return;
         }
-        PickHelper.selectImage(mActivity, 1);
+        PickHelper.selectImage(mActivity, 1, true);
     }
 
     // 上传

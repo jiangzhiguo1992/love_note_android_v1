@@ -164,7 +164,7 @@ public class AlbumEditActivity extends BaseActivity<AlbumEditActivity> {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.ivAdd: // 封面图片
-                PickHelper.selectImage(mActivity, 1);
+                PickHelper.selectImage(mActivity, 1, true);
                 break;
         }
     }

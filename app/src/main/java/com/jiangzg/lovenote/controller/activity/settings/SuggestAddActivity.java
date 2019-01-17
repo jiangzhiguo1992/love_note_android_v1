@@ -187,7 +187,7 @@ public class SuggestAddActivity extends BaseActivity<SuggestAddActivity> {
     private void toggleImage() {
         if (FileUtils.isFileEmpty(pictureFile)) {
             pictureFile = null;
-            PickHelper.selectImage(mActivity, 1);
+            PickHelper.selectImage(mActivity, 1, true);
         } else {
             cancelImage();
         }

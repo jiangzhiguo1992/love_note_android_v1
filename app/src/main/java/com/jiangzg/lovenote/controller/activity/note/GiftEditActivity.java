@@ -231,7 +231,7 @@ public class GiftEditActivity extends BaseActivity<GiftEditActivity> {
         ImgSquareEditAdapter imgAdapter = new ImgSquareEditAdapter(mActivity, spanCount, childCount);
         imgAdapter.setOnAddClick(() -> {
             int maxCount = childCount - imgAdapter.getOssData().size() - imgAdapter.getFileData().size();
-            PickHelper.selectImage(mActivity, maxCount);
+            PickHelper.selectImage(mActivity, maxCount, true);
         });
         if (gift.getContentImageList() != null && gift.getContentImageList().size() > 0) {
             imgAdapter.setOssData(gift.getContentImageList());

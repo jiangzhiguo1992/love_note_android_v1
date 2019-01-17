@@ -119,7 +119,7 @@ public class PostAddActivity extends BaseActivity<PostAddActivity> {
             ImgSquareEditAdapter imgAdapter = new ImgSquareEditAdapter(mActivity, spanCount, limitImagesCount);
             imgAdapter.setOnAddClick(() -> {
                 int maxCount = limitImagesCount - imgAdapter.getOssData().size() - imgAdapter.getFileData().size();
-                PickHelper.selectImage(mActivity, maxCount);
+                PickHelper.selectImage(mActivity, maxCount, true);
             });
             if (recyclerHelper == null) {
                 recyclerHelper = new RecyclerHelper(rvImage)

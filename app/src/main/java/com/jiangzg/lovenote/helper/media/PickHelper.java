@@ -24,6 +24,7 @@ import com.zhihu.matisse.engine.impl.GlideEngine;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.EnumSet;
 import java.util.List;
 
 /**
@@ -32,11 +33,11 @@ import java.util.List;
  */
 public class PickHelper {
 
-    public static void selectImage(Activity activity, int maxCount) {
+    public static void selectImage(Activity activity, int maxCount, boolean gif) {
         PermUtils.requestPermissions(activity, BaseActivity.REQUEST_APP_INFO, PermUtils.appInfo, new PermUtils.OnPermissionListener() {
             @Override
             public void onPermissionGranted(int requestCode, String[] permissions) {
-                PickHelper.selectImageWithOutPermission(activity, maxCount);
+                PickHelper.selectImageWithOutPermission(activity, maxCount, gif);
             }
 
             @Override
@@ -46,10 +47,10 @@ public class PickHelper {
         });
     }
 
-    private static void selectImageWithOutPermission(Activity activity, int maxCount) {
+    private static void selectImageWithOutPermission(Activity activity, int maxCount, boolean gif) {
         if (activity == null) return;
         Matisse.from(activity)
-                .choose(MimeType.ofImage(), true) // 文件类型
+                .choose(gif ? MimeType.ofImage() : EnumSet.of(MimeType.JPEG, MimeType.PNG, MimeType.BMP, MimeType.WEBP), true) // 文件类型
                 .showSingleMediaType(true) // 只显示选择类型
                 .spanCount(3) // 行列数(默认3)
                 .theme(R.style.Matisse_Dracula) // 样式(自带暗黑)

@@ -281,12 +281,11 @@ public class CoupleInfoActivity extends BaseActivity<CoupleInfoActivity> {
                     break;
                 case R.id.llPicture:
                     PopUtils.dismiss(pop);
-                    PickHelper.selectImage(mActivity, 1);
+                    PickHelper.selectImage(mActivity, 1, false);
                     break;
                 case R.id.llCancel:
                     PopUtils.dismiss(pop);
                     break;
-
             }
         };
         RelativeLayout root = view.findViewById(R.id.root);

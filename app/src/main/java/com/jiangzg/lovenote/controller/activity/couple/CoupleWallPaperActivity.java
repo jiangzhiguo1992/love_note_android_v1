@@ -174,7 +174,7 @@ public class CoupleWallPaperActivity extends BaseActivity<CoupleWallPaperActivit
             VipActivity.goActivity(mActivity);
             return;
         }
-        PickHelper.selectImage(mActivity, 1);
+        PickHelper.selectImage(mActivity, 1, true);
     }
 
     // oss上传头像

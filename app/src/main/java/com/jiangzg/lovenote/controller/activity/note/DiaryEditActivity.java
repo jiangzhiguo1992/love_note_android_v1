@@ -199,7 +199,7 @@ public class DiaryEditActivity extends BaseActivity<DiaryEditActivity> {
         ImgSquareEditAdapter imgAdapter = new ImgSquareEditAdapter(mActivity, spanCount, childCount);
         imgAdapter.setOnAddClick(() -> {
             int maxCount = childCount - imgAdapter.getOssData().size() - imgAdapter.getFileData().size();
-            PickHelper.selectImage(mActivity, maxCount);
+            PickHelper.selectImage(mActivity, maxCount, true);
         });
         if (diary.getContentImageList() != null && diary.getContentImageList().size() > 0) {
             imgAdapter.setOssData(diary.getContentImageList());

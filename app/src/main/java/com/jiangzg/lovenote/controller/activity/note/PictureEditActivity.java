@@ -272,7 +272,7 @@ public class PictureEditActivity extends BaseActivity<PictureEditActivity> {
         int pushCount = SPHelper.getLimit().getPicturePushCount();
         ImgSquareEditAdapter imgAdapter = recyclerHelper.getAdapter();
         int maxCount = pushCount - imgAdapter.getOssData().size() - imgAdapter.getFileData().size();
-        PickHelper.selectImage(mActivity, maxCount);
+        PickHelper.selectImage(mActivity, maxCount, true);
     }
 
     private void checkCommit() {
