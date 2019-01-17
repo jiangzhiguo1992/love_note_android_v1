@@ -292,12 +292,20 @@ public class CoupleInfoActivity extends BaseActivity<CoupleInfoActivity> {
         PopUtils.show(pop, root, Gravity.CENTER);
     }
 
-    // oss上传头像
+    private void showDial() {
+        User ta = SPHelper.getTa();
+        if (ta != null) {
+            String phone = ta.getPhone().trim();
+            Intent dial = IntentFactory.getDial(phone);
+            ActivityTrans.start(mActivity, dial);
+        }
+    }
+
     private void ossUploadAvatar() {
         OssHelper.uploadAvatar(mActivity, cropFile, new OssHelper.OssUploadCallBack() {
             @Override
             public void success(File source, String ossPath) {
-                apiCoupleInfo(0, ossPath, "");
+                updateCoupleInfo(0, ossPath, "");
                 ResHelper.deleteFileInBackground(cropFile);
             }
 
@@ -308,7 +316,6 @@ public class CoupleInfoActivity extends BaseActivity<CoupleInfoActivity> {
         });
     }
 
-    // 修改名称对话框
     private void showNameInput() {
         String show = UserHelper.getTaName(SPHelper.getMe()).trim();
         String hint = getString(R.string.please_input_nickname);
@@ -327,21 +334,29 @@ public class CoupleInfoActivity extends BaseActivity<CoupleInfoActivity> {
                     EditText editText = dialog.getInputEditText();
                     if (editText != null) {
                         String modifyName = editText.getText().toString();
-                        apiCoupleInfo(0, "", modifyName);
+                        updateCoupleInfo(0, "", modifyName);
                     }
                 })
                 .build();
         DialogHelper.showWithAnim(dialogName);
     }
 
-    // api 修改couple
-    private void apiCoupleInfo(long togetherAt, String avatar, String name) {
-        User user = SPHelper.getMe();
-        if (user == null) return;
-        Couple body = user.getCouple();
-        if (body == null) return;
+    private void showTogetherTimePicker() {
+        Couple couple = SPHelper.getCouple();
+        long togetherAt = couple == null ? DateUtils.getCurrentLong() :
+                (couple.getTogetherAt() == 0 ? DateUtils.getCurrentLong() : TimeHelper.getJavaTimeByGo(couple.getTogetherAt()));
+        DialogHelper.showDateTimePicker(mActivity, togetherAt, time -> updateCoupleInfo(TimeHelper.getGoTimeByJava(time), "", ""));
+    }
+
+    private void updateCoupleInfo(long togetherAt, String avatar, String name) {
+        User me = SPHelper.getMe();
+        if (me == null) return;
+        Couple body = me.getCouple();
+        if (body == null) {
+            body = new Couple();
+        }
         body.setTogetherAt(togetherAt);
-        if (body.getCreatorId() == user.getId()) {
+        if (body.getCreatorId() == me.getId()) {
             body.setInviteeAvatar(avatar);
             body.setInviteeName(name);
         } else {
@@ -364,23 +379,6 @@ public class CoupleInfoActivity extends BaseActivity<CoupleInfoActivity> {
             }
         });
         pushApi(api);
-    }
-
-    // 拨打电话
-    private void showDial() {
-        User ta = SPHelper.getTa();
-        if (ta != null) {
-            String phone = ta.getPhone().trim();
-            Intent dial = IntentFactory.getDial(phone);
-            ActivityTrans.start(mActivity, dial);
-        }
-    }
-
-    private void showTogetherTimePicker() {
-        Couple couple = SPHelper.getCouple();
-        long togetherAt = couple == null ? DateUtils.getCurrentLong() :
-                (couple.getTogetherAt() == 0 ? DateUtils.getCurrentLong() : TimeHelper.getJavaTimeByGo(couple.getTogetherAt()));
-        DialogHelper.showDateTimePicker(mActivity, togetherAt, time -> apiCoupleInfo(TimeHelper.getGoTimeByJava(time), "", ""));
     }
 
     private void showBreakDialog() {
