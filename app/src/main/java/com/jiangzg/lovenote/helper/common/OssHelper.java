@@ -351,11 +351,11 @@ public class OssHelper {
      * *****************************************单文件上传*****************************************
      */
     // 上传任务 启动压缩 + 后缀名 + 前台
-    private static void uploadMiniExtFileInForeground(final Activity activity, final String ossDirPath,
-                                                      final File source, final OssUploadCallBack callBack) {
+    private static void uploadMiniFileInForegroundWithName(final Activity activity, final String ossDirPath,
+                                                           final File source, final OssUploadCallBack callBack) {
         // file
         if (FileUtils.isFileEmpty(source)) {
-            LogUtils.w(OssHelper.class, "uploadMiniExtFileInForeground", "source == null");
+            LogUtils.w(OssHelper.class, "uploadMiniFileInForegroundWithName", "source == null");
             String msg = MyApp.get().getString(R.string.upload_file_no_exists);
             ToastUtils.show(msg);
             // 回调
@@ -381,7 +381,7 @@ public class OssHelper {
                     public void onStart() {
                         DialogHelper.showWithAnim(progress);
                         String size = ConvertUtils.byte2FitSize(source.length());
-                        LogUtils.d(OssHelper.class, "uploadMiniExtFileInForeground", " 压缩前大小: " + source.getName() + " = " + size);
+                        LogUtils.d(OssHelper.class, "uploadMiniFileInForegroundWithName", " 压缩前大小: " + source.getName() + " = " + size);
                     }
 
                     @Override
@@ -394,34 +394,34 @@ public class OssHelper {
                             //ResHelper.deleteFileInBackground(source);
                             //}
                             String size = ConvertUtils.byte2FitSize(file.length());
-                            LogUtils.d(OssHelper.class, "uploadMiniExtFileInForeground", " 压缩后大小: " + source.getName() + " = " + size);
+                            LogUtils.d(OssHelper.class, "uploadMiniFileInForegroundWithName", " 压缩后大小: " + source.getName() + " = " + size);
                             // upload
-                            uploadExtFileInForeground(activity, ossDirPath, file, callBack);
+                            uploadFileInForegroundWithName(activity, ossDirPath, file, callBack);
                         } else {
                             String size = ConvertUtils.byte2FitSize(source.length());
-                            LogUtils.d(OssHelper.class, "uploadMiniExtFileInForeground", " 压缩失败大小: " + source.getName() + " = " + size);
+                            LogUtils.d(OssHelper.class, "uploadMiniFileInForegroundWithName", " 压缩失败大小: " + source.getName() + " = " + size);
                             // upload
-                            uploadExtFileInForeground(activity, ossDirPath, source, callBack);
+                            uploadFileInForegroundWithName(activity, ossDirPath, source, callBack);
                         }
                     }
 
                     @Override
                     public void onError(Throwable t) {
-                        LogUtils.e(OssHelper.class, "uploadMiniExtFileInForeground", t);
+                        LogUtils.e(OssHelper.class, "uploadMiniFileInForegroundWithName", t);
                         DialogUtils.dismiss(progress);
                         // upload
-                        uploadExtFileInForeground(activity, ossDirPath, source, callBack);
+                        uploadFileInForegroundWithName(activity, ossDirPath, source, callBack);
                     }
                 })
                 .launch();
     }
 
     // 上传任务 后缀名 + 前台
-    private static void uploadExtFileInForeground(Activity activity, final String ossDirPath,
-                                                  final File source, final OssUploadCallBack callBack) {
+    private static void uploadFileInForegroundWithName(Activity activity, final String ossDirPath,
+                                                       final File source, final OssUploadCallBack callBack) {
         // ossDirPath
         if (StringUtils.isEmpty(ossDirPath)) {
-            LogUtils.w(OssHelper.class, "uploadExtFileInForeground", "ossDirPath == null");
+            LogUtils.w(OssHelper.class, "uploadFileInForegroundWithName", "ossDirPath == null");
             String msg = MyApp.get().getString(R.string.access_resource_path_no_exists);
             ToastUtils.show(msg);
             if (callBack != null) {
@@ -598,9 +598,9 @@ public class OssHelper {
      * *****************************************多文件上传*****************************************
      */
     // 启动多张压缩
-    private static void uploadMiniExtFilesInForeground(final Activity activity, final String ossDirPath,
-                                                       final List<File> sourceList, final boolean canMiss,
-                                                       final OssUploadsCallBack callBack) {
+    private static void uploadMiniFilesInForegroundWithName(final Activity activity, final String ossDirPath,
+                                                            final List<File> sourceList, final boolean canMiss,
+                                                            final OssUploadsCallBack callBack) {
         MaterialDialog progress = DialogHelper.getBuild(activity)
                 .cancelable(false)
                 .canceledOnTouchOutside(false)
@@ -608,16 +608,16 @@ public class OssHelper {
                 .progress(true, 0)
                 .progressIndeterminateStyle(false)
                 .build();
-        uploadMiniExtFilesInForeground(activity, progress, sourceList, ossDirPath, 0, canMiss, callBack);
+        uploadMiniFilesInForegroundWithName(activity, progress, sourceList, ossDirPath, 0, canMiss, callBack);
     }
 
-    private static void uploadMiniExtFilesInForeground(final Activity activity, final MaterialDialog progress,
-                                                       final List<File> sourceList, final String ossDirPath,
-                                                       final int index, final boolean canMiss,
-                                                       final OssUploadsCallBack callBack) {
+    private static void uploadMiniFilesInForegroundWithName(final Activity activity, final MaterialDialog progress,
+                                                            final List<File> sourceList, final String ossDirPath,
+                                                            final int index, final boolean canMiss,
+                                                            final OssUploadsCallBack callBack) {
         // index
         if (sourceList == null || sourceList.size() <= 0 || sourceList.size() <= index) {
-            LogUtils.w(OssHelper.class, "uploadMiniExtFilesInForeground", "index = " + index + " -- sourceList == null");
+            LogUtils.w(OssHelper.class, "uploadMiniFilesInForegroundWithName", "index = " + index + " -- sourceList == null");
             String msg = MyApp.get().getString(R.string.not_found_upload_file);
             ToastUtils.show(msg);
             DialogUtils.dismiss(progress);
@@ -628,7 +628,7 @@ public class OssHelper {
         }
         // ossDirPath
         if (StringUtils.isEmpty(ossDirPath)) {
-            LogUtils.w(OssHelper.class, "uploadMiniExtFilesInForeground", "index = " + index + " -- ossDirPath == null");
+            LogUtils.w(OssHelper.class, "uploadMiniFilesInForegroundWithName", "index = " + index + " -- ossDirPath == null");
             String msg = MyApp.get().getString(R.string.access_resource_path_no_exists);
             ToastUtils.show(msg);
             DialogUtils.dismiss(progress);
@@ -640,7 +640,7 @@ public class OssHelper {
         // source
         final File source = sourceList.get(index);
         if (FileUtils.isFileEmpty(source)) {
-            LogUtils.w(OssHelper.class, "uploadMiniExtFilesInForeground", "index = " + index + " -- source == null");
+            LogUtils.w(OssHelper.class, "uploadMiniFilesInForegroundWithName", "index = " + index + " -- source == null");
             String msg = MyApp.get().getString(R.string.upload_file_no_exists);
             ToastUtils.show(msg);
             DialogUtils.dismiss(progress);
@@ -668,7 +668,7 @@ public class OssHelper {
                     @Override
                     public void onStart() {
                         String size = ConvertUtils.byte2FitSize(source.length());
-                        LogUtils.d(OssHelper.class, "uploadMiniExtFilesInForeground", " 压缩前大小: " + source.getName() + " = " + size);
+                        LogUtils.d(OssHelper.class, "uploadMiniFilesInForegroundWithName", " 压缩前大小: " + source.getName() + " = " + size);
                         // dialog上面已经显示了
                     }
 
@@ -678,36 +678,36 @@ public class OssHelper {
                         if (FileUtils.isFileExists(file)) {
                             // 压缩完的文件为新文件
                             String size = ConvertUtils.byte2FitSize(file.length());
-                            LogUtils.d(OssHelper.class, "uploadMiniExtFilesInForeground", "压缩后大小: " + source.getName() + " = " + size);
+                            LogUtils.d(OssHelper.class, "uploadMiniFilesInForegroundWithName", "压缩后大小: " + source.getName() + " = " + size);
                             sourceList.set(index, file);
                         } else {
                             // 压缩完保存的还是源文件
                             String size = ConvertUtils.byte2FitSize(source.length());
-                            LogUtils.d(OssHelper.class, "uploadMiniExtFilesInForeground", "压缩失败大小: " + source.getName() + " = " + size);
+                            LogUtils.d(OssHelper.class, "uploadMiniFilesInForegroundWithName", "压缩失败大小: " + source.getName() + " = " + size);
                             sourceList.set(index, source);
                         }
                         // upload
                         if (index < sourceList.size() - 1) {
                             // 没压缩完
-                            uploadMiniExtFilesInForeground(activity, progress, sourceList, ossDirPath, index + 1, canMiss, callBack);
+                            uploadMiniFilesInForegroundWithName(activity, progress, sourceList, ossDirPath, index + 1, canMiss, callBack);
                         } else {
                             // 全压缩完
                             DialogUtils.dismiss(progress);
-                            uploadExtFilesInForeground(activity, sourceList, ossDirPath, canMiss, callBack);
+                            uploadFilesInForegroundWithName(activity, sourceList, ossDirPath, canMiss, callBack);
                         }
                     }
 
                     @Override
                     public void onError(Throwable e) {
-                        LogUtils.e(OssHelper.class, "uploadMiniExtFilesInForeground", e);
+                        LogUtils.e(OssHelper.class, "uploadMiniFilesInForegroundWithName", e);
                         // upload
                         if (index < sourceList.size() - 1) {
                             // 没压缩完
-                            uploadMiniExtFilesInForeground(activity, progress, sourceList, ossDirPath, index + 1, canMiss, callBack);
+                            uploadMiniFilesInForegroundWithName(activity, progress, sourceList, ossDirPath, index + 1, canMiss, callBack);
                         } else {
                             // 全压缩完
                             DialogUtils.dismiss(progress);
-                            uploadExtFilesInForeground(activity, sourceList, ossDirPath, canMiss, callBack);
+                            uploadFilesInForegroundWithName(activity, sourceList, ossDirPath, canMiss, callBack);
                         }
                     }
                 })
@@ -715,12 +715,12 @@ public class OssHelper {
     }
 
     // 上传任务 后缀名 + 前台
-    private static void uploadExtFilesInForeground(Activity activity, final List<File> sourceList,
-                                                   final String ossDirPath, final boolean canMiss,
-                                                   final OssUploadsCallBack callBack) {
+    private static void uploadFilesInForegroundWithName(Activity activity, final List<File> sourceList,
+                                                        final String ossDirPath, final boolean canMiss,
+                                                        final OssUploadsCallBack callBack) {
         // ossDirPath
         if (StringUtils.isEmpty(ossDirPath)) {
-            LogUtils.w(OssHelper.class, "uploadExtFilesInForeground", "ossDirPath == null");
+            LogUtils.w(OssHelper.class, "uploadFilesInForegroundWithName", "ossDirPath == null");
             String msg = MyApp.get().getString(R.string.access_resource_path_no_exists);
             ToastUtils.show(msg);
             if (callBack != null) {
@@ -1033,14 +1033,14 @@ public class OssHelper {
     public static void uploadSuggest(Activity activity, final File source, final OssUploadCallBack callBack) {
         OssInfo ossInfo = SPHelper.getOssInfo();
         String pathSuggest = ossInfo.getPathSuggest();
-        uploadMiniExtFileInForeground(activity, pathSuggest, source, callBack);
+        uploadMiniFileInForegroundWithName(activity, pathSuggest, source, callBack);
     }
 
     // 头像 (压缩 + 持久化)
     public static void uploadAvatar(Activity activity, final File source, final OssUploadCallBack callBack) {
         OssInfo ossInfo = SPHelper.getOssInfo();
         String pathCoupleAvatar = ossInfo.getPathCoupleAvatar();
-        uploadMiniExtFileInForeground(activity, pathCoupleAvatar, source, callBack);
+        uploadMiniFileInForegroundWithName(activity, pathCoupleAvatar, source, callBack);
     }
 
     // 墙纸 (限制 + 持久化)
@@ -1059,7 +1059,7 @@ public class OssHelper {
         }
         OssInfo ossInfo = SPHelper.getOssInfo();
         String pathCoupleWall = ossInfo.getPathCoupleWall();
-        uploadExtFileInForeground(activity, pathCoupleWall, source, callBack);
+        uploadFileInForegroundWithName(activity, pathCoupleWall, source, callBack);
     }
 
     // 音频 (持久化)
@@ -1078,14 +1078,14 @@ public class OssHelper {
         }
         OssInfo ossInfo = SPHelper.getOssInfo();
         String pathNoteAudio = ossInfo.getPathNoteAudio();
-        uploadExtFileInForeground(activity, pathNoteAudio, source, callBack);
+        uploadFileInForegroundWithName(activity, pathNoteAudio, source, callBack);
     }
 
     // 视频封面 (压缩 +  持久化)
     public static void uploadVideoThumb(Activity activity, final File source, final OssUploadCallBack callBack) {
         OssInfo ossInfo = SPHelper.getOssInfo();
         String pathNoteVideoThumb = ossInfo.getPathNoteVideoThumb();
-        uploadMiniExtFileInForeground(activity, pathNoteVideoThumb, source, callBack);
+        uploadMiniFileInForegroundWithName(activity, pathNoteVideoThumb, source, callBack);
     }
 
     // 视频 (持久化)
@@ -1104,14 +1104,14 @@ public class OssHelper {
         }
         OssInfo ossInfo = SPHelper.getOssInfo();
         String pathNoteVideo = ossInfo.getPathNoteVideo();
-        uploadExtFileInForeground(activity, pathNoteVideo, source, callBack);
+        uploadFileInForegroundWithName(activity, pathNoteVideo, source, callBack);
     }
 
     // 相册 (压缩 + 持久化)
     public static void uploadAlbum(Activity activity, final File source, final OssUploadCallBack callBack) {
         OssInfo ossInfo = SPHelper.getOssInfo();
         String pathNoteAlbum = ossInfo.getPathNoteAlbum();
-        uploadMiniExtFileInForeground(activity, pathNoteAlbum, source, callBack);
+        uploadMiniFileInForegroundWithName(activity, pathNoteAlbum, source, callBack);
     }
 
     // 照片 (限制 + 持久化)
@@ -1139,14 +1139,14 @@ public class OssHelper {
         }
         OssInfo ossInfo = SPHelper.getOssInfo();
         String pathNotePicture = ossInfo.getPathNotePicture();
-        uploadExtFilesInForeground(activity, fileList, pathNotePicture, true, callBack);
+        uploadFilesInForegroundWithName(activity, fileList, pathNotePicture, true, callBack);
     }
 
     // 耳语 (压缩 + 持久化)
     public static void uploadWhisper(Activity activity, final File source, final OssUploadCallBack callBack) {
         OssInfo ossInfo = SPHelper.getOssInfo();
         String pathNoteWhisper = ossInfo.getPathNoteWhisper();
-        uploadMiniExtFileInForeground(activity, pathNoteWhisper, source, callBack);
+        uploadMiniFileInForegroundWithName(activity, pathNoteWhisper, source, callBack);
     }
 
     // 日记 (限制 + 持久化)
@@ -1174,7 +1174,7 @@ public class OssHelper {
         }
         OssInfo ossInfo = SPHelper.getOssInfo();
         String pathNoteDiary = ossInfo.getPathNoteDiary();
-        uploadExtFilesInForeground(activity, fileList, pathNoteDiary, true, callBack);
+        uploadFilesInForegroundWithName(activity, fileList, pathNoteDiary, true, callBack);
     }
 
     // 美食 (压缩 + 持久化)
@@ -1182,7 +1182,7 @@ public class OssHelper {
         OssInfo ossInfo = SPHelper.getOssInfo();
         String pathNoteFood = ossInfo.getPathNoteFood();
         List<File> fileList = ListHelper.getFileListByPath(sourceList);
-        uploadMiniExtFilesInForeground(activity, pathNoteFood, fileList, false, callBack);
+        uploadMiniFilesInForegroundWithName(activity, pathNoteFood, fileList, false, callBack);
     }
 
     // 礼物 (压缩 + 持久化)
@@ -1190,7 +1190,7 @@ public class OssHelper {
         OssInfo ossInfo = SPHelper.getOssInfo();
         String pathNoteGift = ossInfo.getPathNoteGift();
         List<File> fileList = ListHelper.getFileListByPath(sourceList);
-        uploadMiniExtFilesInForeground(activity, pathNoteGift, fileList, false, callBack);
+        uploadMiniFilesInForegroundWithName(activity, pathNoteGift, fileList, false, callBack);
     }
 
     // 电影 (压缩 + 持久化)
@@ -1198,7 +1198,7 @@ public class OssHelper {
         OssInfo ossInfo = SPHelper.getOssInfo();
         String pathNoteMovie = ossInfo.getPathNoteMovie();
         List<File> fileList = ListHelper.getFileListByPath(sourceList);
-        uploadMiniExtFilesInForeground(activity, pathNoteMovie, fileList, false, callBack);
+        uploadMiniFilesInForegroundWithName(activity, pathNoteMovie, fileList, false, callBack);
     }
 
     // 帖子 (压缩)
@@ -1206,14 +1206,14 @@ public class OssHelper {
         OssInfo ossInfo = SPHelper.getOssInfo();
         String pathTopicPost = ossInfo.getPathTopicPost();
         List<File> fileList = ListHelper.getFileListByPath(sourceList);
-        uploadMiniExtFilesInForeground(activity, pathTopicPost, fileList, false, callBack);
+        uploadMiniFilesInForegroundWithName(activity, pathTopicPost, fileList, false, callBack);
     }
 
     // 作品 (压缩)
     public static void uploadMoreMatch(Activity activity, final File source, final OssUploadCallBack callBack) {
         OssInfo ossInfo = SPHelper.getOssInfo();
         String pathMoreMatch = ossInfo.getPathMoreMatch();
-        uploadMiniExtFileInForeground(activity, pathMoreMatch, source, callBack);
+        uploadMiniFileInForegroundWithName(activity, pathMoreMatch, source, callBack);
     }
 
 }
