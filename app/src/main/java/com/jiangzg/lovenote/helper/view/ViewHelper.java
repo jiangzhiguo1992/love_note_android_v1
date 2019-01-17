@@ -9,22 +9,15 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
-import android.widget.LinearLayout;
-import android.widget.PopupWindow;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.jiangzg.base.common.ConvertUtils;
 import com.jiangzg.base.common.LogUtils;
 import com.jiangzg.base.common.StringUtils;
-import com.jiangzg.base.view.PopUtils;
 import com.jiangzg.lovenote.R;
-import com.jiangzg.lovenote.controller.activity.common.BigImageActivity;
-import com.jiangzg.lovenote.helper.media.PickHelper;
 
 import java.util.Random;
 
@@ -95,39 +88,6 @@ public class ViewHelper {
         }
         textView.setText(show);
         return textView;
-    }
-
-    public static PopupWindow createShowPicturePop(final Activity activity, String ossPath) {
-        View view = LayoutInflater.from(activity).inflate(R.layout.pop_img_show_select, null);
-        final PopupWindow window = PopUtils.createWindow(view);
-        View.OnClickListener listener = v -> {
-            switch (v.getId()) {
-                case R.id.root:
-                    PopUtils.dismiss(window);
-                    break;
-                case R.id.llBigImage:
-                    PopUtils.dismiss(window);
-                    BigImageActivity.goActivityByOss(activity, ossPath, null);
-                    break;
-                case R.id.llPicture:
-                    PopUtils.dismiss(window);
-                    PickHelper.selectImage(activity, 1);
-                    break;
-                case R.id.llCancel:
-                    PopUtils.dismiss(window);
-                    break;
-
-            }
-        };
-        RelativeLayout root = view.findViewById(R.id.root);
-        LinearLayout llBigImage = view.findViewById(R.id.llBigImage);
-        LinearLayout llPicture = view.findViewById(R.id.llPicture);
-        LinearLayout llCancel = view.findViewById(R.id.llCancel);
-        root.setOnClickListener(listener);
-        llBigImage.setOnClickListener(listener);
-        llPicture.setOnClickListener(listener);
-        llCancel.setOnClickListener(listener);
-        return window;
     }
 
 }

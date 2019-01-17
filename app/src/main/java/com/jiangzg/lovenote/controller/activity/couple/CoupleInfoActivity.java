@@ -1,5 +1,6 @@
 package com.jiangzg.lovenote.controller.activity.couple;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -7,6 +8,7 @@ import android.support.design.widget.AppBarLayout;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -264,9 +266,37 @@ public class CoupleInfoActivity extends BaseActivity<CoupleInfoActivity> {
         DialogHelper.showDateTimePicker(mActivity, togetherAt, time -> apiCoupleInfo(TimeHelper.getGoTimeByJava(time), "", ""));
     }
 
+    @SuppressLint("InflateParams")
     private void showLeftAvatarPop() {
-        String taAvatar = UserHelper.getTaAvatar(SPHelper.getMe());
-        PopupWindow pop = ViewHelper.createShowPicturePop(mActivity, taAvatar);
+        View view = LayoutInflater.from(mActivity).inflate(R.layout.pop_img_show_select, null);
+        final PopupWindow pop = PopUtils.createWindow(view);
+        View.OnClickListener listener = v -> {
+            switch (v.getId()) {
+                case R.id.root:
+                    PopUtils.dismiss(pop);
+                    break;
+                case R.id.llBigImage:
+                    PopUtils.dismiss(pop);
+                    BigImageActivity.goActivityByOss(mActivity, UserHelper.getTaAvatar(SPHelper.getMe()), ivAvatarLeft);
+                    break;
+                case R.id.llPicture:
+                    PopUtils.dismiss(pop);
+                    PickHelper.selectImage(mActivity, 1);
+                    break;
+                case R.id.llCancel:
+                    PopUtils.dismiss(pop);
+                    break;
+
+            }
+        };
+        RelativeLayout root = view.findViewById(R.id.root);
+        LinearLayout llBigImage = view.findViewById(R.id.llBigImage);
+        LinearLayout llPicture = view.findViewById(R.id.llPicture);
+        LinearLayout llCancel = view.findViewById(R.id.llCancel);
+        root.setOnClickListener(listener);
+        llBigImage.setOnClickListener(listener);
+        llPicture.setOnClickListener(listener);
+        llCancel.setOnClickListener(listener);
         PopUtils.show(pop, root, Gravity.CENTER);
     }
 

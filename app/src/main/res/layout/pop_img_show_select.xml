@@ -24,7 +24,6 @@
             style="@style/FontGreyNormal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:drawableStart="@mipmap/ic_zoom_out_map_grey_24dp"
             android:drawablePadding="10dp"
             android:gravity="center"
             android:text="@string/look_big_image"/>
@@ -53,7 +52,6 @@
             style="@style/FontGreyNormal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:drawableStart="@mipmap/ic_image_grey_24dp"
             android:drawablePadding="10dp"
             android:gravity="center"
             android:text="@string/change_image"/>
