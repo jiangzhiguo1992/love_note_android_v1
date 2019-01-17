@@ -287,17 +287,18 @@ public class GiftEditActivity extends BaseActivity<GiftEditActivity> {
         if (gift == null) return;
         OssHelper.uploadGift(mActivity, fileData, new OssHelper.OssUploadsCallBack() {
             @Override
-            public void success(List<File> sourceList, List<String> ossPathList) {
+            public void success(List<File> sourceList, List<String> ossKeyList, List<String> successList) {
                 if (recyclerHelper == null) return;
                 ImgSquareEditAdapter adapter = recyclerHelper.getAdapter();
                 if (adapter == null) return;
                 List<String> ossData = adapter.getOssData();
-                ossData.addAll(ossPathList == null ? new ArrayList<>() : ossPathList);
+                ossData.addAll(successList == null ? new ArrayList<>() : successList);
                 api(ossData);
             }
 
             @Override
-            public void failure(List<File> sourceList, String errMsg) {
+            public void failure(List<File> sourceList, String errMsg, int index) {
+
             }
         });
     }

@@ -303,17 +303,18 @@ public class PostAddActivity extends BaseActivity<PostAddActivity> {
         if (post == null) return;
         OssHelper.uploadTopicPost(mActivity, fileData, new OssHelper.OssUploadsCallBack() {
             @Override
-            public void success(List<File> sourceList, List<String> ossPathList) {
+            public void success(List<File> sourceList, List<String> ossKeyList, List<String> successList) {
                 if (recyclerHelper == null) return;
                 ImgSquareEditAdapter adapter = recyclerHelper.getAdapter();
                 if (adapter == null) return;
                 List<String> ossData = adapter.getOssData();
-                ossData.addAll(ossPathList == null ? new ArrayList<>() : ossPathList);
+                ossData.addAll(successList == null ? new ArrayList<>() : successList);
                 addApi(ossData);
             }
 
             @Override
-            public void failure(List<File> sourceList, String errMsg) {
+            public void failure(List<File> sourceList, String errMsg, int index) {
+
             }
         });
     }

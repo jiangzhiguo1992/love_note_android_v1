@@ -307,12 +307,12 @@ public class PictureEditActivity extends BaseActivity<PictureEditActivity> {
         if (picture == null) return;
         OssHelper.uploadPicture(mActivity, fileData, new OssHelper.OssUploadsCallBack() {
             @Override
-            public void success(List<File> sourceList, List<String> ossPathList) {
-                commitAdd(ossPathList);
+            public void success(List<File> sourceList, List<String> ossKeyList, List<String> successList) {
+                commitAdd(successList);
             }
 
             @Override
-            public void failure(List<File> sourceList, String errMsg) {
+            public void failure(List<File> sourceList, String errMsg, int index) {
 
             }
         });

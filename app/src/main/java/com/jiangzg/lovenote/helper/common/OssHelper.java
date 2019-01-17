@@ -155,13 +155,6 @@ public class OssHelper {
         return dir + DateUtils.getCurrentStr(DateUtils.FORMAT_CHINA_Y_M_D__H_M_S_S) + "-" + uuid + extension;
     }
 
-    // 给后台看的 所以用CST时区 TODO
-    private static String createLogKey(String dir, File source) {
-        String uuid = StringUtils.getUUID(8);
-        String extension = FileUtils.getFileExtension(source);
-        return dir + DateUtils.getCurrentStr(DateUtils.FORMAT_CHINA_Y_M_D__H_M_S_S) + "-" + uuid + extension;
-    }
-
     // 取消任务
     private static void taskCancel(OSSAsyncTask task) {
         if (task != null && !task.isCanceled() && !task.isCompleted()) {
@@ -1132,36 +1125,40 @@ public class OssHelper {
     /**
      * *****************************************具体上传*****************************************
      */
-    // 上传本地Log日志，然后再删除这些日志 TODO 直接用uploadList方法
+    // 上传本地Log日志，然后再删除这些日志
     public static void uploadLog() {
+        // logList
         File logDir = LogUtils.getLogDir();
-        List<File> fileList = FileUtils.listFilesAndDirInDir(logDir, true);
-        // 不存在不上传
-        if (fileList != null && fileList.size() > 0) {
-            OssInfo ossInfo = SPHelper.getOssInfo();
-            String pathLog = ossInfo.getPathLog();
-            // 开始遍历上传
-            for (final File file : fileList) {
-                String prefix = String.valueOf(Long.MAX_VALUE - DateUtils.getCurrentLong());
-                String name = FileUtils.getFileNameNoExtension(file);
-                User me = SPHelper.getMe();
-                String userId = me == null ? "" : String.valueOf(me.getId());
-                String extension = FileUtils.getFileExtension(file);
-                String fileName = prefix + "_" + name + "_" + userId + extension;
-                String ossFilePath = pathLog + fileName;
-                uploadFileInBackground(file, ossFilePath, false, new OssUploadCallBack() {
-                    @Override
-                    public void success(File source, String ossPath) {
-                        // 记得删除
-                        FileUtils.deleteFile(file);
-                    }
-
-                    @Override
-                    public void failure(File source, String errMsg) {
-                    }
-                });
-            }
+        List<File> logList = FileUtils.listFilesAndDirInDir(logDir, true);
+        if (logList == null || logList.size() <= 0) return;
+        // ossKeyList
+        ArrayList<String> ossKeyList = new ArrayList<>();
+        String pathLog = SPHelper.getOssInfo().getPathLog();
+        for (File log : logList) {
+            if (FileUtils.isFileEmpty(log)) continue;
+            // 文件命名
+            String prefix = String.valueOf(Long.MAX_VALUE - DateUtils.getCurrentLong());
+            String name = FileUtils.getFileNameNoExtension(log);
+            User me = SPHelper.getMe();
+            String userId = me == null ? "0" : String.valueOf(me.getId());
+            String extension = FileUtils.getFileExtension(log);
+            String fileName = prefix + "_" + name + "_" + userId + extension;
+            String ossKey = pathLog + fileName;
+            ossKeyList.add(ossKey);
         }
+        // 开始上传
+        uploadFilesInBackground(logList, ossKeyList, true, false, new OssUploadsCallBack() {
+            @Override
+            public void success(List<File> sourceList, List<String> ossKeyList, List<String> successList) {
+                // 记得删除
+                FileUtils.deleteFilesAndDirInDir(logDir);
+            }
+
+            @Override
+            public void failure(List<File> sourceList, String errMsg, int index) {
+
+            }
+        });
     }
 
     // 意见 (压缩)
@@ -1266,7 +1263,7 @@ public class OssHelper {
             String format = String.format(Locale.getDefault(), activity.getString(R.string.image_too_large_cant_over_holder), sizeFormat);
             ToastUtils.show(format);
             if (callBack != null) {
-                callBack.failure(fileList, "");
+                callBack.failure(fileList, format, 0);
             }
             // vip跳转
             VipActivity.goActivity(activity);
@@ -1274,7 +1271,7 @@ public class OssHelper {
         }
         OssInfo ossInfo = SPHelper.getOssInfo();
         String pathNotePicture = ossInfo.getPathNotePicture();
-        uploadJpegList(activity, pathNotePicture, fileList, callBack);
+        uploadExtFilesInForeground(activity, fileList, pathNotePicture, true, callBack);
     }
 
     // 耳语 (压缩 + 持久化)
@@ -1301,7 +1298,7 @@ public class OssHelper {
             String format = String.format(Locale.getDefault(), activity.getString(R.string.image_too_large_cant_over_holder), sizeFormat);
             ToastUtils.show(format);
             if (callBack != null) {
-                callBack.failure(fileList, "");
+                callBack.failure(fileList, format, 0);
             }
             // vip跳转
             VipActivity.goActivity(activity);
@@ -1309,7 +1306,7 @@ public class OssHelper {
         }
         OssInfo ossInfo = SPHelper.getOssInfo();
         String pathNoteDiary = ossInfo.getPathNoteDiary();
-        uploadJpegList(activity, pathNoteDiary, fileList, callBack);
+        uploadExtFilesInForeground(activity, fileList, pathNoteDiary, true, callBack);
     }
 
     // 美食 (压缩 + 持久化)
@@ -1317,7 +1314,7 @@ public class OssHelper {
         OssInfo ossInfo = SPHelper.getOssInfo();
         String pathNoteFood = ossInfo.getPathNoteFood();
         List<File> fileList = ListHelper.getFileListByPath(sourceList);
-        compressJpegList(activity, pathNoteFood, fileList, callBack);
+        uploadMiniExtFilesInForeground(activity, pathNoteFood, fileList, false, callBack);
     }
 
     // 礼物 (压缩 + 持久化)
@@ -1325,7 +1322,7 @@ public class OssHelper {
         OssInfo ossInfo = SPHelper.getOssInfo();
         String pathNoteGift = ossInfo.getPathNoteGift();
         List<File> fileList = ListHelper.getFileListByPath(sourceList);
-        compressJpegList(activity, pathNoteGift, fileList, callBack);
+        uploadMiniExtFilesInForeground(activity, pathNoteGift, fileList, false, callBack);
     }
 
     // 电影 (压缩 + 持久化)
@@ -1333,7 +1330,7 @@ public class OssHelper {
         OssInfo ossInfo = SPHelper.getOssInfo();
         String pathNoteMovie = ossInfo.getPathNoteMovie();
         List<File> fileList = ListHelper.getFileListByPath(sourceList);
-        compressJpegList(activity, pathNoteMovie, fileList, callBack);
+        uploadMiniExtFilesInForeground(activity, pathNoteMovie, fileList, false, callBack);
     }
 
     // 帖子 (压缩)
@@ -1341,7 +1338,7 @@ public class OssHelper {
         OssInfo ossInfo = SPHelper.getOssInfo();
         String pathTopicPost = ossInfo.getPathTopicPost();
         List<File> fileList = ListHelper.getFileListByPath(sourceList);
-        compressJpegList(activity, pathTopicPost, fileList, callBack);
+        uploadMiniExtFilesInForeground(activity, pathTopicPost, fileList, false, callBack);
     }
 
     // 作品 (压缩)
