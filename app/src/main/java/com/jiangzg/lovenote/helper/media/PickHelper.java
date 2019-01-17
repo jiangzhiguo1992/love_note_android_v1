@@ -52,7 +52,7 @@ public class PickHelper {
         Matisse.from(activity)
                 .choose(gif ? MimeType.ofImage() : EnumSet.of(MimeType.JPEG, MimeType.PNG, MimeType.BMP, MimeType.WEBP), true) // 文件类型
                 .showSingleMediaType(true) // 只显示选择类型
-                .spanCount(3) // 行列数(默认3)
+                .spanCount(4) // 行列数(默认3)
                 .theme(R.style.Matisse_Dracula) // 样式(自带暗黑)
                 .countable(maxCount > 1) // 是否显示数字
                 .maxSelectable(maxCount) // 最大选择数
