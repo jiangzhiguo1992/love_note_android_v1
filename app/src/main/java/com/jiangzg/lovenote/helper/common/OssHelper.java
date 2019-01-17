@@ -190,7 +190,6 @@ public class OssHelper {
 
             @Override
             public void progress(GetObjectRequest request, long currentSize, long totalSize) {
-                LogUtils.d(OssHelper.class, "downloadFileInForeground", "currentSize: " + currentSize + " --- totalSize: " + totalSize);
                 if (progress != null && progress.isShowing()) {
                     int percent = (int) (((float) currentSize / (float) totalSize) * 100);
                     progress.setProgress(percent);
@@ -267,7 +266,10 @@ public class OssHelper {
         GetObjectRequest get = new GetObjectRequest(bucket, ossKey);
         // 异步下载时设置进度回调
         get.setProgressListener((request, currentSize, totalSize) -> {
-            if (progress != null) progress.progress(request, currentSize, totalSize);
+            LogUtils.d(OssHelper.class, "downloadFile", "currentSize: " + currentSize + " --- totalSize: " + totalSize);
+            if (progress != null) {
+                MyApp.get().getHandler().post(() -> progress.progress(request, currentSize, totalSize));
+            }
         });
         // client
         OSS client = getOssClient();
@@ -459,7 +461,6 @@ public class OssHelper {
 
             @Override
             public void progress(PutObjectRequest request, long currentSize, long totalSize) {
-                LogUtils.d(OssHelper.class, "uploadFileInForeground", "currentSize: " + currentSize + " --- totalSize: " + totalSize);
                 if (progress != null && progress.isShowing()) {
                     int percent = (int) (((float) currentSize / (float) totalSize) * 100);
                     progress.setProgress(percent);
@@ -531,7 +532,10 @@ public class OssHelper {
         PutObjectRequest put = new PutObjectRequest(bucket, ossKey, source.getAbsolutePath());
         // 异步上传时可以设置进度回调
         put.setProgressCallback((request, currentSize, totalSize) -> {
-            if (progress != null) progress.progress(request, currentSize, totalSize);
+            LogUtils.d(OssHelper.class, "uploadFile", "currentSize: " + currentSize + " --- totalSize: " + totalSize);
+            if (progress != null) {
+                MyApp.get().getHandler().post(() -> progress.progress(request, currentSize, totalSize));
+            }
         });
         // client
         OSS client = getOssClient();
@@ -774,7 +778,6 @@ public class OssHelper {
 
             @Override
             public void progress(PutObjectRequest request, long currentSize, long totalSize, int index) {
-                LogUtils.d(OssHelper.class, "uploadFilesInForeground", "index : " + index + " --- currentSize: " + currentSize + " --- totalSize: " + totalSize);
                 if (progress != null && progress.isShowing()) {
                     int percent = (int) (((float) currentSize / (float) totalSize) * 100);
                     progress.setProgress(percent);
@@ -825,7 +828,7 @@ public class OssHelper {
             String msg = MyApp.get().getString(R.string.not_found_upload_file);
             if (progress != null) {
                 progress.toast(msg, index);
-                progress.end(index);
+                MyApp.get().getHandler().post(() -> progress.end(index));
             }
             if (canMiss && successList != null && successList.size() > 0) {
                 // 是否允许丢失
@@ -842,7 +845,7 @@ public class OssHelper {
             String msg = MyApp.get().getString(R.string.access_resource_path_no_exists);
             if (progress != null) {
                 progress.toast(msg, index);
-                progress.end(index);
+                MyApp.get().getHandler().post(() -> progress.end(index));
             }
             if (canMiss && successList != null && successList.size() > 0) {
                 // 是否允许丢失
@@ -866,7 +869,7 @@ public class OssHelper {
                 return uploadFiles(sourceList, ossKeyList, index + 1, canMiss, successList, progress, callBack);
             }
             if (progress != null) {
-                progress.end(index);
+                MyApp.get().getHandler().post(() -> progress.end(index));
             }
             if (canMiss && successList != null && successList.size() > 0) {
                 // 是否允许丢失
@@ -890,7 +893,7 @@ public class OssHelper {
                 return uploadFiles(sourceList, ossKeyList, index + 1, canMiss, successList, progress, callBack);
             }
             if (progress != null) {
-                progress.end(index);
+                MyApp.get().getHandler().post(() -> progress.end(index));
             }
             if (canMiss && successList != null && successList.size() > 0) {
                 // 是否允许丢失
@@ -906,7 +909,10 @@ public class OssHelper {
         PutObjectRequest put = new PutObjectRequest(bucket, ossKey, source.getAbsolutePath());
         // 异步上传时设置进度回调
         put.setProgressCallback((request, currentSize, totalSize) -> {
-            if (progress != null) progress.progress(request, currentSize, totalSize, index);
+            LogUtils.d(OssHelper.class, "uploadFiles", "index : " + index + " --- currentSize: " + currentSize + " --- totalSize: " + totalSize);
+            if (progress != null) {
+                MyApp.get().getHandler().post(() -> progress.progress(request, currentSize, totalSize, index));
+            }
         });
         // client
         OSS client = getOssClient();
@@ -915,7 +921,7 @@ public class OssHelper {
             String msg = MyApp.get().getString(R.string.upload_fail_tell_we_this_bug);
             if (progress != null) {
                 progress.toast(msg, index);
-                progress.end(index);
+                MyApp.get().getHandler().post(() -> progress.end(index));
             }
             if (canMiss && successList != null && successList.size() > 0) {
                 // 是否允许丢失
