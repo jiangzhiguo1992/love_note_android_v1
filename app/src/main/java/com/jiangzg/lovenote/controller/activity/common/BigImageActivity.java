@@ -11,15 +11,25 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.facebook.drawee.view.SimpleDraweeView;
+import com.jiangzg.base.common.FileUtils;
+import com.jiangzg.base.common.LogUtils;
 import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.base.component.ActivityTrans;
+import com.jiangzg.base.component.BroadcastUtils;
+import com.jiangzg.base.system.PermUtils;
 import com.jiangzg.base.view.BarUtils;
+import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.controller.activity.base.BaseActivity;
 import com.jiangzg.lovenote.controller.adapter.common.BigImagePagerAdapter;
 import com.jiangzg.lovenote.helper.common.OssHelper;
+import com.jiangzg.lovenote.helper.common.OssResHelper;
+import com.jiangzg.lovenote.helper.common.ResHelper;
+import com.jiangzg.lovenote.helper.view.DialogHelper;
+import com.jiangzg.lovenote.main.MyApp;
 import com.jiangzg.lovenote.view.TryCacheViewPager;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -236,7 +246,70 @@ public class BigImageActivity extends BaseActivity<BigImageActivity> {
         if (type == TYPE_FILE_SINGLE || type == TYPE_FILE_LIST) return;
         // 获取地址并下载
         String objectKey = dataList.get(vpImage.getCurrentItem());
-        OssHelper.downloadBigImage(mActivity, objectKey);
+        downloadBigImage(mActivity, objectKey);
+    }
+
+    // 下载任务
+    private void downloadBigImage(final Activity activity, final String objectKey) {
+        if (StringUtils.isEmpty(objectKey)) {
+            LogUtils.w(BigImageActivity.class, "downloadBigImage", "下载文件不存在！");
+            ToastUtils.show(MyApp.get().getString(R.string.download_file_no_exists));
+            return;
+        }
+        // 权限检查
+        PermUtils.requestPermissions(activity, BaseActivity.REQUEST_APP_INFO, PermUtils.appInfo, new PermUtils.OnPermissionListener() {
+            @Override
+            public void onPermissionGranted(int requestCode, String[] permissions) {
+                final File target = ResHelper.newImageDownLoadFile(objectKey);
+                // 目标文件创建检查
+                if (target == null) {
+                    ToastUtils.show(MyApp.get().getString(R.string.file_create_fail));
+                    return;
+                }
+                // 目标文件重复检查
+                String format = MyApp.get().getString(R.string.already_download_to_colon_holder);
+                final String sucToast = String.format(Locale.getDefault(), format, target.getAbsoluteFile());
+                if (FileUtils.isFileExists(target) && target.length() > 0) {
+                    LogUtils.d(BigImageActivity.class, "downloadBigImage", "下载文件已存在！");
+                    ToastUtils.show(sucToast);
+                    return;
+                } else {
+                    FileUtils.deleteFile(target); // 清除空文件
+                }
+                // 在OssRes中是否存在(note之类的缓存)
+                if (OssResHelper.isKeyFileExists(objectKey)) {
+                    File source = OssResHelper.newKeyFile(objectKey);
+                    boolean copy = FileUtils.copyOrMoveFile(source, target, false);
+                    if (copy) {
+                        LogUtils.d(BigImageActivity.class, "downloadBigImage", "文件复制成功！");
+                        BroadcastUtils.refreshMediaImageInsert(ResHelper.getFileProviderAuth(), target);
+                        ToastUtils.show(sucToast);
+                        return;
+                    }
+                    LogUtils.w(BigImageActivity.class, "downloadBigImage", "文件复制失败！");
+                } else {
+                    LogUtils.d(BigImageActivity.class, "downloadBigImage", "下载本地没有的文件");
+                }
+                // 开始下载
+                OssHelper.downloadFileInBackground(objectKey, target, true, new OssHelper.OssDownloadCallBack() {
+                    @Override
+                    public void success(String ossKey, File target) {
+                        ToastUtils.show(sucToast);
+                        // 下载完通知图库媒体
+                        BroadcastUtils.refreshMediaImageInsert(ResHelper.getFileProviderAuth(), target);
+                    }
+
+                    @Override
+                    public void failure(String ossKey, String errMsg) {
+                    }
+                });
+            }
+
+            @Override
+            public void onPermissionDenied(int requestCode, String[] permissions) {
+                DialogHelper.showGoPermDialog(activity);
+            }
+        });
     }
 
 }

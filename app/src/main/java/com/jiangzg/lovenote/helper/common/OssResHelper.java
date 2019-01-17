@@ -181,7 +181,8 @@ public class OssResHelper {
                 if (!OssResHelper.isKeyFileExists(ossKey)) {
                     // 不存在的的直接下载
                     LogUtils.i(OssResHelper.class, "refreshOssResWithDelNoExists", "目录(" + dir.getName() + "): 下载匹配的文件 == " + ossKey);
-                    OssHelper.downloadOssFileByKey(ossKey);
+                    File target = OssResHelper.newKeyFile(ossKey);
+                    OssHelper.downloadFileInBackground(ossKey, target, false, null);
                 }
             }
         });
@@ -272,7 +273,8 @@ public class OssResHelper {
                 if (!OssResHelper.isKeyFileExists(ossKey)) {
                     // 不存在的的直接下载
                     LogUtils.i(OssResHelper.class, "refreshOssResWithDelExpire", "目录(" + dir.getName() + "): 下载匹配的文件 == " + ossKey);
-                    OssHelper.downloadOssFileByKey(ossKey);
+                    File target = OssResHelper.newKeyFile(ossKey);
+                    OssHelper.downloadFileInBackground(ossKey, target, false, null);
                 } else {
                     // 更新文件修改时间(不要在删旧的循环里更新，会重复)
                     File file = OssResHelper.newKeyFile(ossKey);

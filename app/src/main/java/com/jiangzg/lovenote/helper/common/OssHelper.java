@@ -21,12 +21,9 @@ import com.jiangzg.base.common.DateUtils;
 import com.jiangzg.base.common.FileUtils;
 import com.jiangzg.base.common.LogUtils;
 import com.jiangzg.base.common.StringUtils;
-import com.jiangzg.base.component.BroadcastUtils;
-import com.jiangzg.base.system.PermUtils;
 import com.jiangzg.base.view.DialogUtils;
 import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.lovenote.R;
-import com.jiangzg.lovenote.controller.activity.base.BaseActivity;
 import com.jiangzg.lovenote.controller.activity.more.VipActivity;
 import com.jiangzg.lovenote.helper.view.DialogHelper;
 import com.jiangzg.lovenote.main.MyApp;
@@ -100,30 +97,43 @@ public class OssHelper {
         return "";
     }
 
+    /**
+     * *****************************************上传/下载*****************************************
+     */
     public interface OssUploadCallBack {
-        void success(File source, String ossPath);
+        void success(File source, String ossKey);
 
         void failure(File source, String errMsg);
     }
 
     public interface OssUploadsCallBack {
-        void success(List<File> sourceList, List<String> ossPathList);
+        void success(List<File> sourceList, List<String> ossKeyList);
 
         void failure(List<File> sourceList, String errMsg);
     }
 
     public interface OssDownloadCallBack {
-        void success(String ossPath);
+        void success(String ossKey, File target);
 
-        void failure(String ossPath);
+        void failure(String ossKey, String errMsg);
     }
 
-    public interface OssProgressCallBack {
+    public interface OssUploadProgressCallBack {
         void toast(String msg);
 
         void start();
 
         void progress(PutObjectRequest request, long currentSize, long totalSize);
+
+        void end();
+    }
+
+    public interface OssDownloadProgressCallBack {
+        void toast(String msg);
+
+        void start();
+
+        void progress(GetObjectRequest request, long currentSize, long totalSize);
 
         void end();
     }
@@ -140,6 +150,186 @@ public class OssHelper {
         if (task != null && !task.isCanceled() && !task.isCompleted()) {
             task.cancel();
         }
+    }
+
+    /**
+     * *****************************************下载*****************************************
+     */
+    // 下载任务 前台
+    public static void downloadFileInForeground(Activity activity, String ossKey, final File target, final OssDownloadCallBack callBack) {
+        // dialog
+        final MaterialDialog progress = DialogHelper.getBuild(activity)
+                .cancelable(false)
+                .canceledOnTouchOutside(false)
+                .content(R.string.are_download)
+                .progress(false, 100)
+                .negativeText(R.string.cancel_download)
+                .build();
+        // 开始上传
+        OSSAsyncTask task = downloadFile(ossKey, target, new OssDownloadProgressCallBack() {
+            @Override
+            public void toast(String msg) {
+                ToastUtils.show(msg);
+            }
+
+            @Override
+            public void start() {
+                DialogHelper.showWithAnim(progress);
+            }
+
+            @Override
+            public void progress(GetObjectRequest request, long currentSize, long totalSize) {
+                LogUtils.d(OssHelper.class, "downloadFileInForeground", "currentSize: " + currentSize + " --- totalSize: " + totalSize);
+                if (progress != null && progress.isShowing()) {
+                    int percent = (int) (((float) currentSize / (float) totalSize) * 100);
+                    progress.setProgress(percent);
+                }
+            }
+
+            @Override
+            public void end() {
+                DialogUtils.dismiss(progress);
+            }
+        }, callBack);
+        // cancel
+        progress.setOnCancelListener(dialog -> {
+            ResHelper.deleteFileInBackground(target);
+            taskCancel(task);
+        });
+    }
+
+    // 下载任务 后台
+    public static void downloadFileInBackground(String ossKey, final File target, boolean toast, final OssDownloadCallBack callBack) {
+        downloadFile(ossKey, target, new OssDownloadProgressCallBack() {
+            @Override
+            public void toast(String msg) {
+                if (toast) ToastUtils.show(msg);
+            }
+
+            @Override
+            public void start() {
+            }
+
+            @Override
+            public void progress(GetObjectRequest request, long currentSize, long totalSize) {
+            }
+
+            @Override
+            public void end() {
+            }
+        }, callBack);
+    }
+
+    // 下载任务 base
+    private static OSSAsyncTask downloadFile(final String ossKey, final File target,
+                                             final OssDownloadProgressCallBack progress,
+                                             final OssDownloadCallBack callBack) {
+        // ossKey
+        if (StringUtils.isEmpty(ossKey)) {
+            LogUtils.w(OssHelper.class, "downloadFile", "ossKey == null");
+            // 删除下载文件
+            ResHelper.deleteFileInBackground(target);
+            String msg = MyApp.get().getString(R.string.access_resource_path_no_exists);
+            if (progress != null) {
+                progress.toast(msg);
+            }
+            if (callBack != null) {
+                MyApp.get().getHandler().post(() -> callBack.failure(ossKey, msg));
+            }
+            return null;
+        }
+        // target
+        if (target == null) {
+            LogUtils.i(OssHelper.class, "downloadFile", "target == null");
+            String msg = MyApp.get().getString(R.string.save_file_no_exists);
+            if (progress != null) {
+                progress.toast(msg);
+            }
+            if (callBack != null) {
+                MyApp.get().getHandler().post(() -> callBack.failure(ossKey, msg));
+            }
+            return null;
+        }
+        // 构造下载文件请求，不是临时url，用key和secret访问，不用签名
+        String bucket = SPHelper.getOssInfo().getBucket();
+        GetObjectRequest get = new GetObjectRequest(bucket, ossKey);
+        // 异步下载时设置进度回调
+        get.setProgressListener((request, currentSize, totalSize) -> {
+            if (progress != null) progress.progress(request, currentSize, totalSize);
+        });
+        // client
+        OSS client = getOssClient();
+        if (client == null) {
+            LogUtils.w(OssHelper.class, "downloadFile", "client == null");
+            String msg = MyApp.get().getString(R.string.download_fail_tell_we_this_bug);
+            if (progress != null) {
+                progress.toast(msg);
+            }
+            if (callBack != null) {
+                MyApp.get().getHandler().post(() -> callBack.failure(ossKey, msg));
+            }
+            return null;
+        }
+        // progress
+        if (progress != null) MyApp.get().getHandler().post(progress::start);
+        // 开始任务
+        FileUtils.createFileByDeleteOldFile(target);
+        LogUtils.i(OssHelper.class, "downloadFile", "ossKey = " + ossKey + " <---> target = " + target.getAbsolutePath());
+        return client.asyncGetObject(get, new OSSCompletedCallback<GetObjectRequest, GetObjectResult>() {
+            @Override
+            public void onSuccess(GetObjectRequest request, GetObjectResult result) {
+                if (progress != null) MyApp.get().getHandler().post(progress::end);
+                final String downloadKey = request.getObjectKey();
+                LogUtils.i(OssHelper.class, "downloadFile", "onSuccess: getObjectKey = " + downloadKey);
+                // 开始解析文件
+                InputStream inputStream = result.getObjectContent();
+                boolean ok = FileUtils.writeFileFromIS(target, inputStream, false);
+                if (ok) {
+                    if (callBack != null) {
+                        MyApp.get().getHandler().post(() -> callBack.success(downloadKey, target));
+                    }
+                } else {
+                    ResHelper.deleteFileInBackground(target);
+                    String msg = MyApp.get().getString(R.string.file_resolve_fail_tell_we_this_bug);
+                    if (progress != null) {
+                        progress.toast(msg);
+                    }
+                    if (callBack != null) {
+                        MyApp.get().getHandler().post(() -> callBack.failure(downloadKey, msg));
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(GetObjectRequest request, ClientException clientException, ServiceException serviceException) {
+                if (progress != null) MyApp.get().getHandler().post(progress::end);
+                final String downloadKey = request.getObjectKey();
+                LogUtils.w(OssHelper.class, "downloadFile", "onFailure: getObjectKey == " + downloadKey);
+
+                ResHelper.deleteFileInBackground(target);
+                ApiHelper.ossInfoUpdate();
+
+                String errMsg = MyApp.get().getString(R.string.download_fail_tell_we_this_bug);
+                if (clientException != null) {
+                    // 本地异常如网络异常等
+                    LogUtils.w(OssHelper.class, "downloadFile", clientException.getMessage());
+                    errMsg = MyApp.get().getString(R.string.download_fail_please_check_native_net);
+                }
+                if (serviceException != null) {
+                    // 服务异常
+                    LogUtils.w(OssHelper.class, "downloadObject", serviceException.getRawMessage());
+                    LogUtils.w(OssHelper.class, "downloadObject", "serviceException = " + serviceException.toString());
+                    errMsg = MyApp.get().getString(R.string.download_fail_tell_we_this_bug);
+                }
+                if (progress != null) {
+                    progress.toast(errMsg);
+                }
+                if (callBack != null) {
+                    String finalErrMsg = errMsg;
+                    MyApp.get().getHandler().post(() -> callBack.failure(downloadKey, finalErrMsg));
+                }
+            }
+        });
     }
 
     /**
@@ -229,7 +419,7 @@ public class OssHelper {
         uploadFileInForeground(activity, source, objectKey, callBack);
     }
 
-    // 上传任务 前台上传
+    // 上传任务 前台
     private static void uploadFileInForeground(Activity activity, final File source, String ossKey, final OssUploadCallBack callBack) {
         // dialog
         final MaterialDialog progress = DialogHelper.getBuild(activity)
@@ -240,7 +430,7 @@ public class OssHelper {
                 .negativeText(R.string.cancel_upload)
                 .build();
         // 开始上传
-        OSSAsyncTask task = uploadFile(source, ossKey, new OssProgressCallBack() {
+        OSSAsyncTask task = uploadFile(source, ossKey, new OssUploadProgressCallBack() {
             @Override
             public void toast(String msg) {
                 ToastUtils.show(msg);
@@ -270,16 +460,33 @@ public class OssHelper {
         progress.setOnCancelListener(dialog -> taskCancel(task));
     }
 
-    // 上传任务 后台上传
-    private static void uploadFileInBackground(final File source, String ossKey, final OssUploadCallBack callBack) {
-        uploadFile(source, ossKey, null, callBack);
+    // 上传任务 后台
+    private static void uploadFileInBackground(final File source, String ossKey, boolean toast, final OssUploadCallBack callBack) {
+        uploadFile(source, ossKey, new OssUploadProgressCallBack() {
+            @Override
+            public void toast(String msg) {
+                if (toast) ToastUtils.show(msg);
+            }
+
+            @Override
+            public void start() {
+            }
+
+            @Override
+            public void progress(PutObjectRequest request, long currentSize, long totalSize) {
+            }
+
+            @Override
+            public void end() {
+            }
+        }, callBack);
     }
 
     // 上传任务 base
     private static OSSAsyncTask uploadFile(final File source, String ossKey,
-                                           final OssProgressCallBack progress,
+                                           final OssUploadProgressCallBack progress,
                                            final OssUploadCallBack callBack) {
-        // file
+        // source
         if (FileUtils.isFileEmpty(source)) {
             LogUtils.i(OssHelper.class, "uploadFile", "source == null");
             String msg = MyApp.get().getString(R.string.upload_file_no_exists);
@@ -341,10 +548,11 @@ public class OssHelper {
             @Override
             public void onFailure(PutObjectRequest request, ClientException clientException, ServiceException serviceException) {
                 if (progress != null) MyApp.get().getHandler().post(progress::end);
-                // 打印
                 final String uploadKey = request.getObjectKey();
                 LogUtils.w(OssHelper.class, "uploadFile", "onFailure: objectKey == " + uploadKey);
-                ApiHelper.ossInfoUpdate(); // 刷新oss
+
+                ApiHelper.ossInfoUpdate();
+
                 String errMsg = MyApp.get().getString(R.string.upload_fail_tell_we_this_bug);
                 if (clientException != null) {
                     // 本地异常如网络异常等
@@ -613,138 +821,9 @@ public class OssHelper {
     }
 
     /**
-     * *****************************************下载*****************************************
-     */
-    // 下载任务
-    public static OSSAsyncTask downloadObject(final MaterialDialog progress, final boolean toast, final String objectKey, final File target, final OssDownloadCallBack callBack) {
-        // objectKey
-        if (StringUtils.isEmpty(objectKey)) {
-            // dialog
-            DialogUtils.dismiss(progress);
-            LogUtils.w(OssHelper.class, "downloadObject", "objectKey == null");
-            // 删除下载文件
-            ResHelper.deleteFileInBackground(target);
-            if (toast) {
-                ToastUtils.show(MyApp.get().getString(R.string.access_resource_path_no_exists));
-            }
-            // 回调
-            if (callBack != null) {
-                MyApp.get().getHandler().post(() -> callBack.failure(objectKey));
-            }
-            return null;
-        }
-        LogUtils.i(OssHelper.class, "downloadObject", "objectKey = " + objectKey);
-        // file
-        if (target == null) {
-            // dialog
-            DialogUtils.dismiss(progress);
-            LogUtils.w(OssHelper.class, "downloadObject", "target == null");
-            if (toast) {
-                ToastUtils.show(MyApp.get().getString(R.string.save_file_no_exists));
-            }
-            // 回调
-            if (callBack != null) {
-                MyApp.get().getHandler().post(() -> callBack.failure(objectKey));
-            }
-            return null;
-        }
-        // 删除旧文件，并设置创建时间
-        FileUtils.createFileByDeleteOldFile(target);
-        //boolean lastModified = target.setLastModified(DateUtils.getCurrentLong());
-        // dialog
-        MyApp.get().getHandler().post(() -> DialogHelper.showWithAnim(progress));
-        // 构造下载文件请求，不是临时url，用key和secret访问，不用签名
-        String bucket = SPHelper.getOssInfo().getBucket();
-        GetObjectRequest get = new GetObjectRequest(bucket, objectKey);
-        // 异步下载时可以设置进度回调
-        get.setProgressListener((request, currentSize, totalSize) -> {
-            //LogUtils.d(LOG_TAG, "downloadObject: currentSize: " + currentSize + " totalSize: " + totalSize);
-            if (progress != null && progress.isShowing()) {
-                int percent = (int) (((float) currentSize / (float) totalSize) * 100);
-                progress.setProgress(percent);
-            }
-        });
-        // 开始任务
-        final OSSAsyncTask task = getOssClient().asyncGetObject(get, new OSSCompletedCallback<GetObjectRequest, GetObjectResult>() {
-            @Override
-            public void onSuccess(GetObjectRequest request, GetObjectResult result) {
-                // 请求成功
-                final String downloadKey = request.getObjectKey();
-                LogUtils.i(OssHelper.class, "downloadObject", "onSuccess: getObjectKey = " + downloadKey);
-                // 开始解析文件
-                InputStream inputStream = result.getObjectContent();
-                boolean ok = FileUtils.writeFileFromIS(target, inputStream, false);
-                // 对话框
-                DialogUtils.dismiss(progress);
-                // 回调
-                if (ok) {
-                    // 解析成功
-                    if (callBack != null) {
-                        MyApp.get().getHandler().post(() -> callBack.success(downloadKey));
-                    }
-                } else {
-                    // toast
-                    if (toast) {
-                        ToastUtils.show(MyApp.get().getString(R.string.file_resolve_fail_tell_we_this_bug));
-                    }
-                    // 删除源文件
-                    ResHelper.deleteFileInBackground(target);
-                    // 解析失败
-                    if (callBack != null) {
-                        MyApp.get().getHandler().post(() -> callBack.failure(downloadKey));
-                    }
-                }
-            }
-
-            @Override
-            public void onFailure(GetObjectRequest request, ClientException clientException, ServiceException serviceException) {
-                DialogUtils.dismiss(progress);
-                // 删除源文件
-                ResHelper.deleteFileInBackground(target);
-                // 打印
-                final String downloadKey = request.getObjectKey();
-                LogUtils.w(OssHelper.class, "downloadObject", "onFailure: getObjectKey == " + downloadKey);
-                // 刷新oss
-                ApiHelper.ossInfoUpdate();
-                // 本地异常如网络异常等
-                if (clientException != null) {
-                    if (toast) {
-                        ToastUtils.show(MyApp.get().getString(R.string.download_fail_please_check_native_net));
-                        LogUtils.w(OssHelper.class, "downloadObject", clientException.getMessage());
-                    }
-                    refreshOssClient();
-                }
-                // 服务异常
-                if (serviceException != null) {
-                    if (toast) {
-                        ToastUtils.show(MyApp.get().getString(R.string.download_fail_tell_we_this_bug));
-                    }
-                    LogUtils.w(OssHelper.class, "downloadObject", serviceException.getRawMessage());
-                    LogUtils.w(OssHelper.class, "downloadObject", "serviceException = " + serviceException.toString());
-                }
-                // 回调
-                if (callBack != null) {
-                    MyApp.get().getHandler().post(() -> callBack.failure(downloadKey));
-                }
-            }
-        });
-        // processDialog
-        if (progress != null) {
-            progress.setOnCancelListener(dialog -> {
-                LogUtils.d(OssHelper.class, "downloadObject", "cancel");
-                // 删除下载文件
-                ResHelper.deleteFileInBackground(target);
-                // 取消任务
-                taskCancel(task);
-            });
-        }
-        return task;
-    }
-
-    /**
      * *****************************************具体上传*****************************************
      */
-    // 上传本地Log日志，然后再删除这些日志
+    // 上传本地Log日志，然后再删除这些日志 TODO 直接用uploadList方法
     public static void uploadLog() {
         File logDir = LogUtils.getLogDir();
         List<File> fileList = FileUtils.listFilesAndDirInDir(logDir, true);
@@ -761,7 +840,7 @@ public class OssHelper {
                 String extension = FileUtils.getFileExtension(file);
                 String fileName = prefix + "_" + name + "_" + userId + extension;
                 String ossFilePath = pathLog + fileName;
-                uploadFileInBackground(file, ossFilePath, new OssUploadCallBack() {
+                uploadFileInBackground(file, ossFilePath, false, new OssUploadCallBack() {
                     @Override
                     public void success(File source, String ossPath) {
                         // 记得删除
@@ -961,93 +1040,6 @@ public class OssHelper {
         OssInfo ossInfo = SPHelper.getOssInfo();
         String pathMoreMatch = ossInfo.getPathMoreMatch();
         uploadMiniExtFileInForeground(activity, pathMoreMatch, source, callBack);
-    }
-
-    /**
-     * *****************************************具体下载*****************************************
-     */
-    // oss缓存文件下载
-    public static void downloadOssFileByKey(String objectKey) {
-        File file = OssResHelper.newKeyFile(objectKey);
-        downloadObject(null, false, objectKey, file, null);
-    }
-
-    // 全屏图下载
-    public static void downloadBigImage(final Activity activity, final String objectKey) {
-        if (StringUtils.isEmpty(objectKey)) {
-            LogUtils.w(OssHelper.class, "downloadBigImage", "下载文件不存在！");
-            ToastUtils.show(MyApp.get().getString(R.string.download_file_no_exists));
-            return;
-        }
-        // 权限检查
-        PermUtils.requestPermissions(activity, BaseActivity.REQUEST_APP_INFO, PermUtils.appInfo, new PermUtils.OnPermissionListener() {
-            @Override
-            public void onPermissionGranted(int requestCode, String[] permissions) {
-                final File target = ResHelper.newImageDownLoadFile(objectKey);
-                // 目标文件创建检查
-                if (target == null) {
-                    ToastUtils.show(MyApp.get().getString(R.string.file_create_fail));
-                    return;
-                }
-                // 目标文件重复检查
-                String format = MyApp.get().getString(R.string.already_download_to_colon_holder);
-                final String sucToast = String.format(Locale.getDefault(), format, target.getAbsoluteFile());
-                if (FileUtils.isFileExists(target) && target.length() > 0) {
-                    LogUtils.d(OssHelper.class, "downloadBigImage", "下载文件已存在！");
-                    ToastUtils.show(sucToast);
-                    return;
-                } else {
-                    FileUtils.deleteFile(target); // 清除空文件
-                }
-                // 在OssRes中是否存在(note之类的缓存)
-                if (OssResHelper.isKeyFileExists(objectKey)) {
-                    File source = OssResHelper.newKeyFile(objectKey);
-                    boolean copy = FileUtils.copyOrMoveFile(source, target, false);
-                    if (copy) {
-                        LogUtils.d(OssHelper.class, "downloadBigImage", "文件复制成功！");
-                        BroadcastUtils.refreshMediaImageInsert(ResHelper.getFileProviderAuth(), target);
-                        ToastUtils.show(sucToast);
-                        return;
-                    }
-                    LogUtils.w(OssHelper.class, "downloadBigImage", "文件复制失败！");
-                } else {
-                    LogUtils.d(OssHelper.class, "downloadBigImage", "下载本地没有的文件");
-                }
-                // 开始下载
-                downloadObject(null, true, objectKey, target, new OssDownloadCallBack() {
-                    @Override
-                    public void success(String ossPath) {
-                        // 下载完通知图库媒体
-                        BroadcastUtils.refreshMediaImageInsert(ResHelper.getFileProviderAuth(), target);
-                        ToastUtils.show(sucToast);
-                    }
-
-                    @Override
-                    public void failure(String ossPath) {
-                    }
-                });
-            }
-
-            @Override
-            public void onPermissionDenied(int requestCode, String[] permissions) {
-                DialogHelper.showGoPermDialog(activity);
-            }
-        });
-    }
-
-    // apk
-    public static void downloadApk(Activity activity, String objectKey, File target, OssDownloadCallBack callBack) {
-        MaterialDialog progress = null;
-        if (activity != null) {
-            progress = DialogHelper.getBuild(activity)
-                    .cancelable(false)
-                    .canceledOnTouchOutside(false)
-                    .content(R.string.are_download)
-                    .progress(false, 100)
-                    .negativeText(R.string.cancel_download)
-                    .build();
-        }
-        downloadObject(progress, true, objectKey, target, callBack);
     }
 
 }

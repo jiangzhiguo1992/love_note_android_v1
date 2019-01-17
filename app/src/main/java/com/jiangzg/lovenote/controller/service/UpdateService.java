@@ -189,14 +189,14 @@ public class UpdateService extends Service {
         // 生成apk文件
         final File apkFile = ResHelper.newApkFile(version.getVersionName());
         // 开始下载
-        OssHelper.downloadApk(top, updateUrl, apkFile, new OssHelper.OssDownloadCallBack() {
+        OssHelper.downloadFileInForeground(top, updateUrl, apkFile, new OssHelper.OssDownloadCallBack() {
             @Override
-            public void success(String ossPath) {
+            public void success(String ossKey, File target) {
                 installApk(apkFile);
             }
 
             @Override
-            public void failure(String ossPath) {
+            public void failure(String ossKey, String errMsg) {
                 UpdateService.this.stopSelf();
             }
         });
