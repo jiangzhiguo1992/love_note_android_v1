@@ -11,6 +11,7 @@ import android.view.Menu;
 import com.jiangzg.base.common.LogUtils;
 import com.jiangzg.base.component.ActivityStack;
 import com.jiangzg.base.component.ActivityTrans;
+import com.jiangzg.base.system.PermUtils;
 import com.jiangzg.base.view.BarUtils;
 import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.controller.activity.base.BaseActivity;
@@ -98,6 +99,8 @@ public class HomeActivity extends BaseActivity<HomeActivity> {
             list.add(version);
             UpdateService.showUpdateDialog(list);
         }
+        // 推送权限
+        PermUtils.requestPermissions(mActivity, REQUEST_DEVICE_INFO, PermUtils.deviceInfo, null);
     }
 
     @Override

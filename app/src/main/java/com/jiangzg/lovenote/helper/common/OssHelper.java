@@ -278,12 +278,13 @@ public class OssHelper {
         return client.asyncGetObject(get, new OSSCompletedCallback<GetObjectRequest, GetObjectResult>() {
             @Override
             public void onSuccess(GetObjectRequest request, GetObjectResult result) {
-                if (progress != null) MyApp.get().getHandler().post(progress::end);
                 final String downloadKey = request.getObjectKey();
                 LogUtils.i(OssHelper.class, "downloadFile", "onSuccess: getObjectKey = " + downloadKey);
                 // 开始解析文件
                 InputStream inputStream = result.getObjectContent();
                 boolean ok = FileUtils.writeFileFromIS(target, inputStream, false);
+                // progress必须在这后面
+                if (progress != null) MyApp.get().getHandler().post(progress::end);
                 if (ok) {
                     if (callBack != null) {
                         MyApp.get().getHandler().post(() -> callBack.success(downloadKey, target));

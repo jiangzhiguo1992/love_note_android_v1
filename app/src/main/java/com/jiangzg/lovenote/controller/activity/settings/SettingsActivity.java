@@ -14,6 +14,7 @@ import android.widget.TextView;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.jiangzg.base.component.ActivityTrans;
 import com.jiangzg.base.component.IntentFactory;
+import com.jiangzg.base.system.PermUtils;
 import com.jiangzg.base.system.PushUtils;
 import com.jiangzg.base.view.DialogUtils;
 import com.jiangzg.base.view.ToastUtils;
@@ -243,6 +244,7 @@ public class SettingsActivity extends BaseActivity<SettingsActivity> {
     }
 
     private void goNoticeSettings() {
+        PermUtils.requestPermissions(mActivity, REQUEST_DEVICE_INFO, PermUtils.deviceInfo, null);
         //boolean enabled = PushUtils.isNotificationEnabled();
         //if (enabled) return;
         Intent notice = IntentFactory.getNotificationSettings();
