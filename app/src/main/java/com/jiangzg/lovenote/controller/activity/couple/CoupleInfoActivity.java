@@ -259,13 +259,6 @@ public class CoupleInfoActivity extends BaseActivity<CoupleInfoActivity> {
         tvTogether.setText(togetherDay);
     }
 
-    private void showTogetherTimePicker() {
-        Couple couple = SPHelper.getCouple();
-        long togetherAt = couple == null ? DateUtils.getCurrentLong() :
-                (couple.getTogetherAt() == 0 ? DateUtils.getCurrentLong() : TimeHelper.getJavaTimeByGo(couple.getTogetherAt()));
-        DialogHelper.showDateTimePicker(mActivity, togetherAt, time -> apiCoupleInfo(TimeHelper.getGoTimeByJava(time), "", ""));
-    }
-
     @SuppressLint("InflateParams")
     private void showLeftAvatarPop() {
         View view = LayoutInflater.from(mActivity).inflate(R.layout.pop_img_show_select, null);
@@ -299,6 +292,22 @@ public class CoupleInfoActivity extends BaseActivity<CoupleInfoActivity> {
         PopUtils.show(pop, root, Gravity.CENTER);
     }
 
+    // oss上传头像
+    private void ossUploadAvatar() {
+        OssHelper.uploadAvatar(mActivity, cropFile, new OssHelper.OssUploadCallBack() {
+            @Override
+            public void success(File source, String ossPath) {
+                apiCoupleInfo(0, ossPath, "");
+                ResHelper.deleteFileInBackground(cropFile);
+            }
+
+            @Override
+            public void failure(File source, String errMsg) {
+                ResHelper.deleteFileInBackground(cropFile);
+            }
+        });
+    }
+
     // 修改名称对话框
     private void showNameInput() {
         String show = UserHelper.getTaName(SPHelper.getMe()).trim();
@@ -323,22 +332,6 @@ public class CoupleInfoActivity extends BaseActivity<CoupleInfoActivity> {
                 })
                 .build();
         DialogHelper.showWithAnim(dialogName);
-    }
-
-    // oss上传头像
-    private void ossUploadAvatar() {
-        OssHelper.uploadAvatar(mActivity, cropFile, new OssHelper.OssUploadCallBack() {
-            @Override
-            public void success(File source, String ossPath) {
-                apiCoupleInfo(0, ossPath, "");
-                ResHelper.deleteFileInBackground(cropFile);
-            }
-
-            @Override
-            public void failure(File source, String errMsg) {
-                ResHelper.deleteFileInBackground(cropFile);
-            }
-        });
     }
 
     // api 修改couple
@@ -381,6 +374,13 @@ public class CoupleInfoActivity extends BaseActivity<CoupleInfoActivity> {
             Intent dial = IntentFactory.getDial(phone);
             ActivityTrans.start(mActivity, dial);
         }
+    }
+
+    private void showTogetherTimePicker() {
+        Couple couple = SPHelper.getCouple();
+        long togetherAt = couple == null ? DateUtils.getCurrentLong() :
+                (couple.getTogetherAt() == 0 ? DateUtils.getCurrentLong() : TimeHelper.getJavaTimeByGo(couple.getTogetherAt()));
+        DialogHelper.showDateTimePicker(mActivity, togetherAt, time -> apiCoupleInfo(TimeHelper.getGoTimeByJava(time), "", ""));
     }
 
     private void showBreakDialog() {
