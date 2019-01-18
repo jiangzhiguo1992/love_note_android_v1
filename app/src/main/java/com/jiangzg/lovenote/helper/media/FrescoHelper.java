@@ -87,7 +87,7 @@ public class FrescoHelper {
         return mainFileCache.getSize();
     }
 
-    public static void imagePaush() {
+    public static void imagePause() {
         Fresco.getImagePipeline().pause();
     }
 

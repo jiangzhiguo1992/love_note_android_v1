@@ -181,10 +181,10 @@ public class PictureListActivity extends BaseActivity<PictureListActivity> {
                     FrescoHelper.imageResume();
                 } else if (newState == RecyclerView.SCROLL_STATE_DRAGGING) {
                     // 手指触碰
-                    FrescoHelper.imagePaush();
+                    FrescoHelper.imagePause();
                 } else if (newState == RecyclerView.SCROLL_STATE_SETTLING) {
                     // 惯性滑动
-                    FrescoHelper.imagePaush();
+                    FrescoHelper.imagePause();
                 }
             }
 

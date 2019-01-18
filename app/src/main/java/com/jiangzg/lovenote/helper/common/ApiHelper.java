@@ -248,31 +248,23 @@ public class ApiHelper {
     public static void onEntryFinish(long startTime, long totalWait, final Activity mActivity, int code, Result.Data data) {
         if (data == null) return;
         // me
-        User me = data.getUser();
-        SPHelper.setMe(me);
+        SPHelper.setMe(data.getUser());
         // commonConst
-        CommonConst commonConst = data.getCommonConst();
-        SPHelper.setCommonConst(commonConst);
+        SPHelper.setCommonConst(data.getCommonConst());
         // modelShow
-        ModelShow modelShow = data.getModelShow();
-        SPHelper.setModelShow(modelShow);
+        SPHelper.setModelShow(data.getModelShow());
         // limit
-        Limit limit = data.getLimit();
-        SPHelper.setLimit(limit);
+        SPHelper.setLimit(data.getLimit());
         // vipLimit
-        VipLimit vipLimit = data.getVipLimit();
-        SPHelper.setVipLimit(vipLimit);
+        SPHelper.setVipLimit(data.getVipLimit());
         // ossInfo
-        OssInfo ossInfo = data.getOssInfo();
-        SPHelper.setOssInfo(ossInfo);
+        SPHelper.setOssInfo(data.getOssInfo());
         OssHelper.refreshOssClient();
         OssRefreshReceiver.startAlarm();
         // pushInfo
-        PushInfo pushInfo = data.getPushInfo();
-        SPHelper.setPushInfo(pushInfo);
+        SPHelper.setPushInfo(data.getPushInfo());
         // commonCount
-        CommonCount commonCount = data.getCommonCount();
-        SPHelper.setCommonCount(commonCount);
+        SPHelper.setCommonCount(data.getCommonCount());
         // version
         final ArrayList<Version> versionList = (ArrayList<Version>) data.getVersionList();
         if (versionList == null || versionList.size() <= 0) {
