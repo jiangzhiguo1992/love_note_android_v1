@@ -1043,13 +1043,13 @@ public class OssHelper {
 
     // 墙纸 (限制 + 持久化)
     public static void uploadWall(Activity activity, final File source, final OssUploadCallBack callBack) {
-        long wallPaperSize = SPHelper.getVipLimit().getWallPaperSize();
-        if (source != null && source.length() >= wallPaperSize) {
-            String sizeFormat = ConvertUtils.byte2FitSize(wallPaperSize);
+        long maxSize = SPHelper.getVipLimit().getWallPaperSize();
+        if (source != null && source.length() >= maxSize) {
+            String sizeFormat = ConvertUtils.byte2FitSize(maxSize);
             String format = String.format(Locale.getDefault(), activity.getString(R.string.image_too_large_cant_over_holder), sizeFormat);
             ToastUtils.show(format);
             if (callBack != null) {
-                callBack.failure(source, "");
+                callBack.failure(source, format);
             }
             // vip跳转
             VipActivity.goActivity(activity);
@@ -1059,15 +1059,15 @@ public class OssHelper {
         uploadFileInForegroundWithName(activity, ossDirPath, source, callBack);
     }
 
-    // 音频 (持久化)
+    // 音频 (限制 + 持久化)
     public static void uploadAudio(Activity activity, final File source, final OssUploadCallBack callBack) {
-        long audioSize = SPHelper.getVipLimit().getAudioSize();
-        if (source != null && source.length() >= audioSize) {
-            String sizeFormat = ConvertUtils.byte2FitSize(audioSize);
+        long maxSize = SPHelper.getVipLimit().getAudioSize();
+        if (source != null && source.length() >= maxSize) {
+            String sizeFormat = ConvertUtils.byte2FitSize(maxSize);
             String format = String.format(Locale.getDefault(), activity.getString(R.string.audio_too_large_cant_over_holder), sizeFormat);
             ToastUtils.show(format);
             if (callBack != null) {
-                callBack.failure(source, "");
+                callBack.failure(source, format);
             }
             // vip跳转
             VipActivity.goActivity(activity);
@@ -1083,15 +1083,15 @@ public class OssHelper {
         uploadMiniFileInForegroundWithName(activity, ossDirPath, source, callBack);
     }
 
-    // 视频 (持久化)
+    // 视频 (限制 + 持久化)
     public static void uploadVideo(Activity activity, final File source, final OssUploadCallBack callBack) {
-        long videoSize = SPHelper.getVipLimit().getVideoSize();
-        if (source != null && source.length() >= videoSize) {
-            String sizeFormat = ConvertUtils.byte2FitSize(videoSize);
+        long maxSize = SPHelper.getVipLimit().getVideoSize();
+        if (source != null && source.length() >= maxSize) {
+            String sizeFormat = ConvertUtils.byte2FitSize(maxSize);
             String format = String.format(Locale.getDefault(), activity.getString(R.string.video_too_large_cant_over_holder), sizeFormat);
             ToastUtils.show(format);
             if (callBack != null) {
-                callBack.failure(source, "");
+                callBack.failure(source, format);
             }
             // vip跳转
             VipActivity.goActivity(activity);
@@ -1109,18 +1109,18 @@ public class OssHelper {
 
     // 照片 (限制 + 持久化)
     public static void uploadPicture(Activity activity, final List<String> sourceList, final OssUploadsCallBack callBack) {
-        long imageSize = SPHelper.getVipLimit().getPictureSize();
+        long maxSize = SPHelper.getVipLimit().getPictureSize();
         final List<File> fileList = ListHelper.getFileListByPath(sourceList);
         boolean overLimit = false;
         for (File file : fileList) {
             if (FileUtils.isFileEmpty(file)) continue;
-            if (file.length() >= imageSize) {
+            if (file.length() >= maxSize) {
                 overLimit = true;
                 break;
             }
         }
         if (overLimit) {
-            String sizeFormat = ConvertUtils.byte2FitSize(imageSize);
+            String sizeFormat = ConvertUtils.byte2FitSize(maxSize);
             String format = String.format(Locale.getDefault(), activity.getString(R.string.image_too_large_cant_over_holder), sizeFormat);
             ToastUtils.show(format);
             if (callBack != null) {
@@ -1142,18 +1142,18 @@ public class OssHelper {
 
     // 日记 (限制 + 持久化)
     public static void uploadDiary(Activity activity, final List<String> sourceList, final OssUploadsCallBack callBack) {
-        long imageSize = SPHelper.getVipLimit().getDiaryImageSize();
+        long maxSize = SPHelper.getVipLimit().getDiaryImageSize();
         final List<File> fileList = ListHelper.getFileListByPath(sourceList);
         boolean overLimit = false;
         for (File file : fileList) {
             if (FileUtils.isFileEmpty(file)) continue;
-            if (file.length() >= imageSize) {
+            if (file.length() >= maxSize) {
                 overLimit = true;
                 break;
             }
         }
         if (overLimit) {
-            String sizeFormat = ConvertUtils.byte2FitSize(imageSize);
+            String sizeFormat = ConvertUtils.byte2FitSize(maxSize);
             String format = String.format(Locale.getDefault(), activity.getString(R.string.image_too_large_cant_over_holder), sizeFormat);
             ToastUtils.show(format);
             if (callBack != null) {
