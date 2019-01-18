@@ -43,7 +43,7 @@ public class UpdateService extends Service {
     public static void checkUpdate(BaseActivity activity) {
         MaterialDialog loading = null;
         if (activity != null) {
-            loading = activity.getLoading(activity.getString(R.string.are_update_check), true);
+            loading = activity.getLoading(true);
         }
         int versionCode = AppInfo.get().getVersionCode();
         Call<Result> call = new RetrofitHelper().call(API.class).setVersionNewListGet(versionCode);

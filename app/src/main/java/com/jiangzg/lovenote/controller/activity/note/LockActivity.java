@@ -323,7 +323,7 @@ public class LockActivity extends BaseActivity<LockActivity> {
         Lock body = ApiHelper.getLockBody(pwd);
         // api
         Call<Result> api = new RetrofitHelper().call(API.class).noteLockAdd(body);
-        RetrofitHelper.enqueue(api, getLoading(getString(R.string.are_send_validate_code), true), new RetrofitHelper.CallBack() {
+        RetrofitHelper.enqueue(api, getLoading(true), new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 srl.setRefreshing(false);
@@ -349,7 +349,7 @@ public class LockActivity extends BaseActivity<LockActivity> {
         Lock body = ApiHelper.getLockBody(pwd);
         // api
         Call<Result> api = new RetrofitHelper().call(API.class).noteLockUpdatePwd(code, body);
-        RetrofitHelper.enqueue(api, getLoading(getString(R.string.are_send_validate_code), true), new RetrofitHelper.CallBack() {
+        RetrofitHelper.enqueue(api, getLoading(true), new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 srl.setRefreshing(false);
@@ -378,7 +378,7 @@ public class LockActivity extends BaseActivity<LockActivity> {
         Sms body = ApiHelper.getSmsLockBody(ta.getPhone());
         // api
         Call<Result> api = new RetrofitHelper().call(API.class).smsSend(body);
-        RetrofitHelper.enqueue(api, getLoading(getString(R.string.are_send_validate_code), true), new RetrofitHelper.CallBack() {
+        RetrofitHelper.enqueue(api, getLoading(true), new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 countDownGo = 0;

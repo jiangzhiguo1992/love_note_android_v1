@@ -218,7 +218,7 @@ public class SettingsActivity extends BaseActivity<SettingsActivity> {
     }
 
     private void clearCache() {
-        final MaterialDialog loading = mActivity.getLoading(getString(R.string.are_clear_cache_point), false);
+        final MaterialDialog loading = mActivity.getLoading(false);
         DialogUtils.show(loading);
         MyApp.get().getThread().execute(() -> {
             ResHelper.clearCaches();

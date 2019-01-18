@@ -415,7 +415,7 @@ public class TravelDetailActivity extends BaseActivity<TravelDetailActivity> {
     private void delTravel() {
         if (travel == null) return;
         Call<Result> api = new RetrofitHelper().call(API.class).noteTravelDel(travel.getId());
-        RetrofitHelper.enqueue(api, getLoading(getString(R.string.are_deleting), true), new RetrofitHelper.CallBack() {
+        RetrofitHelper.enqueue(api, getLoading(true), new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 // ListItemDelete

@@ -1,7 +1,6 @@
 package com.jiangzg.lovenote.controller.activity.base;
 
 import android.app.Activity;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -17,7 +16,6 @@ import android.view.Window;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.jiangzg.base.application.AppUtils;
 import com.jiangzg.base.common.DateUtils;
-import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.base.component.ActivityStack;
 import com.jiangzg.base.component.ActivityTrans;
 import com.jiangzg.base.system.InputUtils;
@@ -114,21 +112,6 @@ public abstract class BaseActivity<T> extends AppCompatActivity {
     public void pushBus(int event, Observable bus) {
         if (bus == null) return;
         busList.add(new RxRegister(event, bus));
-    }
-
-    public MaterialDialog getLoading(String msg, boolean cancelable, DialogInterface.OnDismissListener listener) {
-        MaterialDialog loading = getLoading(msg, cancelable);
-        loading.setOnDismissListener(listener);
-        return loading;
-    }
-
-    public MaterialDialog getLoading(String msg, boolean cancelable) {
-        if (StringUtils.isEmpty(msg)) {
-            msg = getString(R.string.please_wait);
-        }
-        MaterialDialog loading = getLoading(cancelable);
-        loading.setContent(msg);
-        return loading;
     }
 
     public MaterialDialog getLoading(boolean cancelable) {

@@ -204,7 +204,7 @@ public class CoupleWallPaperActivity extends BaseActivity<CoupleWallPaperActivit
         body.setContentImageList(objects);
         // api
         Call<Result> api = new RetrofitHelper().call(API.class).coupleWallPaperUpdate(body);
-        RetrofitHelper.enqueue(api, getLoading(getString(R.string.are_upload), true), new RetrofitHelper.CallBack() {
+        RetrofitHelper.enqueue(api, getLoading(true), new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 SPHelper.setWallPaper(data.getWallPaper());

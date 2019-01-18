@@ -317,7 +317,7 @@ public class PromiseDetailActivity extends BaseActivity<PromiseDetailActivity> {
     private void delPromise() {
         if (promise == null) return;
         Call<Result> api = new RetrofitHelper().call(API.class).notePromiseDel(promise.getId());
-        RetrofitHelper.enqueue(api, getLoading(getString(R.string.are_deleting), true), new RetrofitHelper.CallBack() {
+        RetrofitHelper.enqueue(api, getLoading(true), new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 // event
@@ -361,7 +361,7 @@ public class PromiseDetailActivity extends BaseActivity<PromiseDetailActivity> {
         promiseBreak.setContentText(content);
         // api
         Call<Result> api = new RetrofitHelper().call(API.class).notePromiseBreakAdd(promiseBreak);
-        RetrofitHelper.enqueue(api, getLoading(getString(R.string.are_deleting), true), new RetrofitHelper.CallBack() {
+        RetrofitHelper.enqueue(api, getLoading(true), new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 etBreakContent.setText("");

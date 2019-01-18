@@ -804,7 +804,7 @@ public class PostDetailActivity extends BaseActivity<PostDetailActivity> {
     private void delPost() {
         if (post == null) return;
         Call<Result> api = new RetrofitHelper().call(API.class).topicPostDel(post.getId());
-        RetrofitHelper.enqueue(api, getLoading(getString(R.string.are_deleting), true), new RetrofitHelper.CallBack() {
+        RetrofitHelper.enqueue(api, getLoading(true), new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 // event
