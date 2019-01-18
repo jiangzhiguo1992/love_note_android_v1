@@ -92,6 +92,10 @@
 
             <View style="@style/LineHorizontal"/>
 
+            <View
+                style="@style/LineHorizontal"
+                android:layout_marginTop="20dp"/>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -169,7 +173,9 @@
                     tools:text="鱼笙App"/>
             </LinearLayout>
 
-            <View style="@style/LineHorizontal"/>
+            <View
+                style="@style/LineHorizontal"
+                android:visibility="gone"/>
 
             <LinearLayout
                 android:id="@+id/llOfficialWeb"
@@ -179,7 +185,8 @@
                 android:foreground="?attr/selectableItemBackground"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
-                android:padding="16dp">
+                android:padding="16dp"
+                android:visibility="gone">
 
                 <TextView
                     style="@style/FontBlackNormal"
@@ -194,34 +201,6 @@
                     android:layout_height="wrap_content"
                     android:gravity="end"
                     tools:text="www.fishlife520.com"/>
-            </LinearLayout>
-
-            <View style="@style/LineHorizontal"/>
-
-            <LinearLayout
-                android:id="@+id/llProtocol"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/white"
-                android:foreground="?attr/selectableItemBackground"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:padding="16dp">
-
-                <TextView
-                    style="@style/FontBlackNormal"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/user_protocol"/>
-
-                <TextView
-                    style="@style/FontGreyNormal"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="end"
-                    android:maxLines="1"
-                    android:singleLine="true"
-                    android:text="@string/must_comply"/>
             </LinearLayout>
 
             <View style="@style/LineHorizontal"/>

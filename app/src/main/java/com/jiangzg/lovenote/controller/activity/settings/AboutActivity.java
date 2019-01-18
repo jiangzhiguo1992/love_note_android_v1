@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -39,8 +41,6 @@ public class AboutActivity extends BaseActivity<AboutActivity> {
     TextView tvUpdateSummary;
     @BindView(R.id.llMarket)
     LinearLayout llMarket;
-    @BindView(R.id.llProtocol)
-    LinearLayout llProtocol;
     @BindView(R.id.tvCustomerQQ)
     TextView tvCustomerQQ;
     @BindView(R.id.tvOfficialGroup)
@@ -116,7 +116,23 @@ public class AboutActivity extends BaseActivity<AboutActivity> {
     protected void onFinish(Bundle state) {
     }
 
-    @OnClick({R.id.llUpdate, R.id.llMarket, R.id.llWeiBo, R.id.llOfficialWeb, R.id.llProtocol})
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.user_protocol, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menuProtocol: // 用户协议
+                UserProtocolActivity.goActivity(mActivity);
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @OnClick({R.id.llUpdate, R.id.llMarket, R.id.llWeiBo, R.id.llOfficialWeb})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.llUpdate: // 软件更新
@@ -134,9 +150,6 @@ public class AboutActivity extends BaseActivity<AboutActivity> {
             case R.id.llOfficialWeb: // 官网网站
                 String officialWeb = SPHelper.getCommonConst().getOfficialWeb();
                 WebActivity.goActivity(mActivity, mActivity.getString(R.string.official_web), officialWeb);
-                break;
-            case R.id.llProtocol: // 用户协议
-                UserProtocolActivity.goActivity(mActivity);
                 break;
         }
     }
