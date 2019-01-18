@@ -108,19 +108,16 @@ public class SettingsActivity extends BaseActivity<SettingsActivity> {
         // 缓存大小
         cacheShow();
         // 系统通知
-        boolean noticeSystem = SPHelper.getSettingsNoticeSystem();
-        switchSystem.setChecked(noticeSystem);
+        switchSystem.setChecked(SPHelper.getSettingsNoticeSystem());
         // 社交通知
-        boolean noticeSocial = SPHelper.getSettingsNoticeSocial();
-        switchSocial.setChecked(noticeSocial);
+        switchSocial.setChecked(SPHelper.getSettingsNoticeSocial());
         // 免打扰
-        boolean disturb = SPHelper.getSettingsNoticeDisturb();
-        switchDisturb.setChecked(disturb);
+        switchDisturb.setChecked(SPHelper.getSettingsNoticeDisturb());
         PushInfo pushInfo = SPHelper.getPushInfo();
-        int startHour = pushInfo.getNoStartHour();
-        int endHour = pushInfo.getNoEndHour();
-        String disturbShow = String.format(Locale.getDefault(), getString(R.string.holder_clock_space_line_space_holder_clock), startHour, endHour);
-        tvDisturbSummary.setText(disturbShow);
+        String disturb = String.format(Locale.getDefault(),
+                getString(R.string.holder_clock_space_line_space_holder_clock),
+                pushInfo.getNoStartHour(), pushInfo.getNoEndHour());
+        tvDisturbSummary.setText(disturb);
     }
 
     @Override
@@ -131,7 +128,8 @@ public class SettingsActivity extends BaseActivity<SettingsActivity> {
     protected void onStart() {
         super.onStart();
         // 推送刷新
-        refreshNotificationStatus();
+        boolean enabled = PushUtils.isNotificationEnabled();
+        tvNoticeStatus.setText(enabled ? R.string.notice_yes_open : R.string.notice_no_open);
         // 最新公告
         ivNotice.setVisibility(SPHelper.getCommonCount().getNoticeNewCount() > 0 ? View.VISIBLE : View.GONE);
         // 关于软件
@@ -236,11 +234,6 @@ public class SettingsActivity extends BaseActivity<SettingsActivity> {
         String cachesSize = ResHelper.getCachesSizeFmt();
         String cachesSizeShow = String.format(Locale.getDefault(), getString(R.string.contain_image_audio_video_total_colon_holder), cachesSize);
         tvCacheSummary.setText(cachesSizeShow);
-    }
-
-    private void refreshNotificationStatus() {
-        boolean enabled = PushUtils.isNotificationEnabled();
-        tvNoticeStatus.setText(enabled ? R.string.notice_yes_open : R.string.notice_no_open);
     }
 
     private void goNoticeSettings() {
