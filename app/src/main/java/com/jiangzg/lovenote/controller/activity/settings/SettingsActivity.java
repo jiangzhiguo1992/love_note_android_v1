@@ -121,8 +121,6 @@ public class SettingsActivity extends BaseActivity<SettingsActivity> {
         int endHour = pushInfo.getNoEndHour();
         String disturbShow = String.format(Locale.getDefault(), getString(R.string.holder_clock_space_line_space_holder_clock), startHour, endHour);
         tvDisturbSummary.setText(disturbShow);
-        // 关于软件
-        ivAbout.setVisibility(SPHelper.getCommonCount().getVersionNewCount() > 0 ? View.VISIBLE : View.GONE);
     }
 
     @Override
@@ -132,10 +130,12 @@ public class SettingsActivity extends BaseActivity<SettingsActivity> {
     @Override
     protected void onStart() {
         super.onStart();
-        // 推送
+        // 推送刷新
         refreshNotificationStatus();
         // 最新公告
         ivNotice.setVisibility(SPHelper.getCommonCount().getNoticeNewCount() > 0 ? View.VISIBLE : View.GONE);
+        // 关于软件
+        ivAbout.setVisibility(SPHelper.getCommonCount().getVersionNewCount() > 0 ? View.VISIBLE : View.GONE);
     }
 
     @OnClick({R.id.tvTheme, R.id.rlCache,
