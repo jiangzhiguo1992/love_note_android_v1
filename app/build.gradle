@@ -66,9 +66,9 @@ android {
         official {} // 官方
         //---------------------手机厂商----------------------
 //        google {} // 谷歌
-        huawei {} // 华为
         oppo {} // oppo
         vivo {} // vivo
+        huawei {} // 华为
         xiaomi {} // 小米
         meizu {} // 魅族
 //        samsung {} // 三星

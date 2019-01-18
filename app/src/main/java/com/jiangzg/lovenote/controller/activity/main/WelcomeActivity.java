@@ -170,13 +170,13 @@ public class WelcomeActivity extends BaseActivity<WelcomeActivity> {
         switch (marketChannel) {
             case "google": // 谷歌(不用！)
                 break;
-            case "huawei": // 华为
-                ivShouFa.setVisibility(View.VISIBLE);
-                ivShouFa.setImageResource(R.mipmap.shoufa_huawei);
-                break;
             case "oppo": // oppo
                 break;
             case "vivo": // vivo
+                break;
+            case "huawei": // 华为
+                ivShouFa.setVisibility(View.VISIBLE);
+                ivShouFa.setImageResource(R.mipmap.shoufa_huawei);
                 break;
             case "xiaomi": // 小米
                 ivShouFa.setVisibility(View.VISIBLE);
