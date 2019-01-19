@@ -152,7 +152,7 @@ public class CoupleWallPaperActivity extends BaseActivity<CoupleWallPaperActivit
         RetrofitHelper.enqueue(api, null, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
-                viewRefresh(data);
+                refreshView(data);
             }
 
             @Override
@@ -183,7 +183,7 @@ public class CoupleWallPaperActivity extends BaseActivity<CoupleWallPaperActivit
         OssHelper.uploadWall(mActivity, uploadFile, new OssHelper.OssUploadCallBack() {
             @Override
             public void success(File source, String ossPath) {
-                apiPushData(ossPath);
+                addWallPaper(ossPath);
                 ResHelper.deleteFileInBackground(cropFile);
 
             }
@@ -195,7 +195,7 @@ public class CoupleWallPaperActivity extends BaseActivity<CoupleWallPaperActivit
         });
     }
 
-    private void apiPushData(String ossPath) {
+    private void addWallPaper(String ossPath) {
         if (recyclerHelper == null || recyclerHelper.getAdapter() == null) return;
         WallPaperAdapter adapter = recyclerHelper.getAdapter();
         List<String> objects = new ArrayList<>(adapter.getData());
@@ -208,7 +208,7 @@ public class CoupleWallPaperActivity extends BaseActivity<CoupleWallPaperActivit
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 SPHelper.setWallPaper(data.getWallPaper());
-                viewRefresh(data);
+                refreshView(data);
                 // event
                 RxBus.post(new RxBus.Event<>(RxBus.EVENT_WALL_PAPER_REFRESH, data.getWallPaper()));
             }
@@ -220,7 +220,7 @@ public class CoupleWallPaperActivity extends BaseActivity<CoupleWallPaperActivit
         pushApi(api);
     }
 
-    private void viewRefresh(Result.Data data) {
+    private void refreshView(Result.Data data) {
         if (recyclerHelper == null) return;
         recyclerHelper.viewEmptyShow(data.getShow());
         recyclerHelper.setAdapter();

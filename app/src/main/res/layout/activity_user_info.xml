@@ -43,7 +43,7 @@
                     android:layout_marginBottom="20dp"
                     android:layout_weight="1"
                     app:cardBackgroundColor="@color/white"
-                    app:cardCornerRadius="10dp"
+                    app:cardCornerRadius="@dimen/radius_huge"
                     app:cardElevation="@dimen/elevation_normal"
                     app:cardMaxElevation="@dimen/elevation_big">
 
@@ -73,7 +73,7 @@
                     android:layout_marginBottom="20dp"
                     android:layout_weight="1"
                     app:cardBackgroundColor="@color/white"
-                    app:cardCornerRadius="10dp"
+                    app:cardCornerRadius="@dimen/radius_huge"
                     app:cardElevation="@dimen/elevation_normal"
                     app:cardMaxElevation="@dimen/elevation_big">
 
