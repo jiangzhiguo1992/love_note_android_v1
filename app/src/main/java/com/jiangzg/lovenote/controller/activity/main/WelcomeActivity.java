@@ -100,9 +100,7 @@ public class WelcomeActivity extends BaseActivity<WelcomeActivity> {
 
     // 获取随机的wp
     public File getWallPaperRandom() {
-        WallPaper wallPaper = SPHelper.getWallPaper();
-        if (wallPaper == null) return null;
-        List<String> imageList = wallPaper.getContentImageList();
+        List<String> imageList = SPHelper.getWallPaper().getContentImageList();
         if (imageList == null || imageList.size() <= 0) return null;
         List<File> fileList = new ArrayList<>();
         for (String path : imageList) {

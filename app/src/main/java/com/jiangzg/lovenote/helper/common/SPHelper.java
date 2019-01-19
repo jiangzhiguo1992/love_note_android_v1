@@ -1013,6 +1013,7 @@ public class SPHelper {
         // json解析
         String newJson = sp.getString(FIELD_WALL_PAPER_JSON, json);
         wallPaper = GsonHelper.get().fromJson(newJson, WallPaper.class);
+        if (wallPaper == null) wallPaper = new WallPaper();
         return wallPaper;
     }
 

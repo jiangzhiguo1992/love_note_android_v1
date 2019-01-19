@@ -152,8 +152,12 @@ public class CoupleWallPaperActivity extends BaseActivity<CoupleWallPaperActivit
         RetrofitHelper.enqueue(api, null, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
-                SPHelper.setWallPaper(data.getWallPaper());
-                refreshView(data.getShow());
+                recyclerHelper.viewEmptyShow(data.getShow());
+                WallPaper wallPaper = data.getWallPaper();
+                if (wallPaper == null) wallPaper = new WallPaper();
+                SPHelper.setWallPaper(wallPaper);
+                List<String> imageList = wallPaper.getContentImageList();
+                recyclerHelper.dataOk(imageList, false);
             }
 
             @Override
@@ -163,19 +167,6 @@ public class CoupleWallPaperActivity extends BaseActivity<CoupleWallPaperActivit
             }
         });
         pushApi(api);
-    }
-
-    private void refreshView(String show) {
-        if (recyclerHelper == null) return;
-        recyclerHelper.viewEmptyShow(show);
-        recyclerHelper.setAdapter();
-        WallPaper wallPaper = SPHelper.getWallPaper();
-        if (wallPaper == null) {
-            srl.setRefreshing(false);
-            return;
-        }
-        List<String> imageList = wallPaper.getContentImageList();
-        recyclerHelper.dataNew(imageList, 0);
     }
 
     private void addWallPaper() {
@@ -218,10 +209,14 @@ public class CoupleWallPaperActivity extends BaseActivity<CoupleWallPaperActivit
         RetrofitHelper.enqueue(api, getLoading(true), new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
-                SPHelper.setWallPaper(data.getWallPaper());
-                refreshView(data.getShow());
+                recyclerHelper.viewEmptyShow(data.getShow());
+                WallPaper wallPaper = data.getWallPaper();
+                if (wallPaper == null) wallPaper = new WallPaper();
+                SPHelper.setWallPaper(wallPaper);
+                List<String> imageList = wallPaper.getContentImageList();
+                recyclerHelper.dataOk(imageList, false);
                 // event
-                RxBus.post(new RxBus.Event<>(RxBus.EVENT_WALL_PAPER_REFRESH, data.getWallPaper()));
+                RxBus.post(new RxBus.Event<>(RxBus.EVENT_WALL_PAPER_REFRESH, wallPaper));
             }
 
             @Override

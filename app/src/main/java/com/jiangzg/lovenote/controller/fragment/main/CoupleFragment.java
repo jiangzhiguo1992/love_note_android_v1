@@ -332,7 +332,7 @@ public class CoupleFragment extends BasePagerFragment<CoupleFragment> {
         if (mActivity == null || !mFragment.isAdded()) return; // 防止已经脱离后加载
         WallPaper wallPaper = SPHelper.getWallPaper();
         // 无图显示
-        if (wallPaper == null || wallPaper.getContentImageList() == null || wallPaper.getContentImageList().size() <= 0) {
+        if (wallPaper.getContentImageList() == null || wallPaper.getContentImageList().size() <= 0) {
             tvAddWallPaper.setVisibility(View.VISIBLE);
             vpWallPaper.setVisibility(View.GONE);
             // 删除本地文件
