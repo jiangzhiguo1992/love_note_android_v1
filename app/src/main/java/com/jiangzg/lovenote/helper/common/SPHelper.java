@@ -84,6 +84,7 @@ public class SPHelper {
     private static final String FIELD_COMMON_COUNT_NOTICE_NEW_COUNT = "notice_new_count";
     private static final String FIELD_COMMON_COUNT_VERSION_NEW_COUNT = "version_new_count";
     // modelShow
+    private static final String FIELD_MODEL_SHOW_MARKET_PAY = "market_pay";
     private static final String FIELD_MODEL_SHOW_COUPLE = "couple";
     private static final String FIELD_MODEL_SHOW_COUPLE_PLACE = "couple_place";
     private static final String FIELD_MODEL_SHOW_COUPLE_WEATHER = "couple_weather";
@@ -423,6 +424,7 @@ public class SPHelper {
             return;
         }
         SharedPreferences.Editor editor = SPUtils.getSharedPreferences(SHARE_MODEL_SHOW).edit();
+        editor.putBoolean(FIELD_MODEL_SHOW_MARKET_PAY, modelShow.isMarketPay());
         editor.putBoolean(FIELD_MODEL_SHOW_COUPLE, modelShow.isCouple());
         editor.putBoolean(FIELD_MODEL_SHOW_COUPLE_PLACE, modelShow.isCouplePlace());
         editor.putBoolean(FIELD_MODEL_SHOW_COUPLE_WEATHER, modelShow.isCoupleWeather());
@@ -439,11 +441,12 @@ public class SPHelper {
     public static ModelShow getModelShow() {
         SharedPreferences sp = SPUtils.getSharedPreferences(SHARE_MODEL_SHOW);
         ModelShow modelShow = new ModelShow();
+        modelShow.setMarketPay(sp.getBoolean(FIELD_MODEL_SHOW_MARKET_PAY, true));
         modelShow.setCouple(sp.getBoolean(FIELD_MODEL_SHOW_COUPLE, true));
         modelShow.setCouplePlace(sp.getBoolean(FIELD_MODEL_SHOW_COUPLE_PLACE, true));
         modelShow.setCoupleWeather(sp.getBoolean(FIELD_MODEL_SHOW_COUPLE_WEATHER, true));
         modelShow.setNote(sp.getBoolean(FIELD_MODEL_SHOW_NOTE, true));
-        modelShow.setTopic(sp.getBoolean(FIELD_MODEL_SHOW_TOPIC, false));
+        modelShow.setTopic(sp.getBoolean(FIELD_MODEL_SHOW_TOPIC, true));
         modelShow.setMore(sp.getBoolean(FIELD_MODEL_SHOW_MORE, true));
         modelShow.setMoreVip(sp.getBoolean(FIELD_MODEL_SHOW_MORE_VIP, true));
         modelShow.setMoreCoin(sp.getBoolean(FIELD_MODEL_SHOW_MORE_COIN, true));

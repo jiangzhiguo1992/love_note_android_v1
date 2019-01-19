@@ -79,6 +79,8 @@ public class CoinActivity extends BaseActivity<CoinActivity> {
     protected void initView(Intent intent, Bundle state) {
         ViewHelper.initTopBar(mActivity, tb, getString(R.string.coin), true);
         srl.setEnabled(false);
+        // pay
+        btnBuy.setVisibility(SPHelper.getModelShow().isMarketPay() ? View.VISIBLE : View.GONE);
         // view
         refreshView();
         // data

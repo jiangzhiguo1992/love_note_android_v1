@@ -129,12 +129,13 @@ public class MoreFragment extends BasePagerFragment<MoreFragment> {
         fitToolBar(tb);
         // show
         ModelShow modelShow = SPHelper.getModelShow();
+        boolean marketPay = modelShow.isMarketPay();
         boolean moreVip = modelShow.isMoreVip();
         boolean moreCoin = modelShow.isMoreCoin();
         boolean moreMatch = modelShow.isMoreMatch();
         boolean moreFeature = modelShow.isMoreFeature();
-        linePay.setVisibility((moreVip || moreCoin) ? View.VISIBLE : View.GONE);
-        cvVip.setVisibility(moreVip ? View.VISIBLE : View.GONE);
+        linePay.setVisibility((moreVip && moreCoin) ? View.VISIBLE : View.GONE);
+        cvVip.setVisibility((moreVip && marketPay) ? View.VISIBLE : View.GONE);
         cvCoin.setVisibility(moreCoin ? View.VISIBLE : View.GONE);
         cvSign.setVisibility(moreCoin ? View.VISIBLE : View.GONE);
         lineMatch.setVisibility(moreMatch ? View.VISIBLE : View.GONE);

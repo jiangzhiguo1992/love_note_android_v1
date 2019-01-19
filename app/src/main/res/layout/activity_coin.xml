@@ -60,7 +60,9 @@
                         android:layout_height="30dp"
                         android:layout_marginTop="5dp"
                         android:background="@drawable/selector_enable_press_solid_light_primary_dark_r100"
-                        android:text="@string/go_to_buy"/>
+                        android:text="@string/go_to_buy"
+                        android:visibility="gone"
+                        tools:visibility="visible"/>
                 </LinearLayout>
 
                 <com.jiangzg.lovenote.view.FrescoAvatarView
