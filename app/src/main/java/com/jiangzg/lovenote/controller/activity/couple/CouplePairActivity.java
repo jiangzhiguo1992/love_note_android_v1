@@ -105,12 +105,12 @@ public class CouplePairActivity extends BaseActivity<CouplePairActivity> {
     protected void initView(Intent intent, Bundle state) {
         ViewHelper.initTopBar(mActivity, tb, getString(R.string.pair), true);
         // srl
-        srl.setOnRefreshListener(this::refreshSelfCouple);
+        srl.setOnRefreshListener(this::coupleGetVisible);
     }
 
     @Override
     protected void initData(Intent intent, Bundle state) {
-        refreshSelfCouple();
+        coupleGetVisible();
     }
 
     @Override
