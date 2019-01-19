@@ -63,28 +63,28 @@ public class WallPaperAdapter extends BaseQuickAdapter<String, BaseViewHolder> {
                 .canceledOnTouchOutside(true)
                 .title(R.string.confirm_delete_this_image)
                 .positiveText(R.string.confirm)
-                .onPositive((dialog1, which) -> delImgApi(position))
+                .onPositive((dialog1, which) -> delWallPaper(position))
                 .negativeText(R.string.cancel)
                 .build();
         DialogHelper.showWithAnim(dialog);
     }
 
-    private void delImgApi(final int position) {
-        List<String> data = getData();
-        if (data.size() <= position) return;
-        List<String> objects = new ArrayList<>(data);
-        objects.remove(position);
-        WallPaper body = new WallPaper();
-        body.setContentImageList(objects);
+    private void delWallPaper(final int position) {
+        WallPaper body = SPHelper.getWallPaper();
+        if (body.getContentImageList() == null) {
+            body.setContentImageList(new ArrayList<>());
+        }
+        body.getContentImageList().remove(position);
         // api
         Call<Result> api = new RetrofitHelper().call(API.class).coupleWallPaperUpdate(body);
         RetrofitHelper.enqueue(api, mActivity.getLoading(true), new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
+                WallPaper wallPaper = data.getWallPaper();
+                SPHelper.setWallPaper(wallPaper);
                 WallPaperAdapter.this.remove(position);
-                SPHelper.setWallPaper(data.getWallPaper());
                 // event
-                RxBus.post(new RxBus.Event<>(RxBus.EVENT_WALL_PAPER_REFRESH, data.getWallPaper()));
+                RxBus.post(new RxBus.Event<>(RxBus.EVENT_WALL_PAPER_REFRESH, wallPaper));
             }
 
             @Override
