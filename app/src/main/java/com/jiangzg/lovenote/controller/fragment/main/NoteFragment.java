@@ -44,6 +44,7 @@ import com.jiangzg.lovenote.view.MultiLoveUpLayout;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 import java.util.Locale;
 
 import butterknife.BindView;
@@ -172,6 +173,10 @@ public class NoteFragment extends BasePagerFragment<NoteFragment> {
         pushBus(RxBus.EVENT_LOCK_REFRESH, obLockRefresh);
         Observable<NoteCustom> obCustomRefresh = RxBus.register(RxBus.EVENT_CUSTOM_REFRESH, custom -> customView());
         pushBus(RxBus.EVENT_CUSTOM_REFRESH, obCustomRefresh);
+        Observable<List<Souvenir>> obSouvenirRefresh = RxBus.register(RxBus.EVENT_SOUVENIR_LIST_REFRESH, custom -> refreshData());
+        pushBus(RxBus.EVENT_SOUVENIR_LIST_REFRESH, obSouvenirRefresh);
+        Observable<Souvenir> obSouvenirDeleteRefresh = RxBus.register(RxBus.EVENT_SOUVENIR_LIST_ITEM_DELETE, custom -> refreshData());
+        pushBus(RxBus.EVENT_SOUVENIR_LIST_ITEM_DELETE, obSouvenirDeleteRefresh);
         // data
         refreshData();
     }

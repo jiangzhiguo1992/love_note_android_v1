@@ -28,6 +28,7 @@ import com.jiangzg.lovenote.controller.activity.settings.SettingsActivity;
 import com.jiangzg.lovenote.controller.fragment.base.BaseFragment;
 import com.jiangzg.lovenote.controller.fragment.base.BasePagerFragment;
 import com.jiangzg.lovenote.helper.common.CountHelper;
+import com.jiangzg.lovenote.helper.common.RxBus;
 import com.jiangzg.lovenote.helper.common.SPHelper;
 import com.jiangzg.lovenote.helper.common.TimeHelper;
 import com.jiangzg.lovenote.helper.system.RetrofitHelper;
@@ -50,6 +51,7 @@ import java.util.Locale;
 import butterknife.BindView;
 import butterknife.OnClick;
 import retrofit2.Call;
+import rx.Observable;
 
 public class MoreFragment extends BasePagerFragment<MoreFragment> {
 
@@ -150,6 +152,11 @@ public class MoreFragment extends BasePagerFragment<MoreFragment> {
     }
 
     protected void loadData() {
+        // event
+        Observable<Vip> busVip = RxBus.register(RxBus.EVENT_VIP_INFO_REFRESH, coin -> refreshData());
+        pushBus(RxBus.EVENT_VIP_INFO_REFRESH, busVip);
+        Observable<Coin> busCoin = RxBus.register(RxBus.EVENT_COIN_INFO_REFRESH, coin -> refreshData());
+        pushBus(RxBus.EVENT_COIN_INFO_REFRESH, busCoin);
         // data
         refreshData();
     }
