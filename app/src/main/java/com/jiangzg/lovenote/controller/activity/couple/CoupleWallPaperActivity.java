@@ -180,11 +180,9 @@ public class CoupleWallPaperActivity extends BaseActivity<CoupleWallPaperActivit
 
     private void addWallPaper() {
         if (recyclerHelper == null) return;
-        int count = SPHelper.getVipLimit().getWallPaperCount();
-        WallPaperAdapter adapter = recyclerHelper.getAdapter();
-        if (adapter == null) return;
-        List<String> data = adapter.getData();
-        if (data.size() >= count) {
+        int limit = SPHelper.getVipLimit().getWallPaperCount();
+        List<String> data = SPHelper.getWallPaper().getContentImageList();
+        if (data != null && data.size() >= limit) {
             VipActivity.goActivity(mActivity);
             return;
         }
@@ -210,12 +208,11 @@ public class CoupleWallPaperActivity extends BaseActivity<CoupleWallPaperActivit
     }
 
     private void addWallPaper(String ossPath) {
-        if (recyclerHelper == null || recyclerHelper.getAdapter() == null) return;
-        WallPaperAdapter adapter = recyclerHelper.getAdapter();
-        List<String> objects = new ArrayList<>(adapter.getData());
-        objects.add(ossPath);
-        WallPaper body = new WallPaper();
-        body.setContentImageList(objects);
+        WallPaper body = SPHelper.getWallPaper();
+        if (body.getContentImageList() == null) {
+            body.setContentImageList(new ArrayList<>());
+        }
+        body.getContentImageList().add(ossPath);
         // api
         Call<Result> api = new RetrofitHelper().call(API.class).coupleWallPaperUpdate(body);
         RetrofitHelper.enqueue(api, getLoading(true), new RetrofitHelper.CallBack() {
