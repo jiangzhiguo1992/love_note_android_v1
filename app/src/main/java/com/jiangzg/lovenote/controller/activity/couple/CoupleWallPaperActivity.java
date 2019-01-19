@@ -180,7 +180,6 @@ public class CoupleWallPaperActivity extends BaseActivity<CoupleWallPaperActivit
         PickHelper.selectImage(mActivity, 1, true);
     }
 
-    // oss上传头像
     private void ossUploadWall(final File picture) {
         File uploadFile = FileUtils.isFileEmpty(picture) ? cropFile : picture;
         OssHelper.uploadWall(mActivity, uploadFile, new OssHelper.OssUploadCallBack() {
