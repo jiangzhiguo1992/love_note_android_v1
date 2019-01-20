@@ -77,7 +77,7 @@ public class CoupleWallPaperActivity extends BaseActivity<CoupleWallPaperActivit
         // recycler
         recyclerHelper = new RecyclerHelper(rv)
                 .initLayoutManager(new GridLayoutManager(mActivity, 3, LinearLayoutManager.VERTICAL, false))
-                .initRefresh(srl, true)
+                .initRefresh(srl, false)
                 .initAdapter(new WallPaperAdapter(mActivity))
                 .viewEmpty(mActivity, R.layout.list_empty_white, true, true)
                 .setAdapter()
