@@ -16,10 +16,7 @@ import com.jiangzg.lovenote.helper.view.RecyclerHelper;
 import com.jiangzg.lovenote.helper.view.ViewHelper;
 import com.jiangzg.lovenote.model.api.API;
 import com.jiangzg.lovenote.model.api.Result;
-import com.jiangzg.lovenote.model.entity.Vip;
 import com.jiangzg.lovenote.view.GSwipeRefreshLayout;
-
-import java.util.List;
 
 import butterknife.BindView;
 import retrofit2.Call;
@@ -82,9 +79,7 @@ public class VipListActivity extends BaseActivity<VipListActivity> {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 if (recyclerHelper == null) return;
-                recyclerHelper.viewEmptyShow(data.getShow());
-                List<Vip> vipList = data.getVipList();
-                recyclerHelper.dataOk(vipList, more);
+                recyclerHelper.dataOk(data.getShow(), data.getVipList(), more);
             }
 
             @Override

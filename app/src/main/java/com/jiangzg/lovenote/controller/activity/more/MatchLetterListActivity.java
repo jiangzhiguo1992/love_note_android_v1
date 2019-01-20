@@ -50,7 +50,6 @@ import com.jiangzg.lovenote.model.entity.MatchWork;
 import com.jiangzg.lovenote.view.GSwipeRefreshLayout;
 
 import java.util.Arrays;
-import java.util.List;
 import java.util.Locale;
 
 import butterknife.BindView;
@@ -277,9 +276,7 @@ public class MatchLetterListActivity extends BaseActivity<MatchLetterListActivit
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 if (recyclerHelper == null) return;
-                recyclerHelper.viewEmptyShow(data.getShow());
-                List<MatchWork> matchWorkList = data.getMatchWorkList();
-                recyclerHelper.dataOk(matchWorkList, more);
+                recyclerHelper.dataOk(data.getShow(), data.getMatchWorkList(), more);
             }
 
             @Override

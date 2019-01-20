@@ -176,9 +176,7 @@ public class TravelListActivity extends BaseActivity<TravelListActivity> {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 if (recyclerHelper == null) return;
-                recyclerHelper.viewEmptyShow(data.getShow());
-                List<Travel> travelList = data.getTravelList();
-                recyclerHelper.dataOk(travelList, more);
+                recyclerHelper.dataOk(data.getShow(), data.getTravelList(), more);
             }
 
             @Override

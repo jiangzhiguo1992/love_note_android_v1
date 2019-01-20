@@ -21,10 +21,7 @@ import com.jiangzg.lovenote.helper.view.ViewHelper;
 import com.jiangzg.lovenote.model.api.API;
 import com.jiangzg.lovenote.model.api.Result;
 import com.jiangzg.lovenote.model.entity.CommonCount;
-import com.jiangzg.lovenote.model.entity.Notice;
 import com.jiangzg.lovenote.view.GSwipeRefreshLayout;
-
-import java.util.List;
 
 import butterknife.BindView;
 import retrofit2.Call;
@@ -94,13 +91,11 @@ public class NoticeListActivity extends BaseActivity<NoticeListActivity> {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 if (recyclerHelper == null) return;
+                recyclerHelper.dataOk(data.getShow(), data.getNoticeList(), more);
                 CommonCount newCC = data.getCommonCount();
                 CommonCount oldCC = SPHelper.getCommonCount();
                 oldCC.setNoticeNewCount(newCC == null ? 0 : newCC.getNoticeNewCount());
                 SPHelper.setCommonCount(oldCC);
-                recyclerHelper.viewEmptyShow(data.getShow());
-                List<Notice> noticeList = data.getNoticeList();
-                recyclerHelper.dataOk(noticeList, more);
             }
 
             @Override

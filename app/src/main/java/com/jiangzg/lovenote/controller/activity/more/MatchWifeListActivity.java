@@ -48,7 +48,6 @@ import com.jiangzg.lovenote.view.GSwipeRefreshLayout;
 
 import java.io.File;
 import java.util.Arrays;
-import java.util.List;
 import java.util.Locale;
 
 import butterknife.BindView;
@@ -258,9 +257,7 @@ public class MatchWifeListActivity extends BaseActivity<MatchWifeListActivity> {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 if (recyclerHelper == null) return;
-                recyclerHelper.viewEmptyShow(data.getShow());
-                List<MatchWork> matchWorkList = data.getMatchWorkList();
-                recyclerHelper.dataOk(matchWorkList, more);
+                recyclerHelper.dataOk(data.getShow(), data.getMatchWorkList(), more);
             }
 
             @Override

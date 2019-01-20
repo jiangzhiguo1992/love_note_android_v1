@@ -134,9 +134,7 @@ public class SuggestListActivity extends BaseActivity<SuggestListActivity> {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 if (recyclerHelper == null) return;
-                recyclerHelper.viewEmptyShow(data.getShow());
-                List<Suggest> suggestList = data.getSuggestList();
-                recyclerHelper.dataOk(suggestList, more);
+                recyclerHelper.dataOk(data.getShow(), data.getSuggestList(), more);
             }
 
             @Override

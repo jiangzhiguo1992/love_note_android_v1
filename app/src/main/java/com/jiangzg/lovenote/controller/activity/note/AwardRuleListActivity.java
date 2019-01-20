@@ -165,9 +165,7 @@ public class AwardRuleListActivity extends BaseActivity<AwardRuleListActivity> {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 if (recyclerHelper == null) return;
-                recyclerHelper.viewEmptyShow(data.getShow());
-                List<AwardRule> awardRuleList = data.getAwardRuleList();
-                recyclerHelper.dataOk(awardRuleList, more);
+                recyclerHelper.dataOk(data.getShow(), data.getAwardRuleList(), more);
             }
 
             @Override

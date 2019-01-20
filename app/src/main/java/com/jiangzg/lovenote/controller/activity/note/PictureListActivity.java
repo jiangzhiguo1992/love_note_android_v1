@@ -293,10 +293,8 @@ public class PictureListActivity extends BaseActivity<PictureListActivity> {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 if (recyclerHelper == null) return;
-                recyclerHelper.viewEmptyShow(data.getShow());
-                // data
                 List<Picture> pictureList = data.getPictureList();
-                recyclerHelper.dataOk(pictureList, more);
+                recyclerHelper.dataOk(data.getShow(), pictureList, more);
                 // 刷新本地资源
                 List<String> ossKeyList = ListHelper.getOssKeyListByPicture(pictureList);
                 OssResHelper.refreshResWithDelExpire(OssResHelper.TYPE_NOTE_PICTURE, ossKeyList);

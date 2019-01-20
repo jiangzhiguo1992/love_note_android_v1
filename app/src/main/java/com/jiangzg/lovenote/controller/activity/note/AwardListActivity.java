@@ -176,9 +176,7 @@ public class AwardListActivity extends BaseActivity<AwardListActivity> {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 if (recyclerHelper == null) return;
-                recyclerHelper.viewEmptyShow(data.getShow());
-                List<Award> awardList = data.getAwardList();
-                recyclerHelper.dataOk(awardList, more);
+                recyclerHelper.dataOk(data.getShow(), data.getAwardList(), more);
             }
 
             @Override

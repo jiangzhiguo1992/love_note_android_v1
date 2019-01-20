@@ -22,10 +22,7 @@ import com.jiangzg.lovenote.helper.view.RecyclerHelper;
 import com.jiangzg.lovenote.helper.view.ViewHelper;
 import com.jiangzg.lovenote.model.api.API;
 import com.jiangzg.lovenote.model.api.Result;
-import com.jiangzg.lovenote.model.entity.Place;
 import com.jiangzg.lovenote.view.GSwipeRefreshLayout;
-
-import java.util.List;
 
 import butterknife.BindView;
 import retrofit2.Call;
@@ -103,9 +100,7 @@ public class CouplePlaceActivity extends BaseActivity<CouplePlaceActivity> {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 if (recyclerHelper == null) return;
-                recyclerHelper.viewEmptyShow(data.getShow());
-                List<Place> placeList = data.getPlaceList();
-                recyclerHelper.dataOk(placeList, more);
+                recyclerHelper.dataOk(data.getShow(), data.getPlaceList(), more);
             }
 
             @Override

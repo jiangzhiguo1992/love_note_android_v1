@@ -31,8 +31,6 @@ import com.jiangzg.lovenote.model.entity.User;
 import com.jiangzg.lovenote.view.FrescoAvatarView;
 import com.jiangzg.lovenote.view.GSwipeRefreshLayout;
 
-import java.util.List;
-
 import butterknife.BindView;
 import butterknife.OnClick;
 import retrofit2.Call;
@@ -188,9 +186,7 @@ public class CoinActivity extends BaseActivity<CoinActivity> {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 if (recyclerHelper == null) return;
-                recyclerHelper.viewEmptyShow(data.getShow());
-                List<Coin> coinList = data.getCoinList();
-                recyclerHelper.dataOk(coinList, more);
+                recyclerHelper.dataOk(data.getShow(), data.getCoinList(), more);
             }
 
             @Override

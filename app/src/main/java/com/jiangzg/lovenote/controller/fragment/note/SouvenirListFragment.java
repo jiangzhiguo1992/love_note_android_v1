@@ -112,9 +112,7 @@ public class SouvenirListFragment extends BasePagerFragment<SouvenirListFragment
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 if (recyclerHelper == null) return;
-                recyclerHelper.viewEmptyShow(data.getShow());
-                List<Souvenir> souvenirList = data.getSouvenirList();
-                recyclerHelper.dataOk(souvenirList, more);
+                recyclerHelper.dataOk(data.getShow(), data.getSouvenirList(), more);
             }
 
             @Override

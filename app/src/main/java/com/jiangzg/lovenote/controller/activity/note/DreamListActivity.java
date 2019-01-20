@@ -169,9 +169,7 @@ public class DreamListActivity extends BaseActivity<DreamListActivity> {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 if (recyclerHelper == null) return;
-                recyclerHelper.viewEmptyShow(data.getShow());
-                List<Dream> dreamList = data.getDreamList();
-                recyclerHelper.dataOk(dreamList, more);
+                recyclerHelper.dataOk(data.getShow(), data.getDreamList(), more);
             }
 
             @Override

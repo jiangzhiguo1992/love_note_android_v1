@@ -51,7 +51,6 @@ import com.jiangzg.lovenote.view.FrescoView;
 import com.jiangzg.lovenote.view.GSwipeRefreshLayout;
 import com.jiangzg.lovenote.view.GWrapView;
 
-import java.util.List;
 import java.util.Locale;
 
 import butterknife.BindView;
@@ -306,9 +305,7 @@ public class SuggestDetailActivity extends BaseActivity<SuggestDetailActivity> {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 if (recyclerHelper == null) return;
-                recyclerHelper.viewEmptyShow(data.getShow());
-                List<SuggestComment> suggestCommentList = data.getSuggestCommentList();
-                recyclerHelper.dataOk(suggestCommentList, more);
+                recyclerHelper.dataOk(data.getShow(), data.getSuggestCommentList(), more);
             }
 
             @Override

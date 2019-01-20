@@ -22,8 +22,6 @@ import com.jiangzg.lovenote.model.api.Result;
 import com.jiangzg.lovenote.model.entity.Post;
 import com.jiangzg.lovenote.view.GSwipeRefreshLayout;
 
-import java.util.List;
-
 import butterknife.BindView;
 import retrofit2.Call;
 import rx.Observable;
@@ -110,9 +108,7 @@ public class PostCollectFragment extends BasePagerFragment<PostCollectFragment> 
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 if (recyclerHelper == null) return;
-                recyclerHelper.viewEmptyShow(data.getShow());
-                List<Post> postList = data.getPostList();
-                recyclerHelper.dataOk(postList, more);
+                recyclerHelper.dataOk(data.getShow(), data.getPostList(), more);
             }
 
             @Override

@@ -192,9 +192,8 @@ public class MovieListActivity extends BaseActivity<MovieListActivity> {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 if (recyclerHelper == null) return;
-                recyclerHelper.viewEmptyShow(data.getShow());
                 List<Movie> movieList = data.getMovieList();
-                recyclerHelper.dataOk(movieList, more);
+                recyclerHelper.dataOk(data.getShow(), movieList, more);
                 // 刷新本地资源
                 List<String> ossKeyList = ListHelper.getOssKeyListByMovie(movieList);
                 OssResHelper.refreshResWithDelExpire(OssResHelper.TYPE_NOTE_MOVIE, ossKeyList);

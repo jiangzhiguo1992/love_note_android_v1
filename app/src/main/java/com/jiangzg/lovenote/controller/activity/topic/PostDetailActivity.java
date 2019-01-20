@@ -579,9 +579,7 @@ public class PostDetailActivity extends BaseActivity<PostDetailActivity> {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 if (recyclerHelper == null) return;
-                recyclerHelper.viewEmptyShow(data.getShow());
-                List<PostComment> postCommentList = data.getPostCommentList();
-                recyclerHelper.dataOk(postCommentList, more);
+                recyclerHelper.dataOk(data.getShow(), data.getPostCommentList(), more);
             }
 
             @Override

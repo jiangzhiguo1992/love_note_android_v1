@@ -19,10 +19,7 @@ import com.jiangzg.lovenote.helper.view.RecyclerHelper;
 import com.jiangzg.lovenote.model.api.API;
 import com.jiangzg.lovenote.model.api.Result;
 import com.jiangzg.lovenote.model.entity.MatchPeriod;
-import com.jiangzg.lovenote.model.entity.MatchWork;
 import com.jiangzg.lovenote.view.GSwipeRefreshLayout;
-
-import java.util.List;
 
 import butterknife.BindView;
 import retrofit2.Call;
@@ -103,9 +100,7 @@ public class MatchDiscussListFragment extends BasePagerFragment<MatchDiscussList
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 if (recyclerHelper == null) return;
-                recyclerHelper.viewEmptyShow(data.getShow());
-                List<MatchWork> matchWorkList = data.getMatchWorkList();
-                recyclerHelper.dataOk(matchWorkList, more);
+                recyclerHelper.dataOk(data.getShow(), data.getMatchWorkList(), more);
             }
 
             @Override

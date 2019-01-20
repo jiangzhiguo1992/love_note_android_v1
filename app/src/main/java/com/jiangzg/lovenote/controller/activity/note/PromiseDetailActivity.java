@@ -42,7 +42,6 @@ import com.jiangzg.lovenote.model.entity.PromiseBreak;
 import com.jiangzg.lovenote.model.entity.User;
 import com.jiangzg.lovenote.view.GSwipeRefreshLayout;
 
-import java.util.List;
 import java.util.Locale;
 
 import butterknife.BindView;
@@ -260,9 +259,7 @@ public class PromiseDetailActivity extends BaseActivity<PromiseDetailActivity> {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 if (recyclerHelper == null) return;
-                recyclerHelper.viewEmptyShow(data.getShow());
-                List<PromiseBreak> promiseBreakList = data.getPromiseBreakList();
-                recyclerHelper.dataOk(promiseBreakList, more);
+                recyclerHelper.dataOk(data.getShow(), data.getPromiseBreakList(), more);
             }
 
             @Override

@@ -192,9 +192,8 @@ public class FoodListActivity extends BaseActivity<FoodListActivity> {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 if (recyclerHelper == null) return;
-                recyclerHelper.viewEmptyShow(data.getShow());
                 List<Food> foodList = data.getFoodList();
-                recyclerHelper.dataOk(foodList, more);
+                recyclerHelper.dataOk(data.getShow(), foodList, more);
                 // 刷新本地资源
                 List<String> ossKeyList = ListHelper.getOssKeyListByFood(foodList);
                 OssResHelper.refreshResWithDelExpire(OssResHelper.TYPE_NOTE_FOOD, ossKeyList);

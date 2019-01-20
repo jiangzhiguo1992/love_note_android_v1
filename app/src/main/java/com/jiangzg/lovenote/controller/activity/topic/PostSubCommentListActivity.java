@@ -52,7 +52,6 @@ import com.jiangzg.lovenote.model.entity.PostCommentReport;
 import com.jiangzg.lovenote.view.FrescoAvatarView;
 import com.jiangzg.lovenote.view.GSwipeRefreshLayout;
 
-import java.util.List;
 import java.util.Locale;
 
 import butterknife.BindView;
@@ -417,9 +416,7 @@ public class PostSubCommentListActivity extends BaseActivity<PostSubCommentListA
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 if (recyclerHelper == null) return;
-                recyclerHelper.viewEmptyShow(data.getShow());
-                List<PostComment> postCommentList = data.getPostCommentList();
-                recyclerHelper.dataOk(postCommentList, more);
+                recyclerHelper.dataOk(data.getShow(), data.getPostCommentList(), more);
             }
 
             @Override

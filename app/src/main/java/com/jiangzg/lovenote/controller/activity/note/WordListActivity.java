@@ -34,7 +34,6 @@ import com.jiangzg.lovenote.model.api.Result;
 import com.jiangzg.lovenote.model.entity.Word;
 import com.jiangzg.lovenote.view.GSwipeRefreshLayout;
 
-import java.util.List;
 import java.util.Locale;
 
 import butterknife.BindView;
@@ -179,9 +178,7 @@ public class WordListActivity extends BaseActivity<WordListActivity> {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 if (recyclerHelper == null) return;
-                recyclerHelper.viewEmptyShow(data.getShow());
-                List<Word> wordList = data.getWordList();
-                recyclerHelper.dataOk(wordList, more);
+                recyclerHelper.dataOk(data.getShow(), data.getWordList(), more);
             }
 
             @Override

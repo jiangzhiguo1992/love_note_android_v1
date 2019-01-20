@@ -150,9 +150,7 @@ public class AngryListActivity extends BaseActivity<AngryListActivity> {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 if (recyclerHelper == null) return;
-                recyclerHelper.viewEmptyShow(data.getShow());
-                List<Angry> angryList = data.getAngryList();
-                recyclerHelper.dataOk(angryList, more);
+                recyclerHelper.dataOk(data.getShow(), data.getAngryList(), more);
             }
 
             @Override

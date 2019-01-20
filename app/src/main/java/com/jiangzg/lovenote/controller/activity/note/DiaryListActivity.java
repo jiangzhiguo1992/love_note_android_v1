@@ -174,9 +174,8 @@ public class DiaryListActivity extends BaseActivity<DiaryListActivity> {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 if (recyclerHelper == null) return;
-                recyclerHelper.viewEmptyShow(data.getShow());
                 List<Diary> diaryList = data.getDiaryList();
-                recyclerHelper.dataOk(diaryList, more);
+                recyclerHelper.dataOk(data.getShow(), diaryList, more);
                 // 刷新本地资源
                 List<String> ossKeyList = ListHelper.getOssKeyListByDiary(diaryList);
                 OssResHelper.refreshResWithDelExpire(OssResHelper.TYPE_NOTE_DIARY, ossKeyList);

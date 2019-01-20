@@ -257,11 +257,12 @@ public class RecyclerHelper {
         });
     }
 
-    public void dataOk(List list, boolean more) {
-        dataOk(list, Integer.MAX_VALUE, more);
+    public void dataOk(String empty, List list, boolean more) {
+        dataOk(empty, list, Integer.MAX_VALUE, more);
     }
 
-    public void dataOk(List list, long totalCount, boolean more) {
+    public void dataOk(String empty, List list, long totalCount, boolean more) {
+        viewEmptyShow(empty);
         if (more) {
             dataAdd(list, totalCount);
         } else {

@@ -187,9 +187,8 @@ public class VideoListActivity extends BaseActivity<VideoListActivity> {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 if (recyclerHelper == null) return;
-                recyclerHelper.viewEmptyShow(data.getShow());
                 List<Video> videoList = data.getVideoList();
-                recyclerHelper.dataOk(videoList, more);
+                recyclerHelper.dataOk(data.getShow(), videoList, more);
                 // 刷新本地资
                 List<String> ossKeyList1 = ListHelper.getOssKeyListByVideoThumb(videoList);
                 OssResHelper.refreshResWithDelExpire(OssResHelper.TYPE_NOTE_VIDEO_THUMB, ossKeyList1);

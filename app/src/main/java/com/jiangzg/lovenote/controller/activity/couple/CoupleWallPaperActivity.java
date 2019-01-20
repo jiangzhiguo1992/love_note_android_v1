@@ -152,12 +152,11 @@ public class CoupleWallPaperActivity extends BaseActivity<CoupleWallPaperActivit
         RetrofitHelper.enqueue(api, null, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
-                recyclerHelper.viewEmptyShow(data.getShow());
                 WallPaper wallPaper = data.getWallPaper();
                 if (wallPaper == null) wallPaper = new WallPaper();
                 SPHelper.setWallPaper(wallPaper);
-                List<String> imageList = wallPaper.getContentImageList();
-                recyclerHelper.dataOk(imageList, false);
+                if (recyclerHelper == null) return;
+                recyclerHelper.dataOk(data.getShow(), wallPaper.getContentImageList(), false);
             }
 
             @Override
@@ -208,12 +207,11 @@ public class CoupleWallPaperActivity extends BaseActivity<CoupleWallPaperActivit
         RetrofitHelper.enqueue(api, getLoading(true), new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
-                recyclerHelper.viewEmptyShow(data.getShow());
                 WallPaper wallPaper = data.getWallPaper();
                 if (wallPaper == null) wallPaper = new WallPaper();
                 SPHelper.setWallPaper(wallPaper);
-                List<String> imageList = wallPaper.getContentImageList();
-                recyclerHelper.dataOk(imageList, false);
+                if (recyclerHelper == null) return;
+                recyclerHelper.dataOk(data.getShow(), wallPaper.getContentImageList(), false);
                 // event
                 RxBus.post(new RxBus.Event<>(RxBus.EVENT_WALL_PAPER_REFRESH, wallPaper));
             }

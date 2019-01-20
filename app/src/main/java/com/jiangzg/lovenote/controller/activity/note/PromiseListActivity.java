@@ -194,9 +194,7 @@ public class PromiseListActivity extends BaseActivity<PromiseListActivity> {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 if (recyclerHelper == null) return;
-                recyclerHelper.viewEmptyShow(data.getShow());
-                List<Promise> promiseList = data.getPromiseList();
-                recyclerHelper.dataOk(promiseList, more);
+                recyclerHelper.dataOk(data.getShow(), data.getPromiseList(), more);
             }
 
             @Override

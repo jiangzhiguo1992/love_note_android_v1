@@ -16,10 +16,7 @@ import com.jiangzg.lovenote.helper.system.RetrofitHelper;
 import com.jiangzg.lovenote.helper.view.RecyclerHelper;
 import com.jiangzg.lovenote.model.api.API;
 import com.jiangzg.lovenote.model.api.Result;
-import com.jiangzg.lovenote.model.entity.MatchPeriod;
 import com.jiangzg.lovenote.view.GSwipeRefreshLayout;
-
-import java.util.List;
 
 import butterknife.BindView;
 import retrofit2.Call;
@@ -88,9 +85,7 @@ public class MatchPeriodListFragment extends BasePagerFragment<MatchPeriodListFr
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 if (recyclerHelper == null) return;
-                recyclerHelper.viewEmptyShow(data.getShow());
-                List<MatchPeriod> matchPeriodList = data.getMatchPeriodList();
-                recyclerHelper.dataOk(matchPeriodList, more);
+                recyclerHelper.dataOk(data.getShow(), data.getMatchPeriodList(), more);
             }
 
             @Override

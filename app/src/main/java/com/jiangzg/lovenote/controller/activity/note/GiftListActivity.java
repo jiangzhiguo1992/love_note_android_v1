@@ -179,9 +179,8 @@ public class GiftListActivity extends BaseActivity<GiftListActivity> {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 if (recyclerHelper == null) return;
-                recyclerHelper.viewEmptyShow(data.getShow());
                 List<Gift> giftList = data.getGiftList();
-                recyclerHelper.dataOk(giftList, more);
+                recyclerHelper.dataOk(data.getShow(), giftList, more);
                 // 刷新本地资源
                 List<String> ossKeyList = ListHelper.getOssKeyListByGift(giftList);
                 OssResHelper.refreshResWithDelExpire(OssResHelper.TYPE_NOTE_GIFT, ossKeyList);
