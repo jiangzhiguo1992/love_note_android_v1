@@ -175,7 +175,7 @@ public class ConvertUtils {
      */
     public static String byte2FitSize(long byteNum) {
         if (byteNum < 0) {
-            return "";
+            return "0B";
         } else if (byteNum < FileUtils.KB) {
             return String.format(Locale.getDefault(), "%.1fB", (double) byteNum);
         } else if (byteNum < FileUtils.MB) {

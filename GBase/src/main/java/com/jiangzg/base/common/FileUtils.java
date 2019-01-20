@@ -29,11 +29,11 @@ public class FileUtils {
     /* Byte与Byte的倍数 */
     public static final int BYTE = 1;
     /* KB与Byte的倍数 */
-    public static final int KB = 1024;
+    public static final int KB = BYTE * 1024;
     /* MB与Byte的倍数 */
-    public static final int MB = 1048576;
+    public static final int MB = KB * 1024;
     /* GB与Byte的倍数 */
-    public static final int GB = 1073741824;
+    public static final int GB = MB * 1024;
 
     public enum MemoryUnit {
         BYTE,
