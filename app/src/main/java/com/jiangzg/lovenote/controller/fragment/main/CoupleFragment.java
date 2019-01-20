@@ -454,10 +454,10 @@ public class CoupleFragment extends BasePagerFragment<CoupleFragment> {
                     Couple couple = SPHelper.getCouple();
                     long breakCountDown = UserHelper.getCoupleBreakCountDown(couple);
                     if (breakCountDown <= 0) {
-                        RxBus.post(new RxBus.Event<>(RxBus.EVENT_COUPLE_REFRESH, new Couple()));
+                        RxBus.post(new RxBus.Event<>(RxBus.EVENT_COUPLE_REFRESH, couple));
                         stopCoupleCountDownTask();
                     } else {
-                        String breakCountDownShow = getBreakCountDownShow(couple);
+                        String breakCountDownShow = getBreakCountDownShow(breakCountDown);
                         tvCoupleCountDown.setText(breakCountDownShow);
                         MyApp.get().getHandler().postDelayed(this, TimeUnit.SEC);
                     }
@@ -474,8 +474,7 @@ public class CoupleFragment extends BasePagerFragment<CoupleFragment> {
         }
     }
 
-    private String getBreakCountDownShow(Couple couple) {
-        long breakCountDown = UserHelper.getCoupleBreakCountDown(couple);
+    private String getBreakCountDownShow(long breakCountDown) {
         long hour = breakCountDown / (TimeUnit.HOUR / TimeUnit.SEC);
         String hourF = hour >= 10 ? "" : "0";
         long min = (breakCountDown - hour * (TimeUnit.HOUR / TimeUnit.SEC)) / (TimeUnit.MIN / TimeUnit.SEC);
