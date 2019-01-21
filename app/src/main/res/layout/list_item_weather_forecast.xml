@@ -105,7 +105,7 @@
                 android:textColor="?attr/colorPrimaryDark"
                 android:visibility="gone"
                 tools:text="获取不到天气信息"
-                tools:visibility="visible"/>
+                tools:visibility="gone"/>
 
             <TextView
                 android:id="@+id/tvShowRight"
@@ -118,7 +118,7 @@
                 android:textColor="?attr/colorPrimaryDark"
                 android:visibility="gone"
                 tools:text="获取不到天气信息"
-                tools:visibility="visible"/>
+                tools:visibility="gone"/>
 
             <RelativeLayout
                 android:id="@+id/rlWeatherRight"
