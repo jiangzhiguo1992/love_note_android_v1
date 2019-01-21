@@ -25,6 +25,7 @@ import com.jiangzg.lovenote.helper.system.RetrofitHelper;
 import com.jiangzg.lovenote.helper.view.RecyclerHelper;
 import com.jiangzg.lovenote.model.api.API;
 import com.jiangzg.lovenote.model.api.Result;
+import com.jiangzg.lovenote.model.entity.User;
 import com.jiangzg.lovenote.model.entity.WeatherForecast;
 import com.jiangzg.lovenote.model.entity.WeatherForecastInfo;
 import com.jiangzg.lovenote.view.FrescoAvatarView;
@@ -122,7 +123,12 @@ public class CoupleWeatherActivity extends BaseActivity<CoupleWeatherActivity> {
 
     @Override
     protected void initData(Intent intent, Bundle state) {
-        getData();
+        User me = SPHelper.getMe();
+        String taAvatar = UserHelper.getTaAvatar(me);
+        String myAvatar = UserHelper.getMyAvatar(me);
+        ivAvatarLeft.setData(taAvatar);
+        ivAvatarRight.setData(myAvatar);
+        refreshData();
     }
 
     @Override
@@ -139,7 +145,7 @@ public class CoupleWeatherActivity extends BaseActivity<CoupleWeatherActivity> {
         }
     }
 
-    private void getData() {
+    private void refreshData() {
         if (!srl.isRefreshing()) {
             srl.setRefreshing(true);
         }
@@ -181,25 +187,23 @@ public class CoupleWeatherActivity extends BaseActivity<CoupleWeatherActivity> {
         pushApi(api);
     }
 
-    private void setTopViewRight(String myShow, List<WeatherForecast> myWeatherForecastList) {
-        if (!StringUtils.isEmpty(myShow) || myWeatherForecastList == null || myWeatherForecastList.size() <= 0) {
+    private void setTopViewRight(String msg, List<WeatherForecast> forecastList) {
+        if (!StringUtils.isEmpty(msg) || forecastList == null || forecastList.size() <= 0) {
             tvShowRight.setVisibility(View.VISIBLE);
             llTopRight.setVisibility(View.GONE);
-            tvShowRight.setText(myShow);
+            tvShowRight.setText(msg);
             return;
         }
         tvShowRight.setVisibility(View.GONE);
         llTopRight.setVisibility(View.VISIBLE);
         // data
-        String myAvatar = UserHelper.getMyAvatar(SPHelper.getMe());
-        WeatherForecast forecast = myWeatherForecastList.get(0);
+        WeatherForecast forecast = forecastList.get(0);
         String condition = String.format(Locale.getDefault(), mActivity.getString(R.string.holder_wave_holder), forecast.getConditionDay(), forecast.getConditionNight());
         int iconDay = WeatherHelper.getIconById(forecast.getIconDay());
         int iconNight = WeatherHelper.getIconById(forecast.getIconNight());
         String temp = String.format(Locale.getDefault(), getString(R.string.holder_wave_holder_c), forecast.getTempDay(), forecast.getTempNight());
         String wind = String.format(Locale.getDefault(), getString(R.string.holder_wave_holder), forecast.getWindDay(), forecast.getWindNight());
         // view
-        ivAvatarRight.setData(myAvatar);
         tvConditionRight.setText(condition);
         tvTempRight.setText(temp);
         tvWindRight.setText(wind);
@@ -211,25 +215,23 @@ public class CoupleWeatherActivity extends BaseActivity<CoupleWeatherActivity> {
         }
     }
 
-    private void setTopViewLeft(String taShow, List<WeatherForecast> taWeatherForecastList) {
-        if (!StringUtils.isEmpty(taShow) || taWeatherForecastList == null || taWeatherForecastList.size() <= 0) {
+    private void setTopViewLeft(String msg, List<WeatherForecast> forecastList) {
+        if (!StringUtils.isEmpty(msg) || forecastList == null || forecastList.size() <= 0) {
             tvShowLeft.setVisibility(View.VISIBLE);
             llTopLeft.setVisibility(View.GONE);
-            tvShowLeft.setText(taShow);
+            tvShowLeft.setText(msg);
             return;
         }
         tvShowLeft.setVisibility(View.GONE);
         llTopLeft.setVisibility(View.VISIBLE);
         // data
-        String taAvatar = UserHelper.getTaAvatar(SPHelper.getMe());
-        WeatherForecast forecast = taWeatherForecastList.get(0);
+        WeatherForecast forecast = forecastList.get(0);
         String condition = String.format(Locale.getDefault(), getString(R.string.holder_wave_holder), forecast.getConditionDay(), forecast.getConditionNight());
         int iconDay = WeatherHelper.getIconById(forecast.getIconDay());
         int iconNight = WeatherHelper.getIconById(forecast.getIconNight());
         String temp = String.format(Locale.getDefault(), getString(R.string.holder_wave_holder_c), forecast.getTempDay(), forecast.getTempNight());
         String wind = String.format(Locale.getDefault(), getString(R.string.holder_wave_holder), forecast.getWindDay(), forecast.getWindNight());
         // view
-        ivAvatarLeft.setData(taAvatar);
         tvConditionLeft.setText(condition);
         tvTempLeft.setText(temp);
         tvWindLeft.setText(wind);
