@@ -188,7 +188,7 @@ public class CoupleWeatherActivity extends BaseActivity<CoupleWeatherActivity> {
     }
 
     private void setTopViewRight(String msg, List<WeatherForecast> forecastList) {
-        if (!StringUtils.isEmpty(msg) || forecastList == null || forecastList.size() <= 0) {
+        if (!StringUtils.isEmpty(msg) && (forecastList == null || forecastList.size() <= 0)) {
             tvShowRight.setVisibility(View.VISIBLE);
             llTopRight.setVisibility(View.GONE);
             tvShowRight.setText(msg);
@@ -216,7 +216,7 @@ public class CoupleWeatherActivity extends BaseActivity<CoupleWeatherActivity> {
     }
 
     private void setTopViewLeft(String msg, List<WeatherForecast> forecastList) {
-        if (!StringUtils.isEmpty(msg) || forecastList == null || forecastList.size() <= 0) {
+        if (!StringUtils.isEmpty(msg) && (forecastList == null || forecastList.size() <= 0)) {
             tvShowLeft.setVisibility(View.VISIBLE);
             llTopLeft.setVisibility(View.GONE);
             tvShowLeft.setText(msg);
