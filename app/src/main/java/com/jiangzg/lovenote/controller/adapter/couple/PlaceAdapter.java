@@ -27,6 +27,7 @@ import java.util.Locale;
  */
 public class PlaceAdapter extends BaseQuickAdapter<Place, BaseViewHolder> {
 
+    private final User me;
     private final Couple couple;
     private final String formatNo;
     private final String formatAddress;
@@ -36,7 +37,8 @@ public class PlaceAdapter extends BaseQuickAdapter<Place, BaseViewHolder> {
     public PlaceAdapter(FragmentActivity activity) {
         super(R.layout.list_item_place);
         mActivity = activity;
-        couple = SPHelper.getCouple();
+        me = SPHelper.getMe();
+        couple = me == null ? null : me.getCouple();
         formatNo = mActivity.getString(R.string.now_no);
         formatAddress = mActivity.getString(R.string.now_no_address_info);
         formatDistance = mActivity.getString(R.string.distance_space_holder);
@@ -45,14 +47,13 @@ public class PlaceAdapter extends BaseQuickAdapter<Place, BaseViewHolder> {
     @Override
     protected void convert(BaseViewHolder helper, Place item) {
         // data
-        User me = SPHelper.getMe();
+        String address = StringUtils.isEmpty(item.getAddress()) ? formatAddress : item.getAddress();
+        String province = StringUtils.isEmpty(item.getProvince()) ? formatNo : item.getProvince();
+        String city = StringUtils.isEmpty(item.getCity()) ? formatNo : item.getCity();
+        String district = StringUtils.isEmpty(item.getDistrict()) ? formatNo : item.getDistrict();
         boolean isMine = me != null && item.getUserId() == me.getId();
         String avatar = UserHelper.getAvatar(couple, item.getUserId());
         String time = TimeHelper.getTimeShowLine_HM_MDHM_YMDHM_ByGo(item.getCreateAt());
-        String address = StringUtils.isEmpty(item.getAddress()) ? formatAddress : item.getAddress();
-        String province = StringUtils.isEmail(item.getProvince()) ? formatNo : item.getProvince();
-        String city = StringUtils.isEmail(item.getCity()) ? formatNo : item.getCity();
-        String district = StringUtils.isEmail(item.getDistrict()) ? formatNo : item.getDistrict();
         // view
         FrescoAvatarView ivAvatarRight = helper.getView(R.id.ivAvatarRight);
         FrescoAvatarView ivAvatarLeft = helper.getView(R.id.ivAvatarLeft);

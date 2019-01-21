@@ -66,8 +66,8 @@ public class CouplePlaceActivity extends BaseActivity<CouplePlaceActivity> {
                 .viewEmpty(mActivity, R.layout.list_empty_white, true, true)
                 .viewLoadMore(new RecyclerHelper.MoreGreyView())
                 .setAdapter()
-                .listenerRefresh(() -> getData(false))
-                .listenerMore(currentCount -> getData(true))
+                .listenerRefresh(() -> refreshData(false))
+                .listenerMore(currentCount -> refreshData(true))
                 .listenerClick(new OnItemChildClickListener() {
                     @Override
                     public void onSimpleItemChildClick(BaseQuickAdapter adapter, View view, int position) {
@@ -92,7 +92,7 @@ public class CouplePlaceActivity extends BaseActivity<CouplePlaceActivity> {
         RecyclerHelper.release(recyclerHelper);
     }
 
-    private void getData(final boolean more) {
+    private void refreshData(final boolean more) {
         page = more ? page + 1 : 0;
         // api
         Call<Result> api = new RetrofitHelper().call(API.class).couplePlaceListGet(page);
