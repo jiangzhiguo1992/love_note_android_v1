@@ -37,7 +37,7 @@ public class CouplePlaceActivity extends BaseActivity<CouplePlaceActivity> {
     RecyclerView rv;
 
     private RecyclerHelper recyclerHelper;
-    private int page;
+    private int page = 0;
 
     public static void goActivity(Fragment from) {
         if (!LocationHelper.checkLocationEnable(from)) return;
@@ -83,7 +83,6 @@ public class CouplePlaceActivity extends BaseActivity<CouplePlaceActivity> {
 
     @Override
     protected void initData(Intent intent, Bundle state) {
-        page = 0;
         recyclerHelper.dataRefresh();
     }
 
