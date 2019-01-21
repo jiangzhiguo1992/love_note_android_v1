@@ -58,7 +58,6 @@
                 android:id="@+id/llTopLeft"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="2dp"
                 android:layout_weight="1"
                 android:gravity="center"
                 android:orientation="vertical"
@@ -82,6 +81,7 @@
                         android:id="@+id/ivIconLeftDay"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_toStartOf="@+id/tvConditionLeft"
                         android:tint="@color/white"
                         tools:src="@mipmap/w1"/>
 
@@ -90,11 +90,10 @@
                         style="@style/FontWhiteSmallBold"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignBottom="@+id/ivIconLeftDay"
+                        android:layout_centerHorizontal="true"
                         android:layout_marginStart="5dp"
                         android:layout_marginTop="10dp"
                         android:layout_marginEnd="5dp"
-                        android:layout_toEndOf="@+id/ivIconLeftDay"
                         tools:text="晴天 晴天"/>
 
                     <ImageView
@@ -108,18 +107,20 @@
                     <TextView
                         android:id="@+id/tvTempLeft"
                         style="@style/FontWhiteHugeBold"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_below="@id/tvConditionLeft"
+                        android:gravity="center"
                         android:textSize="25sp"
                         tools:text="19~19℃"/>
 
                     <TextView
                         android:id="@+id/tvWindLeft"
                         style="@style/FontWhiteSmall"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/tvTempLeft"
+                        android:gravity="center"
                         tools:text="3级 东南风"/>
                 </RelativeLayout>
             </LinearLayout>
@@ -152,7 +153,6 @@
                 android:id="@+id/llTopRight"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="2dp"
                 android:layout_weight="1"
                 android:gravity="center"
                 android:orientation="vertical"
@@ -176,6 +176,7 @@
                         android:id="@+id/ivIconRightDay"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_toStartOf="@+id/tvConditionRight"
                         android:tint="@color/white"
                         tools:src="@mipmap/w1"/>
 
@@ -184,11 +185,10 @@
                         style="@style/FontWhiteSmallBold"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignBottom="@+id/ivIconRightDay"
+                        android:layout_centerHorizontal="true"
                         android:layout_marginStart="5dp"
                         android:layout_marginTop="10dp"
                         android:layout_marginEnd="5dp"
-                        android:layout_toEndOf="@+id/ivIconRightDay"
                         tools:text="晴天 晴天"/>
 
                     <ImageView
@@ -202,18 +202,20 @@
                     <TextView
                         android:id="@+id/tvTempRight"
                         style="@style/FontWhiteHugeBold"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_below="@id/tvConditionRight"
+                        android:gravity="center"
                         android:textSize="25sp"
                         tools:text="19~19℃"/>
 
                     <TextView
                         android:id="@+id/tvWindRight"
                         style="@style/FontWhiteSmall"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/tvTempRight"
+                        android:gravity="center"
                         tools:text="3级 东南风"/>
                 </RelativeLayout>
             </LinearLayout>
@@ -225,6 +227,6 @@
             android:layout_height="match_parent"
             android:layout_below="@+id/llToady"
             android:layout_marginBottom="10dp"
-            tools:listitem="@layout/list_item_weather_forecast"/>
+            tools:listitem="@layout/list_item_weather"/>
     </RelativeLayout>
 </com.jiangzg.lovenote.view.GSwipeRefreshLayout>

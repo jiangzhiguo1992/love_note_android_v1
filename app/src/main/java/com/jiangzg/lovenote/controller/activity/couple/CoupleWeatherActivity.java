@@ -16,7 +16,7 @@ import com.jiangzg.base.component.ActivityTrans;
 import com.jiangzg.base.view.BarUtils;
 import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.controller.activity.base.BaseActivity;
-import com.jiangzg.lovenote.controller.adapter.couple.WeatherForecastAdapter;
+import com.jiangzg.lovenote.controller.adapter.couple.WeatherAdapter;
 import com.jiangzg.lovenote.helper.common.SPHelper;
 import com.jiangzg.lovenote.helper.common.UserHelper;
 import com.jiangzg.lovenote.helper.common.WeatherHelper;
@@ -115,7 +115,7 @@ public class CoupleWeatherActivity extends BaseActivity<CoupleWeatherActivity> {
         // recycler
         recyclerHelper = new RecyclerHelper(rv)
                 .initLayoutManager(new LinearLayoutManager(mActivity))
-                .initAdapter(new WeatherForecastAdapter(mActivity))
+                .initAdapter(new WeatherAdapter(mActivity))
                 .viewEmpty(mActivity, R.layout.list_empty_white, true, true)
                 .setAdapter();
     }
@@ -167,7 +167,7 @@ public class CoupleWeatherActivity extends BaseActivity<CoupleWeatherActivity> {
                 List<WeatherForecast> taWeatherForecastList = dataWeatherForecastTa.getWeatherForecastList();
                 setTopViewLeft(taShow, taWeatherForecastList);
                 // recycler
-                WeatherForecastAdapter adapter = recyclerHelper.getAdapter();
+                WeatherAdapter adapter = recyclerHelper.getAdapter();
                 adapter.setData(myWeatherForecastList, taWeatherForecastList);
             }
 

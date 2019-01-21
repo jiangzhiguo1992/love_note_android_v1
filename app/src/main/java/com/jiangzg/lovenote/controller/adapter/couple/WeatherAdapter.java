@@ -17,19 +17,19 @@ import java.util.Locale;
  * Created by JZG on 2018/3/13.
  * 天气适配器
  */
-public class WeatherForecastAdapter extends BaseQuickAdapter<WeatherForecastAdapter.CoupleWeatherForecast, BaseViewHolder> {
+public class WeatherAdapter extends BaseQuickAdapter<WeatherAdapter.CoupleWeatherForecast, BaseViewHolder> {
 
     private final String formatWave;
     private final String formatWaveC;
 
-    public WeatherForecastAdapter(FragmentActivity activity) {
-        super(R.layout.list_item_weather_forecast);
+    public WeatherAdapter(FragmentActivity activity) {
+        super(R.layout.list_item_weather);
         formatWave = activity.getString(R.string.holder_wave_holder);
         formatWaveC = activity.getString(R.string.holder_wave_holder_c);
     }
 
     @Override
-    protected void convert(BaseViewHolder helper, WeatherForecastAdapter.CoupleWeatherForecast item) {
+    protected void convert(BaseViewHolder helper, WeatherAdapter.CoupleWeatherForecast item) {
         // time
         long time = 0;
         // ta

@@ -50,6 +50,7 @@
                     android:id="@+id/ivIconLeftDay"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_toStartOf="@+id/tvConditionLeft"
                     android:tint="?attr/colorPrimaryDark"
                     tools:src="@mipmap/w1"/>
 
@@ -58,11 +59,10 @@
                     style="@style/FontPrimarySmallBold"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignBottom="@+id/ivIconLeftDay"
+                    android:layout_centerHorizontal="true"
                     android:layout_marginStart="5dp"
                     android:layout_marginTop="10dp"
                     android:layout_marginEnd="5dp"
-                    android:layout_toEndOf="@+id/ivIconLeftDay"
                     android:textColor="?attr/colorPrimaryDark"
                     tools:text="晴天 晴天"/>
 
@@ -77,9 +77,10 @@
                 <TextView
                     android:id="@+id/tvTempLeft"
                     style="@style/FontPrimaryHugeBold"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/tvConditionLeft"
+                    android:gravity="center"
                     android:textColor="?attr/colorPrimaryDark"
                     android:textSize="25sp"
                     tools:text="19~19℃"/>
@@ -87,9 +88,10 @@
                 <TextView
                     android:id="@+id/tvWindLeft"
                     style="@style/FontPrimarySmall"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/tvTempLeft"
+                    android:gravity="center"
                     android:textColor="?attr/colorPrimaryDark"
                     tools:text="3级 东南风"/>
             </RelativeLayout>
@@ -133,6 +135,7 @@
                     android:id="@+id/ivIconRightDay"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_toStartOf="@+id/tvConditionRight"
                     android:tint="?attr/colorPrimaryDark"
                     tools:src="@mipmap/w1"/>
 
@@ -141,11 +144,10 @@
                     style="@style/FontPrimarySmallBold"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignBottom="@+id/ivIconRightDay"
+                    android:layout_centerHorizontal="true"
                     android:layout_marginStart="5dp"
                     android:layout_marginTop="10dp"
                     android:layout_marginEnd="5dp"
-                    android:layout_toEndOf="@+id/ivIconRightDay"
                     android:textColor="?attr/colorPrimaryDark"
                     tools:text="晴天 晴天"/>
 
@@ -160,9 +162,10 @@
                 <TextView
                     android:id="@+id/tvTempRight"
                     style="@style/FontPrimaryHugeBold"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/tvConditionRight"
+                    android:gravity="center"
                     android:textColor="?attr/colorPrimaryDark"
                     android:textSize="25sp"
                     tools:text="19~19℃"/>
@@ -170,9 +173,10 @@
                 <TextView
                     android:id="@+id/tvWindRight"
                     style="@style/FontPrimarySmall"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/tvTempRight"
+                    android:gravity="center"
                     android:textColor="?attr/colorPrimaryDark"
                     tools:text="3级 东南风"/>
             </RelativeLayout>
