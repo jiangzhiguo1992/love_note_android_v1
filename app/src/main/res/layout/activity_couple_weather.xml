@@ -5,7 +5,7 @@
     android:id="@+id/srl"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/shape_gradient_back_primary"
+    android:background="@drawable/shape_gradient_primary_back"
     tools:context=".controller.activity.couple.CoupleWeatherActivity">
 
     <RelativeLayout
@@ -22,17 +22,15 @@
             android:background="?attr/selectableItemBackground"
             android:foreground="?attr/selectableItemBackground"
             android:padding="13dp"
-            android:src="@mipmap/ic_arrow_back_white_24dp"
-            android:tint="?attr/colorPrimary"/>
+            android:src="@mipmap/ic_arrow_back_white_24dp"/>
 
         <TextView
             android:id="@+id/tvTime"
-            style="@style/FontPrimaryBigBold"
+            style="@style/FontWhiteBigBold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:padding="13dp"
-            android:textColor="?attr/colorPrimaryDark"
             tools:text="2018-5-4"/>
 
         <ImageView
@@ -45,7 +43,6 @@
             android:foreground="?attr/selectableItemBackground"
             android:padding="13dp"
             android:src="@mipmap/ic_help_outline_white_24dp"
-            android:tint="?attr/colorPrimary"
             android:visibility="gone"
             tools:visibility="visible"/>
 
@@ -85,7 +82,7 @@
                         android:layout_alignTop="@id/ivAvatarLeft"
                         android:layout_marginStart="10dp"
                         android:layout_toEndOf="@id/ivAvatarLeft"
-                        android:tint="?attr/colorPrimaryDark"
+                        android:tint="@color/white"
                         tools:src="@mipmap/w1"/>
 
                     <ImageView
@@ -95,63 +92,58 @@
                         android:layout_alignTop="@id/ivAvatarLeft"
                         android:layout_marginStart="10dp"
                         android:layout_toEndOf="@id/ivIconLeftDay"
-                        android:tint="?attr/colorPrimaryDark"
+                        android:tint="@color/white"
                         tools:src="@mipmap/w1"/>
 
                     <TextView
                         android:id="@+id/tvConditionLeft"
-                        style="@style/FontPrimarySmallBold"
+                        style="@style/FontWhiteSmallBold"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignBottom="@+id/ivAvatarLeft"
                         android:layout_marginStart="10dp"
                         android:layout_toEndOf="@id/ivAvatarLeft"
-                        android:textColor="?attr/colorPrimaryDark"
                         tools:text="晴天"/>
                 </RelativeLayout>
 
                 <TextView
                     android:id="@+id/tvTempLeft"
-                    style="@style/FontPrimaryHugeBold"
+                    style="@style/FontWhiteHugeBold"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
                     android:layout_marginBottom="5dp"
-                    android:textColor="?attr/colorPrimaryDark"
                     android:textSize="30sp"
                     tools:text="19℃"/>
 
                 <TextView
                     android:id="@+id/tvWindLeft"
-                    style="@style/FontPrimarySmall"
+                    style="@style/FontWhiteSmall"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="?attr/colorPrimaryDark"
                     tools:text="3级 东南风"/>
             </LinearLayout>
 
             <TextView
                 android:id="@+id/tvShowLeft"
-                style="@style/FontPrimaryNormal"
+                style="@style/FontWhiteNormal"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:textColor="?attr/colorPrimaryDark"
                 android:visibility="gone"
                 tools:text="获取不到天气信息"
                 tools:visibility="gone"/>
 
             <TextView
                 android:id="@+id/tvShowRight"
-                style="@style/FontPrimaryNormal"
+                style="@style/FontWhiteNormal"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:textColor="?attr/colorPrimaryDark"
                 android:visibility="gone"
                 tools:text="获取不到天气信息"
                 tools:visibility="gone"/>
@@ -184,7 +176,7 @@
                         android:layout_alignTop="@id/ivAvatarRight"
                         android:layout_marginEnd="10dp"
                         android:layout_toStartOf="@id/ivAvatarRight"
-                        android:tint="?attr/colorPrimaryDark"
+                        android:tint="@color/white"
                         tools:src="@mipmap/w1"/>
 
                     <ImageView
@@ -194,38 +186,35 @@
                         android:layout_alignTop="@id/ivAvatarRight"
                         android:layout_marginEnd="10dp"
                         android:layout_toStartOf="@id/ivIconRightDay"
-                        android:tint="?attr/colorPrimaryDark"
+                        android:tint="@color/white"
                         tools:src="@mipmap/w1"/>
 
                     <TextView
                         android:id="@+id/tvConditionRight"
-                        style="@style/FontPrimarySmallBold"
+                        style="@style/FontWhiteSmallBold"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignBottom="@+id/ivAvatarRight"
                         android:layout_marginEnd="10dp"
                         android:layout_toStartOf="@id/ivAvatarRight"
-                        android:textColor="?attr/colorPrimaryDark"
                         tools:text="晴天"/>
                 </RelativeLayout>
 
                 <TextView
                     android:id="@+id/tvTempRight"
-                    style="@style/FontPrimaryHugeBold"
+                    style="@style/FontWhiteHugeBold"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
                     android:layout_marginBottom="5dp"
-                    android:textColor="?attr/colorPrimaryDark"
                     android:textSize="30sp"
                     tools:text="19℃"/>
 
                 <TextView
                     android:id="@+id/tvWindRight"
-                    style="@style/FontPrimarySmall"
+                    style="@style/FontWhiteSmall"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="?attr/colorPrimaryDark"
                     tools:text="3级 东南风"/>
             </LinearLayout>
         </LinearLayout>

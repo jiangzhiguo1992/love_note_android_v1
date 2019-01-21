@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.jiangzg.base.common.DateUtils;
 import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.base.component.ActivityTrans;
 import com.jiangzg.base.view.BarUtils;
@@ -17,7 +18,6 @@ import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.controller.activity.base.BaseActivity;
 import com.jiangzg.lovenote.controller.adapter.couple.WeatherForecastAdapter;
 import com.jiangzg.lovenote.helper.common.SPHelper;
-import com.jiangzg.lovenote.helper.common.TimeHelper;
 import com.jiangzg.lovenote.helper.common.UserHelper;
 import com.jiangzg.lovenote.helper.common.WeatherHelper;
 import com.jiangzg.lovenote.helper.system.LocationHelper;
@@ -109,6 +109,8 @@ public class CoupleWeatherActivity extends BaseActivity<CoupleWeatherActivity> {
 
     @Override
     protected void initView(Intent intent, Bundle state) {
+        tvTime.setText(DateUtils.getCurrentStr(DateUtils.FORMAT_CHINA_M_D));
+        // srl
         srl.setEnabled(false);
         // recycler
         recyclerHelper = new RecyclerHelper(rv)
@@ -191,16 +193,12 @@ public class CoupleWeatherActivity extends BaseActivity<CoupleWeatherActivity> {
         // data
         String myAvatar = UserHelper.getMyAvatar(SPHelper.getMe());
         WeatherForecast forecast = myWeatherForecastList.get(0);
-        String time = TimeHelper.getTimeShowLocal_MD_YMD_ByGo(forecast.getTimeAt());
         String condition = String.format(Locale.getDefault(), mActivity.getString(R.string.holder_wave_holder), forecast.getConditionDay(), forecast.getConditionNight());
         int iconDay = WeatherHelper.getIconById(forecast.getIconDay());
         int iconNight = WeatherHelper.getIconById(forecast.getIconNight());
         String temp = String.format(Locale.getDefault(), getString(R.string.holder_wave_holder_c), forecast.getTempDay(), forecast.getTempNight());
         String wind = String.format(Locale.getDefault(), getString(R.string.holder_wave_holder), forecast.getWindDay(), forecast.getWindNight());
         // view
-        if (!StringUtils.isEmpty(time)) {
-            tvTime.setText(time);
-        }
         ivAvatarRight.setData(myAvatar);
         tvConditionRight.setText(condition);
         tvTempRight.setText(temp);
@@ -225,16 +223,12 @@ public class CoupleWeatherActivity extends BaseActivity<CoupleWeatherActivity> {
         // data
         String taAvatar = UserHelper.getTaAvatar(SPHelper.getMe());
         WeatherForecast forecast = taWeatherForecastList.get(0);
-        String time = TimeHelper.getTimeShowLocal_MD_YMD_ByGo(forecast.getTimeAt());
         String condition = String.format(Locale.getDefault(), getString(R.string.holder_wave_holder), forecast.getConditionDay(), forecast.getConditionNight());
         int iconDay = WeatherHelper.getIconById(forecast.getIconDay());
         int iconNight = WeatherHelper.getIconById(forecast.getIconNight());
         String temp = String.format(Locale.getDefault(), getString(R.string.holder_wave_holder_c), forecast.getTempDay(), forecast.getTempNight());
         String wind = String.format(Locale.getDefault(), getString(R.string.holder_wave_holder), forecast.getWindDay(), forecast.getWindNight());
         // view
-        if (!StringUtils.isEmpty(time)) {
-            tvTime.setText(time);
-        }
         ivAvatarLeft.setData(taAvatar);
         tvConditionLeft.setText(condition);
         tvTempLeft.setText(temp);
