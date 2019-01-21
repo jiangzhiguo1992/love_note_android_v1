@@ -79,7 +79,7 @@ public class CoupleWallPaperActivity extends BaseActivity<CoupleWallPaperActivit
                 .initLayoutManager(new GridLayoutManager(mActivity, 3, LinearLayoutManager.VERTICAL, false))
                 .initRefresh(srl, false)
                 .initAdapter(new WallPaperAdapter(mActivity))
-                .viewEmpty(mActivity, R.layout.list_empty_white, true, true)
+                .viewEmpty(mActivity, R.layout.list_empty_grey, true, true)
                 .setAdapter()
                 .listenerRefresh(this::refreshData)
                 .listenerClick(new OnItemLongClickListener() {

@@ -3,6 +3,7 @@ package com.jiangzg.lovenote.controller.adapter.couple;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
+import com.jiangzg.base.view.BarUtils;
 import com.jiangzg.base.view.ScreenUtils;
 import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.controller.activity.base.BaseActivity;
@@ -36,10 +37,10 @@ public class WallPaperAdapter extends BaseQuickAdapter<String, BaseViewHolder> {
         super(R.layout.list_item_wall_paper);
         mActivity = activity;
         float screenWidth = ScreenUtils.getScreenRealWidth(activity);
-        float screenHeight = ScreenUtils.getScreenRealHeight(activity);
+        float screenHeight = ScreenUtils.getScreenRealHeight(activity) - BarUtils.getTopBarHeight(mActivity);
         ratio = screenWidth / screenHeight;
         imageWidth = (int) (screenWidth / 3);
-        imageHeight = (int) (imageWidth / ratio);
+        imageHeight = (int) (screenHeight / 3);
     }
 
     @Override
