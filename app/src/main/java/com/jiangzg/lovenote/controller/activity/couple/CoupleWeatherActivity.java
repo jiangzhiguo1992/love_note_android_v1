@@ -11,7 +11,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.jiangzg.base.common.DateUtils;
-import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.base.component.ActivityTrans;
 import com.jiangzg.base.view.BarUtils;
 import com.jiangzg.lovenote.R;
@@ -188,7 +187,7 @@ public class CoupleWeatherActivity extends BaseActivity<CoupleWeatherActivity> {
     }
 
     private void setTopViewRight(String msg, List<WeatherForecast> forecastList) {
-        if (!StringUtils.isEmpty(msg) && (forecastList == null || forecastList.size() <= 0)) {
+        if (forecastList == null || forecastList.size() <= 0) {
             tvShowRight.setVisibility(View.VISIBLE);
             llTopRight.setVisibility(View.GONE);
             tvShowRight.setText(msg);
@@ -216,7 +215,7 @@ public class CoupleWeatherActivity extends BaseActivity<CoupleWeatherActivity> {
     }
 
     private void setTopViewLeft(String msg, List<WeatherForecast> forecastList) {
-        if (!StringUtils.isEmpty(msg) && (forecastList == null || forecastList.size() <= 0)) {
+        if (forecastList == null || forecastList.size() <= 0) {
             tvShowLeft.setVisibility(View.VISIBLE);
             llTopLeft.setVisibility(View.GONE);
             tvShowLeft.setText(msg);
