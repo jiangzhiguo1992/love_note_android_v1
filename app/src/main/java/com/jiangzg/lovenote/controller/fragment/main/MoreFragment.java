@@ -261,29 +261,13 @@ public class MoreFragment extends BasePagerFragment<MoreFragment> {
     private void initPay(Vip vip, Coin coin, Sign sign) {
         if (mActivity == null || !mFragment.isAdded()) return; // 防止已经脱离后加载
         // vip
-        String vipInfo;
-        if (vip == null || TimeHelper.getJavaTimeByGo(vip.getExpireAt()) <= DateUtils.getCurrentLong()) {
-            vipInfo = mActivity.getString(R.string.vip_no);
-        } else {
-            vipInfo = mActivity.getString(R.string.vip_yes);
-        }
-        tvVip.setText(vipInfo);
+        boolean isVip = (vip != null) && TimeHelper.getJavaTimeByGo(vip.getExpireAt()) >= DateUtils.getCurrentLong();
+        tvVip.setText(mActivity.getString(isVip ? R.string.vip_yes : R.string.vip_no));
         // coin
-        String coinShow;
-        if (coin == null) {
-            coinShow = String.valueOf(0);
-        } else {
-            coinShow = CountHelper.getShowCount2Thousand(coin.getCount());
-        }
+        String coinShow = coin == null ? String.valueOf(0) : CountHelper.getShowCount2Thousand(coin.getCount());
         tvCoin.setText(coinShow);
         // sign
-        String signShow;
-        if (sign == null) {
-            signShow = mActivity.getString(R.string.no_sign);
-        } else {
-            signShow = mActivity.getString(R.string.yes_sign);
-        }
-        tvSign.setText(signShow);
+        tvSign.setText(mActivity.getString(sign == null ? R.string.no_sign : R.string.yes_sign));
     }
 
     private void initMatch() {
