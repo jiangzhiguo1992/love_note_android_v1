@@ -4,7 +4,6 @@ import android.support.v4.app.Fragment;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
-import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.controller.activity.note.AlbumListActivity;
 import com.jiangzg.lovenote.controller.activity.note.AngryListActivity;
@@ -55,7 +54,6 @@ public class ModelAdapter extends BaseQuickAdapter<Integer, BaseViewHolder> {
     public static final int ALBUM = 18;
     public static final int TOTAL = 19;
     public static final int TRENDS = 20;
-    public static final int GARBAGE = 21;
 
     public ModelAdapter(Fragment fragment) {
         super(R.layout.list_item_note_model);
@@ -141,10 +139,6 @@ public class ModelAdapter extends BaseQuickAdapter<Integer, BaseViewHolder> {
                 helper.setImageResource(R.id.ivItem, R.mipmap.ic_note_trends_24dp);
                 helper.setText(R.id.tvItem, MyApp.get().getString(R.string.trends));
                 break;
-            case GARBAGE:
-                helper.setImageResource(R.id.ivItem, R.mipmap.ic_note_garbage_24dp);
-                helper.setText(R.id.tvItem, MyApp.get().getString(R.string.recycle_bin));
-                break;
         }
     }
 
@@ -207,9 +201,6 @@ public class ModelAdapter extends BaseQuickAdapter<Integer, BaseViewHolder> {
                 break;
             case TRENDS:
                 TrendsListActivity.goActivity(mFragment);
-                break;
-            case GARBAGE:
-                ToastUtils.show(MyApp.get().getString(R.string.function_no_open_please_wait));
                 break;
         }
     }
