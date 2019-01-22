@@ -15,8 +15,6 @@ import com.jiangzg.base.common.DateUtils;
 import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.controller.activity.more.CoinActivity;
-import com.jiangzg.lovenote.controller.activity.more.MatchDiscussActivity;
-import com.jiangzg.lovenote.controller.activity.more.MatchDiscussListActivity;
 import com.jiangzg.lovenote.controller.activity.more.MatchLetterActivity;
 import com.jiangzg.lovenote.controller.activity.more.MatchLetterListActivity;
 import com.jiangzg.lovenote.controller.activity.more.MatchWifeActivity;
@@ -91,10 +89,6 @@ public class MoreFragment extends BasePagerFragment<MoreFragment> {
     CardView cvLetter;
     @BindView(R.id.tvLetter)
     TextView tvLetter;
-    @BindView(R.id.cvDiscuss)
-    CardView cvDiscuss;
-    @BindView(R.id.tvDiscuss)
-    TextView tvDiscuss;
 
     @BindView(R.id.lineFeature)
     LinearLayout lineFeature;
@@ -112,7 +106,6 @@ public class MoreFragment extends BasePagerFragment<MoreFragment> {
     private List<Broadcast> broadcastList;
     private MatchPeriod wifePeriod;
     private MatchPeriod letterPeriod;
-    private MatchPeriod discussPeriod;
 
     public static MoreFragment newFragment() {
         Bundle bundle = new Bundle();
@@ -196,7 +189,7 @@ public class MoreFragment extends BasePagerFragment<MoreFragment> {
     }
 
     @OnClick({R.id.cvVip, R.id.cvCoin, R.id.cvSign,
-            R.id.cvWife, R.id.cvLetter, R.id.cvDiscuss,
+            R.id.cvWife, R.id.cvLetter,
             R.id.cvWish, R.id.cvPostcard})
     public void onViewClicked(View view) {
         switch (view.getId()) {
@@ -223,13 +216,6 @@ public class MoreFragment extends BasePagerFragment<MoreFragment> {
                     MatchLetterListActivity.goActivity(mFragment, letterPeriod);
                 }
                 break;
-            case R.id.cvDiscuss: // 讨论会
-                if (discussPeriod == null || discussPeriod.getId() <= 0) {
-                    MatchDiscussActivity.goActivity(mFragment);
-                } else {
-                    MatchDiscussListActivity.goActivity(mFragment, discussPeriod);
-                }
-                break;
             case R.id.cvWish: // 许愿树
                 ToastUtils.show(mActivity.getString(R.string.function_no_open_please_wait));
                 break;
@@ -254,7 +240,6 @@ public class MoreFragment extends BasePagerFragment<MoreFragment> {
                 Sign sign = data.getSign();
                 wifePeriod = data.getWifePeriod();
                 letterPeriod = data.getLetterPeriod();
-                discussPeriod = data.getDiscussPeriod();
                 // view
                 initBroadcast(broadcastList);
                 initPay(vip, coin, sign);
@@ -322,12 +307,6 @@ public class MoreFragment extends BasePagerFragment<MoreFragment> {
         } else {
             String show = String.format(Locale.getDefault(), mActivity.getString(R.string.the_holder_period), letterPeriod.getPeriod());
             tvLetter.setText(show);
-        }
-        if (discussPeriod == null || discussPeriod.getId() <= 0) {
-            tvDiscuss.setText(R.string.now_no_activity);
-        } else {
-            String show = String.format(Locale.getDefault(), mActivity.getString(R.string.the_holder_period), discussPeriod.getPeriod());
-            tvDiscuss.setText(show);
         }
     }
 

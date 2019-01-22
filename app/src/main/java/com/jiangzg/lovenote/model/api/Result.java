@@ -219,7 +219,6 @@ public class Result implements Serializable {
         private List<Sign> signList;
         private MatchPeriod wifePeriod;
         private MatchPeriod letterPeriod;
-        private MatchPeriod discussPeriod;
         private List<MatchPeriod> matchPeriodList;
         private MatchWork matchWork;
         private List<MatchWork> matchWorkList;
@@ -313,14 +312,6 @@ public class Result implements Serializable {
 
         public void setLetterPeriod(MatchPeriod letterPeriod) {
             this.letterPeriod = letterPeriod;
-        }
-
-        public MatchPeriod getDiscussPeriod() {
-            return discussPeriod;
-        }
-
-        public void setDiscussPeriod(MatchPeriod discussPeriod) {
-            this.discussPeriod = discussPeriod;
         }
 
         public List<MatchPeriod> getMatchPeriodList() {

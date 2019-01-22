@@ -244,8 +244,6 @@
         <activity android:name=".controller.activity.more.MatchWifeListActivity"/>
         <activity android:name=".controller.activity.more.MatchLetterActivity"/>
         <activity android:name=".controller.activity.more.MatchLetterListActivity"/>
-        <activity android:name=".controller.activity.more.MatchDiscussActivity"/>
-        <activity android:name=".controller.activity.more.MatchDiscussListActivity"/>
     </application>
 
 </manifest>

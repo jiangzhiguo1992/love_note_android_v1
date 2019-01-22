@@ -6,7 +6,6 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.jiangzg.base.common.DateUtils;
 import com.jiangzg.lovenote.R;
-import com.jiangzg.lovenote.controller.activity.more.MatchDiscussListActivity;
 import com.jiangzg.lovenote.controller.activity.more.MatchLetterListActivity;
 import com.jiangzg.lovenote.controller.activity.more.MatchWifeListActivity;
 import com.jiangzg.lovenote.helper.common.CountHelper;
@@ -58,9 +57,6 @@ public class MatchPeriodAdapter extends BaseQuickAdapter<MatchPeriod, BaseViewHo
                 break;
             case MatchPeriod.MATCH_KIND_LETTER_SHOW: // 情书展
                 MatchLetterListActivity.goActivity(mActivity, item);
-                break;
-            case MatchPeriod.MATCH_KIND_DISCUSS_MEET: // 讨论会
-                MatchDiscussListActivity.goActivity(mActivity, item);
                 break;
         }
     }

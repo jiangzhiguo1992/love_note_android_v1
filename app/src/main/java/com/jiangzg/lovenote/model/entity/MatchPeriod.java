@@ -11,7 +11,6 @@ public class MatchPeriod extends BaseObj implements Parcelable {
 
     public static final int MATCH_KIND_WIFE_PICTURE = 100; // 夫妻相
     public static final int MATCH_KIND_LETTER_SHOW = 200; // 情书展
-    public static final int MATCH_KIND_DISCUSS_MEET = 300;// 讨论会
 
     private long startAt;
     private long endAt;
