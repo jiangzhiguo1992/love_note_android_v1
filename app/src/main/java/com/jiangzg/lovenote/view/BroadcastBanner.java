@@ -52,8 +52,8 @@ public class BroadcastBanner extends Banner {
     public void initView(Activity activity) {
         this.activity = activity;
         this.setImageLoader(new FrescoImageLoader()); // 图片加载
-        this.setBannerStyle(BannerConfig.CIRCLE_INDICATOR_TITLE_INSIDE); // 标题 下标
-        this.setIndicatorGravity(BannerConfig.RIGHT); // 下标右
+        this.setBannerStyle(BannerConfig.CIRCLE_INDICATOR); // 标题 下标
+        //this.setIndicatorGravity(BannerConfig.RIGHT); // 下标右
         this.setBannerAnimation(Transformer.Accordion); // 动画
         this.isAutoPlay(true); // 自动播放
         this.setViewPagerIsScroll(true); // 手动滑动

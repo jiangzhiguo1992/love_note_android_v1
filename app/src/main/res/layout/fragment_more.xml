@@ -22,22 +22,32 @@
                 android:layout_height="match_parent"
                 android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/tvBroadcast"
-                    style="@style/FontGreyNormal"
+                <android.support.v7.widget.CardView
                     android:layout_width="match_parent"
                     android:layout_height="160dp"
-                    android:gravity="center"
-                    android:text="@string/now_no_broadcast"
-                    android:visibility="gone"
-                    tools:visibility="gone"/>
+                    android:layout_margin="10dp"
+                    app:cardBackgroundColor="@color/white"
+                    app:cardCornerRadius="@dimen/radius_normal"
+                    app:cardElevation="@dimen/elevation_normal"
+                    app:cardMaxElevation="@dimen/elevation_big">
 
-                <com.jiangzg.lovenote.view.BroadcastBanner
-                    android:id="@+id/bb"
-                    android:layout_width="match_parent"
-                    android:layout_height="160dp"
-                    android:visibility="gone"
-                    tools:visibility="visible"/>
+                    <TextView
+                        android:id="@+id/tvBroadcast"
+                        style="@style/FontGreyNormal"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:text="@string/now_no_broadcast"
+                        android:visibility="gone"
+                        tools:visibility="visible"/>
+
+                    <com.jiangzg.lovenote.view.BroadcastBanner
+                        android:id="@+id/bb"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:visibility="gone"
+                        tools:visibility="visible"/>
+                </android.support.v7.widget.CardView>
 
                 <LinearLayout
                     android:id="@+id/linePay"
