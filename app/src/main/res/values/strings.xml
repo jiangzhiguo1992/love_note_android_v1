@@ -610,8 +610,10 @@
     <string name="nav_letter">情书展</string>
     <string name="nav_wish">许愿树</string>
     <string name="nav_postcard">明信片</string>
-    <string name="no_sign">未签到</string>
-    <string name="yes_sign">已签到</string>
+    <string name="vip_no">未办理</string>
+    <string name="vip_yes">已办理</string>
+    <string name="no_sign">未完成</string>
+    <string name="yes_sign">已完成</string>
     <string name="now_no_broadcast">暂无广播</string>
     <string name="now_no_activity">暂无活动</string>
     <string name="the_holder_period" formatted="false">第%d期</string>

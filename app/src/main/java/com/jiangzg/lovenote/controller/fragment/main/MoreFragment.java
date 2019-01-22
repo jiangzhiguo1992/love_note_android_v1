@@ -217,10 +217,8 @@ public class MoreFragment extends BasePagerFragment<MoreFragment> {
                 }
                 break;
             case R.id.cvWish: // 许愿树
-                ToastUtils.show(mActivity.getString(R.string.function_no_open_please_wait));
                 break;
             case R.id.cvPostcard: // 明信片
-                ToastUtils.show(mActivity.getString(R.string.function_no_open_please_wait));
                 break;
         }
     }
@@ -244,6 +242,7 @@ public class MoreFragment extends BasePagerFragment<MoreFragment> {
                 initBroadcast(broadcastList);
                 initPay(vip, coin, sign);
                 initMatch();
+                initFeature();
             }
 
             @Override
@@ -271,9 +270,9 @@ public class MoreFragment extends BasePagerFragment<MoreFragment> {
         // vip
         String vipInfo;
         if (vip == null || TimeHelper.getJavaTimeByGo(vip.getExpireAt()) <= DateUtils.getCurrentLong()) {
-            vipInfo = "∑(✘Д✘๑ )";
+            vipInfo = mActivity.getString(R.string.vip_no);
         } else {
-            vipInfo = "(*ˇωˇ*人)";
+            vipInfo = mActivity.getString(R.string.vip_yes);
         }
         tvVip.setText(vipInfo);
         // coin
@@ -308,6 +307,11 @@ public class MoreFragment extends BasePagerFragment<MoreFragment> {
             String show = String.format(Locale.getDefault(), mActivity.getString(R.string.the_holder_period), letterPeriod.getPeriod());
             tvLetter.setText(show);
         }
+    }
+
+    private void initFeature() {
+        tvWish.setText("暂无活动");
+        tvPostcard.setText("暂无活动");
     }
 
 }
