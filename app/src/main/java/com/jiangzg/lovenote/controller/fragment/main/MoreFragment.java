@@ -12,7 +12,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.jiangzg.base.common.DateUtils;
-import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.controller.activity.more.CoinActivity;
 import com.jiangzg.lovenote.controller.activity.more.MatchLetterActivity;
@@ -103,9 +102,7 @@ public class MoreFragment extends BasePagerFragment<MoreFragment> {
     @BindView(R.id.tvPostcard)
     TextView tvPostcard;
 
-    private List<Broadcast> broadcastList;
-    private MatchPeriod wifePeriod;
-    private MatchPeriod letterPeriod;
+    private MatchPeriod wifePeriod, letterPeriod;
 
     public static MoreFragment newFragment() {
         Bundle bundle = new Bundle();
@@ -232,15 +229,11 @@ public class MoreFragment extends BasePagerFragment<MoreFragment> {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 srl.setRefreshing(false);
-                broadcastList = data.getBroadcastList();
-                Vip vip = data.getVip();
-                Coin coin = data.getCoin();
-                Sign sign = data.getSign();
                 wifePeriod = data.getWifePeriod();
                 letterPeriod = data.getLetterPeriod();
                 // view
-                initBroadcast(broadcastList);
-                initPay(vip, coin, sign);
+                initBroadcast(data.getBroadcastList());
+                initPay(data.getVip(), data.getCoin(), data.getSign());
                 initMatch();
                 initFeature();
             }
