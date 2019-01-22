@@ -13,7 +13,9 @@ import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.controller.activity.base.BaseActivity;
 import com.jiangzg.lovenote.controller.activity.couple.CouplePairActivity;
 import com.jiangzg.lovenote.controller.adapter.common.CommonFragmentAdapter;
+import com.jiangzg.lovenote.controller.fragment.base.BaseFragment;
 import com.jiangzg.lovenote.controller.fragment.topic.PostCollectFragment;
+import com.jiangzg.lovenote.controller.fragment.topic.PostMineFragment;
 import com.jiangzg.lovenote.helper.common.SPHelper;
 import com.jiangzg.lovenote.helper.common.UserHelper;
 import com.jiangzg.lovenote.helper.view.ViewHelper;
@@ -23,7 +25,7 @@ import java.util.List;
 
 import butterknife.BindView;
 
-public class PostCollectActivity extends BaseActivity<PostCollectActivity> {
+public class PostMyRelationActivity extends BaseActivity<PostMyRelationActivity> {
 
     @BindView(R.id.tb)
     Toolbar tb;
@@ -37,7 +39,7 @@ public class PostCollectActivity extends BaseActivity<PostCollectActivity> {
             CouplePairActivity.goActivity(from);
             return;
         }
-        Intent intent = new Intent(from.getActivity(), PostCollectActivity.class);
+        Intent intent = new Intent(from.getActivity(), PostMyRelationActivity.class);
         // intent.putExtra();
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         ActivityTrans.start(from, intent);
@@ -48,7 +50,7 @@ public class PostCollectActivity extends BaseActivity<PostCollectActivity> {
             CouplePairActivity.goActivity(from);
             return;
         }
-        Intent intent = new Intent(from, PostCollectActivity.class);
+        Intent intent = new Intent(from, PostMyRelationActivity.class);
         // intent.putExtra();
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         ActivityTrans.start(from, intent);
@@ -56,23 +58,26 @@ public class PostCollectActivity extends BaseActivity<PostCollectActivity> {
 
     @Override
     protected int getView(Intent intent) {
-        return R.layout.activity_post_collect;
+        return R.layout.activity_post_my_relation;
     }
 
     @Override
     protected void initView(Intent intent, Bundle state) {
-        ViewHelper.initTopBar(mActivity, tb, getString(R.string.our_collect), true);
+        ViewHelper.initTopBar(mActivity, tb, getString(R.string.my_relation), true);
         // fragment
         List<String> titleList = new ArrayList<>();
-        titleList.add(getString(R.string.me_de));
-        titleList.add(getString(R.string.ta_de));
-        List<PostCollectFragment> fragmentList = new ArrayList<>();
+        titleList.add(getString(R.string.my_push));
+        titleList.add(getString(R.string.my_collect));
+        titleList.add(getString(R.string.ta_collect));
+        List<BaseFragment> fragmentList = new ArrayList<>();
+        PostMineFragment postMineFragment = PostMineFragment.newFragment();
         PostCollectFragment meCollectFragment = PostCollectFragment.newFragment(true);
         PostCollectFragment taCollectFragment = PostCollectFragment.newFragment(false);
+        fragmentList.add(postMineFragment);
         fragmentList.add(meCollectFragment);
         fragmentList.add(taCollectFragment);
         // adapter
-        CommonFragmentAdapter<PostCollectFragment> adapter = new CommonFragmentAdapter<>(getSupportFragmentManager());
+        CommonFragmentAdapter<BaseFragment> adapter = new CommonFragmentAdapter<>(getSupportFragmentManager());
         adapter.newData(titleList, fragmentList);
         // view
         vpFragment.setOffscreenPageLimit(fragmentList.size());

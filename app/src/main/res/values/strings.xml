@@ -120,10 +120,11 @@
     <string name="space_bracket_holder" formatted="false"> (%d)</string>
     <string name="my_follow">我的关注</string>
     <string name="my_push">我的发布</string>
-    <string name="our_collect">相关收藏</string>
+    <string name="my_collect">我的收藏</string>
+    <string name="ta_collect">TA的收藏</string>
+    <string name="my_relation">我的相关</string>
     <string name="my_message">我的消息</string>
     <string name="please_input_search_content">请输入搜索内容</string>
-    <string name="function_no_open_please_wait">功能未开放，敬请期待</string>
 
     <!-- limit -->
     <string name="title">标题</string>
@@ -571,8 +572,8 @@
 
     <!-- topic -->
     <string name="post">帖子</string>
-    <string name="post_colon_space_holder" formatted="false">帖子: %s</string>
-    <string name="comment_colon_space_holder" formatted="false">评论: %s</string>
+    <string name="today_post_colon_space_holder" formatted="false">今日帖子: %s</string>
+    <string name="today_comment_colon_space_holder" formatted="false">今日评论: %s</string>
     <string name="point_colon_space_holder" formatted="false">点赞: %s</string>
     <string name="collect_colon_space_holder" formatted="false">收藏: %s</string>
     <string name="report">举报</string>

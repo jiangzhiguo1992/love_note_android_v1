@@ -7,14 +7,12 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.LinearLayout;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.controller.activity.settings.HelpActivity;
-import com.jiangzg.lovenote.controller.activity.topic.PostCollectActivity;
-import com.jiangzg.lovenote.controller.activity.topic.PostMineActivity;
+import com.jiangzg.lovenote.controller.activity.topic.PostMyRelationActivity;
 import com.jiangzg.lovenote.controller.activity.topic.TopicMessageActivity;
 import com.jiangzg.lovenote.controller.adapter.topic.HomeKindAdapter;
 import com.jiangzg.lovenote.controller.fragment.base.BaseFragment;
@@ -63,14 +61,13 @@ public class TopicFragment extends BasePagerFragment<TopicFragment> {
         ViewHelper.initTopBar(mActivity, tb, mActivity.getString(R.string.nav_topic), false);
         fitToolBar(tb);
         // menu
-        tb.inflateMenu(R.menu.help_notice);
+        tb.inflateMenu(R.menu.help_notice_mine);
         // recycler
         recyclerHelper = new RecyclerHelper(rv)
                 .initLayoutManager(new LinearLayoutManager(mActivity))
                 .initRefresh(srl, true)
                 .initAdapter(new HomeKindAdapter(mActivity, mFragment))
                 .viewEmpty(mActivity, R.layout.list_empty_grey, false, false)
-                .viewHeader(mActivity, R.layout.list_head_topic)
                 .setAdapter()
                 .listenerRefresh(this::refreshData)
                 .listenerClick(new OnItemClickListener() {
@@ -80,8 +77,6 @@ public class TopicFragment extends BasePagerFragment<TopicFragment> {
                         homeKindAdapter.goPostList(position);
                     }
                 });
-        // head
-        initHead();
     }
 
     protected void loadData() {
@@ -101,19 +96,11 @@ public class TopicFragment extends BasePagerFragment<TopicFragment> {
             case R.id.menuNotice: // 消息
                 TopicMessageActivity.goActivity(mFragment);
                 return true;
+            case R.id.menuMine: // 我的
+                PostMyRelationActivity.goActivity(mFragment);
+                return true;
         }
         return super.onOptionsItemSelected(item);
-    }
-
-    private void initHead() {
-        if (recyclerHelper == null) return;
-        View head = recyclerHelper.getViewHead();
-        LinearLayout llMyPush = head.findViewById(R.id.llMyPush);
-        LinearLayout llMyCollect = head.findViewById(R.id.llMyCollect);
-        // 发布
-        llMyPush.setOnClickListener(v -> PostMineActivity.goActivity(mFragment));
-        // 收藏
-        llMyCollect.setOnClickListener(v -> PostCollectActivity.goActivity(mFragment));
     }
 
     private void refreshData() {

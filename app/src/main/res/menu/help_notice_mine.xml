@@ -14,4 +14,10 @@
         android:title="@string/message"
         app:showAsAction="always"/>
 
+    <item
+        android:id="@+id/menuMine"
+        android:icon="@mipmap/ic_perm_identity_white_24dp"
+        android:title="@string/me_de"
+        app:showAsAction="always"/>
+
 </menu>

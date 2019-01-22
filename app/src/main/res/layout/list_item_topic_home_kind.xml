@@ -5,15 +5,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/root"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_marginStart="10dp"
-    android:layout_marginTop="2dp"
-    android:layout_marginEnd="10dp"
-    android:layout_marginBottom="6dp"
+    android:layout_height="80dp"
+    android:layout_margin="10dp"
     android:background="?attr/selectableItemBackground"
     android:foreground="?attr/selectableItemBackground"
-    app:cardBackgroundColor="?attr/colorPrimary"
-    app:cardCornerRadius="@dimen/radius_normal"
+    app:cardBackgroundColor="@color/white"
+    app:cardCornerRadius="40dp"
     app:cardElevation="@dimen/elevation_normal"
     app:cardMaxElevation="@dimen/elevation_big">
 
@@ -26,65 +23,39 @@
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
             android:layout_weight="1"
             android:gravity="center_vertical"
             android:orientation="vertical">
 
-            <LinearLayout
+            <TextView
+                android:id="@+id/tvPostCount"
+                style="@style/FontGreySmallBold"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="3dp"
-                android:gravity="center_vertical">
+                android:gravity="center"
+                tools:text="帖子:XXX"/>
 
-                <TextView
-                    android:id="@+id/tvPostCount"
-                    style="@style/FontWhiteSmallBold"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    tools:text="帖子:XXX"/>
-
-                <TextView
-                    android:id="@+id/tvCommentCount"
-                    style="@style/FontWhiteSmallBold"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="20dp"
-                    tools:text="评论:XXX"/>
-            </LinearLayout>
-
-            <LinearLayout
+            <TextView
+                android:id="@+id/tvCommentCount"
+                style="@style/FontGreySmallBold"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="3dp">
-
-                <TextView
-                    android:id="@+id/tvPointCount"
-                    style="@style/FontWhiteSmallBold"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_vertical"
-                    tools:text="点赞:XXX"/>
-
-                <TextView
-                    android:id="@+id/tvCollectCount"
-                    style="@style/FontWhiteSmallBold"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="20dp"
-                    tools:text="收藏:XXX"/>
-            </LinearLayout>
+                android:layout_marginTop="3dp"
+                android:gravity="center"
+                tools:text="评论:XXX"/>
         </LinearLayout>
 
         <TextView
             android:id="@+id/tvName"
-            style="@style/FontWhiteHugeBold"
+            style="@style/FontPrimaryHugeBold"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-            android:layout_marginEnd="15dp"
-            android:layout_marginBottom="15dp"
-            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_weight="2"
             android:gravity="center"
             android:maxLines="1"
             android:singleLine="true"

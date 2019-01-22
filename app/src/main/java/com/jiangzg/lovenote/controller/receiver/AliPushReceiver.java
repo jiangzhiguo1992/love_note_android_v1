@@ -11,9 +11,9 @@ import com.jiangzg.lovenote.controller.activity.note.MensesActivity;
 import com.jiangzg.lovenote.controller.activity.note.NoteTotalActivity;
 import com.jiangzg.lovenote.controller.activity.note.TrendsListActivity;
 import com.jiangzg.lovenote.controller.activity.settings.SuggestDetailActivity;
-import com.jiangzg.lovenote.controller.activity.topic.PostCollectActivity;
 import com.jiangzg.lovenote.controller.activity.topic.PostDetailActivity;
 import com.jiangzg.lovenote.controller.activity.topic.PostMineActivity;
+import com.jiangzg.lovenote.controller.activity.topic.PostMyRelationActivity;
 import com.jiangzg.lovenote.controller.activity.topic.PostSubCommentListActivity;
 import com.jiangzg.lovenote.controller.activity.topic.TopicMessageActivity;
 import com.jiangzg.lovenote.helper.common.GsonHelper;
@@ -71,7 +71,7 @@ public class AliPushReceiver extends MessageReceiver {
                 PostMineActivity.goActivity(context);
                 break;
             case Push.TYPE_TOPIC_COLLECT: // 话题收藏
-                PostCollectActivity.goActivity(context);
+                PostMyRelationActivity.goActivity(context);
                 break;
             case Push.TYPE_TOPIC_MESSAGE: // 话题消息
                 TopicMessageActivity.goActivity(context);

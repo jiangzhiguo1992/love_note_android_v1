@@ -13,10 +13,16 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/rv"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            tools:listitem="@layout/list_item_topic_home_kind"/>
+            android:layout_height="match_parent">
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                tools:listitem="@layout/list_item_topic_home_kind"/>
+        </RelativeLayout>
     </com.jiangzg.lovenote.view.GSwipeRefreshLayout>
 </LinearLayout>

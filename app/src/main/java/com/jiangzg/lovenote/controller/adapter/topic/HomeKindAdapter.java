@@ -3,7 +3,6 @@ package com.jiangzg.lovenote.controller.adapter.topic;
 import android.app.Activity;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.widget.CardView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
@@ -39,25 +38,22 @@ public class HomeKindAdapter extends BaseQuickAdapter<PostKindInfo, BaseViewHold
         // data
         int position = helper.getLayoutPosition();
         Integer color;
-        if (position - 1 >= colorList.size()) {
-            color = colorList.get((position - 1) % colorList.size());
+        if (position >= colorList.size()) {
+            color = colorList.get((position) % colorList.size());
         } else {
-            color = colorList.get(position - 1);
+            color = colorList.get(position);
         }
         String name = item.getName();
         TopicInfo topicInfo = item.getTopicInfo();
-        String postCount = String.format(Locale.getDefault(), mActivity.getString(R.string.post_colon_space_holder), topicInfo == null ? 0 : CountHelper.getShowCount2Thousand(topicInfo.getPostCount()));
-        String commentCount = String.format(Locale.getDefault(), mActivity.getString(R.string.comment_colon_space_holder), topicInfo == null ? 0 : CountHelper.getShowCount2Thousand(topicInfo.getCommentCount()));
-        String pointCount = String.format(Locale.getDefault(), mActivity.getString(R.string.point_colon_space_holder), topicInfo == null ? 0 : CountHelper.getShowCount2Thousand(topicInfo.getPointCount()));
-        String collectCount = String.format(Locale.getDefault(), mActivity.getString(R.string.collect_colon_space_holder), topicInfo == null ? 0 : CountHelper.getShowCount2Thousand(topicInfo.getCollectCount()));
+        String postCount = String.format(Locale.getDefault(), mActivity.getString(R.string.today_post_colon_space_holder), topicInfo == null ? 0 : CountHelper.getShowCount2Thousand(topicInfo.getPostCount()));
+        String commentCount = String.format(Locale.getDefault(), mActivity.getString(R.string.today_comment_colon_space_holder), topicInfo == null ? 0 : CountHelper.getShowCount2Thousand(topicInfo.getCommentCount()));
         // view
-        CardView root = helper.getView(R.id.root);
-        root.setCardBackgroundColor(color);
+        //CardView root = helper.getView(R.id.root);
+        //root.setCardBackgroundColor(color);
+        helper.setTextColor(R.id.tvName, color);
         helper.setText(R.id.tvName, name);
         helper.setText(R.id.tvPostCount, postCount);
         helper.setText(R.id.tvCommentCount, commentCount);
-        helper.setText(R.id.tvPointCount, pointCount);
-        helper.setText(R.id.tvCollectCount, collectCount);
     }
 
     public void goPostList(int position) {

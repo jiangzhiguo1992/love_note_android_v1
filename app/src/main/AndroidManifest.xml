@@ -226,7 +226,7 @@
         <!-- topic -->
         <activity android:name=".controller.activity.topic.TopicMessageActivity"/>
         <activity android:name=".controller.activity.topic.PostMineActivity"/>
-        <activity android:name=".controller.activity.topic.PostCollectActivity"/>
+        <activity android:name=".controller.activity.topic.PostMyRelationActivity"/>
         <activity android:name=".controller.activity.topic.PostListActivity"/>
         <activity android:name=".controller.activity.topic.PostAddActivity"/>
         <activity android:name=".controller.activity.topic.PostSearchActivity"/>
