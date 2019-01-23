@@ -22,7 +22,6 @@ import com.afollestad.materialdialogs.MaterialDialog;
 import com.jiangzg.base.common.DateUtils;
 import com.jiangzg.base.common.FileUtils;
 import com.jiangzg.base.common.LogUtils;
-import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.base.component.ActivityTrans;
 import com.jiangzg.base.component.IntentFactory;
 import com.jiangzg.base.view.BarUtils;
@@ -240,16 +239,8 @@ public class CoupleInfoActivity extends BaseActivity<CoupleInfoActivity> {
         String taBirthShow = DateUtils.getStr(taBirth, DateUtils.FORMAT_POINT_Y_M_D);
         String togetherDay = String.valueOf(UserHelper.getCoupleTogetherDay(couple));
         // view
-        if (StringUtils.isEmpty(taAvatar)) {
-            ivAvatarLeft.setImageResource(UserHelper.getSexAvatarResId(ta));
-        } else {
-            ivAvatarLeft.setData(taAvatar);
-        }
-        if (StringUtils.isEmpty(myAvatar)) {
-            ivAvatarRight.setImageResource(UserHelper.getSexAvatarResId(me));
-        } else {
-            ivAvatarRight.setData(myAvatar);
-        }
+        ivAvatarLeft.setData(taAvatar, ta);
+        ivAvatarRight.setData(myAvatar, me);
         tvNameLeft.setText(taName);
         tvNameRight.setText(myName);
         tvPhoneLeft.setText(taPhone);

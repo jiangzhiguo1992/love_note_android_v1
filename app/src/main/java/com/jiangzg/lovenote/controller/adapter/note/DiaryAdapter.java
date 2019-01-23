@@ -44,7 +44,7 @@ public class DiaryAdapter extends BaseQuickAdapter<Diary, BaseViewHolder> {
         String readCount = String.format(Locale.getDefault(), readFormat, item.getReadCount());
         // view
         FrescoAvatarView ivAvatar = helper.getView(R.id.ivAvatar);
-        ivAvatar.setData(avatar);
+        ivAvatar.setData(avatar, item.getUserId());
         helper.setText(R.id.tvHappenAt, happen);
         helper.setText(R.id.tvReadCount, readCount);
         helper.setText(R.id.tvTextCount, textCount);

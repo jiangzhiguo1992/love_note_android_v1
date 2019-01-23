@@ -43,7 +43,7 @@ public class VipAdapter extends BaseMultiItemQuickAdapter<Vip, BaseViewHolder> {
         String expire = String.format(Locale.getDefault(), mActivity.getString(R.string.expire_colon_space_holder), expireAt);
         // view
         FrescoAvatarView ivAvatar = helper.getView(R.id.ivAvatar);
-        ivAvatar.setData(avatar);
+        ivAvatar.setData(avatar, item.getUserId());
         helper.setText(R.id.tvTime, time);
         helper.setText(R.id.tvExpireDay, days);
         helper.setText(R.id.tvExpireAt, expire);

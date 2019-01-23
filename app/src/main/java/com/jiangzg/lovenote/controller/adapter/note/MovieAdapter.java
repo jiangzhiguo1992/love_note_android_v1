@@ -48,7 +48,7 @@ public class MovieAdapter extends BaseQuickAdapter<Movie, BaseViewHolder> {
         String contentText = item.getContentText();
         // view
         FrescoAvatarView ivAvatar = helper.getView(R.id.ivAvatar);
-        ivAvatar.setData(avatar);
+        ivAvatar.setData(avatar, item.getUserId());
         helper.setText(R.id.tvTitle, title);
         helper.setVisible(R.id.tvAddress, !StringUtils.isEmpty(address));
         helper.setText(R.id.tvAddress, address);

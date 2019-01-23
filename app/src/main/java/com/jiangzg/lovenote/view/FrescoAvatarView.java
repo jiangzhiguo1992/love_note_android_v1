@@ -39,9 +39,11 @@ import com.jiangzg.lovenote.helper.common.ApiHelper;
 import com.jiangzg.lovenote.helper.common.OssHelper;
 import com.jiangzg.lovenote.helper.common.OssResHelper;
 import com.jiangzg.lovenote.helper.common.ResHelper;
+import com.jiangzg.lovenote.helper.common.SPHelper;
 import com.jiangzg.lovenote.helper.common.UserHelper;
 import com.jiangzg.lovenote.helper.media.FrescoHelper;
 import com.jiangzg.lovenote.main.MyApp;
+import com.jiangzg.lovenote.model.entity.User;
 
 import java.io.File;
 
@@ -154,8 +156,24 @@ public class FrescoAvatarView extends SimpleDraweeView {
     }
 
     public void setData(String ossKey) {
+        setData(ossKey, null);
+    }
+
+    public void setData(String ossKey, long userId) {
+        User me = SPHelper.getMe();
+        User ta = SPHelper.getTa();
+        if (me != null && me.getId() == userId) {
+            setData(ossKey, me);
+        } else if (ta != null && ta.getId() == userId) {
+            setData(ossKey, ta);
+        } else {
+            setData(ossKey, null);
+        }
+    }
+
+    public void setData(String ossKey, User user) {
         if (StringUtils.isEmpty(ossKey)) {
-            this.setImageResource(UserHelper.getSexAvatarResId(null));
+            this.setImageResource(UserHelper.getSexAvatarResId(user));
             return;
         }
         if (OssResHelper.isKeyFileExists(ossKey)) {
@@ -168,15 +186,15 @@ public class FrescoAvatarView extends SimpleDraweeView {
                     this.setDataFile(file);
                 } else {
                     // 有文件 可能没下载完
-                    this.setDataOss(ossKey);
+                    this.setDataOss(ossKey, user);
                 }
             } else {
                 // 下载过，但是空文件
-                this.setDataOss(ossKey);
+                this.setDataOss(ossKey, user);
             }
         } else {
             // 文件没下载过
-            this.setDataOss(ossKey);
+            this.setDataOss(ossKey, user);
         }
     }
 
@@ -188,10 +206,10 @@ public class FrescoAvatarView extends SimpleDraweeView {
     }
 
     // http:// https:// 需要现场获取oss的url
-    private void setDataOss(String objPath) {
+    private void setDataOss(String objPath, User user) {
         String url = OssHelper.getUrl(objPath);
         if (StringUtils.isEmpty(url)) {
-            this.setImageResource(UserHelper.getSexAvatarResId(null));
+            this.setImageResource(UserHelper.getSexAvatarResId(user));
             return;
         }
         setController(Uri.parse(url));

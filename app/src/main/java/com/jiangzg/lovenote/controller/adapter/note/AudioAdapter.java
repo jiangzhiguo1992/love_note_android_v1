@@ -74,7 +74,7 @@ public class AudioAdapter extends BaseMultiItemQuickAdapter<Audio, BaseViewHolde
         String title = item.getTitle();
         // view
         FrescoAvatarView ivAvatar = helper.getView(R.id.ivAvatar);
-        ivAvatar.setData(avatar);
+        ivAvatar.setData(avatar, item.getUserId());
         helper.setImageResource(R.id.ivPlay, playIcon);
         helper.setText(R.id.tvDuration, duration);
         helper.setText(R.id.tvHappenAt, happenAt);

@@ -195,7 +195,7 @@ public class AngryDetailActivity extends BaseActivity<AngryDetailActivity> {
         User user = SPHelper.getMe();
         // avatar
         String avatar = UserHelper.getAvatar(user, angry.getHappenId());
-        ivAvatar.setData(avatar);
+        ivAvatar.setData(avatar, angry.getUserId());
         // happen
         String happenAt = TimeHelper.getTimeShowLocal_HM_MD_YMD_ByGo(angry.getHappenAt());
         tvHappenAt.setText(happenAt);

@@ -41,7 +41,7 @@ public class DreamAdapter extends BaseQuickAdapter<Dream, BaseViewHolder> {
         String countShow = String.format(Locale.getDefault(), formatNumber, content.length());
         // view
         FrescoAvatarView ivAvatar = helper.getView(R.id.ivAvatar);
-        ivAvatar.setData(avatar);
+        ivAvatar.setData(avatar, item.getUserId());
         helper.setText(R.id.tvHappenAt, happen);
         helper.setText(R.id.tvCount, countShow);
         helper.setText(R.id.tvContent, content);

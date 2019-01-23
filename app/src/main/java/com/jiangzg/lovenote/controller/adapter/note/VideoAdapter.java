@@ -82,7 +82,7 @@ public class VideoAdapter extends BaseMultiItemQuickAdapter<Video, BaseViewHolde
         String address = item.getAddress();
         // view
         FrescoAvatarView ivAvatar = helper.getView(R.id.ivAvatar);
-        ivAvatar.setData(avatar);
+        ivAvatar.setData(avatar, item.getUserId());
         FrescoView ivThumb = helper.getView(R.id.ivThumb);
         if (StringUtils.isEmpty(thumb)) {
             ivThumb.setVisibility(View.GONE);

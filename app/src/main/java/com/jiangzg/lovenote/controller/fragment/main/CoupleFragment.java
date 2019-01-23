@@ -308,16 +308,9 @@ public class CoupleFragment extends BasePagerFragment<CoupleFragment> {
             String myAvatar = UserHelper.getMyAvatar(me);
             String taAvatar = UserHelper.getTaAvatar(me);
             int togetherDay = UserHelper.getCoupleTogetherDay(couple);
-            if (StringUtils.isEmpty(taAvatar)) {
-                ivAvatarLeft.setImageResource(UserHelper.getSexAvatarResId(ta));
-            } else {
-                ivAvatarLeft.setData(taAvatar);
-            }
-            if (StringUtils.isEmpty(myAvatar)) {
-                ivAvatarRight.setImageResource(UserHelper.getSexAvatarResId(me));
-            } else {
-                ivAvatarRight.setData(myAvatar);
-            }
+            // view
+            ivAvatarLeft.setData(taAvatar, ta);
+            ivAvatarRight.setData(myAvatar, me);
             tvNameLeft.setText(taName);
             tvNameRight.setText(myName);
             tvTogether.setText(String.valueOf(togetherDay));

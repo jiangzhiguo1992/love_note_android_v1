@@ -173,10 +173,11 @@ public class SleepActivity extends BaseActivity<SleepActivity> {
                 });
         // avatar
         User me = SPHelper.getMe();
+        User ta = SPHelper.getTa();
         String myAvatar = UserHelper.getMyAvatar(me);
         String taAvatar = UserHelper.getTaAvatar(me);
-        ivAvatarRight.setData(myAvatar);
-        ivAvatarLeft.setData(taAvatar);
+        ivAvatarRight.setData(myAvatar, me);
+        ivAvatarLeft.setData(taAvatar, ta);
     }
 
     @Override

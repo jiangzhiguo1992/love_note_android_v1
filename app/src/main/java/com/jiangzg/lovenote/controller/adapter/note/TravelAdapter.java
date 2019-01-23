@@ -44,7 +44,7 @@ public class TravelAdapter extends BaseQuickAdapter<Travel, BaseViewHolder> {
         List<TravelPlace> placeList = item.getTravelPlaceList();
         // view
         FrescoAvatarView ivAvatar = helper.getView(R.id.ivAvatar);
-        ivAvatar.setData(avatar);
+        ivAvatar.setData(avatar, item.getUserId());
         helper.setText(R.id.tvTitle, title);
         helper.setText(R.id.tvHappenAt, happen);
         RecyclerView rv = helper.getView(R.id.rv);

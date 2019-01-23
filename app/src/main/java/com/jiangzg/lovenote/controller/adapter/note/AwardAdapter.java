@@ -52,7 +52,7 @@ public class AwardAdapter extends BaseQuickAdapter<Award, BaseViewHolder> {
         }
         // view
         FrescoAvatarView ivAvatar = helper.getView(R.id.ivAvatar);
-        ivAvatar.setData(avatar);
+        ivAvatar.setData(avatar, item.getUserId());
         helper.setVisible(R.id.cvScoreMe, isMine);
         helper.setVisible(R.id.cvScoreTa, !isMine);
         helper.setText(isMine ? R.id.tvScoreMe : R.id.tvScoreTa, scoreShow);

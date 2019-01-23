@@ -165,7 +165,7 @@ public class DiaryDetailActivity extends BaseActivity<DiaryDetailActivity> {
         tvHappenAt.setText(happenAt);
         // avatar
         String avatar = UserHelper.getAvatar(user, diary.getUserId());
-        ivAvatar.setData(avatar);
+        ivAvatar.setData(avatar, diary.getUserId());
         // textCount
         String content = diary.getContentText();
         String textFormat = mActivity.getString(R.string.text_number_space_colon_holder);

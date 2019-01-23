@@ -42,7 +42,7 @@ public class ShyAdapter extends BaseQuickAdapter<Shy, BaseViewHolder> {
         String happenAt = DateUtils.getStr(TimeHelper.getJavaTimeByGo(item.getHappenAt()), DateUtils.FORMAT_H_M);
         // view
         FrescoAvatarView ivAvatar = helper.getView(R.id.ivAvatar);
-        ivAvatar.setData(avatar);
+        ivAvatar.setData(avatar, item.getUserId());
         helper.setText(R.id.tvTime, happenAt);
     }
 

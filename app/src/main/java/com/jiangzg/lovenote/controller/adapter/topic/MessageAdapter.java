@@ -34,8 +34,8 @@ public class MessageAdapter extends BaseQuickAdapter<TopicMessage, BaseViewHolde
         // view
         FrescoAvatarView ivAvatarLeft = helper.getView(R.id.ivAvatarLeft);
         FrescoAvatarView ivAvatarRight = helper.getView(R.id.ivAvatarRight);
-        ivAvatarLeft.setData(couple == null ? "" : couple.getCreatorAvatar());
-        ivAvatarRight.setData(couple == null ? "" : couple.getInviteeAvatar());
+        ivAvatarLeft.setData(couple == null ? "" : couple.getCreatorAvatar(), item.getUserId());
+        ivAvatarRight.setData(couple == null ? "" : couple.getInviteeAvatar(), item.getUserId());
         helper.setText(R.id.tvTime, time);
         helper.setText(R.id.tvContent, contentText);
     }

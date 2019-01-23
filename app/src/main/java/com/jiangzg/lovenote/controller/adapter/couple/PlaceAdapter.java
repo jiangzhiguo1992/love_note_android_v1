@@ -65,7 +65,7 @@ public class PlaceAdapter extends BaseQuickAdapter<Place, BaseViewHolder> {
             tvTimeLeft.setVisibility(View.INVISIBLE);
             tvTimeRight.setVisibility(View.VISIBLE);
             // set
-            ivAvatarRight.setData(avatar);
+            ivAvatarRight.setData(avatar, item.getUserId());
             helper.setText(R.id.tvTimeRight, time);
         } else {
             ivAvatarLeft.setVisibility(View.VISIBLE);
@@ -73,7 +73,7 @@ public class PlaceAdapter extends BaseQuickAdapter<Place, BaseViewHolder> {
             tvTimeLeft.setVisibility(View.VISIBLE);
             tvTimeRight.setVisibility(View.INVISIBLE);
             // set
-            ivAvatarLeft.setData(avatar);
+            ivAvatarLeft.setData(avatar, item.getUserId());
             helper.setText(R.id.tvTimeLeft, time);
         }
         helper.setText(R.id.tvAddress, address);

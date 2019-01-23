@@ -37,7 +37,7 @@ public class PromiseAdapter extends BaseQuickAdapter<Promise, BaseViewHolder> {
         String content = item.getContentText();
         // view
         FrescoAvatarView ivAvatar = helper.getView(R.id.ivAvatar);
-        ivAvatar.setData(avatar);
+        ivAvatar.setData(avatar, item.getUserId());
         helper.setText(R.id.tvHappenAt, happen);
         helper.setText(R.id.tvBreakCount, breakCount);
         helper.setText(R.id.tvContent, content);

@@ -43,7 +43,7 @@ public class WhisperAdapter extends BaseMultiItemQuickAdapter<Whisper, BaseViewH
         final String content = item.getContent();
         // view
         FrescoAvatarView ivAvatar = helper.getView(R.id.ivAvatar);
-        ivAvatar.setData(avatar);
+        ivAvatar.setData(avatar, item.getUserId());
         helper.setText(R.id.tvCreateAt, createAt);
         TextView tvContent = helper.getView(R.id.tvContent);
         FrescoView ivContent = helper.getView(R.id.ivContent);

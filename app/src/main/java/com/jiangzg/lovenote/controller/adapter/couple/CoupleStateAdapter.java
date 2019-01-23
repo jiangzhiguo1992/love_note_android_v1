@@ -47,11 +47,11 @@ public class CoupleStateAdapter extends BaseQuickAdapter<CoupleState, BaseViewHo
         if (isMine) {
             ivAvatarLeft.setVisibility(View.INVISIBLE);
             ivAvatarRight.setVisibility(View.VISIBLE);
-            ivAvatarRight.setData(avatar);
+            ivAvatarRight.setData(avatar, item.getUserId());
         } else {
             ivAvatarLeft.setVisibility(View.VISIBLE);
             ivAvatarRight.setVisibility(View.INVISIBLE);
-            ivAvatarLeft.setData(avatar);
+            ivAvatarLeft.setData(avatar, item.getUserId());
         }
         helper.setText(R.id.tvContent, content);
     }
