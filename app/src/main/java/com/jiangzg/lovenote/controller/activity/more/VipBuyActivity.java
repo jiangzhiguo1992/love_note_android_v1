@@ -138,15 +138,11 @@ public class VipBuyActivity extends BaseActivity<VipBuyActivity> {
     }
 
     public void payBefore(int payPlatform) {
-        final int goods;
-        if (rbGoods1.isChecked()) {
-            goods = Bill.GOODS_VIP_1;
-        } else if (rbGoods2.isChecked()) {
+        int goods = Bill.GOODS_VIP_1;
+        if (rbGoods2.isChecked()) {
             goods = Bill.GOODS_VIP_2;
         } else if (rbGoods3.isChecked()) {
             goods = Bill.GOODS_VIP_3;
-        } else {
-            return;
         }
         // api
         Call<Result> api = new RetrofitHelper().call(API.class).morePayBeforeGet(payPlatform, goods);
