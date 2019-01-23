@@ -133,10 +133,11 @@ public class SignActivity extends BaseActivity<SignActivity> {
         });
         // avatar
         User me = SPHelper.getMe();
+        User ta = SPHelper.getTa();
         String myAvatar = UserHelper.getMyAvatar(me);
         String taAvatar = UserHelper.getTaAvatar(me);
-        ivAvatarRight.setData(myAvatar);
-        ivAvatarLeft.setData(taAvatar);
+        ivAvatarLeft.setData(taAvatar, ta);
+        ivAvatarRight.setData(myAvatar, me);
     }
 
     @Override

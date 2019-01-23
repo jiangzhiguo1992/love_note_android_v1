@@ -217,10 +217,11 @@ public class VipActivity extends BaseActivity<VipActivity> {
     private void refreshView(VipLimit vipYesLimit, VipLimit vipNoLimit) {
         // avatar
         User me = SPHelper.getMe();
+        User ta = SPHelper.getTa();
         String myAvatar = UserHelper.getMyAvatar(me);
         String taAvatar = UserHelper.getTaAvatar(me);
-        ivAvatarRight.setData(myAvatar);
-        ivAvatarLeft.setData(taAvatar);
+        ivAvatarRight.setData(myAvatar, me);
+        ivAvatarLeft.setData(taAvatar, ta);
         // limit
         llLimit.setVisibility(View.GONE);
         if (vipNoLimit != null) {

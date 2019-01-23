@@ -141,10 +141,11 @@ public class CoinActivity extends BaseActivity<CoinActivity> {
     private void refreshView() {
         // avatar
         User me = SPHelper.getMe();
+        User ta = SPHelper.getTa();
         String myAvatar = UserHelper.getMyAvatar(me);
         String taAvatar = UserHelper.getTaAvatar(me);
-        ivAvatarRight.setData(myAvatar);
-        ivAvatarLeft.setData(taAvatar);
+        ivAvatarLeft.setData(taAvatar, ta);
+        ivAvatarRight.setData(myAvatar, me);
         // coin
         String coinCount;
         if (coin != null) {
