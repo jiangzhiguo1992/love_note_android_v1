@@ -53,12 +53,27 @@
             android:layout_marginTop="4dp"
             android:layout_marginBottom="4dp"/>
 
-        <TextView
-            android:id="@+id/tvContent"
-            style="@style/FontBlackNormal"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            tools:text="建议内容建议内容建议内容建议内容建议内容"/>
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/tvExpireDay"
+                style="@style/FontBlackNormal"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                tools:text="时长: 30天"/>
+
+            <TextView
+                android:id="@+id/tvExpireAt"
+                style="@style/FontBlackNormal"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                tools:text="到期: 1992.07.12"/>
+        </LinearLayout>
     </LinearLayout>
 </android.support.v7.widget.CardView>

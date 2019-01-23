@@ -38,14 +38,15 @@ public class VipAdapter extends BaseMultiItemQuickAdapter<Vip, BaseViewHolder> {
         // data
         String avatar = UserHelper.getAvatar(couple, item.getUserId());
         String time = TimeHelper.getTimeShowLine_HM_MDHM_YMDHM_ByGo(item.getCreateAt());
-        int expireDays = item.getExpireDays();
-        String expireAt = DateUtils.getStr(TimeHelper.getJavaTimeByGo(item.getExpireAt()), DateUtils.FORMAT_LINE_Y_M_D_H_M);
-        String content = String.format(Locale.getDefault(), mActivity.getString(R.string.get_space_holder_space_day_vip_on_space_holder_space_expire), expireDays, expireAt);
+        String days = String.format(Locale.getDefault(), mActivity.getString(R.string.continue_colon_space_holder_space_day), item.getExpireDays());
+        String expireAt = DateUtils.getStr(TimeHelper.getJavaTimeByGo(item.getExpireAt()), DateUtils.FORMAT_LINE_Y_M_D);
+        String expire = String.format(Locale.getDefault(), mActivity.getString(R.string.expire_colon_space_holder), expireAt);
         // view
         FrescoAvatarView ivAvatar = helper.getView(R.id.ivAvatar);
         ivAvatar.setData(avatar);
         helper.setText(R.id.tvTime, time);
-        helper.setText(R.id.tvContent, content);
+        helper.setText(R.id.tvExpireDay, days);
+        helper.setText(R.id.tvExpireAt, expire);
     }
 
 }

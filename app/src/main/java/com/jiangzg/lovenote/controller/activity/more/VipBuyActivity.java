@@ -118,9 +118,9 @@ public class VipBuyActivity extends BaseActivity<VipBuyActivity> {
     private void initGoodsCheck() {
         Limit limit = SPHelper.getLimit();
         String format = getString(R.string.pay_vip_goods_format);
-        String goods1 = String.format(Locale.getDefault(), format, limit.getPayVipGoods1Title(), limit.getPayVipGoods1Amount());
-        String goods2 = String.format(Locale.getDefault(), format, limit.getPayVipGoods2Title(), limit.getPayVipGoods2Amount());
-        String goods3 = String.format(Locale.getDefault(), format, limit.getPayVipGoods3Title(), limit.getPayVipGoods3Amount());
+        String goods1 = String.format(Locale.getDefault(), format, limit.getPayVipGoods1Title(), limit.getPayVipGoods1Days(), limit.getPayVipGoods1Amount());
+        String goods2 = String.format(Locale.getDefault(), format, limit.getPayVipGoods2Title(), limit.getPayVipGoods2Days(), limit.getPayVipGoods2Amount());
+        String goods3 = String.format(Locale.getDefault(), format, limit.getPayVipGoods3Title(), limit.getPayVipGoods3Days(), limit.getPayVipGoods3Amount());
         rbGoods1.setText(goods1);
         rbGoods2.setText(goods2);
         rbGoods3.setText(goods3);

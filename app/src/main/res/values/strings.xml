@@ -629,8 +629,8 @@
     <string name="coin_buy">金币购买</string>
     <string name="alipay_pay">支付宝支付</string>
     <string name="wechat_pay">微信支付</string>
-    <string name="pay_vip_goods_format" formatted="false">%s\n\n%s RMB</string>
-    <string name="pay_coin_goods_format" formatted="false">%s\n%d\n%s RMB</string>
+    <string name="pay_vip_goods_format" formatted="false">%s\n%d 天\n\n￥ %s</string>
+    <string name="pay_coin_goods_format" formatted="false">%s\n%d 个\n\n￥ %s</string>
     <string name="pay_error">支付异常</string>
     <string name="pay_success_but_nothing">支付成功了，但是啥也没给？</string>
     <string name="vip_over_due_next_holder" formatted="false">会员到期时间\n%s</string>
@@ -650,6 +650,8 @@
     <string name="every_can_upload_holder_paper" formatted="false">每个可上传%d张</string>
     <string name="continue_sign_holder_day" formatted="false">连续签到%d天</string>
     <string name="get_space_holder_space_day_vip_on_space_holder_space_expire" formatted="false">获得了 %d 天的会员，于 %s 到期</string>
+    <string name="continue_colon_space_holder_space_day" formatted="false">购买时长: %d 天</string>
+    <string name="expire_colon_space_holder" formatted="false">到期时间: %s</string>
     <string name="to_month_sign_holder_count" formatted="false">本月签到%d次</string>
     <string name="go_in_award_colon_holder_coin" formatted="false">参与奖励：%d金币</string>
     <string name="total_works_count_colon_holder" formatted="false">总作品数：%s</string>
