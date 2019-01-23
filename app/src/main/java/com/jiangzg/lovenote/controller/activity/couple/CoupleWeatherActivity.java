@@ -122,12 +122,14 @@ public class CoupleWeatherActivity extends BaseActivity<CoupleWeatherActivity> {
 
     @Override
     protected void initData(Intent intent, Bundle state) {
+        // avatar
         User me = SPHelper.getMe();
         User ta = SPHelper.getTa();
         String taAvatar = UserHelper.getTaAvatar(me);
         String myAvatar = UserHelper.getMyAvatar(me);
         ivAvatarLeft.setData(taAvatar, ta);
         ivAvatarRight.setData(myAvatar, me);
+        // data
         refreshData();
     }
 

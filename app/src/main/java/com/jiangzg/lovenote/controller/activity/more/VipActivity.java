@@ -180,6 +180,13 @@ public class VipActivity extends BaseActivity<VipActivity> {
         // event
         Observable<Vip> bus = RxBus.register(RxBus.EVENT_VIP_INFO_REFRESH, vip -> refreshData());
         pushBus(RxBus.EVENT_VIP_INFO_REFRESH, bus);
+        // avatar
+        User me = SPHelper.getMe();
+        User ta = SPHelper.getTa();
+        String myAvatar = UserHelper.getMyAvatar(me);
+        String taAvatar = UserHelper.getTaAvatar(me);
+        ivAvatarRight.setData(myAvatar, me);
+        ivAvatarLeft.setData(taAvatar, ta);
     }
 
     @Override
@@ -215,13 +222,6 @@ public class VipActivity extends BaseActivity<VipActivity> {
     }
 
     private void refreshView(VipLimit vipYesLimit, VipLimit vipNoLimit) {
-        // avatar
-        User me = SPHelper.getMe();
-        User ta = SPHelper.getTa();
-        String myAvatar = UserHelper.getMyAvatar(me);
-        String taAvatar = UserHelper.getTaAvatar(me);
-        ivAvatarRight.setData(myAvatar, me);
-        ivAvatarLeft.setData(taAvatar, ta);
         // limit
         llLimit.setVisibility(View.GONE);
         if (vipNoLimit != null) {

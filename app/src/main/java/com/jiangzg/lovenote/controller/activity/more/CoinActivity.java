@@ -104,6 +104,13 @@ public class CoinActivity extends BaseActivity<CoinActivity> {
             if (recyclerHelper != null) recyclerHelper.dataRefresh();
         });
         pushBus(RxBus.EVENT_COIN_INFO_REFRESH, bus);
+        // avatar
+        User me = SPHelper.getMe();
+        User ta = SPHelper.getTa();
+        String myAvatar = UserHelper.getMyAvatar(me);
+        String taAvatar = UserHelper.getTaAvatar(me);
+        ivAvatarLeft.setData(taAvatar, ta);
+        ivAvatarRight.setData(myAvatar, me);
         // recyclerHelper
         recyclerHelper.dataRefresh();
     }
@@ -139,13 +146,6 @@ public class CoinActivity extends BaseActivity<CoinActivity> {
     }
 
     private void refreshView() {
-        // avatar
-        User me = SPHelper.getMe();
-        User ta = SPHelper.getTa();
-        String myAvatar = UserHelper.getMyAvatar(me);
-        String taAvatar = UserHelper.getTaAvatar(me);
-        ivAvatarLeft.setData(taAvatar, ta);
-        ivAvatarRight.setData(myAvatar, me);
         // coin
         String coinCount;
         if (coin != null) {
@@ -154,7 +154,6 @@ public class CoinActivity extends BaseActivity<CoinActivity> {
             coinCount = String.valueOf(0);
         }
         tvCoinCount.setText(coinCount);
-
     }
 
     private void refreshData() {
