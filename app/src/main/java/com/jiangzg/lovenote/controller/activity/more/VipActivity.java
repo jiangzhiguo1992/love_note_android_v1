@@ -14,7 +14,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.jiangzg.base.common.ConvertUtils;
-import com.jiangzg.base.common.DateUtils;
 import com.jiangzg.base.component.ActivityTrans;
 import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.controller.activity.base.BaseActivity;
@@ -22,7 +21,6 @@ import com.jiangzg.lovenote.controller.activity.couple.CouplePairActivity;
 import com.jiangzg.lovenote.controller.activity.settings.HelpActivity;
 import com.jiangzg.lovenote.helper.common.RxBus;
 import com.jiangzg.lovenote.helper.common.SPHelper;
-import com.jiangzg.lovenote.helper.common.TimeHelper;
 import com.jiangzg.lovenote.helper.common.UserHelper;
 import com.jiangzg.lovenote.helper.system.RetrofitHelper;
 import com.jiangzg.lovenote.helper.view.ViewHelper;
@@ -52,8 +50,6 @@ public class VipActivity extends BaseActivity<VipActivity> {
     FrescoAvatarView ivAvatarLeft;
     @BindView(R.id.ivAvatarRight)
     FrescoAvatarView ivAvatarRight;
-    @BindView(R.id.tvVipInfo)
-    TextView tvVipInfo;
 
     @BindView(R.id.btnHistory)
     Button btnHistory;
@@ -131,9 +127,6 @@ public class VipActivity extends BaseActivity<VipActivity> {
     @BindView(R.id.tvLimitRightPostImageCount)
     TextView tvLimitRightPostImageCount;
 
-    private Vip vip;
-    private VipLimit vipYesLimit, vipNoLimit;
-
     public static void goActivity(Fragment from) {
         if (UserHelper.isCoupleBreak(SPHelper.getCouple())) {
             CouplePairActivity.goActivity(from);
@@ -177,7 +170,7 @@ public class VipActivity extends BaseActivity<VipActivity> {
         ViewHelper.initTopBar(mActivity, tb, getString(R.string.vip), true);
         srl.setEnabled(false);
         // view
-        refreshView();
+        refreshView(null, null);
         // data
         refreshData();
     }
@@ -221,22 +214,13 @@ public class VipActivity extends BaseActivity<VipActivity> {
         }
     }
 
-    private void refreshView() {
+    private void refreshView(VipLimit vipYesLimit, VipLimit vipNoLimit) {
         // avatar
         User me = SPHelper.getMe();
         String myAvatar = UserHelper.getMyAvatar(me);
         String taAvatar = UserHelper.getTaAvatar(me);
         ivAvatarRight.setData(myAvatar);
         ivAvatarLeft.setData(taAvatar);
-        // vip
-        String vipInfo;
-        if (vip != null) {
-            String time = DateUtils.getStr(TimeHelper.getJavaTimeByGo(vip.getExpireAt()), DateUtils.FORMAT_LINE_Y_M_D_H_M);
-            vipInfo = String.format(Locale.getDefault(), getString(R.string.vip_over_due_next_holder), time);
-        } else {
-            vipInfo = getString(R.string.no_handle);
-        }
-        tvVipInfo.setText(vipInfo);
         // limit
         llLimit.setVisibility(View.GONE);
         if (vipNoLimit != null) {
@@ -328,12 +312,8 @@ public class VipActivity extends BaseActivity<VipActivity> {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 srl.setRefreshing(false);
-                vip = data.getVip();
-                VipLimit vipLimit = data.getVipLimit();
-                SPHelper.setVipLimit(vipLimit);
-                vipYesLimit = data.getVipYesLimit();
-                vipNoLimit = data.getVipNoLimit();
-                refreshView();
+                SPHelper.setVipLimit(data.getVipLimit());
+                refreshView(data.getVipYesLimit(), data.getVipNoLimit());
             }
 
             @Override

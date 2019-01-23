@@ -19,7 +19,7 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <LinearLayout
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/shape_gradient_primary_back"
@@ -34,9 +34,12 @@
                     tools:background="@mipmap/ic_account_circle_grey_48dp"/>
 
                 <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignTop="@+id/ivAvatarLeft"
+                    android:layout_alignBottom="@+id/ivAvatarLeft"
+                    android:layout_toStartOf="@+id/ivAvatarRight"
+                    android:layout_toEndOf="@+id/ivAvatarLeft"
                     android:gravity="center"
                     android:orientation="vertical">
 
@@ -44,8 +47,8 @@
                         android:id="@+id/tvCoinCount"
                         style="@style/FontWhiteBigBold"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="5dp"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
                         android:drawableStart="@mipmap/ic_monetization_on_white_18dp"
                         android:drawablePadding="5dp"
                         android:ellipsize="middle"
@@ -58,7 +61,6 @@
                         style="@style/FontWhiteSmall"
                         android:layout_width="wrap_content"
                         android:layout_height="30dp"
-                        android:layout_marginTop="5dp"
                         android:background="@drawable/selector_enable_press_solid_light_primary_dark_r100"
                         android:text="@string/go_to_buy"
                         android:visibility="gone"
@@ -69,9 +71,10 @@
                     android:id="@+id/ivAvatarRight"
                     android:layout_width="70dp"
                     android:layout_height="70dp"
+                    android:layout_alignParentEnd="true"
                     android:layout_margin="20dp"
                     tools:background="@mipmap/ic_account_circle_grey_48dp"/>
-            </LinearLayout>
+            </RelativeLayout>
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/rv"
