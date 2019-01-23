@@ -31,7 +31,7 @@ public class VipListActivity extends BaseActivity<VipListActivity> {
     RecyclerView rv;
 
     private RecyclerHelper recyclerHelper;
-    private int page;
+    private int page = 0;
 
     public static void goActivity(Activity from) {
         Intent intent = new Intent(from, VipListActivity.class);
@@ -47,11 +47,11 @@ public class VipListActivity extends BaseActivity<VipListActivity> {
 
     @Override
     protected void initView(Intent intent, Bundle state) {
-        ViewHelper.initTopBar(mActivity, tb, getString(R.string.vip), true);
+        ViewHelper.initTopBar(mActivity, tb, getString(R.string.history_info), true);
         // recycler
         recyclerHelper = new RecyclerHelper(rv)
                 .initLayoutManager(new LinearLayoutManager(mActivity))
-                .initRefresh(srl, false)
+                .initRefresh(srl, true)
                 .initAdapter(new VipAdapter(mActivity))
                 .viewEmpty(mActivity, R.layout.list_empty_grey, true, true)
                 .viewLoadMore(new RecyclerHelper.MoreGreyView())
@@ -62,7 +62,6 @@ public class VipListActivity extends BaseActivity<VipListActivity> {
 
     @Override
     protected void initData(Intent intent, Bundle state) {
-        page = 0;
         recyclerHelper.dataRefresh();
     }
 
