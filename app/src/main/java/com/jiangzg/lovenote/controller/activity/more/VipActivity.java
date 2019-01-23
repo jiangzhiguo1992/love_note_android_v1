@@ -171,8 +171,6 @@ public class VipActivity extends BaseActivity<VipActivity> {
         srl.setEnabled(false);
         // view
         refreshView(null, null);
-        // data
-        refreshData();
     }
 
     @Override
@@ -187,6 +185,8 @@ public class VipActivity extends BaseActivity<VipActivity> {
         String taAvatar = UserHelper.getTaAvatar(me);
         ivAvatarRight.setData(myAvatar, me);
         ivAvatarLeft.setData(taAvatar, ta);
+        // data
+        refreshData();
     }
 
     @Override
@@ -221,7 +221,28 @@ public class VipActivity extends BaseActivity<VipActivity> {
         }
     }
 
-    private void refreshView(VipLimit vipYesLimit, VipLimit vipNoLimit) {
+    private void refreshData() {
+        if (!srl.isRefreshing()) {
+            srl.setRefreshing(true);
+        }
+        Call<Result> api = new RetrofitHelper().call(API.class).moreVipHomeGet();
+        RetrofitHelper.enqueue(api, null, new RetrofitHelper.CallBack() {
+            @Override
+            public void onResponse(int code, String message, Result.Data data) {
+                srl.setRefreshing(false);
+                SPHelper.setVipLimit(data.getVipLimit());
+                refreshView(data.getVipNoLimit(), data.getVipYesLimit());
+            }
+
+            @Override
+            public void onFailure(int code, String message, Result.Data data) {
+                srl.setRefreshing(false);
+            }
+        });
+        pushApi(api);
+    }
+
+    private void refreshView(VipLimit vipNoLimit, VipLimit vipYesLimit) {
         // limit
         llLimit.setVisibility(View.GONE);
         if (vipNoLimit != null) {
@@ -302,27 +323,6 @@ public class VipActivity extends BaseActivity<VipActivity> {
             tvLimitRightMovieImageCount.setText(movieImageCount);
             tvLimitRightPostImageCount.setText(postImageCount);
         }
-    }
-
-    private void refreshData() {
-        if (!srl.isRefreshing()) {
-            srl.setRefreshing(true);
-        }
-        Call<Result> api = new RetrofitHelper().call(API.class).moreVipHomeGet();
-        RetrofitHelper.enqueue(api, null, new RetrofitHelper.CallBack() {
-            @Override
-            public void onResponse(int code, String message, Result.Data data) {
-                srl.setRefreshing(false);
-                SPHelper.setVipLimit(data.getVipLimit());
-                refreshView(data.getVipYesLimit(), data.getVipNoLimit());
-            }
-
-            @Override
-            public void onFailure(int code, String message, Result.Data data) {
-                srl.setRefreshing(false);
-            }
-        });
-        pushApi(api);
     }
 
 }
