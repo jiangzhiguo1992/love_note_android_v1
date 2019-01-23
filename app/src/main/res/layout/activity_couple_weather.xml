@@ -5,7 +5,7 @@
     android:id="@+id/srl"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/shape_gradient_primary_back"
+    android:background="@drawable/shape_gradient_primary_trans"
     tools:context=".controller.activity.couple.CoupleWeatherActivity">
 
     <RelativeLayout
