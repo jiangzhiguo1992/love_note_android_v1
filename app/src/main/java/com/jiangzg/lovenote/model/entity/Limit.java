@@ -60,22 +60,22 @@ public class Limit {
     // more
     private String payVipGoods1Title;
     private int payVipGoods1Days;
-    private String payVipGoods1Amount;
+    private Float payVipGoods1Amount;
     private String payVipGoods2Title;
     private int payVipGoods2Days;
-    private String payVipGoods2Amount;
+    private Float payVipGoods2Amount;
     private String payVipGoods3Title;
     private int payVipGoods3Days;
-    private String payVipGoods3Amount;
+    private Float payVipGoods3Amount;
     private String payCoinGoods1Title;
     private int payCoinGoods1Count;
-    private String payCoinGoods1Amount;
+    private Float payCoinGoods1Amount;
     private String payCoinGoods2Title;
     private int payCoinGoods2Count;
-    private String payCoinGoods2Amount;
+    private Float payCoinGoods2Amount;
     private String payCoinGoods3Title;
     private int payCoinGoods3Count;
-    private String payCoinGoods3Amount;
+    private Float payCoinGoods3Amount;
     private int coinSignMinCount;
     private int coinSignMaxCount;
     private int coinSignIncreaseCount;
@@ -139,11 +139,11 @@ public class Limit {
         this.payCoinGoods1Count = payCoinGoods1Count;
     }
 
-    public String getPayCoinGoods1Amount() {
+    public Float getPayCoinGoods1Amount() {
         return payCoinGoods1Amount;
     }
 
-    public void setPayCoinGoods1Amount(String payCoinGoods1Amount) {
+    public void setPayCoinGoods1Amount(Float payCoinGoods1Amount) {
         this.payCoinGoods1Amount = payCoinGoods1Amount;
     }
 
@@ -163,11 +163,11 @@ public class Limit {
         this.payCoinGoods2Count = payCoinGoods2Count;
     }
 
-    public String getPayCoinGoods2Amount() {
+    public Float getPayCoinGoods2Amount() {
         return payCoinGoods2Amount;
     }
 
-    public void setPayCoinGoods2Amount(String payCoinGoods2Amount) {
+    public void setPayCoinGoods2Amount(Float payCoinGoods2Amount) {
         this.payCoinGoods2Amount = payCoinGoods2Amount;
     }
 
@@ -187,11 +187,11 @@ public class Limit {
         this.payCoinGoods3Count = payCoinGoods3Count;
     }
 
-    public String getPayCoinGoods3Amount() {
+    public Float getPayCoinGoods3Amount() {
         return payCoinGoods3Amount;
     }
 
-    public void setPayCoinGoods3Amount(String payCoinGoods3Amount) {
+    public void setPayCoinGoods3Amount(Float payCoinGoods3Amount) {
         this.payCoinGoods3Amount = payCoinGoods3Amount;
     }
 
@@ -227,11 +227,11 @@ public class Limit {
         this.payVipGoods1Title = payVipGoods1Title;
     }
 
-    public String getPayVipGoods1Amount() {
+    public Float getPayVipGoods1Amount() {
         return payVipGoods1Amount;
     }
 
-    public void setPayVipGoods1Amount(String payVipGoods1Amount) {
+    public void setPayVipGoods1Amount(Float payVipGoods1Amount) {
         this.payVipGoods1Amount = payVipGoods1Amount;
     }
 
@@ -243,11 +243,11 @@ public class Limit {
         this.payVipGoods2Title = payVipGoods2Title;
     }
 
-    public String getPayVipGoods2Amount() {
+    public Float getPayVipGoods2Amount() {
         return payVipGoods2Amount;
     }
 
-    public void setPayVipGoods2Amount(String payVipGoods2Amount) {
+    public void setPayVipGoods2Amount(Float payVipGoods2Amount) {
         this.payVipGoods2Amount = payVipGoods2Amount;
     }
 
@@ -259,11 +259,11 @@ public class Limit {
         this.payVipGoods3Title = payVipGoods3Title;
     }
 
-    public String getPayVipGoods3Amount() {
+    public Float getPayVipGoods3Amount() {
         return payVipGoods3Amount;
     }
 
-    public void setPayVipGoods3Amount(String payVipGoods3Amount) {
+    public void setPayVipGoods3Amount(Float payVipGoods3Amount) {
         this.payVipGoods3Amount = payVipGoods3Amount;
     }
 
