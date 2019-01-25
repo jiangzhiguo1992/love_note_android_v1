@@ -65,6 +65,13 @@ public class HomeWallPagerAdapter extends PagerAdapter {
             Collections.shuffle(data); // 轮播的时候也会随机，这里防止第一张不随机
             ossKeyList.addAll(data);
             notifyDataSetChanged();
+            // 刷新最后一个item，防止先删除，后添加，最后一个还是之前删除的数据
+            int lastPosition = ossKeyList.size() > 1 ? ossKeyList.size() - 1 : 0;
+            FrescoView child = (FrescoView) mPager.getChildAt(lastPosition);
+            if (child != null) {
+                String ossKey = ossKeyList.get(lastPosition);
+                child.setData(ossKey);
+            }
             if (originalSize != ossKeyList.size()) {
                 // 记得设置阔值，要不nextInt会超标
                 mPager.setOffscreenPageLimit(ossKeyList.size());
@@ -146,19 +153,18 @@ public class HomeWallPagerAdapter extends PagerAdapter {
                     // 停止其他pager的动画
                     stopOtherAnimation();
                     // 随机展示
-                    final int nextInt = new Random().nextInt(ossKeyList.size());
-                    int shouldIndex = nextInt;
+                    int nextInt = new Random().nextInt(ossKeyList.size());
                     if (nextInt == mPager.getCurrentItem()) {
                         if (nextInt >= ossKeyList.size() - 1) {
-                            shouldIndex = 0;
+                            nextInt = 0;
                         } else {
-                            shouldIndex = nextInt + 1;
+                            nextInt = nextInt + 1;
                         }
                     }
                     // 不要动画(倒退时，也会有动画)
-                    mPager.setCurrentItem(shouldIndex, false);
+                    mPager.setCurrentItem(nextInt, false);
                     // Animation
-                    View child = mPager.getChildAt(shouldIndex);
+                    View child = mPager.getChildAt(nextInt);
                     if (child != null) {
                         child.startAnimation(getAnimation());
                     } else {
