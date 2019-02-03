@@ -583,6 +583,10 @@ public class HelpActivity extends BaseActivity<HelpActivity> {
         c2.setQuestion(getString(R.string.help_note_whisper_c2_q));
         c2.setAnswer(getString(R.string.help_note_whisper_c2_a));
         contentList.add(c2);
+        Help.HelpContent c3 = new Help.HelpContent();
+        c3.setQuestion(getString(R.string.help_note_whisper_c3_q));
+        c3.setAnswer(getString(R.string.help_note_whisper_c3_a));
+        contentList.add(c3);
         help.setContentList(contentList);
         return help;
     }

@@ -729,8 +729,10 @@
     <string name="help_note_whisper_d">这是一个可以说悄悄话的地方。\n是不是有些话憋在心里难受，说又没地方说？这里就是你发泄的天堂！\n当然了，除了发泄，还有点点情趣呢，发表一句TA想听到的话，然后让TA使劲找吧，hiahiahia~</string>
     <string name="help_note_whisper_c1_q">这里的内容会被别人看到吗？</string>
     <string name="help_note_whisper_c1_a">不会的，整个小本本模块里的内容都只有你和TA可见，包括这里。\n而且就算TA要看也要输对频道才行，是不是很有意思？</string>
-    <string name="help_note_whisper_c2_q">怎么删除？长按也不行！</string>
-    <string name="help_note_whisper_c2_a">我想告诉你的是，这里的东西一旦发布，是不能删除的！\n所以要谨慎啊，要是是怕被TA看到的话，就找个难写的频道发表内容。</string>
+    <string name="help_note_whisper_c2_q">如果不小心忘了频道，该怎么办？</string>
+    <string name="help_note_whisper_c2_a">这个小的们也没辙啊！耳语的特性就是保密再保密，不可能有任何机会获取到已发布内容的频道号。所以，如果是重要的内容，还请大人们铭记频道！</string>
+    <string name="help_note_whisper_c3_q">怎么删除？长按也不行！</string>
+    <string name="help_note_whisper_c3_a">我想告诉你的是，这里的东西一旦发布，是不能删除的！\n所以要谨慎啊，要是是怕被TA看到的话，就找个难写的频道发表内容。</string>
     <string name="help_note_award_d">这是一个奖善罚恶的机制。\n两个人的日常中，难免有人做错事，有人做对事。做错了就要惩罚，做对了就要奖励。\n情侣们可以在这里定制一套自己的规则，按规则来奖励与惩罚，以分数来论英雄。</string>
     <string name="help_note_award_c1_q">怎么使用这个功能啊？</string>
     <string name="help_note_award_c1_a">1.无规矩不成方圆。首先双方可以添加一些规则，用来告诉双方哪些事会触发机制。\n2.一旦触发了规则，就可以添加奖励，每个奖励必须依赖某个规则，不可以乱加哦！\n3.奖励发表的多了，就能看出来谁分高，谁分低了。谁做的好，谁做的不好。</string>

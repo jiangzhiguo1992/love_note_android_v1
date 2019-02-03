@@ -81,6 +81,8 @@
                         android:id="@+id/ivIconLeftDay"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_alignTop="@+id/tvConditionLeft"
+                        android:layout_alignBottom="@+id/tvConditionLeft"
                         android:layout_toStartOf="@+id/tvConditionLeft"
                         android:tint="@color/white"
                         tools:src="@mipmap/w1"/>
@@ -100,6 +102,8 @@
                         android:id="@+id/ivIconLeftNight"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_alignTop="@+id/tvConditionLeft"
+                        android:layout_alignBottom="@+id/tvConditionLeft"
                         android:layout_toEndOf="@id/tvConditionLeft"
                         android:tint="@color/white"
                         tools:src="@mipmap/w1"/>
@@ -176,6 +180,8 @@
                         android:id="@+id/ivIconRightDay"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_alignTop="@+id/tvConditionRight"
+                        android:layout_alignBottom="@+id/tvConditionRight"
                         android:layout_toStartOf="@+id/tvConditionRight"
                         android:tint="@color/white"
                         tools:src="@mipmap/w1"/>
@@ -195,6 +201,8 @@
                         android:id="@+id/ivIconRightNight"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_alignTop="@+id/tvConditionRight"
+                        android:layout_alignBottom="@+id/tvConditionRight"
                         android:layout_toEndOf="@id/tvConditionRight"
                         android:tint="@color/white"
                         tools:src="@mipmap/w1"/>
