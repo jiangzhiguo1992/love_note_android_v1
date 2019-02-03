@@ -9,7 +9,7 @@
 
     <LinearLayout
         android:id="@+id/llTimeLeft"
-        android:layout_width="70dp"
+        android:layout_width="40dp"
         android:layout_height="wrap_content"
         android:layout_alignTop="@+id/rlContent"
         android:layout_alignBottom="@+id/rlContent"
@@ -22,13 +22,12 @@
             android:layout_weight="1"
             android:background="?attr/colorPrimaryDark"/>
 
-        <TextView
-            android:id="@+id/tvCreateAt"
-            style="@style/FontPrimarySmallBold"
-            android:layout_width="match_parent"
+        <ImageView
+            android:id="@+id/ivPink"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            tools:text="2017-12-03"/>
+            android:src="@mipmap/ic_brightness_1_grey_24dp"
+            android:tint="?attr/colorPrimary"/>
 
         <View
             android:layout_width="1dp"
@@ -39,7 +38,7 @@
 
     <LinearLayout
         android:id="@+id/llTimeRight"
-        android:layout_width="70dp"
+        android:layout_width="40dp"
         android:layout_height="wrap_content"
         android:layout_alignTop="@+id/rlContent"
         android:layout_alignBottom="@+id/rlContent"
@@ -87,7 +86,7 @@
         </android.support.v7.widget.CardView>
 
         <TextView
-            android:id="@+id/tvClock"
+            android:id="@+id/tvCreateAt"
             style="@style/FontGreySmall"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
