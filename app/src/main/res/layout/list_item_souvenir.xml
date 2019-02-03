@@ -36,16 +36,24 @@
             android:singleLine="true"
             tools:text="在一起在一起在一起"/>
 
+        <ImageView
+            android:id="@+id/ivTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/tvHappenAt"
+            android:layout_alignBottom="@+id/tvDayCount"
+            android:src="@mipmap/ic_access_time_grey_18dp"/>
+
         <TextView
             android:id="@+id/tvHappenAt"
             style="@style/FontGreySmall"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignBottom="@+id/tvDayCount"
+            android:layout_marginStart="4dp"
             android:layout_marginEnd="10dp"
             android:layout_toStartOf="@+id/tvDayCount"
-            android:drawableStart="@mipmap/ic_access_time_grey_18dp"
-            android:drawablePadding="4dp"
+            android:layout_toEndOf="@+id/ivTime"
             android:ellipsize="end"
             android:gravity="start|center_vertical"
             android:maxLines="1"

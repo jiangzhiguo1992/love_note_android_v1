@@ -10,6 +10,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
@@ -57,6 +58,8 @@ public class SouvenirDetailDoneActivity extends BaseActivity<SouvenirDetailDoneA
     TextView tvHappenAt;
     @BindView(R.id.tvDayCount)
     TextView tvDayCount;
+    @BindView(R.id.rlAddress)
+    RelativeLayout rlAddress;
     @BindView(R.id.tvAddress)
     TextView tvAddress;
     @BindView(R.id.tl)
@@ -140,10 +143,10 @@ public class SouvenirDetailDoneActivity extends BaseActivity<SouvenirDetailDoneA
         return super.onOptionsItemSelected(item);
     }
 
-    @OnClick({R.id.tvAddress})
+    @OnClick({R.id.rlAddress})
     public void onViewClicked(View view) {
         switch (view.getId()) {
-            case R.id.tvAddress:
+            case R.id.rlAddress:
                 if (souvenir == null) return;
                 MapShowActivity.goActivity(mActivity, souvenir.getAddress(), souvenir.getLongitude(), souvenir.getLatitude());
                 break;
@@ -193,9 +196,9 @@ public class SouvenirDetailDoneActivity extends BaseActivity<SouvenirDetailDoneA
         tvDayCount.setText(days);
         // address
         if (StringUtils.isEmpty(souvenir.getAddress())) {
-            tvAddress.setVisibility(View.GONE);
+            rlAddress.setVisibility(View.GONE);
         } else {
-            tvAddress.setVisibility(View.VISIBLE);
+            rlAddress.setVisibility(View.VISIBLE);
             tvAddress.setText(souvenir.getAddress());
         }
         // foreign

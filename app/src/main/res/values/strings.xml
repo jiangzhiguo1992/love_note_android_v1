@@ -719,7 +719,7 @@
     <string name="help_note_sleep_c2_a">目前只有这些，但鱼笙还在成长中，我们会开发越来越多的记录形式，包括但不仅限于作息安排，闹钟等数据的记录。敬请期待！</string>
     <string name="help_note_souvenir_d">纪念日，最值得被记录的日子。可以关联每年当日发生的事哦。\n每年的纪念日当天，记得过来看看，有彩蛋哟！</string>
     <string name="help_note_souvenir_c1_q">纪念日和愿望清单有什么区别？</string>
-    <string name="help_note_souvenir_c1_a">当然有了，一个是已经实现的，一个是还没有实现的。\n两种数据的展现方式也不一样，纪念日可以关联每年当天所发生的事，愿望清单就不行了。\n还有一点，纪念日双方都可以看到，愿望清单只能看到自己发表的。毕竟总有一些不可告人的愿望！</string>
+    <string name="help_note_souvenir_c1_a">当然有了，一个是已经实现的，一个是还没有实现的。\n两种数据的展现方式也不一样，纪念日可以关联每年当天所发生的事，愿望清单就不行了。</string>
     <string name="help_note_souvenir_c2_q">为什么发表的时候，提示我时间不对？</string>
     <string name="help_note_souvenir_c2_a">记住，纪念日选择的时间必须小于现在，大于你的生日。如果想记录TA的生日，但TA的生日比你早的话，还是请TA来发表吧。\n愿望清单的话，时间必须大于现在，然后没有了。</string>
     <string name="help_note_souvenir_c3_q">纪念日的关联数据，每年能关联几个同类型数据？</string>

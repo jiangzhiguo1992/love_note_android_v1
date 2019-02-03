@@ -159,19 +159,32 @@
             android:visibility="gone"
             tools:visibility="visible"/>
 
-        <TextView
-            android:id="@+id/tvEdit"
-            style="@style/FontGreySmall"
-            android:layout_width="wrap_content"
+        <RelativeLayout
+            android:id="@+id/rlEdit"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="?attr/selectableItemBackground"
-            android:drawableStart="@mipmap/ic_edit_grey_18dp"
-            android:drawablePadding="10dp"
             android:foreground="?attr/selectableItemBackground"
-            android:gravity="center"
             android:padding="20dp"
-            android:text="@string/click_me_edit"
             android:visibility="gone"
-            tools:visibility="visible"/>
+            tools:visibility="visible">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@id/tvEdit"
+                android:layout_alignBottom="@id/tvEdit"
+                android:layout_marginEnd="5dp"
+                android:layout_toStartOf="@+id/tvEdit"
+                android:src="@mipmap/ic_edit_grey_18dp"/>
+
+            <TextView
+                android:id="@+id/tvEdit"
+                style="@style/FontGreySmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="@string/click_me_edit"/>
+        </RelativeLayout>
     </LinearLayout>
 </android.support.v4.widget.NestedScrollView>

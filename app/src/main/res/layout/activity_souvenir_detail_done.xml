@@ -23,7 +23,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/shape_gradient_primary_trans"
+                android:background="?attr/colorPrimary"
                 android:gravity="center_horizontal"
                 android:orientation="vertical">
 
@@ -33,77 +33,106 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="20dp"
                     android:layout_marginEnd="10dp"
-                    android:layout_marginBottom="15dp"
+                    android:layout_marginBottom="20dp"
                     android:gravity="center"
                     android:textSize="30sp"
                     tools:text="在一起在一起在一起"/>
-
-                <TextView
-                    android:id="@+id/tvAddress"
-                    style="@style/FontWhiteNormal"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginEnd="10dp"
-                    android:layout_marginBottom="10dp"
-                    android:background="?attr/selectableItemBackground"
-                    android:drawableStart="@mipmap/ic_location_on_white_18dp"
-                    android:drawablePadding="6dp"
-                    android:foreground="?attr/selectableItemBackground"
-                    android:gravity="center"
-                    android:padding="5dp"
-                    android:textColor="@color/white_alpha_75"
-                    android:visibility="gone"
-                    tools:text="北京市 房山区 西坪小学 5号楼 二年级 3班"
-                    tools:visibility="visible"/>
 
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
+                    android:layout_marginTop="20dp"
                     android:layout_marginEnd="10dp"
                     android:layout_marginBottom="20dp">
 
-                    <TextView
-                        android:id="@+id/tvHappenAt"
-                        style="@style/FontWhiteNormalBold"
-                        android:layout_width="wrap_content"
+                    <RelativeLayout
+                        android:id="@+id/rlAddress"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:drawableStart="@mipmap/ic_access_time_white_18dp"
-                        android:drawablePadding="5dp"
-                        android:ellipsize="end"
-                        android:gravity="center"
-                        android:maxLines="1"
-                        android:singleLine="true"
-                        tools:text="2017年12月31日 51:53"/>
+                        android:layout_alignTop="@+id/tvDayCount"
+                        android:layout_marginEnd="10dp"
+                        android:layout_toStartOf="@+id/tvDayCount"
+                        android:background="?attr/selectableItemBackground"
+                        android:foreground="?attr/selectableItemBackground"
+                        android:visibility="gone"
+                        tools:visibility="visible">
+
+                        <ImageView
+                            android:id="@+id/ivAddress"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignTop="@+id/tvAddress"
+                            android:layout_alignBottom="@id/tvAddress"
+                            android:src="@mipmap/ic_location_on_white_18dp"/>
+
+                        <TextView
+                            android:id="@+id/tvAddress"
+                            style="@style/FontWhiteNormalBold"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:layout_marginStart="5dp"
+                            android:layout_toEndOf="@+id/ivAddress"
+                            android:ellipsize="middle"
+                            android:gravity="center"
+                            android:singleLine="true"
+                            tools:text="北京市 房山区 西坪小学 5号楼 二年级 3班"/>
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignBottom="@id/tvDayCount"
+                        android:layout_toStartOf="@+id/tvDayCount">
+
+                        <ImageView
+                            android:id="@+id/ivHappenAt"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignTop="@+id/tvHappenAt"
+                            android:layout_alignBottom="@id/tvHappenAt"
+                            android:src="@mipmap/ic_access_time_white_18dp"/>
+
+                        <TextView
+                            android:id="@+id/tvHappenAt"
+                            style="@style/FontWhiteNormalBold"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="5dp"
+                            android:layout_toEndOf="@+id/ivHappenAt"
+                            android:ellipsize="end"
+                            android:gravity="start|center_vertical"
+                            android:maxLines="1"
+                            android:singleLine="true"
+                            tools:text="2017年12月31日 51:53"/>
+                    </RelativeLayout>
 
                     <TextView
                         android:id="@+id/tvDayCount"
-                        style="@style/FontWhiteNormalBold"
+                        style="@style/FontWhiteHugeBold"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentEnd="true"
                         android:layout_centerVertical="true"
-                        android:drawableEnd="@mipmap/ic_date_range_white_18dp"
-                        android:drawablePadding="5dp"
                         android:gravity="center"
-                        tools:text="13650天"/>
+                        android:textSize="40sp"
+                        tools:text="+1365"/>
                 </RelativeLayout>
-
-                <android.support.design.widget.TabLayout
-                    android:id="@+id/tl"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:tabIndicatorColor="?attr/colorPrimaryDark"
-                    app:tabIndicatorHeight="2dp"
-                    app:tabMode="scrollable"
-                    app:tabSelectedTextColor="?attr/colorPrimaryDark"
-                    app:tabTextAppearance="@style/FontPrimaryNormal"
-                    app:tabTextColor="?attr/colorPrimary"/>
             </LinearLayout>
+
+            <android.support.design.widget.TabLayout
+                android:id="@+id/tl"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:tabIndicatorColor="?attr/colorPrimaryDark"
+                app:tabIndicatorHeight="2dp"
+                app:tabMode="scrollable"
+                app:tabSelectedTextColor="?attr/colorPrimaryDark"
+                app:tabTextAppearance="@style/FontPrimaryNormal"
+                app:tabTextColor="?attr/colorPrimary"/>
 
             <android.support.v4.view.ViewPager
                 android:id="@+id/vpFragment"
