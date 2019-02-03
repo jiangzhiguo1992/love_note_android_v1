@@ -33,8 +33,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
-                android:drawableStart="@mipmap/ic_access_time_grey_18dp"
-                android:drawablePadding="5dp"
                 android:gravity="center"
                 android:maxLines="1"
                 android:singleLine="true"
@@ -44,6 +42,8 @@
                 android:id="@+id/ivAvatar"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
+                android:layout_alignTop="@+id/tvTime"
+                android:layout_alignBottom="@+id/tvTime"
                 android:layout_alignParentEnd="true"
                 tools:background="@mipmap/ic_account_circle_grey_48dp"/>
         </RelativeLayout>

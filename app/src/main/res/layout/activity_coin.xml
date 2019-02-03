@@ -61,6 +61,7 @@
                         style="@style/FontWhiteSmall"
                         android:layout_width="wrap_content"
                         android:layout_height="30dp"
+                        android:layout_marginBottom="5dp"
                         android:background="@drawable/selector_enable_press_solid_light_primary_dark_r100"
                         android:text="@string/go_to_buy"
                         android:visibility="gone"
