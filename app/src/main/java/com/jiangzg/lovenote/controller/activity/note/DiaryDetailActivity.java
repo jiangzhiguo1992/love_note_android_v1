@@ -179,7 +179,7 @@ public class DiaryDetailActivity extends BaseActivity<DiaryDetailActivity> {
         List<String> imageList = diary.getContentImageList();
         if (imageList != null && imageList.size() > 0) {
             rv.setVisibility(View.VISIBLE);
-            int spanCount = imageList.size() > 3 ? 3 : imageList.size();
+            int spanCount = 3;
             if (recyclerHelper == null) {
                 recyclerHelper = new RecyclerHelper(rv)
                         .initLayoutManager(new GridLayoutManager(mActivity, spanCount))
