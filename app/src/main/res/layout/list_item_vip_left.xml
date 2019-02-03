@@ -31,8 +31,6 @@
                 android:id="@+id/ivAvatar"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
-                android:layout_alignTop="@+id/tvTime"
-                android:layout_alignBottom="@+id/tvTime"
                 android:layout_alignParentStart="true"
                 tools:background="@mipmap/ic_account_circle_grey_48dp"/>
 
