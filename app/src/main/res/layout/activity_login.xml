@@ -181,4 +181,13 @@
         android:layout_marginEnd="30dp"
         android:background="?attr/selectableItemBackgroundBorderless"
         android:text="@string/register"/>
+
+    <TextView
+        style="@style/FontBlackSmall"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginBottom="20dp"
+        android:layout_weight="1"
+        android:gravity="bottom|center_horizontal"
+        android:text="@string/login_register_agree_protocol"/>
 </LinearLayout>

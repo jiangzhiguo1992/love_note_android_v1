@@ -326,7 +326,7 @@
     <string name="forget_pwd">忘记密码</string>
     <string name="loading_logging">正在登录…</string>
     <string name="user_protocol">用户协议</string>
-    <string name="please_check_agree_protocol">请勾选下方的同意用户协议</string>
+    <string name="login_register_agree_protocol">登录/注册，表示同意用户协议(页面右上角查看)</string>
     <string name="twice_pwd_no_equals">两次密码输入不一致</string>
     <string name="user_info">用户信息</string>
     <string name="please_select_sex">请选择性别</string>
