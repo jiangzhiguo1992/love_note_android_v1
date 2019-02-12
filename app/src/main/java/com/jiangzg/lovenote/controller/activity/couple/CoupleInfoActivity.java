@@ -134,7 +134,7 @@ public class CoupleInfoActivity extends BaseActivity<CoupleInfoActivity> {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.break_help, menu);
+        getMenuInflater().inflate(R.menu.help_break, menu);
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -147,7 +147,7 @@ public class CoupleInfoActivity extends BaseActivity<CoupleInfoActivity> {
             if (UserHelper.isCoupleBreaking(couple) && couple.getState().getUserId() == me.getId()) {
                 getMenuInflater().inflate(R.menu.complex_help, menu);
             } else {
-                getMenuInflater().inflate(R.menu.break_help, menu);
+                getMenuInflater().inflate(R.menu.help_break, menu);
             }
         }
         return super.onPrepareOptionsMenu(menu);
@@ -179,14 +179,14 @@ public class CoupleInfoActivity extends BaseActivity<CoupleInfoActivity> {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
+            case R.id.menuHelp: // 帮助
+                HelpActivity.goActivity(mActivity, HelpActivity.INDEX_COUPLE_INFO);
+                return true;
             case R.id.menuBreak: // 解散
                 showBreakDialog();
                 return true;
             case R.id.menuComplex: // 复合
                 coupleStatus(ApiHelper.COUPLE_UPDATE_GOOD);
-                return true;
-            case R.id.menuHelp: // 帮助
-                HelpActivity.goActivity(mActivity, HelpActivity.INDEX_COUPLE_INFO);
                 return true;
         }
         return super.onOptionsItemSelected(item);
