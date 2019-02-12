@@ -111,7 +111,7 @@ public class PromiseDetailActivity extends BaseActivity<PromiseDetailActivity> {
         // recycler
         recyclerHelper = new RecyclerHelper(rv)
                 .initLayoutManager(new LinearLayoutManager(mActivity))
-                .initRefresh(srl, false)
+                .initRefresh(srl, true)
                 .initAdapter(new PromiseBreakAdapter(mActivity))
                 .viewHeader(mActivity, R.layout.list_head_promise_break)
                 .viewEmpty(mActivity, R.layout.list_empty_grey, true, true)

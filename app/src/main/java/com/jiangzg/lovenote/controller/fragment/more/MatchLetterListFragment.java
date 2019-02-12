@@ -49,7 +49,7 @@ public class MatchLetterListFragment extends BasePagerFragment<MatchLetterListFr
         // recycler
         recyclerHelper = new RecyclerHelper(rv)
                 .initLayoutManager(new LinearLayoutManager(mActivity))
-                .initRefresh(srl, false)
+                .initRefresh(srl, true)
                 .initAdapter(new MatchLetterAdapter(mActivity))
                 .viewEmpty(mActivity, R.layout.list_empty_grey, true, true)
                 .viewLoadMore(new RecyclerHelper.MoreGreyView())

@@ -99,7 +99,7 @@ public class DiaryListActivity extends BaseActivity<DiaryListActivity> {
         // recycler
         recyclerHelper = new RecyclerHelper(rv)
                 .initLayoutManager(new LinearLayoutManager(mActivity))
-                .initRefresh(srl, false)
+                .initRefresh(srl, true)
                 .initAdapter(new DiaryAdapter(mActivity))
                 .viewEmpty(mActivity, R.layout.list_empty_grey, true, true)
                 .viewLoadMore(new RecyclerHelper.MoreGreyView())

@@ -125,7 +125,7 @@ public class PictureListActivity extends BaseActivity<PictureListActivity> {
         // recycler
         recyclerHelper = new RecyclerHelper(rv)
                 .initLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL))
-                .initRefresh(srl, false)
+                .initRefresh(srl, true)
                 .initAdapter(new PictureAdapter(mActivity))
                 .viewEmpty(mActivity, R.layout.list_empty_grey, true, true)
                 .viewLoadMore(new RecyclerHelper.MoreGreyView())

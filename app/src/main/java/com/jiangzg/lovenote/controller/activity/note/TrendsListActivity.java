@@ -65,7 +65,7 @@ public class TrendsListActivity extends BaseActivity<TrendsListActivity> {
         // recycler
         recyclerHelper = new RecyclerHelper(rv)
                 .initLayoutManager(new LinearLayoutManager(mActivity))
-                .initRefresh(srl, false)
+                .initRefresh(srl, true)
                 .initAdapter(new TrendsAdapter(mActivity))
                 .viewEmpty(mActivity, R.layout.list_empty_grey, true, true)
                 .viewLoadMore(new RecyclerHelper.MoreGreyView())

@@ -50,7 +50,7 @@ public class MatchWifeListFragment extends BasePagerFragment<MatchWifeListFragme
         // recycler
         recyclerHelper = new RecyclerHelper(rv)
                 .initLayoutManager(new GridLayoutManager(mActivity, 2))
-                .initRefresh(srl, false)
+                .initRefresh(srl, true)
                 .initAdapter(new MatchWifeAdapter(mActivity))
                 .viewEmpty(mActivity, R.layout.list_empty_grey, true, true)
                 .viewLoadMore(new RecyclerHelper.MoreGreyView())
