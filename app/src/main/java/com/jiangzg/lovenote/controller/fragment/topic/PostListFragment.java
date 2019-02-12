@@ -42,7 +42,7 @@ public class PostListFragment extends BasePagerFragment<PostListFragment> {
     private RecyclerHelper recyclerHelper;
     private long create;
     private boolean official, well;
-    private int page;
+    private int page = 0;
 
     public static PostListFragment newFragment(PostKindInfo kindInfo, PostSubKindInfo subKindInfo) {
         Bundle bundle = new Bundle();
@@ -81,7 +81,6 @@ public class PostListFragment extends BasePagerFragment<PostListFragment> {
 
     @Override
     protected void loadData() {
-        page = 0;
         official = false;
         well = false;
         // event

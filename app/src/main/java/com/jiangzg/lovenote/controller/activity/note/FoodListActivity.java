@@ -50,7 +50,7 @@ public class FoodListActivity extends BaseActivity<FoodListActivity> {
     FloatingActionButton fabAdd;
 
     private RecyclerHelper recyclerHelper;
-    private int page;
+    private int page = 0;
 
     public static void goActivity(Activity from) {
         Intent intent = new Intent(from, FoodListActivity.class);
@@ -129,7 +129,6 @@ public class FoodListActivity extends BaseActivity<FoodListActivity> {
 
     @Override
     protected void initData(Intent intent, Bundle state) {
-        page = 0;
         // event
         Observable<List<Food>> obListRefresh = RxBus.register(RxBus.EVENT_FOOD_LIST_REFRESH, foodList -> {
             if (recyclerHelper == null) return;

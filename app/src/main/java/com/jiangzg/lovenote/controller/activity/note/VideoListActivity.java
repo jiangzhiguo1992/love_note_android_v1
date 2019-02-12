@@ -49,7 +49,7 @@ public class VideoListActivity extends BaseActivity<VideoListActivity> {
     FloatingActionButton fabAdd;
 
     private RecyclerHelper recyclerHelper;
-    private int page;
+    private int page = 0;
 
     public static void goActivity(Activity from) {
         Intent intent = new Intent(from, VideoListActivity.class);
@@ -129,7 +129,6 @@ public class VideoListActivity extends BaseActivity<VideoListActivity> {
 
     @Override
     protected void initData(Intent intent, Bundle state) {
-        page = 0;
         // event
         Observable<List<Video>> obListRefresh = RxBus.register(RxBus.EVENT_VIDEO_LIST_REFRESH, videoList -> {
             if (recyclerHelper == null) return;

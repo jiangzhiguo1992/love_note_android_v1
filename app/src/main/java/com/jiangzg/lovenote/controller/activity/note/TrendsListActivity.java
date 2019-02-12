@@ -38,7 +38,7 @@ public class TrendsListActivity extends BaseActivity<TrendsListActivity> {
 
     private RecyclerHelper recyclerHelper;
     private long createAt;
-    private int page;
+    private int page = 0;
 
     public static void goActivity(Fragment from) {
         Intent intent = new Intent(from.getActivity(), TrendsListActivity.class);
@@ -88,7 +88,6 @@ public class TrendsListActivity extends BaseActivity<TrendsListActivity> {
     @Override
     protected void initData(Intent intent, Bundle state) {
         createAt = TimeHelper.getGoTimeByJava(DateUtils.getCurrentLong());
-        page = 0;
         // refresh
         recyclerHelper.dataRefresh();
     }

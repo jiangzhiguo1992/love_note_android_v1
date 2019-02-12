@@ -85,7 +85,7 @@ public class SuggestDetailActivity extends BaseActivity<SuggestDetailActivity> {
     private Suggest suggest;
     private RecyclerHelper recyclerHelper;
     private BottomSheetBehavior behaviorComment;
-    private int page, limitCommentContentLength;
+    private int page = 0, limitCommentContentLength;
 
     public static void goActivity(Activity from, Suggest suggest) {
         Intent intent = new Intent(from, SuggestDetailActivity.class);
@@ -146,7 +146,6 @@ public class SuggestDetailActivity extends BaseActivity<SuggestDetailActivity> {
 
     @Override
     protected void initData(Intent intent, Bundle state) {
-        page = 0;
         // event
         Observable<Suggest> obDetailRefresh = RxBus.register(RxBus.EVENT_SUGGEST_DETAIL_REFRESH, suggest -> refreshSuggest());
         pushBus(RxBus.EVENT_SUGGEST_DETAIL_REFRESH, obDetailRefresh);

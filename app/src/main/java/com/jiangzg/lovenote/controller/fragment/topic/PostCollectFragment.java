@@ -35,7 +35,7 @@ public class PostCollectFragment extends BasePagerFragment<PostCollectFragment> 
 
     private boolean me;
     private RecyclerHelper recyclerHelper;
-    private int page;
+    private int page = 0;
 
     public static PostCollectFragment newFragment(boolean me) {
         Bundle bundle = new Bundle();
@@ -79,7 +79,6 @@ public class PostCollectFragment extends BasePagerFragment<PostCollectFragment> 
 
     @Override
     protected void loadData() {
-        page = 0;
         // event
         Observable<Post> obListItemDelete = RxBus.register(RxBus.EVENT_POST_LIST_ITEM_DELETE, post -> {
             if (recyclerHelper == null) return;

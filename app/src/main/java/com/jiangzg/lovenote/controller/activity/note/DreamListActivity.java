@@ -57,7 +57,7 @@ public class DreamListActivity extends BaseActivity<DreamListActivity> {
     LinearLayout llAdd;
 
     private RecyclerHelper recyclerHelper;
-    private int page;
+    private int page = 0;
     private int searchIndex;
 
     public static void goActivity(Activity from) {
@@ -106,7 +106,6 @@ public class DreamListActivity extends BaseActivity<DreamListActivity> {
 
     @Override
     protected void initData(Intent intent, Bundle state) {
-        page = 0;
         // event
         Observable<List<Dream>> obListRefresh = RxBus.register(RxBus.EVENT_DREAM_LIST_REFRESH, dreamList -> {
             if (recyclerHelper == null) return;

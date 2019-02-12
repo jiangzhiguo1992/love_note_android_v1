@@ -80,7 +80,7 @@ public class PromiseDetailActivity extends BaseActivity<PromiseDetailActivity> {
     private Promise promise;
     private RecyclerHelper recyclerHelper;
     private BottomSheetBehavior behaviorBreak;
-    private int page;
+    private int page = 0;
     private int limitBreakContentLength;
     private long breakHappen;
 
@@ -151,7 +151,6 @@ public class PromiseDetailActivity extends BaseActivity<PromiseDetailActivity> {
 
     @Override
     protected void initData(Intent intent, Bundle state) {
-        page = 0;
         // event
         Observable<Promise> obDetailRefresh = RxBus.register(RxBus.EVENT_PROMISE_DETAIL_REFRESH, promise -> {
             if (PromiseDetailActivity.this.promise == null) return;

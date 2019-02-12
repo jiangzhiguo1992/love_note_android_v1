@@ -55,7 +55,7 @@ public class CoinActivity extends BaseActivity<CoinActivity> {
 
     private Coin coin;
     private RecyclerHelper recyclerHelper;
-    private int page;
+    private int page = 0;
 
     public static void goActivity(Fragment from) {
         if (UserHelper.isCoupleBreak(SPHelper.getCouple())) {
@@ -97,7 +97,6 @@ public class CoinActivity extends BaseActivity<CoinActivity> {
 
     @Override
     protected void initData(Intent intent, Bundle state) {
-        page = 0;
         // event
         Observable<Coin> bus = RxBus.register(RxBus.EVENT_COIN_INFO_REFRESH, coin -> {
             refreshData();

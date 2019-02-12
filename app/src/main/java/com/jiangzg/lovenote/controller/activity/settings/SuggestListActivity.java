@@ -45,7 +45,7 @@ public class SuggestListActivity extends BaseActivity<SuggestListActivity> {
 
     private int entry;
     private RecyclerHelper recyclerHelper;
-    private int page;
+    private int page = 0;
 
     public static void goActivity(Activity from, int entry) {
         Intent intent = new Intent(from, SuggestListActivity.class);
@@ -83,7 +83,6 @@ public class SuggestListActivity extends BaseActivity<SuggestListActivity> {
 
     @Override
     protected void initData(Intent intent, Bundle state) {
-        page = 0;
         // tb
         entry = intent.getIntExtra("entry", ENTRY_MINE);
         if (entry == ENTRY_FOLLOW) {

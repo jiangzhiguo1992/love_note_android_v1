@@ -51,7 +51,7 @@ public class AlbumListActivity extends BaseActivity<AlbumListActivity> {
     FloatingActionButton fabAdd;
 
     private RecyclerHelper recyclerHelper;
-    private int page;
+    private int page = 0;
 
     public static void goActivity(Activity from) {
         Intent intent = new Intent(from, AlbumListActivity.class);
@@ -164,7 +164,6 @@ public class AlbumListActivity extends BaseActivity<AlbumListActivity> {
 
     @Override
     protected void initData(Intent intent, Bundle state) {
-        page = 0;
         // event
         Observable<List<Album>> busListRefresh = RxBus.register(RxBus.EVENT_ALBUM_LIST_REFRESH, albumList -> {
             if (recyclerHelper == null) return;

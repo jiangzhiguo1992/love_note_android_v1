@@ -33,7 +33,7 @@ public class MatchWifeListFragment extends BasePagerFragment<MatchWifeListFragme
     RecyclerView rv;
 
     private RecyclerHelper recyclerHelper;
-    private int page;
+    private int page = 0;
 
     public static MatchWifeListFragment newFragment() {
         Bundle bundle = new Bundle();
@@ -90,7 +90,6 @@ public class MatchWifeListFragment extends BasePagerFragment<MatchWifeListFragme
 
     @Override
     protected void loadData() {
-        page = 0;
         // refresh
         recyclerHelper.dataRefresh();
     }

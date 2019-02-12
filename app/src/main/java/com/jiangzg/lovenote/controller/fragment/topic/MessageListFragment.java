@@ -31,7 +31,7 @@ public class MessageListFragment extends BasePagerFragment<MessageListFragment> 
 
     private int kind;
     private RecyclerHelper recyclerHelper;
-    private int page;
+    private int page = 0;
 
     public static MessageListFragment newFragment(int kind) {
         Bundle bundle = new Bundle();
@@ -68,7 +68,6 @@ public class MessageListFragment extends BasePagerFragment<MessageListFragment> 
 
     @Override
     protected void loadData() {
-        page = 0;
         // refresh
         recyclerHelper.dataRefresh();
     }

@@ -57,7 +57,7 @@ public class PromiseListActivity extends BaseActivity<PromiseListActivity> {
     LinearLayout llAdd;
 
     private RecyclerHelper recyclerHelper;
-    private int page;
+    private int page = 0;
     private int searchIndex;
 
     public static void goActivity(Activity from) {
@@ -125,7 +125,6 @@ public class PromiseListActivity extends BaseActivity<PromiseListActivity> {
 
     @Override
     protected void initData(Intent intent, Bundle state) {
-        page = 0;
         // event
         Observable<List<Promise>> obListRefresh = RxBus.register(RxBus.EVENT_PROMISE_LIST_REFRESH, promiseList -> {
             if (recyclerHelper == null) return;

@@ -47,7 +47,7 @@ public class AwardRuleListActivity extends BaseActivity<AwardRuleListActivity> {
     FloatingActionButton fabAdd;
 
     private RecyclerHelper recyclerHelper;
-    private int page;
+    private int page = 0;
 
     public static void goActivity(Activity from) {
         Intent intent = new Intent(from, AwardRuleListActivity.class);
@@ -108,7 +108,6 @@ public class AwardRuleListActivity extends BaseActivity<AwardRuleListActivity> {
 
     @Override
     protected void initData(Intent intent, Bundle state) {
-        page = 0;
         // event
         Observable<List<AwardRule>> obListRefresh = RxBus.register(RxBus.EVENT_AWARD_RULE_LIST_REFRESH, awardRuleList -> {
             if (recyclerHelper == null) return;

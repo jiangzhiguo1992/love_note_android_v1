@@ -36,7 +36,7 @@ public class NoticeListActivity extends BaseActivity<NoticeListActivity> {
     RecyclerView rv;
 
     private RecyclerHelper recyclerHelper;
-    private int page;
+    private int page = 0;
 
     public static void goActivity(Activity from) {
         Intent intent = new Intent(from, NoticeListActivity.class);
@@ -74,7 +74,6 @@ public class NoticeListActivity extends BaseActivity<NoticeListActivity> {
 
     @Override
     protected void initData(Intent intent, Bundle state) {
-        page = 0;
         recyclerHelper.dataRefresh();
     }
 

@@ -33,7 +33,7 @@ public class PostMineFragment extends BaseFragment<PostMineFragment> {
     RecyclerView rv;
 
     private RecyclerHelper recyclerHelper;
-    private int page;
+    private int page = 0;
 
     public static PostMineFragment newFragment() {
         Bundle bundle = new Bundle();
@@ -68,7 +68,6 @@ public class PostMineFragment extends BaseFragment<PostMineFragment> {
 
     @Override
     protected void initData(Bundle state) {
-        page = 0;
         // event
         Observable<Post> obListItemDelete = RxBus.register(RxBus.EVENT_POST_LIST_ITEM_DELETE, post -> {
             if (recyclerHelper == null) return;

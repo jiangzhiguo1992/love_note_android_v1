@@ -50,7 +50,7 @@ public class MovieListActivity extends BaseActivity<MovieListActivity> {
     FloatingActionButton fabAdd;
 
     private RecyclerHelper recyclerHelper;
-    private int page;
+    private int page = 0;
 
     public static void goActivity(Activity from) {
         Intent intent = new Intent(from, MovieListActivity.class);
@@ -129,7 +129,6 @@ public class MovieListActivity extends BaseActivity<MovieListActivity> {
 
     @Override
     protected void initData(Intent intent, Bundle state) {
-        page = 0;
         // event
         Observable<List<Movie>> obListRefresh = RxBus.register(RxBus.EVENT_MOVIE_LIST_REFRESH, movieList -> {
             if (recyclerHelper == null) return;

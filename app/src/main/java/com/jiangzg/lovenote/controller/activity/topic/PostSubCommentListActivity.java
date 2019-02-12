@@ -88,7 +88,7 @@ public class PostSubCommentListActivity extends BaseActivity<PostSubCommentListA
     private PostComment postComment;
     private RecyclerHelper recyclerHelper;
     private BottomSheetBehavior behaviorComment;
-    private int page, orderIndex, limitCommentContentLength;
+    private int page = 0, orderIndex, limitCommentContentLength;
 
     public static void goActivity(Activity from, PostComment postComment) {
         if (postComment == null) return;
@@ -176,7 +176,6 @@ public class PostSubCommentListActivity extends BaseActivity<PostSubCommentListA
 
     @Override
     protected void initData(Intent intent, Bundle state) {
-        page = 0;
         orderIndex = 0;
         // event
         Observable<Long> obPostCommentDetail = RxBus.register(RxBus.EVENT_POST_COMMENT_DETAIL_REFRESH, pcid -> refreshPostComment(pcid, false));

@@ -74,7 +74,7 @@ public class MatchWifeListActivity extends BaseActivity<MatchWifeListActivity> {
     private MatchPeriod period;
     private boolean showNew;
     private RecyclerHelper recyclerHelper;
-    private int page;
+    private int page = 0;
     private int orderIndex;
 
     public static void goActivity(Fragment from, MatchPeriod period) {
@@ -148,7 +148,6 @@ public class MatchWifeListActivity extends BaseActivity<MatchWifeListActivity> {
 
     @Override
     protected void initData(Intent intent, Bundle state) {
-        page = 0;
         period = intent.getParcelableExtra("period");
         showNew = intent.getBooleanExtra("showNew", false);
         // head

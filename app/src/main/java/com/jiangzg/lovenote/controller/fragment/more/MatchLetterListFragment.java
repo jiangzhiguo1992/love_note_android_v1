@@ -32,7 +32,7 @@ public class MatchLetterListFragment extends BasePagerFragment<MatchLetterListFr
     RecyclerView rv;
 
     private RecyclerHelper recyclerHelper;
-    private int page;
+    private int page = 0;
 
     public static MatchLetterListFragment newFragment() {
         Bundle bundle = new Bundle();
@@ -82,7 +82,6 @@ public class MatchLetterListFragment extends BasePagerFragment<MatchLetterListFr
 
     @Override
     protected void loadData() {
-        page = 0;
         // refresh
         recyclerHelper.dataRefresh();
     }

@@ -83,7 +83,7 @@ public class PictureListActivity extends BaseActivity<PictureListActivity> {
 
     private Album album;
     private RecyclerHelper recyclerHelper;
-    private int page;
+    private int page = 0;
 
     public static void goActivity(Activity from, long albumId) {
         Intent intent = new Intent(from, PictureListActivity.class);
@@ -199,7 +199,6 @@ public class PictureListActivity extends BaseActivity<PictureListActivity> {
 
     @Override
     protected void initData(Intent intent, Bundle state) {
-        page = 0;
         // event
         Observable<Album> obAlbumRefresh = RxBus.register(RxBus.EVENT_ALBUM_DETAIL_REFRESH, a -> {
             if (album == null) return;

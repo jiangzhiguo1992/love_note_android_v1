@@ -30,7 +30,7 @@ public class MatchPeriodListFragment extends BasePagerFragment<MatchPeriodListFr
 
     private int kind;
     private RecyclerHelper recyclerHelper;
-    private int page;
+    private int page = 0;
 
     public static MatchPeriodListFragment newFragment(int kind) {
         Bundle bundle = new Bundle();
@@ -67,7 +67,6 @@ public class MatchPeriodListFragment extends BasePagerFragment<MatchPeriodListFr
 
     @Override
     protected void loadData() {
-        page = 0;
         // refresh
         recyclerHelper.dataRefresh();
     }

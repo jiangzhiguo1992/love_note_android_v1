@@ -79,7 +79,7 @@ public class WhisperListActivity extends BaseActivity<WhisperListActivity> {
     private int limitChannelLength;
     private RecyclerHelper recyclerHelper;
     private BottomSheetBehavior behaviorComment;
-    private int page, limitContentLength;
+    private int page = 0, limitContentLength;
 
     public static void goActivity(Activity from) {
         Intent intent = new Intent(from, WhisperListActivity.class);
@@ -153,7 +153,6 @@ public class WhisperListActivity extends BaseActivity<WhisperListActivity> {
     @Override
     protected void initData(Intent intent, Bundle state) {
         channel = "";
-        page = 0;
         recyclerHelper.dataRefresh();
     }
 

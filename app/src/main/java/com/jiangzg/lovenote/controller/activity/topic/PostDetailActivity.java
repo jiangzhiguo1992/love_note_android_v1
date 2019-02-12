@@ -115,7 +115,7 @@ public class PostDetailActivity extends BaseActivity<PostDetailActivity> {
     private Post post;
     private RecyclerHelper recyclerHelper;
     private BottomSheetBehavior behaviorComment;
-    private int page, orderIndex, limitCommentContentLength;
+    private int page = 0, orderIndex, limitCommentContentLength;
     private long searchUserId;
 
     public static void goActivity(Activity from, Post post) {
@@ -221,7 +221,6 @@ public class PostDetailActivity extends BaseActivity<PostDetailActivity> {
 
     @Override
     protected void initData(Intent intent, Bundle state) {
-        page = 0;
         orderIndex = 0;
         searchUserId = 0;
         // event

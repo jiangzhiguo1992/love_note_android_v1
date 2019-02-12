@@ -37,7 +37,7 @@ public class SouvenirListFragment extends BasePagerFragment<SouvenirListFragment
 
     private boolean done;
     private RecyclerHelper recyclerHelper;
-    private int page;
+    private int page = 0;
 
     public static SouvenirListFragment newFragment(boolean done) {
         Bundle bundle = new Bundle();
@@ -73,7 +73,6 @@ public class SouvenirListFragment extends BasePagerFragment<SouvenirListFragment
 
     @Override
     protected void loadData() {
-        page = 0;
         // event
         Observable<List<Souvenir>> obListRefresh = RxBus.register(RxBus.EVENT_SOUVENIR_LIST_REFRESH, souvenirList -> {
             if (recyclerHelper == null) return;

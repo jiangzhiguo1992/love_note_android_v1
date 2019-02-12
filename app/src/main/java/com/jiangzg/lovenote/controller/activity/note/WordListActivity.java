@@ -57,7 +57,7 @@ public class WordListActivity extends BaseActivity<WordListActivity> {
 
     private RecyclerHelper recyclerHelper;
     private int limitContentLength;
-    private int page;
+    private int page = 0;
 
     public static void goActivity(Activity from) {
         Intent intent = new Intent(from, WordListActivity.class);
@@ -111,7 +111,6 @@ public class WordListActivity extends BaseActivity<WordListActivity> {
 
     @Override
     protected void initData(Intent intent, Bundle state) {
-        page = 0;
         // event
         Observable<Word> obListItemDelete = RxBus.register(RxBus.EVENT_WORD_LIST_ITEM_DELETE, word -> {
             if (recyclerHelper == null) return;

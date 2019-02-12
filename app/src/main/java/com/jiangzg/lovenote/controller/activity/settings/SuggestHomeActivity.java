@@ -60,7 +60,7 @@ public class SuggestHomeActivity extends BaseActivity<SuggestHomeActivity> {
 
     private RecyclerHelper recyclerHelper;
     private SuggestInfo suggestInfo;
-    private int page;
+    private int page = 0;
     private int searchStatus, searchKind;
 
     public static void goActivity(Activity from) {
@@ -108,7 +108,6 @@ public class SuggestHomeActivity extends BaseActivity<SuggestHomeActivity> {
 
     @Override
     protected void initData(Intent intent, Bundle state) {
-        page = 0;
         // event
         Observable<List<Suggest>> obListRefresh = RxBus.register(RxBus.EVENT_SUGGEST_LIST_REFRESH, suggests -> {
             if (recyclerHelper == null) return;

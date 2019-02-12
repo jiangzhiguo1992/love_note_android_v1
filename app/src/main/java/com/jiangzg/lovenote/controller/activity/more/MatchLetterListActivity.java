@@ -88,7 +88,7 @@ public class MatchLetterListActivity extends BaseActivity<MatchLetterListActivit
     private boolean showNew;
     private RecyclerHelper recyclerHelper;
     private BottomSheetBehavior behaviorAdd;
-    private int page, orderIndex, limitContentLength;
+    private int page = 0, orderIndex, limitContentLength;
 
     public static void goActivity(Fragment from, MatchPeriod period) {
         Intent intent = new Intent(from.getActivity(), MatchLetterListActivity.class);
@@ -158,7 +158,6 @@ public class MatchLetterListActivity extends BaseActivity<MatchLetterListActivit
 
     @Override
     protected void initData(Intent intent, Bundle state) {
-        page = 0;
         period = intent.getParcelableExtra("period");
         showNew = intent.getBooleanExtra("showNew", false);
         // head

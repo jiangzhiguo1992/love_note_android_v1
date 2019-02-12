@@ -64,7 +64,7 @@ public class AwardListActivity extends BaseActivity<AwardListActivity> {
     LinearLayout llAdd;
 
     private RecyclerHelper recyclerHelper;
-    private int page;
+    private int page = 0;
     private int searchIndex;
 
     public static void goActivity(Activity from) {
@@ -113,7 +113,6 @@ public class AwardListActivity extends BaseActivity<AwardListActivity> {
 
     @Override
     protected void initData(Intent intent, Bundle state) {
-        page = 0;
         // event
         Observable<List<Award>> obListRefresh = RxBus.register(RxBus.EVENT_AWARD_LIST_REFRESH, awardList -> {
             if (recyclerHelper == null) return;

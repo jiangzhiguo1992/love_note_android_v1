@@ -55,7 +55,7 @@ public class DiaryListActivity extends BaseActivity<DiaryListActivity> {
     LinearLayout llAdd;
 
     private RecyclerHelper recyclerHelper;
-    private int page;
+    private int page = 0;
     private int searchIndex;
 
     public static void goActivity(Activity from) {
@@ -123,7 +123,6 @@ public class DiaryListActivity extends BaseActivity<DiaryListActivity> {
 
     @Override
     protected void initData(Intent intent, Bundle state) {
-        page = 0;
         // event
         Observable<List<Diary>> obListRefresh = RxBus.register(RxBus.EVENT_DIARY_LIST_REFRESH, diaryList -> {
             if (recyclerHelper == null) return;

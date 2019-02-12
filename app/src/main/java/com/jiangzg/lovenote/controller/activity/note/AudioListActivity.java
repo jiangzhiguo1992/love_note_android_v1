@@ -52,7 +52,7 @@ public class AudioListActivity extends BaseActivity<AudioListActivity> {
 
     private MediaPlayer mediaPlayer;
     private RecyclerHelper recyclerHelper;
-    private int page;
+    private int page = 0;
 
     public static void goActivity(Activity from) {
         Intent intent = new Intent(from, AudioListActivity.class);
@@ -110,7 +110,6 @@ public class AudioListActivity extends BaseActivity<AudioListActivity> {
 
     @Override
     protected void initData(Intent intent, Bundle state) {
-        page = 0;
         // event
         Observable<List<Audio>> obListRefresh = RxBus.register(RxBus.EVENT_AUDIO_LIST_REFRESH, audioList -> {
             if (recyclerHelper == null) return;

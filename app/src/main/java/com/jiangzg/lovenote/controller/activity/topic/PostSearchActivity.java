@@ -53,7 +53,7 @@ public class PostSearchActivity extends BaseActivity<PostSearchActivity> {
     private PostKindInfo kindInfo;
     private PostSubKindInfo subKindInfo;
     private RecyclerHelper recyclerHelper;
-    private int page;
+    private int page = 0;
     private long create;
 
     public static void goActivity(Activity from, PostKindInfo kindInfo, PostSubKindInfo subKindInfo) {
@@ -95,7 +95,6 @@ public class PostSearchActivity extends BaseActivity<PostSearchActivity> {
 
     @Override
     protected void initData(Intent intent, Bundle state) {
-        page = 0;
         // event
         Observable<Post> obListItemDelete = RxBus.register(RxBus.EVENT_POST_LIST_ITEM_DELETE, post -> {
             if (recyclerHelper == null) return;
