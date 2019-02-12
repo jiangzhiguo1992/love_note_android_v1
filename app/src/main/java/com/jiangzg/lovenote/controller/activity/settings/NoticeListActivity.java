@@ -91,6 +91,7 @@ public class NoticeListActivity extends BaseActivity<NoticeListActivity> {
             public void onResponse(int code, String message, Result.Data data) {
                 if (recyclerHelper == null) return;
                 recyclerHelper.dataOk(data.getShow(), data.getNoticeList(), more);
+                // count
                 CommonCount newCC = data.getCommonCount();
                 CommonCount oldCC = SPHelper.getCommonCount();
                 oldCC.setNoticeNewCount(newCC == null ? 0 : newCC.getNoticeNewCount());

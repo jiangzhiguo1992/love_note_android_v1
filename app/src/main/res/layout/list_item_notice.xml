@@ -25,8 +25,10 @@
         <TextView
             android:id="@+id/tvTime"
             style="@style/FontGreySmall"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="10dp"
+            android:layout_toStartOf="@+id/tvNoRead"
             android:maxLines="1"
             android:singleLine="true"
             tools:text="2018-05-05"/>
