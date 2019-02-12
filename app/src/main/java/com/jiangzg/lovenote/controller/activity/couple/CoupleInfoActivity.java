@@ -213,8 +213,9 @@ public class CoupleInfoActivity extends BaseActivity<CoupleInfoActivity> {
                 PhoneActivity.goActivity(mActivity);
                 break;
             case R.id.tvBirthLeft: // ta的生日
-            case R.id.tvBirthRight: // 我的生日
                 SouvenirListActivity.goActivity(mActivity);
+                break;
+            case R.id.tvBirthRight: // 我的生日
                 break;
             case R.id.rlTogether: // 在一起
                 showTogetherTimePicker();
