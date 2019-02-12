@@ -67,6 +67,7 @@ public class NoticeListActivity extends BaseActivity<NoticeListActivity> {
                     @Override
                     public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
                         NoticeAdapter noticeAdapter = (NoticeAdapter) adapter;
+                        noticeAdapter.noticeRead(position);
                         noticeAdapter.goNoticeDetail(position);
                     }
                 });

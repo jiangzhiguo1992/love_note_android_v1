@@ -1,10 +1,9 @@
 package com.jiangzg.lovenote.controller.adapter.settings;
 
-import android.support.v4.app.FragmentActivity;
-
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.jiangzg.lovenote.R;
+import com.jiangzg.lovenote.controller.activity.base.BaseActivity;
 import com.jiangzg.lovenote.controller.activity.common.BigImageActivity;
 import com.jiangzg.lovenote.controller.activity.common.WebActivity;
 import com.jiangzg.lovenote.controller.activity.settings.NoticeDetailActivity;
@@ -24,9 +23,9 @@ import retrofit2.Call;
  */
 public class NoticeAdapter extends BaseQuickAdapter<Notice, BaseViewHolder> {
 
-    private FragmentActivity mActivity;
+    private BaseActivity mActivity;
 
-    public NoticeAdapter(FragmentActivity activity) {
+    public NoticeAdapter(BaseActivity activity) {
         super(R.layout.list_item_notice);
         mActivity = activity;
     }
@@ -45,15 +44,6 @@ public class NoticeAdapter extends BaseQuickAdapter<Notice, BaseViewHolder> {
 
     public void goNoticeDetail(int position) {
         Notice item = getItem(position);
-        // read
-        if (!item.isRead()) {
-            CommonCount commonCount = SPHelper.getCommonCount();
-            commonCount.setNoticeNewCount(commonCount.getNoticeNewCount() - 1);
-            SPHelper.setCommonCount(commonCount);
-            noticeRead(item.getId());
-        }
-        item.setRead(true);
-        notifyItemChanged(position); // noReadCount
         switch (item.getContentType()) {
             case Notice.TYPE_URL: // 网页
                 WebActivity.goActivity(mActivity, item.getTitle(), item.getContentText());
@@ -68,9 +58,19 @@ public class NoticeAdapter extends BaseQuickAdapter<Notice, BaseViewHolder> {
         }
     }
 
-    private void noticeRead(long nid) {
-        Call<Result> call = new RetrofitHelper().call(API.class).setNoticeRead(nid);
+    public void noticeRead(int position) {
+        Notice item = getItem(position);
+        if (!item.isRead()) {
+            CommonCount commonCount = SPHelper.getCommonCount();
+            commonCount.setNoticeNewCount(commonCount.getNoticeNewCount() - 1);
+            SPHelper.setCommonCount(commonCount);
+        }
+        item.setRead(true);
+        notifyItemChanged(position);
+        // api
+        Call<Result> call = new RetrofitHelper().call(API.class).setNoticeRead(item.getId());
         RetrofitHelper.enqueue(call, null, null);
+        mActivity.pushApi(call);
     }
 
 }
