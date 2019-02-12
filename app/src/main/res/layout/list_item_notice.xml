@@ -27,6 +27,8 @@
             style="@style/FontGreySmall"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:maxLines="1"
+            android:singleLine="true"
             tools:text="2018-05-05"/>
 
         <TextView
@@ -46,6 +48,8 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/tvTime"
             android:layout_marginTop="5dp"
-            tools:text="标题标题标题标题标题标题"/>
+            android:maxLines="1"
+            android:singleLine="true"
+            tools:text="标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题"/>
     </RelativeLayout>
 </android.support.v7.widget.CardView>
