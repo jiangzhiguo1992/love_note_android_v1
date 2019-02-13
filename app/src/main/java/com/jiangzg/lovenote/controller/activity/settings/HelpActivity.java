@@ -120,21 +120,16 @@ public class HelpActivity extends BaseActivity<HelpActivity> {
     protected void initData(Intent intent, Bundle state) {
         int index = intent.getIntExtra("index", INDEX_HOME);
         Help help = getHelpByIndex(index);
-        refreshView(help);
+        if (help == null) return;
+        tb.setTitle(help.getTitle());
+        initHead(help);
+        recyclerHelper.dataNew(help.getSubList(), 0);
     }
 
     @Override
     protected void onFinish(Bundle state) {
         RecyclerHelper.release(recyclerHelper);
         RecyclerHelper.release(recyclerHelperHead);
-    }
-
-    private void refreshView(Help help) {
-        if (recyclerHelper == null) return;
-        if (help == null) return;
-        tb.setTitle(help.getTitle());
-        initHead(help);
-        recyclerHelper.dataNew(help.getSubList(), 0);
     }
 
     private void initHead(Help help) {
