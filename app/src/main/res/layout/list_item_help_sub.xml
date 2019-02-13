@@ -23,11 +23,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:drawableStart="@mipmap/ic_help_outline_grey_24dp"
-        android:drawablePadding="5dp"
+        android:drawablePadding="10dp"
         android:gravity="center_vertical"
-        android:paddingStart="5dp"
-        android:paddingTop="10dp"
-        android:paddingEnd="5dp"
-        android:paddingBottom="10dp"
+        android:padding="10dp"
         tools:text="撒飒飒撒飒飒撒飒飒撒飒飒撒飒飒撒飒飒撒飒飒撒飒飒撒飒飒撒飒飒撒飒飒撒飒飒撒飒飒撒飒飒撒飒飒撒飒飒"/>
 </android.support.v7.widget.CardView>
