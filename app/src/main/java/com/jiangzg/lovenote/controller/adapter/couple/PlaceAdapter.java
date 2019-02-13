@@ -73,7 +73,7 @@ public class PlaceAdapter extends BaseQuickAdapter<Place, BaseViewHolder> {
             tvTimeLeft.setVisibility(View.VISIBLE);
             tvTimeRight.setVisibility(View.INVISIBLE);
             // set
-            ivAvatarLeft.setData(avatar, item.getUserId());
+            ivAvatarLeft.setData(avatar, UserHelper.getTaId(me));
             helper.setText(R.id.tvTimeLeft, time);
         }
         helper.setText(R.id.tvAddress, address);

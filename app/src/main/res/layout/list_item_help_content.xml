@@ -5,8 +5,10 @@
     android:id="@+id/root"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginTop="3dp"
-    android:layout_marginBottom="3dp"
+    android:layout_marginStart="10dp"
+    android:layout_marginTop="5dp"
+    android:layout_marginEnd="10dp"
+    android:layout_marginBottom="5dp"
     android:gravity="center_horizontal"
     android:orientation="vertical">
 
@@ -15,9 +17,6 @@
         style="@style/FontBlackNormalBold"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center_vertical"
-        android:paddingStart="10dp"
-        android:paddingEnd="10dp"
         tools:text="撒飒飒"/>
 
     <TextView
@@ -25,10 +24,6 @@
         style="@style/FontGreyNormal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center_vertical"
-        android:paddingStart="10dp"
-        android:paddingTop="2dp"
-        android:paddingEnd="10dp"
+        android:layout_marginTop="5dp"
         tools:text="撒飒飒撒飒飒撒飒飒撒飒飒撒飒飒撒飒飒撒飒飒撒飒飒撒飒飒撒飒飒撒飒飒撒飒飒撒飒飒撒飒飒撒飒飒"/>
-
 </LinearLayout>
