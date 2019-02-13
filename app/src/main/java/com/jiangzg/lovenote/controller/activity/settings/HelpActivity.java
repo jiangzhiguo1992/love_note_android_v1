@@ -195,12 +195,8 @@ public class HelpActivity extends BaseActivity<HelpActivity> {
                 return getHelpNoteWhisper(index);
             case INDEX_NOTE_AWARD:
                 return getHelpNoteAward(index);
-            case INDEX_NOTE_DREAM:
-                return getHelpNoteDream(index);
             case INDEX_NOTE_TRAVEL:
                 return getHelpNoteTravel(index);
-            case INDEX_NOTE_PROMISE:
-                return getHelpNotePromise(index);
             case INDEX_TOPIC_HOME:
                 return getHelpTopicHome(index);
             case INDEX_TOPIC_POST:
@@ -285,10 +281,6 @@ public class HelpActivity extends BaseActivity<HelpActivity> {
         c3.setQuestion(getString(R.string.help_couple_home_c3_q));
         c3.setAnswer(getString(R.string.help_couple_home_c3_a));
         contentList.add(c3);
-        Help.HelpContent c4 = new Help.HelpContent();
-        c4.setQuestion(getString(R.string.help_couple_home_c4_q));
-        c4.setAnswer(getString(R.string.help_couple_home_c4_a));
-        contentList.add(c4);
         help.setContentList(contentList);
         // sub
         List<Help> subList = new ArrayList<>();
@@ -363,15 +355,6 @@ public class HelpActivity extends BaseActivity<HelpActivity> {
         c1.setQuestion(getString(R.string.help_note_home_c1_q));
         c1.setAnswer(getString(R.string.help_note_home_c1_a));
         contentList.add(c1);
-        Help.HelpContent c2 = new Help.HelpContent();
-        c2.setQuestion(getString(R.string.help_note_home_c2_q));
-        c2.setAnswer(getString(R.string.help_note_home_c2_a));
-        contentList.add(c2);
-        help.setContentList(contentList);
-        Help.HelpContent c3 = new Help.HelpContent();
-        c3.setQuestion(getString(R.string.help_note_home_c3_q));
-        c3.setAnswer(getString(R.string.help_note_home_c3_a));
-        contentList.add(c3);
         help.setContentList(contentList);
         // sub
         List<Help> subList = new ArrayList<>();
@@ -408,17 +391,9 @@ public class HelpActivity extends BaseActivity<HelpActivity> {
         s6.setTitle(getString(R.string.award));
         subList.add(s6);
         Help s7 = new Help();
-        s7.setIndex(INDEX_NOTE_DREAM);
-        s7.setTitle(getString(R.string.dream));
+        s7.setIndex(INDEX_NOTE_TRAVEL);
+        s7.setTitle(getString(R.string.travel));
         subList.add(s7);
-        Help s8 = new Help();
-        s8.setIndex(INDEX_NOTE_TRAVEL);
-        s8.setTitle(getString(R.string.travel));
-        subList.add(s8);
-        Help s9 = new Help();
-        s9.setIndex(INDEX_NOTE_PROMISE);
-        s9.setTitle(getString(R.string.promise));
-        subList.add(s9);
         help.setSubList(subList);
         return help;
     }
@@ -577,14 +552,6 @@ public class HelpActivity extends BaseActivity<HelpActivity> {
         return help;
     }
 
-    private Help getHelpNoteDream(int index) {
-        Help help = new Help();
-        help.setIndex(index);
-        help.setTitle(getString(R.string.dream));
-        help.setDesc(getString(R.string.help_note_dream_d));
-        return help;
-    }
-
     private Help getHelpNoteTravel(int index) {
         Limit limit = SPHelper.getLimit();
         int placeCount = limit.getTravelPlaceCount();
@@ -604,14 +571,6 @@ public class HelpActivity extends BaseActivity<HelpActivity> {
         c1.setAnswer(String.format(Locale.getDefault(), getString(R.string.help_note_travel_c1_a), placeCount, albumCount, videoCount, foodCount, movieCount, diaryCount));
         contentList.add(c1);
         help.setContentList(contentList);
-        return help;
-    }
-
-    private Help getHelpNotePromise(int index) {
-        Help help = new Help();
-        help.setIndex(index);
-        help.setTitle(getString(R.string.promise));
-        help.setDesc(getString(R.string.help_note_promise_d));
         return help;
     }
 
