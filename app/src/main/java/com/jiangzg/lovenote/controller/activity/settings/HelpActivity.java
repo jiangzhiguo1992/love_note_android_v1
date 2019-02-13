@@ -172,89 +172,61 @@ public class HelpActivity extends BaseActivity<HelpActivity> {
     }
 
     private Help getHelpByIndex(int index) {
-        Help help;
         switch (index) {
             case INDEX_HOME:
             default:
-                help = getHelpHome();
-                break;
+                return getHelpHome();
             case INDEX_COUPLE_HOME:
-                help = getHelpCoupleHome(index);
-                break;
+                return getHelpCoupleHome(index);
             case INDEX_COUPLE_PAIR:
-                help = getHelpCouplePair(index);
-                break;
+                return getHelpCouplePair(index);
             case INDEX_COUPLE_INFO:
-                help = getHelpCoupleInfo(index);
-                break;
+                return getHelpCoupleInfo(index);
             case INDEX_NOTE_HOME:
-                help = getHelpNoteHome(index);
-                break;
+                return getHelpNoteHome(index);
             case INDEX_NOTE_LOCK:
-                help = getHelpNoteLock(index);
-                break;
+                return getHelpNoteLock(index);
             case INDEX_NOTE_SOUVENIR:
-                help = getHelpNoteSouvenir(index);
-                break;
+                return getHelpNoteSouvenir(index);
             case INDEX_NOTE_SHY:
-                help = getHelpNoteShy(index);
-                break;
+                return getHelpNoteShy(index);
             case INDEX_NOTE_MENSES:
-                help = getHelpNoteMenses(index);
-                break;
+                return getHelpNoteMenses(index);
             case INDEX_NOTE_SLEEP:
-                help = getHelpNoteSleep(index);
-                break;
+                return getHelpNoteSleep(index);
             case INDEX_NOTE_WORD:
-                help = getHelpNoteWork(index);
-                break;
+                return getHelpNoteWork(index);
             case INDEX_NOTE_WHISPER:
-                help = getHelpNoteWhisper(index);
-                break;
+                return getHelpNoteWhisper(index);
             case INDEX_NOTE_AWARD:
-                help = getHelpNoteAward(index);
-                break;
+                return getHelpNoteAward(index);
             case INDEX_NOTE_DREAM:
-                help = getHelpNoteDream(index);
-                break;
+                return getHelpNoteDream(index);
             case INDEX_NOTE_TRAVEL:
-                help = getHelpNoteTravel(index);
-                break;
+                return getHelpNoteTravel(index);
             case INDEX_NOTE_PROMISE:
-                help = getHelpNotePromise(index);
-                break;
+                return getHelpNotePromise(index);
             case INDEX_TOPIC_HOME:
-                help = getHelpTopicHome(index);
-                break;
+                return getHelpTopicHome(index);
             case INDEX_TOPIC_POST:
-                help = getHelpTopicPost(index);
-                break;
+                return getHelpTopicPost(index);
             case INDEX_MORE_HOME:
-                help = getHelpMoreHome(index);
-                break;
+                return getHelpMoreHome(index);
             case INDEX_MORE_VIP:
-                help = getHelpMoreVip(index);
-                break;
+                return getHelpMoreVip(index);
             case INDEX_MORE_COIN:
-                help = getHelpMoreCoin(index);
-                break;
+                return getHelpMoreCoin(index);
             case INDEX_MORE_BILL:
-                help = getHelpMoreBill(index);
-                break;
+                return getHelpMoreBill(index);
             case INDEX_MORE_SIGN:
-                help = getHelpMoreSign(index);
-                break;
+                return getHelpMoreSign(index);
             case INDEX_MORE_MATCH:
-                help = getHelpMoreMatch(index);
-                break;
+                return getHelpMoreMatch(index);
             case INDEX_OTHER:
-                help = getHelpOther(index);
-                break;
+                return getHelpOther(index);
             case INDEX_USER_SUGGEST:
-                help = getHelpSuggestHome(index);
-                break;
+                return getHelpSuggestHome(index);
         }
-        return help;
     }
 
     private Help getHelpHome() {
@@ -855,30 +827,6 @@ public class HelpActivity extends BaseActivity<HelpActivity> {
         Help help = new Help();
         help.setIndex(index);
         help.setTitle(getString(R.string.other));
-        help.setDesc(getString(R.string.help_other_d));
-        // content
-        List<Help.HelpContent> contentList = new ArrayList<>();
-        Help.HelpContent c1 = new Help.HelpContent();
-        c1.setQuestion(getString(R.string.help_other_c1_q));
-        c1.setAnswer(getString(R.string.help_other_c1_a));
-        contentList.add(c1);
-        Help.HelpContent c2 = new Help.HelpContent();
-        c2.setQuestion(getString(R.string.help_other_c2_q));
-        c2.setAnswer(getString(R.string.help_other_c2_a));
-        contentList.add(c2);
-        Help.HelpContent c3 = new Help.HelpContent();
-        c3.setQuestion(getString(R.string.help_other_c3_q));
-        c3.setAnswer(getString(R.string.help_other_c3_a));
-        contentList.add(c3);
-        Help.HelpContent c4 = new Help.HelpContent();
-        c4.setQuestion(getString(R.string.help_other_c4_q));
-        c4.setAnswer(getString(R.string.help_other_c4_a));
-        contentList.add(c4);
-        Help.HelpContent c5 = new Help.HelpContent();
-        c5.setQuestion(getString(R.string.help_other_c5_q));
-        c5.setAnswer(getString(R.string.help_other_c5_a));
-        contentList.add(c5);
-        help.setContentList(contentList);
         // sub
         List<Help> subList = new ArrayList<>();
         Help s1 = new Help();
