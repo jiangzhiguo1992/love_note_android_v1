@@ -168,9 +168,6 @@ public class HelpActivity extends BaseActivity<HelpActivity> {
 
     private Help getHelpByIndex(int index) {
         switch (index) {
-            case INDEX_HOME:
-            default:
-                return getHelpHome();
             case INDEX_COUPLE_HOME:
                 return getHelpCoupleHome(index);
             case INDEX_COUPLE_PAIR:
@@ -217,6 +214,9 @@ public class HelpActivity extends BaseActivity<HelpActivity> {
                 return getHelpOther(index);
             case INDEX_USER_SUGGEST:
                 return getHelpSuggestHome(index);
+            case INDEX_HOME:
+            default:
+                return getHelpHome();
         }
     }
 
@@ -472,8 +472,7 @@ public class HelpActivity extends BaseActivity<HelpActivity> {
     }
 
     private Help getHelpNoteSouvenir(int index) {
-        Limit limit = SPHelper.getLimit();
-        int souvenirForeignYearCount = limit.getSouvenirForeignYearCount();
+        int souvenirForeignYearCount = SPHelper.getLimit().getSouvenirForeignYearCount();
         Help help = new Help();
         help.setIndex(index);
         help.setTitle(getString(R.string.souvenir));
@@ -579,7 +578,7 @@ public class HelpActivity extends BaseActivity<HelpActivity> {
         help.setIndex(index);
         help.setTitle(getString(R.string.nav_topic));
         help.setDesc(getString(R.string.help_topic_home_d));
-        // content 匿名
+        // content
         List<Help.HelpContent> contentList = new ArrayList<>();
         Help.HelpContent c1 = new Help.HelpContent();
         c1.setQuestion(getString(R.string.help_topic_home_c1_q));
@@ -724,8 +723,8 @@ public class HelpActivity extends BaseActivity<HelpActivity> {
     private Help getHelpMoreSign(int index) {
         Limit limit = SPHelper.getLimit();
         int minCount = limit.getCoinSignMinCount();
-        int increaseCount = limit.getCoinSignIncreaseCount();
         int maxCount = limit.getCoinSignMaxCount();
+        int increaseCount = limit.getCoinSignIncreaseCount();
         Help help = new Help();
         help.setIndex(index);
         help.setTitle(getString(R.string.sign));
