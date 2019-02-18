@@ -123,64 +123,69 @@
     </LinearLayout>
 
     <RelativeLayout
-        android:id="@+id/rlTogether"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginBottom="50dp"
         android:layout_weight="1">
 
-        <ImageView
-            android:layout_width="wrap_content"
+        <RelativeLayout
+            android:id="@+id/rlTogether"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_above="@+id/tvTogetherBefore"
-            android:layout_alignStart="@+id/tvTogetherBefore"
-            android:layout_marginStart="5dp"
-            android:layout_marginBottom="5dp"
-            android:src="@mipmap/ic_favorite_grey_18dp"
-            android:tint="?attr/colorPrimary"/>
+            android:layout_centerInParent="true">
 
-        <TextView
-            android:id="@+id/tvTogetherBefore"
-            style="@style/FontPrimaryNormal"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/tvTogether"
-            android:layout_marginStart="3dp"
-            android:layout_marginEnd="3dp"
-            android:layout_toStartOf="@+id/tvTogether"
-            android:text="@string/in_together"/>
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_above="@+id/tvTogetherBefore"
+                android:layout_alignStart="@+id/tvTogetherBefore"
+                android:layout_marginStart="5dp"
+                android:layout_marginBottom="5dp"
+                android:src="@mipmap/ic_favorite_grey_18dp"
+                android:tint="?attr/colorPrimary"/>
 
-        <TextView
-            android:id="@+id/tvTogether"
-            style="@style/FontPrimaryHugeBold"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:layout_marginStart="3dp"
-            android:layout_marginEnd="3dp"
-            android:textSize="50sp"
-            tools:text="365000"/>
+            <TextView
+                android:id="@+id/tvTogetherBefore"
+                style="@style/FontPrimaryNormal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/tvTogether"
+                android:layout_marginStart="3dp"
+                android:layout_marginEnd="3dp"
+                android:layout_toStartOf="@+id/tvTogether"
+                android:text="@string/in_together"/>
 
-        <TextView
-            android:id="@+id/tvTogetherAfter"
-            style="@style/FontPrimaryNormal"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/tvTogether"
-            android:layout_marginStart="3dp"
-            android:layout_marginEnd="3dp"
-            android:layout_toEndOf="@+id/tvTogether"
-            android:text="@string/dayT"/>
+            <TextView
+                android:id="@+id/tvTogether"
+                style="@style/FontPrimaryHugeBold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_marginStart="3dp"
+                android:layout_marginEnd="3dp"
+                android:textSize="50sp"
+                tools:text="365000"/>
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/tvTogetherAfter"
-            android:layout_marginStart="3dp"
-            android:layout_marginEnd="3dp"
-            android:layout_toEndOf="@+id/tvTogetherAfter"
-            android:src="@mipmap/ic_favorite_grey_18dp"
-            android:tint="?attr/colorPrimary"/>
+            <TextView
+                android:id="@+id/tvTogetherAfter"
+                style="@style/FontPrimaryNormal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/tvTogether"
+                android:layout_marginStart="3dp"
+                android:layout_marginEnd="3dp"
+                android:layout_toEndOf="@+id/tvTogether"
+                android:text="@string/dayT"/>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/tvTogetherAfter"
+                android:layout_marginStart="3dp"
+                android:layout_marginEnd="3dp"
+                android:layout_toEndOf="@+id/tvTogetherAfter"
+                android:src="@mipmap/ic_favorite_grey_18dp"
+                android:tint="?attr/colorPrimary"/>
+        </RelativeLayout>
     </RelativeLayout>
-
 </LinearLayout>
