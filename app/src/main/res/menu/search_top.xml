@@ -6,6 +6,11 @@
         android:id="@+id/menuSearch"
         android:icon="@mipmap/ic_search_white_24dp"
         android:title="@string/search"
-        app:showAsAction="always"/>
+        app:showAsAction="ifRoom"/>
 
+    <item
+        android:id="@+id/menuTop"
+        android:icon="@mipmap/ic_publish_white_24dp"
+        android:title="@string/go_back_top"
+        app:showAsAction="always"/>
 </menu>

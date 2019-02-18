@@ -73,9 +73,6 @@ public class PictureListActivity extends BaseActivity<PictureListActivity> {
     RecyclerView rv;
     @BindView(R.id.srl)
     GSwipeRefreshLayout srl;
-
-    @BindView(R.id.fabTop)
-    FloatingActionButton fabTop;
     @BindView(R.id.fabModel)
     FloatingActionButton fabModel;
     @BindView(R.id.fabAdd)
@@ -232,13 +229,9 @@ public class PictureListActivity extends BaseActivity<PictureListActivity> {
         RecyclerHelper.release(recyclerHelper);
     }
 
-    @OnClick({R.id.fabTop, R.id.fabModel, R.id.fabAdd})
+    @OnClick({R.id.fabModel, R.id.fabAdd})
     public void onViewClicked(View view) {
         switch (view.getId()) {
-            case R.id.fabTop: // 置顶
-                if (rv == null) return;
-                rv.smoothScrollToPosition(0);
-                break;
             case R.id.fabModel: // 模式
                 if (recyclerHelper == null || recyclerHelper.getAdapter() == null) return;
                 PictureAdapter adapter = recyclerHelper.getAdapter();

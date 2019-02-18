@@ -50,30 +50,6 @@
         app:layout_behavior="@string/behavior_linear_depend_app_bar3">
 
         <LinearLayout
-            android:id="@+id/llTop"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="?attr/selectableItemBackground"
-            android:foreground="?attr/selectableItemBackground"
-            android:gravity="center"
-            android:orientation="horizontal"
-            android:paddingTop="10dp"
-            android:paddingBottom="10dp">
-
-            <TextView
-                style="@style/FontGreyNormal"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:drawableStart="@mipmap/ic_publish_grey_18dp"
-                android:drawablePadding="6dp"
-                android:gravity="center"
-                android:text="@string/top"/>
-        </LinearLayout>
-
-        <View style="@style/LineVertical"/>
-
-        <LinearLayout
             android:id="@+id/llSearch"
             android:layout_width="0dp"
             android:layout_height="wrap_content"

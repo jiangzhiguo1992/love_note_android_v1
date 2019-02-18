@@ -43,8 +43,6 @@ public class PostListActivity extends BaseActivity<PostListActivity> {
     ViewPager vpFragment;
     @BindView(R.id.tvSearch)
     TextView tvSearch;
-    @BindView(R.id.llTop)
-    LinearLayout llTop;
     @BindView(R.id.llSearch)
     LinearLayout llSearch;
     @BindView(R.id.llAdd)
@@ -133,7 +131,7 @@ public class PostListActivity extends BaseActivity<PostListActivity> {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.search, menu);
+        getMenuInflater().inflate(R.menu.search_top, menu);
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -143,16 +141,16 @@ public class PostListActivity extends BaseActivity<PostListActivity> {
             case R.id.menuSearch: // 搜索
                 PostSearchActivity.goActivity(mActivity, kindInfo, subKindInfo);
                 return true;
+            case R.id.menuTop: // 置顶
+                RxBus.post(new RxBus.Event<>(RxBus.EVENT_POST_GO_TOP, true));
+                break;
         }
         return super.onOptionsItemSelected(item);
     }
 
-    @OnClick({R.id.llTop, R.id.llSearch, R.id.llAdd})
+    @OnClick({R.id.llSearch, R.id.llAdd})
     public void onViewClicked(View view) {
         switch (view.getId()) {
-            case R.id.llTop: // 置顶
-                RxBus.post(new RxBus.Event<>(RxBus.EVENT_POST_GO_TOP, true));
-                break;
             case R.id.llSearch: // 搜索
                 showSearchDialog();
                 break;

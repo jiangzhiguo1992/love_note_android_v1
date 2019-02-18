@@ -107,24 +107,10 @@
     </com.jiangzg.lovenote.view.GSwipeRefreshLayout>
 
     <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fabTop"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|start"
-        android:layout_margin="@dimen/fab_margin"
-        android:src="@mipmap/ic_publish_white_24dp"
-        app:backgroundTint="?attr/colorAccent"
-        app:borderWidth="0dp"
-        app:elevation="@dimen/elevation_normal"
-        app:fabSize="mini"
-        app:pressedTranslationZ="@dimen/elevation_big"
-        app:rippleColor="?attr/colorPrimaryDark"/>
-
-    <android.support.design.widget.FloatingActionButton
         android:id="@+id/fabModel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom|center_horizontal"
+        android:layout_gravity="bottom|start"
         android:layout_margin="@dimen/fab_margin"
         android:src="@mipmap/ic_loop_white_24dp"
         app:backgroundTint="?attr/colorAccent"
