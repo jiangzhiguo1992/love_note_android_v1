@@ -7,9 +7,9 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginStart="10dp"
-    android:layout_marginTop="2dp"
+    android:layout_marginTop="5dp"
     android:layout_marginEnd="10dp"
-    android:layout_marginBottom="6dp"
+    android:layout_marginBottom="5dp"
     android:background="?attr/selectableItemBackground"
     android:foreground="?attr/selectableItemBackground"
     app:cardBackgroundColor="@color/white"
@@ -32,9 +32,10 @@
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_alignParentStart="true"
-                android:layout_marginStart="3dp"
-                android:layout_marginTop="3dp"
-                android:layout_marginBottom="5dp"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="30dp"
+                android:layout_marginBottom="10dp"
                 app:cardCornerRadius="25dp"
                 app:cardElevation="@dimen/elevation_big"
                 app:cardMaxElevation="@dimen/elevation_huge">
@@ -52,7 +53,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignTop="@+id/cvAvatar"
-                android:layout_marginStart="30dp"
                 android:layout_marginEnd="5dp"
                 android:layout_toEndOf="@+id/cvAvatar"
                 android:gravity="center_vertical"
@@ -60,20 +60,25 @@
                 android:singleLine="true"
                 tools:text="2018在一起一周年"/>
 
+            <ImageView
+                android:id="@+id/ivHappenAt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@+id/tvHappenAt"
+                android:layout_alignBottom="@+id/cvAvatar"
+                android:layout_marginEnd="5dp"
+                android:layout_toEndOf="@+id/cvAvatar"
+                android:src="@mipmap/ic_access_time_grey_18dp"/>
+
             <TextView
                 android:id="@+id/tvHappenAt"
                 style="@style/FontGreySmall"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignBottom="@+id/cvAvatar"
-                android:layout_marginStart="30dp"
                 android:layout_marginEnd="5dp"
-                android:layout_toEndOf="@+id/cvAvatar"
-                android:drawableStart="@mipmap/ic_access_time_grey_18dp"
-                android:drawablePadding="4dp"
+                android:layout_toEndOf="@+id/ivHappenAt"
                 android:gravity="center_vertical"
-                android:maxLines="1"
-                android:singleLine="true"
                 tools:text="2017年12月31日"/>
         </RelativeLayout>
 
@@ -81,7 +86,7 @@
             android:id="@+id/rv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="3dp"
-            android:layout_marginEnd="3dp"/>
+            android:layout_marginStart="2.5dp"
+            android:layout_marginEnd="2.5dp"/>
     </LinearLayout>
 </android.support.v7.widget.CardView>

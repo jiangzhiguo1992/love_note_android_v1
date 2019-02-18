@@ -6,7 +6,7 @@
     android:id="@+id/root"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="2dp"
+    android:layout_margin="2.5dp"
     android:background="?attr/selectableItemBackground"
     android:foreground="?attr/selectableItemBackground"
     app:cardBackgroundColor="@color/white"
