@@ -61,7 +61,7 @@ public class TopicFragment extends BasePagerFragment<TopicFragment> {
         ViewHelper.initTopBar(mActivity, tb, mActivity.getString(R.string.nav_topic), false);
         fitToolBar(tb);
         // menu
-        tb.inflateMenu(R.menu.help_notice_mine);
+        tb.inflateMenu(R.menu.help_mine_notice);
         // recycler
         recyclerHelper = new RecyclerHelper(rv)
                 .initLayoutManager(new LinearLayoutManager(mActivity))
@@ -93,11 +93,11 @@ public class TopicFragment extends BasePagerFragment<TopicFragment> {
             case R.id.menuHelp: // 帮助
                 HelpActivity.goActivity(mFragment, HelpActivity.INDEX_TOPIC_HOME);
                 return true;
-            case R.id.menuNotice: // 消息
-                TopicMessageActivity.goActivity(mFragment);
-                return true;
             case R.id.menuMine: // 我的
                 PostMyRelationActivity.goActivity(mFragment);
+                return true;
+            case R.id.menuNotice: // 消息
+                TopicMessageActivity.goActivity(mFragment);
                 return true;
         }
         return super.onOptionsItemSelected(item);

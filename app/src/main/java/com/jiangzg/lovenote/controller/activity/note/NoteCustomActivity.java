@@ -141,12 +141,6 @@ public class NoteCustomActivity extends BaseActivity<NoteCustomActivity> {
     ImageView ivTotal;
     @BindView(R.id.cvTotal)
     CardView cvTotal;
-    @BindView(R.id.tvTrends)
-    TextView tvTrends;
-    @BindView(R.id.ivTrends)
-    ImageView ivTrends;
-    @BindView(R.id.cvTrends)
-    CardView cvTrends;
 
     private NoteCustom custom;
     private int colorPrimary;
@@ -189,7 +183,7 @@ public class NoteCustomActivity extends BaseActivity<NoteCustomActivity> {
     @OnClick({R.id.cvSouvenir, R.id.cvShy, R.id.cvMenses, R.id.cvSleep,
             R.id.cvWord, R.id.cvWhisper, R.id.cvDiary, R.id.cvAward, R.id.cvDream, R.id.cvMovie,
             R.id.cvFood, R.id.cvTravel, R.id.cvAngry, R.id.cvGift, R.id.cvPromise,
-            R.id.cvAudio, R.id.cvVideo, R.id.cvAlbum, R.id.cvTotal, R.id.cvTrends})
+            R.id.cvAudio, R.id.cvVideo, R.id.cvAlbum, R.id.cvTotal})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.cvSouvenir:
@@ -249,9 +243,6 @@ public class NoteCustomActivity extends BaseActivity<NoteCustomActivity> {
             case R.id.cvTotal:
                 custom.setTotal(!custom.isTotal());
                 break;
-            case R.id.cvTrends:
-                custom.setTrends(!custom.isTrends());
-                break;
         }
         SPHelper.setNoteCustom(custom);
         updateView();
@@ -280,7 +271,6 @@ public class NoteCustomActivity extends BaseActivity<NoteCustomActivity> {
         tvVideo.setTextColor(custom.isVideo() ? colorPrimary : colorGrey);
         tvAlbum.setTextColor(custom.isAlbum() ? colorPrimary : colorGrey);
         tvTotal.setTextColor(custom.isTotal() ? colorPrimary : colorGrey);
-        tvTrends.setTextColor(custom.isTrends() ? colorPrimary : colorGrey);
         // imageView
         ivSouvenir.setImageResource(custom.isSouvenir() ? R.mipmap.ic_check_circle_grey_24dp : R.mipmap.ic_brightness_1_grey_24dp);
         ivSouvenir.setImageTintList(custom.isSouvenir() ? colorPrimaryStateList : colorGreyStateList);
@@ -320,7 +310,5 @@ public class NoteCustomActivity extends BaseActivity<NoteCustomActivity> {
         ivAlbum.setImageTintList(custom.isAlbum() ? colorPrimaryStateList : colorGreyStateList);
         ivTotal.setImageResource(custom.isTotal() ? R.mipmap.ic_check_circle_grey_24dp : R.mipmap.ic_brightness_1_grey_24dp);
         ivTotal.setImageTintList(custom.isTotal() ? colorPrimaryStateList : colorGreyStateList);
-        ivTrends.setImageResource(custom.isTrends() ? R.mipmap.ic_check_circle_grey_24dp : R.mipmap.ic_brightness_1_grey_24dp);
-        ivTrends.setImageTintList(custom.isTrends() ? colorPrimaryStateList : colorGreyStateList);
     }
 }

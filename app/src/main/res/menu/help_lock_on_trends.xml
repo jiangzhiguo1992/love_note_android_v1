@@ -9,15 +9,15 @@
         app:showAsAction="ifRoom"/>
 
     <item
-        android:id="@+id/menuNotice"
-        android:icon="@mipmap/ic_notifications_none_white_24dp"
-        android:title="@string/message"
+        android:id="@+id/menuLock"
+        android:icon="@mipmap/ic_lock_outline_white_24dp"
+        android:title="@string/pwd_lock"
         app:showAsAction="always"/>
 
     <item
-        android:id="@+id/menuMine"
-        android:icon="@mipmap/ic_perm_identity_white_24dp"
-        android:title="@string/me_de"
+        android:id="@+id/menuTrends"
+        android:icon="@mipmap/ic_notifications_none_white_24dp"
+        android:title="@string/trends"
         app:showAsAction="always"/>
 
 </menu>

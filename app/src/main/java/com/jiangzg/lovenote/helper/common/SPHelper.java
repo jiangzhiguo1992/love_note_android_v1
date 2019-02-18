@@ -73,6 +73,7 @@ public class SPHelper {
     private static final String FIELD_NOTE_CUSTOM_ALBUM = "album";
     private static final String FIELD_NOTE_CUSTOM_TOTAL = "total";
     private static final String FIELD_NOTE_CUSTOM_TRENDS = "trends";
+    private static final String FIELD_NOTE_CUSTOM_CUSTOM = "custom";
     // commonConst
     private static final String FIELD_COMMON_CONST_COMPANY_NAME = "company_name";
     private static final String FIELD_COMMON_CONST_CUSTOMER_QQ = "customer_qq";
@@ -386,6 +387,7 @@ public class SPHelper {
         editor.putBoolean(FIELD_NOTE_CUSTOM_ALBUM, noteCustom.isAlbum());
         editor.putBoolean(FIELD_NOTE_CUSTOM_TOTAL, noteCustom.isTotal());
         editor.putBoolean(FIELD_NOTE_CUSTOM_TRENDS, noteCustom.isTrends());
+        editor.putBoolean(FIELD_NOTE_CUSTOM_CUSTOM, noteCustom.isCustom());
         editor.apply();
     }
 
@@ -412,6 +414,7 @@ public class SPHelper {
         noteCustom.setAlbum(sp.getBoolean(FIELD_NOTE_CUSTOM_ALBUM, true));
         noteCustom.setTotal(sp.getBoolean(FIELD_NOTE_CUSTOM_TOTAL, true));
         noteCustom.setTrends(sp.getBoolean(FIELD_NOTE_CUSTOM_TRENDS, true));
+        noteCustom.setCustom(sp.getBoolean(FIELD_NOTE_CUSTOM_CUSTOM, true));
         return noteCustom;
     }
 

@@ -20,8 +20,8 @@ import com.jiangzg.base.common.TimeUnit;
 import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.controller.activity.couple.CouplePairActivity;
 import com.jiangzg.lovenote.controller.activity.note.LockActivity;
-import com.jiangzg.lovenote.controller.activity.note.NoteCustomActivity;
 import com.jiangzg.lovenote.controller.activity.note.SouvenirListActivity;
+import com.jiangzg.lovenote.controller.activity.note.TrendsListActivity;
 import com.jiangzg.lovenote.controller.activity.settings.HelpActivity;
 import com.jiangzg.lovenote.controller.adapter.note.ModelAdapter;
 import com.jiangzg.lovenote.controller.fragment.base.BaseFragment;
@@ -203,11 +203,12 @@ public class NoteFragment extends BasePagerFragment<NoteFragment> {
             case R.id.menuHelp: // 帮助
                 HelpActivity.goActivity(mFragment, HelpActivity.INDEX_NOTE_HOME);
                 return true;
-            case R.id.menuCustom: // 功能定制
-                NoteCustomActivity.goActivity(mFragment);
-                return true;
             case R.id.menuLock: // 密码锁
                 LockActivity.goActivity(mFragment);
+                return true;
+            case R.id.menuTrends: // 动态
+                if (!canOpera()) return true;
+                TrendsListActivity.goActivity(mActivity);
                 return true;
         }
         return super.onOptionsItemSelected(item);
@@ -215,20 +216,7 @@ public class NoteFragment extends BasePagerFragment<NoteFragment> {
 
     @OnClick({R.id.cvSouvenir})
     public void onViewClicked(View view) {
-        if (UserHelper.isCoupleBreak(SPHelper.getCouple())) {
-            // 无效配对
-            CouplePairActivity.goActivity(mFragment);
-            return;
-        }
-        if (lock == null) {
-            // 锁信息没有返回
-            refreshData(); // 防止没配对前就来过这里，配对后这里不刷新
-            return;
-        } else if (lock.isLock()) {
-            // 上锁且没有解开
-            LockActivity.goActivity(mFragment);
-            return;
-        }
+        if (!canOpera()) return;
         switch (view.getId()) {
             case R.id.cvSouvenir: // 纪念日
                 SouvenirListActivity.goActivity(mFragment);
@@ -237,23 +225,27 @@ public class NoteFragment extends BasePagerFragment<NoteFragment> {
     }
 
     private void goActivity(BaseQuickAdapter adapter, int position) {
-        if (adapter == null) return;
+        if (!canOpera()) return;
+        ModelAdapter modelAdapter = (ModelAdapter) adapter;
+        modelAdapter.goActivity(position);
+    }
+
+    private boolean canOpera() {
         if (UserHelper.isCoupleBreak(SPHelper.getCouple())) {
             // 无效配对
             CouplePairActivity.goActivity(mFragment);
-            return;
+            return false;
         }
         if (lock == null) {
             // 锁信息没有返回
             refreshData(); // 防止没配对前就来过这里，配对后这里不刷新
-            return;
+            return false;
         } else if (lock.isLock()) {
             // 上锁且没有解开
             LockActivity.goActivity(mFragment);
-            return;
+            return false;
         }
-        ModelAdapter modelAdapter = (ModelAdapter) adapter;
-        modelAdapter.goActivity(position);
+        return true;
     }
 
     private void customView() {
@@ -300,7 +292,7 @@ public class NoteFragment extends BasePagerFragment<NoteFragment> {
         lineOther.setVisibility(isOther ? View.VISIBLE : View.GONE);
         ArrayList<Integer> dataOther = new ArrayList<>();
         if (custom.isTotal()) dataOther.add(ModelAdapter.TOTAL);
-        if (custom.isTrends()) dataOther.add(ModelAdapter.TRENDS);
+        if (custom.isCustom()) dataOther.add(ModelAdapter.CUSTOM);
         rhOther.dataNew(dataOther);
     }
 
@@ -343,7 +335,7 @@ public class NoteFragment extends BasePagerFragment<NoteFragment> {
     private void refreshMenu() {
         boolean isLock = lock == null || lock.isLock();
         tb.getMenu().clear();
-        tb.inflateMenu(isLock ? R.menu.help_custom_lock_on : R.menu.help_custom_lock_off);
+        tb.inflateMenu(isLock ? R.menu.help_lock_on_trends : R.menu.help_lock_off_trends);
     }
 
     private void refreshNoteView() {

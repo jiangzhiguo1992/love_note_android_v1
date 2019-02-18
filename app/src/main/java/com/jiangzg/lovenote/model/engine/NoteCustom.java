@@ -26,6 +26,15 @@ public class NoteCustom {
     private boolean album;
     private boolean total;
     private boolean trends;
+    private boolean custom;
+
+    public boolean isCustom() {
+        return custom;
+    }
+
+    public void setCustom(boolean custom) {
+        this.custom = custom;
+    }
 
     public boolean isSouvenir() {
         return souvenir;

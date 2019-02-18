@@ -15,6 +15,7 @@ import com.jiangzg.lovenote.controller.activity.note.FoodListActivity;
 import com.jiangzg.lovenote.controller.activity.note.GiftListActivity;
 import com.jiangzg.lovenote.controller.activity.note.MensesActivity;
 import com.jiangzg.lovenote.controller.activity.note.MovieListActivity;
+import com.jiangzg.lovenote.controller.activity.note.NoteCustomActivity;
 import com.jiangzg.lovenote.controller.activity.note.NoteTotalActivity;
 import com.jiangzg.lovenote.controller.activity.note.PromiseListActivity;
 import com.jiangzg.lovenote.controller.activity.note.ShyActivity;
@@ -54,6 +55,7 @@ public class ModelAdapter extends BaseQuickAdapter<Integer, BaseViewHolder> {
     public static final int ALBUM = 18;
     public static final int TOTAL = 19;
     public static final int TRENDS = 20;
+    public static final int CUSTOM = 21;
 
     public ModelAdapter(Fragment fragment) {
         super(R.layout.list_item_note_model);
@@ -139,6 +141,10 @@ public class ModelAdapter extends BaseQuickAdapter<Integer, BaseViewHolder> {
                 helper.setImageResource(R.id.ivItem, R.mipmap.ic_note_trends_24dp);
                 helper.setText(R.id.tvItem, MyApp.get().getString(R.string.trends));
                 break;
+            case CUSTOM:
+                helper.setImageResource(R.id.ivItem, R.mipmap.ic_note_custom_24dp);
+                helper.setText(R.id.tvItem, MyApp.get().getString(R.string.func_custom));
+                break;
         }
     }
 
@@ -201,6 +207,9 @@ public class ModelAdapter extends BaseQuickAdapter<Integer, BaseViewHolder> {
                 break;
             case TRENDS:
                 TrendsListActivity.goActivity(mFragment);
+                break;
+            case CUSTOM:
+                NoteCustomActivity.goActivity(mFragment);
                 break;
         }
     }
