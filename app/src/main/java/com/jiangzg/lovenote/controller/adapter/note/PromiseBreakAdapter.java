@@ -37,8 +37,6 @@ public class PromiseBreakAdapter extends BaseQuickAdapter<PromiseBreak, BaseView
         // view
         helper.setText(R.id.tvHappenAt, happen);
         helper.setText(R.id.tvContent, content);
-        // click
-        helper.addOnLongClickListener(R.id.cvContent);
     }
 
     public void showDeleteDialog(final int position, final Promise promise) {

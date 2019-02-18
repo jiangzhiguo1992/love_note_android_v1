@@ -19,7 +19,7 @@ import android.widget.TextView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.chad.library.adapter.base.listener.OnItemChildLongClickListener;
+import com.chad.library.adapter.base.listener.OnItemLongClickListener;
 import com.jiangzg.base.common.DateUtils;
 import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.base.component.ActivityTrans;
@@ -114,15 +114,11 @@ public class PromiseDetailActivity extends BaseActivity<PromiseDetailActivity> {
                 .setAdapter()
                 .listenerRefresh(() -> getBreakData(false))
                 .listenerMore(currentCount -> getBreakData(true))
-                .listenerClick(new OnItemChildLongClickListener() {
+                .listenerClick(new OnItemLongClickListener() {
                     @Override
-                    public void onSimpleItemChildLongClick(BaseQuickAdapter adapter, View view, int position) {
-                        switch (view.getId()) {
-                            case R.id.cvContent: // 删除
-                                PromiseBreakAdapter promiseBreakAdapter = (PromiseBreakAdapter) adapter;
-                                promiseBreakAdapter.showDeleteDialog(position, promise);
-                                break;
-                        }
+                    public void onSimpleItemLongClick(BaseQuickAdapter adapter, View view, int position) {
+                        PromiseBreakAdapter promiseBreakAdapter = (PromiseBreakAdapter) adapter;
+                        promiseBreakAdapter.showDeleteDialog(position, promise);
                     }
                 });
         // init
