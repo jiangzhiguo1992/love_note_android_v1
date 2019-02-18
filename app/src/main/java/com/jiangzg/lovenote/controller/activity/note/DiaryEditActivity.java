@@ -10,8 +10,8 @@ import android.text.Editable;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.jiangzg.base.common.DateUtils;
@@ -47,14 +47,16 @@ public class DiaryEditActivity extends BaseActivity<DiaryEditActivity> {
 
     @BindView(R.id.tb)
     Toolbar tb;
-    @BindView(R.id.btnHappenAt)
-    Button btnHappenAt;
-    @BindView(R.id.rv)
-    RecyclerView rv;
     @BindView(R.id.etContent)
     EditText etContent;
     @BindView(R.id.tvContentLimit)
     TextView tvContentLimit;
+    @BindView(R.id.rv)
+    RecyclerView rv;
+    @BindView(R.id.llHappenAt)
+    LinearLayout llHappenAt;
+    @BindView(R.id.tvHappenAt)
+    TextView tvHappenAt;
 
     private Diary diary;
     private RecyclerHelper recyclerHelper;
@@ -102,8 +104,8 @@ public class DiaryEditActivity extends BaseActivity<DiaryEditActivity> {
         if (diary.getHappenAt() == 0) {
             diary.setHappenAt(TimeHelper.getGoTimeByJava(DateUtils.getCurrentLong()));
         }
-        // date
-        refreshDateView();
+        // content
+        etContent.setText(diary.getContentText());
         // recycler
         int limitImagesCount = SPHelper.getVipLimit().getDiaryImageCount();
         if (isFromUpdate()) {
@@ -120,8 +122,8 @@ public class DiaryEditActivity extends BaseActivity<DiaryEditActivity> {
             // 添加
             setRecyclerShow(limitImagesCount > 0, limitImagesCount);
         }
-        // content
-        etContent.setText(diary.getContentText());
+        // date
+        refreshDateView();
     }
 
     @Override
@@ -175,10 +177,10 @@ public class DiaryEditActivity extends BaseActivity<DiaryEditActivity> {
         onContentInput(s.toString());
     }
 
-    @OnClick({R.id.btnHappenAt})
+    @OnClick({R.id.llHappenAt})
     public void onViewClicked(View view) {
         switch (view.getId()) {
-            case R.id.btnHappenAt: // 日期
+            case R.id.llHappenAt: // 日期
                 showDatePicker();
                 break;
         }
@@ -186,6 +188,24 @@ public class DiaryEditActivity extends BaseActivity<DiaryEditActivity> {
 
     private boolean isFromUpdate() {
         return getIntent().getIntExtra("from", BaseActivity.ACT_EDIT_FROM_ADD) == BaseActivity.ACT_EDIT_FROM_UPDATE;
+    }
+
+    private void onContentInput(String input) {
+        if (diary == null) return;
+        if (limitContentLength <= 0) {
+            limitContentLength = SPHelper.getLimit().getDiaryContentLength();
+        }
+        int length = input.length();
+        if (length > limitContentLength) {
+            CharSequence charSequence = input.subSequence(0, limitContentLength);
+            etContent.setText(charSequence);
+            etContent.setSelection(charSequence.length());
+            length = charSequence.length();
+        }
+        String limitShow = String.format(Locale.getDefault(), getString(R.string.holder_sprit_holder), length, limitContentLength);
+        tvContentLimit.setText(limitShow);
+        // 设置进去
+        diary.setContentText(etContent.getText().toString());
     }
 
     private void setRecyclerShow(boolean show, final int childCount) {
@@ -223,25 +243,7 @@ public class DiaryEditActivity extends BaseActivity<DiaryEditActivity> {
     private void refreshDateView() {
         if (diary == null) return;
         String happen = TimeHelper.getTimeShowLocal_HM_MD_YMD_ByGo(diary.getHappenAt());
-        btnHappenAt.setText(happen);
-    }
-
-    private void onContentInput(String input) {
-        if (diary == null) return;
-        if (limitContentLength <= 0) {
-            limitContentLength = SPHelper.getLimit().getDiaryContentLength();
-        }
-        int length = input.length();
-        if (length > limitContentLength) {
-            CharSequence charSequence = input.subSequence(0, limitContentLength);
-            etContent.setText(charSequence);
-            etContent.setSelection(charSequence.length());
-            length = charSequence.length();
-        }
-        String limitShow = String.format(Locale.getDefault(), getString(R.string.holder_sprit_holder), length, limitContentLength);
-        tvContentLimit.setText(limitShow);
-        // 设置进去
-        diary.setContentText(etContent.getText().toString());
+        tvHappenAt.setText(String.format(Locale.getDefault(), getString(R.string.time_colon_space_holder), happen));
     }
 
     private void saveDraft() {
