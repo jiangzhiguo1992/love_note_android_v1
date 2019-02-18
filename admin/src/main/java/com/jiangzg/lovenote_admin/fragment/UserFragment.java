@@ -166,7 +166,7 @@ public class UserFragment extends BaseFragment<UserFragment> {
         getUserData();
         getSmsData();
         getEntryData();
-        getApiData();
+        //getApiData();
         getCoupleData();
         getSignData();
         getNoteData();
