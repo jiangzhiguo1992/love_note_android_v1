@@ -55,7 +55,10 @@
                 android:layout_height="wrap_content"
                 android:background="?attr/selectableItemBackground"
                 android:foreground="?attr/selectableItemBackground"
-                android:padding="10dp">
+                android:paddingStart="10dp"
+                android:paddingTop="15dp"
+                android:paddingEnd="10dp"
+                android:paddingBottom="15dp">
 
                 <ImageView
                     android:layout_width="wrap_content"
@@ -83,7 +86,10 @@
                 android:layout_height="wrap_content"
                 android:background="?attr/selectableItemBackground"
                 android:foreground="?attr/selectableItemBackground"
-                android:padding="10dp">
+                android:paddingStart="10dp"
+                android:paddingTop="15dp"
+                android:paddingEnd="10dp"
+                android:paddingBottom="15dp">
 
                 <ImageView
                     android:layout_width="wrap_content"
@@ -111,7 +117,10 @@
                 android:layout_height="wrap_content"
                 android:background="?attr/selectableItemBackground"
                 android:foreground="?attr/selectableItemBackground"
-                android:padding="10dp">
+                android:paddingStart="10dp"
+                android:paddingTop="15dp"
+                android:paddingEnd="10dp"
+                android:paddingBottom="15dp">
 
                 <ImageView
                     android:layout_width="wrap_content"
