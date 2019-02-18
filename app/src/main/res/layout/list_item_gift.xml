@@ -59,24 +59,14 @@
                 android:singleLine="true"
                 tools:text="2018在一起一周年"/>
 
-            <ImageView
-                android:id="@+id/ivHappenAt"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignTop="@+id/tvHappenAt"
-                android:layout_alignBottom="@+id/cvAvatar"
-                android:layout_marginEnd="5dp"
-                android:layout_toEndOf="@+id/cvAvatar"
-                android:src="@mipmap/ic_access_time_grey_18dp"/>
-
             <TextView
                 android:id="@+id/tvHappenAt"
                 style="@style/FontGreySmall"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignBottom="@+id/cvAvatar"
                 android:layout_marginEnd="5dp"
-                android:layout_toEndOf="@+id/ivHappenAt"
+                android:layout_toEndOf="@+id/cvAvatar"
                 android:gravity="center_vertical"
                 tools:text="2017年12月31日"/>
         </RelativeLayout>

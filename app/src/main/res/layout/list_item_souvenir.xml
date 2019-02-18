@@ -28,31 +28,19 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignTop="@+id/tvDayCount"
-            android:layout_marginEnd="10dp"
             android:layout_toStartOf="@+id/tvDayCount"
             android:ellipsize="middle"
             android:gravity="start"
             android:singleLine="true"
             tools:text="在一起在一起在一起"/>
 
-        <ImageView
-            android:id="@+id/ivTime"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignTop="@+id/tvHappenAt"
-            android:layout_alignBottom="@+id/tvDayCount"
-            android:src="@mipmap/ic_access_time_grey_18dp"/>
-
         <TextView
             android:id="@+id/tvHappenAt"
-            style="@style/FontGreySmall"
+            style="@style/FontGreyNormal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignBottom="@+id/tvDayCount"
-            android:layout_marginStart="4dp"
-            android:layout_marginEnd="10dp"
             android:layout_toStartOf="@+id/tvDayCount"
-            android:layout_toEndOf="@+id/ivTime"
             android:gravity="start|center_vertical"
             android:maxLines="1"
             android:singleLine="true"
@@ -65,6 +53,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
+            android:layout_marginStart="10dp"
             android:maxLines="1"
             android:singleLine="true"
             android:textSize="40sp"
