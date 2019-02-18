@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -55,29 +54,28 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
 
-            <android.support.v7.widget.CardView
-                android:id="@+id/cvGiftAdd"
+            <RelativeLayout
+                android:id="@+id/rlGiftAdd"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:layout_margin="10dp"
                 android:background="?attr/selectableItemBackground"
                 android:foreground="?attr/selectableItemBackground"
                 android:visibility="gone"
-                app:cardBackgroundColor="?attr/colorPrimary"
-                app:cardCornerRadius="20dp"
-                app:cardElevation="@dimen/elevation_normal"
-                app:cardMaxElevation="@dimen/elevation_big"
                 tools:visibility="visible">
 
                 <TextView
-                    style="@style/FontWhiteNormal"
-                    android:layout_width="match_parent"
+                    style="@style/FontGreyNormal"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:drawableStart="@mipmap/ic_add_circle_outline_grey_18dp"
+                    android:drawablePadding="5dp"
                     android:gravity="center"
                     android:paddingTop="10dp"
                     android:paddingBottom="10dp"
                     android:text="@string/add_gift"/>
-            </android.support.v7.widget.CardView>
+            </RelativeLayout>
 
             <LinearLayout
                 android:id="@+id/llTravel"
@@ -112,29 +110,28 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
 
-            <android.support.v7.widget.CardView
-                android:id="@+id/cvTravelAdd"
+            <RelativeLayout
+                android:id="@+id/rlTravelAdd"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:layout_margin="10dp"
                 android:background="?attr/selectableItemBackground"
                 android:foreground="?attr/selectableItemBackground"
                 android:visibility="gone"
-                app:cardBackgroundColor="?attr/colorPrimary"
-                app:cardCornerRadius="20dp"
-                app:cardElevation="@dimen/elevation_normal"
-                app:cardMaxElevation="@dimen/elevation_big"
                 tools:visibility="visible">
 
                 <TextView
-                    style="@style/FontWhiteNormal"
-                    android:layout_width="match_parent"
+                    style="@style/FontGreyNormal"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:drawableStart="@mipmap/ic_add_circle_outline_grey_18dp"
+                    android:drawablePadding="5dp"
                     android:gravity="center"
                     android:paddingTop="10dp"
                     android:paddingBottom="10dp"
                     android:text="@string/add_travel"/>
-            </android.support.v7.widget.CardView>
+            </RelativeLayout>
 
             <LinearLayout
                 android:id="@+id/llAlbum"
@@ -169,29 +166,28 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
 
-            <android.support.v7.widget.CardView
-                android:id="@+id/cvAlbumAdd"
+            <RelativeLayout
+                android:id="@+id/rlAlbumAdd"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:layout_margin="10dp"
                 android:background="?attr/selectableItemBackground"
                 android:foreground="?attr/selectableItemBackground"
                 android:visibility="gone"
-                app:cardBackgroundColor="?attr/colorPrimary"
-                app:cardCornerRadius="20dp"
-                app:cardElevation="@dimen/elevation_normal"
-                app:cardMaxElevation="@dimen/elevation_big"
                 tools:visibility="visible">
 
                 <TextView
-                    style="@style/FontWhiteNormal"
-                    android:layout_width="match_parent"
+                    style="@style/FontGreyNormal"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:drawableStart="@mipmap/ic_add_circle_outline_grey_18dp"
+                    android:drawablePadding="5dp"
                     android:gravity="center"
                     android:paddingTop="10dp"
                     android:paddingBottom="10dp"
                     android:text="@string/add_album"/>
-            </android.support.v7.widget.CardView>
+            </RelativeLayout>
 
             <LinearLayout
                 android:id="@+id/llVideo"
@@ -226,29 +222,28 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
 
-            <android.support.v7.widget.CardView
-                android:id="@+id/cvVideoAdd"
+            <RelativeLayout
+                android:id="@+id/rlVideoAdd"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:layout_margin="10dp"
                 android:background="?attr/selectableItemBackground"
                 android:foreground="?attr/selectableItemBackground"
                 android:visibility="gone"
-                app:cardBackgroundColor="?attr/colorPrimary"
-                app:cardCornerRadius="20dp"
-                app:cardElevation="@dimen/elevation_normal"
-                app:cardMaxElevation="@dimen/elevation_big"
                 tools:visibility="visible">
 
                 <TextView
-                    style="@style/FontWhiteNormal"
-                    android:layout_width="match_parent"
+                    style="@style/FontGreyNormal"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:drawableStart="@mipmap/ic_add_circle_outline_grey_18dp"
+                    android:drawablePadding="5dp"
                     android:gravity="center"
                     android:paddingTop="10dp"
                     android:paddingBottom="10dp"
                     android:text="@string/add_video"/>
-            </android.support.v7.widget.CardView>
+            </RelativeLayout>
 
             <LinearLayout
                 android:id="@+id/llFood"
@@ -283,29 +278,28 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
 
-            <android.support.v7.widget.CardView
-                android:id="@+id/cvFoodAdd"
+            <RelativeLayout
+                android:id="@+id/rlFoodAdd"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:layout_margin="10dp"
                 android:background="?attr/selectableItemBackground"
                 android:foreground="?attr/selectableItemBackground"
                 android:visibility="gone"
-                app:cardBackgroundColor="?attr/colorPrimary"
-                app:cardCornerRadius="20dp"
-                app:cardElevation="@dimen/elevation_normal"
-                app:cardMaxElevation="@dimen/elevation_big"
                 tools:visibility="visible">
 
                 <TextView
-                    style="@style/FontWhiteNormal"
-                    android:layout_width="match_parent"
+                    style="@style/FontGreyNormal"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:drawableStart="@mipmap/ic_add_circle_outline_grey_18dp"
+                    android:drawablePadding="5dp"
                     android:gravity="center"
                     android:paddingTop="10dp"
                     android:paddingBottom="10dp"
                     android:text="@string/add_food"/>
-            </android.support.v7.widget.CardView>
+            </RelativeLayout>
 
             <LinearLayout
                 android:id="@+id/llMovie"
@@ -340,29 +334,28 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
 
-            <android.support.v7.widget.CardView
-                android:id="@+id/cvMovieAdd"
+            <RelativeLayout
+                android:id="@+id/rlMovieAdd"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:layout_margin="10dp"
                 android:background="?attr/selectableItemBackground"
                 android:foreground="?attr/selectableItemBackground"
                 android:visibility="gone"
-                app:cardBackgroundColor="?attr/colorPrimary"
-                app:cardCornerRadius="20dp"
-                app:cardElevation="@dimen/elevation_normal"
-                app:cardMaxElevation="@dimen/elevation_big"
                 tools:visibility="visible">
 
                 <TextView
-                    style="@style/FontWhiteNormal"
-                    android:layout_width="match_parent"
+                    style="@style/FontGreyNormal"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:drawableStart="@mipmap/ic_add_circle_outline_grey_18dp"
+                    android:drawablePadding="5dp"
                     android:gravity="center"
                     android:paddingTop="10dp"
                     android:paddingBottom="10dp"
                     android:text="@string/add_movie"/>
-            </android.support.v7.widget.CardView>
+            </RelativeLayout>
 
             <LinearLayout
                 android:id="@+id/llDiary"
@@ -397,29 +390,28 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
 
-            <android.support.v7.widget.CardView
-                android:id="@+id/cvDiaryAdd"
+            <RelativeLayout
+                android:id="@+id/rlDiaryAdd"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:layout_margin="10dp"
                 android:background="?attr/selectableItemBackground"
                 android:foreground="?attr/selectableItemBackground"
                 android:visibility="gone"
-                app:cardBackgroundColor="?attr/colorPrimary"
-                app:cardCornerRadius="20dp"
-                app:cardElevation="@dimen/elevation_normal"
-                app:cardMaxElevation="@dimen/elevation_big"
                 tools:visibility="visible">
 
                 <TextView
-                    style="@style/FontWhiteNormal"
-                    android:layout_width="match_parent"
+                    style="@style/FontGreyNormal"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:drawableStart="@mipmap/ic_add_circle_outline_grey_18dp"
+                    android:drawablePadding="5dp"
                     android:gravity="center"
                     android:paddingTop="10dp"
                     android:paddingBottom="10dp"
                     android:text="@string/add_diary"/>
-            </android.support.v7.widget.CardView>
+            </RelativeLayout>
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
 </LinearLayout>

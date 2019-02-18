@@ -4,13 +4,13 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.StringRes;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.RelativeLayout;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -68,32 +68,32 @@ public class SouvenirEditForeignActivity extends BaseActivity<SouvenirEditForeig
     Toolbar tb;
     @BindView(R.id.rvGift)
     RecyclerView rvGift;
-    @BindView(R.id.cvGiftAdd)
-    CardView cvGiftAdd;
+    @BindView(R.id.rlGiftAdd)
+    RelativeLayout rlGiftAdd;
     @BindView(R.id.rvTravel)
     RecyclerView rvTravel;
-    @BindView(R.id.cvTravelAdd)
-    CardView cvTravelAdd;
+    @BindView(R.id.rlTravelAdd)
+    RelativeLayout rlTravelAdd;
     @BindView(R.id.rvAlbum)
     RecyclerView rvAlbum;
-    @BindView(R.id.cvAlbumAdd)
-    CardView cvAlbumAdd;
+    @BindView(R.id.rlAlbumAdd)
+    RelativeLayout rlAlbumAdd;
     @BindView(R.id.rvVideo)
     RecyclerView rvVideo;
-    @BindView(R.id.cvVideoAdd)
-    CardView cvVideoAdd;
+    @BindView(R.id.rlVideoAdd)
+    RelativeLayout rlVideoAdd;
     @BindView(R.id.rvFood)
     RecyclerView rvFood;
-    @BindView(R.id.cvFoodAdd)
-    CardView cvFoodAdd;
+    @BindView(R.id.rlFoodAdd)
+    RelativeLayout rlFoodAdd;
     @BindView(R.id.rvMovie)
     RecyclerView rvMovie;
-    @BindView(R.id.cvMovieAdd)
-    CardView cvMovieAdd;
+    @BindView(R.id.rlMovieAdd)
+    RelativeLayout rlMovieAdd;
     @BindView(R.id.rvDiary)
     RecyclerView rvDiary;
-    @BindView(R.id.cvDiaryAdd)
-    CardView cvDiaryAdd;
+    @BindView(R.id.rlDiaryAdd)
+    RelativeLayout rlDiaryAdd;
 
     private int year;
     private Souvenir souvenir;
@@ -403,29 +403,29 @@ public class SouvenirEditForeignActivity extends BaseActivity<SouvenirEditForeig
         return super.onOptionsItemSelected(item);
     }
 
-    @OnClick({R.id.cvGiftAdd, R.id.cvTravelAdd, R.id.cvAlbumAdd, R.id.cvVideoAdd,
-            R.id.cvFoodAdd, R.id.cvMovieAdd, R.id.cvDiaryAdd})
+    @OnClick({R.id.rlGiftAdd, R.id.rlTravelAdd, R.id.rlAlbumAdd, R.id.rlVideoAdd,
+            R.id.rlFoodAdd, R.id.rlMovieAdd, R.id.rlDiaryAdd})
     public void onViewClicked(View view) {
         switch (view.getId()) {
-            case R.id.cvGiftAdd: // 礼物
+            case R.id.rlGiftAdd: // 礼物
                 GiftListActivity.goActivityBySelect(mActivity);
                 break;
-            case R.id.cvTravelAdd: // 游记
+            case R.id.rlTravelAdd: // 游记
                 TravelListActivity.goActivityBySelect(mActivity);
                 break;
-            case R.id.cvAlbumAdd: // 相册
+            case R.id.rlAlbumAdd: // 相册
                 AlbumListActivity.goActivityBySelectAlbum(mActivity);
                 break;
-            case R.id.cvVideoAdd: // 视频
+            case R.id.rlVideoAdd: // 视频
                 VideoListActivity.goActivityBySelect(mActivity);
                 break;
-            case R.id.cvFoodAdd: // 美食
+            case R.id.rlFoodAdd: // 美食
                 FoodListActivity.goActivityBySelect(mActivity);
                 break;
-            case R.id.cvMovieAdd: // 电影
+            case R.id.rlMovieAdd: // 电影
                 MovieListActivity.goActivityBySelect(mActivity);
                 break;
-            case R.id.cvDiaryAdd: // 日记
+            case R.id.rlDiaryAdd: // 日记
                 DiaryListActivity.goActivityBySelect(mActivity);
                 break;
         }
@@ -448,71 +448,71 @@ public class SouvenirEditForeignActivity extends BaseActivity<SouvenirEditForeig
 
     private void refreshAddView() {
         if (souvenir == null) {
-            cvGiftAdd.setVisibility(View.VISIBLE);
-            cvTravelAdd.setVisibility(View.VISIBLE);
-            cvAlbumAdd.setVisibility(View.VISIBLE);
-            cvVideoAdd.setVisibility(View.VISIBLE);
-            cvFoodAdd.setVisibility(View.VISIBLE);
-            cvMovieAdd.setVisibility(View.VISIBLE);
-            cvDiaryAdd.setVisibility(View.VISIBLE);
+            rlGiftAdd.setVisibility(View.VISIBLE);
+            rlTravelAdd.setVisibility(View.VISIBLE);
+            rlAlbumAdd.setVisibility(View.VISIBLE);
+            rlVideoAdd.setVisibility(View.VISIBLE);
+            rlFoodAdd.setVisibility(View.VISIBLE);
+            rlMovieAdd.setVisibility(View.VISIBLE);
+            rlDiaryAdd.setVisibility(View.VISIBLE);
             return;
         }
         int limitCount = SPHelper.getLimit().getSouvenirForeignYearCount();
         // gift
         if (recyclerGift == null || recyclerGift.getAdapter() == null) {
-            cvGiftAdd.setVisibility(View.VISIBLE);
+            rlGiftAdd.setVisibility(View.VISIBLE);
         } else if (recyclerGift.getAdapter().getData().size() < limitCount) {
-            cvGiftAdd.setVisibility(View.VISIBLE);
+            rlGiftAdd.setVisibility(View.VISIBLE);
         } else {
-            cvGiftAdd.setVisibility(View.GONE);
+            rlGiftAdd.setVisibility(View.GONE);
         }
         // travel
         if (recyclerTravel == null || recyclerTravel.getAdapter() == null) {
-            cvTravelAdd.setVisibility(View.VISIBLE);
+            rlTravelAdd.setVisibility(View.VISIBLE);
         } else if (recyclerTravel.getAdapter().getData().size() < limitCount) {
-            cvTravelAdd.setVisibility(View.VISIBLE);
+            rlTravelAdd.setVisibility(View.VISIBLE);
         } else {
-            cvTravelAdd.setVisibility(View.GONE);
+            rlTravelAdd.setVisibility(View.GONE);
         }
         // album
         if (recyclerAlbum == null || recyclerAlbum.getAdapter() == null) {
-            cvAlbumAdd.setVisibility(View.VISIBLE);
+            rlAlbumAdd.setVisibility(View.VISIBLE);
         } else if (recyclerAlbum.getAdapter().getData().size() < limitCount) {
-            cvAlbumAdd.setVisibility(View.VISIBLE);
+            rlAlbumAdd.setVisibility(View.VISIBLE);
         } else {
-            cvAlbumAdd.setVisibility(View.GONE);
+            rlAlbumAdd.setVisibility(View.GONE);
         }
         // video
         if (recyclerVideo == null || recyclerVideo.getAdapter() == null) {
-            cvVideoAdd.setVisibility(View.VISIBLE);
+            rlVideoAdd.setVisibility(View.VISIBLE);
         } else if (recyclerVideo.getAdapter().getData().size() < limitCount) {
-            cvVideoAdd.setVisibility(View.VISIBLE);
+            rlVideoAdd.setVisibility(View.VISIBLE);
         } else {
-            cvVideoAdd.setVisibility(View.GONE);
+            rlVideoAdd.setVisibility(View.GONE);
         }
         // food
         if (recyclerFood == null || recyclerFood.getAdapter() == null) {
-            cvFoodAdd.setVisibility(View.VISIBLE);
+            rlFoodAdd.setVisibility(View.VISIBLE);
         } else if (recyclerFood.getAdapter().getData().size() < limitCount) {
-            cvFoodAdd.setVisibility(View.VISIBLE);
+            rlFoodAdd.setVisibility(View.VISIBLE);
         } else {
-            cvFoodAdd.setVisibility(View.GONE);
+            rlFoodAdd.setVisibility(View.GONE);
         }
         // movie
         if (recyclerMovie == null || recyclerMovie.getAdapter() == null) {
-            cvMovieAdd.setVisibility(View.VISIBLE);
+            rlMovieAdd.setVisibility(View.VISIBLE);
         } else if (recyclerMovie.getAdapter().getData().size() < limitCount) {
-            cvMovieAdd.setVisibility(View.VISIBLE);
+            rlMovieAdd.setVisibility(View.VISIBLE);
         } else {
-            cvMovieAdd.setVisibility(View.GONE);
+            rlMovieAdd.setVisibility(View.GONE);
         }
         // diary
         if (recyclerDiary == null || recyclerDiary.getAdapter() == null) {
-            cvDiaryAdd.setVisibility(View.VISIBLE);
+            rlDiaryAdd.setVisibility(View.VISIBLE);
         } else if (recyclerDiary.getAdapter().getData().size() < limitCount) {
-            cvDiaryAdd.setVisibility(View.VISIBLE);
+            rlDiaryAdd.setVisibility(View.VISIBLE);
         } else {
-            cvDiaryAdd.setVisibility(View.GONE);
+            rlDiaryAdd.setVisibility(View.GONE);
         }
     }
 
