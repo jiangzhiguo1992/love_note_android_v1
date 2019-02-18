@@ -144,11 +144,14 @@ public class BigImageActivity extends BaseActivity<BigImageActivity> {
     protected void onFinish(Bundle state) {
     }
 
-    @OnClick({R.id.ivDownload})
+    @OnClick({R.id.ivDownload, R.id.ivShare})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.ivDownload: // 下载
                 downLoad();
+                break;
+            case R.id.ivShare: // 分享
+                share();
                 break;
         }
     }
@@ -310,6 +313,18 @@ public class BigImageActivity extends BaseActivity<BigImageActivity> {
                 DialogHelper.showGoPermDialog(activity);
             }
         });
+    }
+
+    // 图片分享，原生分享只能是本地文件
+    private void share() {
+        //// 本地文件不分享
+        //if (type == TYPE_FILE_SINGLE || type == TYPE_FILE_LIST) return;
+        //// 获取uri
+        //String objectKey = dataList.get(vpImage.getCurrentItem());
+        //String url = OssHelper.getUrl(objectKey);
+        //Uri uri = Uri.parse(url);
+        //Intent intent = IntentFactory.getShare(AppInfo.get().getName(), uri);
+        //ActivityTrans.start(mActivity, intent);
     }
 
 }
