@@ -257,8 +257,8 @@ public class NoteFragment extends BasePagerFragment<NoteFragment> {
         lineLive.setVisibility(isLive ? View.VISIBLE : View.GONE);
         rvLive.setVisibility(isLive ? View.VISIBLE : View.GONE);
         ArrayList<Integer> dataLive = new ArrayList<>();
-        if (custom.isShy()) dataLive.add(ModelAdapter.SHY);
         if (custom.isMenses()) dataLive.add(ModelAdapter.MENSES);
+        if (custom.isShy()) dataLive.add(ModelAdapter.SHY);
         if (custom.isSleep()) dataLive.add(ModelAdapter.SLEEP);
         rhLive.dataNew(dataLive);
         // note
@@ -269,15 +269,15 @@ public class NoteFragment extends BasePagerFragment<NoteFragment> {
         ArrayList<Integer> dataNote = new ArrayList<>();
         if (custom.isWord()) dataNote.add(ModelAdapter.WORD);
         if (custom.isWhisper()) dataNote.add(ModelAdapter.WHISPER);
-        if (custom.isDiary()) dataNote.add(ModelAdapter.DIARY);
         if (custom.isAward()) dataNote.add(ModelAdapter.AWARD);
-        if (custom.isDream()) dataNote.add(ModelAdapter.DREAM);
-        if (custom.isMovie()) dataNote.add(ModelAdapter.MOVIE);
-        if (custom.isFood()) dataNote.add(ModelAdapter.FOOD);
+        if (custom.isDiary()) dataNote.add(ModelAdapter.DIARY);
         if (custom.isTravel()) dataNote.add(ModelAdapter.TRAVEL);
         if (custom.isAngry()) dataNote.add(ModelAdapter.ANGRY);
         if (custom.isGift()) dataNote.add(ModelAdapter.GIFT);
         if (custom.isPromise()) dataNote.add(ModelAdapter.PROMISE);
+        if (custom.isDream()) dataNote.add(ModelAdapter.DREAM);
+        if (custom.isMovie()) dataNote.add(ModelAdapter.MOVIE);
+        if (custom.isFood()) dataNote.add(ModelAdapter.FOOD);
         rhNote.dataNew(dataNote);
         // media
         boolean isMedia = custom.isAudio() || custom.isVideo() || custom.isAlbum();
@@ -291,8 +291,8 @@ public class NoteFragment extends BasePagerFragment<NoteFragment> {
         boolean isOther = custom.isTotal() || custom.isTrends();
         lineOther.setVisibility(isOther ? View.VISIBLE : View.GONE);
         ArrayList<Integer> dataOther = new ArrayList<>();
-        if (custom.isTotal()) dataOther.add(ModelAdapter.TOTAL);
         if (custom.isCustom()) dataOther.add(ModelAdapter.CUSTOM);
+        if (custom.isTotal()) dataOther.add(ModelAdapter.TOTAL);
         rhOther.dataNew(dataOther);
     }
 
