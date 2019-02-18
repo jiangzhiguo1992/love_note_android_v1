@@ -23,7 +23,7 @@
         android:layout_marginEnd="50dp"
         android:layout_marginBottom="30dp"
         android:background="@drawable/shape_stroke_grey_r3"
-        android:hint="@string/please_input_album_name"
+        android:hint="@string/please_input_album_name_dont_over_holder_text"
         android:maxLines="1"
         android:padding="10dp"
         android:singleLine="true"

@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     android:orientation="vertical"
     tools:context=".controller.activity.note.AwardEditActivity">
 
@@ -21,119 +21,112 @@
             android:gravity="center_horizontal"
             android:orientation="vertical">
 
-            <android.support.v7.widget.CardView
-                android:id="@+id/cvRule"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:layout_marginStart="30dp"
-                android:layout_marginTop="30dp"
-                android:layout_marginEnd="30dp"
-                android:layout_marginBottom="10dp"
+            <TextView
+                android:id="@+id/tvContentLimit"
+                style="@style/FontGreySmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                tools:text="0/2000"/>
+
+            <EditText
+                android:id="@+id/etContent"
+                style="@style/FontGreyNormal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:gravity="start"
+                android:hint="@string/please_input_trigger_rule"
+                android:inputType="textMultiLine"
+                android:minLines="3"
+                android:padding="10dp"
+                android:textColorHint="@color/font_hint"/>
+
+            <View
+                style="@style/LineHorizontal"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"/>
+
+            <LinearLayout
+                android:id="@+id/llHappenAt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:background="?attr/selectableItemBackground"
                 android:foreground="?attr/selectableItemBackground"
-                app:cardBackgroundColor="?attr/colorPrimaryDark"
-                app:cardCornerRadius="@dimen/radius_normal"
-                app:cardElevation="@dimen/elevation_normal"
-                app:cardMaxElevation="@dimen/elevation_big">
+                android:padding="10dp">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="5dp"
+                    android:src="@mipmap/ic_access_time_grey_18dp"
+                    android:tint="@color/font_grey"/>
+
+                <TextView
+                    android:id="@+id/tvHappenAt"
+                    style="@style/FontGreyNormal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    tools:text="@string/time_colon_space_holder"/>
+            </LinearLayout>
+
+            <View
+                style="@style/LineHorizontal"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"/>
+
+            <LinearLayout
+                android:id="@+id/llHappenUser"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="?attr/selectableItemBackground"
+                android:foreground="?attr/selectableItemBackground"
+                android:padding="10dp">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="5dp"
+                    android:src="@mipmap/ic_account_circle_grey_18dp"
+                    android:tint="@color/font_grey"/>
+
+                <TextView
+                    android:id="@+id/tvHappenUser"
+                    style="@style/FontGreyNormal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    tools:text="@string/belong_colon_space_holder"/>
+            </LinearLayout>
+
+            <View
+                style="@style/LineHorizontal"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"/>
+
+            <LinearLayout
+                android:id="@+id/llRule"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="?attr/selectableItemBackground"
+                android:foreground="?attr/selectableItemBackground"
+                android:padding="10dp">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="5dp"
+                    android:src="@mipmap/ic_exposure_grey_18dp"
+                    android:tint="@color/font_grey"/>
 
                 <TextView
                     android:id="@+id/tvRule"
-                    style="@style/FontWhiteNormalBold"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:gravity="center"
-                    android:padding="10dp"
-                    tools:text="+100"/>
-            </android.support.v7.widget.CardView>
-
-            <Button
-                android:id="@+id/btnHappenAt"
-                style="@style/FontWhiteNormalBold"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="30dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="30dp"
-                android:layout_marginBottom="10dp"
-                android:background="@drawable/selector_enable_press_solid_light_primary_dark_r100"
-                android:foreground="?attr/selectableItemBackground"
-                android:gravity="center"
-                tools:text="2017年 4月 19日"/>
-
-            <RadioGroup
-                android:id="@+id/rgHappenUser"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="30dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="30dp"
-                android:layout_marginBottom="10dp"
-                android:background="@drawable/shape_stroke_primary_r3"
-                android:gravity="center_vertical"
-                android:orientation="horizontal">
-
-                <RadioButton
-                    android:id="@+id/rbHappenMe"
                     style="@style/FontGreyNormal"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:background="@drawable/selector_check_solid_primary_r3"
-                    android:button="@null"
-                    android:foreground="?attr/selectableItemBackground"
-                    android:gravity="center"
-                    android:paddingTop="10dp"
-                    android:paddingBottom="10dp"
-                    android:text="@string/me_s_award"
-                    android:textColor="@color/selector_text_check_primary_white"
-                    tools:checked="true"/>
-
-                <RadioButton
-                    android:id="@+id/rbHappenTa"
-                    style="@style/FontGreyNormal"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:background="@drawable/selector_check_solid_primary_r3"
-                    android:button="@null"
-                    android:foreground="?attr/selectableItemBackground"
-                    android:gravity="center"
-                    android:paddingTop="10dp"
-                    android:paddingBottom="10dp"
-                    android:text="@string/ta_s_award"
-                    android:textColor="@color/selector_text_check_primary_white"/>
-            </RadioGroup>
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:padding="10dp">
-
-                <EditText
-                    android:id="@+id/etContent"
-                    style="@style/FontGreyNormal"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="3dp"
-                    android:background="@drawable/selector_enable_press_stroke_light_primary_dark_r3"
-                    android:gravity="start"
-                    android:hint="@string/please_input_trigger_rule"
-                    android:inputType="textMultiLine"
-                    android:minLines="10"
-                    android:padding="8dp"
-                    android:textColorHint="@color/font_hint"/>
-
-                <TextView
-                    android:id="@+id/tvContentLimit"
-                    style="@style/FontGreySmall"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/etContent"
-                    android:layout_alignParentEnd="true"
-                    android:layout_marginTop="3dp"
-                    tools:text="0/2000"/>
-            </RelativeLayout>
+                    tools:text="@string/rule_colon_space_holder"/>
+            </LinearLayout>
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

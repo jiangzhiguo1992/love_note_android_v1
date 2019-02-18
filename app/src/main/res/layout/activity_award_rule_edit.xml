@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     android:orientation="vertical"
     tools:context=".controller.activity.note.AwardRuleEditActivity">
 
@@ -20,10 +21,38 @@
             android:gravity="center_horizontal"
             android:orientation="vertical">
 
+            <TextView
+                android:id="@+id/tvTitleLimit"
+                style="@style/FontGreySmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:gravity="end"
+                tools:text="0/2000"/>
+
+            <EditText
+                android:id="@+id/etTitle"
+                style="@style/FontGreyNormal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:gravity="start"
+                android:hint="@string/please_input_rule_content"
+                android:inputType="textMultiLine"
+                android:minLines="3"
+                android:padding="10dp"
+                android:textColorHint="@color/font_hint"/>
+
+            <View
+                style="@style/LineHorizontal"
+                android:layout_margin="10dp"/>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="30dp"
+                android:layout_margin="10dp"
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
 
@@ -61,38 +90,6 @@
                     android:text="@string/symbol_sub"
                     android:textSize="35sp"/>
             </LinearLayout>
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:paddingStart="10dp"
-                android:paddingEnd="10dp">
-
-                <EditText
-                    android:id="@+id/etTitle"
-                    style="@style/FontGreyNormal"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="3dp"
-                    android:background="@drawable/selector_enable_press_stroke_light_primary_dark_r3"
-                    android:gravity="start"
-                    android:hint="@string/please_input_rule_content"
-                    android:inputType="textMultiLine"
-                    android:minLines="10"
-                    android:padding="8dp"
-                    android:textColorHint="@color/font_hint"/>
-
-                <TextView
-                    android:id="@+id/tvTitleLimit"
-                    style="@style/FontGreySmall"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/etTitle"
-                    android:layout_alignParentEnd="true"
-                    android:layout_marginTop="3dp"
-                    tools:text="0/2000"/>
-            </RelativeLayout>
         </LinearLayout>
     </ScrollView>
 </LinearLayout>
