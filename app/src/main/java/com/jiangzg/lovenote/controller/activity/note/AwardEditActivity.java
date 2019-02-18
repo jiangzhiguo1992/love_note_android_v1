@@ -45,22 +45,18 @@ public class AwardEditActivity extends BaseActivity<AwardEditActivity> {
 
     @BindView(R.id.tb)
     Toolbar tb;
-
     @BindView(R.id.tvContentLimit)
     TextView tvContentLimit;
     @BindView(R.id.etContent)
     EditText etContent;
-
     @BindView(R.id.llHappenAt)
     LinearLayout llHappenAt;
     @BindView(R.id.tvHappenAt)
     TextView tvHappenAt;
-
     @BindView(R.id.llHappenUser)
     LinearLayout llHappenUser;
     @BindView(R.id.tvHappenUser)
     TextView tvHappenUser;
-
     @BindView(R.id.llRule)
     LinearLayout llRule;
     @BindView(R.id.tvRule)

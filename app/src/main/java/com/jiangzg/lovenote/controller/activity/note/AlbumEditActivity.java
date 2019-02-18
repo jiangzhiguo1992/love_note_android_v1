@@ -191,7 +191,7 @@ public class AlbumEditActivity extends BaseActivity<AlbumEditActivity> {
         if (limitTitleLength <= 0) {
             limitTitleLength = SPHelper.getLimit().getAlbumTitleLength();
         }
-        String string = getString(R.string.please_input_album_name_dont_over_holder_text);
+        String string = getString(R.string.please_input_name_no_over_holder_text);
         String format = String.format(Locale.getDefault(), string, limitTitleLength);
         etTitle.setHint(format);
         etTitle.setText(title);

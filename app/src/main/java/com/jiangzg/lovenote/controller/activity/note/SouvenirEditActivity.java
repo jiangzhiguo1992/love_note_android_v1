@@ -3,20 +3,20 @@ package com.jiangzg.lovenote.controller.activity.note;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.jiangzg.base.common.DateUtils;
 import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.base.component.ActivityTrans;
 import com.jiangzg.base.system.LocationInfo;
+import com.jiangzg.base.view.DialogUtils;
 import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.controller.activity.base.BaseActivity;
@@ -45,20 +45,18 @@ public class SouvenirEditActivity extends BaseActivity<SouvenirEditActivity> {
     Toolbar tb;
     @BindView(R.id.etTitle)
     EditText etTitle;
-    @BindView(R.id.cvHappenAt)
-    CardView cvHappenAt;
+    @BindView(R.id.llHappenAt)
+    LinearLayout llHappenAt;
     @BindView(R.id.tvHappenAt)
     TextView tvHappenAt;
-    @BindView(R.id.cvAddress)
-    CardView cvAddress;
+    @BindView(R.id.llAddress)
+    LinearLayout llAddress;
     @BindView(R.id.tvAddress)
     TextView tvAddress;
-    @BindView(R.id.rgType)
-    RadioGroup rgType;
-    @BindView(R.id.rbDone)
-    RadioButton rbDone;
-    @BindView(R.id.rbWish)
-    RadioButton rbWish;
+    @BindView(R.id.llType)
+    LinearLayout llType;
+    @BindView(R.id.tvType)
+    TextView tvType;
 
     private Souvenir souvenir;
 
@@ -115,7 +113,7 @@ public class SouvenirEditActivity extends BaseActivity<SouvenirEditActivity> {
         // location
         refreshLocationView();
         // type
-        initTypeCheck();
+        refreshTypeView();
     }
 
     @Override
@@ -152,41 +150,24 @@ public class SouvenirEditActivity extends BaseActivity<SouvenirEditActivity> {
         return super.onOptionsItemSelected(item);
     }
 
-    @OnClick({R.id.cvHappenAt, R.id.cvAddress})
+    @OnClick({R.id.llHappenAt, R.id.llAddress, R.id.llType})
     public void onViewClicked(View view) {
         switch (view.getId()) {
-            case R.id.cvHappenAt: // 日期
+            case R.id.llHappenAt: // 日期
                 showDatePicker();
                 break;
-            case R.id.cvAddress: // 地址
+            case R.id.llAddress: // 地址
                 if (souvenir == null) return;
                 MapSelectActivity.goActivity(mActivity, souvenir.getAddress(), souvenir.getLongitude(), souvenir.getLatitude());
+                break;
+            case R.id.llType: // 类型
+                showTypeDialog();
                 break;
         }
     }
 
     private boolean isFromUpdate() {
         return getIntent().getIntExtra("from", BaseActivity.ACT_EDIT_FROM_ADD) == BaseActivity.ACT_EDIT_FROM_UPDATE;
-    }
-
-    private void initTypeCheck() {
-        if (souvenir == null) return;
-        rgType.setOnCheckedChangeListener((group, checkedId) -> {
-            if (souvenir == null) return;
-            switch (checkedId) {
-                case R.id.rbDone: // 送给我
-                    souvenir.setDone(true);
-                    break;
-                case R.id.rbWish: // 送给ta
-                    souvenir.setDone(false);
-                    break;
-            }
-        });
-        if (souvenir.isDone()) {
-            rbDone.setChecked(true);
-        } else {
-            rbWish.setChecked(true);
-        }
     }
 
     private void showDatePicker() {
@@ -201,13 +182,42 @@ public class SouvenirEditActivity extends BaseActivity<SouvenirEditActivity> {
         if (souvenir == null) return;
         long happenAt = TimeHelper.getJavaTimeByGo(souvenir.getHappenAt());
         String happen = DateUtils.getStr(happenAt, DateUtils.FORMAT_LINE_Y_M_D_H_M);
-        tvHappenAt.setText(happen);
+        tvHappenAt.setText(String.format(Locale.getDefault(), getString(R.string.time_colon_space_holder), happen));
     }
 
     private void refreshLocationView() {
         if (souvenir == null) return;
-        String location = StringUtils.isEmpty(souvenir.getAddress()) ? getString(R.string.now_no) : souvenir.getAddress();
-        tvAddress.setText(location);
+        String address = StringUtils.isEmpty(souvenir.getAddress()) ? getString(R.string.now_no) : souvenir.getAddress();
+        tvAddress.setText(String.format(Locale.getDefault(), getString(R.string.address_colon_space_holder), address));
+    }
+
+    private void showTypeDialog() {
+        int searchIndex = souvenir.isDone() ? 0 : 1;
+        MaterialDialog dialog = DialogHelper.getBuild(mActivity)
+                .cancelable(true)
+                .canceledOnTouchOutside(true)
+                .title(R.string.please_select_classify)
+                .items(new String[]{getString(R.string.souvenir), getString(R.string.wish_list)})
+                .itemsCallbackSingleChoice(searchIndex, (dialog1, view, which, text) -> {
+                    if (which < 0 || which > 1) {
+                        return true;
+                    }
+                    souvenir.setDone(which == 0);
+                    refreshTypeView();
+                    DialogUtils.dismiss(dialog1);
+                    return true;
+                })
+                .build();
+        DialogHelper.showWithAnim(dialog);
+    }
+
+    private void refreshTypeView() {
+        if (souvenir == null) return;
+        if (souvenir.isDone()) {
+            tvType.setText(String.format(Locale.getDefault(), getString(R.string.type_colon_space_holder), getString(R.string.souvenir)));
+        } else {
+            tvType.setText(String.format(Locale.getDefault(), getString(R.string.type_colon_space_holder), getString(R.string.wish_list)));
+        }
     }
 
     private void checkPush() {
