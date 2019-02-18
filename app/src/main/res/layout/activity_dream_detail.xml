@@ -32,8 +32,8 @@
                     style="@style/FontBlackBigBold"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginBottom="10dp"
+                    android:layout_marginTop="25dp"
+                    android:layout_marginBottom="15dp"
                     android:gravity="center"
                     tools:text="2017年 06月 21号"/>
 
@@ -49,8 +49,6 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:drawableStart="@mipmap/ic_account_circle_grey_18dp"
-                        android:drawablePadding="5dp"
                         android:gravity="center_vertical"
                         tools:text="创建者: 一二三四五六"/>
 
