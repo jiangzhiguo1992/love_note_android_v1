@@ -55,8 +55,8 @@
                 android:layout_alignTop="@+id/cvAvatar"
                 android:layout_marginEnd="5dp"
                 android:layout_toEndOf="@+id/cvAvatar"
+                android:ellipsize="middle"
                 android:gravity="center_vertical"
-                android:maxLines="1"
                 android:singleLine="true"
                 tools:text="天津波波鱼吃饭"/>
 
@@ -99,9 +99,9 @@
                     android:layout_toStartOf="@+id/ivAddress"
                     android:layout_toEndOf="@+id/tvHappenAt"
                     android:background="?attr/selectableItemBackground"
+                    android:ellipsize="start"
                     android:foreground="?attr/selectableItemBackground"
                     android:gravity="end"
-                    android:maxLines="1"
                     android:singleLine="true"
                     android:visibility="gone"
                     tools:text="天津师范大学"

@@ -30,9 +30,8 @@
             android:layout_alignTop="@+id/tvDayCount"
             android:layout_marginEnd="10dp"
             android:layout_toStartOf="@+id/tvDayCount"
-            android:ellipsize="end"
+            android:ellipsize="middle"
             android:gravity="start"
-            android:maxLines="1"
             android:singleLine="true"
             tools:text="在一起在一起在一起"/>
 
@@ -54,7 +53,6 @@
             android:layout_marginEnd="10dp"
             android:layout_toStartOf="@+id/tvDayCount"
             android:layout_toEndOf="@+id/ivTime"
-            android:ellipsize="end"
             android:gravity="start|center_vertical"
             android:maxLines="1"
             android:singleLine="true"

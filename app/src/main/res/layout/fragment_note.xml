@@ -88,7 +88,7 @@
                                         android:layout_alignBottom="@+id/tvSouvenirYear"
                                         android:layout_marginStart="10dp"
                                         android:layout_toEndOf="@+id/tvSouvenirYear"
-                                        android:ellipsize="end"
+                                        android:ellipsize="middle"
                                         android:gravity="center"
                                         android:minLines="1"
                                         android:singleLine="true"

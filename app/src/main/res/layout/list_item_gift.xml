@@ -55,8 +55,7 @@
                 android:layout_alignTop="@+id/cvAvatar"
                 android:layout_marginEnd="5dp"
                 android:layout_toEndOf="@+id/cvAvatar"
-                android:gravity="center_vertical"
-                android:maxLines="1"
+                android:ellipsize="middle"
                 android:singleLine="true"
                 tools:text="2018在一起一周年"/>
 

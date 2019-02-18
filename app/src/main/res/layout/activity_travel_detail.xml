@@ -35,7 +35,10 @@
                         style="@style/FontBlackHugeBold"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_margin="10dp"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="25dp"
+                        android:layout_marginEnd="10dp"
+                        android:layout_marginBottom="10dp"
                         android:gravity="center"
                         tools:text="天津波波鱼吃饭"/>
 
@@ -51,8 +54,6 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:drawableStart="@mipmap/ic_access_time_grey_18dp"
-                            android:drawablePadding="5dp"
                             android:gravity="start|center_vertical"
                             tools:text="时间: 2018年 12月 21号"/>
 
@@ -62,8 +63,6 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:drawableEnd="@mipmap/ic_account_circle_grey_18dp"
-                            android:drawablePadding="5dp"
                             android:gravity="end|center_vertical"
                             tools:text="创建者: XXXXXXX"/>
                     </LinearLayout>
@@ -92,8 +91,6 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
                         android:layout_marginEnd="10dp"
-                        android:drawableStart="@mipmap/ic_location_on_grey_18dp"
-                        android:drawablePadding="6dp"
                         android:gravity="center"
                         android:text="@string/track"/>
 

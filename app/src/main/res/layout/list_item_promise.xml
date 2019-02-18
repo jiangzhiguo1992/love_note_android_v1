@@ -41,7 +41,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:layout_weight="1"
-                android:ellipsize="end"
                 android:maxLines="1"
                 android:singleLine="true"
                 tools:text="2017年 12月 31日"/>
