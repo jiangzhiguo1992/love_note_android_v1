@@ -8,11 +8,19 @@
     android:paddingStart="10dp"
     android:paddingEnd="10dp">
 
+    <TextView
+        android:id="@+id/tvContent"
+        style="@style/FontBlackBigBold"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
+        tools:text="内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容"/>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:layout_marginBottom="20dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="25dp"
         android:orientation="horizontal">
 
         <TextView
@@ -21,8 +29,6 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:drawableStart="@mipmap/ic_account_circle_grey_18dp"
-            android:drawablePadding="5dp"
             android:gravity="center_vertical"
             tools:text="承诺者: 一二三四五六"/>
 
@@ -32,23 +38,14 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:drawableEnd="@mipmap/ic_access_time_grey_18dp"
-            android:drawablePadding="5dp"
-            android:gravity="end|center_vertical"
+            android:gravity="end"
             tools:text="承诺时间: 2017年 4月 20日"/>
     </LinearLayout>
-
-    <TextView
-        android:id="@+id/tvContent"
-        style="@style/FontBlackBigBold"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
-        tools:text="内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容"/>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
         android:layout_marginBottom="10dp"
         android:gravity="center_vertical"
         android:orientation="horizontal">

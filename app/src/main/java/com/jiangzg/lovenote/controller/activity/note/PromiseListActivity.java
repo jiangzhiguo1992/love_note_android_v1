@@ -150,24 +150,6 @@ public class PromiseListActivity extends BaseActivity<PromiseListActivity> {
         RecyclerHelper.release(recyclerHelper);
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        if (!isFromSelect()) {
-            getMenuInflater().inflate(R.menu.help, menu);
-        }
-        return super.onCreateOptionsMenu(menu);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.menuHelp: // 帮助
-                HelpActivity.goActivity(mActivity, HelpActivity.INDEX_NOTE_PROMISE);
-                return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
     @OnClick({R.id.llSearch, R.id.llAdd})
     public void onViewClicked(View view) {
         switch (view.getId()) {

@@ -22,89 +22,21 @@
             tools:listitem="@layout/list_item_promise_break"/>
     </com.jiangzg.lovenote.view.GSwipeRefreshLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fabAdd"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        android:background="@drawable/layer_line_border_grey_in_white"
-        android:gravity="center_vertical"
-        android:orientation="horizontal"
-        app:layout_behavior="@string/behavior_linear_depend_app_bar">
-
-        <LinearLayout
-            android:id="@+id/llDel"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="?attr/selectableItemBackground"
-            android:foreground="?attr/selectableItemBackground"
-            android:gravity="center"
-            android:orientation="horizontal"
-            android:paddingTop="10dp"
-            android:paddingBottom="10dp">
-
-            <TextView
-                style="@style/FontGreyNormal"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:drawableStart="@mipmap/ic_delete_grey_18dp"
-                android:drawablePadding="6dp"
-                android:gravity="center"
-                android:text="@string/delete"/>
-        </LinearLayout>
-
-        <View style="@style/LineVertical"/>
-
-        <LinearLayout
-            android:id="@+id/llEdit"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="?attr/selectableItemBackground"
-            android:foreground="?attr/selectableItemBackground"
-            android:gravity="center"
-            android:orientation="horizontal"
-            android:paddingTop="10dp"
-            android:paddingBottom="10dp"
-            android:visibility="gone"
-            tools:visibility="visible">
-
-            <TextView
-                style="@style/FontGreyNormal"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:drawableStart="@mipmap/ic_edit_grey_18dp"
-                android:drawablePadding="6dp"
-                android:gravity="center"
-                android:text="@string/edit"/>
-        </LinearLayout>
-
-        <View
-            style="@style/LineVertical"
-            android:visibility="gone"/>
-
-        <LinearLayout
-            android:id="@+id/llAdd"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="?attr/selectableItemBackground"
-            android:foreground="?attr/selectableItemBackground"
-            android:gravity="center"
-            android:orientation="horizontal"
-            android:paddingTop="10dp"
-            android:paddingBottom="10dp">
-
-            <TextView
-                style="@style/FontGreyNormal"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:drawableStart="@mipmap/ic_add_circle_outline_grey_18dp"
-                android:drawablePadding="6dp"
-                android:gravity="center"
-                android:text="@string/violate"/>
-        </LinearLayout>
-    </LinearLayout>
+        android:layout_gravity="bottom|end"
+        android:layout_margin="@dimen/fab_margin"
+        android:src="@mipmap/ic_add_white_24dp"
+        android:visibility="visible"
+        app:backgroundTint="?attr/colorAccent"
+        app:borderWidth="0dp"
+        app:elevation="@dimen/elevation_normal"
+        app:fabSize="mini"
+        app:layout_behavior="@string/behavior_fab_depend_app_bar"
+        app:pressedTranslationZ="@dimen/elevation_big"
+        app:rippleColor="?attr/colorPrimaryDark"/>
 
     <RelativeLayout
         android:id="@+id/rlBreak"
@@ -113,16 +45,14 @@
         android:background="@drawable/layer_line_border_grey_in_white"
         app:behavior_hideable="true"
         app:behavior_peekHeight="200dp"
-        app:elevation="4dp"
+        app:elevation="@dimen/elevation_normal"
         app:layout_behavior="@string/bottom_sheet_behavior"
         tools:visibility="visible">
 
-        <LinearLayout
-            android:id="@+id/llBreakTop"
+        <RelativeLayout
+            android:id="@+id/rlBreakTop"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
+            android:layout_height="wrap_content">
 
             <ImageView
                 android:id="@+id/ivBreakClose"
@@ -131,43 +61,29 @@
                 android:padding="10dp"
                 android:src="@mipmap/ic_close_grey_24dp"/>
 
-            <Button
-                android:id="@+id/btnBreakHappen"
-                style="@style/FontWhiteSmall"
-                android:layout_width="0dp"
-                android:layout_height="30dp"
-                android:layout_marginStart="20dp"
-                android:layout_marginEnd="20dp"
-                android:layout_weight="1"
-                android:background="@drawable/selector_enable_press_solid_light_primary_dark_r100"
-                android:foreground="?attr/selectableItemBackground"
-                android:gravity="center"
-                tools:text="2018年 12月 1号"/>
+            <TextView
+                android:id="@+id/tvBreakContentLimit"
+                style="@style/FontGreySmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                tools:text="0/200"/>
 
             <ImageView
                 android:id="@+id/ivAddCommit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
                 android:padding="10dp"
                 android:src="@mipmap/ic_near_me_grey_24dp"/>
-        </LinearLayout>
-
-        <TextView
-            android:id="@+id/tvBreakContentLimit"
-            style="@style/FontGreySmall"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/llBreakTop"
-            android:layout_centerHorizontal="true"
-            android:layout_marginBottom="2dp"
-            tools:text="0/200"/>
+        </RelativeLayout>
 
         <EditText
             android:id="@+id/etBreakContent"
             style="@style/FontGreyNormal"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@+id/tvBreakContentLimit"
+            android:layout_below="@+id/rlBreakTop"
             android:layout_marginStart="10dp"
             android:layout_marginEnd="10dp"
             android:layout_marginBottom="10dp"

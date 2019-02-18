@@ -163,7 +163,7 @@
         android:background="@drawable/layer_line_border_grey_in_white"
         app:behavior_hideable="true"
         app:behavior_peekHeight="200dp"
-        app:elevation="4dp"
+        app:elevation="@dimen/elevation_normal"
         app:layout_behavior="@string/bottom_sheet_behavior"
         tools:visibility="gone">
 

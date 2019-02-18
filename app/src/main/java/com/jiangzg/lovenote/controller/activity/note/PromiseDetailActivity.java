@@ -4,21 +4,22 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.BottomSheetBehavior;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.chad.library.adapter.base.listener.OnItemLongClickListener;
+import com.chad.library.adapter.base.listener.OnItemChildLongClickListener;
 import com.jiangzg.base.common.DateUtils;
 import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.base.component.ActivityTrans;
@@ -58,20 +59,14 @@ public class PromiseDetailActivity extends BaseActivity<PromiseDetailActivity> {
     GSwipeRefreshLayout srl;
     @BindView(R.id.rv)
     RecyclerView rv;
-    @BindView(R.id.llDel)
-    LinearLayout llDel;
-    @BindView(R.id.llEdit)
-    LinearLayout llEdit;
-    @BindView(R.id.llAdd)
-    LinearLayout llAdd;
+    @BindView(R.id.fabAdd)
+    FloatingActionButton fabAdd;
     @BindView(R.id.rlBreak)
     RelativeLayout rlBreak;
     @BindView(R.id.ivBreakClose)
     ImageView ivBreakClose;
     @BindView(R.id.ivAddCommit)
     ImageView ivAddCommit;
-    @BindView(R.id.btnBreakHappen)
-    Button btnBreakHappen;
     @BindView(R.id.tvBreakContentLimit)
     TextView tvBreakContentLimit;
     @BindView(R.id.etBreakContent)
@@ -119,11 +114,15 @@ public class PromiseDetailActivity extends BaseActivity<PromiseDetailActivity> {
                 .setAdapter()
                 .listenerRefresh(() -> getBreakData(false))
                 .listenerMore(currentCount -> getBreakData(true))
-                .listenerClick(new OnItemLongClickListener() {
+                .listenerClick(new OnItemChildLongClickListener() {
                     @Override
-                    public void onSimpleItemLongClick(BaseQuickAdapter adapter, View view, int position) {
-                        PromiseBreakAdapter promiseBreakAdapter = (PromiseBreakAdapter) adapter;
-                        promiseBreakAdapter.showDeleteDialog(position, promise);
+                    public void onSimpleItemChildLongClick(BaseQuickAdapter adapter, View view, int position) {
+                        switch (view.getId()) {
+                            case R.id.cvContent: // 删除
+                                PromiseBreakAdapter promiseBreakAdapter = (PromiseBreakAdapter) adapter;
+                                promiseBreakAdapter.showDeleteDialog(position, promise);
+                                break;
+                        }
                     }
                 });
         // init
@@ -141,8 +140,6 @@ public class PromiseDetailActivity extends BaseActivity<PromiseDetailActivity> {
             long pid = intent.getLongExtra("pid", 0);
             refreshPromise(pid);
         }
-        // happen
-        refreshDateView();
         // break
         breakShow(false);
         // content 防止开始显示错误
@@ -165,6 +162,22 @@ public class PromiseDetailActivity extends BaseActivity<PromiseDetailActivity> {
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.del, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menuDel: // 删除
+                showDelDialog();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
     public void onBackPressed() {
         if (behaviorBreak.getState() != BottomSheetBehavior.STATE_HIDDEN) {
             behaviorBreak.setState(BottomSheetBehavior.STATE_HIDDEN);
@@ -178,25 +191,14 @@ public class PromiseDetailActivity extends BaseActivity<PromiseDetailActivity> {
         onBreakContentInput(s.toString());
     }
 
-    @OnClick({R.id.llDel, R.id.llEdit, R.id.llAdd,
-            R.id.ivBreakClose, R.id.btnBreakHappen, R.id.ivAddCommit})
+    @OnClick({R.id.fabAdd, R.id.ivBreakClose, R.id.ivAddCommit})
     public void onViewClicked(View view) {
         switch (view.getId()) {
-            case R.id.llDel:
-                showDelDialog();
-                break;
-            case R.id.llEdit:
-                if (promise == null) return;
-                //PromiseEditActivity.goActivity(mActivity, promise);
-                break;
-            case R.id.llAdd:
-                breakShow(true);
+            case R.id.fabAdd:
+                showBreakTimePicker();
                 break;
             case R.id.ivBreakClose:
                 breakShow(false);
-                break;
-            case R.id.btnBreakHappen:
-                showBreakTimePicker();
                 break;
             case R.id.ivAddCommit:
                 commitBreak();
@@ -233,7 +235,9 @@ public class PromiseDetailActivity extends BaseActivity<PromiseDetailActivity> {
         if (promise == null || recyclerHelper == null) return;
         User me = SPHelper.getMe();
         String name = UserHelper.getName(me, promise.getHappenId());
-        String happenAt = TimeHelper.getTimeShowLocal_HM_MD_YMD_ByGo(promise.getHappenAt());
+        String creator = String.format(Locale.getDefault(), getString(R.string.creator_colon_space_holder), name);
+        String happen = TimeHelper.getTimeShowLocal_HM_MD_YMD_ByGo(promise.getHappenAt());
+        String happenAt = String.format(Locale.getDefault(), getString(R.string.create_at_colon_space_holder), happen);
         String content = promise.getContentText();
         String breakCount = String.format(Locale.getDefault(), getString(R.string.break_space_holder_space_time), promise.getBreakCount());
         // view
@@ -243,7 +247,7 @@ public class PromiseDetailActivity extends BaseActivity<PromiseDetailActivity> {
         TextView tvContent = head.findViewById(R.id.tvContent);
         TextView tvBreakCount = head.findViewById(R.id.tvBreakCount);
         // set
-        tvPromiseUser.setText(name);
+        tvPromiseUser.setText(creator);
         tvPromiseHappen.setText(happenAt);
         tvContent.setText(content);
         tvBreakCount.setText(breakCount);
@@ -331,16 +335,11 @@ public class PromiseDetailActivity extends BaseActivity<PromiseDetailActivity> {
     private void showBreakTimePicker() {
         DialogHelper.showDateTimePicker(mActivity, DateUtils.getCurrentLong(), time -> {
             breakHappen = TimeHelper.getGoTimeByJava(time);
-            refreshDateView();
+            if (breakHappen == 0) {
+                breakHappen = DateUtils.getCurrentLong();
+            }
+            breakShow(true);
         });
-    }
-
-    private void refreshDateView() {
-        if (breakHappen == 0) {
-            breakHappen = TimeHelper.getGoTimeByJava(DateUtils.getCurrentLong());
-        }
-        String happen = TimeHelper.getTimeShowLocal_HM_MDHM_YMDHM_ByGo(breakHappen);
-        btnBreakHappen.setText(happen);
     }
 
     private void commitBreak() {
