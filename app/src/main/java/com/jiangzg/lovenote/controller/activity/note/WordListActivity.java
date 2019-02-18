@@ -19,6 +19,7 @@ import com.chad.library.adapter.base.listener.OnItemChildLongClickListener;
 import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.base.component.ActivityTrans;
 import com.jiangzg.base.system.InputUtils;
+import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.controller.activity.base.BaseActivity;
 import com.jiangzg.lovenote.controller.activity.settings.HelpActivity;
@@ -81,11 +82,6 @@ public class WordListActivity extends BaseActivity<WordListActivity> {
     @Override
     protected void initView(Intent intent, Bundle state) {
         ViewHelper.initTopBar(mActivity, tb, getString(R.string.word), true);
-        // editTextHint
-        limitContentLength = SPHelper.getLimit().getWordContentLength();
-        String format = String.format(Locale.getDefault(), getString(R.string.please_input_content_no_over_holder_text), limitContentLength);
-        etContent.setHint(format);
-        etContent.setText("");
         // recycler
         recyclerHelper = new RecyclerHelper(rv)
                 .initLayoutManager(new LinearLayoutManager(mActivity))
@@ -107,6 +103,11 @@ public class WordListActivity extends BaseActivity<WordListActivity> {
                         }
                     }
                 });
+        // editTextHint
+        limitContentLength = SPHelper.getLimit().getWordContentLength();
+        String format = String.format(Locale.getDefault(), getString(R.string.please_input_content_no_over_holder_text), limitContentLength);
+        etContent.setHint(format);
+        etContent.setText("");
     }
 
     @Override
@@ -190,8 +191,13 @@ public class WordListActivity extends BaseActivity<WordListActivity> {
     }
 
     private void wordPush() {
+        String content = etContent.getText().toString().trim();
+        if (StringUtils.isEmpty(content)) {
+            ToastUtils.show(etContent.getHint());
+            return;
+        }
         Word body = new Word();
-        body.setContentText(etContent.getText().toString());
+        body.setContentText(content);
         // api
         Call<Result> api = new RetrofitHelper().call(API.class).noteWordAdd(body);
         RetrofitHelper.enqueue(api, getLoading(true), new RetrofitHelper.CallBack() {

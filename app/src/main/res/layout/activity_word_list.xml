@@ -28,8 +28,8 @@
         android:layout_gravity="bottom"
         android:background="@color/white"
         android:orientation="horizontal"
-        android:paddingTop="10dp"
-        android:paddingBottom="10dp"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
         app:layout_behavior="@string/behavior_linear_depend_app_bar">
 
         <EditText

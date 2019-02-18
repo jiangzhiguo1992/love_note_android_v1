@@ -9,12 +9,13 @@
     android:orientation="vertical"
     tools:context=".controller.activity.note.WhisperListActivity">
 
+    <include layout="@layout/view_top_bar"/>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
-
-        <include layout="@layout/view_top_bar"/>
+        android:orientation="vertical"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -83,117 +84,53 @@
                 android:layout_height="wrap_content"
                 tools:listitem="@layout/list_item_whisper_left"/>
         </com.jiangzg.lovenote.view.GSwipeRefreshLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/layer_line_border_grey_in_white"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
-
-            <LinearLayout
-                android:id="@+id/llAddImage"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:background="?attr/selectableItemBackground"
-                android:foreground="?attr/selectableItemBackground"
-                android:gravity="center"
-                android:orientation="horizontal"
-                android:paddingTop="8dp"
-                android:paddingBottom="8dp">
-
-                <TextView
-                    style="@style/FontGreyNormal"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:drawableStart="@mipmap/ic_image_grey_18dp"
-                    android:drawablePadding="6dp"
-                    android:gravity="center"
-                    android:text="@string/add_image"/>
-            </LinearLayout>
-
-            <View style="@style/LineVertical"/>
-
-            <LinearLayout
-                android:id="@+id/llAddText"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:background="?attr/selectableItemBackground"
-                android:foreground="?attr/selectableItemBackground"
-                android:gravity="center"
-                android:orientation="horizontal"
-                android:paddingTop="8dp"
-                android:paddingBottom="8dp">
-
-                <TextView
-                    style="@style/FontGreyNormal"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:drawableStart="@mipmap/ic_text_format_grey_18dp"
-                    android:drawablePadding="6dp"
-                    android:gravity="center"
-                    android:text="@string/add_text"/>
-            </LinearLayout>
-        </LinearLayout>
     </LinearLayout>
 
-    <RelativeLayout
-        android:id="@+id/rlComment"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="400dp"
-        android:background="@drawable/layer_line_border_grey_in_white"
-        app:behavior_hideable="true"
-        app:behavior_peekHeight="200dp"
-        app:elevation="@dimen/elevation_normal"
-        app:layout_behavior="@string/bottom_sheet_behavior"
-        tools:visibility="gone">
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:background="@color/white"
+        android:orientation="horizontal"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        app:layout_behavior="@string/behavior_linear_depend_app_bar">
 
-        <RelativeLayout
-            android:id="@+id/rlCommentTop"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <ImageView
-                android:id="@+id/ivCommentClose"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:padding="10dp"
-                android:src="@mipmap/ic_close_grey_24dp"/>
-
-            <TextView
-                android:id="@+id/tvCommentLimit"
-                style="@style/FontGreySmall"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                tools:text="0/200"/>
-
-            <ImageView
-                android:id="@+id/ivAddCommit"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_centerVertical="true"
-                android:padding="10dp"
-                android:src="@mipmap/ic_near_me_grey_24dp"/>
-        </RelativeLayout>
+        <ImageView
+            android:id="@+id/ivImgAdd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:background="?attr/selectableItemBackground"
+            android:foreground="?attr/selectableItemBackground"
+            android:padding="10dp"
+            android:src="@mipmap/ic_image_grey_24dp"
+            android:tint="?attr/colorPrimary"/>
 
         <EditText
-            android:id="@+id/etComment"
+            android:id="@+id/etContent"
             style="@style/FontGreyNormal"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_below="@+id/rlCommentTop"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
-            android:layout_marginBottom="10dp"
-            android:background="@drawable/shape_stroke_primary_r3"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            android:background="@drawable/selector_enable_press_stroke_light_primary_dark_r3"
             android:gravity="start"
             android:hint="@string/please_input_content"
             android:inputType="textMultiLine"
-            android:padding="8dp"/>
-    </RelativeLayout>
+            android:minLines="1"
+            android:padding="10dp"
+            android:textColorHint="@color/font_hint"/>
+
+        <ImageView
+            android:id="@+id/ivTextAdd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:background="?attr/selectableItemBackground"
+            android:foreground="?attr/selectableItemBackground"
+            android:padding="10dp"
+            android:src="@mipmap/ic_near_me_grey_24dp"
+            android:tint="?attr/colorPrimary"/>
+    </LinearLayout>
 </android.support.design.widget.CoordinatorLayout>
