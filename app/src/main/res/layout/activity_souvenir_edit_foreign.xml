@@ -57,7 +57,7 @@
             <RelativeLayout
                 android:id="@+id/rlGiftAdd"
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
+                android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 android:background="?attr/selectableItemBackground"
                 android:foreground="?attr/selectableItemBackground"
@@ -113,7 +113,7 @@
             <RelativeLayout
                 android:id="@+id/rlTravelAdd"
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
+                android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 android:background="?attr/selectableItemBackground"
                 android:foreground="?attr/selectableItemBackground"
@@ -169,7 +169,7 @@
             <RelativeLayout
                 android:id="@+id/rlAlbumAdd"
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
+                android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 android:background="?attr/selectableItemBackground"
                 android:foreground="?attr/selectableItemBackground"
@@ -225,7 +225,7 @@
             <RelativeLayout
                 android:id="@+id/rlVideoAdd"
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
+                android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 android:background="?attr/selectableItemBackground"
                 android:foreground="?attr/selectableItemBackground"
@@ -281,7 +281,7 @@
             <RelativeLayout
                 android:id="@+id/rlFoodAdd"
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
+                android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 android:background="?attr/selectableItemBackground"
                 android:foreground="?attr/selectableItemBackground"
@@ -337,7 +337,7 @@
             <RelativeLayout
                 android:id="@+id/rlMovieAdd"
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
+                android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 android:background="?attr/selectableItemBackground"
                 android:foreground="?attr/selectableItemBackground"
@@ -393,7 +393,7 @@
             <RelativeLayout
                 android:id="@+id/rlDiaryAdd"
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
+                android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 android:background="?attr/selectableItemBackground"
                 android:foreground="?attr/selectableItemBackground"

@@ -4,15 +4,16 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.StringRes;
-import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -70,32 +71,34 @@ public class TravelEditActivity extends BaseActivity<TravelEditActivity> {
     Toolbar tb;
     @BindView(R.id.etTitle)
     EditText etTitle;
-    @BindView(R.id.btnHappenAt)
-    Button btnHappenAt;
+    @BindView(R.id.llHappenAt)
+    LinearLayout llHappenAt;
+    @BindView(R.id.tvHappenAt)
+    TextView tvHappenAt;
     @BindView(R.id.rvPlace)
     RecyclerView rvPlace;
-    @BindView(R.id.cvPlaceAdd)
-    CardView cvPlaceAdd;
+    @BindView(R.id.rlPlaceAdd)
+    RelativeLayout rlPlaceAdd;
     @BindView(R.id.rvAlbum)
     RecyclerView rvAlbum;
-    @BindView(R.id.cvAlbumAdd)
-    CardView cvAlbumAdd;
+    @BindView(R.id.rlAlbumAdd)
+    RelativeLayout rlAlbumAdd;
     @BindView(R.id.rvVideo)
     RecyclerView rvVideo;
-    @BindView(R.id.cvVideoAdd)
-    CardView cvVideoAdd;
+    @BindView(R.id.rlVideoAdd)
+    RelativeLayout rlVideoAdd;
     @BindView(R.id.rvFood)
     RecyclerView rvFood;
-    @BindView(R.id.cvFoodAdd)
-    CardView cvFoodAdd;
+    @BindView(R.id.rlFoodAdd)
+    RelativeLayout rlFoodAdd;
     @BindView(R.id.rvMovie)
     RecyclerView rvMovie;
-    @BindView(R.id.cvMovieAdd)
-    CardView cvMovieAdd;
+    @BindView(R.id.rlMovieAdd)
+    RelativeLayout rlMovieAdd;
     @BindView(R.id.rvDiary)
     RecyclerView rvDiary;
-    @BindView(R.id.cvDiaryAdd)
-    CardView cvDiaryAdd;
+    @BindView(R.id.rlDiaryAdd)
+    RelativeLayout rlDiaryAdd;
 
     private Travel travel;
     private RecyclerHelper recyclerPlace;
@@ -398,29 +401,29 @@ public class TravelEditActivity extends BaseActivity<TravelEditActivity> {
         return super.onOptionsItemSelected(item);
     }
 
-    @OnClick({R.id.btnHappenAt, R.id.cvPlaceAdd, R.id.cvAlbumAdd, R.id.cvVideoAdd,
-            R.id.cvFoodAdd, R.id.cvMovieAdd, R.id.cvDiaryAdd})
+    @OnClick({R.id.llHappenAt, R.id.rlPlaceAdd, R.id.rlAlbumAdd, R.id.rlVideoAdd,
+            R.id.rlFoodAdd, R.id.rlMovieAdd, R.id.rlDiaryAdd})
     public void onViewClicked(View view) {
         switch (view.getId()) {
-            case R.id.btnHappenAt: // 日期
+            case R.id.llHappenAt: // 日期
                 showDatePicker();
                 break;
-            case R.id.cvPlaceAdd: // 足迹
+            case R.id.rlPlaceAdd: // 足迹
                 TravelPlaceEditActivity.goActivity(mActivity);
                 break;
-            case R.id.cvAlbumAdd: // 相册
+            case R.id.rlAlbumAdd: // 相册
                 AlbumListActivity.goActivityBySelectAlbum(mActivity);
                 break;
-            case R.id.cvVideoAdd: // 视频
+            case R.id.rlVideoAdd: // 视频
                 VideoListActivity.goActivityBySelect(mActivity);
                 break;
-            case R.id.cvFoodAdd: // 美食
+            case R.id.rlFoodAdd: // 美食
                 FoodListActivity.goActivityBySelect(mActivity);
                 break;
-            case R.id.cvMovieAdd: // 电影
+            case R.id.rlMovieAdd: // 电影
                 MovieListActivity.goActivityBySelect(mActivity);
                 break;
-            case R.id.cvDiaryAdd: // 日记
+            case R.id.rlDiaryAdd: // 日记
                 DiaryListActivity.goActivityBySelect(mActivity);
                 break;
         }
@@ -432,67 +435,67 @@ public class TravelEditActivity extends BaseActivity<TravelEditActivity> {
 
     private void refreshAddView() {
         if (travel == null) {
-            cvPlaceAdd.setVisibility(View.VISIBLE);
-            cvAlbumAdd.setVisibility(View.VISIBLE);
-            cvVideoAdd.setVisibility(View.VISIBLE);
-            cvFoodAdd.setVisibility(View.VISIBLE);
-            cvMovieAdd.setVisibility(View.VISIBLE);
-            cvDiaryAdd.setVisibility(View.VISIBLE);
+            rlPlaceAdd.setVisibility(View.VISIBLE);
+            rlAlbumAdd.setVisibility(View.VISIBLE);
+            rlVideoAdd.setVisibility(View.VISIBLE);
+            rlFoodAdd.setVisibility(View.VISIBLE);
+            rlMovieAdd.setVisibility(View.VISIBLE);
+            rlDiaryAdd.setVisibility(View.VISIBLE);
             return;
         }
         // place
         int placeCount = SPHelper.getLimit().getTravelPlaceCount();
         if (recyclerPlace == null || recyclerPlace.getAdapter() == null) {
-            cvPlaceAdd.setVisibility(View.VISIBLE);
+            rlPlaceAdd.setVisibility(View.VISIBLE);
         } else if (recyclerPlace.getAdapter().getData().size() < placeCount) {
-            cvPlaceAdd.setVisibility(View.VISIBLE);
+            rlPlaceAdd.setVisibility(View.VISIBLE);
         } else {
-            cvPlaceAdd.setVisibility(View.GONE);
+            rlPlaceAdd.setVisibility(View.GONE);
         }
         // album
         int albumCount = SPHelper.getLimit().getTravelAlbumCount();
         if (recyclerAlbum == null || recyclerAlbum.getAdapter() == null) {
-            cvAlbumAdd.setVisibility(View.VISIBLE);
+            rlAlbumAdd.setVisibility(View.VISIBLE);
         } else if (recyclerAlbum.getAdapter().getData().size() < albumCount) {
-            cvAlbumAdd.setVisibility(View.VISIBLE);
+            rlAlbumAdd.setVisibility(View.VISIBLE);
         } else {
-            cvAlbumAdd.setVisibility(View.GONE);
+            rlAlbumAdd.setVisibility(View.GONE);
         }
         // video
         int videoCount = SPHelper.getLimit().getTravelVideoCount();
         if (recyclerVideo == null || recyclerVideo.getAdapter() == null) {
-            cvVideoAdd.setVisibility(View.VISIBLE);
+            rlVideoAdd.setVisibility(View.VISIBLE);
         } else if (recyclerVideo.getAdapter().getData().size() < videoCount) {
-            cvVideoAdd.setVisibility(View.VISIBLE);
+            rlVideoAdd.setVisibility(View.VISIBLE);
         } else {
-            cvVideoAdd.setVisibility(View.GONE);
+            rlVideoAdd.setVisibility(View.GONE);
         }
         // food
         int foodCount = SPHelper.getLimit().getTravelFoodCount();
         if (recyclerFood == null || recyclerFood.getAdapter() == null) {
-            cvFoodAdd.setVisibility(View.VISIBLE);
+            rlFoodAdd.setVisibility(View.VISIBLE);
         } else if (recyclerFood.getAdapter().getData().size() < foodCount) {
-            cvFoodAdd.setVisibility(View.VISIBLE);
+            rlFoodAdd.setVisibility(View.VISIBLE);
         } else {
-            cvFoodAdd.setVisibility(View.GONE);
+            rlFoodAdd.setVisibility(View.GONE);
         }
         // movie
         int movieCount = SPHelper.getLimit().getTravelMovieCount();
         if (recyclerMovie == null || recyclerMovie.getAdapter() == null) {
-            cvMovieAdd.setVisibility(View.VISIBLE);
+            rlMovieAdd.setVisibility(View.VISIBLE);
         } else if (recyclerMovie.getAdapter().getData().size() < movieCount) {
-            cvMovieAdd.setVisibility(View.VISIBLE);
+            rlMovieAdd.setVisibility(View.VISIBLE);
         } else {
-            cvMovieAdd.setVisibility(View.GONE);
+            rlMovieAdd.setVisibility(View.GONE);
         }
         // diary
         int diaryCount = SPHelper.getLimit().getTravelDiaryCount();
         if (recyclerDiary == null || recyclerDiary.getAdapter() == null) {
-            cvDiaryAdd.setVisibility(View.VISIBLE);
+            rlDiaryAdd.setVisibility(View.VISIBLE);
         } else if (recyclerDiary.getAdapter().getData().size() < diaryCount) {
-            cvDiaryAdd.setVisibility(View.VISIBLE);
+            rlDiaryAdd.setVisibility(View.VISIBLE);
         } else {
-            cvDiaryAdd.setVisibility(View.GONE);
+            rlDiaryAdd.setVisibility(View.GONE);
         }
     }
 
@@ -545,7 +548,7 @@ public class TravelEditActivity extends BaseActivity<TravelEditActivity> {
     private void refreshDateView() {
         if (travel == null) return;
         String happen = TimeHelper.getTimeShowLocal_HM_MD_YMD_ByGo(travel.getHappenAt());
-        btnHappenAt.setText(happen);
+        tvHappenAt.setText(String.format(Locale.getDefault(), getString(R.string.time_colon_space_holder), happen));
     }
 
     private void showDeleteDialogNoApi(final BaseQuickAdapter adapter, final int position, @StringRes int contentRes) {
