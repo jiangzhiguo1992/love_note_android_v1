@@ -1038,7 +1038,7 @@ public class SPHelper {
         Diary diary = new Diary();
         diary.setHappenAt(sp.getLong(FIELD_DRAFT_DIARY_HAPPEN, 0));
         diary.setContentText(sp.getString(FIELD_DRAFT_DIARY_CONTENT_TEXT, ""));
-        if (diary.getHappenAt() == 0 && StringUtils.isEmpty(diary.getContentText())) {
+        if (StringUtils.isEmpty(diary.getContentText())) {
             return null;
         }
         return diary;
@@ -1059,7 +1059,7 @@ public class SPHelper {
         Dream dream = new Dream();
         dream.setHappenAt(sp.getLong(FIELD_DRAFT_DREAM_HAPPEN, 0));
         dream.setContentText(sp.getString(FIELD_DRAFT_DREAM_CONTENT_TEXT, ""));
-        if (dream.getHappenAt() == 0 && StringUtils.isEmpty(dream.getContentText())) {
+        if (StringUtils.isEmpty(dream.getContentText())) {
             return null;
         }
         return dream;

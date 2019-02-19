@@ -8,8 +8,8 @@ import android.text.Editable;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.jiangzg.base.common.DateUtils;
@@ -40,12 +40,14 @@ public class DreamEditActivity extends BaseActivity<DreamEditActivity> {
 
     @BindView(R.id.tb)
     Toolbar tb;
-    @BindView(R.id.btnHappenAt)
-    Button btnHappenAt;
-    @BindView(R.id.etContent)
-    EditText etContent;
     @BindView(R.id.tvContentLimit)
     TextView tvContentLimit;
+    @BindView(R.id.etContent)
+    EditText etContent;
+    @BindView(R.id.llHappenAt)
+    LinearLayout llHappenAt;
+    @BindView(R.id.tvHappenAt)
+    TextView tvHappenAt;
 
     private Dream dream;
     private int limitContentLength;
@@ -92,10 +94,10 @@ public class DreamEditActivity extends BaseActivity<DreamEditActivity> {
         if (dream.getHappenAt() == 0) {
             dream.setHappenAt(TimeHelper.getGoTimeByJava(DateUtils.getCurrentLong()));
         }
-        // date
-        refreshDateView();
         // content
         etContent.setText(dream.getContentText());
+        // date
+        refreshDateView();
     }
 
     @Override
@@ -104,6 +106,9 @@ public class DreamEditActivity extends BaseActivity<DreamEditActivity> {
 
     @Override
     protected void onFinish(Bundle state) {
+        if (SPHelper.getDraftDream() == null && dream != null && !StringUtils.isEmpty(dream.getContentText())) {
+            saveDraft();
+        }
     }
 
     @Override
@@ -130,10 +135,10 @@ public class DreamEditActivity extends BaseActivity<DreamEditActivity> {
         onContentInput(s.toString());
     }
 
-    @OnClick({R.id.btnHappenAt})
+    @OnClick({R.id.llHappenAt})
     public void onViewClicked(View view) {
         switch (view.getId()) {
-            case R.id.btnHappenAt: // 日期
+            case R.id.llHappenAt: // 日期
                 showDatePicker();
                 break;
         }
@@ -141,20 +146,6 @@ public class DreamEditActivity extends BaseActivity<DreamEditActivity> {
 
     private boolean isFromUpdate() {
         return getIntent().getIntExtra("from", BaseActivity.ACT_EDIT_FROM_ADD) == BaseActivity.ACT_EDIT_FROM_UPDATE;
-    }
-
-    private void showDatePicker() {
-        if (dream == null) return;
-        DialogHelper.showDatePicker(mActivity, TimeHelper.getJavaTimeByGo(dream.getHappenAt()), time -> {
-            dream.setHappenAt(TimeHelper.getGoTimeByJava(time));
-            refreshDateView();
-        });
-    }
-
-    private void refreshDateView() {
-        if (dream == null) return;
-        String happen = TimeHelper.getTimeShowLocal_HM_MD_YMD_ByGo(dream.getHappenAt());
-        btnHappenAt.setText(happen);
     }
 
     private void onContentInput(String input) {
@@ -173,6 +164,20 @@ public class DreamEditActivity extends BaseActivity<DreamEditActivity> {
         tvContentLimit.setText(limitShow);
         // 设置进去
         dream.setContentText(etContent.getText().toString());
+    }
+
+    private void showDatePicker() {
+        if (dream == null) return;
+        DialogHelper.showDatePicker(mActivity, TimeHelper.getJavaTimeByGo(dream.getHappenAt()), time -> {
+            dream.setHappenAt(TimeHelper.getGoTimeByJava(time));
+            refreshDateView();
+        });
+    }
+
+    private void refreshDateView() {
+        if (dream == null) return;
+        String happen = TimeHelper.getTimeShowLocal_HM_MD_YMD_ByGo(dream.getHappenAt());
+        tvHappenAt.setText(String.format(Locale.getDefault(), getString(R.string.time_colon_space_holder), happen));
     }
 
     private void saveDraft() {
