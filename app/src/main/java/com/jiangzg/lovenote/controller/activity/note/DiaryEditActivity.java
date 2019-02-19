@@ -15,7 +15,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.jiangzg.base.common.DateUtils;
-import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.base.component.ActivityTrans;
 import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.lovenote.R;
@@ -134,9 +133,9 @@ public class DiaryEditActivity extends BaseActivity<DiaryEditActivity> {
     @Override
     protected void onFinish(Bundle state) {
         RecyclerHelper.release(recyclerHelper);
-        if (SPHelper.getDraftDiary() == null && diary != null && !StringUtils.isEmpty(diary.getContentText())) {
-            saveDraft();
-        }
+        //if (SPHelper.getDraftDiary() == null && diary != null && !StringUtils.isEmpty(diary.getContentText())) {
+        //    saveDraft();
+        //}
     }
 
     @Override

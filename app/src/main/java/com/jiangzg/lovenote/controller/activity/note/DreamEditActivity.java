@@ -106,9 +106,9 @@ public class DreamEditActivity extends BaseActivity<DreamEditActivity> {
 
     @Override
     protected void onFinish(Bundle state) {
-        if (SPHelper.getDraftDream() == null && dream != null && !StringUtils.isEmpty(dream.getContentText())) {
-            saveDraft();
-        }
+        //if (SPHelper.getDraftDream() == null && dream != null && !StringUtils.isEmpty(dream.getContentText())) {
+        //    saveDraft();
+        //}
     }
 
     @Override

@@ -3,7 +3,6 @@ package com.jiangzg.lovenote.controller.activity.topic;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.widget.CardView;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -12,6 +11,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
@@ -52,22 +52,19 @@ public class PostAddActivity extends BaseActivity<PostAddActivity> {
 
     @BindView(R.id.tb)
     Toolbar tb;
-    @BindView(R.id.cvKind)
-    CardView cvKind;
-    @BindView(R.id.tvKind)
-    TextView tvKind;
-    @BindView(R.id.cvSubKind)
-    CardView cvSubKind;
-    @BindView(R.id.tvSubKind)
-    TextView tvSubKind;
+
     @BindView(R.id.etTitle)
     EditText etTitle;
-    @BindView(R.id.etContent)
-    EditText etContent;
     @BindView(R.id.tvContentLimit)
     TextView tvContentLimit;
+    @BindView(R.id.etContent)
+    EditText etContent;
     @BindView(R.id.rvImage)
     RecyclerView rvImage;
+    @BindView(R.id.llKind)
+    LinearLayout llKind;
+    @BindView(R.id.tvKind)
+    TextView tvKind;
 
     private Post post;
     private PostKindInfo kindInfo;
@@ -99,9 +96,6 @@ public class PostAddActivity extends BaseActivity<PostAddActivity> {
         if (post == null) {
             post = new Post();
         }
-        // kindInfo
-        kindInfo = intent.getParcelableExtra("kindInfo");
-        refreshPostKind(intent.getIntExtra("subKind", 0));
         // etTitle
         String format = getString(R.string.please_input_title_no_over_holder_text);
         String hint = String.format(Locale.getDefault(), format, SPHelper.getLimit().getPostTitleLength());
@@ -128,6 +122,9 @@ public class PostAddActivity extends BaseActivity<PostAddActivity> {
                         .setAdapter();
             }
         }
+        // kindInfo
+        kindInfo = intent.getParcelableExtra("kindInfo");
+        refreshPostKind(intent.getIntExtra("subKind", 0));
     }
 
     @Override
@@ -181,13 +178,55 @@ public class PostAddActivity extends BaseActivity<PostAddActivity> {
         onContentInput(s.toString());
     }
 
-    @OnClick({R.id.cvSubKind})
+    @OnClick({R.id.llKind})
     public void onViewClicked(View view) {
         switch (view.getId()) {
-            case R.id.cvSubKind: // 分类
+            case R.id.llKind: // 分类
                 showSelectSubKindDialog();
                 break;
         }
+    }
+
+    private void onContentInput(String input) {
+        if (post == null) return;
+        if (limitContentLength <= 0) {
+            limitContentLength = SPHelper.getLimit().getPostContentLength();
+        }
+        int length = input.length();
+        if (length > limitContentLength) {
+            CharSequence charSequence = input.subSequence(0, limitContentLength);
+            etContent.setText(charSequence);
+            etContent.setSelection(charSequence.length());
+            length = charSequence.length();
+        }
+        String limitShow = String.format(Locale.getDefault(), getString(R.string.holder_sprit_holder), length, limitContentLength);
+        tvContentLimit.setText(limitShow);
+        // 设置进去
+        post.setContentText(etContent.getText().toString());
+    }
+
+    private void showSelectSubKindDialog() {
+        if (post == null) return;
+        List<String> subKindPushShowList = ListHelper.getPostSubKindInfoListPushShow(kindInfo);
+        int selectIndex = ListHelper.getIndexInPostSubKindInfoListPush(kindInfo, post.getSubKind());
+        if (selectIndex < 0) return;
+        MaterialDialog dialog = DialogHelper.getBuild(mActivity)
+                .cancelable(true)
+                .canceledOnTouchOutside(true)
+                .title(R.string.please_select_classify)
+                .items(subKindPushShowList)
+                .itemsCallbackSingleChoice(selectIndex, (dialog1, view, which, text) -> {
+                    if (post == null) return true;
+                    List<PostSubKindInfo> subKindPushList = ListHelper.getPostSubKindInfoListPush(kindInfo);
+                    PostSubKindInfo subKindInfo = subKindPushList.get(which);
+                    if (subKindInfo != null) {
+                        refreshPostKind(subKindInfo.getKind());
+                    }
+                    DialogUtils.dismiss(dialog1);
+                    return true;
+                })
+                .build();
+        DialogHelper.showWithAnim(dialog);
     }
 
     private void refreshPostKind(int subKind) {
@@ -216,52 +255,8 @@ public class PostAddActivity extends BaseActivity<PostAddActivity> {
         post.setSubKind(subKind);
         // view
         PostSubKindInfo subKindInfo = ListHelper.getPostSubKindInfo(kindInfo, post.getSubKind());
-        String kindShow = (kindInfo == null || StringUtils.isEmpty(kindInfo.getName())) ? getString(R.string.please_select_classify) : kindInfo.getName();
         String subKindShow = (subKindInfo == null || StringUtils.isEmpty(subKindInfo.getName())) ? getString(R.string.please_select_classify) : subKindInfo.getName();
-        tvKind.setText(kindShow);
-        tvSubKind.setText(subKindShow);
-    }
-
-    private void showSelectSubKindDialog() {
-        if (post == null) return;
-        List<String> subKindPushShowList = ListHelper.getPostSubKindInfoListPushShow(kindInfo);
-        int selectIndex = ListHelper.getIndexInPostSubKindInfoListPush(kindInfo, post.getSubKind());
-        if (selectIndex < 0) return;
-        MaterialDialog dialog = DialogHelper.getBuild(mActivity)
-                .cancelable(true)
-                .canceledOnTouchOutside(true)
-                .title(R.string.please_select_classify)
-                .items(subKindPushShowList)
-                .itemsCallbackSingleChoice(selectIndex, (dialog1, view, which, text) -> {
-                    if (post == null) return true;
-                    List<PostSubKindInfo> subKindPushList = ListHelper.getPostSubKindInfoListPush(kindInfo);
-                    PostSubKindInfo subKindInfo = subKindPushList.get(which);
-                    if (subKindInfo != null) {
-                        refreshPostKind(subKindInfo.getKind());
-                    }
-                    DialogUtils.dismiss(dialog1);
-                    return true;
-                })
-                .build();
-        DialogHelper.showWithAnim(dialog);
-    }
-
-    private void onContentInput(String input) {
-        if (post == null) return;
-        if (limitContentLength <= 0) {
-            limitContentLength = SPHelper.getLimit().getPostContentLength();
-        }
-        int length = input.length();
-        if (length > limitContentLength) {
-            CharSequence charSequence = input.subSequence(0, limitContentLength);
-            etContent.setText(charSequence);
-            etContent.setSelection(charSequence.length());
-            length = charSequence.length();
-        }
-        String limitShow = String.format(Locale.getDefault(), getString(R.string.holder_sprit_holder), length, limitContentLength);
-        tvContentLimit.setText(limitShow);
-        // 设置进去
-        post.setContentText(etContent.getText().toString());
+        tvKind.setText(String.format(Locale.getDefault(), getString(R.string.type_colon_space_holder), subKindShow));
     }
 
     private void saveDraft() {
