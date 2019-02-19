@@ -5,14 +5,14 @@
     android:id="@+id/root"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingStart="10dp"
-    android:paddingTop="5dp"
-    android:paddingEnd="10dp"
-    android:paddingBottom="5dp">
+    android:layout_marginStart="10dp"
+    android:layout_marginTop="5dp"
+    android:layout_marginEnd="10dp"
+    android:layout_marginBottom="5dp">
 
     <TextView
-        android:id="@+id/tvTitle"
-        style="@style/FontGreyNormal"
+        android:id="@+id/tvHappenAt"
+        style="@style/FontGreySmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/llContent"
@@ -20,7 +20,7 @@
         android:layout_alignEnd="@id/llContent"
         android:layout_marginTop="5dp"
         android:gravity="start"
-        tools:text="录音介绍"/>
+        tools:text="2017-12-3 06:30"/>
 
     <com.jiangzg.lovenote.view.FrescoAvatarView
         android:id="@+id/ivAvatar"
@@ -39,8 +39,7 @@
         android:elevation="@dimen/elevation_normal"
         android:gravity="center_vertical"
         android:orientation="horizontal"
-        android:padding="3dp"
-        tools:backgroundTint="@color/black_alpha_25">
+        android:padding="5dp">
 
         <RelativeLayout
             android:layout_width="0dp"
@@ -52,29 +51,25 @@
             android:paddingBottom="2dp">
 
             <TextView
+                android:id="@+id/tvTitle"
+                style="@style/FontBlackSmallBold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ellipsize="middle"
+                android:gravity="center"
+                android:singleLine="true"
+                tools:text="录音介绍录音介绍"/>
+
+            <TextView
                 android:id="@+id/tvDuration"
                 style="@style/FontGreySmall"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:drawableStart="@mipmap/ic_av_timer_grey_18dp"
-                android:drawablePadding="2dp"
+                android:layout_alignParentBottom="true"
                 android:gravity="center"
                 android:maxLines="1"
                 android:singleLine="true"
                 tools:text="10:10:10"/>
-
-            <TextView
-                android:id="@+id/tvHappenAt"
-                style="@style/FontGreySmall"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:drawableStart="@mipmap/ic_access_time_grey_18dp"
-                android:drawablePadding="2dp"
-                android:gravity="center"
-                android:maxLines="1"
-                android:singleLine="true"
-                tools:text="2017-12-3 06:30"/>
         </RelativeLayout>
 
         <ImageView
