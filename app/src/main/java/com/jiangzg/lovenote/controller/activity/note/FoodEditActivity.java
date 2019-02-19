@@ -3,7 +3,6 @@ package com.jiangzg.lovenote.controller.activity.note;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.widget.CardView;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -12,6 +11,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
@@ -54,20 +54,20 @@ public class FoodEditActivity extends BaseActivity<FoodEditActivity> {
     Toolbar tb;
     @BindView(R.id.etTitle)
     EditText etTitle;
-    @BindView(R.id.cvHappenAt)
-    CardView cvHappenAt;
-    @BindView(R.id.tvHappenAt)
-    TextView tvHappenAt;
-    @BindView(R.id.cvAddress)
-    CardView cvAddress;
-    @BindView(R.id.tvAddress)
-    TextView tvAddress;
-    @BindView(R.id.rv)
-    RecyclerView rv;
-    @BindView(R.id.etContent)
-    EditText etContent;
     @BindView(R.id.tvContentLimit)
     TextView tvContentLimit;
+    @BindView(R.id.etContent)
+    EditText etContent;
+    @BindView(R.id.rv)
+    RecyclerView rv;
+    @BindView(R.id.llHappenAt)
+    LinearLayout llHappenAt;
+    @BindView(R.id.tvHappenAt)
+    TextView tvHappenAt;
+    @BindView(R.id.llAddress)
+    LinearLayout llAddress;
+    @BindView(R.id.tvAddress)
+    TextView tvAddress;
 
     private Food food;
     private RecyclerHelper recyclerHelper;
@@ -118,10 +118,8 @@ public class FoodEditActivity extends BaseActivity<FoodEditActivity> {
         String hint = String.format(Locale.getDefault(), format, SPHelper.getLimit().getFoodTitleLength());
         etTitle.setHint(hint);
         etTitle.setText(food.getTitle());
-        // date
-        refreshDateView();
-        // location
-        refreshLocationView();
+        // content
+        etContent.setText(food.getContentText());
         // recycler
         int limitImagesCount = SPHelper.getVipLimit().getFoodImageCount();
         if (isFromUpdate()) {
@@ -138,8 +136,10 @@ public class FoodEditActivity extends BaseActivity<FoodEditActivity> {
             // 添加
             setRecyclerShow(limitImagesCount > 0, limitImagesCount);
         }
-        // content
-        etContent.setText(food.getContentText());
+        // date
+        refreshDateView();
+        // location
+        refreshLocationView();
     }
 
     @Override
@@ -207,13 +207,13 @@ public class FoodEditActivity extends BaseActivity<FoodEditActivity> {
         onContentInput(s.toString());
     }
 
-    @OnClick({R.id.cvHappenAt, R.id.cvAddress})
+    @OnClick({R.id.llHappenAt, R.id.llAddress})
     public void onViewClicked(View view) {
         switch (view.getId()) {
-            case R.id.cvHappenAt: // 日期
+            case R.id.llHappenAt: // 日期
                 showDatePicker();
                 break;
-            case R.id.cvAddress: // 地址
+            case R.id.llAddress: // 地址
                 if (food == null) return;
                 MapSelectActivity.goActivity(mActivity, food.getAddress(), food.getLongitude(), food.getLatitude());
                 break;
@@ -222,6 +222,24 @@ public class FoodEditActivity extends BaseActivity<FoodEditActivity> {
 
     private boolean isFromUpdate() {
         return getIntent().getIntExtra("from", BaseActivity.ACT_EDIT_FROM_ADD) == BaseActivity.ACT_EDIT_FROM_UPDATE;
+    }
+
+    private void onContentInput(String input) {
+        if (food == null) return;
+        if (limitContentLength <= 0) {
+            limitContentLength = SPHelper.getLimit().getFoodContentLength();
+        }
+        int length = input.length();
+        if (length > limitContentLength) {
+            CharSequence charSequence = input.subSequence(0, limitContentLength);
+            etContent.setText(charSequence);
+            etContent.setSelection(charSequence.length());
+            length = charSequence.length();
+        }
+        String limitShow = String.format(Locale.getDefault(), getString(R.string.holder_sprit_holder), length, limitContentLength);
+        tvContentLimit.setText(limitShow);
+        // 设置进去
+        food.setContentText(etContent.getText().toString());
     }
 
     private void setRecyclerShow(boolean show, int childCount) {
@@ -259,31 +277,13 @@ public class FoodEditActivity extends BaseActivity<FoodEditActivity> {
     private void refreshDateView() {
         if (food == null) return;
         String happen = TimeHelper.getTimeShowLine_HM_MDHM_YMDHM_ByGo(food.getHappenAt());
-        tvHappenAt.setText(happen);
+        tvHappenAt.setText(String.format(Locale.getDefault(), getString(R.string.time_colon_space_holder), happen));
     }
 
     private void refreshLocationView() {
         if (food == null) return;
-        String location = StringUtils.isEmpty(food.getAddress()) ? getString(R.string.now_no) : food.getAddress();
-        tvAddress.setText(location);
-    }
-
-    private void onContentInput(String input) {
-        if (food == null) return;
-        if (limitContentLength <= 0) {
-            limitContentLength = SPHelper.getLimit().getFoodContentLength();
-        }
-        int length = input.length();
-        if (length > limitContentLength) {
-            CharSequence charSequence = input.subSequence(0, limitContentLength);
-            etContent.setText(charSequence);
-            etContent.setSelection(charSequence.length());
-            length = charSequence.length();
-        }
-        String limitShow = String.format(Locale.getDefault(), getString(R.string.holder_sprit_holder), length, limitContentLength);
-        tvContentLimit.setText(limitShow);
-        // 设置进去
-        food.setContentText(etContent.getText().toString());
+        String address = StringUtils.isEmpty(food.getAddress()) ? getString(R.string.now_no) : food.getAddress();
+        tvAddress.setText(String.format(Locale.getDefault(), getString(R.string.address_colon_space_holder), address));
     }
 
     private void checkPush() {
