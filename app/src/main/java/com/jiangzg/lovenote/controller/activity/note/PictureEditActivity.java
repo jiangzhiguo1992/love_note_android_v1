@@ -3,14 +3,13 @@ package com.jiangzg.lovenote.controller.activity.note;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.widget.CardView;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.jiangzg.base.common.DateUtils;
@@ -50,18 +49,20 @@ public class PictureEditActivity extends BaseActivity<PictureEditActivity> {
 
     @BindView(R.id.tb)
     Toolbar tb;
-    @BindView(R.id.btnAlbum)
-    Button btnAlbum;
     @BindView(R.id.rv)
     RecyclerView rv;
-    @BindView(R.id.cvHappenAt)
-    CardView cvHappenAt;
+    @BindView(R.id.llHappenAt)
+    LinearLayout llHappenAt;
     @BindView(R.id.tvHappenAt)
     TextView tvHappenAt;
-    @BindView(R.id.cvAddress)
-    CardView cvAddress;
+    @BindView(R.id.llAddress)
+    LinearLayout llAddress;
     @BindView(R.id.tvAddress)
     TextView tvAddress;
+    @BindView(R.id.llAlbum)
+    LinearLayout llAlbum;
+    @BindView(R.id.tvAlbum)
+    TextView tvAlbum;
 
     private Album album;
     private Picture picture;
@@ -117,10 +118,6 @@ public class PictureEditActivity extends BaseActivity<PictureEditActivity> {
         if (picture.getHappenAt() == 0) {
             picture.setHappenAt(TimeHelper.getGoTimeByJava(DateUtils.getCurrentLong()));
         }
-        // view
-        refreshAlbum();
-        refreshDateView();
-        refreshLocationView();
         // recycler
         int pictureLimitCount = SPHelper.getLimit().getPicturePushCount();
         ImgSquareEditAdapter imgAdapter;
@@ -152,6 +149,10 @@ public class PictureEditActivity extends BaseActivity<PictureEditActivity> {
         } else {
             rv.setVisibility(View.GONE);
         }
+        // view
+        refreshDateView();
+        refreshLocationView();
+        refreshAlbum();
     }
 
     @Override
@@ -213,33 +214,24 @@ public class PictureEditActivity extends BaseActivity<PictureEditActivity> {
         return super.onOptionsItemSelected(item);
     }
 
-    @OnClick({R.id.btnAlbum, R.id.cvHappenAt, R.id.cvAddress})
+    @OnClick({R.id.llHappenAt, R.id.llAddress, R.id.llAlbum})
     public void onViewClicked(View view) {
         switch (view.getId()) {
-            case R.id.btnAlbum: // 相册选取
-                AlbumListActivity.goActivityBySelectAlbum(mActivity);
-                break;
-            case R.id.cvHappenAt: // 时间
+            case R.id.llHappenAt: // 时间
                 showDatePicker();
                 break;
-            case R.id.cvAddress: // 位置
+            case R.id.llAddress: // 位置
                 if (picture == null) return;
                 MapSelectActivity.goActivity(mActivity, picture.getAddress(), picture.getLongitude(), picture.getLatitude());
+                break;
+            case R.id.llAlbum: // 相册
+                AlbumListActivity.goActivityBySelectAlbum(mActivity);
                 break;
         }
     }
 
     private boolean isFromUpdate() {
         return getIntent().getIntExtra("from", BaseActivity.ACT_EDIT_FROM_ADD) == BaseActivity.ACT_EDIT_FROM_UPDATE;
-    }
-
-    private void refreshAlbum() {
-        if (album == null || album.getId() == 0 || StringUtils.isEmpty(album.getTitle())) {
-            btnAlbum.setText(R.string.please_select_album);
-        } else {
-            String title = String.format(Locale.getDefault(), getString(R.string.album_colon_space_holder), album.getTitle());
-            btnAlbum.setText(title);
-        }
     }
 
     private void showDatePicker() {
@@ -252,15 +244,22 @@ public class PictureEditActivity extends BaseActivity<PictureEditActivity> {
 
     private void refreshDateView() {
         if (picture == null) return;
-        String happenShow = TimeHelper.getTimeShowLine_HM_MDHM_YMDHM_ByGo(picture.getHappenAt());
-        String format = String.format(Locale.getDefault(), getString(R.string.take_camera_in_colon_space_holder), happenShow);
-        tvHappenAt.setText(format);
+        String happen = TimeHelper.getTimeShowLocal_HM_MDHM_YMDHM_ByGo(picture.getHappenAt());
+        tvHappenAt.setText(String.format(Locale.getDefault(), getString(R.string.time_colon_space_holder), happen));
     }
 
     private void refreshLocationView() {
         if (picture == null) return;
-        String location = StringUtils.isEmpty(picture.getAddress()) ? getString(R.string.now_no) : picture.getAddress();
-        tvAddress.setText(location);
+        String address = StringUtils.isEmpty(picture.getAddress()) ? getString(R.string.now_no) : picture.getAddress();
+        tvAddress.setText(String.format(Locale.getDefault(), getString(R.string.address_colon_space_holder), address));
+    }
+
+    private void refreshAlbum() {
+        if (album == null || album.getId() == 0) {
+            tvAlbum.setText(R.string.please_select_album);
+        } else {
+            tvAlbum.setText(String.format(Locale.getDefault(), getString(R.string.album_colon_space_holder), album.getTitle()));
+        }
     }
 
     private void goPicture() {
@@ -313,7 +312,6 @@ public class PictureEditActivity extends BaseActivity<PictureEditActivity> {
 
             @Override
             public void failure(List<File> sourceList, String errMsg, int index) {
-
             }
         });
     }
