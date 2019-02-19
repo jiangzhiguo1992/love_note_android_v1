@@ -7,9 +7,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:paddingStart="10dp"
-    android:paddingTop="5dp"
-    android:paddingEnd="10dp"
-    android:paddingBottom="5dp">
+    android:paddingEnd="10dp">
 
     <com.jiangzg.lovenote.view.FrescoAvatarView
         android:id="@+id/ivAvatar"
@@ -23,6 +21,8 @@
         android:id="@+id/cvVideo"
         android:layout_width="200dp"
         android:layout_height="150dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
         android:layout_toStartOf="@+id/ivAvatar"
         android:background="?attr/selectableItemBackground"
         android:foreground="?attr/selectableItemBackground"
@@ -44,11 +44,11 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/black_alpha_25"
-            android:padding="5dp">
+            android:padding="10dp">
 
             <TextView
                 android:id="@+id/tvTitle"
-                style="@style/FontWhiteSmall"
+                style="@style/FontWhiteSmallBold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
@@ -67,38 +67,32 @@
                 style="@style/FontWhiteSmall"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
                 android:layout_alignParentBottom="true"
-                android:drawableEnd="@mipmap/ic_av_timer_white_18dp"
-                android:drawablePadding="2dp"
+                android:layout_centerHorizontal="true"
                 android:gravity="center"
                 tools:text="12时36分36秒"/>
-
-            <TextView
-                android:id="@+id/tvHappenAt"
-                style="@style/FontWhiteSmall"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentBottom="true"
-                android:drawableStart="@mipmap/ic_access_time_white_18dp"
-                android:drawablePadding="2dp"
-                android:gravity="center"
-                tools:text="2017-03-06 13:00"/>
         </RelativeLayout>
     </android.support.v7.widget.CardView>
+
+    <TextView
+        android:id="@+id/tvHappenAt"
+        style="@style/FontGreySmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/cvVideo"
+        android:layout_alignEnd="@+id/cvVideo"
+        tools:text="2017-03-06 13:00"/>
 
     <TextView
         android:id="@+id/tvAddress"
         style="@style/FontGreySmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/cvVideo"
+        android:layout_below="@+id/tvHappenAt"
         android:layout_alignEnd="@+id/cvVideo"
         android:layout_marginTop="5dp"
-        android:drawableStart="@mipmap/ic_location_on_grey_18dp"
-        android:drawablePadding="6dp"
-        android:gravity="end|center_vertical"
+        android:layout_marginBottom="5dp"
+        android:gravity="end"
         android:maxLines="1"
         android:singleLine="true"
         android:visibility="gone"
