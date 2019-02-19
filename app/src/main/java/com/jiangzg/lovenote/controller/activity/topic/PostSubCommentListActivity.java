@@ -297,6 +297,7 @@ public class PostSubCommentListActivity extends BaseActivity<PostSubCommentListA
         boolean report = postComment.isReport();
         // view
         View head = recyclerHelper.getViewHead();
+        if (head == null) return;
         TextView tvOfficial = head.findViewById(R.id.tvOfficial);
         TextView tvFloor = head.findViewById(R.id.tvFloor);
         FrescoAvatarView ivAvatarLeft = head.findViewById(R.id.ivAvatarLeft);
