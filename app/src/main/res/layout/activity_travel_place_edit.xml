@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -22,99 +21,91 @@
             android:gravity="center_horizontal"
             android:orientation="vertical">
 
-            <LinearLayout
-                android:layout_width="match_parent"
+            <TextView
+                android:id="@+id/tvContentLimit"
+                style="@style/FontGreySmall"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
-                android:orientation="horizontal">
-
-                <android.support.v7.widget.CardView
-                    android:id="@+id/cvHappenAt"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginEnd="5dp"
-                    android:layout_marginBottom="10dp"
-                    android:layout_weight="1"
-                    android:background="?attr/selectableItemBackground"
-                    android:foreground="?attr/selectableItemBackground"
-                    app:cardBackgroundColor="@color/white"
-                    app:cardCornerRadius="@dimen/radius_normal"
-                    app:cardElevation="@dimen/elevation_normal"
-                    app:cardMaxElevation="@dimen/elevation_big">
-
-                    <TextView
-                        android:id="@+id/tvHappenAt"
-                        style="@style/FontGreySmall"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:drawableStart="@mipmap/ic_access_time_grey_18dp"
-                        android:gravity="center"
-                        android:padding="8dp"
-                        tools:text="2018-05-07"/>
-                </android.support.v7.widget.CardView>
-
-                <android.support.v7.widget.CardView
-                    android:id="@+id/cvAddress"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="5dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginEnd="10dp"
-                    android:layout_marginBottom="10dp"
-                    android:layout_weight="1"
-                    android:background="?attr/selectableItemBackground"
-                    android:foreground="?attr/selectableItemBackground"
-                    app:cardBackgroundColor="@color/white"
-                    app:cardCornerRadius="@dimen/radius_normal"
-                    app:cardElevation="@dimen/elevation_normal"
-                    app:cardMaxElevation="@dimen/elevation_big">
-
-                    <TextView
-                        android:id="@+id/tvAddress"
-                        style="@style/FontGreySmall"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:drawableStart="@mipmap/ic_location_on_grey_18dp"
-                        android:gravity="center"
-                        android:padding="8dp"
-                        tools:text="北京市丰台区莲花路国投财富广场"/>
-                </android.support.v7.widget.CardView>
-            </LinearLayout>
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_gravity="end"
                 android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"
-                android:padding="10dp">
+                android:layout_marginEnd="10dp"
+                tools:text="0/2000"/>
 
-                <EditText
-                    android:id="@+id/etContent"
-                    style="@style/FontGreyNormal"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentStart="true"
-                    android:layout_alignParentTop="true"
-                    android:background="@drawable/selector_enable_press_stroke_light_primary_dark_r3"
-                    android:gravity="start"
-                    android:hint="@string/please_input_track_content"
-                    android:inputType="textMultiLine"
-                    android:minLines="10"
-                    android:padding="8dp"
-                    android:textColorHint="@color/font_hint"/>
+            <EditText
+                android:id="@+id/etContent"
+                style="@style/FontGreyNormal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:gravity="start"
+                android:hint="@string/please_input_track_content"
+                android:inputType="textMultiLine"
+                android:minLines="5"
+                android:padding="10dp"
+                android:textColorHint="@color/font_hint"/>
 
-                <TextView
-                    android:id="@+id/tvContentLimit"
-                    style="@style/FontGreySmall"
+            <View
+                style="@style/LineHorizontal"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="10dp"/>
+
+            <LinearLayout
+                android:id="@+id/llHappenAt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="?attr/selectableItemBackground"
+                android:foreground="?attr/selectableItemBackground"
+                android:paddingStart="10dp"
+                android:paddingTop="15dp"
+                android:paddingEnd="10dp"
+                android:paddingBottom="15dp">
+
+                <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/etContent"
-                    android:layout_alignParentEnd="true"
-                    android:layout_marginTop="3dp"
-                    tools:text="0/2000"/>
-            </RelativeLayout>
+                    android:layout_marginEnd="5dp"
+                    android:src="@mipmap/ic_access_time_grey_18dp"
+                    android:tint="@color/font_grey"/>
+
+                <TextView
+                    android:id="@+id/tvHappenAt"
+                    style="@style/FontGreyNormal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    tools:text="@string/time_colon_space_holder"/>
+            </LinearLayout>
+
+            <View
+                style="@style/LineHorizontal"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"/>
+
+            <LinearLayout
+                android:id="@+id/llAddress"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="?attr/selectableItemBackground"
+                android:foreground="?attr/selectableItemBackground"
+                android:paddingStart="10dp"
+                android:paddingTop="15dp"
+                android:paddingEnd="10dp"
+                android:paddingBottom="15dp">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="5dp"
+                    android:src="@mipmap/ic_location_on_grey_18dp"
+                    android:tint="@color/font_grey"/>
+
+                <TextView
+                    android:id="@+id/tvAddress"
+                    style="@style/FontGreyNormal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    tools:text="@string/address_colon_space_holder"/>
+            </LinearLayout>
         </LinearLayout>
     </ScrollView>
 </LinearLayout>
