@@ -6,19 +6,19 @@ import android.graphics.Bitmap;
 import android.media.ThumbnailUtils;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.jiangzg.base.common.DateUtils;
 import com.jiangzg.base.common.FileUtils;
 import com.jiangzg.base.common.StringUtils;
+import com.jiangzg.base.common.TimeUnit;
 import com.jiangzg.base.component.ActivityTrans;
 import com.jiangzg.base.component.IntentFactory;
 import com.jiangzg.base.component.IntentResult;
@@ -43,7 +43,6 @@ import com.jiangzg.lovenote.main.MyApp;
 import com.jiangzg.lovenote.model.api.API;
 import com.jiangzg.lovenote.model.api.Result;
 import com.jiangzg.lovenote.model.entity.Video;
-import com.jiangzg.lovenote.view.FrescoView;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -61,22 +60,18 @@ public class VideoEditActivity extends BaseActivity<VideoEditActivity> {
     Toolbar tb;
     @BindView(R.id.etTitle)
     EditText etTitle;
-    @BindView(R.id.cvHappenAt)
-    CardView cvHappenAt;
+    @BindView(R.id.llHappenAt)
+    LinearLayout llHappenAt;
     @BindView(R.id.tvHappenAt)
     TextView tvHappenAt;
-    @BindView(R.id.cvAddress)
-    CardView cvAddress;
+    @BindView(R.id.llAddress)
+    LinearLayout llAddress;
     @BindView(R.id.tvAddress)
     TextView tvAddress;
-    @BindView(R.id.cvVideo)
-    CardView cvVideo;
-    @BindView(R.id.ivThumb)
-    FrescoView ivThumb;
-    @BindView(R.id.tvSelect)
-    TextView tvSelect;
-    @BindView(R.id.ivPlay)
-    ImageView ivPlay;
+    @BindView(R.id.llDuration)
+    LinearLayout llDuration;
+    @BindView(R.id.tvDuration)
+    TextView tvDuration;
 
     private Video video;
     private File thumbFile;
@@ -109,7 +104,7 @@ public class VideoEditActivity extends BaseActivity<VideoEditActivity> {
         refreshDateView();
         // location
         refreshLocationView();
-        // video
+        // duration
         refreshVideoView();
     }
 
@@ -173,17 +168,17 @@ public class VideoEditActivity extends BaseActivity<VideoEditActivity> {
         return super.onOptionsItemSelected(item);
     }
 
-    @OnClick({R.id.cvHappenAt, R.id.cvAddress, R.id.cvVideo})
+    @OnClick({R.id.llHappenAt, R.id.llAddress, R.id.llDuration})
     public void onViewClicked(View view) {
         switch (view.getId()) {
-            case R.id.cvHappenAt: // 日期
+            case R.id.llHappenAt: // 日期
                 showDateTimePicker();
                 break;
-            case R.id.cvAddress: // 地址
+            case R.id.llAddress: // 地址
                 if (video == null) return;
                 MapSelectActivity.goActivity(mActivity, video.getAddress(), video.getLongitude(), video.getLatitude());
                 break;
-            case R.id.cvVideo: // 视频
+            case R.id.llDuration: // 视频
                 selectVideo();
                 break;
         }
@@ -200,13 +195,13 @@ public class VideoEditActivity extends BaseActivity<VideoEditActivity> {
     private void refreshDateView() {
         if (video == null) return;
         String happen = TimeHelper.getTimeShowLine_HM_MDHM_YMDHM_ByGo(video.getHappenAt());
-        tvHappenAt.setText(happen);
+        tvHappenAt.setText(String.format(Locale.getDefault(), getString(R.string.time_colon_space_holder), happen));
     }
 
     private void refreshLocationView() {
         if (video == null) return;
-        String location = StringUtils.isEmpty(video.getAddress()) ? getString(R.string.now_no) : video.getAddress();
-        tvAddress.setText(location);
+        String address = StringUtils.isEmpty(video.getAddress()) ? getString(R.string.now_no) : video.getAddress();
+        tvAddress.setText(String.format(Locale.getDefault(), getString(R.string.address_colon_space_holder), address));
     }
 
     private void selectVideo() {
@@ -225,17 +220,29 @@ public class VideoEditActivity extends BaseActivity<VideoEditActivity> {
     }
 
     private void refreshVideoView() {
-        ivThumb.setVisibility(View.GONE);
-        if (FileUtils.isFileEmpty(videoFile)) {
-            ivPlay.setVisibility(View.GONE);
-            tvSelect.setVisibility(View.VISIBLE);
+        if (video == null) return;
+
+        // duration
+        String year = mActivity.getString(R.string.year);
+        String month = mActivity.getString(R.string.month);
+        String dayT = mActivity.getString(R.string.dayT);
+        String hour = mActivity.getString(R.string.hour_short);
+        String minute = mActivity.getString(R.string.minute_short);
+        String second = mActivity.getString(R.string.second);
+        TimeUnit timeUnit = TimeUnit.get(TimeHelper.getJavaTimeByGo(video.getDuration()));
+        String duration = timeUnit.getAllShow(true, true, true, true, true, true, year, month, dayT, hour, minute, second);
+        if (StringUtils.isEmpty(duration) && videoFile == null) {
+            tvDuration.setText(String.format(Locale.getDefault(), getString(R.string.duration_colon_space_holder), getString(R.string.please_select_video)));
             return;
         }
-        ivPlay.setVisibility(View.VISIBLE);
-        tvSelect.setVisibility(View.GONE);
+        duration = StringUtils.isEmpty(duration) ? "--" : duration;
+        tvDuration.setText(String.format(Locale.getDefault(), getString(R.string.duration_colon_space_holder), duration));
+        // thumb
+        if (FileUtils.isFileEmpty(videoFile)) {
+            return;
+        }
         final MaterialDialog loading = mActivity.getLoading(true);
         loading.show();
-        // 缩略图
         if (!FileUtils.isFileEmpty(thumbFile)) {
             // 临时的上次选的缩略图要删掉
             File delFile = thumbFile;
@@ -247,14 +254,7 @@ public class VideoEditActivity extends BaseActivity<VideoEditActivity> {
             FileUtils.createFileByDeleteOldFile(thumbFile);
             Bitmap videoThumbnail = ThumbnailUtils.createVideoThumbnail(videoFile.getAbsolutePath(), MediaStore.Images.Thumbnails.MINI_KIND);
             BitmapUtils.saveBitmap(videoThumbnail, thumbFile.getAbsolutePath(), Bitmap.CompressFormat.JPEG, true);
-            MyApp.get().getHandler().post(() -> {
-                loading.dismiss();
-                if (FileUtils.isFileEmpty(thumbFile)) {
-                    return;
-                }
-                ivThumb.setVisibility(View.VISIBLE);
-                ivThumb.setDataFile(thumbFile);
-            });
+            MyApp.get().getHandler().post(loading::dismiss);
         });
     }
 

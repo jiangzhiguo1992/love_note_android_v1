@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -27,11 +26,8 @@
                 style="@style/FontGreyNormal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="30dp"
-                android:layout_marginTop="30dp"
-                android:layout_marginEnd="30dp"
-                android:layout_marginBottom="10dp"
-                android:background="@drawable/selector_enable_press_stroke_light_primary_dark_r3"
+                android:layout_marginTop="20dp"
+                android:background="@null"
                 android:hint="@string/please_input_title"
                 android:inputType="text"
                 android:maxLines="1"
@@ -39,51 +35,68 @@
                 android:singleLine="true"
                 android:textColorHint="@color/font_hint"/>
 
-            <Button
-                android:id="@+id/btnHappenAt"
-                style="@style/FontWhiteNormalBold"
+            <View
+                style="@style/LineHorizontal"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="10dp"/>
+
+            <LinearLayout
+                android:id="@+id/llHappenAt"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="30dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="30dp"
-                android:layout_marginBottom="10dp"
-                android:background="@drawable/selector_enable_press_solid_light_primary_dark_r100"
-                android:foreground="?attr/selectableItemBackground"
-                android:gravity="center"
-                tools:text="2017年 4月 19日"/>
-
-            <android.support.v7.widget.CardView
-                android:id="@+id/cvAudio"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginStart="30dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="30dp"
-                android:layout_marginBottom="10dp"
                 android:background="?attr/selectableItemBackground"
                 android:foreground="?attr/selectableItemBackground"
-                app:cardBackgroundColor="?attr/colorPrimaryDark"
-                app:cardCornerRadius="25dp"
-                app:cardElevation="@dimen/elevation_normal"
-                app:cardMaxElevation="@dimen/elevation_big">
+                android:paddingStart="10dp"
+                android:paddingTop="15dp"
+                android:paddingEnd="10dp"
+                android:paddingBottom="15dp">
 
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="5dp"
+                    android:src="@mipmap/ic_access_time_grey_18dp"
+                    android:tint="@color/font_grey"/>
 
-                    <TextView
-                        android:id="@+id/tvAudio"
-                        style="@style/FontWhiteNormalBold"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerInParent="true"
-                        android:drawableStart="@mipmap/ic_av_timer_white_18dp"
-                        android:drawablePadding="10dp"
-                        android:gravity="center"
-                        android:text="@string/please_select_audio"/>
-                </RelativeLayout>
-            </android.support.v7.widget.CardView>
+                <TextView
+                    android:id="@+id/tvHappenAt"
+                    style="@style/FontGreyNormal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    tools:text="@string/time_colon_space_holder"/>
+            </LinearLayout>
+
+            <View
+                style="@style/LineHorizontal"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"/>
+
+            <LinearLayout
+                android:id="@+id/llDuration"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="?attr/selectableItemBackground"
+                android:foreground="?attr/selectableItemBackground"
+                android:paddingStart="10dp"
+                android:paddingTop="15dp"
+                android:paddingEnd="10dp"
+                android:paddingBottom="15dp">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="5dp"
+                    android:src="@mipmap/ic_av_timer_white_18dp"
+                    android:tint="@color/font_grey"/>
+
+                <TextView
+                    android:id="@+id/tvDuration"
+                    style="@style/FontGreyNormal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    tools:text="@string/duration_colon_space_holder"/>
+            </LinearLayout>
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -27,11 +26,8 @@
                 style="@style/FontGreyNormal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="30dp"
-                android:layout_marginEnd="10dp"
-                android:layout_marginBottom="10dp"
-                android:background="@drawable/selector_enable_press_stroke_light_primary_dark_r3"
+                android:layout_marginTop="20dp"
+                android:background="@null"
                 android:hint="@string/please_input_title"
                 android:inputType="text"
                 android:maxLines="1"
@@ -39,114 +35,99 @@
                 android:singleLine="true"
                 android:textColorHint="@color/font_hint"/>
 
+            <View
+                style="@style/LineHorizontal"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="10dp"/>
+
             <LinearLayout
+                android:id="@+id/llHappenAt"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <android.support.v7.widget.CardView
-                    android:id="@+id/cvHappenAt"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginEnd="5dp"
-                    android:layout_marginBottom="10dp"
-                    android:layout_weight="1"
-                    android:background="?attr/selectableItemBackground"
-                    android:foreground="?attr/selectableItemBackground"
-                    app:cardBackgroundColor="@color/white"
-                    app:cardCornerRadius="@dimen/radius_normal"
-                    app:cardElevation="@dimen/elevation_normal"
-                    app:cardMaxElevation="@dimen/elevation_big">
-
-                    <TextView
-                        android:id="@+id/tvHappenAt"
-                        style="@style/FontGreySmall"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:drawableStart="@mipmap/ic_access_time_grey_18dp"
-                        android:gravity="center"
-                        android:padding="8dp"
-                        tools:text="2018-05-07"/>
-                </android.support.v7.widget.CardView>
-
-                <android.support.v7.widget.CardView
-                    android:id="@+id/cvAddress"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="5dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginEnd="10dp"
-                    android:layout_marginBottom="10dp"
-                    android:layout_weight="1"
-                    android:background="?attr/selectableItemBackground"
-                    android:foreground="?attr/selectableItemBackground"
-                    app:cardBackgroundColor="@color/white"
-                    app:cardCornerRadius="@dimen/radius_normal"
-                    app:cardElevation="@dimen/elevation_normal"
-                    app:cardMaxElevation="@dimen/elevation_big">
-
-                    <TextView
-                        android:id="@+id/tvAddress"
-                        style="@style/FontGreySmall"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:drawableStart="@mipmap/ic_location_on_grey_18dp"
-                        android:gravity="center"
-                        android:padding="8dp"
-                        tools:text="北京市丰台区莲花路国投财富广场"/>
-                </android.support.v7.widget.CardView>
-            </LinearLayout>
-
-            <android.support.v7.widget.CardView
-                android:id="@+id/cvVideo"
-                android:layout_width="250dp"
-                android:layout_height="200dp"
-                android:layout_marginTop="20dp"
                 android:background="?attr/selectableItemBackground"
                 android:foreground="?attr/selectableItemBackground"
-                app:cardBackgroundColor="@color/black"
-                app:cardCornerRadius="@dimen/radius_normal"
-                app:cardElevation="@dimen/elevation_normal"
-                app:cardMaxElevation="@dimen/elevation_big">
+                android:paddingStart="10dp"
+                android:paddingTop="15dp"
+                android:paddingEnd="10dp"
+                android:paddingBottom="15dp">
 
-                <com.jiangzg.lovenote.view.FrescoView
-                    android:id="@+id/ivThumb"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:visibility="gone"
-                    app:actualImageScaleType="centerCrop"
-                    tools:background="@mipmap/img_boy_rect"
-                    tools:visibility="visible"/>
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="5dp"
+                    android:src="@mipmap/ic_access_time_grey_18dp"
+                    android:tint="@color/font_grey"/>
 
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@color/black_alpha_25"
-                    android:padding="5dp">
+                <TextView
+                    android:id="@+id/tvHappenAt"
+                    style="@style/FontGreyNormal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    tools:text="@string/time_colon_space_holder"/>
+            </LinearLayout>
 
-                    <TextView
-                        android:id="@+id/tvSelect"
-                        style="@style/FontWhiteHuge"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_centerInParent="true"
-                        android:gravity="center"
-                        android:text="@string/please_select_video"
-                        android:visibility="gone"
-                        tools:visibility="visible"/>
+            <View
+                style="@style/LineHorizontal"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"/>
 
-                    <ImageView
-                        android:id="@+id/ivPlay"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerInParent="true"
-                        android:src="@mipmap/ic_play_circle_outline_white_48dp"
-                        android:visibility="gone"
-                        tools:visibility="visible"/>
-                </RelativeLayout>
-            </android.support.v7.widget.CardView>
+            <LinearLayout
+                android:id="@+id/llAddress"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="?attr/selectableItemBackground"
+                android:foreground="?attr/selectableItemBackground"
+                android:paddingStart="10dp"
+                android:paddingTop="15dp"
+                android:paddingEnd="10dp"
+                android:paddingBottom="15dp">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="5dp"
+                    android:src="@mipmap/ic_location_on_grey_18dp"
+                    android:tint="@color/font_grey"/>
+
+                <TextView
+                    android:id="@+id/tvAddress"
+                    style="@style/FontGreyNormal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    tools:text="@string/address_colon_space_holder"/>
+            </LinearLayout>
+
+            <View
+                style="@style/LineHorizontal"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"/>
+
+            <LinearLayout
+                android:id="@+id/llDuration"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="?attr/selectableItemBackground"
+                android:foreground="?attr/selectableItemBackground"
+                android:paddingStart="10dp"
+                android:paddingTop="15dp"
+                android:paddingEnd="10dp"
+                android:paddingBottom="15dp">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="5dp"
+                    android:src="@mipmap/ic_av_timer_white_18dp"
+                    android:tint="@color/font_grey"/>
+
+                <TextView
+                    android:id="@+id/tvDuration"
+                    style="@style/FontGreyNormal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    tools:text="@string/duration_colon_space_holder"/>
+            </LinearLayout>
         </LinearLayout>
     </ScrollView>
 </LinearLayout>
