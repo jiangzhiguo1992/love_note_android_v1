@@ -8,22 +8,21 @@ import android.text.Editable;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.jiangzg.base.common.DateUtils;
 import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.base.component.ActivityTrans;
+import com.jiangzg.base.view.DialogUtils;
 import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.controller.activity.base.BaseActivity;
 import com.jiangzg.lovenote.helper.common.RxBus;
 import com.jiangzg.lovenote.helper.common.SPHelper;
 import com.jiangzg.lovenote.helper.common.TimeHelper;
-import com.jiangzg.lovenote.helper.common.UserHelper;
 import com.jiangzg.lovenote.helper.system.RetrofitHelper;
 import com.jiangzg.lovenote.helper.view.DialogHelper;
 import com.jiangzg.lovenote.helper.view.ViewHelper;
@@ -44,18 +43,18 @@ public class AngryEditActivity extends BaseActivity<AngryEditActivity> {
 
     @BindView(R.id.tb)
     Toolbar tb;
-    @BindView(R.id.btnHappenAt)
-    Button btnHappenAt;
-    @BindView(R.id.rgHappenUser)
-    RadioGroup rgHappenUser;
-    @BindView(R.id.rbHappenMe)
-    RadioButton rbHappenMe;
-    @BindView(R.id.rbHappenTa)
-    RadioButton rbHappenTa;
-    @BindView(R.id.etContent)
-    EditText etContent;
     @BindView(R.id.tvContentLimit)
     TextView tvContentLimit;
+    @BindView(R.id.etContent)
+    EditText etContent;
+    @BindView(R.id.llHappenAt)
+    LinearLayout llHappenAt;
+    @BindView(R.id.tvHappenAt)
+    TextView tvHappenAt;
+    @BindView(R.id.llHappenUser)
+    LinearLayout llHappenUser;
+    @BindView(R.id.tvHappenUser)
+    TextView tvHappenUser;
 
     private Angry angry;
     private int limitContentLength;
@@ -78,12 +77,16 @@ public class AngryEditActivity extends BaseActivity<AngryEditActivity> {
         // init
         angry = new Angry();
         angry.setHappenAt(TimeHelper.getGoTimeByJava(DateUtils.getCurrentLong()));
+        User me = SPHelper.getMe();
+        if (me != null) {
+            angry.setHappenId(me.getId());
+        }
+        // content
+        etContent.setText(angry.getContentText());
         // date
         refreshDateView();
         // happen
-        initHappenCheck();
-        // content
-        etContent.setText(angry.getContentText());
+        refreshHappenUser();
     }
 
     @Override
@@ -115,43 +118,16 @@ public class AngryEditActivity extends BaseActivity<AngryEditActivity> {
         onContentInput(s.toString());
     }
 
-    @OnClick({R.id.btnHappenAt})
+    @OnClick({R.id.llHappenAt, R.id.llHappenUser})
     public void onViewClicked(View view) {
         switch (view.getId()) {
-            case R.id.btnHappenAt: // 日期
+            case R.id.llHappenAt: // 日期
                 showDatePicker();
                 break;
+            case R.id.llHappenUser: // 所属
+                showUserDialog();
+                break;
         }
-    }
-
-    private void initHappenCheck() {
-        final User user = SPHelper.getMe();
-        rgHappenUser.setOnCheckedChangeListener((group, checkedId) -> {
-            if (angry == null) return;
-            switch (checkedId) {
-                case R.id.rbHappenMe: // 我的
-                    angry.setHappenId(UserHelper.getMyId(user));
-                    break;
-                case R.id.rbHappenTa: // Ta的
-                    angry.setHappenId(UserHelper.getTaId(user));
-                    break;
-            }
-        });
-        rbHappenMe.setChecked(true);
-    }
-
-    private void showDatePicker() {
-        if (angry == null) return;
-        DialogHelper.showDateTimePicker(mActivity, TimeHelper.getJavaTimeByGo(angry.getHappenAt()), time -> {
-            angry.setHappenAt(TimeHelper.getGoTimeByJava(time));
-            refreshDateView();
-        });
-    }
-
-    private void refreshDateView() {
-        if (angry == null) return;
-        String happen = TimeHelper.getTimeShowLocal_HM_MD_YMD_ByGo(angry.getHappenAt());
-        btnHappenAt.setText(happen);
     }
 
     private void onContentInput(String input) {
@@ -170,6 +146,54 @@ public class AngryEditActivity extends BaseActivity<AngryEditActivity> {
         tvContentLimit.setText(limitShow);
         // 设置进去
         angry.setContentText(etContent.getText().toString());
+    }
+
+    private void showDatePicker() {
+        if (angry == null) return;
+        DialogHelper.showDateTimePicker(mActivity, TimeHelper.getJavaTimeByGo(angry.getHappenAt()), time -> {
+            angry.setHappenAt(TimeHelper.getGoTimeByJava(time));
+            refreshDateView();
+        });
+    }
+
+    private void refreshDateView() {
+        if (angry == null) return;
+        String happen = TimeHelper.getTimeShowLocal_HM_MD_YMD_ByGo(angry.getHappenAt());
+        tvHappenAt.setText(String.format(Locale.getDefault(), getString(R.string.time_colon_space_holder), happen));
+    }
+
+    private void showUserDialog() {
+        User me = SPHelper.getMe();
+        User ta = SPHelper.getTa();
+        if (angry == null || me == null || ta == null) return;
+        int searchIndex = (angry.getHappenId() == ta.getId()) ? 1 : 0;
+        MaterialDialog dialog = DialogHelper.getBuild(mActivity)
+                .cancelable(true)
+                .canceledOnTouchOutside(true)
+                .title(R.string.select_user)
+                .items(new String[]{getString(R.string.me_de), getString(R.string.ta_de)})
+                .itemsCallbackSingleChoice(searchIndex, (dialog1, view, which, text) -> {
+                    if (which < 0 || which > 1) {
+                        return true;
+                    }
+                    angry.setHappenId(which == 0 ? me.getId() : ta.getId());
+                    refreshHappenUser();
+                    DialogUtils.dismiss(dialog1);
+                    return true;
+                })
+                .build();
+        DialogHelper.showWithAnim(dialog);
+    }
+
+    private void refreshHappenUser() {
+        User me = SPHelper.getMe();
+        User ta = SPHelper.getTa();
+        if (angry == null || me == null || ta == null) return;
+        if (angry.getHappenId() == ta.getId()) {
+            tvHappenUser.setText(String.format(Locale.getDefault(), getString(R.string.belong_colon_space_holder), getString(R.string.ta_de)));
+        } else {
+            tvHappenUser.setText(String.format(Locale.getDefault(), getString(R.string.belong_colon_space_holder), getString(R.string.me_de)));
+        }
     }
 
     private void push() {

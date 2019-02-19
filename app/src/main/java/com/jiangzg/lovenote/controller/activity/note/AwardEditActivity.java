@@ -185,7 +185,7 @@ public class AwardEditActivity extends BaseActivity<AwardEditActivity> {
     private void showUserDialog() {
         User me = SPHelper.getMe();
         User ta = SPHelper.getTa();
-        if (me == null || ta == null) return;
+        if (award == null || me == null || ta == null) return;
         int searchIndex = (award.getHappenId() == ta.getId()) ? 1 : 0;
         MaterialDialog dialog = DialogHelper.getBuild(mActivity)
                 .cancelable(true)
@@ -208,7 +208,7 @@ public class AwardEditActivity extends BaseActivity<AwardEditActivity> {
     private void refreshHappenUser() {
         User me = SPHelper.getMe();
         User ta = SPHelper.getTa();
-        if (me == null || ta == null) return;
+        if (award == null || me == null || ta == null) return;
         if (award.getHappenId() == ta.getId()) {
             tvHappenUser.setText(String.format(Locale.getDefault(), getString(R.string.belong_colon_space_holder), getString(R.string.ta_de)));
         } else {
