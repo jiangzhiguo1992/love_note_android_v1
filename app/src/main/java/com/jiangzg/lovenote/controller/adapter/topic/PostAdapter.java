@@ -121,9 +121,10 @@ public class PostAdapter extends BaseQuickAdapter<Post, BaseViewHolder> {
             rvImage.setVisibility(View.GONE);
         } else {
             rvImage.setVisibility(View.VISIBLE);
-            ImgSquareShowAdapter adapter = new ImgSquareShowAdapter(mActivity, 3);
+            int spanCount = 3;
+            ImgSquareShowAdapter adapter = new ImgSquareShowAdapter(mActivity, spanCount);
             new RecyclerHelper(rvImage)
-                    .initLayoutManager(new GridLayoutManager(mActivity, 3))
+                    .initLayoutManager(new GridLayoutManager(mActivity, spanCount))
                     .initAdapter(adapter)
                     .setAdapter()
                     .dataNew(imageList, 0);

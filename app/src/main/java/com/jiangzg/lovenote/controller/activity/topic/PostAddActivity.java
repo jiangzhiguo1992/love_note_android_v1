@@ -115,7 +115,7 @@ public class PostAddActivity extends BaseActivity<PostAddActivity> {
             rvImage.setVisibility(View.GONE);
         } else {
             rvImage.setVisibility(View.VISIBLE);
-            int spanCount = limitImagesCount > 3 ? 3 : limitImagesCount;
+            int spanCount = 3;
             ImgSquareEditAdapter imgAdapter = new ImgSquareEditAdapter(mActivity, spanCount, limitImagesCount);
             imgAdapter.setOnAddClick(() -> {
                 int maxCount = limitImagesCount - imgAdapter.getOssData().size() - imgAdapter.getFileData().size();

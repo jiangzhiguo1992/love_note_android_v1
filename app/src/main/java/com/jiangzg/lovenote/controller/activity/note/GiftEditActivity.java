@@ -9,15 +9,15 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.jiangzg.base.common.DateUtils;
 import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.base.component.ActivityTrans;
+import com.jiangzg.base.view.DialogUtils;
 import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.controller.activity.base.BaseActivity;
@@ -26,7 +26,6 @@ import com.jiangzg.lovenote.helper.common.OssHelper;
 import com.jiangzg.lovenote.helper.common.RxBus;
 import com.jiangzg.lovenote.helper.common.SPHelper;
 import com.jiangzg.lovenote.helper.common.TimeHelper;
-import com.jiangzg.lovenote.helper.common.UserHelper;
 import com.jiangzg.lovenote.helper.media.PickHelper;
 import com.jiangzg.lovenote.helper.system.RetrofitHelper;
 import com.jiangzg.lovenote.helper.view.DialogHelper;
@@ -52,16 +51,16 @@ public class GiftEditActivity extends BaseActivity<GiftEditActivity> {
     Toolbar tb;
     @BindView(R.id.etTitle)
     EditText etTitle;
-    @BindView(R.id.btnHappenAt)
-    Button btnHappenAt;
-    @BindView(R.id.rgReceive)
-    RadioGroup rgReceive;
-    @BindView(R.id.rbReceiveMe)
-    RadioButton rbReceiveMe;
-    @BindView(R.id.rbReceiveTa)
-    RadioButton rbReceiveTa;
     @BindView(R.id.rv)
     RecyclerView rv;
+    @BindView(R.id.llHappenAt)
+    LinearLayout llHappenAt;
+    @BindView(R.id.tvHappenAt)
+    TextView tvHappenAt;
+    @BindView(R.id.llHappenUser)
+    LinearLayout llHappenUser;
+    @BindView(R.id.tvHappenUser)
+    TextView tvHappenUser;
 
     private Gift gift;
     private RecyclerHelper recyclerHelper;
@@ -106,15 +105,17 @@ public class GiftEditActivity extends BaseActivity<GiftEditActivity> {
         if (gift.getHappenAt() == 0) {
             gift.setHappenAt(TimeHelper.getGoTimeByJava(DateUtils.getCurrentLong()));
         }
+        if (gift.getReceiveId() == 0) {
+            User me = SPHelper.getMe();
+            if (me != null) {
+                gift.setReceiveId(me.getId());
+            }
+        }
         // etTitle
         String format = getString(R.string.please_input_title_no_over_holder_text);
         String hint = String.format(Locale.getDefault(), format, SPHelper.getLimit().getGiftTitleLength());
         etTitle.setHint(hint);
         etTitle.setText(gift.getTitle());
-        // date
-        refreshDateView();
-        // receive
-        initReceiveCheck();
         // recycler
         int limitImagesCount = SPHelper.getVipLimit().getGiftImageCount();
         if (isFromUpdate()) {
@@ -131,6 +132,10 @@ public class GiftEditActivity extends BaseActivity<GiftEditActivity> {
             // 添加
             setRecyclerShow(limitImagesCount > 0, limitImagesCount);
         }
+        // date
+        refreshDateView();
+        // receive
+        refreshReceiveUser();
     }
 
     @Override
@@ -183,41 +188,20 @@ public class GiftEditActivity extends BaseActivity<GiftEditActivity> {
         return super.onOptionsItemSelected(item);
     }
 
-    @OnClick({R.id.btnHappenAt})
+    @OnClick({R.id.llHappenAt, R.id.llHappenUser})
     public void onViewClicked(View view) {
         switch (view.getId()) {
-            case R.id.btnHappenAt: // 日期
+            case R.id.llHappenAt: // 日期
                 showDatePicker();
+                break;
+            case R.id.llHappenUser: // 所属
+                showUserDialog();
                 break;
         }
     }
 
     private boolean isFromUpdate() {
         return getIntent().getIntExtra("from", BaseActivity.ACT_EDIT_FROM_ADD) == BaseActivity.ACT_EDIT_FROM_UPDATE;
-    }
-
-    private void initReceiveCheck() {
-        if (gift == null) return;
-        User user = SPHelper.getMe();
-        rgReceive.setOnCheckedChangeListener((group, checkedId) -> {
-            if (gift == null) return;
-            switch (checkedId) {
-                case R.id.rbReceiveMe: // 送给我
-                    gift.setReceiveId(UserHelper.getMyId(user));
-                    break;
-                case R.id.rbReceiveTa: // 送给ta
-                    gift.setReceiveId(UserHelper.getTaId(user));
-                    break;
-            }
-        });
-        long receiveId = gift.getReceiveId();
-        if (user != null) {
-            if (receiveId == 0 || receiveId == user.getId()) {
-                rbReceiveMe.setChecked(true);
-            } else {
-                rbReceiveTa.setChecked(true);
-            }
-        }
     }
 
     private void setRecyclerShow(boolean show, int childCount) {
@@ -227,7 +211,7 @@ public class GiftEditActivity extends BaseActivity<GiftEditActivity> {
             return;
         }
         rv.setVisibility(View.VISIBLE);
-        int spanCount = childCount > 3 ? 3 : childCount;
+        int spanCount = 3;
         ImgSquareEditAdapter imgAdapter = new ImgSquareEditAdapter(mActivity, spanCount, childCount);
         imgAdapter.setOnAddClick(() -> {
             int maxCount = childCount - imgAdapter.getOssData().size() - imgAdapter.getFileData().size();
@@ -255,7 +239,41 @@ public class GiftEditActivity extends BaseActivity<GiftEditActivity> {
     private void refreshDateView() {
         if (gift == null) return;
         String happen = TimeHelper.getTimeShowLocal_HM_MD_YMD_ByGo(gift.getHappenAt());
-        btnHappenAt.setText(happen);
+        tvHappenAt.setText(String.format(Locale.getDefault(), getString(R.string.time_colon_space_holder), happen));
+    }
+
+    private void showUserDialog() {
+        User me = SPHelper.getMe();
+        User ta = SPHelper.getTa();
+        if (gift == null || me == null || ta == null) return;
+        int searchIndex = (gift.getReceiveId() == ta.getId()) ? 1 : 0;
+        MaterialDialog dialog = DialogHelper.getBuild(mActivity)
+                .cancelable(true)
+                .canceledOnTouchOutside(true)
+                .title(R.string.select_user)
+                .items(new String[]{getString(R.string.me_de), getString(R.string.ta_de)})
+                .itemsCallbackSingleChoice(searchIndex, (dialog1, view, which, text) -> {
+                    if (which < 0 || which > 1) {
+                        return true;
+                    }
+                    gift.setReceiveId(which == 0 ? me.getId() : ta.getId());
+                    refreshReceiveUser();
+                    DialogUtils.dismiss(dialog1);
+                    return true;
+                })
+                .build();
+        DialogHelper.showWithAnim(dialog);
+    }
+
+    private void refreshReceiveUser() {
+        User me = SPHelper.getMe();
+        User ta = SPHelper.getTa();
+        if (gift == null || me == null || ta == null) return;
+        if (gift.getReceiveId() == ta.getId()) {
+            tvHappenUser.setText(String.format(Locale.getDefault(), getString(R.string.belong_colon_space_holder), getString(R.string.ta_de)));
+        } else {
+            tvHappenUser.setText(String.format(Locale.getDefault(), getString(R.string.belong_colon_space_holder), getString(R.string.me_de)));
+        }
     }
 
     private void checkPush() {

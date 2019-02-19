@@ -215,7 +215,7 @@ public class DiaryEditActivity extends BaseActivity<DiaryEditActivity> {
             return;
         }
         rv.setVisibility(View.VISIBLE);
-        int spanCount = childCount > 3 ? 3 : childCount;
+        int spanCount = 3;
         ImgSquareEditAdapter imgAdapter = new ImgSquareEditAdapter(mActivity, spanCount, childCount);
         imgAdapter.setOnAddClick(() -> {
             int maxCount = childCount - imgAdapter.getOssData().size() - imgAdapter.getFileData().size();

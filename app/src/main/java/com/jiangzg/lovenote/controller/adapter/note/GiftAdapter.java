@@ -50,9 +50,10 @@ public class GiftAdapter extends BaseQuickAdapter<Gift, BaseViewHolder> {
         RecyclerView rv = helper.getView(R.id.rv);
         if (imageList != null && imageList.size() > 0) {
             rv.setVisibility(View.VISIBLE);
+            int spanCount = 3;
             new RecyclerHelper(rv)
-                    .initLayoutManager(new GridLayoutManager(mActivity, 3))
-                    .initAdapter(new ImgSquareShowAdapter(mActivity, 3))
+                    .initLayoutManager(new GridLayoutManager(mActivity, spanCount))
+                    .initAdapter(new ImgSquareShowAdapter(mActivity, spanCount))
                     .setAdapter()
                     .dataNew(imageList, 0);
         } else {

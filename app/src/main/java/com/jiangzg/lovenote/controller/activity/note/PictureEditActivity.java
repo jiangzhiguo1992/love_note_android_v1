@@ -122,6 +122,7 @@ public class PictureEditActivity extends BaseActivity<PictureEditActivity> {
         refreshDateView();
         refreshLocationView();
         // recycler
+        int pictureLimitCount = SPHelper.getLimit().getPicturePushCount();
         ImgSquareEditAdapter imgAdapter;
         int spanCount;
         if (fromUpdate) {
@@ -136,12 +137,11 @@ public class PictureEditActivity extends BaseActivity<PictureEditActivity> {
             imgAdapter.setOssData(pictureList);
         } else {
             // 添加
-            int pictureLimitCount = SPHelper.getLimit().getPicturePushCount();
-            spanCount = pictureLimitCount > 3 ? 3 : pictureLimitCount;
+            spanCount = 3;
             imgAdapter = new ImgSquareEditAdapter(mActivity, spanCount, pictureLimitCount);
             imgAdapter.setOnAddClick(this::goPicture);
         }
-        if (spanCount > 0) {
+        if (pictureLimitCount > 0) {
             rv.setVisibility(View.VISIBLE);
             if (recyclerHelper == null) {
                 recyclerHelper = new RecyclerHelper(rv)
