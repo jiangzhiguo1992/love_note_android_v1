@@ -72,24 +72,12 @@ android {
         xiaomi {} // 小米
         meizu {} // 魅族
         samsung {} // 三星
-//        nubia {} // 努比亚
-//        lenovo {} // 联想
-//        smaritsan {} // 锤子
-//        jinli {} // 金立
-//        leshi {} // 乐视
-//        kupai {} // 酷派
-//        nokia {} // 诺基亚
         //---------------------三方市场----------------------
         kuan {} // 酷安
         tencent {} // 应用宝
         ali {} // 阿里
         baidu {} // 百度
         qh360 {} // 360
-//        mm {} // 移动-MM
-//        wostore {} // 联通-沃商店
-//        tianyi {} // 电信-天翼空间
-//        sougou {} // 搜狗
-//        yingyonghui {} // 应用汇
     }
     productFlavors.all { // 发布渠道
         flavor -> flavor.manifestPlaceholders = [MARKET_CHANNEL_VALUE: name]
