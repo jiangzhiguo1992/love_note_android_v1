@@ -122,10 +122,7 @@
                         android:id="@+id/lineLive"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="10dp"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginEnd="10dp"
-                        android:layout_marginBottom="5dp"
+                        android:layout_margin="10dp"
                         android:gravity="center_vertical"
                         android:orientation="horizontal">
 
@@ -158,10 +155,7 @@
                         android:id="@+id/lineNote"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="10dp"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginEnd="10dp"
-                        android:layout_marginBottom="5dp"
+                        android:layout_margin="10dp"
                         android:gravity="center_vertical"
                         android:orientation="horizontal">
 
@@ -194,10 +188,7 @@
                         android:id="@+id/lineMedia"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="10dp"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginEnd="10dp"
-                        android:layout_marginBottom="5dp"
+                        android:layout_margin="10dp"
                         android:gravity="center_vertical"
                         android:orientation="horizontal">
 
@@ -230,10 +221,7 @@
                         android:id="@+id/lineOther"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="10dp"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginEnd="10dp"
-                        android:layout_marginBottom="5dp"
+                        android:layout_margin="10dp"
                         android:gravity="center_vertical"
                         android:orientation="horizontal">
 
