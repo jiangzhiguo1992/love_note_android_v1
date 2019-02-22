@@ -221,12 +221,6 @@ public class NoteFragment extends BasePagerFragment<NoteFragment> {
         }
     }
 
-    private void goActivity(BaseQuickAdapter adapter, int position) {
-        if (refuseNext()) return;
-        ModelAdapter modelAdapter = (ModelAdapter) adapter;
-        modelAdapter.goActivity(position);
-    }
-
     private boolean refuseNext() {
         if (UserHelper.isCoupleBreak(SPHelper.getCouple())) {
             // 无效配对
@@ -234,8 +228,8 @@ public class NoteFragment extends BasePagerFragment<NoteFragment> {
             return true;
         }
         if (lock == null) {
-            // 锁信息没有返回
-            refreshData(); // 防止没配对前就来过这里，配对后这里不刷新
+            // 锁信息没有返回，防止没配对前就来过这里，配对后这里不刷新
+            refreshData();
             return true;
         } else if (lock.isLock()) {
             // 上锁且没有解开
@@ -291,6 +285,12 @@ public class NoteFragment extends BasePagerFragment<NoteFragment> {
         if (custom.isCustom()) dataOther.add(ModelAdapter.CUSTOM);
         if (custom.isTotal()) dataOther.add(ModelAdapter.TOTAL);
         rhOther.dataNew(dataOther);
+    }
+
+    private void goActivity(BaseQuickAdapter adapter, int position) {
+        if (refuseNext()) return;
+        ModelAdapter modelAdapter = (ModelAdapter) adapter;
+        modelAdapter.goActivity(position);
     }
 
     private void refreshData() {
