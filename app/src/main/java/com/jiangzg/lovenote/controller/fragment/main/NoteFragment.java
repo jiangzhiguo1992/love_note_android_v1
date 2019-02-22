@@ -93,9 +93,8 @@ public class NoteFragment extends BasePagerFragment<NoteFragment> {
     @BindView(R.id.rvOther)
     RecyclerView rvOther;
 
-    private Lock lock; // 默认没锁 + 没解开
+    private Lock lock;
     private Runnable souvenirCountDownTask;
-    private String souvenirCountDownFormat;
     private RecyclerHelper rhLive, rhNote, rhMedia, rhOther;
 
     public static NoteFragment newFragment() {
@@ -113,7 +112,6 @@ public class NoteFragment extends BasePagerFragment<NoteFragment> {
     protected void initView(@Nullable Bundle state) {
         ViewHelper.initTopBar(mActivity, tb, mActivity.getString(R.string.nav_note), false);
         fitToolBar(tb);
-        souvenirCountDownFormat = mActivity.getString(R.string.count_down_space_holder);
         // srl
         srl.setOnRefreshListener(this::refreshData);
         // rv
@@ -315,6 +313,7 @@ public class NoteFragment extends BasePagerFragment<NoteFragment> {
                 srl.setRefreshing(false);
                 lock = data.getLock();
                 if (lock == null) {
+                    // 默认没锁
                     lock = new Lock();
                     lock.setLock(false);
                 }
@@ -354,34 +353,30 @@ public class NoteFragment extends BasePagerFragment<NoteFragment> {
         rlSouvenir.setVisibility(View.VISIBLE);
         // data
         String title = souvenirLatest.getTitle();
-        Calendar calHappen = DateUtils.getCurrentCal();
-        long timeNow = calHappen.getTimeInMillis();
-        int yearHappen = calHappen.get(Calendar.YEAR);
-        calHappen.setTimeInMillis(TimeHelper.getJavaTimeByGo(souvenirLatest.getHappenAt()));
-        int yearOriginal = calHappen.get(Calendar.YEAR);
-        calHappen.set(Calendar.YEAR, yearHappen);
-        long timeHappen = calHappen.getTimeInMillis();
-        if (timeHappen < timeNow) {
+        Calendar calNow = DateUtils.getCurrentCal();
+        Calendar calHappen = DateUtils.getCal(TimeHelper.getJavaTimeByGo(souvenirLatest.getHappenAt()));
+        Calendar calTrigger = DateUtils.getCal(TimeHelper.getJavaTimeByGo(souvenirLatest.getHappenAt()));
+        calTrigger.set(Calendar.YEAR, calNow.get(Calendar.YEAR));
+        if (calTrigger.getTimeInMillis() < calNow.getTimeInMillis()) {
             // 是明年的
-            ++yearHappen;
-            calHappen.set(Calendar.YEAR, yearHappen);
+            calTrigger.set(Calendar.YEAR, calTrigger.get(Calendar.YEAR) + 1);
         }
-        int yearBetween = yearHappen - yearOriginal;
+        int yearBetween = calTrigger.get(Calendar.YEAR) - calHappen.get(Calendar.YEAR);
         String yearShow = String.format(Locale.getDefault(), mActivity.getString(R.string.holder_anniversary), yearBetween);
         // view
         tvSouvenirYear.setText(yearShow);
         tvSouvenirTitle.setText(title);
-        // task
-        MyApp.get().getHandler().post(getSouvenirCountDownTask(calHappen.getTimeInMillis()));
+        // countdown
+        MyApp.get().getHandler().post(getSouvenirCountDownTask(calTrigger.getTimeInMillis()));
     }
 
-    private Runnable getSouvenirCountDownTask(final long tartTime) {
+    private Runnable getSouvenirCountDownTask(final long triggerTime) {
         if (souvenirCountDownTask == null) {
             souvenirCountDownTask = new Runnable() {
                 @Override
                 public void run() {
                     if (mActivity == null || !mFragment.isAdded()) return; // 防止已经脱离后加载
-                    long betweenTime = tartTime - DateUtils.getCurrentLong();
+                    long betweenTime = triggerTime - DateUtils.getCurrentLong();
                     if (betweenTime <= 0) {
                         stopSouvenirCountDownTask(); // 停止倒计时
                         refreshData(); // 刷新数据
@@ -391,13 +386,20 @@ public class NoteFragment extends BasePagerFragment<NoteFragment> {
                         } else {
                             stopLoveAnim();
                         }
-                        tvSouvenirCountDown.setText(getCountDownShow(betweenTime));
+                        tvSouvenirCountDown.setText(getSouvenirCountDownShow(betweenTime));
                         MyApp.get().getHandler().postDelayed(this, TimeUnit.SEC);
                     }
                 }
             };
         }
         return souvenirCountDownTask;
+    }
+
+    private void stopSouvenirCountDownTask() {
+        if (souvenirCountDownTask != null) {
+            MyApp.get().getHandler().removeCallbacks(souvenirCountDownTask);
+            souvenirCountDownTask = null;
+        }
     }
 
     private void startLoveAnim() {
@@ -418,7 +420,7 @@ public class NoteFragment extends BasePagerFragment<NoteFragment> {
         }
     }
 
-    private String getCountDownShow(long betweenTime) {
+    private String getSouvenirCountDownShow(long betweenTime) {
         long day = betweenTime / TimeUnit.DAY;
         long hourTotal = betweenTime - (day * TimeUnit.DAY);
         long hour = hourTotal / TimeUnit.HOUR;
@@ -439,15 +441,8 @@ public class NoteFragment extends BasePagerFragment<NoteFragment> {
         if (secShow.length() <= 1) {
             secShow = "0" + secShow;
         }
-        String timeShow = " " + dayShow + mActivity.getString(R.string.dayT) + " " + hourShow + ":" + minShow + ":" + secShow;
-        return String.format(Locale.getDefault(), souvenirCountDownFormat, timeShow);
-    }
-
-    private void stopSouvenirCountDownTask() {
-        if (souvenirCountDownTask != null) {
-            MyApp.get().getHandler().removeCallbacks(souvenirCountDownTask);
-            souvenirCountDownTask = null;
-        }
+        String timeShow = dayShow + mActivity.getString(R.string.dayT) + " " + hourShow + ":" + minShow + ":" + secShow;
+        return String.format(Locale.getDefault(), getString(R.string.count_down_space_holder), timeShow);
     }
 
 }
