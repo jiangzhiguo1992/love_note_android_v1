@@ -94,7 +94,6 @@ public class NoteFragment extends BasePagerFragment<NoteFragment> {
     RecyclerView rvOther;
 
     private Lock lock; // 默认没锁 + 没解开
-    private Souvenir souvenirLatest;
     private Runnable souvenirCountDownTask;
     private String souvenirCountDownFormat;
     private RecyclerHelper rhLive, rhNote, rhMedia, rhOther;
@@ -161,7 +160,7 @@ public class NoteFragment extends BasePagerFragment<NoteFragment> {
         // custom
         customView();
         // souvenir
-        refreshNoteView();
+        refreshNoteView(null);
     }
 
     protected void loadData() {
@@ -207,7 +206,7 @@ public class NoteFragment extends BasePagerFragment<NoteFragment> {
                 LockActivity.goActivity(mFragment);
                 return true;
             case R.id.menuTrends: // 动态
-                if (!canOpera()) return true;
+                if (refuseNext()) return true;
                 TrendsListActivity.goActivity(mActivity);
                 return true;
         }
@@ -216,7 +215,7 @@ public class NoteFragment extends BasePagerFragment<NoteFragment> {
 
     @OnClick({R.id.cvSouvenir})
     public void onViewClicked(View view) {
-        if (!canOpera()) return;
+        if (refuseNext()) return;
         switch (view.getId()) {
             case R.id.cvSouvenir: // 纪念日
                 SouvenirListActivity.goActivity(mFragment);
@@ -225,27 +224,27 @@ public class NoteFragment extends BasePagerFragment<NoteFragment> {
     }
 
     private void goActivity(BaseQuickAdapter adapter, int position) {
-        if (!canOpera()) return;
+        if (refuseNext()) return;
         ModelAdapter modelAdapter = (ModelAdapter) adapter;
         modelAdapter.goActivity(position);
     }
 
-    private boolean canOpera() {
+    private boolean refuseNext() {
         if (UserHelper.isCoupleBreak(SPHelper.getCouple())) {
             // 无效配对
             CouplePairActivity.goActivity(mFragment);
-            return false;
+            return true;
         }
         if (lock == null) {
             // 锁信息没有返回
             refreshData(); // 防止没配对前就来过这里，配对后这里不刷新
-            return false;
+            return true;
         } else if (lock.isLock()) {
             // 上锁且没有解开
             LockActivity.goActivity(mFragment);
-            return false;
+            return true;
         }
-        return true;
+        return false;
     }
 
     private void customView() {
@@ -307,8 +306,8 @@ public class NoteFragment extends BasePagerFragment<NoteFragment> {
         if (!srl.isRefreshing()) {
             srl.setRefreshing(true);
         }
-        long near = TimeHelper.getGoTimeByJava(DateUtils.getCurrentLong());
         // api
+        long near = TimeHelper.getGoTimeByJava(DateUtils.getCurrentLong());
         Call<Result> api = new RetrofitHelper().call(API.class).noteHomeGet(near);
         RetrofitHelper.enqueue(api, null, new RetrofitHelper.CallBack() {
             @Override
@@ -319,9 +318,8 @@ public class NoteFragment extends BasePagerFragment<NoteFragment> {
                     lock = new Lock();
                     lock.setLock(false);
                 }
-                souvenirLatest = data.getSouvenirLatest();
                 refreshMenu();
-                refreshNoteView();
+                refreshNoteView(data.getSouvenirLatest());
             }
 
             @Override
@@ -338,7 +336,7 @@ public class NoteFragment extends BasePagerFragment<NoteFragment> {
         tb.inflateMenu(isLock ? R.menu.help_lock_on_trends : R.menu.help_lock_off_trends);
     }
 
-    private void refreshNoteView() {
+    private void refreshNoteView(Souvenir souvenirLatest) {
         if (mActivity == null || !mFragment.isAdded()) return; // 防止已经脱离后加载
         stopSouvenirCountDownTask();// 先停止倒计时
         if (lock == null || lock.isLock()) {

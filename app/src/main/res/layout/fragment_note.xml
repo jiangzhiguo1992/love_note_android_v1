@@ -70,7 +70,7 @@
                                     android:gravity="center"
                                     android:text="@string/per_day_is_souvenir"
                                     android:visibility="gone"
-                                    tools:visibility="visible"/>
+                                    tools:visibility="gone"/>
 
                                 <RelativeLayout
                                     android:id="@+id/rlSouvenir"
@@ -78,7 +78,7 @@
                                     android:layout_height="match_parent"
                                     android:layout_marginStart="10dp"
                                     android:visibility="gone"
-                                    tools:visibility="gone">
+                                    tools:visibility="visible">
 
                                     <TextView
                                         android:id="@+id/tvSouvenirYear"
