@@ -338,7 +338,7 @@ public class NoteFragment extends BasePagerFragment<NoteFragment> {
 
     private void refreshNoteView(Souvenir souvenirLatest) {
         if (mActivity == null || !mFragment.isAdded()) return; // 防止已经脱离后加载
-        stopSouvenirCountDownTask();// 先停止倒计时
+        stopSouvenirCountDownTask(); // 先停止倒计时
         if (lock == null || lock.isLock()) {
             // 锁信息没有返回，或者是上锁且没有解开
             tvSouvenirEmpty.setVisibility(View.VISIBLE);
