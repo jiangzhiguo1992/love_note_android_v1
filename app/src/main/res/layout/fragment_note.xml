@@ -151,6 +151,8 @@
                         android:id="@+id/rvLive"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginStart="5dp"
+                        android:layout_marginEnd="5dp"
                         tools:listitem="@layout/list_item_note_model"/>
 
                     <!-- 笔记 -->
@@ -187,6 +189,8 @@
                         android:id="@+id/rvNote"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginStart="5dp"
+                        android:layout_marginEnd="5dp"
                         tools:listitem="@layout/list_item_note_model"/>
 
                     <!-- 多媒体 -->
@@ -223,6 +227,8 @@
                         android:id="@+id/rvMedia"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginStart="5dp"
+                        android:layout_marginEnd="5dp"
                         tools:listitem="@layout/list_item_note_model"/>
 
                     <!-- 其他 -->
@@ -259,6 +265,8 @@
                         android:id="@+id/rvOther"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginStart="5dp"
+                        android:layout_marginEnd="5dp"
                         tools:listitem="@layout/list_item_note_model"/>
                 </LinearLayout>
 
