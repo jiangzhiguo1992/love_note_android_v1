@@ -239,6 +239,7 @@ public class NoteFragment extends BasePagerFragment<NoteFragment> {
                 || custom.isDream() || custom.isMovie() || custom.isFood() || custom.isTravel()
                 || custom.isAngry() || custom.isGift() || custom.isPromise();
         lineNote.setVisibility(isNote ? View.VISIBLE : View.GONE);
+        rvNote.setVisibility(isNote ? View.VISIBLE : View.GONE);
         ArrayList<Integer> dataNote = new ArrayList<>();
         if (custom.isWord()) dataNote.add(ModelAdapter.WORD);
         if (custom.isWhisper()) dataNote.add(ModelAdapter.WHISPER);
@@ -255,14 +256,16 @@ public class NoteFragment extends BasePagerFragment<NoteFragment> {
         // media
         boolean isMedia = custom.isAudio() || custom.isVideo() || custom.isAlbum();
         lineMedia.setVisibility(isMedia ? View.VISIBLE : View.GONE);
+        rvMedia.setVisibility(isMedia ? View.VISIBLE : View.GONE);
         ArrayList<Integer> dataMedia = new ArrayList<>();
         if (custom.isAudio()) dataMedia.add(ModelAdapter.AUDIO);
         if (custom.isVideo()) dataMedia.add(ModelAdapter.VIDEO);
         if (custom.isAlbum()) dataMedia.add(ModelAdapter.ALBUM);
         rhMedia.dataNew(dataMedia);
         // other
-        boolean isOther = custom.isTotal() || custom.isTrends();
+        boolean isOther = custom.isTotal() || custom.isCustom();
         lineOther.setVisibility(isOther ? View.VISIBLE : View.GONE);
+        rvOther.setVisibility(isOther ? View.VISIBLE : View.GONE);
         ArrayList<Integer> dataOther = new ArrayList<>();
         if (custom.isCustom()) dataOther.add(ModelAdapter.CUSTOM);
         if (custom.isTotal()) dataOther.add(ModelAdapter.TOTAL);
