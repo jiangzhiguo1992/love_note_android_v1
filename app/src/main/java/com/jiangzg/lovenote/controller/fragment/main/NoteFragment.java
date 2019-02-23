@@ -155,8 +155,6 @@ public class NoteFragment extends BasePagerFragment<NoteFragment> {
                         goActivity(adapter, position);
                     }
                 });
-        // souvenir
-        refreshNoteView(null);
     }
 
     protected void loadData() {
@@ -174,6 +172,8 @@ public class NoteFragment extends BasePagerFragment<NoteFragment> {
         pushBus(RxBus.EVENT_SOUVENIR_LIST_ITEM_DELETE, obSouvenirDeleteRefresh);
         // custom
         customView();
+        // souvenir
+        refreshNoteView(null);
         // data
         refreshData();
     }
