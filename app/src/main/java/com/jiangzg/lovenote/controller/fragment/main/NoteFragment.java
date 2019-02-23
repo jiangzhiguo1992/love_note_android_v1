@@ -221,24 +221,6 @@ public class NoteFragment extends BasePagerFragment<NoteFragment> {
         }
     }
 
-    private boolean refuseNext() {
-        if (UserHelper.isCoupleBreak(SPHelper.getCouple())) {
-            // 无效配对
-            CouplePairActivity.goActivity(mFragment);
-            return true;
-        }
-        if (lock == null) {
-            // 锁信息没有返回，防止没配对前就来过这里，配对后这里不刷新
-            refreshData();
-            return true;
-        } else if (lock.isLock()) {
-            // 上锁且没有解开
-            LockActivity.goActivity(mFragment);
-            return true;
-        }
-        return false;
-    }
-
     private void customView() {
         NoteCustom custom = SPHelper.getNoteCustom();
         // souvenir
@@ -291,6 +273,24 @@ public class NoteFragment extends BasePagerFragment<NoteFragment> {
         if (refuseNext()) return;
         ModelAdapter modelAdapter = (ModelAdapter) adapter;
         modelAdapter.goActivity(position);
+    }
+
+    private boolean refuseNext() {
+        if (UserHelper.isCoupleBreak(SPHelper.getCouple())) {
+            // 无效配对
+            CouplePairActivity.goActivity(mFragment);
+            return true;
+        }
+        if (lock == null) {
+            // 锁信息没有返回，防止没配对前就来过这里，配对后这里不刷新
+            refreshData();
+            return true;
+        } else if (lock.isLock()) {
+            // 上锁且没有解开
+            LockActivity.goActivity(mFragment);
+            return true;
+        }
+        return false;
     }
 
     private void refreshData() {
