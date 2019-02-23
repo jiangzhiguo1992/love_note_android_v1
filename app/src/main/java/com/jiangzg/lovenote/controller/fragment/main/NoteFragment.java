@@ -155,8 +155,6 @@ public class NoteFragment extends BasePagerFragment<NoteFragment> {
                         goActivity(adapter, position);
                     }
                 });
-        // custom
-        customView();
         // souvenir
         refreshNoteView(null);
     }
@@ -174,6 +172,8 @@ public class NoteFragment extends BasePagerFragment<NoteFragment> {
         pushBus(RxBus.EVENT_SOUVENIR_LIST_REFRESH, obSouvenirRefresh);
         Observable<Souvenir> obSouvenirDeleteRefresh = RxBus.register(RxBus.EVENT_SOUVENIR_LIST_ITEM_DELETE, custom -> refreshData());
         pushBus(RxBus.EVENT_SOUVENIR_LIST_ITEM_DELETE, obSouvenirDeleteRefresh);
+        // custom
+        customView();
         // data
         refreshData();
     }
@@ -338,6 +338,7 @@ public class NoteFragment extends BasePagerFragment<NoteFragment> {
     private void refreshNoteView(Souvenir souvenirLatest) {
         if (mActivity == null || !mFragment.isAdded()) return; // 防止已经脱离后加载
         stopSouvenirCountDownTask(); // 先停止倒计时
+        if (!SPHelper.getNoteCustom().isSouvenir()) return; // 没展示
         if (lock == null || lock.isLock()) {
             // 锁信息没有返回，或者是上锁且没有解开
             tvSouvenirEmpty.setVisibility(View.VISIBLE);

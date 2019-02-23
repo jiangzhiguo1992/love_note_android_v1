@@ -52,6 +52,18 @@ public class SPHelper {
     private static final String FIELD_COMMON_NOTICE_SYSTEM = "notice_system";
     private static final String FIELD_COMMON_NOTICE_SOCIAL = "notice_social";
     private static final String FIELD_COMMON_NOTICE_DISTURB = "notice_disturb";
+    // modelShow
+    private static final String FIELD_MODEL_SHOW_MARKET_PAY = "market_pay";
+    private static final String FIELD_MODEL_SHOW_COUPLE = "couple";
+    private static final String FIELD_MODEL_SHOW_COUPLE_PLACE = "couple_place";
+    private static final String FIELD_MODEL_SHOW_COUPLE_WEATHER = "couple_weather";
+    private static final String FIELD_MODEL_SHOW_NOTE = "note";
+    private static final String FIELD_MODEL_SHOW_TOPIC = "topic";
+    private static final String FIELD_MODEL_SHOW_MORE = "more";
+    private static final String FIELD_MODEL_SHOW_MORE_VIP = "more_vip";
+    private static final String FIELD_MODEL_SHOW_MORE_COIN = "more_coin";
+    private static final String FIELD_MODEL_SHOW_MORE_MATCH = "more_match";
+    private static final String FIELD_MODEL_SHOW_MORE_FEATURE = "more_feature";
     // noteCustom
     private static final String FIELD_NOTE_CUSTOM_SOUVENIR = "souvenir";
     private static final String FIELD_NOTE_CUSTOM_SHY = "shy";
@@ -84,18 +96,6 @@ public class SPHelper {
     // commonCount
     private static final String FIELD_COMMON_COUNT_NOTICE_NEW_COUNT = "notice_new_count";
     private static final String FIELD_COMMON_COUNT_VERSION_NEW_COUNT = "version_new_count";
-    // modelShow
-    private static final String FIELD_MODEL_SHOW_MARKET_PAY = "market_pay";
-    private static final String FIELD_MODEL_SHOW_COUPLE = "couple";
-    private static final String FIELD_MODEL_SHOW_COUPLE_PLACE = "couple_place";
-    private static final String FIELD_MODEL_SHOW_COUPLE_WEATHER = "couple_weather";
-    private static final String FIELD_MODEL_SHOW_NOTE = "note";
-    private static final String FIELD_MODEL_SHOW_TOPIC = "topic";
-    private static final String FIELD_MODEL_SHOW_MORE = "more";
-    private static final String FIELD_MODEL_SHOW_MORE_VIP = "more_vip";
-    private static final String FIELD_MODEL_SHOW_MORE_COIN = "more_coin";
-    private static final String FIELD_MODEL_SHOW_MORE_MATCH = "more_match";
-    private static final String FIELD_MODEL_SHOW_MORE_FEATURE = "more_feature";
     // ossInfo
     private static final String FIELD_OSS_SECURITY_TOKEN = "security_token";
     private static final String FIELD_OSS_KEY_ID = "access_key_id";
@@ -359,6 +359,46 @@ public class SPHelper {
     }
 
     /**
+     * ***********************************ModelShow***********************************
+     */
+    public static void setModelShow(ModelShow modelShow) {
+        if (modelShow == null) {
+            LogUtils.i(SPHelper.class, "setModelShow", "modelShow == null");
+            return;
+        }
+        SharedPreferences.Editor editor = SPUtils.getSharedPreferences(SHARE_MODEL_SHOW).edit();
+        editor.putBoolean(FIELD_MODEL_SHOW_MARKET_PAY, modelShow.isMarketPay());
+        editor.putBoolean(FIELD_MODEL_SHOW_COUPLE, modelShow.isCouple());
+        editor.putBoolean(FIELD_MODEL_SHOW_COUPLE_PLACE, modelShow.isCouplePlace());
+        editor.putBoolean(FIELD_MODEL_SHOW_COUPLE_WEATHER, modelShow.isCoupleWeather());
+        editor.putBoolean(FIELD_MODEL_SHOW_NOTE, modelShow.isNote());
+        editor.putBoolean(FIELD_MODEL_SHOW_TOPIC, modelShow.isTopic());
+        editor.putBoolean(FIELD_MODEL_SHOW_MORE, modelShow.isMore());
+        editor.putBoolean(FIELD_MODEL_SHOW_MORE_VIP, modelShow.isMoreVip());
+        editor.putBoolean(FIELD_MODEL_SHOW_MORE_COIN, modelShow.isMoreCoin());
+        editor.putBoolean(FIELD_MODEL_SHOW_MORE_MATCH, modelShow.isMoreMatch());
+        editor.putBoolean(FIELD_MODEL_SHOW_MORE_FEATURE, modelShow.isMoreFeature());
+        editor.apply();
+    }
+
+    public static ModelShow getModelShow() {
+        SharedPreferences sp = SPUtils.getSharedPreferences(SHARE_MODEL_SHOW);
+        ModelShow modelShow = new ModelShow();
+        modelShow.setMarketPay(sp.getBoolean(FIELD_MODEL_SHOW_MARKET_PAY, true));
+        modelShow.setCouple(sp.getBoolean(FIELD_MODEL_SHOW_COUPLE, true));
+        modelShow.setCouplePlace(sp.getBoolean(FIELD_MODEL_SHOW_COUPLE_PLACE, true));
+        modelShow.setCoupleWeather(sp.getBoolean(FIELD_MODEL_SHOW_COUPLE_WEATHER, true));
+        modelShow.setNote(sp.getBoolean(FIELD_MODEL_SHOW_NOTE, true));
+        modelShow.setTopic(sp.getBoolean(FIELD_MODEL_SHOW_TOPIC, true));
+        modelShow.setMore(sp.getBoolean(FIELD_MODEL_SHOW_MORE, true));
+        modelShow.setMoreVip(sp.getBoolean(FIELD_MODEL_SHOW_MORE_VIP, true));
+        modelShow.setMoreCoin(sp.getBoolean(FIELD_MODEL_SHOW_MORE_COIN, true));
+        modelShow.setMoreMatch(sp.getBoolean(FIELD_MODEL_SHOW_MORE_MATCH, true));
+        modelShow.setMoreFeature(sp.getBoolean(FIELD_MODEL_SHOW_MORE_FEATURE, true));
+        return modelShow;
+    }
+
+    /**
      * ***********************************NoteCustom***********************************
      */
     public static void setNoteCustom(NoteCustom noteCustom) {
@@ -416,46 +456,6 @@ public class SPHelper {
         noteCustom.setTrends(sp.getBoolean(FIELD_NOTE_CUSTOM_TRENDS, true));
         noteCustom.setCustom(sp.getBoolean(FIELD_NOTE_CUSTOM_CUSTOM, true));
         return noteCustom;
-    }
-
-    /**
-     * ***********************************ModelShow***********************************
-     */
-    public static void setModelShow(ModelShow modelShow) {
-        if (modelShow == null) {
-            LogUtils.i(SPHelper.class, "setModelShow", "modelShow == null");
-            return;
-        }
-        SharedPreferences.Editor editor = SPUtils.getSharedPreferences(SHARE_MODEL_SHOW).edit();
-        editor.putBoolean(FIELD_MODEL_SHOW_MARKET_PAY, modelShow.isMarketPay());
-        editor.putBoolean(FIELD_MODEL_SHOW_COUPLE, modelShow.isCouple());
-        editor.putBoolean(FIELD_MODEL_SHOW_COUPLE_PLACE, modelShow.isCouplePlace());
-        editor.putBoolean(FIELD_MODEL_SHOW_COUPLE_WEATHER, modelShow.isCoupleWeather());
-        editor.putBoolean(FIELD_MODEL_SHOW_NOTE, modelShow.isNote());
-        editor.putBoolean(FIELD_MODEL_SHOW_TOPIC, modelShow.isTopic());
-        editor.putBoolean(FIELD_MODEL_SHOW_MORE, modelShow.isMore());
-        editor.putBoolean(FIELD_MODEL_SHOW_MORE_VIP, modelShow.isMoreVip());
-        editor.putBoolean(FIELD_MODEL_SHOW_MORE_COIN, modelShow.isMoreCoin());
-        editor.putBoolean(FIELD_MODEL_SHOW_MORE_MATCH, modelShow.isMoreMatch());
-        editor.putBoolean(FIELD_MODEL_SHOW_MORE_FEATURE, modelShow.isMoreFeature());
-        editor.apply();
-    }
-
-    public static ModelShow getModelShow() {
-        SharedPreferences sp = SPUtils.getSharedPreferences(SHARE_MODEL_SHOW);
-        ModelShow modelShow = new ModelShow();
-        modelShow.setMarketPay(sp.getBoolean(FIELD_MODEL_SHOW_MARKET_PAY, true));
-        modelShow.setCouple(sp.getBoolean(FIELD_MODEL_SHOW_COUPLE, true));
-        modelShow.setCouplePlace(sp.getBoolean(FIELD_MODEL_SHOW_COUPLE_PLACE, true));
-        modelShow.setCoupleWeather(sp.getBoolean(FIELD_MODEL_SHOW_COUPLE_WEATHER, true));
-        modelShow.setNote(sp.getBoolean(FIELD_MODEL_SHOW_NOTE, true));
-        modelShow.setTopic(sp.getBoolean(FIELD_MODEL_SHOW_TOPIC, true));
-        modelShow.setMore(sp.getBoolean(FIELD_MODEL_SHOW_MORE, true));
-        modelShow.setMoreVip(sp.getBoolean(FIELD_MODEL_SHOW_MORE_VIP, true));
-        modelShow.setMoreCoin(sp.getBoolean(FIELD_MODEL_SHOW_MORE_COIN, true));
-        modelShow.setMoreMatch(sp.getBoolean(FIELD_MODEL_SHOW_MORE_MATCH, true));
-        modelShow.setMoreFeature(sp.getBoolean(FIELD_MODEL_SHOW_MORE_FEATURE, true));
-        return modelShow;
     }
 
     /**
