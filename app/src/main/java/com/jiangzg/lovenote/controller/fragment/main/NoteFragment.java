@@ -170,6 +170,8 @@ public class NoteFragment extends BasePagerFragment<NoteFragment> {
         pushBus(RxBus.EVENT_SOUVENIR_LIST_REFRESH, obSouvenirRefresh);
         Observable<Souvenir> obSouvenirDeleteRefresh = RxBus.register(RxBus.EVENT_SOUVENIR_LIST_ITEM_DELETE, custom -> refreshData());
         pushBus(RxBus.EVENT_SOUVENIR_LIST_ITEM_DELETE, obSouvenirDeleteRefresh);
+        Observable<Souvenir> obSouvenirItemRefresh = RxBus.register(RxBus.EVENT_SOUVENIR_LIST_ITEM_REFRESH, custom -> refreshData());
+        pushBus(RxBus.EVENT_SOUVENIR_LIST_ITEM_REFRESH, obSouvenirItemRefresh);
         // custom
         customView();
         // souvenir
