@@ -145,7 +145,7 @@ public class CoupleInfoActivity extends BaseActivity<CoupleInfoActivity> {
         Couple couple = me == null ? null : me.getCouple();
         if (couple != null) {
             if (UserHelper.isCoupleBreaking(couple) && couple.getState().getUserId() == me.getId()) {
-                getMenuInflater().inflate(R.menu.complex_help, menu);
+                getMenuInflater().inflate(R.menu.help_complex, menu);
             } else {
                 getMenuInflater().inflate(R.menu.help_break, menu);
             }

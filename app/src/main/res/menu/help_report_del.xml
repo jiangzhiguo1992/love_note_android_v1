@@ -9,9 +9,13 @@
         app:showAsAction="ifRoom"/>
 
     <item
+        android:id="@+id/menuReport"
+        android:title="@string/report"
+        app:showAsAction="always"/>
+
+    <item
         android:id="@+id/menuDel"
         android:icon="@mipmap/ic_delete_white_24dp"
         android:title="@string/delete"
         app:showAsAction="always"/>
-
 </menu>

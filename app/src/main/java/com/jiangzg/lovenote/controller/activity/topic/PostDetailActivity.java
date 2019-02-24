@@ -260,9 +260,9 @@ public class PostDetailActivity extends BaseActivity<PostDetailActivity> {
             getMenuInflater().inflate(R.menu.help, menu);
         } else {
             if (post.isMine()) { // 举报 + 删除 + 帮助
-                getMenuInflater().inflate(R.menu.report_del_help, menu);
+                getMenuInflater().inflate(R.menu.help_report_del, menu);
             } else { // 举报
-                getMenuInflater().inflate(R.menu.report_help, menu);
+                getMenuInflater().inflate(R.menu.help_report, menu);
             }
         }
         return super.onPrepareOptionsMenu(menu);

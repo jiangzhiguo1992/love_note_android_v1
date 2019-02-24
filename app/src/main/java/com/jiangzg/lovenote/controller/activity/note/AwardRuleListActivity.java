@@ -128,22 +128,6 @@ public class AwardRuleListActivity extends BaseActivity<AwardRuleListActivity> {
         RecyclerHelper.release(recyclerHelper);
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        //getMenuInflater().inflate(R.menu.add, menu);
-        return super.onCreateOptionsMenu(menu);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.menuAdd: // 添加
-                AwardRuleEditActivity.goActivity(mActivity);
-                return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
     @OnClick({R.id.fabAdd})
     public void onViewClicked(View view) {
         switch (view.getId()) {

@@ -9,9 +9,7 @@
         app:showAsAction="ifRoom"/>
 
     <item
-        android:id="@+id/menuAdd"
-        android:icon="@mipmap/ic_add_white_24dp"
-        android:title="@string/add"
+        android:id="@+id/menuComplex"
+        android:title="@string/complex"
         app:showAsAction="always"/>
-
 </menu>
