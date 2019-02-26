@@ -82,6 +82,7 @@ public class PictureAdapter extends BaseQuickAdapter<Picture, BaseViewHolder> {
         // view
         if (mModel != MODEL_DETAIL) {
             helper.setVisible(R.id.tvHappenAt, false);
+            helper.setVisible(R.id.vLine, false);
             helper.setVisible(R.id.tvAddress, false);
         } else {
             helper.setVisible(R.id.tvHappenAt, item.getHappenAt() != 0);
