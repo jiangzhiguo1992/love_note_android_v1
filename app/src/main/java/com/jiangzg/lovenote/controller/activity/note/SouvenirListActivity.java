@@ -1,6 +1,7 @@
 package com.jiangzg.lovenote.controller.activity.note;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -43,6 +44,13 @@ public class SouvenirListActivity extends BaseActivity<SouvenirListActivity> {
 
     public static void goActivity(Fragment from) {
         Intent intent = new Intent(from.getActivity(), SouvenirListActivity.class);
+        // intent.putExtra();
+        intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        ActivityTrans.start(from, intent);
+    }
+
+    public static void goActivity(Context from) {
+        Intent intent = new Intent(from, SouvenirListActivity.class);
         // intent.putExtra();
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         ActivityTrans.start(from, intent);

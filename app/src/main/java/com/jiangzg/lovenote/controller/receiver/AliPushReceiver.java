@@ -9,6 +9,9 @@ import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.lovenote.controller.activity.note.LockActivity;
 import com.jiangzg.lovenote.controller.activity.note.MensesActivity;
 import com.jiangzg.lovenote.controller.activity.note.NoteTotalActivity;
+import com.jiangzg.lovenote.controller.activity.note.ShyActivity;
+import com.jiangzg.lovenote.controller.activity.note.SleepActivity;
+import com.jiangzg.lovenote.controller.activity.note.SouvenirListActivity;
 import com.jiangzg.lovenote.controller.activity.note.TrendsListActivity;
 import com.jiangzg.lovenote.controller.activity.settings.SuggestDetailActivity;
 import com.jiangzg.lovenote.controller.activity.topic.PostDetailActivity;
@@ -64,8 +67,17 @@ public class AliPushReceiver extends MessageReceiver {
             case Push.TYPE_NOTE_TOTAL:
                 NoteTotalActivity.goActivity(context);
                 break;
+            case Push.TYPE_NOTE_SHY: // 羞羞
+                ShyActivity.goActivity(context);
+                break;
             case Push.TYPE_NOTE_MENSES: // 姨妈
                 MensesActivity.goActivity(context);
+                break;
+            case Push.TYPE_NOTE_SLEEP: // 睡眠
+                SleepActivity.goActivity(context);
+                break;
+            case Push.TYPE_NOTE_SOUVENIR: // 纪念日
+                SouvenirListActivity.goActivity(context);
                 break;
             case Push.TYPE_TOPIC_MINE: // 话题我的
                 PostMineActivity.goActivity(context);
