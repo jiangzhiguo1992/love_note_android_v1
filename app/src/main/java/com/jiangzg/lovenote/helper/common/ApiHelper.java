@@ -79,7 +79,7 @@ public class ApiHelper {
     public static final int LIST_NOTE_WHO_CP = 0;
     public static final int LIST_NOTE_WHO_MY = 1;
     public static final int LIST_NOTE_WHO_TA = 2;
-    public static final int[] LIST_NOTE_TYPE = new int[]{
+    public static final int[] LIST_NOTE_WHO_TYPE = new int[]{
             LIST_NOTE_WHO_CP,
             LIST_NOTE_WHO_MY,
             LIST_NOTE_WHO_TA
@@ -93,7 +93,7 @@ public class ApiHelper {
     public static final int LIST_TOPIC_TYPE_ALL = 0;
     public static final int LIST_TOPIC_TYPE_OFFICIAL = 1;
     public static final int LIST_TOPIC_TYPE_WELL = 2;
-    public static final int[] LIST_TOPIC_TYPE = new int[]{
+    public static final int[] LIST_TOPIC_TYPE_TYPE = new int[]{
             LIST_TOPIC_TYPE_ALL,
             LIST_TOPIC_TYPE_OFFICIAL,
             LIST_TOPIC_TYPE_WELL

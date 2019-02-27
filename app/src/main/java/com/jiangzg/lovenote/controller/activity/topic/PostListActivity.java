@@ -109,8 +109,8 @@ public class PostListActivity extends BaseActivity<PostListActivity> {
             public void onPageSelected(int position) {
                 PostListFragment fragment = fragmentList.get(position);
                 int searchType = fragment.getSearchType();
-                for (int i = 0; i < ApiHelper.LIST_TOPIC_TYPE.length; i++) {
-                    if (searchType == ApiHelper.LIST_TOPIC_TYPE[i]) {
+                for (int i = 0; i < ApiHelper.LIST_TOPIC_TYPE_TYPE.length; i++) {
+                    if (searchType == ApiHelper.LIST_TOPIC_TYPE_TYPE[i]) {
                         searchIndex = i;
                         break;
                     }
@@ -178,13 +178,13 @@ public class PostListActivity extends BaseActivity<PostListActivity> {
                 .title(R.string.select_search_type)
                 .items(ApiHelper.LIST_TOPIC_TYPE_SHOW)
                 .itemsCallbackSingleChoice(searchIndex, (dialog1, view, which, text) -> {
-                    if (which < 0 || which >= ApiHelper.LIST_TOPIC_TYPE.length) {
+                    if (which < 0 || which >= ApiHelper.LIST_TOPIC_TYPE_TYPE.length) {
                         return true;
                     }
                     searchIndex = which;
                     tvSearch.setText(ApiHelper.LIST_TOPIC_TYPE_SHOW[searchIndex]);
                     RxBus.Event<Boolean> event;
-                    switch (ApiHelper.LIST_TOPIC_TYPE[searchIndex]) {
+                    switch (ApiHelper.LIST_TOPIC_TYPE_TYPE[searchIndex]) {
                         case ApiHelper.LIST_TOPIC_TYPE_OFFICIAL: // 官方
                             event = new RxBus.Event<>(RxBus.EVENT_POST_SEARCH_OFFICIAL, true);
                             break;

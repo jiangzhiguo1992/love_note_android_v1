@@ -166,7 +166,7 @@ public class DiaryListActivity extends BaseActivity<DiaryListActivity> {
 
     private void getData(final boolean more) {
         page = more ? page + 1 : 0;
-        int searchType = ApiHelper.LIST_NOTE_TYPE[searchIndex];
+        int searchType = ApiHelper.LIST_NOTE_WHO_TYPE[searchIndex];
         // api
         Call<Result> api = new RetrofitHelper().call(API.class).noteDiaryListGet(searchType, page);
         RetrofitHelper.enqueue(api, null, new RetrofitHelper.CallBack() {
@@ -197,7 +197,7 @@ public class DiaryListActivity extends BaseActivity<DiaryListActivity> {
                 .items(ApiHelper.LIST_NOTE_WHO_SHOW)
                 .itemsCallbackSingleChoice(searchIndex, (dialog1, view, which, text) -> {
                     if (recyclerHelper == null) return true;
-                    if (which < 0 || which >= ApiHelper.LIST_NOTE_TYPE.length) {
+                    if (which < 0 || which >= ApiHelper.LIST_NOTE_WHO_TYPE.length) {
                         return true;
                     }
                     searchIndex = which;
