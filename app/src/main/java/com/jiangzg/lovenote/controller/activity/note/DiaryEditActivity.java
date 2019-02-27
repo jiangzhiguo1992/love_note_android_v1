@@ -14,6 +14,7 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.jiangzg.base.common.DateUtils;
 import com.jiangzg.base.component.ActivityTrans;
 import com.jiangzg.base.view.ToastUtils;
@@ -133,9 +134,20 @@ public class DiaryEditActivity extends BaseActivity<DiaryEditActivity> {
     @Override
     protected void onFinish(Bundle state) {
         RecyclerHelper.release(recyclerHelper);
-        //if (SPHelper.getDraftDiary() == null && diary != null && !StringUtils.isEmpty(diary.getContentText())) {
-        //    saveDraft();
-        //}
+    }
+
+    @Override
+    public void onBackPressed() {
+        MaterialDialog dialog = DialogHelper.getBuild(mActivity)
+                .cancelable(true)
+                .canceledOnTouchOutside(true)
+                .content(R.string.is_save_draft)
+                .positiveText(R.string.save_draft)
+                .negativeText(R.string.cancel)
+                .onPositive((dialog1, which) -> saveDraft(true))
+                .onNegative((dialog12, which) -> super.onBackPressed())
+                .build();
+        DialogHelper.showWithAnim(dialog);
     }
 
     @Override
@@ -166,7 +178,7 @@ public class DiaryEditActivity extends BaseActivity<DiaryEditActivity> {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menuDraft: // 草稿
-                saveDraft();
+                saveDraft(false);
                 return true;
             case R.id.menuCommit: // 提交
                 checkPush();
@@ -249,9 +261,10 @@ public class DiaryEditActivity extends BaseActivity<DiaryEditActivity> {
         tvHappenAt.setText(String.format(Locale.getDefault(), getString(R.string.time_colon_space_holder), happen));
     }
 
-    private void saveDraft() {
+    private void saveDraft(boolean exit) {
         SPHelper.setDraftDiary(diary);
         ToastUtils.show(getString(R.string.draft_save_success));
+        if (exit) mActivity.finish();
     }
 
     private void checkPush() {

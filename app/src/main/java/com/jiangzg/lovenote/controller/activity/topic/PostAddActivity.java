@@ -137,6 +137,20 @@ public class PostAddActivity extends BaseActivity<PostAddActivity> {
     }
 
     @Override
+    public void onBackPressed() {
+        MaterialDialog dialog = DialogHelper.getBuild(mActivity)
+                .cancelable(true)
+                .canceledOnTouchOutside(true)
+                .content(R.string.is_save_draft)
+                .positiveText(R.string.save_draft)
+                .negativeText(R.string.cancel)
+                .onPositive((dialog1, which) -> saveDraft(true))
+                .onNegative((dialog12, which) -> super.onBackPressed())
+                .build();
+        DialogHelper.showWithAnim(dialog);
+    }
+
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.draft_commit, menu);
         return super.onCreateOptionsMenu(menu);
@@ -164,7 +178,7 @@ public class PostAddActivity extends BaseActivity<PostAddActivity> {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menuDraft: // 草稿
-                saveDraft();
+                saveDraft(false);
                 return true;
             case R.id.menuCommit: // 提交
                 checkPush();
@@ -259,11 +273,12 @@ public class PostAddActivity extends BaseActivity<PostAddActivity> {
         tvKind.setText(String.format(Locale.getDefault(), getString(R.string.type_colon_space_holder), subKindShow));
     }
 
-    private void saveDraft() {
+    private void saveDraft(boolean exit) {
         if (post == null) return;
         post.setTitle(etTitle.getText().toString());
         SPHelper.setDraftPost(post);
         ToastUtils.show(getString(R.string.draft_save_success));
+        if (exit) mActivity.finish();
     }
 
     private void checkPush() {

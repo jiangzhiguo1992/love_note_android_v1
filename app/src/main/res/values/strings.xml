@@ -462,6 +462,7 @@
     <string name="please_select_promise">请选择承诺</string>
     <string name="please_select_rule">请选择规则</string>
     <string name="please_select_score">请选择分数</string>
+    <string name="is_save_draft">是否保存草稿</string>
     <string name="please_input_dream_content">请输入梦的情节，记得多少写多少</string>
     <string name="please_input_promise_content">请输入承诺的起因、经过和结果</string>
     <string name="please_input_angry_content">请输入生气的原由</string>

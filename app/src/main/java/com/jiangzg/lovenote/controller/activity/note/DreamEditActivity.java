@@ -12,6 +12,7 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.jiangzg.base.common.DateUtils;
 import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.base.component.ActivityTrans;
@@ -106,9 +107,20 @@ public class DreamEditActivity extends BaseActivity<DreamEditActivity> {
 
     @Override
     protected void onFinish(Bundle state) {
-        //if (SPHelper.getDraftDream() == null && dream != null && !StringUtils.isEmpty(dream.getContentText())) {
-        //    saveDraft();
-        //}
+    }
+
+    @Override
+    public void onBackPressed() {
+        MaterialDialog dialog = DialogHelper.getBuild(mActivity)
+                .cancelable(true)
+                .canceledOnTouchOutside(true)
+                .content(R.string.is_save_draft)
+                .positiveText(R.string.save_draft)
+                .negativeText(R.string.cancel)
+                .onPositive((dialog1, which) -> saveDraft(true))
+                .onNegative((dialog12, which) -> super.onBackPressed())
+                .build();
+        DialogHelper.showWithAnim(dialog);
     }
 
     @Override
@@ -121,7 +133,7 @@ public class DreamEditActivity extends BaseActivity<DreamEditActivity> {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menuDraft: // 草稿
-                saveDraft();
+                saveDraft(false);
                 return true;
             case R.id.menuCommit: // 提交
                 checkPush();
@@ -180,9 +192,10 @@ public class DreamEditActivity extends BaseActivity<DreamEditActivity> {
         tvHappenAt.setText(String.format(Locale.getDefault(), getString(R.string.time_colon_space_holder), happen));
     }
 
-    private void saveDraft() {
+    private void saveDraft(boolean exit) {
         SPHelper.setDraftDream(dream);
         ToastUtils.show(getString(R.string.draft_save_success));
+        if (exit) mActivity.finish();
     }
 
     private void checkPush() {
