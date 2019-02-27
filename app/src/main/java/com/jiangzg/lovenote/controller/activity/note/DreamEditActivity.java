@@ -65,7 +65,7 @@ public class DreamEditActivity extends BaseActivity<DreamEditActivity> {
             goActivity(from);
             return;
         } else if (!dream.isMine()) {
-            ToastUtils.show(from.getString(R.string.can_operation_self_create_dream));
+            ToastUtils.show(from.getString(R.string.can_operation_self_create_note));
             return;
         }
         Intent intent = new Intent(from, DreamEditActivity.class);

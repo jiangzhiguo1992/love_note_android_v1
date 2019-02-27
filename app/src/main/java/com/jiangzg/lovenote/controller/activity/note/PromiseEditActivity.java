@@ -71,7 +71,7 @@ public class PromiseEditActivity extends BaseActivity<PromiseEditActivity> {
             goActivity(from);
             return;
         } else if (!promise.isMine()) {
-            ToastUtils.show(from.getString(R.string.can_operation_self_create_promise));
+            ToastUtils.show(from.getString(R.string.can_operation_self_create_note));
             return;
         }
         Intent intent = new Intent(from, PromiseEditActivity.class);

@@ -71,7 +71,7 @@ public class AlbumEditActivity extends BaseActivity<AlbumEditActivity> {
             goActivity(from);
             return;
         } else if (!album.isMine()) {
-            ToastUtils.show(from.getString(R.string.can_operation_self_create_album));
+            ToastUtils.show(from.getString(R.string.can_operation_self_create_note));
             return;
         }
         Intent intent = new Intent(from, AlbumEditActivity.class);

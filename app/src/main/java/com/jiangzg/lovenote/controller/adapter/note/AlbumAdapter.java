@@ -105,7 +105,7 @@ public class AlbumAdapter extends BaseQuickAdapter<Album, BaseViewHolder> {
         // 用户检查
         Album album = getItem(position);
         if (!album.isMine()) {
-            ToastUtils.show(mActivity.getString(R.string.can_operation_self_create_album));
+            ToastUtils.show(mActivity.getString(R.string.can_operation_self_create_note));
             return;
         }
         // view
@@ -184,7 +184,7 @@ public class AlbumAdapter extends BaseQuickAdapter<Album, BaseViewHolder> {
         MaterialDialog dialog = DialogHelper.getBuild(mActivity)
                 .cancelable(true)
                 .canceledOnTouchOutside(true)
-                .title(R.string.confirm_delete_this_album)
+                .title(R.string.confirm_delete_this_note)
                 .positiveText(R.string.confirm)
                 .onPositive((dialog1, which) -> delAlbumApi(position))
                 .negativeText(R.string.cancel)

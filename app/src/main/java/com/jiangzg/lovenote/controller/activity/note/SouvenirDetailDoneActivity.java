@@ -260,13 +260,13 @@ public class SouvenirDetailDoneActivity extends BaseActivity<SouvenirDetailDoneA
 
     private void showDeleteDialog() {
         if (souvenir == null || !souvenir.isMine()) {
-            ToastUtils.show(mActivity.getString(R.string.can_operation_self_create_souvenir));
+            ToastUtils.show(mActivity.getString(R.string.can_operation_self_create_note));
             return;
         }
         MaterialDialog dialog = DialogHelper.getBuild(mActivity)
                 .cancelable(true)
                 .canceledOnTouchOutside(true)
-                .content(R.string.confirm_delete_this_souvenir)
+                .content(R.string.confirm_delete_this_note)
                 .positiveText(R.string.confirm_no_wrong)
                 .negativeText(R.string.i_think_again)
                 .onPositive((dialog1, which) -> deleteApi())

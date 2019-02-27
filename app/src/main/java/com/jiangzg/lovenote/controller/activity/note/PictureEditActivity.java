@@ -86,7 +86,7 @@ public class PictureEditActivity extends BaseActivity<PictureEditActivity> {
             goActivity(from, album);
             return;
         } else if (!picture.isMine()) {
-            ToastUtils.show(from.getString(R.string.can_operation_self_create_picture));
+            ToastUtils.show(from.getString(R.string.can_operation_self_create_note));
             return;
         }
         Intent intent = new Intent(from, PictureEditActivity.class);

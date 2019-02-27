@@ -75,7 +75,7 @@ public class DiaryEditActivity extends BaseActivity<DiaryEditActivity> {
             goActivity(from);
             return;
         } else if (!diary.isMine()) {
-            ToastUtils.show(from.getString(R.string.can_operation_self_create_diary));
+            ToastUtils.show(from.getString(R.string.can_operation_self_create_note));
             return;
         }
         Intent intent = new Intent(from, DiaryEditActivity.class);

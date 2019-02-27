@@ -198,13 +198,13 @@ public class DiaryDetailActivity extends BaseActivity<DiaryDetailActivity> {
 
     private void showDeleteDialog() {
         if (diary == null || !diary.isMine()) {
-            ToastUtils.show(mActivity.getString(R.string.can_operation_self_create_diary));
+            ToastUtils.show(mActivity.getString(R.string.can_operation_self_create_note));
             return;
         }
         MaterialDialog dialog = DialogHelper.getBuild(mActivity)
                 .cancelable(true)
                 .canceledOnTouchOutside(true)
-                .content(R.string.confirm_delete_this_diary)
+                .content(R.string.confirm_delete_this_note)
                 .positiveText(R.string.confirm_no_wrong)
                 .negativeText(R.string.i_think_again)
                 .onPositive((dialog1, which) -> deleteApi())

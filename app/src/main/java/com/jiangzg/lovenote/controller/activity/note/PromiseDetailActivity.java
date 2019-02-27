@@ -298,11 +298,11 @@ public class PromiseDetailActivity extends BaseActivity<PromiseDetailActivity> {
 
     private void showDelDialog() {
         if (promise == null || !promise.isMine()) {
-            ToastUtils.show(mActivity.getString(R.string.can_operation_self_create_promise));
+            ToastUtils.show(mActivity.getString(R.string.can_operation_self_create_note));
             return;
         }
         MaterialDialog dialog = DialogHelper.getBuild(mActivity)
-                .content(R.string.confirm_delete_this_promise)
+                .content(R.string.confirm_delete_this_note)
                 .cancelable(true)
                 .canceledOnTouchOutside(true)
                 .positiveText(R.string.confirm_no_wrong)

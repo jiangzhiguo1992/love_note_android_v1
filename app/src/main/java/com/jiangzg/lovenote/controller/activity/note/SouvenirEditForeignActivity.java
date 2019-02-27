@@ -107,7 +107,7 @@ public class SouvenirEditForeignActivity extends BaseActivity<SouvenirEditForeig
 
     public static void goActivity(Fragment from, int year, Souvenir souvenir) {
         if (souvenir == null || !souvenir.isMine()) {
-            ToastUtils.show(from.getString(R.string.can_operation_self_create_souvenir));
+            ToastUtils.show(from.getString(R.string.can_operation_self_create_note));
             return;
         }
         Intent intent = new Intent(from.getActivity(), SouvenirEditForeignActivity.class);
@@ -144,7 +144,7 @@ public class SouvenirEditForeignActivity extends BaseActivity<SouvenirEditForeig
                 .listenerClick(new OnItemLongClickListener() {
                     @Override
                     public void onSimpleItemLongClick(BaseQuickAdapter adapter, View view, int position) {
-                        showDeleteDialogNoApi(adapter, position, R.string.confirm_remove_this_gift);
+                        showDeleteDialogNoApi(adapter, position, R.string.confirm_remove_this_note);
                     }
                 });
         refreshGiftView();
@@ -168,7 +168,7 @@ public class SouvenirEditForeignActivity extends BaseActivity<SouvenirEditForeig
                 .listenerClick(new OnItemLongClickListener() {
                     @Override
                     public void onSimpleItemLongClick(BaseQuickAdapter adapter, View view, int position) {
-                        showDeleteDialogNoApi(adapter, position, R.string.confirm_remove_this_travel);
+                        showDeleteDialogNoApi(adapter, position, R.string.confirm_remove_this_note);
                     }
                 });
         refreshTravelView();
@@ -192,7 +192,7 @@ public class SouvenirEditForeignActivity extends BaseActivity<SouvenirEditForeig
                 .listenerClick(new OnItemLongClickListener() {
                     @Override
                     public void onSimpleItemLongClick(BaseQuickAdapter adapter, View view, int position) {
-                        showDeleteDialogNoApi(adapter, position, R.string.confirm_remove_this_album);
+                        showDeleteDialogNoApi(adapter, position, R.string.confirm_remove_this_note);
                     }
                 });
         refreshAlbumView();
@@ -225,7 +225,7 @@ public class SouvenirEditForeignActivity extends BaseActivity<SouvenirEditForeig
                     public void onSimpleItemChildLongClick(BaseQuickAdapter adapter, View view, int position) {
                         switch (view.getId()) {
                             case R.id.cvVideo: // 删除
-                                showDeleteDialogNoApi(adapter, position, R.string.confirm_remove_this_video);
+                                showDeleteDialogNoApi(adapter, position, R.string.confirm_remove_this_note);
                                 break;
                         }
                     }
@@ -255,7 +255,7 @@ public class SouvenirEditForeignActivity extends BaseActivity<SouvenirEditForeig
                 .listenerClick(new OnItemLongClickListener() {
                     @Override
                     public void onSimpleItemLongClick(BaseQuickAdapter adapter, View view, int position) {
-                        showDeleteDialogNoApi(adapter, position, R.string.confirm_remove_this_food);
+                        showDeleteDialogNoApi(adapter, position, R.string.confirm_remove_this_note);
                     }
                 });
         refreshFoodView();
@@ -283,7 +283,7 @@ public class SouvenirEditForeignActivity extends BaseActivity<SouvenirEditForeig
                 .listenerClick(new OnItemLongClickListener() {
                     @Override
                     public void onSimpleItemLongClick(BaseQuickAdapter adapter, View view, int position) {
-                        showDeleteDialogNoApi(adapter, position, R.string.confirm_remove_this_movie);
+                        showDeleteDialogNoApi(adapter, position, R.string.confirm_remove_this_note);
                     }
                 });
         refreshMovieView();
@@ -307,7 +307,7 @@ public class SouvenirEditForeignActivity extends BaseActivity<SouvenirEditForeig
                 .listenerClick(new OnItemLongClickListener() {
                     @Override
                     public void onSimpleItemLongClick(BaseQuickAdapter adapter, View view, int position) {
-                        showDeleteDialogNoApi(adapter, position, R.string.confirm_remove_this_diary);
+                        showDeleteDialogNoApi(adapter, position, R.string.confirm_remove_this_note);
                     }
                 });
         refreshDiaryView();

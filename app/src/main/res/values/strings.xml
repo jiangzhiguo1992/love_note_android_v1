@@ -189,9 +189,7 @@
     <string name="not_found_upload_file">没有找到要上传的文件</string>
     <string name="file_no_exits">文件不存在</string>
     <string name="now_just_can_push_holder_img" formatted="false">现在只能上传%d张图片</string>
-    <string name="image_too_large_cant_over_holder" formatted="false">图片过大，不能超过%s</string>
-    <string name="audio_too_large_cant_over_holder" formatted="false">音频过大，不能超过%s</string>
-    <string name="video_too_large_cant_over_holder" formatted="false">视频过大，不能超过%s</string>
+    <string name="file_too_large_cant_over_holder" formatted="false">文件过大，不能超过%s</string>
     <string name="success_push_holder_paper_picture">成功上传%d张照片</string>
     <string name="file_create_fail">文件创建失败</string>
     <string name="are_upload_space_holder_holder" formatted="false">正在上传 %d/%d</string>
@@ -471,54 +469,10 @@
     <string name="please_input_track_content">请输入足迹的介绍</string>
     <string name="please_input_remark">请输入评价吧</string>
     <string name="confirm_del_comment">确定要删除评论吗？</string>
-    <string name="confirm_delete_this_souvenir">确定删除这个纪念日？</string>
-    <string name="confirm_del_this_shy">确定删除这个羞羞吗？</string>
-    <string name="confirm_del_the_day_menses">确定删除这天的姨妈吗？</string>
-    <string name="confirm_del_this_sleep">确定删除这个睡眠吗？</string>
-    <string name="confirm_del_this_word">确定删除这个留言吗？</string>
-    <string name="confirm_delete_this_diary">确定删除这个日记？</string>
-    <string name="confirm_remove_this_diary">确定移除这个日记？</string>
-    <string name="confirm_delete_this_album">确定删除这个相册吗？</string>
-    <string name="confirm_remove_this_album">确定移除这个相册吗？</string>
-    <string name="confirm_delete_this_picture">确定删除这张照片？</string>
-    <string name="confirm_delete_this_audio">确定删除这个音频？</string>
-    <string name="confirm_delete_this_video">确定删除这个视频？</string>
-    <string name="confirm_remove_this_video">确定移除这个视频？</string>
-    <string name="confirm_delete_this_food">确定删除这个美食？</string>
-    <string name="confirm_remove_this_food">确定移除这个美食？</string>
-    <string name="confirm_delete_this_movie">确定删除这个电影？</string>
-    <string name="confirm_remove_this_movie">确定移除这个电影？</string>
-    <string name="confirm_delete_this_travel">确定删除这个游记？</string>
-    <string name="confirm_remove_this_travel">确定移除这个游记？</string>
-    <string name="confirm_delete_this_track">确定删除这个足迹？</string>
-    <string name="confirm_delete_this_gift">确定删除这个礼物？</string>
-    <string name="confirm_remove_this_gift">确定移除这个礼物？</string>
-    <string name="confirm_delete_this_promise">确定删除这个承诺？</string>
-    <string name="confirm_remove_this_promise">确定移除这个承诺？</string>
-    <string name="confirm_delete_this_promise_break">确定删除这个违反记录？</string>
-    <string name="confirm_delete_this_angry">确定删除这个生气？</string>
-    <string name="confirm_delete_this_dream">确定删除这个梦？</string>
-    <string name="confirm_delete_this_award">确定删除这个奖励？</string>
-    <string name="confirm_delete_this_rule">确定删除这个规则？</string>
-    <string name="can_operation_self_create_souvenir">只能操作自己创建的纪念日哦</string>
-    <string name="can_operation_self_create_shy">只能操作自己创建的羞羞哦</string>
-    <string name="can_operation_self_create_sleep">只能操作自己创建的睡眠哦</string>
-    <string name="can_operation_self_create_audio">只能操作自己创建的音频哦</string>
-    <string name="can_operation_self_create_video">只能操作自己创建的视频哦</string>
-    <string name="can_operation_self_create_album">只能操作自己创建的相册哦</string>
-    <string name="can_operation_self_create_picture">只能操作自己创建的照片哦</string>
-    <string name="can_operation_self_create_word">只能操作自己创建的留言哦</string>
-    <string name="can_operation_self_create_diary">只能操作自己创建的日记哦</string>
-    <string name="can_operation_self_create_award">只能操作自己创建的奖励哦</string>
-    <string name="can_operation_self_create_rule">只能操作自己创建的规则哦</string>
-    <string name="can_operation_self_create_dream">只能操作自己创建的梦哦</string>
-    <string name="can_operation_self_create_movie">只能操作自己创建的电影哦</string>
-    <string name="can_operation_self_create_food">只能操作自己创建的美食哦</string>
-    <string name="can_operation_self_create_travel">只能操作自己创建的游记哦</string>
-    <string name="can_operation_self_create_angry">只能操作自己创建的生气哦</string>
-    <string name="can_operation_self_create_gift">只能操作自己创建的礼物哦</string>
-    <string name="can_operation_self_create_promise">只能操作自己创建的承诺哦</string>
-    <string name="can_operation_self_create_promise_break">只能操作自己创建的违反记录哦</string>
+    <string name="confirm_delete_this_note">确定删除这个记录？</string>
+    <string name="confirm_remove_this_note">确定移除这个记录？</string>
+    <string name="confirm_del_the_day_note">确定删除这天的记录？</string>
+    <string name="can_operation_self_create_note">只能操作自己创建的记录哦！</string>
     <string name="save_draft">保存草稿</string>
     <string name="draft_save_success">草稿保存成功</string>
     <string name="open_lock">开锁</string>

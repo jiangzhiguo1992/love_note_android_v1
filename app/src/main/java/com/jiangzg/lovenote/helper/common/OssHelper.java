@@ -1046,7 +1046,7 @@ public class OssHelper {
         long maxSize = SPHelper.getVipLimit().getWallPaperSize();
         if (source != null && source.length() >= maxSize) {
             String sizeFormat = ConvertUtils.byte2FitSize(maxSize);
-            String format = String.format(Locale.getDefault(), activity.getString(R.string.image_too_large_cant_over_holder), sizeFormat);
+            String format = String.format(Locale.getDefault(), activity.getString(R.string.file_too_large_cant_over_holder), sizeFormat);
             ToastUtils.show(format);
             if (callBack != null) {
                 callBack.failure(source, format);
@@ -1064,7 +1064,7 @@ public class OssHelper {
         long maxSize = SPHelper.getVipLimit().getAudioSize();
         if (source != null && source.length() >= maxSize) {
             String sizeFormat = ConvertUtils.byte2FitSize(maxSize);
-            String format = String.format(Locale.getDefault(), activity.getString(R.string.audio_too_large_cant_over_holder), sizeFormat);
+            String format = String.format(Locale.getDefault(), activity.getString(R.string.file_too_large_cant_over_holder), sizeFormat);
             ToastUtils.show(format);
             if (callBack != null) {
                 callBack.failure(source, format);
@@ -1088,7 +1088,7 @@ public class OssHelper {
         long maxSize = SPHelper.getVipLimit().getVideoSize();
         if (source != null && source.length() >= maxSize) {
             String sizeFormat = ConvertUtils.byte2FitSize(maxSize);
-            String format = String.format(Locale.getDefault(), activity.getString(R.string.video_too_large_cant_over_holder), sizeFormat);
+            String format = String.format(Locale.getDefault(), activity.getString(R.string.file_too_large_cant_over_holder), sizeFormat);
             ToastUtils.show(format);
             if (callBack != null) {
                 callBack.failure(source, format);
@@ -1121,7 +1121,7 @@ public class OssHelper {
         }
         if (overLimit) {
             String sizeFormat = ConvertUtils.byte2FitSize(maxSize);
-            String format = String.format(Locale.getDefault(), activity.getString(R.string.image_too_large_cant_over_holder), sizeFormat);
+            String format = String.format(Locale.getDefault(), activity.getString(R.string.file_too_large_cant_over_holder), sizeFormat);
             ToastUtils.show(format);
             if (callBack != null) {
                 callBack.failure(fileList, format, 0);
@@ -1154,7 +1154,7 @@ public class OssHelper {
         }
         if (overLimit) {
             String sizeFormat = ConvertUtils.byte2FitSize(maxSize);
-            String format = String.format(Locale.getDefault(), activity.getString(R.string.image_too_large_cant_over_holder), sizeFormat);
+            String format = String.format(Locale.getDefault(), activity.getString(R.string.file_too_large_cant_over_holder), sizeFormat);
             ToastUtils.show(format);
             if (callBack != null) {
                 callBack.failure(fileList, format, 0);

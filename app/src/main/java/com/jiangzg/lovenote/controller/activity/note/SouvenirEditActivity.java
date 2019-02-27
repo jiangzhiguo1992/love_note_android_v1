@@ -72,7 +72,7 @@ public class SouvenirEditActivity extends BaseActivity<SouvenirEditActivity> {
             goActivity(from);
             return;
         } else if (!souvenir.isMine()) {
-            ToastUtils.show(from.getString(R.string.can_operation_self_create_souvenir));
+            ToastUtils.show(from.getString(R.string.can_operation_self_create_note));
             return;
         }
         Intent intent = new Intent(from, SouvenirEditActivity.class);

@@ -55,13 +55,13 @@ public class AwardRuleAdapter extends BaseQuickAdapter<AwardRule, BaseViewHolder
     public void showDeleteDialog(final int position) {
         AwardRule item = getItem(position);
         if (!item.isMine()) {
-            ToastUtils.show(mActivity.getString(R.string.can_operation_self_create_rule));
+            ToastUtils.show(mActivity.getString(R.string.can_operation_self_create_note));
             return;
         }
         MaterialDialog dialog = DialogHelper.getBuild(mActivity)
                 .cancelable(true)
                 .canceledOnTouchOutside(true)
-                .content(R.string.confirm_delete_this_rule)
+                .content(R.string.confirm_delete_this_note)
                 .positiveText(R.string.confirm_no_wrong)
                 .negativeText(R.string.i_think_again)
                 .onPositive((dialog1, which) -> deleteApi(position))

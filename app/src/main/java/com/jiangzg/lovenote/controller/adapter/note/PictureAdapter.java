@@ -183,7 +183,7 @@ public class PictureAdapter extends BaseQuickAdapter<Picture, BaseViewHolder> {
         // 用户检查
         Picture item = getItem(position);
         if (!item.isMine()) {
-            ToastUtils.show(mActivity.getString(R.string.can_operation_self_create_picture));
+            ToastUtils.show(mActivity.getString(R.string.can_operation_self_create_note));
             return;
         }
         // view
@@ -296,7 +296,7 @@ public class PictureAdapter extends BaseQuickAdapter<Picture, BaseViewHolder> {
         MaterialDialog dialog = DialogHelper.getBuild(mActivity)
                 .cancelable(true)
                 .canceledOnTouchOutside(true)
-                .content(R.string.confirm_delete_this_picture)
+                .content(R.string.confirm_delete_this_note)
                 .positiveText(R.string.confirm_no_wrong)
                 .negativeText(R.string.i_think_again)
                 .onPositive((dialog1, which) -> deleteApi(position))

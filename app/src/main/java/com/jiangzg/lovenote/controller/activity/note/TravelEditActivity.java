@@ -120,7 +120,7 @@ public class TravelEditActivity extends BaseActivity<TravelEditActivity> {
             goActivity(from);
             return;
         } else if (!travel.isMine()) {
-            ToastUtils.show(from.getString(R.string.can_operation_self_create_travel));
+            ToastUtils.show(from.getString(R.string.can_operation_self_create_note));
             return;
         }
         Intent intent = new Intent(from, TravelEditActivity.class);
@@ -175,7 +175,7 @@ public class TravelEditActivity extends BaseActivity<TravelEditActivity> {
                 .listenerClick(new OnItemLongClickListener() {
                     @Override
                     public void onSimpleItemLongClick(BaseQuickAdapter adapter, View view, int position) {
-                        showDeleteDialogNoApi(adapter, position, R.string.confirm_delete_this_track);
+                        showDeleteDialogNoApi(adapter, position, R.string.confirm_delete_this_note);
                     }
                 });
         refreshPlaceView();
@@ -199,7 +199,7 @@ public class TravelEditActivity extends BaseActivity<TravelEditActivity> {
                 .listenerClick(new OnItemLongClickListener() {
                     @Override
                     public void onSimpleItemLongClick(BaseQuickAdapter adapter, View view, int position) {
-                        showDeleteDialogNoApi(adapter, position, R.string.confirm_remove_this_album);
+                        showDeleteDialogNoApi(adapter, position, R.string.confirm_remove_this_note);
                     }
                 });
         refreshAlbumView();
@@ -232,7 +232,7 @@ public class TravelEditActivity extends BaseActivity<TravelEditActivity> {
                     public void onSimpleItemChildLongClick(BaseQuickAdapter adapter, View view, int position) {
                         switch (view.getId()) {
                             case R.id.cvVideo: // 删除
-                                showDeleteDialogNoApi(adapter, position, R.string.confirm_remove_this_video);
+                                showDeleteDialogNoApi(adapter, position, R.string.confirm_remove_this_note);
                                 break;
                         }
                     }
@@ -262,7 +262,7 @@ public class TravelEditActivity extends BaseActivity<TravelEditActivity> {
                 .listenerClick(new OnItemLongClickListener() {
                     @Override
                     public void onSimpleItemLongClick(BaseQuickAdapter adapter, View view, int position) {
-                        showDeleteDialogNoApi(adapter, position, R.string.confirm_remove_this_food);
+                        showDeleteDialogNoApi(adapter, position, R.string.confirm_remove_this_note);
                     }
                 });
         refreshFoodView();
@@ -290,7 +290,7 @@ public class TravelEditActivity extends BaseActivity<TravelEditActivity> {
                 .listenerClick(new OnItemLongClickListener() {
                     @Override
                     public void onSimpleItemLongClick(BaseQuickAdapter adapter, View view, int position) {
-                        showDeleteDialogNoApi(adapter, position, R.string.confirm_remove_this_movie);
+                        showDeleteDialogNoApi(adapter, position, R.string.confirm_remove_this_note);
                     }
                 });
         refreshMovieView();
@@ -314,7 +314,7 @@ public class TravelEditActivity extends BaseActivity<TravelEditActivity> {
                 .listenerClick(new OnItemLongClickListener() {
                     @Override
                     public void onSimpleItemLongClick(BaseQuickAdapter adapter, View view, int position) {
-                        showDeleteDialogNoApi(adapter, position, R.string.confirm_remove_this_diary);
+                        showDeleteDialogNoApi(adapter, position, R.string.confirm_remove_this_note);
                     }
                 });
         refreshDiaryView();

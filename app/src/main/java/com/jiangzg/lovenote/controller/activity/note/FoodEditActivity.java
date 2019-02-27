@@ -85,7 +85,7 @@ public class FoodEditActivity extends BaseActivity<FoodEditActivity> {
             goActivity(from);
             return;
         } else if (!food.isMine()) {
-            ToastUtils.show(from.getString(R.string.can_operation_self_create_food));
+            ToastUtils.show(from.getString(R.string.can_operation_self_create_note));
             return;
         }
         Intent intent = new Intent(from, FoodEditActivity.class);
@@ -385,7 +385,7 @@ public class FoodEditActivity extends BaseActivity<FoodEditActivity> {
         MaterialDialog dialog = DialogHelper.getBuild(mActivity)
                 .cancelable(true)
                 .canceledOnTouchOutside(true)
-                .content(R.string.confirm_delete_this_food)
+                .content(R.string.confirm_delete_this_note)
                 .positiveText(R.string.confirm_no_wrong)
                 .negativeText(R.string.i_think_again)
                 .onPositive((dialog1, which) -> deleteApi())

@@ -269,13 +269,13 @@ public class AngryDetailActivity extends BaseActivity<AngryDetailActivity> {
 
     private void showDeleteDialog() {
         if (angry == null || !angry.isMine()) {
-            ToastUtils.show(mActivity.getString(R.string.can_operation_self_create_angry));
+            ToastUtils.show(mActivity.getString(R.string.can_operation_self_create_note));
             return;
         }
         MaterialDialog dialog = DialogHelper.getBuild(mActivity)
                 .cancelable(true)
                 .canceledOnTouchOutside(true)
-                .content(R.string.confirm_delete_this_angry)
+                .content(R.string.confirm_delete_this_note)
                 .positiveText(R.string.confirm_no_wrong)
                 .negativeText(R.string.i_think_again)
                 .onPositive((dialog1, which) -> deleteApi())
@@ -307,7 +307,7 @@ public class AngryDetailActivity extends BaseActivity<AngryDetailActivity> {
         MaterialDialog dialog = DialogHelper.getBuild(mActivity)
                 .cancelable(true)
                 .canceledOnTouchOutside(true)
-                .content(R.string.confirm_remove_this_gift)
+                .content(R.string.confirm_remove_this_note)
                 .positiveText(R.string.confirm_no_wrong)
                 .negativeText(R.string.i_think_again)
                 .onPositive((dialog1, which) -> updateGift(new Gift()))
@@ -320,7 +320,7 @@ public class AngryDetailActivity extends BaseActivity<AngryDetailActivity> {
         MaterialDialog dialog = DialogHelper.getBuild(mActivity)
                 .cancelable(true)
                 .canceledOnTouchOutside(true)
-                .content(R.string.confirm_remove_this_promise)
+                .content(R.string.confirm_remove_this_note)
                 .positiveText(R.string.confirm_no_wrong)
                 .negativeText(R.string.i_think_again)
                 .onPositive((dialog1, which) -> updatePromise(new Promise()))
