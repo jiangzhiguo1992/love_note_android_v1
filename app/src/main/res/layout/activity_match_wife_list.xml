@@ -49,7 +49,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:drawableStart="@mipmap/ic_publish_grey_18dp"
-                android:drawablePadding="6dp"
+                android:drawablePadding="10dp"
                 android:gravity="center"
                 android:text="@string/top"/>
         </LinearLayout>
@@ -74,7 +74,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:drawableStart="@mipmap/ic_search_grey_18dp"
-                android:drawablePadding="6dp"
+                android:drawablePadding="10dp"
                 android:gravity="center"
                 tools:text="金币榜"/>
         </LinearLayout>
@@ -98,7 +98,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:drawableStart="@mipmap/ic_add_circle_outline_grey_18dp"
-                android:drawablePadding="6dp"
+                android:drawablePadding="10dp"
                 android:gravity="center"
                 android:text="@string/publish"/>
         </LinearLayout>

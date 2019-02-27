@@ -178,9 +178,6 @@ public class PostListActivity extends BaseActivity<PostListActivity> {
                 .title(R.string.select_search_type)
                 .items(ApiHelper.LIST_TOPIC_TYPE_SHOW)
                 .itemsCallbackSingleChoice(searchIndex, (dialog1, view, which, text) -> {
-                    if (which < 0 || which >= ApiHelper.LIST_TOPIC_TYPE_TYPE.length) {
-                        return true;
-                    }
                     searchIndex = which;
                     tvSearch.setText(ApiHelper.LIST_TOPIC_TYPE_SHOW[searchIndex]);
                     RxBus.Event<Boolean> event;

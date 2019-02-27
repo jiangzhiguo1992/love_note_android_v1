@@ -89,7 +89,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:drawableStart="@mipmap/ic_search_grey_18dp"
-                android:drawablePadding="5dp"
+                android:drawablePadding="10dp"
                 android:gravity="center"
                 tools:text="我的"/>
         </LinearLayout>
@@ -113,7 +113,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:drawableStart="@mipmap/ic_exposure_grey_18dp"
-                android:drawablePadding="5dp"
+                android:drawablePadding="10dp"
                 android:gravity="center"
                 android:text="@string/award_rule"/>
         </LinearLayout>
@@ -137,7 +137,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:drawableStart="@mipmap/ic_add_circle_outline_grey_18dp"
-                android:drawablePadding="5dp"
+                android:drawablePadding="10dp"
                 android:gravity="center"
                 android:text="@string/publish"/>
         </LinearLayout>

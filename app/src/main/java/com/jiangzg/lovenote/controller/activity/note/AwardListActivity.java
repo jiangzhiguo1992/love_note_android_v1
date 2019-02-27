@@ -194,9 +194,6 @@ public class AwardListActivity extends BaseActivity<AwardListActivity> {
                 .items(ApiHelper.LIST_NOTE_WHO_SHOW)
                 .itemsCallbackSingleChoice(searchIndex, (dialog1, view, which, text) -> {
                     if (recyclerHelper == null) return true;
-                    if (which < 0 || which >= ApiHelper.LIST_NOTE_WHO_TYPE.length) {
-                        return true;
-                    }
                     searchIndex = which;
                     tvSearch.setText(ApiHelper.LIST_NOTE_WHO_SHOW[searchIndex]);
                     recyclerHelper.dataRefresh();

@@ -280,9 +280,6 @@ public class MatchWifeListActivity extends BaseActivity<MatchWifeListActivity> {
                 .items(newSelectList)
                 .itemsCallbackSingleChoice(orderIndex, (dialog1, view, which, text) -> {
                     if (recyclerHelper == null) return true;
-                    if (which < 0 || which >= ApiHelper.LIST_MATCH_ORDER_TYPE.length) {
-                        return true;
-                    }
                     orderIndex = which;
                     tvOrder.setText(ApiHelper.LIST_MATCH_ORDER_SHOW[orderIndex]);
                     recyclerHelper.dataRefresh();
