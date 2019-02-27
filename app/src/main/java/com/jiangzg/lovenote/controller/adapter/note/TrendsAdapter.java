@@ -73,8 +73,8 @@ public class TrendsAdapter extends BaseMultiItemQuickAdapter<Trends, BaseViewHol
 
     public TrendsAdapter(BaseActivity activity) {
         super(null);
-        addItemType(ApiHelper.LIST_NOTE_MY, R.layout.list_item_trends_right);
-        addItemType(ApiHelper.LIST_NOTE_TA, R.layout.list_item_trends_left);
+        addItemType(ApiHelper.LIST_NOTE_WHO_MY, R.layout.list_item_trends_right);
+        addItemType(ApiHelper.LIST_NOTE_WHO_TA, R.layout.list_item_trends_left);
         mActivity = activity;
         couple = SPHelper.getCouple();
         // conDrawable

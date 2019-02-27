@@ -55,8 +55,8 @@ public class VideoAdapter extends BaseMultiItemQuickAdapter<Video, BaseViewHolde
 
     public VideoAdapter(BaseActivity activity) {
         super(null);
-        addItemType(ApiHelper.LIST_NOTE_MY, R.layout.list_item_video_right);
-        addItemType(ApiHelper.LIST_NOTE_TA, R.layout.list_item_video_left);
+        addItemType(ApiHelper.LIST_NOTE_WHO_MY, R.layout.list_item_video_right);
+        addItemType(ApiHelper.LIST_NOTE_WHO_TA, R.layout.list_item_video_left);
         mActivity = activity;
         couple = SPHelper.getCouple();
         dp200 = ConvertUtils.dp2px(200);

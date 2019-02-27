@@ -76,37 +76,37 @@ public class ApiHelper {
             MyApp.get().getString(R.string.time)
     };
     // note search类型
-    private static final int LIST_NOTE_CP = 0;
-    public static final int LIST_NOTE_MY = 1;
-    public static final int LIST_NOTE_TA = 2;
+    public static final int LIST_NOTE_WHO_CP = 0;
+    public static final int LIST_NOTE_WHO_MY = 1;
+    public static final int LIST_NOTE_WHO_TA = 2;
     public static final int[] LIST_NOTE_TYPE = new int[]{
-            LIST_NOTE_CP,
-            LIST_NOTE_MY,
-            LIST_NOTE_TA
+            LIST_NOTE_WHO_CP,
+            LIST_NOTE_WHO_MY,
+            LIST_NOTE_WHO_TA
     };
-    public static final String[] LIST_NOTE_SHOW = new String[]{
+    public static final String[] LIST_NOTE_WHO_SHOW = new String[]{
             MyApp.get().getString(R.string.we_de),
             MyApp.get().getString(R.string.me_de),
             MyApp.get().getString(R.string.ta_de)
     };
     // topic search类型
-    public static final int LIST_TOPIC_ALL = 0;
-    public static final int LIST_TOPIC_OFFICIAL = 1;
-    public static final int LIST_TOPIC_WELL = 2;
+    public static final int LIST_TOPIC_TYPE_ALL = 0;
+    public static final int LIST_TOPIC_TYPE_OFFICIAL = 1;
+    public static final int LIST_TOPIC_TYPE_WELL = 2;
     public static final int[] LIST_TOPIC_TYPE = new int[]{
-            LIST_TOPIC_ALL,
-            LIST_TOPIC_OFFICIAL,
-            LIST_TOPIC_WELL
+            LIST_TOPIC_TYPE_ALL,
+            LIST_TOPIC_TYPE_OFFICIAL,
+            LIST_TOPIC_TYPE_WELL
     };
-    public static final String[] LIST_TOPIC_SHOW = new String[]{
+    public static final String[] LIST_TOPIC_TYPE_SHOW = new String[]{
             MyApp.get().getString(R.string.all),
             MyApp.get().getString(R.string.official),
             MyApp.get().getString(R.string.well)
     };
     // match search类型
-    private static final int LIST_MATCH_ORDER_COIN = 0;
-    private static final int LIST_MATCH_ORDER_POINT = 1;
-    private static final int LIST_MATCH_ORDER_NEW = 2;
+    public static final int LIST_MATCH_ORDER_COIN = 0;
+    public static final int LIST_MATCH_ORDER_POINT = 1;
+    public static final int LIST_MATCH_ORDER_NEW = 2;
     public static final int[] LIST_MATCH_ORDER_TYPE = new int[]{
             LIST_MATCH_ORDER_COIN,
             LIST_MATCH_ORDER_POINT,

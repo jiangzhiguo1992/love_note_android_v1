@@ -94,8 +94,8 @@ public class DiaryListActivity extends BaseActivity<DiaryListActivity> {
         }
         ViewHelper.initTopBar(mActivity, tb, title, true);
         // search
-        searchIndex = 0;
-        tvSearch.setText(ApiHelper.LIST_NOTE_SHOW[searchIndex]);
+        searchIndex = ApiHelper.LIST_NOTE_WHO_CP;
+        tvSearch.setText(ApiHelper.LIST_NOTE_WHO_SHOW[searchIndex]);
         // recycler
         recyclerHelper = new RecyclerHelper(rv)
                 .initLayoutManager(new LinearLayoutManager(mActivity))
@@ -194,14 +194,14 @@ public class DiaryListActivity extends BaseActivity<DiaryListActivity> {
                 .cancelable(true)
                 .canceledOnTouchOutside(true)
                 .title(R.string.select_search_type)
-                .items(ApiHelper.LIST_NOTE_SHOW)
+                .items(ApiHelper.LIST_NOTE_WHO_SHOW)
                 .itemsCallbackSingleChoice(searchIndex, (dialog1, view, which, text) -> {
                     if (recyclerHelper == null) return true;
                     if (which < 0 || which >= ApiHelper.LIST_NOTE_TYPE.length) {
                         return true;
                     }
                     searchIndex = which;
-                    tvSearch.setText(ApiHelper.LIST_NOTE_SHOW[searchIndex]);
+                    tvSearch.setText(ApiHelper.LIST_NOTE_WHO_SHOW[searchIndex]);
                     recyclerHelper.dataRefresh();
                     DialogUtils.dismiss(dialog1);
                     return true;

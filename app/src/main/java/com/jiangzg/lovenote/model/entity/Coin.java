@@ -27,7 +27,7 @@ public class Coin extends BaseCP implements Parcelable, MultiItemEntity {
 
     @Override
     public int getItemType() {
-        return isMine() ? ApiHelper.LIST_NOTE_MY : ApiHelper.LIST_NOTE_TA;
+        return isMine() ? ApiHelper.LIST_NOTE_WHO_MY : ApiHelper.LIST_NOTE_WHO_TA;
     }
 
     public int getKind() {

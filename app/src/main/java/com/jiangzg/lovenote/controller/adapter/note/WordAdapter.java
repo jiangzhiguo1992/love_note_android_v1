@@ -27,8 +27,8 @@ public class WordAdapter extends BaseMultiItemQuickAdapter<Word, BaseViewHolder>
 
     public WordAdapter(BaseActivity activity) {
         super(null);
-        addItemType(ApiHelper.LIST_NOTE_MY, R.layout.list_item_word_right);
-        addItemType(ApiHelper.LIST_NOTE_TA, R.layout.list_item_word_left);
+        addItemType(ApiHelper.LIST_NOTE_WHO_MY, R.layout.list_item_word_right);
+        addItemType(ApiHelper.LIST_NOTE_WHO_TA, R.layout.list_item_word_left);
         mActivity = activity;
     }
 

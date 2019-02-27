@@ -25,8 +25,8 @@ public class CoinAdapter extends BaseMultiItemQuickAdapter<Coin, BaseViewHolder>
 
     public CoinAdapter(FragmentActivity activity) {
         super(null);
-        addItemType(ApiHelper.LIST_NOTE_MY, R.layout.list_item_coin_right);
-        addItemType(ApiHelper.LIST_NOTE_TA, R.layout.list_item_coin_left);
+        addItemType(ApiHelper.LIST_NOTE_WHO_MY, R.layout.list_item_coin_right);
+        addItemType(ApiHelper.LIST_NOTE_WHO_TA, R.layout.list_item_coin_left);
         //mActivity = activity;
         couple = SPHelper.getCouple();
     }

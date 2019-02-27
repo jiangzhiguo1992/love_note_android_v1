@@ -456,7 +456,7 @@
                 android:weightSum="4">
 
                 <android.support.v7.widget.CardView
-                    android:id="@+id/cvTravel"
+                    android:id="@+id/cvDream"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
@@ -477,16 +477,16 @@
                         android:padding="8dp">
 
                         <TextView
-                            android:id="@+id/tvTravel"
+                            android:id="@+id/tvDream"
                             style="@style/FontPrimaryNormalBold"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_centerVertical="true"
                             android:gravity="center_vertical"
-                            android:text="@string/travel"/>
+                            android:text="@string/dream"/>
 
                         <ImageView
-                            android:id="@+id/ivTravel"
+                            android:id="@+id/ivDream"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentEnd="true"
@@ -627,7 +627,7 @@
                 android:weightSum="4">
 
                 <android.support.v7.widget.CardView
-                    android:id="@+id/cvDream"
+                    android:id="@+id/cvTravel"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
@@ -648,16 +648,16 @@
                         android:padding="8dp">
 
                         <TextView
-                            android:id="@+id/tvDream"
+                            android:id="@+id/tvTravel"
                             style="@style/FontPrimaryNormalBold"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_centerVertical="true"
                             android:gravity="center_vertical"
-                            android:text="@string/dream"/>
+                            android:text="@string/travel"/>
 
                         <ImageView
-                            android:id="@+id/ivDream"
+                            android:id="@+id/ivTravel"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentEnd="true"

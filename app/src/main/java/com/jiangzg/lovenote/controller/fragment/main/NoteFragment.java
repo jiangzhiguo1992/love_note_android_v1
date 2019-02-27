@@ -247,11 +247,11 @@ public class NoteFragment extends BasePagerFragment<NoteFragment> {
         if (custom.isWhisper()) dataNote.add(ModelAdapter.WHISPER);
         if (custom.isAward()) dataNote.add(ModelAdapter.AWARD);
         if (custom.isDiary()) dataNote.add(ModelAdapter.DIARY);
-        if (custom.isTravel()) dataNote.add(ModelAdapter.TRAVEL);
+        if (custom.isDream()) dataNote.add(ModelAdapter.DREAM);
         if (custom.isAngry()) dataNote.add(ModelAdapter.ANGRY);
         if (custom.isGift()) dataNote.add(ModelAdapter.GIFT);
         if (custom.isPromise()) dataNote.add(ModelAdapter.PROMISE);
-        if (custom.isDream()) dataNote.add(ModelAdapter.DREAM);
+        if (custom.isTravel()) dataNote.add(ModelAdapter.TRAVEL);
         if (custom.isMovie()) dataNote.add(ModelAdapter.MOVIE);
         if (custom.isFood()) dataNote.add(ModelAdapter.FOOD);
         rhNote.dataNew(dataNote);
