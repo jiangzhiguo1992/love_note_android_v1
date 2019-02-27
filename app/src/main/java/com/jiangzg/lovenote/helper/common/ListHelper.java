@@ -123,17 +123,17 @@ public class ListHelper {
     }
 
     // 集合类型转换(Diary -> ossKey)
-    public static ArrayList<String> getOssKeyListByDiary(List<Diary> diaryList) {
-        ArrayList<String> ossKeyList = new ArrayList<>();
-        if (diaryList == null || diaryList.size() <= 0) return ossKeyList;
-        for (Diary diary : diaryList) {
-            if (diary == null || diary.getContentImageList() == null || diary.getContentImageList().size() <= 0) {
-                continue;
-            }
-            ossKeyList.addAll(diary.getContentImageList());
-        }
-        return ossKeyList;
-    }
+    //public static ArrayList<String> getOssKeyListByDiary(List<Diary> diaryList) {
+    //    ArrayList<String> ossKeyList = new ArrayList<>();
+    //    if (diaryList == null || diaryList.size() <= 0) return ossKeyList;
+    //    for (Diary diary : diaryList) {
+    //        if (diary == null || diary.getContentImageList() == null || diary.getContentImageList().size() <= 0) {
+    //            continue;
+    //        }
+    //        ossKeyList.addAll(diary.getContentImageList());
+    //    }
+    //    return ossKeyList;
+    //}
 
     // 集合类型转换(Album -> ossKey)
     public static ArrayList<String> getOssKeyListByAlbum(List<Album> albumList) {

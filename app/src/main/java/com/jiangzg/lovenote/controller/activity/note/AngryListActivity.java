@@ -55,7 +55,7 @@ public class AngryListActivity extends BaseActivity<AngryListActivity> {
 
     private RecyclerHelper recyclerHelper;
     private int page = 0;
-    private int searchIndex;
+    private int searchIndex = 0;
 
     public static void goActivity(Activity from) {
         Intent intent = new Intent(from, AngryListActivity.class);
@@ -80,7 +80,6 @@ public class AngryListActivity extends BaseActivity<AngryListActivity> {
     protected void initView(Intent intent, Bundle state) {
         ViewHelper.initTopBar(mActivity, tb, getString(R.string.angry), true);
         // search
-        searchIndex = ApiHelper.LIST_NOTE_WHO_CP;
         tvSearch.setText(ApiHelper.LIST_NOTE_WHO_SHOW[searchIndex]);
         // recycler
         recyclerHelper = new RecyclerHelper(rv)

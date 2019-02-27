@@ -76,7 +76,7 @@ public class ApiHelper {
             MyApp.get().getString(R.string.time)
     };
     // note search类型
-    public static final int LIST_NOTE_WHO_CP = 0;
+    private static final int LIST_NOTE_WHO_CP = 0;
     public static final int LIST_NOTE_WHO_MY = 1;
     public static final int LIST_NOTE_WHO_TA = 2;
     public static final int[] LIST_NOTE_WHO_TYPE = new int[]{
@@ -104,9 +104,9 @@ public class ApiHelper {
             MyApp.get().getString(R.string.well)
     };
     // match search类型
-    public static final int LIST_MATCH_ORDER_COIN = 0;
-    public static final int LIST_MATCH_ORDER_POINT = 1;
-    public static final int LIST_MATCH_ORDER_NEW = 2;
+    private static final int LIST_MATCH_ORDER_COIN = 0;
+    private static final int LIST_MATCH_ORDER_POINT = 1;
+    private static final int LIST_MATCH_ORDER_NEW = 2;
     public static final int[] LIST_MATCH_ORDER_TYPE = new int[]{
             LIST_MATCH_ORDER_COIN,
             LIST_MATCH_ORDER_POINT,

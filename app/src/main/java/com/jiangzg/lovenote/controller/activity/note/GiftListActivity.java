@@ -57,7 +57,7 @@ public class GiftListActivity extends BaseActivity<GiftListActivity> {
 
     private RecyclerHelper recyclerHelper;
     private int page = 0;
-    private int searchIndex;
+    private int searchIndex = 0;
 
     public static void goActivity(Activity from) {
         Intent intent = new Intent(from, GiftListActivity.class);
@@ -95,7 +95,6 @@ public class GiftListActivity extends BaseActivity<GiftListActivity> {
         }
         ViewHelper.initTopBar(mActivity, tb, title, true);
         // search
-        searchIndex = ApiHelper.LIST_NOTE_WHO_CP;
         tvSearch.setText(ApiHelper.LIST_NOTE_WHO_SHOW[searchIndex]);
         // recycler
         recyclerHelper = new RecyclerHelper(rv)

@@ -21,7 +21,6 @@ import com.jiangzg.lovenote.controller.activity.base.BaseActivity;
 import com.jiangzg.lovenote.controller.adapter.note.DiaryAdapter;
 import com.jiangzg.lovenote.helper.common.ApiHelper;
 import com.jiangzg.lovenote.helper.common.ListHelper;
-import com.jiangzg.lovenote.helper.common.OssResHelper;
 import com.jiangzg.lovenote.helper.common.RxBus;
 import com.jiangzg.lovenote.helper.system.RetrofitHelper;
 import com.jiangzg.lovenote.helper.view.DialogHelper;
@@ -56,7 +55,7 @@ public class DiaryListActivity extends BaseActivity<DiaryListActivity> {
 
     private RecyclerHelper recyclerHelper;
     private int page = 0;
-    private int searchIndex;
+    private int searchIndex = 0;
 
     public static void goActivity(Activity from) {
         Intent intent = new Intent(from, DiaryListActivity.class);
@@ -94,7 +93,6 @@ public class DiaryListActivity extends BaseActivity<DiaryListActivity> {
         }
         ViewHelper.initTopBar(mActivity, tb, title, true);
         // search
-        searchIndex = ApiHelper.LIST_NOTE_WHO_CP;
         tvSearch.setText(ApiHelper.LIST_NOTE_WHO_SHOW[searchIndex]);
         // recycler
         recyclerHelper = new RecyclerHelper(rv)
@@ -175,9 +173,6 @@ public class DiaryListActivity extends BaseActivity<DiaryListActivity> {
                 if (recyclerHelper == null) return;
                 List<Diary> diaryList = data.getDiaryList();
                 recyclerHelper.dataOk(data.getShow(), diaryList, more);
-                // 刷新本地资源
-                List<String> ossKeyList = ListHelper.getOssKeyListByDiary(diaryList);
-                OssResHelper.refreshResWithDelExpire(OssResHelper.TYPE_NOTE_DIARY, ossKeyList);
             }
 
             @Override
