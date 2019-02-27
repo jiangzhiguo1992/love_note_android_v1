@@ -98,6 +98,8 @@ public class DiaryDetailActivity extends BaseActivity<DiaryDetailActivity> {
         } else if (from == BaseActivity.ACT_DETAIL_FROM_ID) {
             long did = intent.getLongExtra("did", 0);
             refreshData(did);
+        } else {
+            mActivity.finish();
         }
     }
 

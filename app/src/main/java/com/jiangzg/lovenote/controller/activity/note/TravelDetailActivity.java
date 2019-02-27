@@ -137,6 +137,8 @@ public class TravelDetailActivity extends BaseActivity<TravelDetailActivity> {
         } else if (from == BaseActivity.ACT_DETAIL_FROM_ID) {
             long tid = intent.getLongExtra("tid", 0);
             refreshTravel(tid);
+        } else {
+            mActivity.finish();
         }
     }
 

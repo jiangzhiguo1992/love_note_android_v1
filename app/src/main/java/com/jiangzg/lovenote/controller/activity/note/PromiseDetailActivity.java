@@ -135,6 +135,8 @@ public class PromiseDetailActivity extends BaseActivity<PromiseDetailActivity> {
         } else if (from == BaseActivity.ACT_DETAIL_FROM_ID) {
             long pid = intent.getLongExtra("pid", 0);
             refreshPromise(pid);
+        } else {
+            mActivity.finish();
         }
         // break
         breakShow(false);

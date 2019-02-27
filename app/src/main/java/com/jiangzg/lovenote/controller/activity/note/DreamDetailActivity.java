@@ -86,6 +86,8 @@ public class DreamDetailActivity extends BaseActivity<DreamDetailActivity> {
         } else if (from == BaseActivity.ACT_DETAIL_FROM_ID) {
             long did = intent.getLongExtra("did", 0);
             refreshData(did);
+        } else {
+            mActivity.finish();
         }
     }
 

@@ -106,6 +106,8 @@ public class SouvenirDetailDoneActivity extends BaseActivity<SouvenirDetailDoneA
         } else if (from == BaseActivity.ACT_DETAIL_FROM_ID) {
             long sid = intent.getLongExtra("sid", 0);
             refreshData(sid);
+        } else {
+            mActivity.finish();
         }
     }
 

@@ -109,6 +109,8 @@ public class AngryDetailActivity extends BaseActivity<AngryDetailActivity> {
         } else if (from == BaseActivity.ACT_DETAIL_FROM_ID) {
             long aid = intent.getLongExtra("aid", 0);
             refreshData(aid);
+        } else {
+            mActivity.finish();
         }
     }
 
