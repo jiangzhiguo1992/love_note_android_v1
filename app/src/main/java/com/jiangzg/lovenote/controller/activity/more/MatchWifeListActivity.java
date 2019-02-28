@@ -308,7 +308,7 @@ public class MatchWifeListActivity extends BaseActivity<MatchWifeListActivity> {
                 MatchWork body = new MatchWork();
                 body.setMatchPeriodId(period.getId());
                 body.setContentImage(ossPath);
-                api(body);
+                checkApi(body);
             }
 
             @Override
@@ -317,7 +317,7 @@ public class MatchWifeListActivity extends BaseActivity<MatchWifeListActivity> {
         });
     }
 
-    private void api(MatchWork body) {
+    private void checkApi(MatchWork body) {
         Call<Result> api = new RetrofitHelper().call(API.class).moreMatchWorkAdd(body);
         RetrofitHelper.enqueue(api, getLoading(true), new RetrofitHelper.CallBack() {
             @Override

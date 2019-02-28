@@ -307,7 +307,7 @@ public class MovieEditActivity extends BaseActivity<MovieEditActivity> {
         if (fileData != null && fileData.size() > 0) {
             ossUploadImages(fileData);
         } else {
-            api(ossPaths);
+            checkApi(ossPaths);
         }
     }
 
@@ -321,7 +321,7 @@ public class MovieEditActivity extends BaseActivity<MovieEditActivity> {
                 if (adapter == null) return;
                 List<String> ossData = adapter.getOssData();
                 ossData.addAll(successList == null ? new ArrayList<>() : successList);
-                api(ossData);
+                checkApi(ossData);
             }
 
             @Override
@@ -331,7 +331,7 @@ public class MovieEditActivity extends BaseActivity<MovieEditActivity> {
         });
     }
 
-    private void api(List<String> ossPathList) {
+    private void checkApi(List<String> ossPathList) {
         if (movie == null) return;
         movie.setContentImageList(ossPathList);
         if (isFromUpdate()) {

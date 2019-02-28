@@ -307,7 +307,7 @@ public class FoodEditActivity extends BaseActivity<FoodEditActivity> {
         if (fileData != null && fileData.size() > 0) {
             ossUploadImages(fileData);
         } else {
-            api(ossPaths);
+            checkApi(ossPaths);
         }
     }
 
@@ -321,7 +321,7 @@ public class FoodEditActivity extends BaseActivity<FoodEditActivity> {
                 if (adapter == null) return;
                 List<String> ossData = adapter.getOssData();
                 ossData.addAll(successList == null ? new ArrayList<>() : successList);
-                api(ossData);
+                checkApi(ossData);
             }
 
             @Override
@@ -331,7 +331,7 @@ public class FoodEditActivity extends BaseActivity<FoodEditActivity> {
         });
     }
 
-    private void api(List<String> ossPathList) {
+    private void checkApi(List<String> ossPathList) {
         if (food == null) return;
         food.setContentImageList(ossPathList);
         if (isFromUpdate()) {

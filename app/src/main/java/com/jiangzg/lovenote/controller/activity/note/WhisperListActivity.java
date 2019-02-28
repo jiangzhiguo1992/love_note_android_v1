@@ -266,7 +266,7 @@ public class WhisperListActivity extends BaseActivity<WhisperListActivity> {
         body.setChannel(channel);
         body.setImage(false);
         body.setContent(content);
-        api(body);
+        checkApi(body);
     }
 
     // 图片获取
@@ -287,7 +287,7 @@ public class WhisperListActivity extends BaseActivity<WhisperListActivity> {
                 body.setChannel(channel);
                 body.setImage(true);
                 body.setContent(ossPath);
-                api(body);
+                checkApi(body);
             }
 
             @Override
@@ -296,7 +296,7 @@ public class WhisperListActivity extends BaseActivity<WhisperListActivity> {
         });
     }
 
-    private void api(Whisper whisper) {
+    private void checkApi(Whisper whisper) {
         // api
         Call<Result> api = new RetrofitHelper().call(API.class).noteWhisperAdd(whisper);
         RetrofitHelper.enqueue(api, getLoading(true), new RetrofitHelper.CallBack() {
