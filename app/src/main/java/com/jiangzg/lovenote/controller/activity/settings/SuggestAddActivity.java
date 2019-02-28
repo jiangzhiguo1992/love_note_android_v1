@@ -304,7 +304,7 @@ public class SuggestAddActivity extends BaseActivity<SuggestAddActivity> {
         body.setContentImage(imgPath);
         // api
         Call<Result> api = new RetrofitHelper().call(API.class).setSuggestAdd(body);
-        RetrofitHelper.enqueue(api, getLoading(false), new RetrofitHelper.CallBack() {
+        RetrofitHelper.enqueue(api, getLoading(true), new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 RxBus.post(new RxBus.Event<>(RxBus.EVENT_SUGGEST_LIST_REFRESH, new ArrayList<>()));

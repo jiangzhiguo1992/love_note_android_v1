@@ -348,7 +348,7 @@ public class DiaryEditActivity extends BaseActivity<DiaryEditActivity> {
             public void onResponse(int code, String message, Result.Data data) {
                 // event
                 RxBus.post(new RxBus.Event<>(RxBus.EVENT_DIARY_LIST_REFRESH, new ArrayList<>()));
-                // sp
+                // draft
                 SPHelper.setDraftDiary(null);
                 // finish
                 mActivity.finish();
@@ -356,6 +356,7 @@ public class DiaryEditActivity extends BaseActivity<DiaryEditActivity> {
 
             @Override
             public void onFailure(int code, String message, Result.Data data) {
+                // 上传失败不要删除，还可以继续上传
             }
         });
         pushApi(api);

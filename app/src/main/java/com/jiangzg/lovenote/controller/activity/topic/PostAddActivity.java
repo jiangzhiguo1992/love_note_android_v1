@@ -338,12 +338,12 @@ public class PostAddActivity extends BaseActivity<PostAddActivity> {
         post.setContentImageList(ossPathList);
         // api
         Call<Result> api = new RetrofitHelper().call(API.class).topicPostAdd(post);
-        RetrofitHelper.enqueue(api, getLoading(false), new RetrofitHelper.CallBack() {
+        RetrofitHelper.enqueue(api, getLoading(true), new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 // event 先不刷新
                 //RxBus.post(new Event<>(ConsHelper.EVENT_POST_LIST_REFRESH, post.getSubKind()));
-                // sp
+                // draft
                 SPHelper.setDraftPost(null);
                 // finish
                 mActivity.finish();
