@@ -57,6 +57,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="end"
                 android:layout_marginEnd="10dp"
+                android:layout_marginBottom="10dp"
                 tools:text="0/2000"/>
 
             <android.support.v7.widget.RecyclerView
