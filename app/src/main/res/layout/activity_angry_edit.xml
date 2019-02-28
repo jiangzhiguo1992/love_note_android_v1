@@ -21,21 +21,12 @@
             android:gravity="center_horizontal"
             android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/tvContentLimit"
-                style="@style/FontGreySmall"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="end"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="10dp"
-                tools:text="0/2000"/>
-
             <EditText
                 android:id="@+id/etContent"
                 style="@style/FontGreyNormal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
                 android:background="@null"
                 android:gravity="start"
                 android:hint="@string/please_input_angry_content"
@@ -43,6 +34,15 @@
                 android:minLines="3"
                 android:padding="10dp"
                 android:textColorHint="@color/font_hint"/>
+
+            <TextView
+                android:id="@+id/tvContentLimit"
+                style="@style/FontGreySmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:layout_marginEnd="10dp"
+                tools:text="0/2000"/>
 
             <View
                 style="@style/LineHorizontal"

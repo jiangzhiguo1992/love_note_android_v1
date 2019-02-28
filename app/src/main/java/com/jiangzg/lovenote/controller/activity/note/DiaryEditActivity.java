@@ -16,6 +16,7 @@ import android.widget.TextView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.jiangzg.base.common.DateUtils;
+import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.base.component.ActivityTrans;
 import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.lovenote.R;
@@ -138,6 +139,10 @@ public class DiaryEditActivity extends BaseActivity<DiaryEditActivity> {
 
     @Override
     public void onBackPressed() {
+        if (diary == null || StringUtils.isEmpty(diary.getContentText())) {
+            super.onBackPressed();
+            return;
+        }
         MaterialDialog dialog = DialogHelper.getBuild(mActivity)
                 .cancelable(true)
                 .canceledOnTouchOutside(true)

@@ -138,6 +138,10 @@ public class PostAddActivity extends BaseActivity<PostAddActivity> {
 
     @Override
     public void onBackPressed() {
+        if (post == null || StringUtils.isEmpty(post.getContentText())) {
+            super.onBackPressed();
+            return;
+        }
         MaterialDialog dialog = DialogHelper.getBuild(mActivity)
                 .cancelable(true)
                 .canceledOnTouchOutside(true)

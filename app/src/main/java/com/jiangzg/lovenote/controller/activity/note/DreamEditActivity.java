@@ -111,6 +111,10 @@ public class DreamEditActivity extends BaseActivity<DreamEditActivity> {
 
     @Override
     public void onBackPressed() {
+        if (dream == null || StringUtils.isEmpty(dream.getContentText())) {
+            super.onBackPressed();
+            return;
+        }
         MaterialDialog dialog = DialogHelper.getBuild(mActivity)
                 .cancelable(true)
                 .canceledOnTouchOutside(true)
