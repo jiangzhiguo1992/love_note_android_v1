@@ -344,7 +344,7 @@ public class FoodEditActivity extends BaseActivity<FoodEditActivity> {
     private void updateApi() {
         if (food == null) return;
         Call<Result> api = new RetrofitHelper().call(API.class).noteFoodUpdate(food);
-        RetrofitHelper.enqueue(api, getLoading(false), new RetrofitHelper.CallBack() {
+        RetrofitHelper.enqueue(api, getLoading(true), new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 // event
@@ -365,7 +365,7 @@ public class FoodEditActivity extends BaseActivity<FoodEditActivity> {
     private void addApi() {
         if (food == null) return;
         Call<Result> api = new RetrofitHelper().call(API.class).noteFoodAdd(food);
-        RetrofitHelper.enqueue(api, getLoading(false), new RetrofitHelper.CallBack() {
+        RetrofitHelper.enqueue(api, getLoading(true), new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 // event

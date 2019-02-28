@@ -244,7 +244,7 @@ public class AwardEditActivity extends BaseActivity<AwardEditActivity> {
         }
         // api
         Call<Result> api = new RetrofitHelper().call(API.class).noteAwardAdd(award);
-        RetrofitHelper.enqueue(api, getLoading(false), new RetrofitHelper.CallBack() {
+        RetrofitHelper.enqueue(api, getLoading(true), new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 // event

@@ -321,7 +321,7 @@ public class DiaryEditActivity extends BaseActivity<DiaryEditActivity> {
     private void updateApi() {
         if (diary == null) return;
         Call<Result> api = new RetrofitHelper().call(API.class).noteDiaryUpdate(diary);
-        RetrofitHelper.enqueue(api, getLoading(false), new RetrofitHelper.CallBack() {
+        RetrofitHelper.enqueue(api, getLoading(true), new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 // event
@@ -343,7 +343,7 @@ public class DiaryEditActivity extends BaseActivity<DiaryEditActivity> {
     private void addApi() {
         if (diary == null) return;
         Call<Result> api = new RetrofitHelper().call(API.class).noteDiaryAdd(diary);
-        RetrofitHelper.enqueue(api, getLoading(false), new RetrofitHelper.CallBack() {
+        RetrofitHelper.enqueue(api, getLoading(true), new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 // event

@@ -344,7 +344,7 @@ public class MovieEditActivity extends BaseActivity<MovieEditActivity> {
     private void updateApi() {
         if (movie == null) return;
         Call<Result> api = new RetrofitHelper().call(API.class).noteMovieUpdate(movie);
-        RetrofitHelper.enqueue(api, getLoading(false), new RetrofitHelper.CallBack() {
+        RetrofitHelper.enqueue(api, getLoading(true), new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 // event
@@ -365,7 +365,7 @@ public class MovieEditActivity extends BaseActivity<MovieEditActivity> {
     private void addApi() {
         if (movie == null) return;
         Call<Result> api = new RetrofitHelper().call(API.class).noteMovieAdd(movie);
-        RetrofitHelper.enqueue(api, getLoading(false), new RetrofitHelper.CallBack() {
+        RetrofitHelper.enqueue(api, getLoading(true), new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 // event

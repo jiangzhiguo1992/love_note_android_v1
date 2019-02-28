@@ -334,7 +334,7 @@ public class GiftEditActivity extends BaseActivity<GiftEditActivity> {
     private void updateApi() {
         if (gift == null) return;
         Call<Result> api = new RetrofitHelper().call(API.class).noteGiftUpdate(gift);
-        RetrofitHelper.enqueue(api, getLoading(false), new RetrofitHelper.CallBack() {
+        RetrofitHelper.enqueue(api, getLoading(true), new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 // event
@@ -355,7 +355,7 @@ public class GiftEditActivity extends BaseActivity<GiftEditActivity> {
     private void addApi() {
         if (gift == null) return;
         Call<Result> api = new RetrofitHelper().call(API.class).noteGiftAdd(gift);
-        RetrofitHelper.enqueue(api, getLoading(false), new RetrofitHelper.CallBack() {
+        RetrofitHelper.enqueue(api, getLoading(true), new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 // event

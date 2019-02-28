@@ -240,7 +240,7 @@ public class PromiseEditActivity extends BaseActivity<PromiseEditActivity> {
     private void updateApi() {
         if (promise == null) return;
         Call<Result> api = new RetrofitHelper().call(API.class).notePromiseUpdate(promise);
-        RetrofitHelper.enqueue(api, getLoading(false), new RetrofitHelper.CallBack() {
+        RetrofitHelper.enqueue(api, getLoading(true), new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 // event
@@ -261,7 +261,7 @@ public class PromiseEditActivity extends BaseActivity<PromiseEditActivity> {
     private void addApi() {
         if (promise == null) return;
         Call<Result> api = new RetrofitHelper().call(API.class).notePromiseAdd(promise);
-        RetrofitHelper.enqueue(api, getLoading(false), new RetrofitHelper.CallBack() {
+        RetrofitHelper.enqueue(api, getLoading(true), new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 // event

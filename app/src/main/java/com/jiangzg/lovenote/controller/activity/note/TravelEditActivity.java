@@ -3,7 +3,6 @@ package com.jiangzg.lovenote.controller.activity.note;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.StringRes;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -175,7 +174,7 @@ public class TravelEditActivity extends BaseActivity<TravelEditActivity> {
                 .listenerClick(new OnItemLongClickListener() {
                     @Override
                     public void onSimpleItemLongClick(BaseQuickAdapter adapter, View view, int position) {
-                        showDeleteDialogNoApi(adapter, position, R.string.confirm_delete_this_note);
+                        showDeleteDialogNoApi(adapter, position);
                     }
                 });
         refreshPlaceView();
@@ -199,7 +198,7 @@ public class TravelEditActivity extends BaseActivity<TravelEditActivity> {
                 .listenerClick(new OnItemLongClickListener() {
                     @Override
                     public void onSimpleItemLongClick(BaseQuickAdapter adapter, View view, int position) {
-                        showDeleteDialogNoApi(adapter, position, R.string.confirm_remove_this_note);
+                        showDeleteDialogNoApi(adapter, position);
                     }
                 });
         refreshAlbumView();
@@ -232,7 +231,7 @@ public class TravelEditActivity extends BaseActivity<TravelEditActivity> {
                     public void onSimpleItemChildLongClick(BaseQuickAdapter adapter, View view, int position) {
                         switch (view.getId()) {
                             case R.id.cvVideo: // 删除
-                                showDeleteDialogNoApi(adapter, position, R.string.confirm_remove_this_note);
+                                showDeleteDialogNoApi(adapter, position);
                                 break;
                         }
                     }
@@ -262,7 +261,7 @@ public class TravelEditActivity extends BaseActivity<TravelEditActivity> {
                 .listenerClick(new OnItemLongClickListener() {
                     @Override
                     public void onSimpleItemLongClick(BaseQuickAdapter adapter, View view, int position) {
-                        showDeleteDialogNoApi(adapter, position, R.string.confirm_remove_this_note);
+                        showDeleteDialogNoApi(adapter, position);
                     }
                 });
         refreshFoodView();
@@ -290,7 +289,7 @@ public class TravelEditActivity extends BaseActivity<TravelEditActivity> {
                 .listenerClick(new OnItemLongClickListener() {
                     @Override
                     public void onSimpleItemLongClick(BaseQuickAdapter adapter, View view, int position) {
-                        showDeleteDialogNoApi(adapter, position, R.string.confirm_remove_this_note);
+                        showDeleteDialogNoApi(adapter, position);
                     }
                 });
         refreshMovieView();
@@ -314,7 +313,7 @@ public class TravelEditActivity extends BaseActivity<TravelEditActivity> {
                 .listenerClick(new OnItemLongClickListener() {
                     @Override
                     public void onSimpleItemLongClick(BaseQuickAdapter adapter, View view, int position) {
-                        showDeleteDialogNoApi(adapter, position, R.string.confirm_remove_this_note);
+                        showDeleteDialogNoApi(adapter, position);
                     }
                 });
         refreshDiaryView();
@@ -551,11 +550,11 @@ public class TravelEditActivity extends BaseActivity<TravelEditActivity> {
         tvHappenAt.setText(String.format(Locale.getDefault(), getString(R.string.time_colon_space_holder), happen));
     }
 
-    private void showDeleteDialogNoApi(final BaseQuickAdapter adapter, final int position, @StringRes int contentRes) {
+    private void showDeleteDialogNoApi(final BaseQuickAdapter adapter, final int position) {
         MaterialDialog dialog = DialogHelper.getBuild(mActivity)
                 .cancelable(true)
                 .canceledOnTouchOutside(true)
-                .content(contentRes)
+                .content(R.string.confirm_delete_this_note)
                 .positiveText(R.string.confirm_no_wrong)
                 .negativeText(R.string.i_think_again)
                 .onPositive((dialog1, which) -> {
@@ -628,7 +627,7 @@ public class TravelEditActivity extends BaseActivity<TravelEditActivity> {
     private void updateApi(Travel travel) {
         if (travel == null) return;
         Call<Result> api = new RetrofitHelper().call(API.class).noteTravelUpdate(travel);
-        RetrofitHelper.enqueue(api, getLoading(false), new RetrofitHelper.CallBack() {
+        RetrofitHelper.enqueue(api, getLoading(true), new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 // event
@@ -649,7 +648,7 @@ public class TravelEditActivity extends BaseActivity<TravelEditActivity> {
     private void addApi(Travel travel) {
         if (travel == null) return;
         Call<Result> api = new RetrofitHelper().call(API.class).noteTravelAdd(travel);
-        RetrofitHelper.enqueue(api, getLoading(false), new RetrofitHelper.CallBack() {
+        RetrofitHelper.enqueue(api, getLoading(true), new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 // event

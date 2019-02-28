@@ -204,7 +204,7 @@ public class AngryEditActivity extends BaseActivity<AngryEditActivity> {
         }
         // api
         Call<Result> api = new RetrofitHelper().call(API.class).noteAngryAdd(angry);
-        RetrofitHelper.enqueue(api, getLoading(false), new RetrofitHelper.CallBack() {
+        RetrofitHelper.enqueue(api, getLoading(true), new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 // event
