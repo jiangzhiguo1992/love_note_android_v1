@@ -177,9 +177,6 @@ public class FoodListActivity extends BaseActivity<FoodListActivity> {
                 if (recyclerHelper == null) return;
                 List<Food> foodList = data.getFoodList();
                 recyclerHelper.dataOk(data.getShow(), foodList, more);
-                // 刷新本地资源
-                List<String> ossKeyList = ListHelper.getOssKeyListByFood(foodList);
-                OssResHelper.refreshResWithDelExpire(OssResHelper.TYPE_NOTE_FOOD, ossKeyList);
             }
 
             @Override

@@ -206,9 +206,6 @@ public class WhisperListActivity extends BaseActivity<WhisperListActivity> {
                 if (recyclerHelper == null) return;
                 List<Whisper> whisperList = data.getWhisperList();
                 recyclerHelper.dataOk(data.getShow(), whisperList, more);
-                // 刷新本地资源
-                List<String> ossKeyList = ListHelper.getOssKeyListByWhisper(whisperList);
-                OssResHelper.refreshResWithDelExpire(OssResHelper.TYPE_NOTE_WHISPER, ossKeyList);
             }
 
             @Override

@@ -109,45 +109,6 @@ public class ListHelper {
         return uriList;
     }
 
-    // 集合类型转换(Whisper -> ossKey)
-    public static ArrayList<String> getOssKeyListByWhisper(List<Whisper> whisperList) {
-        ArrayList<String> ossKeyList = new ArrayList<>();
-        if (whisperList == null || whisperList.size() <= 0) return ossKeyList;
-        for (Whisper whisper : whisperList) {
-            if (whisper == null || !whisper.isImage() || StringUtils.isEmpty(whisper.getContent())) {
-                continue;
-            }
-            ossKeyList.add(whisper.getContent());
-        }
-        return ossKeyList;
-    }
-
-    // 集合类型转换(Diary -> ossKey)
-    //public static ArrayList<String> getOssKeyListByDiary(List<Diary> diaryList) {
-    //    ArrayList<String> ossKeyList = new ArrayList<>();
-    //    if (diaryList == null || diaryList.size() <= 0) return ossKeyList;
-    //    for (Diary diary : diaryList) {
-    //        if (diary == null || diary.getContentImageList() == null || diary.getContentImageList().size() <= 0) {
-    //            continue;
-    //        }
-    //        ossKeyList.addAll(diary.getContentImageList());
-    //    }
-    //    return ossKeyList;
-    //}
-
-    // 集合类型转换(Album -> ossKey)
-    public static ArrayList<String> getOssKeyListByAlbum(List<Album> albumList) {
-        ArrayList<String> ossKeyList = new ArrayList<>();
-        if (albumList == null || albumList.size() <= 0) return ossKeyList;
-        for (Album album : albumList) {
-            if (album == null || StringUtils.isEmpty(album.getCover())) {
-                continue;
-            }
-            ossKeyList.add(album.getCover());
-        }
-        return ossKeyList;
-    }
-
     // 集合类型转换(Picture -> ossKey)
     public static ArrayList<String> getOssKeyListByPicture(List<Picture> pictureList) {
         ArrayList<String> ossKeyList = new ArrayList<>();
@@ -174,19 +135,6 @@ public class ListHelper {
         return ossKeyList;
     }
 
-    // 集合类型转换(VideoThumb -> ossKey)
-    public static ArrayList<String> getOssKeyListByVideoThumb(List<Video> videoList) {
-        ArrayList<String> ossKeyList = new ArrayList<>();
-        if (videoList == null || videoList.size() <= 0) return ossKeyList;
-        for (Video video : videoList) {
-            if (video == null || video.getContentThumb() == null) {
-                continue;
-            }
-            ossKeyList.add(video.getContentThumb());
-        }
-        return ossKeyList;
-    }
-
     // 集合类型转换(Video -> ossKey)
     public static ArrayList<String> getOssKeyListByVideo(List<Video> videoList) {
         ArrayList<String> ossKeyList = new ArrayList<>();
@@ -196,45 +144,6 @@ public class ListHelper {
                 continue;
             }
             ossKeyList.add(video.getContentVideo());
-        }
-        return ossKeyList;
-    }
-
-    // 集合类型转换(Food -> ossKey)
-    public static ArrayList<String> getOssKeyListByFood(List<Food> foodList) {
-        ArrayList<String> ossKeyList = new ArrayList<>();
-        if (foodList == null || foodList.size() <= 0) return ossKeyList;
-        for (Food food : foodList) {
-            if (food == null || food.getContentImageList() == null || food.getContentImageList().size() <= 0) {
-                continue;
-            }
-            ossKeyList.addAll(food.getContentImageList());
-        }
-        return ossKeyList;
-    }
-
-    // 集合类型转换(Movie -> ossKey)
-    public static ArrayList<String> getOssKeyListByMovie(List<Movie> movieList) {
-        ArrayList<String> ossKeyList = new ArrayList<>();
-        if (movieList == null || movieList.size() <= 0) return ossKeyList;
-        for (Movie movie : movieList) {
-            if (movie == null || movie.getContentImageList() == null || movie.getContentImageList().size() <= 0) {
-                continue;
-            }
-            ossKeyList.addAll(movie.getContentImageList());
-        }
-        return ossKeyList;
-    }
-
-    // 集合类型转换(Gift -> ossKey)
-    public static ArrayList<String> getOssKeyListByGift(List<Gift> giftList) {
-        ArrayList<String> ossKeyList = new ArrayList<>();
-        if (giftList == null || giftList.size() <= 0) return ossKeyList;
-        for (Gift gift : giftList) {
-            if (gift == null || gift.getContentImageList() == null || gift.getContentImageList().size() <= 0) {
-                continue;
-            }
-            ossKeyList.addAll(gift.getContentImageList());
         }
         return ossKeyList;
     }

@@ -217,9 +217,6 @@ public class AlbumListActivity extends BaseActivity<AlbumListActivity> {
                 if (recyclerHelper == null) return;
                 List<Album> albumList = data.getAlbumList();
                 recyclerHelper.dataOk(data.getShow(), albumList, more);
-                // 刷新本地资源
-                List<String> ossKeyList = ListHelper.getOssKeyListByAlbum(albumList);
-                OssResHelper.refreshResWithDelExpire(OssResHelper.TYPE_NOTE_ALBUM, ossKeyList);
             }
 
             @Override
