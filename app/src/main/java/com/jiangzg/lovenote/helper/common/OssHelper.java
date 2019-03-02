@@ -319,10 +319,10 @@ public class OssHelper {
             public void onFailure(GetObjectRequest request, ClientException clientException, ServiceException serviceException) {
                 final String downloadKey = request.getObjectKey();
                 LogUtils.w(OssHelper.class, "downloadFile", "onFailure: getObjectKey == " + downloadKey);
+                ApiHelper.ossInfoUpdate();
 
                 if (progress != null) MyApp.get().getHandler().post(progress::end);
                 ResHelper.deleteFileInBackground(target);
-                ApiHelper.ossInfoUpdate();
 
                 String errMsg = MyApp.get().getString(R.string.download_fail_tell_we_this_bug);
                 if (clientException != null) {
@@ -569,9 +569,9 @@ public class OssHelper {
             public void onFailure(PutObjectRequest request, ClientException clientException, ServiceException serviceException) {
                 final String uploadKey = request.getObjectKey();
                 LogUtils.w(OssHelper.class, "uploadFile", "onFailure: objectKey == " + uploadKey);
+                ApiHelper.ossInfoUpdate();
 
                 if (progress != null) MyApp.get().getHandler().post(progress::end);
-                ApiHelper.ossInfoUpdate();
 
                 String errMsg = MyApp.get().getString(R.string.upload_fail_tell_we_this_bug);
                 if (clientException != null) {
@@ -829,10 +829,8 @@ public class OssHelper {
                 MyApp.get().getHandler().post(() -> progress.end(index));
             }
             if (canMiss && successList != null && successList.size() > 0) {
-                // 是否允许丢失
                 MyApp.get().getHandler().post(() -> callBack.success(sourceList, ossKeyList, successList));
             } else if (callBack != null) {
-                // 直接返回
                 MyApp.get().getHandler().post(() -> callBack.failure(index, sourceList, msg));
             }
             return null;
@@ -846,10 +844,8 @@ public class OssHelper {
                 MyApp.get().getHandler().post(() -> progress.end(index));
             }
             if (canMiss && successList != null && successList.size() > 0) {
-                // 是否允许丢失
                 MyApp.get().getHandler().post(() -> callBack.success(sourceList, ossKeyList, successList));
             } else if (callBack != null) {
-                // 直接返回
                 MyApp.get().getHandler().post(() -> callBack.failure(index, sourceList, msg));
             }
             return null;
@@ -862,18 +858,16 @@ public class OssHelper {
             if (progress != null) {
                 progress.toast(index, msg);
             }
-            // 后续上传
             if (canMiss && index < sourceList.size() - 1) {
+                // 继续上传
                 return uploadFiles(sourceList, ossKeyList, index + 1, canMiss, successList, progress, callBack);
             }
             if (progress != null) {
                 MyApp.get().getHandler().post(() -> progress.end(index));
             }
             if (canMiss && successList != null && successList.size() > 0) {
-                // 是否允许丢失
                 MyApp.get().getHandler().post(() -> callBack.success(sourceList, ossKeyList, successList));
             } else if (callBack != null) {
-                // 直接结束
                 MyApp.get().getHandler().post(() -> callBack.failure(index, sourceList, msg));
             }
             return null;
@@ -886,18 +880,16 @@ public class OssHelper {
             if (progress != null) {
                 progress.toast(index, msg);
             }
-            // 后续上传
             if (canMiss && index < sourceList.size() - 1) {
+                // 继续上传
                 return uploadFiles(sourceList, ossKeyList, index + 1, canMiss, successList, progress, callBack);
             }
             if (progress != null) {
                 MyApp.get().getHandler().post(() -> progress.end(index));
             }
             if (canMiss && successList != null && successList.size() > 0) {
-                // 是否允许丢失
                 MyApp.get().getHandler().post(() -> callBack.success(sourceList, ossKeyList, successList));
             } else if (callBack != null) {
-                // 直接结束
                 MyApp.get().getHandler().post(() -> callBack.failure(index, sourceList, msg));
             }
             return null;
@@ -922,10 +914,8 @@ public class OssHelper {
                 MyApp.get().getHandler().post(() -> progress.end(index));
             }
             if (canMiss && successList != null && successList.size() > 0) {
-                // 是否允许丢失
                 MyApp.get().getHandler().post(() -> callBack.success(sourceList, ossKeyList, successList));
             } else if (callBack != null) {
-                // 直接结束
                 MyApp.get().getHandler().post(() -> callBack.failure(index, sourceList, msg));
             }
             return null;
@@ -943,7 +933,7 @@ public class OssHelper {
                 successList.add(uploadKey);
 
                 if (index < sourceList.size() - 1) {
-                    // 没上传完毕
+                    // 继续上传
                     uploadFiles(sourceList, ossKeyList, index + 1, canMiss, successList, progress, callBack);
                 } else {
                     if (progress != null) MyApp.get().getHandler().post(() -> progress.end(index));
@@ -956,7 +946,6 @@ public class OssHelper {
             public void onFailure(PutObjectRequest request, ClientException clientException, ServiceException serviceException) {
                 final String uploadKey = request.getObjectKey();
                 LogUtils.i(OssHelper.class, "uploadFiles", "onFailure: index = " + index + " <---> objectKey = " + uploadKey);
-
                 ApiHelper.ossInfoUpdate();
 
                 String errMsg = MyApp.get().getString(R.string.upload_fail_tell_we_this_bug);
@@ -972,17 +961,16 @@ public class OssHelper {
                     errMsg = MyApp.get().getString(R.string.upload_fail_tell_we_this_bug);
                 }
                 if (progress != null) progress.toast(index, errMsg);
-                // 后续上传
+
                 if (canMiss && index < sourceList.size() - 1) {
+                    // 继续上传
                     uploadFiles(sourceList, ossKeyList, index + 1, canMiss, successList, progress, callBack);
                     return;
                 }
                 if (progress != null) MyApp.get().getHandler().post(() -> progress.end(index));
                 if (canMiss && successList != null && successList.size() > 0) {
-                    // 是否允许丢失
                     MyApp.get().getHandler().post(() -> callBack.success(sourceList, ossKeyList, successList));
                 } else if (callBack != null) {
-                    // 直接结束
                     String finalErrMsg = errMsg;
                     MyApp.get().getHandler().post(() -> callBack.failure(index, sourceList, finalErrMsg));
                 }
