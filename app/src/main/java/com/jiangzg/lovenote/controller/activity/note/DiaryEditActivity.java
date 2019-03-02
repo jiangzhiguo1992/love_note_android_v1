@@ -139,10 +139,18 @@ public class DiaryEditActivity extends BaseActivity<DiaryEditActivity> {
 
     @Override
     public void onBackPressed() {
+        // 没有数据
         if (diary == null || StringUtils.isEmpty(diary.getContentText())) {
             super.onBackPressed();
             return;
         }
+        // 相同数据
+        Diary draft = SPHelper.getDraftDiary();
+        if (draft != null && draft.getContentText().equals(diary.getContentText())) {
+            super.onBackPressed();
+            return;
+        }
+        // 草稿询问
         MaterialDialog dialog = DialogHelper.getBuild(mActivity)
                 .cancelable(true)
                 .canceledOnTouchOutside(true)

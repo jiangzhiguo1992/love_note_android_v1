@@ -111,10 +111,18 @@ public class DreamEditActivity extends BaseActivity<DreamEditActivity> {
 
     @Override
     public void onBackPressed() {
+        // 没有数据
         if (dream == null || StringUtils.isEmpty(dream.getContentText())) {
             super.onBackPressed();
             return;
         }
+        // 相同数据
+        Dream draft = SPHelper.getDraftDream();
+        if (draft != null && draft.getContentText().equals(dream.getContentText())) {
+            super.onBackPressed();
+            return;
+        }
+        // 草稿询问
         MaterialDialog dialog = DialogHelper.getBuild(mActivity)
                 .cancelable(true)
                 .canceledOnTouchOutside(true)

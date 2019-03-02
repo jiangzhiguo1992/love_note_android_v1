@@ -138,10 +138,18 @@ public class PostAddActivity extends BaseActivity<PostAddActivity> {
 
     @Override
     public void onBackPressed() {
+        // 没有数据
         if (post == null || StringUtils.isEmpty(post.getContentText())) {
             super.onBackPressed();
             return;
         }
+        // 相同数据
+        Post draft = SPHelper.getDraftPost();
+        if (draft != null && draft.getContentText().equals(post.getContentText())) {
+            super.onBackPressed();
+            return;
+        }
+        // 草稿询问
         MaterialDialog dialog = DialogHelper.getBuild(mActivity)
                 .cancelable(true)
                 .canceledOnTouchOutside(true)

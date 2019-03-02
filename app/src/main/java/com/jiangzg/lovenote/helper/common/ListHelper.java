@@ -33,7 +33,6 @@ import com.jiangzg.lovenote.model.entity.TravelMovie;
 import com.jiangzg.lovenote.model.entity.TravelPlace;
 import com.jiangzg.lovenote.model.entity.TravelVideo;
 import com.jiangzg.lovenote.model.entity.Video;
-import com.jiangzg.lovenote.model.entity.Whisper;
 
 import java.io.File;
 import java.util.ArrayList;

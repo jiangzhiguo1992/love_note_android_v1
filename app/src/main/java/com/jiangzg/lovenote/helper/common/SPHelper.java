@@ -1084,7 +1084,7 @@ public class SPHelper {
         post.setSubKind(sp.getInt(FIELD_DRAFT_POST_SUB_KIND, 0));
         post.setTitle(sp.getString(FIELD_DRAFT_POST_TITLE, ""));
         post.setContentText(sp.getString(FIELD_DRAFT_POST_CONTENT_TEXT, ""));
-        if (post.getKind() == 0) {
+        if (post.getKind() == 0 && StringUtils.isEmpty(post.getContentText())) {
             return null;
         }
         return post;
