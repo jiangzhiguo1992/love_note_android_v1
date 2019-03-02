@@ -335,8 +335,7 @@ public class PostAddActivity extends BaseActivity<PostAddActivity> {
             }
 
             @Override
-            public void failure(List<File> sourceList, String errMsg, int index) {
-
+            public void failure(int index, List<File> sourceList, String errMsg) {
             }
         });
     }

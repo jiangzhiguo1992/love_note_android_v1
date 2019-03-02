@@ -109,7 +109,7 @@ public class OssHelper {
     public interface OssUploadsCallBack {
         void success(List<File> sourceList, List<String> ossKeyList, List<String> successList);
 
-        void failure(List<File> sourceList, String errMsg, int index);
+        void failure(int index, List<File> sourceList, String errMsg);
     }
 
     public interface OssDownloadCallBack {
@@ -129,11 +129,11 @@ public class OssHelper {
     }
 
     public interface OssUploadsProgressCallBack {
-        void toast(String msg, int index);
+        void toast(int index, String msg);
 
         void start(int index);
 
-        void progress(PutObjectRequest request, long currentSize, long totalSize, int index);
+        void progress(int index, PutObjectRequest request, long currentSize, long totalSize);
 
         void end(int index);
     }
@@ -622,7 +622,7 @@ public class OssHelper {
             ToastUtils.show(msg);
             DialogUtils.dismiss(progress);
             if (callBack != null) {
-                MyApp.get().getHandler().post(() -> callBack.failure(sourceList, msg, index));
+                MyApp.get().getHandler().post(() -> callBack.failure(index, sourceList, msg));
             }
             return;
         }
@@ -633,7 +633,7 @@ public class OssHelper {
             ToastUtils.show(msg);
             DialogUtils.dismiss(progress);
             if (callBack != null) {
-                MyApp.get().getHandler().post(() -> callBack.failure(sourceList, msg, index));
+                MyApp.get().getHandler().post(() -> callBack.failure(index, sourceList, msg));
             }
             return;
         }
@@ -645,7 +645,7 @@ public class OssHelper {
             ToastUtils.show(msg);
             DialogUtils.dismiss(progress);
             if (callBack != null) {
-                MyApp.get().getHandler().post(() -> callBack.failure(sourceList, msg, index));
+                MyApp.get().getHandler().post(() -> callBack.failure(index, sourceList, msg));
             }
             return;
         }
@@ -724,7 +724,7 @@ public class OssHelper {
             String msg = MyApp.get().getString(R.string.access_resource_path_no_exists);
             ToastUtils.show(msg);
             if (callBack != null) {
-                MyApp.get().getHandler().post(() -> callBack.failure(sourceList, msg, 0));
+                MyApp.get().getHandler().post(() -> callBack.failure(0, sourceList, msg));
             }
             return;
         }
@@ -759,7 +759,7 @@ public class OssHelper {
         // 开始上传
         OSSAsyncTask task = uploadFiles(sourceList, ossKeyList, 0, canMiss, new ArrayList<>(), new OssUploadsProgressCallBack() {
             @Override
-            public void toast(String msg, int index) {
+            public void toast(int index, String msg) {
                 ToastUtils.show(msg);
             }
 
@@ -775,7 +775,7 @@ public class OssHelper {
             }
 
             @Override
-            public void progress(PutObjectRequest request, long currentSize, long totalSize, int index) {
+            public void progress(int index, PutObjectRequest request, long currentSize, long totalSize) {
                 if (progress != null && progress.isShowing()) {
                     int percent = (int) (((float) currentSize / (float) totalSize) * 100);
                     progress.setProgress(percent);
@@ -797,7 +797,7 @@ public class OssHelper {
                                                final OssUploadsCallBack callBack) {
         uploadFiles(sourceList, ossKeyList, 0, canMiss, new ArrayList<>(), new OssUploadsProgressCallBack() {
             @Override
-            public void toast(String msg, int index) {
+            public void toast(int index, String msg) {
                 if (toast) ToastUtils.show(msg);
             }
 
@@ -806,7 +806,7 @@ public class OssHelper {
             }
 
             @Override
-            public void progress(PutObjectRequest request, long currentSize, long totalSize, int index) {
+            public void progress(int index, PutObjectRequest request, long currentSize, long totalSize) {
             }
 
             @Override
@@ -825,7 +825,7 @@ public class OssHelper {
             LogUtils.w(OssHelper.class, "uploadFiles", "index = " + index + " <---> sourceList.size == " + (sourceList == null ? 0 : sourceList.size()));
             String msg = MyApp.get().getString(R.string.not_found_upload_file);
             if (progress != null) {
-                progress.toast(msg, index);
+                progress.toast(index, msg);
                 MyApp.get().getHandler().post(() -> progress.end(index));
             }
             if (canMiss && successList != null && successList.size() > 0) {
@@ -833,7 +833,7 @@ public class OssHelper {
                 MyApp.get().getHandler().post(() -> callBack.success(sourceList, ossKeyList, successList));
             } else if (callBack != null) {
                 // 直接返回
-                MyApp.get().getHandler().post(() -> callBack.failure(sourceList, msg, index));
+                MyApp.get().getHandler().post(() -> callBack.failure(index, sourceList, msg));
             }
             return null;
         }
@@ -842,7 +842,7 @@ public class OssHelper {
             LogUtils.w(OssHelper.class, "uploadFiles", "index = " + index + " <---> ossKeyList.size == " + (ossKeyList == null ? 0 : ossKeyList.size()));
             String msg = MyApp.get().getString(R.string.access_resource_path_no_exists);
             if (progress != null) {
-                progress.toast(msg, index);
+                progress.toast(index, msg);
                 MyApp.get().getHandler().post(() -> progress.end(index));
             }
             if (canMiss && successList != null && successList.size() > 0) {
@@ -850,7 +850,7 @@ public class OssHelper {
                 MyApp.get().getHandler().post(() -> callBack.success(sourceList, ossKeyList, successList));
             } else if (callBack != null) {
                 // 直接返回
-                MyApp.get().getHandler().post(() -> callBack.failure(sourceList, msg, index));
+                MyApp.get().getHandler().post(() -> callBack.failure(index, sourceList, msg));
             }
             return null;
         }
@@ -860,7 +860,7 @@ public class OssHelper {
             LogUtils.w(OssHelper.class, "uploadFiles", "index == " + index + " <---> source == null");
             String msg = MyApp.get().getString(R.string.upload_file_no_exists);
             if (progress != null) {
-                progress.toast(msg, index);
+                progress.toast(index, msg);
             }
             // 后续上传
             if (canMiss && index < sourceList.size() - 1) {
@@ -874,7 +874,7 @@ public class OssHelper {
                 MyApp.get().getHandler().post(() -> callBack.success(sourceList, ossKeyList, successList));
             } else if (callBack != null) {
                 // 直接结束
-                MyApp.get().getHandler().post(() -> callBack.failure(sourceList, msg, index));
+                MyApp.get().getHandler().post(() -> callBack.failure(index, sourceList, msg));
             }
             return null;
         }
@@ -884,7 +884,7 @@ public class OssHelper {
             LogUtils.w(OssHelper.class, "uploadFiles", "index == " + index + " <---> ossKey == null");
             String msg = MyApp.get().getString(R.string.access_resource_path_no_exists);
             if (progress != null) {
-                progress.toast(msg, index);
+                progress.toast(index, msg);
             }
             // 后续上传
             if (canMiss && index < sourceList.size() - 1) {
@@ -898,7 +898,7 @@ public class OssHelper {
                 MyApp.get().getHandler().post(() -> callBack.success(sourceList, ossKeyList, successList));
             } else if (callBack != null) {
                 // 直接结束
-                MyApp.get().getHandler().post(() -> callBack.failure(sourceList, msg, index));
+                MyApp.get().getHandler().post(() -> callBack.failure(index, sourceList, msg));
             }
             return null;
         }
@@ -909,7 +909,7 @@ public class OssHelper {
         put.setProgressCallback((request, currentSize, totalSize) -> {
             LogUtils.d(OssHelper.class, "uploadFiles", "index : " + index + " --- currentSize: " + currentSize + " --- totalSize: " + totalSize);
             if (progress != null) {
-                MyApp.get().getHandler().post(() -> progress.progress(request, currentSize, totalSize, index));
+                MyApp.get().getHandler().post(() -> progress.progress(index, request, currentSize, totalSize));
             }
         });
         // client
@@ -918,7 +918,7 @@ public class OssHelper {
             LogUtils.w(OssHelper.class, "uploadFiles", "client == null");
             String msg = MyApp.get().getString(R.string.upload_fail_tell_we_this_bug);
             if (progress != null) {
-                progress.toast(msg, index);
+                progress.toast(index, msg);
                 MyApp.get().getHandler().post(() -> progress.end(index));
             }
             if (canMiss && successList != null && successList.size() > 0) {
@@ -926,7 +926,7 @@ public class OssHelper {
                 MyApp.get().getHandler().post(() -> callBack.success(sourceList, ossKeyList, successList));
             } else if (callBack != null) {
                 // 直接结束
-                MyApp.get().getHandler().post(() -> callBack.failure(sourceList, msg, index));
+                MyApp.get().getHandler().post(() -> callBack.failure(index, sourceList, msg));
             }
             return null;
         }
@@ -971,7 +971,7 @@ public class OssHelper {
                     LogUtils.w(OssHelper.class, "uploadFiles", "serviceException = " + serviceException.toString());
                     errMsg = MyApp.get().getString(R.string.upload_fail_tell_we_this_bug);
                 }
-                if (progress != null) progress.toast(errMsg, index);
+                if (progress != null) progress.toast(index, errMsg);
                 // 后续上传
                 if (canMiss && index < sourceList.size() - 1) {
                     uploadFiles(sourceList, ossKeyList, index + 1, canMiss, successList, progress, callBack);
@@ -984,7 +984,7 @@ public class OssHelper {
                 } else if (callBack != null) {
                     // 直接结束
                     String finalErrMsg = errMsg;
-                    MyApp.get().getHandler().post(() -> callBack.failure(sourceList, finalErrMsg, index));
+                    MyApp.get().getHandler().post(() -> callBack.failure(index, sourceList, finalErrMsg));
                 }
             }
         });
@@ -1023,7 +1023,7 @@ public class OssHelper {
             }
 
             @Override
-            public void failure(List<File> sourceList, String errMsg, int index) {
+            public void failure(int index, List<File> sourceList, String errMsg) {
 
             }
         });
@@ -1059,7 +1059,7 @@ public class OssHelper {
         uploadFileInForegroundWithName(activity, ossDirPath, source, callBack);
     }
 
-    // 音频 (限制 + 持久化)
+    // 音频 (限制)
     public static void uploadAudio(Activity activity, final File source, final OssUploadCallBack callBack) {
         long maxSize = SPHelper.getVipLimit().getAudioSize();
         if (source != null && source.length() >= maxSize) {
@@ -1077,13 +1077,13 @@ public class OssHelper {
         uploadFileInForegroundWithName(activity, ossDirPath, source, callBack);
     }
 
-    // 视频封面 (压缩 +  持久化)
+    // 视频封面 (压缩)
     public static void uploadVideoThumb(Activity activity, final File source, final OssUploadCallBack callBack) {
         String ossDirPath = SPHelper.getOssInfo().getPathNoteVideoThumb();
         uploadMiniFileInForegroundWithName(activity, ossDirPath, source, callBack);
     }
 
-    // 视频 (限制 + 持久化)
+    // 视频 (限制)
     public static void uploadVideo(Activity activity, final File source, final OssUploadCallBack callBack) {
         long maxSize = SPHelper.getVipLimit().getVideoSize();
         if (source != null && source.length() >= maxSize) {
@@ -1101,13 +1101,13 @@ public class OssHelper {
         uploadFileInForegroundWithName(activity, ossDirPath, source, callBack);
     }
 
-    // 相册 (压缩 + 持久化)
+    // 相册 (压缩)
     public static void uploadAlbum(Activity activity, final File source, final OssUploadCallBack callBack) {
         String ossDirPath = SPHelper.getOssInfo().getPathNoteAlbum();
         uploadMiniFileInForegroundWithName(activity, ossDirPath, source, callBack);
     }
 
-    // 照片 (限制 + 持久化)
+    // 照片 (限制)
     public static void uploadPicture(Activity activity, final List<String> sourceList, final OssUploadsCallBack callBack) {
         long maxSize = SPHelper.getVipLimit().getPictureSize();
         final List<File> fileList = ListHelper.getFileListByPath(sourceList);
@@ -1124,7 +1124,7 @@ public class OssHelper {
             String format = String.format(Locale.getDefault(), activity.getString(R.string.file_too_large_cant_over_holder), sizeFormat);
             ToastUtils.show(format);
             if (callBack != null) {
-                callBack.failure(fileList, format, 0);
+                callBack.failure(0, fileList, format);
             }
             // vip跳转
             VipActivity.goActivity(activity);
@@ -1134,13 +1134,13 @@ public class OssHelper {
         uploadFilesInForegroundWithName(activity, fileList, ossDirPath, true, callBack);
     }
 
-    // 耳语 (压缩 + 持久化)
+    // 耳语 (压缩)
     public static void uploadWhisper(Activity activity, final File source, final OssUploadCallBack callBack) {
         String ossDirPath = SPHelper.getOssInfo().getPathNoteWhisper();
         uploadMiniFileInForegroundWithName(activity, ossDirPath, source, callBack);
     }
 
-    // 日记 (限制 + 持久化)
+    // 日记 (限制)
     public static void uploadDiary(Activity activity, final List<String> sourceList, final OssUploadsCallBack callBack) {
         long maxSize = SPHelper.getVipLimit().getDiaryImageSize();
         final List<File> fileList = ListHelper.getFileListByPath(sourceList);
@@ -1157,7 +1157,7 @@ public class OssHelper {
             String format = String.format(Locale.getDefault(), activity.getString(R.string.file_too_large_cant_over_holder), sizeFormat);
             ToastUtils.show(format);
             if (callBack != null) {
-                callBack.failure(fileList, format, 0);
+                callBack.failure(0, fileList, format);
             }
             // vip跳转
             VipActivity.goActivity(activity);
@@ -1167,21 +1167,21 @@ public class OssHelper {
         uploadFilesInForegroundWithName(activity, fileList, ossDirPath, true, callBack);
     }
 
-    // 美食 (压缩 + 持久化)
+    // 美食 (压缩)
     public static void uploadFood(Activity activity, final List<String> sourceList, final OssUploadsCallBack callBack) {
         String ossDirPath = SPHelper.getOssInfo().getPathNoteFood();
         List<File> fileList = ListHelper.getFileListByPath(sourceList);
         uploadMiniFilesInForegroundWithName(activity, ossDirPath, fileList, false, callBack);
     }
 
-    // 礼物 (压缩 + 持久化)
+    // 礼物 (压缩)
     public static void uploadGift(Activity activity, final List<String> sourceList, final OssUploadsCallBack callBack) {
         String ossDirPath = SPHelper.getOssInfo().getPathNoteGift();
         List<File> fileList = ListHelper.getFileListByPath(sourceList);
         uploadMiniFilesInForegroundWithName(activity, ossDirPath, fileList, false, callBack);
     }
 
-    // 电影 (压缩 + 持久化)
+    // 电影 (压缩)
     public static void uploadMovie(Activity activity, final List<String> sourceList, final OssUploadsCallBack callBack) {
         String ossDirPath = SPHelper.getOssInfo().getPathNoteMovie();
         List<File> fileList = ListHelper.getFileListByPath(sourceList);

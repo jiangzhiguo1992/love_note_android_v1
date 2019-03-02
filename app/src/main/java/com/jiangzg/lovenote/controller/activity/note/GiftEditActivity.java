@@ -315,8 +315,7 @@ public class GiftEditActivity extends BaseActivity<GiftEditActivity> {
             }
 
             @Override
-            public void failure(List<File> sourceList, String errMsg, int index) {
-
+            public void failure(int index, List<File> sourceList, String errMsg) {
             }
         });
     }
