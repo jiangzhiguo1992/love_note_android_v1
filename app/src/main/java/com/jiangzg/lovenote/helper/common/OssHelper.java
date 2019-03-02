@@ -730,14 +730,13 @@ public class OssHelper {
         }
         // ossKeyList
         ArrayList<String> ossKeyList = new ArrayList<>();
-        if (sourceList != null) {
+        if (sourceList != null && sourceList.size() > 0) {
             for (File source : sourceList) {
                 if (FileUtils.isFileEmpty(source)) {
                     ossKeyList.add("");
                     continue;
                 }
-                String objectKey = createOssKey(ossDirPath, source);
-                ossKeyList.add(objectKey);
+                ossKeyList.add(createOssKey(ossDirPath, source));
             }
         }
         // 开始上传
