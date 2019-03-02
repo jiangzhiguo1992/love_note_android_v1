@@ -360,8 +360,6 @@ public class DiaryEditActivity extends BaseActivity<DiaryEditActivity> {
             public void onResponse(int code, String message, Result.Data data) {
                 // event
                 RxBus.post(new RxBus.Event<>(RxBus.EVENT_DIARY_LIST_REFRESH, new ArrayList<>()));
-                // draft
-                SPHelper.setDraftDiary(null);
                 // finish
                 mActivity.finish();
             }

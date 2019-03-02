@@ -257,8 +257,6 @@ public class DreamEditActivity extends BaseActivity<DreamEditActivity> {
             public void onResponse(int code, String message, Result.Data data) {
                 // event
                 RxBus.post(new RxBus.Event<>(RxBus.EVENT_DREAM_LIST_REFRESH, new ArrayList<>()));
-                // draft
-                SPHelper.setDraftDream(null);
                 // finish
                 mActivity.finish();
             }

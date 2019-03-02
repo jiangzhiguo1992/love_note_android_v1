@@ -350,8 +350,6 @@ public class PostAddActivity extends BaseActivity<PostAddActivity> {
             public void onResponse(int code, String message, Result.Data data) {
                 // event 先不刷新
                 //RxBus.post(new Event<>(ConsHelper.EVENT_POST_LIST_REFRESH, post.getSubKind()));
-                // draft
-                SPHelper.setDraftPost(null);
                 // finish
                 mActivity.finish();
             }
