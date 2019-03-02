@@ -111,6 +111,11 @@ public class DreamEditActivity extends BaseActivity<DreamEditActivity> {
 
     @Override
     public void onBackPressed() {
+        // 更新
+        if (isFromUpdate()) {
+            super.onBackPressed();
+            return;
+        }
         // 没有数据
         if (dream == null || StringUtils.isEmpty(dream.getContentText())) {
             super.onBackPressed();

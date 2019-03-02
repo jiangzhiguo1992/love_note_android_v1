@@ -139,6 +139,11 @@ public class DiaryEditActivity extends BaseActivity<DiaryEditActivity> {
 
     @Override
     public void onBackPressed() {
+        // 更新
+        if (isFromUpdate()) {
+            super.onBackPressed();
+            return;
+        }
         // 没有数据
         if (diary == null || StringUtils.isEmpty(diary.getContentText())) {
             super.onBackPressed();
