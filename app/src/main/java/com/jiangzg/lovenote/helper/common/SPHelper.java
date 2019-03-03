@@ -615,8 +615,8 @@ public class SPHelper {
         pushInfo.setNoticeLight(sp.getBoolean(FIELD_PUSH_NOTICE_LIGHT, true));
         pushInfo.setNoticeSound(sp.getBoolean(FIELD_PUSH_NOTICE_SOUND, true));
         pushInfo.setNoticeVibrate(sp.getBoolean(FIELD_PUSH_NOTICE_VIBRATE, true));
-        pushInfo.setNoStartHour(sp.getInt(FIELD_PUSH_NO_START_HOUR, 21));
-        pushInfo.setNoEndHour(sp.getInt(FIELD_PUSH_NO_END_HOUR, 9));
+        pushInfo.setNoStartHour(sp.getInt(FIELD_PUSH_NO_START_HOUR, 22));
+        pushInfo.setNoEndHour(sp.getInt(FIELD_PUSH_NO_END_HOUR, 8));
         return pushInfo;
     }
 
