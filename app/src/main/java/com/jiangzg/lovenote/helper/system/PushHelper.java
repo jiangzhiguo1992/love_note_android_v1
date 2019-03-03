@@ -2,7 +2,6 @@ package com.jiangzg.lovenote.helper.system;
 
 import android.app.NotificationManager;
 import android.content.Context;
-import android.os.Build;
 
 import com.alibaba.sdk.android.push.CloudPushService;
 import com.alibaba.sdk.android.push.CommonCallback;
@@ -70,32 +69,20 @@ public class PushHelper {
     }
 
     private static void initNotification() {
-        //CloudPushService pushService = PushServiceFactory.getCloudPushService();
-        //pushService.turnOnPushChannel(new CommonCallback() {
-        //    @Override
-        //    public void onSuccess(String s) {
-        //    }
-        //
-        //    @Override
-        //    public void onFailed(String s, String s1) {
-        //    }
-        //});
         PushInfo info = SPHelper.getPushInfo();
         if (info == null) {
             info = new PushInfo();
             info.setChannelId("520");
-            info.setChannelName(MyApp.get().getString(R.string.notification));
-            info.setChannelDesc("");
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                info.setChannelLevel(NotificationManager.IMPORTANCE_HIGH);
-            }
             info.setNoticeLight(true);
-            info.setNoticeSound(false);
+            info.setNoticeSound(true);
             info.setNoticeVibrate(false);
         }
+        if (StringUtils.isEmpty(info.getChannelId())) {
+            info.setChannelId("520");
+        }
+        String name = MyApp.get().getString(R.string.notification);
         NotificationManager manager = MyApp.getNotificationManager();
-        PushUtils.setNotificationChannel(manager, info.getChannelId(), info.getChannelName(),
-                info.getChannelLevel(), info.getChannelDesc(), info.isNoticeLight(), info.isNoticeVibrate());
+        PushUtils.setNotificationChannel(manager, info.getChannelId(), name, name, info.isNoticeLight(), info.isNoticeVibrate());
     }
 
     // 账号

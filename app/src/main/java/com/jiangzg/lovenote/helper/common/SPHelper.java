@@ -128,9 +128,6 @@ public class SPHelper {
     private static final String FIELD_PUSH_MI_APP_ID = "mi_app_id";
     private static final String FIELD_PUSH_MI_APP_KEY = "mi_app_key";
     private static final String FIELD_PUSH_CHANNEL_ID = "channel_id";
-    private static final String FIELD_PUSH_CHANNEL_NAME = "channel_name";
-    private static final String FIELD_PUSH_CHANNEL_DESC = "channel_desc";
-    private static final String FIELD_PUSH_CHANNEL_LEVEL = "channel_level";
     private static final String FIELD_PUSH_NOTICE_LIGHT = "notice_light";
     private static final String FIELD_PUSH_NOTICE_SOUND = "notice_sound";
     private static final String FIELD_PUSH_NOTICE_VIBRATE = "notice_vibrate";
@@ -593,9 +590,6 @@ public class SPHelper {
         editor.putString(FIELD_PUSH_MI_APP_ID, pushInfo.getMiAppId());
         editor.putString(FIELD_PUSH_MI_APP_KEY, pushInfo.getMiAppKey());
         editor.putString(FIELD_PUSH_CHANNEL_ID, pushInfo.getChannelId());
-        editor.putString(FIELD_PUSH_CHANNEL_NAME, pushInfo.getChannelName());
-        editor.putString(FIELD_PUSH_CHANNEL_DESC, pushInfo.getChannelDesc());
-        editor.putInt(FIELD_PUSH_CHANNEL_LEVEL, pushInfo.getChannelLevel());
         editor.putBoolean(FIELD_PUSH_NOTICE_LIGHT, pushInfo.isNoticeLight());
         editor.putBoolean(FIELD_PUSH_NOTICE_SOUND, pushInfo.isNoticeSound());
         editor.putBoolean(FIELD_PUSH_NOTICE_VIBRATE, pushInfo.isNoticeVibrate());
@@ -612,9 +606,6 @@ public class SPHelper {
         pushInfo.setMiAppId(sp.getString(FIELD_PUSH_MI_APP_ID, ""));
         pushInfo.setMiAppKey(sp.getString(FIELD_PUSH_MI_APP_KEY, ""));
         pushInfo.setChannelId(sp.getString(FIELD_PUSH_CHANNEL_ID, ""));
-        pushInfo.setChannelName(sp.getString(FIELD_PUSH_CHANNEL_NAME, ""));
-        pushInfo.setChannelDesc(sp.getString(FIELD_PUSH_CHANNEL_DESC, ""));
-        pushInfo.setChannelLevel(sp.getInt(FIELD_PUSH_CHANNEL_LEVEL, 4));
         pushInfo.setNoticeLight(sp.getBoolean(FIELD_PUSH_NOTICE_LIGHT, true));
         pushInfo.setNoticeSound(sp.getBoolean(FIELD_PUSH_NOTICE_SOUND, true));
         pushInfo.setNoticeVibrate(sp.getBoolean(FIELD_PUSH_NOTICE_VIBRATE, true));

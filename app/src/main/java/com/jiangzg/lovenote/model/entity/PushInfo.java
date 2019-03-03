@@ -11,9 +11,6 @@ public class PushInfo {
     private String miAppId;
     private String miAppKey;
     private String channelId;
-    private String channelName;
-    private String channelDesc;
-    private int channelLevel; // 最高=NotificationManager.IMPORTANCE_HIGH=4
     private boolean noticeLight;
     private boolean noticeSound;
     private boolean noticeVibrate;
@@ -82,30 +79,6 @@ public class PushInfo {
 
     public void setChannelId(String channelId) {
         this.channelId = channelId;
-    }
-
-    public String getChannelName() {
-        return channelName;
-    }
-
-    public void setChannelName(String channelName) {
-        this.channelName = channelName;
-    }
-
-    public int getChannelLevel() {
-        return channelLevel;
-    }
-
-    public void setChannelLevel(int channelLevel) {
-        this.channelLevel = channelLevel;
-    }
-
-    public String getChannelDesc() {
-        return channelDesc;
-    }
-
-    public void setChannelDesc(String channelDesc) {
-        this.channelDesc = channelDesc;
     }
 
     public boolean isNoticeLight() {
