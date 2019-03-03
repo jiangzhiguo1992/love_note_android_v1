@@ -23,8 +23,15 @@ import com.jiangzg.lovenote.model.entity.User;
  */
 public class PushHelper {
 
+    private static int initAccount, initTag, initDisturb;
+    private static boolean isThirdInit = false;
+
     public static void initApp(Context ctx, boolean debug) {
-        PushInfo pushInfo = SPHelper.getPushInfo(); // 第一次进入注册不成功！
+        // 初始化变量
+        initTag = initAccount = initDisturb = 0;
+        isThirdInit = false;
+        // 第一次进入注册不成功！
+        PushInfo pushInfo = SPHelper.getPushInfo();
         if (pushInfo == null || StringUtils.isEmpty(pushInfo.getAliAppKey()) || StringUtils.isEmpty(pushInfo.getAliAppSecret())) {
             LogUtils.d(PushHelper.class, "initApp", "推送注册-首次。");
             return;
@@ -45,8 +52,6 @@ public class PushHelper {
                 checkTagBind();
                 // 免打扰
                 checkDisturb();
-                // 别忘了辅助通道 TODO 顺序
-                initThirdPush();
             }
 
             @Override
@@ -55,20 +60,6 @@ public class PushHelper {
                 LogUtils.w(PushHelper.class, "initApp", "推送注册-失败。\nerrorCode:" + errorCode + "\nerrorMessage:" + errorMessage);
             }
         });
-    }
-
-    // 辅助通道注册务必在Application中执行且放在推送SDK初始化代码之后，否则可能导致辅助通道注册失败
-    // 小米辅助弹窗：v2.3.0及以上支持；华为辅助弹窗：v3.0.8及以上支持；OPPO辅助弹窗：v3.1.4及以上支持
-    private static void initThirdPush() {
-        PushInfo info = SPHelper.getPushInfo();
-        if (info == null || StringUtils.isEmpty(info.getChannelId())) return;
-        LogUtils.i(PushHelper.class, "initThirdPush", "推送注册(辅助通道)");
-        // 注册方法会自动判断是否支持小米系统推送，如不支持会跳过注册。
-        MiPushRegister.register(MyApp.get(), info.getMiAppId(), info.getMiAppKey());
-        // 注册方法会自动判断是否支持华为系统推送，如不支持会跳过注册。
-        HuaWeiRegister.register(MyApp.get());
-        // 注册方法会自动判断是否支持华为系统推送，如不支持会跳过注册。 TODO OPPO公测
-        // OppoRegister.register(MyApp.get(), appKey, appSecret);
     }
 
     private static void initNotification() {
@@ -108,11 +99,15 @@ public class PushHelper {
             @Override
             public void onSuccess(String s) {
                 LogUtils.i(PushHelper.class, "bindAccount", "account绑定-成功\n" + s);
+                initAccount = 1;
+                initThirdPush();
             }
 
             @Override
             public void onFailed(String s, String s1) {
                 LogUtils.i(PushHelper.class, "bindAccount", "account绑定-失败\n" + s + "\n" + s1);
+                initAccount = -1;
+                initThirdPush();
             }
         });
     }
@@ -124,11 +119,15 @@ public class PushHelper {
             @Override
             public void onSuccess(String s) {
                 LogUtils.i(PushHelper.class, "unBindAccount", "推送取消绑定-成功\n" + s);
+                initAccount = 1;
+                initThirdPush();
             }
 
             @Override
             public void onFailed(String s, String s1) {
                 LogUtils.i(PushHelper.class, "unBindAccount", "推送取消绑定-失败\n" + s + "\n" + s1);
+                initAccount = -1;
+                initThirdPush();
             }
         });
         // 清除SDK创建的所有通知
@@ -153,11 +152,15 @@ public class PushHelper {
             @Override
             public void onSuccess(String s) {
                 LogUtils.i(PushHelper.class, "bindTag", "TAG绑定-成功\n" + s);
+                initTag = 1;
+                initThirdPush();
             }
 
             @Override
             public void onFailed(String s, String s1) {
                 LogUtils.i(PushHelper.class, "bindTag", "TAG绑定-失败\n" + s + "\n" + s1);
+                initTag = -1;
+                initThirdPush();
             }
         });
     }
@@ -169,11 +172,15 @@ public class PushHelper {
             @Override
             public void onSuccess(String s) {
                 LogUtils.i(PushHelper.class, "unBindTag", "TAG取消绑定-成功\n" + s);
+                initTag = 1;
+                initThirdPush();
             }
 
             @Override
             public void onFailed(String s, String s1) {
                 LogUtils.i(PushHelper.class, "unBindTag", "TAG取消绑定-失败\n" + s + "\n" + s1);
+                initTag = -1;
+                initThirdPush();
             }
         });
     }
@@ -199,11 +206,15 @@ public class PushHelper {
             @Override
             public void onSuccess(String s) {
                 LogUtils.i(PushHelper.class, "startDisturb", "免打扰-成功\n" + s);
+                initDisturb = 1;
+                initThirdPush();
             }
 
             @Override
             public void onFailed(String s, String s1) {
                 LogUtils.i(PushHelper.class, "startDisturb", "免打扰-失败\n" + s + "\n" + s1);
+                initDisturb = -1;
+                initThirdPush();
             }
         });
     }
@@ -212,6 +223,25 @@ public class PushHelper {
         CloudPushService service = PushServiceFactory.getCloudPushService();
         if (service == null) return;
         service.closeDoNotDisturbMode();
+        initDisturb = 1;
+        initThirdPush();
+    }
+
+    // 辅助通道注册务必在Application中执行且放在推送SDK初始化代码之后，否则可能导致辅助通道注册失败
+    // 小米辅助弹窗：v2.3.0及以上支持；华为辅助弹窗：v3.0.8及以上支持；OPPO辅助弹窗：v3.1.4及以上支持
+    private static void initThirdPush() {
+        if (isThirdInit) return;
+        if (initAccount == 0 || initTag == 0 || initDisturb == 0) return;
+        PushInfo info = SPHelper.getPushInfo();
+        if (info == null) return;
+        LogUtils.i(PushHelper.class, "initThirdPush", "推送注册(辅助通道)");
+        // 注册方法会自动判断是否支持小米系统推送，如不支持会跳过注册。
+        MiPushRegister.register(MyApp.get(), info.getMiAppId(), info.getMiAppKey());
+        // 注册方法会自动判断是否支持华为系统推送，如不支持会跳过注册。
+        HuaWeiRegister.register(MyApp.get());
+        // 注册方法会自动判断是否支持华为系统推送，如不支持会跳过注册。 TODO OPPO公测
+        // OppoRegister.register(MyApp.get(), appKey, appSecret);
+        isThirdInit = true;
     }
 
 }
