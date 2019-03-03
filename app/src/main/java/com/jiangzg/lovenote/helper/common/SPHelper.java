@@ -127,6 +127,8 @@ public class SPHelper {
     private static final String FIELD_PUSH_ALI_APP_SECRET = "ali_app_secret";
     private static final String FIELD_PUSH_MI_APP_ID = "mi_app_id";
     private static final String FIELD_PUSH_MI_APP_KEY = "mi_app_key";
+    private static final String FIELD_PUSH_OPPO_APP_KEY = "oppo_app_key";
+    private static final String FIELD_PUSH_OPPO_APP_SECRET = "oppo_app_secret";
     private static final String FIELD_PUSH_CHANNEL_ID = "channel_id";
     private static final String FIELD_PUSH_NOTICE_LIGHT = "notice_light";
     private static final String FIELD_PUSH_NOTICE_SOUND = "notice_sound";
@@ -589,6 +591,8 @@ public class SPHelper {
         editor.putString(FIELD_PUSH_ALI_APP_SECRET, pushInfo.getAliAppSecret());
         editor.putString(FIELD_PUSH_MI_APP_ID, pushInfo.getMiAppId());
         editor.putString(FIELD_PUSH_MI_APP_KEY, pushInfo.getMiAppKey());
+        editor.putString(FIELD_PUSH_OPPO_APP_KEY, pushInfo.getOppoAppKey());
+        editor.putString(FIELD_PUSH_OPPO_APP_SECRET, pushInfo.getOppoAppSecret());
         editor.putString(FIELD_PUSH_CHANNEL_ID, pushInfo.getChannelId());
         editor.putBoolean(FIELD_PUSH_NOTICE_LIGHT, pushInfo.isNoticeLight());
         editor.putBoolean(FIELD_PUSH_NOTICE_SOUND, pushInfo.isNoticeSound());
@@ -605,6 +609,8 @@ public class SPHelper {
         pushInfo.setAliAppSecret(sp.getString(FIELD_PUSH_ALI_APP_SECRET, ""));
         pushInfo.setMiAppId(sp.getString(FIELD_PUSH_MI_APP_ID, ""));
         pushInfo.setMiAppKey(sp.getString(FIELD_PUSH_MI_APP_KEY, ""));
+        pushInfo.setOppoAppKey(sp.getString(FIELD_PUSH_OPPO_APP_KEY, ""));
+        pushInfo.setOppoAppSecret(sp.getString(FIELD_PUSH_OPPO_APP_SECRET, ""));
         pushInfo.setChannelId(sp.getString(FIELD_PUSH_CHANNEL_ID, ""));
         pushInfo.setNoticeLight(sp.getBoolean(FIELD_PUSH_NOTICE_LIGHT, true));
         pushInfo.setNoticeSound(sp.getBoolean(FIELD_PUSH_NOTICE_SOUND, true));

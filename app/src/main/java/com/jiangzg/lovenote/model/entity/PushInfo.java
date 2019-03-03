@@ -10,12 +10,30 @@ public class PushInfo {
     private String aliAppSecret;
     private String miAppId;
     private String miAppKey;
+    private String oppoAppKey;
+    private String oppoAppSecret;
     private String channelId;
     private boolean noticeLight;
     private boolean noticeSound;
     private boolean noticeVibrate;
     private int noStartHour;
     private int noEndHour;
+
+    public String getOppoAppKey() {
+        return oppoAppKey;
+    }
+
+    public void setOppoAppKey(String oppoAppKey) {
+        this.oppoAppKey = oppoAppKey;
+    }
+
+    public String getOppoAppSecret() {
+        return oppoAppSecret;
+    }
+
+    public void setOppoAppSecret(String oppoAppSecret) {
+        this.oppoAppSecret = oppoAppSecret;
+    }
 
     public int getNoStartHour() {
         return noStartHour;

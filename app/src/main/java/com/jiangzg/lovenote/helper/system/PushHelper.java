@@ -24,7 +24,7 @@ import com.jiangzg.lovenote.model.entity.User;
 public class PushHelper {
 
     public static void initApp(Context ctx, boolean debug) {
-        PushInfo pushInfo = SPHelper.getPushInfo();
+        PushInfo pushInfo = SPHelper.getPushInfo(); // 第一次进入注册不成功！
         if (pushInfo == null || StringUtils.isEmpty(pushInfo.getAliAppKey()) || StringUtils.isEmpty(pushInfo.getAliAppSecret())) {
             LogUtils.d(PushHelper.class, "initApp", "推送注册-首次。");
             return;
@@ -37,8 +37,6 @@ public class PushHelper {
             @Override
             public void onSuccess(String response) {
                 LogUtils.i(PushHelper.class, "initApp", "推送注册-成功。\n" + response);
-                // 别忘了辅助通道
-                initThirdPush();
                 // 开启推送通道
                 initNotification();
                 // 绑定账号
@@ -47,6 +45,8 @@ public class PushHelper {
                 checkTagBind();
                 // 免打扰
                 checkDisturb();
+                // 别忘了辅助通道 TODO 顺序
+                initThirdPush();
             }
 
             @Override
@@ -58,6 +58,7 @@ public class PushHelper {
     }
 
     // 辅助通道注册务必在Application中执行且放在推送SDK初始化代码之后，否则可能导致辅助通道注册失败
+    // 小米辅助弹窗：v2.3.0及以上支持；华为辅助弹窗：v3.0.8及以上支持；OPPO辅助弹窗：v3.1.4及以上支持
     private static void initThirdPush() {
         PushInfo info = SPHelper.getPushInfo();
         if (info == null || StringUtils.isEmpty(info.getChannelId())) return;
@@ -66,6 +67,8 @@ public class PushHelper {
         MiPushRegister.register(MyApp.get(), info.getMiAppId(), info.getMiAppKey());
         // 注册方法会自动判断是否支持华为系统推送，如不支持会跳过注册。
         HuaWeiRegister.register(MyApp.get());
+        // 注册方法会自动判断是否支持华为系统推送，如不支持会跳过注册。 TODO OPPO公测
+        // OppoRegister.register(MyApp.get(), appKey, appSecret);
     }
 
     private static void initNotification() {
@@ -104,12 +107,12 @@ public class PushHelper {
         service.bindAccount(String.valueOf(uid), new CommonCallback() {
             @Override
             public void onSuccess(String s) {
-                LogUtils.i(PushHelper.class, "bindAccount", "推送绑定-成功\n" + s);
+                LogUtils.i(PushHelper.class, "bindAccount", "account绑定-成功\n" + s);
             }
 
             @Override
             public void onFailed(String s, String s1) {
-                LogUtils.i(PushHelper.class, "bindAccount", "推送绑定-失败\n" + s + "\n" + s1);
+                LogUtils.i(PushHelper.class, "bindAccount", "account绑定-失败\n" + s + "\n" + s1);
             }
         });
     }

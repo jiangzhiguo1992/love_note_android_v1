@@ -124,6 +124,8 @@
 # ---华为通道
 -keep class com.huawei.** {*;}
 -dontwarn com.huawei.**
+# ---OPPO通道
+-keep public class * extends android.app.Service
 
 #---------------------------------3.与js互相调用的类------------------------
 
