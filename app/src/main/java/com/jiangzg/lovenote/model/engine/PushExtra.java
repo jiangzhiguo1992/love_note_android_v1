@@ -29,9 +29,9 @@ public class PushExtra implements Parcelable {
     public static final int TYPE_NOTE_SOUVENIR = 240;
     public static final int TYPE_NOTE_WISH = 241;
     public static final int TYPE_NOTE_WORD = 250;
-    public static final int TYPE_NOTE_DIARY = 251;
-    public static final int TYPE_NOTE_AWARD = 252;
-    public static final int TYPE_NOTE_AWARD_RULE = 253;
+    public static final int TYPE_NOTE_AWARD = 251;
+    public static final int TYPE_NOTE_AWARD_RULE = 252;
+    public static final int TYPE_NOTE_DIARY = 253;
     public static final int TYPE_NOTE_DREAM = 260;
     public static final int TYPE_NOTE_ANGRY = 261;
     public static final int TYPE_NOTE_GIFT = 262;
