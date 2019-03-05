@@ -258,6 +258,8 @@ public class ApiHelper {
         // pushInfo
         SPHelper.setPushInfo(data.getPushInfo());
         PushHelper.checkAccountBind();
+        PushHelper.checkTagBind();
+        PushHelper.checkDisturb();
         // commonCount
         SPHelper.setCommonCount(data.getCommonCount());
         // version

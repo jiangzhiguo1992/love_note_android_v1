@@ -43,12 +43,6 @@ public class PushHelper {
                 initThirdPush();
                 // 开启推送通道
                 initNotification();
-                // 绑定账号
-                checkAccountBind();
-                // 绑定tag
-                checkTagBind();
-                // 免打扰
-                checkDisturb();
             }
 
             @Override
