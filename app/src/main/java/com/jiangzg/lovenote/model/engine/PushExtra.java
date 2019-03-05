@@ -8,24 +8,45 @@ import android.os.Parcelable;
  */
 public class PushExtra implements Parcelable {
 
-    public static final int TYPE_APP = 0; // 打开app
-    public static final int TYPE_SUGGEST = 50;// 打开suggest
-    public static final int TYPE_COUPLE = 100;// 打开couple
-    public static final int TYPE_NOTE = 200; // 打开note
-    public static final int TYPE_NOTE_LOCK = 210;// 打开密码锁
-    public static final int TYPE_NOTE_TRENDS = 211;// 打开动态
-    public static final int TYPE_NOTE_TOTAL = 212;// 打开统计
-    public static final int TYPE_NOTE_SHY = 220; // 打开羞羞
-    public static final int TYPE_NOTE_MENSES = 221;// 打开姨妈
-    public static final int TYPE_NOTE_SLEEP = 222;// 打开睡眠
-    public static final int TYPE_NOTE_SOUVENIR = 230; // 打开纪念日
-    public static final int TYPE_TOPIC = 300;// 打开topic
-    public static final int TYPE_TOPIC_MINE = 310;// 打开我的
-    public static final int TYPE_TOPIC_COLLECT = 320;// 打开收藏
-    public static final int TYPE_TOPIC_MESSAGE = 330;// 打开消息
-    public static final int TYPE_TOPIC_POST = 340;// 打开post
-    public static final int TYPE_TOPIC_COMMENT = 350;// 打开postComment
-    public static final int TYPE_MORE = 400;// 打开more
+    public static final int TYPE_APP = 0;
+    public static final int TYPE_SUGGEST = 50;
+    public static final int TYPE_COUPLE = 100;
+    public static final int TYPE_COUPLE_INFO = 110;
+    public static final int TYPE_COUPLE_WALL = 120;
+    public static final int TYPE_COUPLE_PLACE = 130;
+    public static final int TYPE_COUPLE_WEATHER = 140;
+    public static final int TYPE_NOTE = 200;
+    public static final int TYPE_NOTE_LOCK = 210;
+    public static final int TYPE_NOTE_TRENDS = 211;
+    public static final int TYPE_NOTE_TOTAL = 212;
+    public static final int TYPE_NOTE_SHY = 220;
+    public static final int TYPE_NOTE_MENSES = 221;
+    public static final int TYPE_NOTE_SLEEP = 222;
+    public static final int TYPE_NOTE_AUDIO = 230;
+    public static final int TYPE_NOTE_VIDEO = 231;
+    public static final int TYPE_NOTE_ALBUM = 232;
+    public static final int TYPE_NOTE_PICTURE = 233;
+    public static final int TYPE_NOTE_SOUVENIR = 240;
+    public static final int TYPE_NOTE_WISH = 241;
+    public static final int TYPE_NOTE_WORD = 250;
+    public static final int TYPE_NOTE_DIARY = 251;
+    public static final int TYPE_NOTE_AWARD = 252;
+    public static final int TYPE_NOTE_AWARD_RULE = 253;
+    public static final int TYPE_NOTE_DREAM = 260;
+    public static final int TYPE_NOTE_ANGRY = 261;
+    public static final int TYPE_NOTE_GIFT = 262;
+    public static final int TYPE_NOTE_PROMISE = 263;
+    public static final int TYPE_NOTE_PROMISE_BREAK = 264;
+    public static final int TYPE_NOTE_TRAVEL = 270;
+    public static final int TYPE_NOTE_MOVIE = 271;
+    public static final int TYPE_NOTE_FOOD = 272;
+    public static final int TYPE_TOPIC = 300;
+    public static final int TYPE_TOPIC_MINE = 310;
+    public static final int TYPE_TOPIC_COLLECT = 320;
+    public static final int TYPE_TOPIC_MESSAGE = 330;
+    public static final int TYPE_TOPIC_POST = 340;
+    public static final int TYPE_TOPIC_COMMENT = 350;
+    public static final int TYPE_MORE = 400;
 
     private long createAt;
     private long userId;

@@ -1,6 +1,7 @@
 package com.jiangzg.lovenote.controller.activity.note;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
@@ -51,6 +52,13 @@ public class AudioListActivity extends BaseActivity<AudioListActivity> {
     private MediaPlayer mediaPlayer;
     private RecyclerHelper recyclerHelper;
     private int page = 0;
+
+    public static void goActivity(Context from) {
+        Intent intent = new Intent(from, AudioListActivity.class);
+        // intent.putExtra();
+        intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        ActivityTrans.start(from, intent);
+    }
 
     public static void goActivity(Activity from) {
         Intent intent = new Intent(from, AudioListActivity.class);

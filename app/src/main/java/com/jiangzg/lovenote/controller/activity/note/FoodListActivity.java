@@ -1,6 +1,7 @@
 package com.jiangzg.lovenote.controller.activity.note;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -48,6 +49,13 @@ public class FoodListActivity extends BaseActivity<FoodListActivity> {
 
     private RecyclerHelper recyclerHelper;
     private int page = 0;
+
+    public static void goActivity(Context from) {
+        Intent intent = new Intent(from, FoodListActivity.class);
+        intent.putExtra("from", BaseActivity.ACT_LIST_FROM_BROWSE);
+        intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        ActivityTrans.start(from, intent);
+    }
 
     public static void goActivity(Activity from) {
         Intent intent = new Intent(from, FoodListActivity.class);

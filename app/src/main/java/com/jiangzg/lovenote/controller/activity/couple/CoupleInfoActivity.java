@@ -1,6 +1,7 @@
 package com.jiangzg.lovenote.controller.activity.couple;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -96,6 +97,17 @@ public class CoupleInfoActivity extends BaseActivity<CoupleInfoActivity> {
             return;
         }
         Intent intent = new Intent(from.getActivity(), CoupleInfoActivity.class);
+        // intent.putExtra();
+        intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        ActivityTrans.start(from, intent);
+    }
+
+    public static void goActivity(Context from) {
+        if (UserHelper.isCoupleBreak(SPHelper.getCouple())) {
+            CouplePairActivity.goActivity(from);
+            return;
+        }
+        Intent intent = new Intent(from, CoupleInfoActivity.class);
         // intent.putExtra();
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         ActivityTrans.start(from, intent);

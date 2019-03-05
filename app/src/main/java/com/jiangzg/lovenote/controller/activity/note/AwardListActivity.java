@@ -1,6 +1,7 @@
 package com.jiangzg.lovenote.controller.activity.note;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -68,6 +69,13 @@ public class AwardListActivity extends BaseActivity<AwardListActivity> {
     private int searchIndex = 0;
 
     public static void goActivity(Activity from) {
+        Intent intent = new Intent(from, AwardListActivity.class);
+        // intent.putExtra();
+        intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        ActivityTrans.start(from, intent);
+    }
+
+    public static void goActivity(Context from) {
         Intent intent = new Intent(from, AwardListActivity.class);
         // intent.putExtra();
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);

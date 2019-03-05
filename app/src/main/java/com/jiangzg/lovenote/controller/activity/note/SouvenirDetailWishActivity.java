@@ -1,6 +1,7 @@
 package com.jiangzg.lovenote.controller.activity.note;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -72,6 +73,14 @@ public class SouvenirDetailWishActivity extends BaseActivity<SouvenirDetailDoneA
     }
 
     public static void goActivity(Activity from, long sid) {
+        Intent intent = new Intent(from, SouvenirDetailWishActivity.class);
+        intent.putExtra("from", BaseActivity.ACT_DETAIL_FROM_ID);
+        intent.putExtra("sid", sid);
+        intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        ActivityTrans.start(from, intent);
+    }
+
+    public static void goActivity(Context from, long sid) {
         Intent intent = new Intent(from, SouvenirDetailWishActivity.class);
         intent.putExtra("from", BaseActivity.ACT_DETAIL_FROM_ID);
         intent.putExtra("sid", sid);

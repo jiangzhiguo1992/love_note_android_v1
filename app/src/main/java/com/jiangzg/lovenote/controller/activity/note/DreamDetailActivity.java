@@ -1,6 +1,7 @@
 package com.jiangzg.lovenote.controller.activity.note;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -53,6 +54,14 @@ public class DreamDetailActivity extends BaseActivity<DreamDetailActivity> {
         Intent intent = new Intent(from, DreamDetailActivity.class);
         intent.putExtra("from", BaseActivity.ACT_DETAIL_FROM_OBJ);
         intent.putExtra("dream", dream);
+        intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        ActivityTrans.start(from, intent);
+    }
+
+    public static void goActivity(Context from, long did) {
+        Intent intent = new Intent(from, DreamDetailActivity.class);
+        intent.putExtra("from", BaseActivity.ACT_DETAIL_FROM_ID);
+        intent.putExtra("did", did);
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         ActivityTrans.start(from, intent);
     }

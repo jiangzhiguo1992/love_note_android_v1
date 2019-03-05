@@ -1,5 +1,6 @@
 package com.jiangzg.lovenote.controller.activity.couple;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -46,6 +47,18 @@ public class CouplePlaceActivity extends BaseActivity<CouplePlaceActivity> {
             return;
         }
         Intent intent = new Intent(from.getActivity(), CouplePlaceActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        ActivityTrans.start(from, intent);
+    }
+
+    public static void goActivity(Context from) {
+        //if (!LocationHelper.checkLocationEnable(from)) return;
+        if (UserHelper.isCoupleBreak(SPHelper.getCouple())) {
+            CouplePairActivity.goActivity(from);
+            return;
+        }
+        Intent intent = new Intent(from, CouplePlaceActivity.class);
+        // intent.putExtra();
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         ActivityTrans.start(from, intent);
     }

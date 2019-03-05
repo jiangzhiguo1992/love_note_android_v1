@@ -1,6 +1,7 @@
 package com.jiangzg.lovenote.controller.activity.note;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -81,6 +82,14 @@ public class AngryDetailActivity extends BaseActivity<AngryDetailActivity> {
     }
 
     public static void goActivity(Activity from, long aid) {
+        Intent intent = new Intent(from, AngryDetailActivity.class);
+        intent.putExtra("from", BaseActivity.ACT_DETAIL_FROM_ID);
+        intent.putExtra("aid", aid);
+        intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        ActivityTrans.start(from, intent);
+    }
+
+    public static void goActivity(Context from, long aid) {
         Intent intent = new Intent(from, AngryDetailActivity.class);
         intent.putExtra("from", BaseActivity.ACT_DETAIL_FROM_ID);
         intent.putExtra("aid", aid);

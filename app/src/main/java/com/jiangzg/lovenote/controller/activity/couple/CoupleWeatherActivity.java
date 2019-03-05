@@ -1,5 +1,6 @@
 package com.jiangzg.lovenote.controller.activity.couple;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -95,6 +96,18 @@ public class CoupleWeatherActivity extends BaseActivity<CoupleWeatherActivity> {
             return;
         }
         Intent intent = new Intent(from.getActivity(), CoupleWeatherActivity.class);
+        // intent.putExtra();
+        intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        ActivityTrans.start(from, intent);
+    }
+
+    public static void goActivity(Context from) {
+        //if (!LocationHelper.checkLocationEnable(from)) return;
+        if (UserHelper.isCoupleBreak(SPHelper.getCouple())) {
+            CouplePairActivity.goActivity(from);
+            return;
+        }
+        Intent intent = new Intent(from, CoupleWeatherActivity.class);
         // intent.putExtra();
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         ActivityTrans.start(from, intent);
