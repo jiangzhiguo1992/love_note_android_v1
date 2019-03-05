@@ -97,8 +97,7 @@ public class PushHelper {
 
     // 账号
     public static void checkAccountBind() {
-        boolean social = SPHelper.getSettingsNoticeSocial();
-        if (social) {
+        if (SPHelper.getSettingsNoticeSocial()) {
             PushHelper.bindAccount();
         } else {
             PushHelper.unBindAccount();
@@ -144,11 +143,10 @@ public class PushHelper {
 
     // 标签
     public static void checkTagBind() {
-        boolean system = SPHelper.getSettingsNoticeSystem();
-        if (system) {
-            PushHelper.bindTag("system");
+        if (SPHelper.getSettingsNoticeSystem()) {
+            PushHelper.bindTag("lovenote_notice_system");
         } else {
-            PushHelper.unBindTag("system");
+            PushHelper.unBindTag("lovenote_notice_system");
         }
     }
 
@@ -187,8 +185,7 @@ public class PushHelper {
 
     // 免打扰
     public static void checkDisturb() {
-        boolean disturb = SPHelper.getSettingsNoticeDisturb();
-        if (disturb) {
+        if (SPHelper.getSettingsNoticeDisturb()) {
             PushHelper.startDisturb();
         } else {
             PushHelper.stopDisturb();

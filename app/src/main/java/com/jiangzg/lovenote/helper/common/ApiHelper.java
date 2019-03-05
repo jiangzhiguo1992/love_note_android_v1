@@ -24,6 +24,7 @@ import com.jiangzg.lovenote.controller.activity.base.BaseActivity;
 import com.jiangzg.lovenote.controller.activity.couple.CoupleInfoActivity;
 import com.jiangzg.lovenote.controller.activity.main.HomeActivity;
 import com.jiangzg.lovenote.controller.receiver.OssRefreshReceiver;
+import com.jiangzg.lovenote.helper.system.PushHelper;
 import com.jiangzg.lovenote.helper.system.RetrofitHelper;
 import com.jiangzg.lovenote.helper.view.DialogHelper;
 import com.jiangzg.lovenote.main.MyApp;
@@ -256,6 +257,7 @@ public class ApiHelper {
         OssRefreshReceiver.startAlarm();
         // pushInfo
         SPHelper.setPushInfo(data.getPushInfo());
+        PushHelper.checkAccountBind();
         // commonCount
         SPHelper.setCommonCount(data.getCommonCount());
         // version
