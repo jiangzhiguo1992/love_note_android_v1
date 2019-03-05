@@ -20,7 +20,7 @@ import com.jiangzg.lovenote.controller.activity.topic.PostMyRelationActivity;
 import com.jiangzg.lovenote.controller.activity.topic.PostSubCommentListActivity;
 import com.jiangzg.lovenote.controller.activity.topic.TopicMessageActivity;
 import com.jiangzg.lovenote.helper.common.GsonHelper;
-import com.jiangzg.lovenote.model.engine.Push;
+import com.jiangzg.lovenote.model.engine.PushExtra;
 
 import java.util.Map;
 
@@ -48,50 +48,50 @@ public class AliPushReceiver extends MessageReceiver {
         LogUtils.d(AliPushReceiver.class, "onNotificationOpened", "title: " + title + ", summary: " + summary + ", extraMap:" + extraMap);
         if (StringUtils.isEmpty(extraMap)) return;
         if (!extraMap.startsWith("{") || !extraMap.endsWith("}")) return;
-        Push push = GsonHelper.get().fromJson(extraMap, Push.class);
-        if (push == null) return;
-        int contentType = push.getContentType();
-        long contentId = push.getContentId();
-        if (contentType == Push.TYPE_APP || contentType <= 0) return;
+        PushExtra pushExtra = GsonHelper.get().fromJson(extraMap, PushExtra.class);
+        if (pushExtra == null) return;
+        int contentType = pushExtra.getContentType();
+        long contentId = pushExtra.getContentId();
+        if (contentType == PushExtra.TYPE_APP || contentType <= 0) return;
         // 以上都是打开app
         switch (contentType) {
-            case Push.TYPE_SUGGEST: // 意见反馈
+            case PushExtra.TYPE_SUGGEST: // 意见反馈
                 SuggestDetailActivity.goActivity(context, contentId);
                 break;
-            case Push.TYPE_NOTE_LOCK:
+            case PushExtra.TYPE_NOTE_LOCK:
                 LockActivity.goActivity(context);
                 break;
-            case Push.TYPE_NOTE_TRENDS:
+            case PushExtra.TYPE_NOTE_TRENDS:
                 TrendsListActivity.goActivity(context);
                 break;
-            case Push.TYPE_NOTE_TOTAL:
+            case PushExtra.TYPE_NOTE_TOTAL:
                 NoteTotalActivity.goActivity(context);
                 break;
-            case Push.TYPE_NOTE_SHY: // 羞羞
+            case PushExtra.TYPE_NOTE_SHY: // 羞羞
                 ShyActivity.goActivity(context);
                 break;
-            case Push.TYPE_NOTE_MENSES: // 姨妈
+            case PushExtra.TYPE_NOTE_MENSES: // 姨妈
                 MensesActivity.goActivity(context);
                 break;
-            case Push.TYPE_NOTE_SLEEP: // 睡眠
+            case PushExtra.TYPE_NOTE_SLEEP: // 睡眠
                 SleepActivity.goActivity(context);
                 break;
-            case Push.TYPE_NOTE_SOUVENIR: // 纪念日
+            case PushExtra.TYPE_NOTE_SOUVENIR: // 纪念日
                 SouvenirListActivity.goActivity(context);
                 break;
-            case Push.TYPE_TOPIC_MINE: // 话题我的
+            case PushExtra.TYPE_TOPIC_MINE: // 话题我的
                 PostMineActivity.goActivity(context);
                 break;
-            case Push.TYPE_TOPIC_COLLECT: // 话题收藏
+            case PushExtra.TYPE_TOPIC_COLLECT: // 话题收藏
                 PostMyRelationActivity.goActivity(context);
                 break;
-            case Push.TYPE_TOPIC_MESSAGE: // 话题消息
+            case PushExtra.TYPE_TOPIC_MESSAGE: // 话题消息
                 TopicMessageActivity.goActivity(context);
                 break;
-            case Push.TYPE_TOPIC_POST: // 帖子
+            case PushExtra.TYPE_TOPIC_POST: // 帖子
                 PostDetailActivity.goActivity(context, contentId);
                 break;
-            case Push.TYPE_TOPIC_COMMENT: // 评论
+            case PushExtra.TYPE_TOPIC_COMMENT: // 评论
                 PostSubCommentListActivity.goActivity(context, contentId);
                 break;
         }
