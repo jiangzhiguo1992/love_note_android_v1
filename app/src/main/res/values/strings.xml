@@ -638,6 +638,8 @@
     <string name="help_couple_home_c2_a">点击右上角，即可进入相应界面进行设置，注意会员和非会员可上传的张数是不一样的哦。\n另外，只上传一张的话，是没有动画效果的。\n一定要记得上传哦，不仅好看，而且还会被当做app的启动图来展示呢！</string>
     <string name="help_couple_home_c3_q">为什么位置和天气不更新？</string>
     <string name="help_couple_home_c3_a">原因有以下几点：\n1.没有开启地理位置获取权限，导致不能上传位置给服务器，以及获取不到位置相关的天气信息。\n2.没有开启GPS，或者是GPS信号差，导致长时间获取不到位置信息。\n3.部分地区的位置和天气暂时无法获取，如撒哈拉沙漠。\n4.如果较上次更新的位置的移动距离过小，也是不会更新的哦。\n5.如果还是有问题，记得双方都下拉刷新试试能不能正常显示。如不能，请移步《意见反馈》中，反馈给我们。\n另外，为了确保用户设备的电量持久，以及为了遵守移动开发的基本准则。app不会在后台无限制的获取用户的地理位置，只有在app启动或者是下拉刷新的时候，才会获取用户的位置，进而更新天气信息。所以当位置和天气信息不准时，下拉刷新看看吧。</string>
+    <string name="help_couple_home_c4_q">位置可以删除或隐藏吗？</string>
+    <string name="help_couple_home_c4_a">目前不可以。</string>
     <string name="help_couple_pair_c1_q">只能输手机号配对吗？</string>
     <string name="help_couple_pair_c1_a">是的，我们摒弃了邀请码的配对方式，采用更坦诚的手机号邀请方式。</string>
     <string name="help_couple_pair_c2_q">为什么提示我邀请过于频繁？</string>
