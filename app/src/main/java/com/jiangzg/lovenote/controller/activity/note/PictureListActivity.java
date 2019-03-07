@@ -111,14 +111,6 @@ public class PictureListActivity extends BaseActivity<PictureListActivity> {
         ActivityTrans.start(from, intent);
     }
 
-    public static void goActivityBySelect(Activity from, Album album) {
-        Intent intent = new Intent(from, PictureListActivity.class);
-        intent.putExtra("from", BaseActivity.ACT_LIST_FROM_SELECT);
-        intent.putExtra("album", album);
-        intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-        ActivityTrans.start(from, intent);
-    }
-
     @Override
     protected int getView(Intent intent) {
         return R.layout.activity_picture_list;
@@ -146,13 +138,7 @@ public class PictureListActivity extends BaseActivity<PictureListActivity> {
                     @Override
                     public void onSimpleItemLongClick(BaseQuickAdapter adapter, View view, int position) {
                         PictureAdapter pictureAdapter = (PictureAdapter) adapter;
-                        if (isFromSelectPicture()) {
-                            // 照片选择
-                            pictureAdapter.selectPicture(position);
-                        } else {
-                            // 照片操作
-                            pictureAdapter.showOperation(position);
-                        }
+                        pictureAdapter.showOperation(position);
                     }
                 })
                 .listenerClick(new OnItemChildClickListener() {
@@ -279,10 +265,6 @@ public class PictureListActivity extends BaseActivity<PictureListActivity> {
                 PictureEditActivity.goActivity(mActivity, album);
                 break;
         }
-    }
-
-    private boolean isFromSelectPicture() {
-        return getIntent().getIntExtra("from", BaseActivity.ACT_LIST_FROM_BROWSE) == BaseActivity.ACT_LIST_FROM_SELECT;
     }
 
     private void refreshAlbumView() {

@@ -411,7 +411,7 @@ public class TravelEditActivity extends BaseActivity<TravelEditActivity> {
                 TravelPlaceEditActivity.goActivity(mActivity);
                 break;
             case R.id.rlAlbumAdd: // 相册
-                AlbumListActivity.goActivityBySelectAlbum(mActivity);
+                AlbumListActivity.goActivityBySelect(mActivity);
                 break;
             case R.id.rlVideoAdd: // 视频
                 VideoListActivity.goActivityBySelect(mActivity);

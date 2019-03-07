@@ -63,11 +63,6 @@ public class AlbumAdapter extends BaseQuickAdapter<Album, BaseViewHolder> {
         RxBus.post(new RxBus.Event<>(RxBus.EVENT_ALBUM_SELECT, item));
     }
 
-    public void selectPicture(int position) {
-        Album item = getItem(position);
-        PictureListActivity.goActivityBySelect(mActivity, item);
-    }
-
     public void goAlbumDetail(int position) {
         Album item = getItem(position);
         PictureListActivity.goActivity(mActivity, item);

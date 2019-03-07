@@ -80,6 +80,8 @@ public class PictureAdapter extends BaseQuickAdapter<Picture, BaseViewHolder> {
         String address = item.getAddress();
         String content = item.getContentImage();
         // view
+        helper.setVisible(R.id.llOperateHorizontal, false);
+        helper.setVisible(R.id.llOperateVertical, false);
         if (mModel != MODEL_DETAIL) {
             helper.setVisible(R.id.tvHappenAt, false);
             helper.setVisible(R.id.vLine, false);
@@ -162,15 +164,8 @@ public class PictureAdapter extends BaseQuickAdapter<Picture, BaseViewHolder> {
         helper.addOnClickListener(R.id.tvCancelHorizontal);
     }
 
-    public void selectPicture(int position) {
-        mActivity.finish(); // 必须先关闭
-        Picture item = getItem(position);
-        RxBus.post(new RxBus.Event<>(RxBus.EVENT_PICTURE_SELECT, item));
-    }
-
     // 点击跳转地图
     public void onLocationClick(int position) {
-        hideOperation();
         Picture item = getItem(position);
         String address = item.getAddress();
         double longitude = item.getLongitude();
@@ -191,6 +186,7 @@ public class PictureAdapter extends BaseQuickAdapter<Picture, BaseViewHolder> {
         TextView tvModify, tvDelete, tvCancel;
         Animation modify, delete, cancel;
         FrescoView ivPicture = (FrescoView) getViewByPosition(position, R.id.ivPicture);
+        if (ivPicture == null || ivPicture.getLayoutParams() == null) return;
         if (ivPicture.getLayoutParams().height < imageWidth) {
             // 展示横向
             llOperate = (LinearLayout) getViewByPosition(position, R.id.llOperateHorizontal);
@@ -235,6 +231,7 @@ public class PictureAdapter extends BaseQuickAdapter<Picture, BaseViewHolder> {
         TextView tvModify, tvDelete, tvCancel;
         Animation modify, delete, cancel;
         FrescoView ivPicture = (FrescoView) getViewByPosition(operationPosition, R.id.ivPicture);
+        if (ivPicture == null || ivPicture.getLayoutParams() == null) return;
         if (ivPicture.getLayoutParams().height < imageWidth) {
             // 展示横向
             llOperate = (LinearLayout) getViewByPosition(operationPosition, R.id.llOperateHorizontal);

@@ -52,8 +52,6 @@ public abstract class BaseActivity<T> extends AppCompatActivity {
     // activityFrom
     public static final int ACT_LIST_FROM_BROWSE = 0;
     public static final int ACT_LIST_FROM_SELECT = 1;
-    public static final int ACT_LIST_FROM_SELECT_ALBUM = 2;
-    public static final int ACT_LIST_FROM_SELECT_PICTURE = 3;
     public static final int ACT_EDIT_FROM_ADD = 0;
     public static final int ACT_EDIT_FROM_UPDATE = 1;
     public static final int ACT_DETAIL_FROM_ID = 0;

@@ -62,16 +62,9 @@ public class AlbumListActivity extends BaseActivity<AlbumListActivity> {
         ActivityTrans.start(from, intent);
     }
 
-    public static void goActivityBySelectAlbum(Activity from) {
+    public static void goActivityBySelect(Activity from) {
         Intent intent = new Intent(from, AlbumListActivity.class);
-        intent.putExtra("from", BaseActivity.ACT_LIST_FROM_SELECT_ALBUM);
-        intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-        ActivityTrans.start(from, intent);
-    }
-
-    public static void goActivityBySelectPicture(Activity from) {
-        Intent intent = new Intent(from, AlbumListActivity.class);
-        intent.putExtra("from", BaseActivity.ACT_LIST_FROM_SELECT_PICTURE);
+        intent.putExtra("from", BaseActivity.ACT_LIST_FROM_SELECT);
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         ActivityTrans.start(from, intent);
     }
@@ -84,7 +77,7 @@ public class AlbumListActivity extends BaseActivity<AlbumListActivity> {
     @Override
     protected void initView(Intent intent, Bundle state) {
         String title;
-        if (isFromSelectAlbum() || isFromSelectPicture()) {
+        if (isFromSelect()) {
             title = getString(R.string.please_select_album);
         } else {
             title = getString(R.string.album);
@@ -104,12 +97,9 @@ public class AlbumListActivity extends BaseActivity<AlbumListActivity> {
                     @Override
                     public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
                         AlbumAdapter albumAdapter = (AlbumAdapter) adapter;
-                        if (isFromSelectAlbum()) {
+                        if (isFromSelect()) {
                             // 相册选择
                             albumAdapter.selectAlbum(position);
-                        } else if (isFromSelectPicture()) {
-                            // 照片列表选择
-                            albumAdapter.selectPicture(position);
                         } else {
                             // 照片列表浏览
                             albumAdapter.goAlbumDetail(position);
@@ -160,12 +150,8 @@ public class AlbumListActivity extends BaseActivity<AlbumListActivity> {
         }
     }
 
-    private boolean isFromSelectAlbum() {
-        return getIntent().getIntExtra("from", BaseActivity.ACT_LIST_FROM_BROWSE) == BaseActivity.ACT_LIST_FROM_SELECT_ALBUM;
-    }
-
-    private boolean isFromSelectPicture() {
-        return getIntent().getIntExtra("from", BaseActivity.ACT_LIST_FROM_BROWSE) == BaseActivity.ACT_LIST_FROM_SELECT_PICTURE;
+    private boolean isFromSelect() {
+        return getIntent().getIntExtra("from", BaseActivity.ACT_LIST_FROM_BROWSE) == BaseActivity.ACT_LIST_FROM_SELECT;
     }
 
     private void getData(final boolean more) {

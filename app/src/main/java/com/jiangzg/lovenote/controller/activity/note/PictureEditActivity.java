@@ -225,7 +225,7 @@ public class PictureEditActivity extends BaseActivity<PictureEditActivity> {
                 MapSelectActivity.goActivity(mActivity, picture.getAddress(), picture.getLongitude(), picture.getLatitude());
                 break;
             case R.id.llAlbum: // 相册
-                AlbumListActivity.goActivityBySelectAlbum(mActivity);
+                AlbumListActivity.goActivityBySelect(mActivity);
                 break;
         }
     }
