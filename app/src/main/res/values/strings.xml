@@ -648,8 +648,10 @@
     <string name="help_couple_info_c1_a">没错！你只能修改对方的信息，不能修改自己的！\n试想一下，恋爱过程中，你的形象完全取决与你的TA，多么有意思的一件事啊。</string>
     <string name="help_couple_info_c2_q">为什么我不能修改生日呢？</string>
     <string name="help_couple_info_c2_a">小淘气，在你注册的时候已经告诉过你了，性别生日一旦设定，将不能修改！\n如果是手误导致设置错了，请移步《关于我们》，联系客服人员解决。</string>
-    <string name="help_couple_info_c3_q">《解散》是干嘛的？</string>
-    <string name="help_couple_info_c3_a" formatted="false">点击解散之后会出现两种状况:\n1.配对持续时长小于%d天时，直接解散。\n2.配对持续时长大于%d天时，会有%d小时的倒计时。倒计时内没有复合，视为单方面分手。倒计时内对方也点击解散，视为双方面分手。\n最后！注意！切记！如果是一些非原则性问题导致想不开的话，小编觉得还是多磨合一下的好。\n再一次最后，如果在感情上有什么疑问或者委屈，请移步《关于我们》，找到并联系我们，我们会尽最大的努力来帮助你。</string>
+    <string name="help_couple_info_c3_q">在一起的天数为什么和其他情侣app不一致呢？</string>
+    <string name="help_couple_info_c3_a" formatted="false">在这里要着重声明一下，大家都没有错，只是概念不一样。其他app强调的是第几天，我们强调的是几天。\n举个例子：假设一对情侣是昨天早上10点在一起的话，今天早上9点看的话，其他app上当前显示的是第2天(今天加昨天)，我们这里显示的是第0天(23小时，不到一天)。懂了吗？</string>
+    <string name="help_couple_info_c4_q">《解散》是干嘛的？</string>
+    <string name="help_couple_info_c4_a" formatted="false">点击解散之后会出现两种状况:\n1.配对持续时长小于%d天时，直接解散。\n2.配对持续时长大于%d天时，会有%d小时的倒计时。倒计时内没有复合，视为单方面分手。倒计时内对方也点击解散，视为双方面分手。\n最后！注意！切记！如果是一些非原则性问题导致想不开的话，小编觉得还是多磨合一下的好。\n再一次最后，如果在感情上有什么疑问或者委屈，请移步《关于我们》，找到并联系我们，我们会尽最大的努力来帮助你。</string>
     <string name="help_note_home_d">记录与分享，这个模块更专注于记录。\n生活的点点滴滴，大小事项，都可以在这里记录哦！还不赶快动起手来？</string>
     <string name="help_note_home_c1_q">数据放在这里安全吗？</string>
     <string name="help_note_home_c1_a">请放心！此模块中的数据全为私有数据，除了你和TA之外无人可以访问。如果双方解除配对了，那么此配对中的记录模块的数据将不见天日，除非复合。</string>

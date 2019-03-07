@@ -338,8 +338,12 @@ public class HelpActivity extends BaseActivity<HelpActivity> {
         contentList.add(c2);
         Help.HelpContent c3 = new Help.HelpContent();
         c3.setQuestion(getString(R.string.help_couple_info_c3_q));
-        c3.setAnswer(String.format(Locale.getDefault(), getString(R.string.help_couple_info_c3_a), breakNeedDay, breakNeedDay, breakContinueHour));
+        c3.setAnswer(getString(R.string.help_couple_info_c3_a));
         contentList.add(c3);
+        Help.HelpContent c4 = new Help.HelpContent();
+        c4.setQuestion(getString(R.string.help_couple_info_c4_q));
+        c4.setAnswer(String.format(Locale.getDefault(), getString(R.string.help_couple_info_c4_a), breakNeedDay, breakNeedDay, breakContinueHour));
+        contentList.add(c4);
         help.setContentList(contentList);
         return help;
     }
