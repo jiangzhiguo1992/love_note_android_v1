@@ -47,7 +47,6 @@ public class AlbumEditActivity extends BaseActivity<AlbumEditActivity> {
 
     private Album album;
     private RecyclerHelper recyclerHelper;
-    private int limitTitleLength;
 
     public static void goActivity(Activity from) {
         Intent intent = new Intent(from, AlbumEditActivity.class);
