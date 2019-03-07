@@ -163,6 +163,7 @@ public class AlbumEditActivity extends BaseActivity<AlbumEditActivity> {
             ToastUtils.show(etTitle.getHint().toString());
             return;
         }
+        album.setTitle(etTitle.getText().toString().trim());
         // cover
         File file = null;
         if (recyclerHelper != null && recyclerHelper.getAdapter() != null) {
@@ -196,7 +197,6 @@ public class AlbumEditActivity extends BaseActivity<AlbumEditActivity> {
 
     private void commit() {
         if (album == null) return;
-        album.setTitle(etTitle.getText().toString().trim());
         if (isFromUpdate()) {
             updateApi();
         } else {
@@ -212,6 +212,7 @@ public class AlbumEditActivity extends BaseActivity<AlbumEditActivity> {
             public void onResponse(int code, String message, Result.Data data) {
                 // event
                 RxBus.post(new RxBus.Event<>(RxBus.EVENT_ALBUM_LIST_REFRESH, new ArrayList<>()));
+                // finish
                 mActivity.finish();
             }
 
@@ -230,6 +231,8 @@ public class AlbumEditActivity extends BaseActivity<AlbumEditActivity> {
             public void onResponse(int code, String message, Result.Data data) {
                 // event
                 RxBus.post(new RxBus.Event<>(RxBus.EVENT_ALBUM_LIST_ITEM_REFRESH, data.getAlbum()));
+                RxBus.post(new RxBus.Event<>(RxBus.EVENT_ALBUM_DETAIL_REFRESH, data.getAlbum()));
+                // finish
                 mActivity.finish();
             }
 

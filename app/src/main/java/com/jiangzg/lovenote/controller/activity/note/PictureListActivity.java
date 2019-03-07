@@ -201,11 +201,6 @@ public class PictureListActivity extends BaseActivity<PictureListActivity> {
             refreshAlbum(album.getId());
         });
         pushBus(RxBus.EVENT_ALBUM_DETAIL_REFRESH, obAlbumRefresh);
-        Observable<Album> obAlbumListRefresh = RxBus.register(RxBus.EVENT_ALBUM_LIST_ITEM_REFRESH, a -> {
-            if (album == null || a == null || album.getId() != a.getId()) return;
-            refreshAlbum(album.getId());
-        });
-        pushBus(RxBus.EVENT_ALBUM_LIST_ITEM_REFRESH, obAlbumListRefresh);
         Observable<List<Picture>> obListRefresh = RxBus.register(RxBus.EVENT_PICTURE_LIST_REFRESH, pictureList -> {
             if (recyclerHelper == null) return;
             recyclerHelper.dataRefresh();
