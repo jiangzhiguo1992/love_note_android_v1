@@ -302,8 +302,7 @@ public class AlbumEditActivity extends BaseActivity<AlbumEditActivity> {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 // event
-                Album album = data.getAlbum();
-                RxBus.post(new RxBus.Event<>(RxBus.EVENT_ALBUM_LIST_ITEM_REFRESH, album));
+                RxBus.post(new RxBus.Event<>(RxBus.EVENT_ALBUM_LIST_ITEM_REFRESH, data.getAlbum()));
                 mActivity.finish();
             }
 

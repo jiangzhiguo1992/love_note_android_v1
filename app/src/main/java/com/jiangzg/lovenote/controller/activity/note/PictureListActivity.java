@@ -11,10 +11,13 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemChildClickListener;
 import com.chad.library.adapter.base.listener.OnItemLongClickListener;
@@ -22,6 +25,7 @@ import com.jiangzg.base.common.ConvertUtils;
 import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.base.component.ActivityTrans;
 import com.jiangzg.base.view.ScreenUtils;
+import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.controller.activity.base.BaseActivity;
 import com.jiangzg.lovenote.controller.adapter.note.PictureAdapter;
@@ -30,6 +34,7 @@ import com.jiangzg.lovenote.helper.common.RxBus;
 import com.jiangzg.lovenote.helper.common.TimeHelper;
 import com.jiangzg.lovenote.helper.media.FrescoHelper;
 import com.jiangzg.lovenote.helper.system.RetrofitHelper;
+import com.jiangzg.lovenote.helper.view.DialogHelper;
 import com.jiangzg.lovenote.helper.view.RecyclerHelper;
 import com.jiangzg.lovenote.helper.view.ViewHelper;
 import com.jiangzg.lovenote.model.api.API;
@@ -210,6 +215,11 @@ public class PictureListActivity extends BaseActivity<PictureListActivity> {
             refreshAlbum(album.getId());
         });
         pushBus(RxBus.EVENT_ALBUM_DETAIL_REFRESH, obAlbumRefresh);
+        Observable<Album> obAlbumListRefresh = RxBus.register(RxBus.EVENT_ALBUM_LIST_ITEM_REFRESH, a -> {
+            if (album == null || a == null || album.getId() != a.getId()) return;
+            refreshAlbum(album.getId());
+        });
+        pushBus(RxBus.EVENT_ALBUM_LIST_ITEM_REFRESH, obAlbumListRefresh);
         Observable<List<Picture>> obListRefresh = RxBus.register(RxBus.EVENT_PICTURE_LIST_REFRESH, pictureList -> {
             if (recyclerHelper == null) return;
             recyclerHelper.dataRefresh();
@@ -235,6 +245,26 @@ public class PictureListActivity extends BaseActivity<PictureListActivity> {
     @Override
     protected void onFinish(Bundle state) {
         RecyclerHelper.release(recyclerHelper);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.del_edit, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menuEdit: // 编辑
+                if (album == null) return true;
+                AlbumEditActivity.goActivity(mActivity, album);
+                return true;
+            case R.id.menuDel: // 删除
+                showDeleteDialog();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @OnClick({R.id.fabModel, R.id.fabAdd})
@@ -325,6 +355,41 @@ public class PictureListActivity extends BaseActivity<PictureListActivity> {
             }
         });
         pushApi(api);
+    }
+
+    public void showDeleteDialog() {
+        if (album == null || !album.isMine()) {
+            ToastUtils.show(mActivity.getString(R.string.can_operation_self_create_note));
+            return;
+        }
+        MaterialDialog dialog = DialogHelper.getBuild(mActivity)
+                .cancelable(true)
+                .canceledOnTouchOutside(true)
+                .title(R.string.confirm_delete_this_note)
+                .positiveText(R.string.confirm)
+                .onPositive((dialog1, which) -> delApi())
+                .negativeText(R.string.cancel)
+                .build();
+        DialogHelper.showWithAnim(dialog);
+    }
+
+    private void delApi() {
+        if (album == null) return;
+        Call<Result> api = new RetrofitHelper().call(API.class).noteAlbumDel(album.getId());
+        RetrofitHelper.enqueue(api, mActivity.getLoading(true), new RetrofitHelper.CallBack() {
+            @Override
+            public void onResponse(int code, String message, Result.Data data) {
+                // event
+                RxBus.post(new RxBus.Event<>(RxBus.EVENT_ALBUM_LIST_ITEM_DELETE, album));
+                // finish
+                mActivity.finish();
+            }
+
+            @Override
+            public void onFailure(int code, String message, Result.Data data) {
+            }
+        });
+        mActivity.pushApi(api);
     }
 
 }

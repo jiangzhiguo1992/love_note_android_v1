@@ -11,9 +11,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.chad.library.adapter.base.listener.OnItemChildClickListener;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
-import com.chad.library.adapter.base.listener.OnItemLongClickListener;
 import com.jiangzg.base.component.ActivityTrans;
 import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.controller.activity.base.BaseActivity;
@@ -117,46 +115,7 @@ public class AlbumListActivity extends BaseActivity<AlbumListActivity> {
                             albumAdapter.goAlbumDetail(position);
                         }
                     }
-                })
-                .listenerClick(new OnItemLongClickListener() {
-                    @Override
-                    public void onSimpleItemLongClick(BaseQuickAdapter adapter, View view, int position) {
-                        AlbumAdapter albumAdapter = (AlbumAdapter) adapter;
-                        albumAdapter.showOperation(position);
-                    }
-                })
-                .listenerClick(new OnItemChildClickListener() {
-                    @Override
-                    public void onSimpleItemChildClick(BaseQuickAdapter adapter, View view, int position) {
-                        AlbumAdapter albumAdapter = (AlbumAdapter) adapter;
-                        switch (view.getId()) {
-                            case R.id.tvModify: // 修改
-                                albumAdapter.goEdit(position);
-                                break;
-                            case R.id.tvDelete: // 删除
-                                albumAdapter.showDeleteDialog(position);
-                                break;
-                            case R.id.tvCancel: // 取消
-                                albumAdapter.hideOperation();
-                                break;
-                        }
-                    }
                 });
-        // recycler
-        rv.addOnScrollListener(new RecyclerView.OnScrollListener() {
-            @Override
-            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
-                super.onScrollStateChanged(recyclerView, newState);
-                if (recyclerHelper == null) return;
-                AlbumAdapter adapter = recyclerHelper.getAdapter();
-                if (adapter != null) adapter.hideOperation();
-            }
-
-            @Override
-            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-                super.onScrolled(recyclerView, dx, dy);
-            }
-        });
     }
 
     @Override
@@ -172,6 +131,11 @@ public class AlbumListActivity extends BaseActivity<AlbumListActivity> {
             ListHelper.refreshObjInAdapter(recyclerHelper.getAdapter(), album);
         });
         pushBus(RxBus.EVENT_ALBUM_LIST_ITEM_REFRESH, busListItemRefresh);
+        Observable<Album> busListItemDelete = RxBus.register(RxBus.EVENT_ALBUM_LIST_ITEM_DELETE, album -> {
+            if (recyclerHelper == null) return;
+            ListHelper.removeObjInAdapter(recyclerHelper.getAdapter(), album);
+        });
+        pushBus(RxBus.EVENT_ALBUM_LIST_ITEM_DELETE, busListItemDelete);
         Observable<Picture> busPictureSelect = RxBus.register(RxBus.EVENT_PICTURE_SELECT, picture -> {
             if (!mActivity.isFinishing()) {
                 mActivity.finish();

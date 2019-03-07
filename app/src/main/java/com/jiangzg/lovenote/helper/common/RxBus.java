@@ -49,8 +49,9 @@ public class RxBus {
     public static final int EVENT_VIDEO_LIST_REFRESH = 4070; // 视频
     public static final int EVENT_VIDEO_LIST_ITEM_DELETE = 4071;
     public static final int EVENT_ALBUM_LIST_REFRESH = 4080; // 相册
-    public static final int EVENT_ALBUM_LIST_ITEM_REFRESH = 4081;
-    public static final int EVENT_ALBUM_DETAIL_REFRESH = 4082;
+    public static final int EVENT_ALBUM_LIST_ITEM_DELETE = 4081;
+    public static final int EVENT_ALBUM_LIST_ITEM_REFRESH = 4082;
+    public static final int EVENT_ALBUM_DETAIL_REFRESH = 4083;
     public static final int EVENT_PICTURE_LIST_REFRESH = 4090; // 照片
     public static final int EVENT_PICTURE_LIST_ITEM_REFRESH = 4091;
     public static final int EVENT_PICTURE_LIST_ITEM_DELETE = 4092;
