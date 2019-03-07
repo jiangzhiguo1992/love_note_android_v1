@@ -1,62 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    android:gravity="center_horizontal"
+    android:orientation="vertical"
     tools:context=".controller.activity.note.AlbumEditActivity">
 
     <include layout="@layout/view_top_bar"/>
 
-    <EditText
-        android:id="@+id/etTitle"
-        style="@style/FontBlackNormal"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/abl"
-        android:layout_marginStart="50dp"
-        android:layout_marginTop="30dp"
-        android:layout_marginEnd="50dp"
-        android:layout_marginBottom="30dp"
-        android:background="@drawable/shape_stroke_grey_r3"
-        android:hint="@string/please_input_name_no_over_holder_text"
-        android:maxLines="1"
-        android:padding="10dp"
-        android:singleLine="true"
-        android:textColorHint="@color/font_hint"/>
+        android:layout_height="0dp"
+        android:layout_weight="1">
 
-    <ImageView
-        android:id="@+id/ivAdd"
-        android:layout_width="match_parent"
-        android:layout_height="270dp"
-        android:layout_below="@+id/etTitle"
-        android:layout_centerHorizontal="true"
-        android:layout_marginStart="50dp"
-        android:layout_marginEnd="50dp"
-        android:background="@drawable/shape_stroke_grey_r3"
-        android:elevation="@dimen/elevation_normal"
-        android:scaleType="fitCenter"
-        android:src="@mipmap/ic_add_grey_48dp"
-        android:visibility="gone"
-        tools:visibility="visible"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
 
-    <com.jiangzg.lovenote.view.FrescoView
-        android:id="@+id/ivAlbum"
-        android:layout_width="match_parent"
-        android:layout_height="270dp"
-        android:layout_below="@+id/etTitle"
-        android:layout_centerHorizontal="true"
-        android:layout_marginStart="50dp"
-        android:layout_marginEnd="50dp"
-        android:background="?attr/selectableItemBackground"
-        android:foreground="?attr/selectableItemBackground"
-        android:visibility="gone"
-        app:actualImageScaleType="centerCrop"
-        tools:scaleType="centerCrop"
-        tools:src="@mipmap/ic_launcher"
-        tools:visibility="gone"/>
-</RelativeLayout>
+            <EditText
+                android:id="@+id/etTitle"
+                style="@style/FontGreyNormal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp"
+                android:background="@null"
+                android:hint="@string/please_input_title"
+                android:inputType="text"
+                android:maxLines="1"
+                android:padding="10dp"
+                android:singleLine="true"
+                android:textColorHint="@color/font_hint"/>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="7.5dp"/>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

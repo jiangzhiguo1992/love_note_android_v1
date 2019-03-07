@@ -3,61 +3,51 @@ package com.jiangzg.lovenote.controller.activity.note;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.text.Editable;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
 import android.widget.EditText;
-import android.widget.ImageView;
 
-import com.afollestad.materialdialogs.MaterialDialog;
-import com.jiangzg.base.common.ConvertUtils;
 import com.jiangzg.base.common.FileUtils;
 import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.base.component.ActivityTrans;
-import com.jiangzg.base.view.ScreenUtils;
 import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.controller.activity.base.BaseActivity;
-import com.jiangzg.lovenote.controller.activity.common.BigImageActivity;
+import com.jiangzg.lovenote.controller.adapter.common.ImgSquareEditAdapter;
 import com.jiangzg.lovenote.helper.common.OssHelper;
 import com.jiangzg.lovenote.helper.common.RxBus;
 import com.jiangzg.lovenote.helper.common.SPHelper;
 import com.jiangzg.lovenote.helper.media.PickHelper;
 import com.jiangzg.lovenote.helper.system.RetrofitHelper;
-import com.jiangzg.lovenote.helper.view.DialogHelper;
+import com.jiangzg.lovenote.helper.view.RecyclerHelper;
 import com.jiangzg.lovenote.helper.view.ViewHelper;
 import com.jiangzg.lovenote.model.api.API;
 import com.jiangzg.lovenote.model.api.Result;
 import com.jiangzg.lovenote.model.entity.Album;
-import com.jiangzg.lovenote.view.FrescoView;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 
 import butterknife.BindView;
-import butterknife.OnClick;
-import butterknife.OnLongClick;
-import butterknife.OnTextChanged;
 import retrofit2.Call;
 
 public class AlbumEditActivity extends BaseActivity<AlbumEditActivity> {
 
     @BindView(R.id.tb)
     Toolbar tb;
-    @BindView(R.id.ivAdd)
-    ImageView ivAdd;
-    @BindView(R.id.ivAlbum)
-    FrescoView ivAlbum;
     @BindView(R.id.etTitle)
     EditText etTitle;
+    @BindView(R.id.rv)
+    RecyclerView rv;
 
     private Album album;
+    private RecyclerHelper recyclerHelper;
     private int limitTitleLength;
-    private File pictureFile;
 
     public static void goActivity(Activity from) {
         Intent intent = new Intent(from, AlbumEditActivity.class);
@@ -96,29 +86,33 @@ public class AlbumEditActivity extends BaseActivity<AlbumEditActivity> {
         if (album == null) {
             album = new Album();
         }
-        // input
+        // title
+        String format = getString(R.string.please_input_name_no_over_holder_text);
+        String hint = String.format(Locale.getDefault(), format, SPHelper.getLimit().getAlbumTitleLength());
+        etTitle.setHint(hint);
         etTitle.setText(album.getTitle());
-        // view
-        ViewGroup.LayoutParams layoutParams = ivAlbum.getLayoutParams();
-        int width = ScreenUtils.getScreenWidth(mActivity) - (ConvertUtils.dp2px(50) * 2);
-        ivAlbum.setWidthAndHeight(width, layoutParams.height);
-        ivAlbum.setClickListener(iv -> {
-            if (album == null) return;
-            if (!FileUtils.isFileEmpty(pictureFile)) {
-                BigImageActivity.goActivityByFile(mActivity, pictureFile.getAbsolutePath(), iv);
-            } else if (!StringUtils.isEmpty(album.getCover())) {
-                BigImageActivity.goActivityByOss(mActivity, album.getCover(), iv);
-            }
-        });
+        // rv
+        int spanCount = 3;
+        ImgSquareEditAdapter imgAdapter = new ImgSquareEditAdapter(mActivity, spanCount, 1);
+        imgAdapter.setOnAddClick(() -> PickHelper.selectImage(mActivity, 1, true));
+        if (!StringUtils.isEmpty(album.getCover())) {
+            List<String> covers = new ArrayList<>();
+            covers.add(album.getCover());
+            imgAdapter.setOssData(covers);
+        }
+        recyclerHelper = new RecyclerHelper(rv)
+                .initLayoutManager(new GridLayoutManager(mActivity, spanCount))
+                .initAdapter(imgAdapter)
+                .setAdapter();
     }
 
     @Override
     protected void initData(Intent intent, Bundle state) {
-        refreshDateView();
     }
 
     @Override
     protected void onFinish(Bundle state) {
+        RecyclerHelper.release(recyclerHelper);
     }
 
     @Override
@@ -133,15 +127,15 @@ public class AlbumEditActivity extends BaseActivity<AlbumEditActivity> {
         if (resultCode != RESULT_OK) return;
         if (requestCode == BaseActivity.REQUEST_PICTURE) {
             // 相册
-            pictureFile = PickHelper.getResultFile(mActivity, data);
-            if (FileUtils.isFileEmpty(pictureFile)) {
+            List<String> pathList = PickHelper.getResultFilePathList(mActivity, data);
+            if (pathList == null || pathList.size() <= 0) {
                 ToastUtils.show(getString(R.string.file_no_exits));
-                pictureFile = null;
-                setCoverVisible(false);
-            } else {
-                setCoverVisible(true);
-                ivAlbum.setDataFile(pictureFile);
+                return;
             }
+            if (recyclerHelper == null) return;
+            ImgSquareEditAdapter adapter = recyclerHelper.getAdapter();
+            if (adapter == null) return;
+            adapter.addFileDataList(pathList);
         }
     }
 
@@ -155,98 +149,32 @@ public class AlbumEditActivity extends BaseActivity<AlbumEditActivity> {
         return super.onOptionsItemSelected(item);
     }
 
-    @OnTextChanged({R.id.etTitle})
-    public void afterTextChanged(Editable s) {
-        onContentInput(s.toString());
-    }
-
-    @OnClick({R.id.ivAdd})
-    public void onViewClicked(View view) {
-        switch (view.getId()) {
-            case R.id.ivAdd: // 封面图片
-                PickHelper.selectImage(mActivity, 1, true);
-                break;
-        }
-    }
-
-    @OnLongClick({R.id.ivAlbum})
-    public boolean onLongClick(View view) {
-        switch (view.getId()) {
-            case R.id.ivAlbum: // 删除封面
-                showDeleteDialog();
-                return true;
-        }
-        return false;
-    }
-
     private boolean isFromUpdate() {
         return getIntent().getIntExtra("from", BaseActivity.ACT_EDIT_FROM_ADD) == BaseActivity.ACT_EDIT_FROM_UPDATE;
     }
 
-    private void refreshDateView() {
-        if (album == null) return;
-        String title = album.getTitle();
-        String cover = album.getCover();
-        // etTitle
-        if (limitTitleLength <= 0) {
-            limitTitleLength = SPHelper.getLimit().getAlbumTitleLength();
-        }
-        String string = getString(R.string.please_input_name_no_over_holder_text);
-        String format = String.format(Locale.getDefault(), string, limitTitleLength);
-        etTitle.setHint(format);
-        etTitle.setText(title);
-        // cover
-        if (StringUtils.isEmpty(cover)) {
-            setCoverVisible(false);
-        } else {
-            setCoverVisible(true);
-            ivAlbum.setData(cover);
-        }
-    }
-
-    private void onContentInput(String input) {
-        if (input == null) return;
-        if (limitTitleLength <= 0) {
-            limitTitleLength = SPHelper.getLimit().getAlbumTitleLength();
-        }
-        int length = input.length();
-        if (length > limitTitleLength) {
-            CharSequence charSequence = input.subSequence(0, limitTitleLength);
-            etTitle.setText(charSequence);
-            etTitle.setSelection(charSequence.length());
-        }
-    }
-
-    private void showDeleteDialog() {
-        MaterialDialog dialog = DialogHelper.getBuild(mActivity)
-                .cancelable(true)
-                .canceledOnTouchOutside(true)
-                .content(R.string.confirm_delete_this_image)
-                .positiveText(R.string.confirm_no_wrong)
-                .negativeText(R.string.i_think_again)
-                .onPositive((dialog1, which) -> setCoverVisible(false))
-                .build();
-        DialogHelper.showWithAnim(dialog);
-    }
-
-    private void setCoverVisible(boolean show) {
-        if (album == null) return;
-        if (!show) {
-            pictureFile = null;
-            album.setCover("");
-        }
-        ivAdd.setVisibility(show ? View.GONE : View.VISIBLE);
-        ivAlbum.setVisibility(show ? View.VISIBLE : View.GONE);
-    }
-
     private void checkCover() {
-        // btn
-        if (StringUtils.isEmpty(etTitle.getText().toString().trim())) {
+        if (album == null) return;
+        // title
+        String title = etTitle.getText().toString();
+        if (StringUtils.isEmpty(title)) {
+            ToastUtils.show(etTitle.getHint().toString());
+            return;
+        } else if (title.length() > SPHelper.getLimit().getAlbumTitleLength()) {
             ToastUtils.show(etTitle.getHint().toString());
             return;
         }
-        if (!FileUtils.isFileEmpty(pictureFile)) {
-            pushImage(pictureFile);
+        // cover
+        File file = null;
+        if (recyclerHelper != null && recyclerHelper.getAdapter() != null) {
+            ImgSquareEditAdapter adapter = recyclerHelper.getAdapter();
+            List<String> fileData = adapter.getFileData();
+            if (fileData != null && fileData.size() > 0) {
+                file = FileUtils.getFileByPath(fileData.get(0));
+            }
+        }
+        if (!FileUtils.isFileEmpty(file)) {
+            pushImage(file);
         } else {
             commit();
         }
