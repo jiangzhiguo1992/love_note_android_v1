@@ -24,7 +24,6 @@ import com.jiangzg.lovenote.helper.view.ViewHelper;
 import com.jiangzg.lovenote.model.api.API;
 import com.jiangzg.lovenote.model.api.Result;
 import com.jiangzg.lovenote.model.entity.Album;
-import com.jiangzg.lovenote.model.entity.Picture;
 import com.jiangzg.lovenote.view.GSwipeRefreshLayout;
 
 import java.util.List;
@@ -126,12 +125,6 @@ public class AlbumListActivity extends BaseActivity<AlbumListActivity> {
             ListHelper.removeObjInAdapter(recyclerHelper.getAdapter(), album);
         });
         pushBus(RxBus.EVENT_ALBUM_LIST_ITEM_DELETE, busListItemDelete);
-        Observable<Picture> busPictureSelect = RxBus.register(RxBus.EVENT_PICTURE_SELECT, picture -> {
-            if (!mActivity.isFinishing()) {
-                mActivity.finish();
-            }
-        });
-        pushBus(RxBus.EVENT_PICTURE_SELECT, busPictureSelect);
         // refresh
         recyclerHelper.dataRefresh();
     }

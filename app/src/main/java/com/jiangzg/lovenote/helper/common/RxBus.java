@@ -23,7 +23,6 @@ public class RxBus {
     public static final int EVENT_MAP_SELECT = 101; // 选择
     public static final int EVENT_VIDEO_SELECT = 102;
     public static final int EVENT_ALBUM_SELECT = 103;
-    public static final int EVENT_PICTURE_SELECT = 104;
     public static final int EVENT_DIARY_SELECT = 105;
     public static final int EVENT_AWARD_RULE_SELECT = 106;
     public static final int EVENT_TRAVEL_SELECT = 107;
