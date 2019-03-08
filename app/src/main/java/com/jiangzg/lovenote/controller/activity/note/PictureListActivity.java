@@ -262,6 +262,27 @@ public class PictureListActivity extends BaseActivity<PictureListActivity> {
         }
     }
 
+    private void refreshAlbum(long albumId) {
+        Call<Result> api = new RetrofitHelper().call(API.class).noteAlbumGet(albumId);
+        RetrofitHelper.enqueue(api, getLoading(true), new RetrofitHelper.CallBack() {
+            @Override
+            public void onResponse(int code, String message, Result.Data data) {
+                if (recyclerHelper == null) return;
+                if (data.getAlbum() == null) return;
+                album = data.getAlbum();
+                refreshAlbumView();
+                recyclerHelper.dataRefresh();
+            }
+
+            @Override
+            public void onFailure(int code, String message, Result.Data data) {
+                if (recyclerHelper == null) return;
+                recyclerHelper.dataFail(false, message);
+            }
+        });
+        pushApi(api);
+    }
+
     private void refreshAlbumView() {
         if (album == null) return;
         // data
@@ -308,27 +329,6 @@ public class PictureListActivity extends BaseActivity<PictureListActivity> {
             public void onFailure(int code, String message, Result.Data data) {
                 if (recyclerHelper == null) return;
                 recyclerHelper.dataFail(more, message);
-            }
-        });
-        pushApi(api);
-    }
-
-    private void refreshAlbum(long albumId) {
-        Call<Result> api = new RetrofitHelper().call(API.class).noteAlbumGet(albumId);
-        RetrofitHelper.enqueue(api, getLoading(true), new RetrofitHelper.CallBack() {
-            @Override
-            public void onResponse(int code, String message, Result.Data data) {
-                if (recyclerHelper == null) return;
-                album = data.getAlbum();
-                if (album == null) return;
-                refreshAlbumView();
-                recyclerHelper.dataRefresh();
-            }
-
-            @Override
-            public void onFailure(int code, String message, Result.Data data) {
-                if (recyclerHelper == null) return;
-                recyclerHelper.dataFail(false, message);
             }
         });
         pushApi(api);
