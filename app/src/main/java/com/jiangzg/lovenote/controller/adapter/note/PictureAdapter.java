@@ -4,13 +4,7 @@ import android.graphics.Bitmap;
 import android.os.Build;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.graphics.Palette;
-import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
-import android.view.animation.DecelerateInterpolator;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -19,13 +13,11 @@ import com.facebook.imagepipeline.image.ImageInfo;
 import com.jiangzg.base.common.ConvertUtils;
 import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.base.view.ScreenUtils;
-import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.base.view.ViewUtils;
 import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.controller.activity.base.BaseActivity;
 import com.jiangzg.lovenote.controller.activity.common.BigImageActivity;
 import com.jiangzg.lovenote.controller.activity.common.MapShowActivity;
-import com.jiangzg.lovenote.controller.activity.note.PictureEditActivity;
 import com.jiangzg.lovenote.helper.common.ListHelper;
 import com.jiangzg.lovenote.helper.common.RxBus;
 import com.jiangzg.lovenote.helper.common.TimeHelper;
@@ -33,7 +25,6 @@ import com.jiangzg.lovenote.helper.system.RetrofitHelper;
 import com.jiangzg.lovenote.helper.view.DialogHelper;
 import com.jiangzg.lovenote.model.api.API;
 import com.jiangzg.lovenote.model.api.Result;
-import com.jiangzg.lovenote.model.entity.Album;
 import com.jiangzg.lovenote.model.entity.Picture;
 import com.jiangzg.lovenote.view.FrescoView;
 
@@ -55,7 +46,7 @@ public class PictureAdapter extends BaseQuickAdapter<Picture, BaseViewHolder> {
     private final int imageWidth, imageHeight;
     private final int colorPrimary;
     private int mModel;
-    private int operationPosition;
+    //private int operationPosition;
 
     public PictureAdapter(BaseActivity activity) {
         super(R.layout.list_item_picture);
@@ -64,7 +55,7 @@ public class PictureAdapter extends BaseQuickAdapter<Picture, BaseViewHolder> {
         float screenWidth = ScreenUtils.getScreenRealWidth(activity);
         int dp5 = ConvertUtils.dp2px(5);
         imageWidth = imageHeight = (int) (screenWidth / 2) - dp5 * 2;
-        operationPosition = -1;
+        //operationPosition = -1;
         colorPrimary = ContextCompat.getColor(activity, ViewUtils.getColorPrimary(mActivity));
     }
 
@@ -80,19 +71,19 @@ public class PictureAdapter extends BaseQuickAdapter<Picture, BaseViewHolder> {
         String address = item.getAddress();
         String content = item.getContentImage();
         // view
-        helper.setVisible(R.id.llOperateHorizontal, false);
-        helper.setVisible(R.id.llOperateVertical, false);
+        //helper.setVisible(R.id.llOperateHorizontal, false);
+        //helper.setVisible(R.id.llOperateVertical, false);
         if (mModel != MODEL_DETAIL) {
             helper.setVisible(R.id.tvHappenAt, false);
-            helper.setVisible(R.id.vLine, false);
             helper.setVisible(R.id.tvAddress, false);
+            helper.setVisible(R.id.vLine, false);
         } else {
             helper.setVisible(R.id.tvHappenAt, item.getHappenAt() != 0);
-            helper.setVisible(R.id.vLine, !StringUtils.isEmpty(address));
             helper.setVisible(R.id.tvAddress, !StringUtils.isEmpty(address));
+            helper.setVisible(R.id.vLine, (item.getHappenAt() != 0) && (!StringUtils.isEmpty(address)));
+            helper.setText(R.id.tvHappenAt, happen);
+            helper.setText(R.id.tvAddress, address);
         }
-        helper.setText(R.id.tvHappenAt, happen);
-        helper.setText(R.id.tvAddress, address);
         FrescoView ivPicture = helper.getView(R.id.ivPicture);
         // 按版本来采样吧，低版本不能太大
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -156,12 +147,12 @@ public class PictureAdapter extends BaseQuickAdapter<Picture, BaseViewHolder> {
         ivPicture.setData(content);
         // listener
         helper.addOnClickListener(R.id.tvAddress);
-        helper.addOnClickListener(R.id.tvModifyVertical);
-        helper.addOnClickListener(R.id.tvDeleteVertical);
-        helper.addOnClickListener(R.id.tvCancelVertical);
-        helper.addOnClickListener(R.id.tvModifyHorizontal);
-        helper.addOnClickListener(R.id.tvDeleteHorizontal);
-        helper.addOnClickListener(R.id.tvCancelHorizontal);
+        //helper.addOnClickListener(R.id.tvModifyVertical);
+        //helper.addOnClickListener(R.id.tvDeleteVertical);
+        //helper.addOnClickListener(R.id.tvCancelVertical);
+        //helper.addOnClickListener(R.id.tvModifyHorizontal);
+        //helper.addOnClickListener(R.id.tvDeleteHorizontal);
+        //helper.addOnClickListener(R.id.tvCancelHorizontal);
     }
 
     // 点击跳转地图
@@ -173,123 +164,15 @@ public class PictureAdapter extends BaseQuickAdapter<Picture, BaseViewHolder> {
         MapShowActivity.goActivity(mActivity, address, longitude, latitude);
     }
 
-    public void showOperation(final int position) {
-        hideOperation();
-        // 用户检查
-        Picture item = getItem(position);
-        if (!item.isMine()) {
-            ToastUtils.show(mActivity.getString(R.string.can_operation_self_create_note));
-            return;
-        }
-        // view
-        LinearLayout llOperate;
-        TextView tvModify, tvDelete, tvCancel;
-        Animation modify, delete, cancel;
-        FrescoView ivPicture = (FrescoView) getViewByPosition(position, R.id.ivPicture);
-        if (ivPicture == null || ivPicture.getLayoutParams() == null) return;
-        if (ivPicture.getLayoutParams().height < imageWidth) {
-            // 展示横向
-            llOperate = (LinearLayout) getViewByPosition(position, R.id.llOperateHorizontal);
-            tvModify = (TextView) getViewByPosition(position, R.id.tvModifyHorizontal);
-            tvDelete = (TextView) getViewByPosition(position, R.id.tvDeleteHorizontal);
-            tvCancel = (TextView) getViewByPosition(position, R.id.tvCancelHorizontal);
-            modify = AnimationUtils.loadAnimation(mActivity, R.anim.slide_top_in_100);
-            delete = AnimationUtils.loadAnimation(mActivity, R.anim.slide_bottom_in_100);
-            cancel = AnimationUtils.loadAnimation(mActivity, R.anim.slide_top_in_100);
-        } else {
-            // 展示竖向
-            llOperate = (LinearLayout) getViewByPosition(position, R.id.llOperateVertical);
-            tvModify = (TextView) getViewByPosition(position, R.id.tvModifyVertical);
-            tvDelete = (TextView) getViewByPosition(position, R.id.tvDeleteVertical);
-            tvCancel = (TextView) getViewByPosition(position, R.id.tvCancelVertical);
-            modify = AnimationUtils.loadAnimation(mActivity, R.anim.slide_right_in_100);
-            delete = AnimationUtils.loadAnimation(mActivity, R.anim.slide_left_in_100);
-            cancel = AnimationUtils.loadAnimation(mActivity, R.anim.slide_right_in_100);
-        }
-        llOperate.setVisibility(View.VISIBLE);
-        // anim
-        modify.setInterpolator(new DecelerateInterpolator());
-        modify.setFillAfter(true);
-        delete.setInterpolator(new DecelerateInterpolator());
-        delete.setFillAfter(true);
-        delete.setStartOffset(50);
-        cancel.setInterpolator(new DecelerateInterpolator());
-        cancel.setFillAfter(true);
-        cancel.setStartOffset(100);
-        tvModify.startAnimation(modify);
-        tvDelete.startAnimation(delete);
-        tvCancel.startAnimation(cancel);
-        // position
-        operationPosition = position;
-    }
-
-    public void hideOperation() {
-        if (operationPosition < 0 || operationPosition >= getData().size()) return;
-        // anim
-        // view
-        final LinearLayout llOperate;
-        TextView tvModify, tvDelete, tvCancel;
-        Animation modify, delete, cancel;
-        FrescoView ivPicture = (FrescoView) getViewByPosition(operationPosition, R.id.ivPicture);
-        if (ivPicture == null || ivPicture.getLayoutParams() == null) return;
-        if (ivPicture.getLayoutParams().height < imageWidth) {
-            // 展示横向
-            llOperate = (LinearLayout) getViewByPosition(operationPosition, R.id.llOperateHorizontal);
-            tvModify = (TextView) getViewByPosition(operationPosition, R.id.tvModifyHorizontal);
-            tvDelete = (TextView) getViewByPosition(operationPosition, R.id.tvDeleteHorizontal);
-            tvCancel = (TextView) getViewByPosition(operationPosition, R.id.tvCancelHorizontal);
-            modify = AnimationUtils.loadAnimation(mActivity, R.anim.slide_bottom_out_100);
-            delete = AnimationUtils.loadAnimation(mActivity, R.anim.slide_top_out_100);
-            cancel = AnimationUtils.loadAnimation(mActivity, R.anim.slide_bottom_out_100);
-        } else {
-            // 展示竖向
-            llOperate = (LinearLayout) getViewByPosition(operationPosition, R.id.llOperateVertical);
-            tvModify = (TextView) getViewByPosition(operationPosition, R.id.tvModifyVertical);
-            tvDelete = (TextView) getViewByPosition(operationPosition, R.id.tvDeleteVertical);
-            tvCancel = (TextView) getViewByPosition(operationPosition, R.id.tvCancelVertical);
-            modify = AnimationUtils.loadAnimation(mActivity, R.anim.slide_left_out_100);
-            delete = AnimationUtils.loadAnimation(mActivity, R.anim.slide_right_out_100);
-            cancel = AnimationUtils.loadAnimation(mActivity, R.anim.slide_left_out_100);
-        }
-        modify.setInterpolator(new DecelerateInterpolator());
-        modify.setFillAfter(true);
-        delete.setInterpolator(new DecelerateInterpolator());
-        delete.setFillAfter(true);
-        delete.setStartOffset(50);
-        cancel.setInterpolator(new DecelerateInterpolator());
-        cancel.setFillAfter(true);
-        cancel.setStartOffset(100);
-        tvModify.startAnimation(modify);
-        tvDelete.startAnimation(delete);
-        tvCancel.startAnimation(cancel);
-        // view
-        cancel.setAnimationListener(new Animation.AnimationListener() {
-            @Override
-            public void onAnimationStart(Animation animation) {
-            }
-
-            @Override
-            public void onAnimationEnd(Animation animation) {
-                llOperate.setVisibility(View.GONE);
-            }
-
-            @Override
-            public void onAnimationRepeat(Animation animation) {
-            }
-        });
-        // position
-        operationPosition = -1;
-    }
-
-    public void goEdit(int position, Album album) {
-        hideOperation();
-        if (album == null) return;
-        Picture item = getItem(position);
-        PictureEditActivity.goActivity(mActivity, album, item);
-    }
+    //public void goEdit(int position, Album album) {
+    //    hideOperation();
+    //    if (album == null) return;
+    //    Picture item = getItem(position);
+    //    PictureEditActivity.goActivity(mActivity, album, item);
+    //}
 
     public void showDeleteDialog(final int position) {
-        hideOperation();
+        //hideOperation();
         MaterialDialog dialog = DialogHelper.getBuild(mActivity)
                 .cancelable(true)
                 .canceledOnTouchOutside(true)
@@ -317,5 +200,113 @@ public class PictureAdapter extends BaseQuickAdapter<Picture, BaseViewHolder> {
         });
         mActivity.pushApi(api);
     }
+
+    //public void showOperation(final int position) {
+    //    hideOperation();
+    //    // 用户检查
+    //    Picture item = getItem(position);
+    //    if (!item.isMine()) {
+    //        ToastUtils.show(mActivity.getString(R.string.can_operation_self_create_note));
+    //        return;
+    //    }
+    //    // view
+    //    LinearLayout llOperate;
+    //    TextView tvModify, tvDelete, tvCancel;
+    //    Animation modify, delete, cancel;
+    //    FrescoView ivPicture = (FrescoView) getViewByPosition(position, R.id.ivPicture);
+    //    if (ivPicture == null || ivPicture.getLayoutParams() == null) return;
+    //    if (ivPicture.getLayoutParams().height < imageWidth) {
+    //        // 展示横向
+    //        llOperate = (LinearLayout) getViewByPosition(position, R.id.llOperateHorizontal);
+    //        tvModify = (TextView) getViewByPosition(position, R.id.tvModifyHorizontal);
+    //        tvDelete = (TextView) getViewByPosition(position, R.id.tvDeleteHorizontal);
+    //        tvCancel = (TextView) getViewByPosition(position, R.id.tvCancelHorizontal);
+    //        modify = AnimationUtils.loadAnimation(mActivity, R.anim.slide_top_in_100);
+    //        delete = AnimationUtils.loadAnimation(mActivity, R.anim.slide_bottom_in_100);
+    //        cancel = AnimationUtils.loadAnimation(mActivity, R.anim.slide_top_in_100);
+    //    } else {
+    //        // 展示竖向
+    //        llOperate = (LinearLayout) getViewByPosition(position, R.id.llOperateVertical);
+    //        tvModify = (TextView) getViewByPosition(position, R.id.tvModifyVertical);
+    //        tvDelete = (TextView) getViewByPosition(position, R.id.tvDeleteVertical);
+    //        tvCancel = (TextView) getViewByPosition(position, R.id.tvCancelVertical);
+    //        modify = AnimationUtils.loadAnimation(mActivity, R.anim.slide_right_in_100);
+    //        delete = AnimationUtils.loadAnimation(mActivity, R.anim.slide_left_in_100);
+    //        cancel = AnimationUtils.loadAnimation(mActivity, R.anim.slide_right_in_100);
+    //    }
+    //    llOperate.setVisibility(View.VISIBLE);
+    //    // anim
+    //    modify.setInterpolator(new DecelerateInterpolator());
+    //    modify.setFillAfter(true);
+    //    delete.setInterpolator(new DecelerateInterpolator());
+    //    delete.setFillAfter(true);
+    //    delete.setStartOffset(50);
+    //    cancel.setInterpolator(new DecelerateInterpolator());
+    //    cancel.setFillAfter(true);
+    //    cancel.setStartOffset(100);
+    //    tvModify.startAnimation(modify);
+    //    tvDelete.startAnimation(delete);
+    //    tvCancel.startAnimation(cancel);
+    //    // position
+    //    operationPosition = position;
+    //}
+    //
+    //public void hideOperation() {
+    //    if (operationPosition < 0 || operationPosition >= getData().size()) return;
+    //    // anim
+    //    // view
+    //    final LinearLayout llOperate;
+    //    TextView tvModify, tvDelete, tvCancel;
+    //    Animation modify, delete, cancel;
+    //    FrescoView ivPicture = (FrescoView) getViewByPosition(operationPosition, R.id.ivPicture);
+    //    if (ivPicture == null || ivPicture.getLayoutParams() == null) return;
+    //    if (ivPicture.getLayoutParams().height < imageWidth) {
+    //        // 展示横向
+    //        llOperate = (LinearLayout) getViewByPosition(operationPosition, R.id.llOperateHorizontal);
+    //        tvModify = (TextView) getViewByPosition(operationPosition, R.id.tvModifyHorizontal);
+    //        tvDelete = (TextView) getViewByPosition(operationPosition, R.id.tvDeleteHorizontal);
+    //        tvCancel = (TextView) getViewByPosition(operationPosition, R.id.tvCancelHorizontal);
+    //        modify = AnimationUtils.loadAnimation(mActivity, R.anim.slide_bottom_out_100);
+    //        delete = AnimationUtils.loadAnimation(mActivity, R.anim.slide_top_out_100);
+    //        cancel = AnimationUtils.loadAnimation(mActivity, R.anim.slide_bottom_out_100);
+    //    } else {
+    //        // 展示竖向
+    //        llOperate = (LinearLayout) getViewByPosition(operationPosition, R.id.llOperateVertical);
+    //        tvModify = (TextView) getViewByPosition(operationPosition, R.id.tvModifyVertical);
+    //        tvDelete = (TextView) getViewByPosition(operationPosition, R.id.tvDeleteVertical);
+    //        tvCancel = (TextView) getViewByPosition(operationPosition, R.id.tvCancelVertical);
+    //        modify = AnimationUtils.loadAnimation(mActivity, R.anim.slide_left_out_100);
+    //        delete = AnimationUtils.loadAnimation(mActivity, R.anim.slide_right_out_100);
+    //        cancel = AnimationUtils.loadAnimation(mActivity, R.anim.slide_left_out_100);
+    //    }
+    //    modify.setInterpolator(new DecelerateInterpolator());
+    //    modify.setFillAfter(true);
+    //    delete.setInterpolator(new DecelerateInterpolator());
+    //    delete.setFillAfter(true);
+    //    delete.setStartOffset(50);
+    //    cancel.setInterpolator(new DecelerateInterpolator());
+    //    cancel.setFillAfter(true);
+    //    cancel.setStartOffset(100);
+    //    tvModify.startAnimation(modify);
+    //    tvDelete.startAnimation(delete);
+    //    tvCancel.startAnimation(cancel);
+    //    // view
+    //    cancel.setAnimationListener(new Animation.AnimationListener() {
+    //        @Override
+    //        public void onAnimationStart(Animation animation) {
+    //        }
+    //
+    //        @Override
+    //        public void onAnimationEnd(Animation animation) {
+    //            llOperate.setVisibility(View.GONE);
+    //        }
+    //
+    //        @Override
+    //        public void onAnimationRepeat(Animation animation) {
+    //        }
+    //    });
+    //    // position
+    //    operationPosition = -1;
+    //}
 
 }

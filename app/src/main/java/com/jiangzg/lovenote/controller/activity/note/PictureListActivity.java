@@ -32,7 +32,6 @@ import com.jiangzg.lovenote.controller.adapter.note.PictureAdapter;
 import com.jiangzg.lovenote.helper.common.ListHelper;
 import com.jiangzg.lovenote.helper.common.RxBus;
 import com.jiangzg.lovenote.helper.common.TimeHelper;
-import com.jiangzg.lovenote.helper.media.FrescoHelper;
 import com.jiangzg.lovenote.helper.system.RetrofitHelper;
 import com.jiangzg.lovenote.helper.view.DialogHelper;
 import com.jiangzg.lovenote.helper.view.RecyclerHelper;
@@ -138,7 +137,8 @@ public class PictureListActivity extends BaseActivity<PictureListActivity> {
                     @Override
                     public void onSimpleItemLongClick(BaseQuickAdapter adapter, View view, int position) {
                         PictureAdapter pictureAdapter = (PictureAdapter) adapter;
-                        pictureAdapter.showOperation(position);
+                        //pictureAdapter.showOperation(position);
+                        pictureAdapter.showDeleteDialog(position);
                     }
                 })
                 .listenerClick(new OnItemChildClickListener() {
@@ -149,46 +149,46 @@ public class PictureListActivity extends BaseActivity<PictureListActivity> {
                             case R.id.tvAddress: // 地址
                                 pictureAdapter.onLocationClick(position);
                                 break;
-                            case R.id.tvModifyHorizontal: // 修改
-                            case R.id.tvModifyVertical:
-                                pictureAdapter.goEdit(position, album);
-                                break;
-                            case R.id.tvDeleteHorizontal: // 删除
-                            case R.id.tvDeleteVertical:
-                                pictureAdapter.showDeleteDialog(position);
-                                break;
-                            case R.id.tvCancelHorizontal: // 取消
-                            case R.id.tvCancelVertical:
-                                pictureAdapter.hideOperation();
-                                break;
+                            //case R.id.tvModifyHorizontal: // 修改
+                            //case R.id.tvModifyVertical:
+                            //    pictureAdapter.goEdit(position, album);
+                            //    break;
+                            //case R.id.tvDeleteHorizontal: // 删除
+                            //case R.id.tvDeleteVertical:
+                            //    pictureAdapter.showDeleteDialog(position);
+                            //    break;
+                            //case R.id.tvCancelHorizontal: // 取消
+                            //case R.id.tvCancelVertical:
+                            //    pictureAdapter.hideOperation();
+                            //    break;
                         }
                     }
                 });
         // recycler
-        rv.addOnScrollListener(new RecyclerView.OnScrollListener() {
-            @Override
-            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
-                super.onScrollStateChanged(recyclerView, newState);
-                if (recyclerHelper == null) return;
-                PictureAdapter adapter = recyclerHelper.getAdapter();
-                if (adapter != null) adapter.hideOperation();
-                if (newState == RecyclerView.SCROLL_STATE_IDLE) {
-                    // 停止滑动
-                    FrescoHelper.imageResume();
-                } else if (newState == RecyclerView.SCROLL_STATE_DRAGGING) {
-                    // 手指触碰
-                    FrescoHelper.imagePause();
-                } else if (newState == RecyclerView.SCROLL_STATE_SETTLING) {
-                    // 惯性滑动
-                    FrescoHelper.imagePause();
-                }
-            }
-
-            @Override
-            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-                super.onScrolled(recyclerView, dx, dy);
-            }
-        });
+        //rv.addOnScrollListener(new RecyclerView.OnScrollListener() {
+        //    @Override
+        //    public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+        //        super.onScrollStateChanged(recyclerView, newState);
+        //        if (recyclerHelper == null) return;
+        //        PictureAdapter adapter = recyclerHelper.getAdapter();
+        //        if (adapter != null) adapter.hideOperation();
+        //        if (newState == RecyclerView.SCROLL_STATE_IDLE) {
+        //            // 停止滑动
+        //            FrescoHelper.imageResume();
+        //        } else if (newState == RecyclerView.SCROLL_STATE_DRAGGING) {
+        //            // 手指触碰
+        //            FrescoHelper.imagePause();
+        //        } else if (newState == RecyclerView.SCROLL_STATE_SETTLING) {
+        //            // 惯性滑动
+        //            FrescoHelper.imagePause();
+        //        }
+        //    }
+        //
+        //    @Override
+        //    public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+        //        super.onScrolled(recyclerView, dx, dy);
+        //    }
+        //});
         // view
         refreshAlbumView();
     }
