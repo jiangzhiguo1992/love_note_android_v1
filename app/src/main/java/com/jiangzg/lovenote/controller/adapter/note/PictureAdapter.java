@@ -164,13 +164,6 @@ public class PictureAdapter extends BaseQuickAdapter<Picture, BaseViewHolder> {
         MapShowActivity.goActivity(mActivity, address, longitude, latitude);
     }
 
-    //public void goEdit(int position, Album album) {
-    //    hideOperation();
-    //    if (album == null) return;
-    //    Picture item = getItem(position);
-    //    PictureEditActivity.goActivity(mActivity, album, item);
-    //}
-
     public void showDeleteDialog(final int position) {
         //hideOperation();
         MaterialDialog dialog = DialogHelper.getBuild(mActivity)
@@ -201,6 +194,13 @@ public class PictureAdapter extends BaseQuickAdapter<Picture, BaseViewHolder> {
         mActivity.pushApi(api);
     }
 
+    //public void goEdit(int position, Album album) {
+    //    hideOperation();
+    //    if (album == null) return;
+    //    Picture item = getItem(position);
+    //    PictureEditActivity.goActivity(mActivity, album, item);
+    //}
+    //
     //public void showOperation(final int position) {
     //    hideOperation();
     //    // 用户检查
