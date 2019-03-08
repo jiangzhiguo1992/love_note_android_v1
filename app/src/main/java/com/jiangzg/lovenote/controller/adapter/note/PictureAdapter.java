@@ -43,7 +43,7 @@ public class PictureAdapter extends BaseQuickAdapter<Picture, BaseViewHolder> {
     private static final int MODEL_DETAIL = 1;
 
     private final BaseActivity mActivity;
-    private final int imageWidth, imageHeight;
+    private final int imageWidth, imageHeight, minHeight;
     private final int colorPrimary;
     private int mModel;
     //private int operationPosition;
@@ -55,6 +55,7 @@ public class PictureAdapter extends BaseQuickAdapter<Picture, BaseViewHolder> {
         float screenWidth = ScreenUtils.getScreenRealWidth(activity);
         int dp5 = ConvertUtils.dp2px(5);
         imageWidth = imageHeight = (int) (screenWidth / 2) - dp5 * 2;
+        minHeight = ConvertUtils.dp2px(100);
         //operationPosition = -1;
         colorPrimary = ContextCompat.getColor(activity, ViewUtils.getColorPrimary(mActivity));
     }
@@ -128,6 +129,7 @@ public class PictureAdapter extends BaseQuickAdapter<Picture, BaseViewHolder> {
                 float width = imageInfo.getWidth();
                 float height = imageInfo.getHeight();
                 int finalHeight = (int) (height / width * imageWidth);
+                if (finalHeight < minHeight) finalHeight = minHeight;
                 RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) iv.getLayoutParams();
                 layoutParams.height = finalHeight;
                 iv.setLayoutParams(layoutParams);

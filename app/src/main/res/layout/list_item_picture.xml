@@ -15,7 +15,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <!-- 初始值200dp，最小值50dp -->
+        <!-- 初始值200dp，最小值100dp -->
         <com.jiangzg.lovenote.view.FrescoView
             android:id="@+id/ivPicture"
             android:layout_width="match_parent"
