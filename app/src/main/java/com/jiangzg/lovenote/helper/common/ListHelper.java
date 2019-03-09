@@ -8,13 +8,11 @@ import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.controller.fragment.main.TopicFragment;
 import com.jiangzg.lovenote.main.MyApp;
 import com.jiangzg.lovenote.model.entity.Album;
-import com.jiangzg.lovenote.model.entity.Audio;
 import com.jiangzg.lovenote.model.entity.BaseObj;
 import com.jiangzg.lovenote.model.entity.Diary;
 import com.jiangzg.lovenote.model.entity.Food;
 import com.jiangzg.lovenote.model.entity.Gift;
 import com.jiangzg.lovenote.model.entity.Movie;
-import com.jiangzg.lovenote.model.entity.Picture;
 import com.jiangzg.lovenote.model.entity.Post;
 import com.jiangzg.lovenote.model.entity.PostKindInfo;
 import com.jiangzg.lovenote.model.entity.PostSubKindInfo;
@@ -106,45 +104,6 @@ public class ListHelper {
             uriList.add(Uri.parse(s));
         }
         return uriList;
-    }
-
-    // 集合类型转换(Picture -> ossKey)
-    public static ArrayList<String> getOssKeyListByPicture(List<Picture> pictureList) {
-        ArrayList<String> ossKeyList = new ArrayList<>();
-        if (pictureList == null || pictureList.size() <= 0) return ossKeyList;
-        for (Picture picture : pictureList) {
-            if (picture == null || StringUtils.isEmpty(picture.getContentImage())) {
-                continue;
-            }
-            ossKeyList.add(picture.getContentImage());
-        }
-        return ossKeyList;
-    }
-
-    // 集合类型转换(Audio -> ossKey) TODO 删除
-    public static ArrayList<String> getOssKeyListByAudio(List<Audio> audioList) {
-        ArrayList<String> ossKeyList = new ArrayList<>();
-        if (audioList == null || audioList.size() <= 0) return ossKeyList;
-        for (Audio audio : audioList) {
-            if (audio == null || audio.getContentAudio() == null) {
-                continue;
-            }
-            ossKeyList.add(audio.getContentAudio());
-        }
-        return ossKeyList;
-    }
-
-    // 集合类型转换(Video -> ossKey) TODO 删除
-    public static ArrayList<String> getOssKeyListByVideo(List<Video> videoList) {
-        ArrayList<String> ossKeyList = new ArrayList<>();
-        if (videoList == null || videoList.size() <= 0) return ossKeyList;
-        for (Video video : videoList) {
-            if (video == null || video.getContentVideo() == null) {
-                continue;
-            }
-            ossKeyList.add(video.getContentVideo());
-        }
-        return ossKeyList;
     }
 
     /**
