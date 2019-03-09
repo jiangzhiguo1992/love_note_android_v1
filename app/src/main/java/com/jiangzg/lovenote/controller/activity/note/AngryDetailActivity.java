@@ -230,6 +230,7 @@ public class AngryDetailActivity extends BaseActivity<AngryDetailActivity> {
                 recyclerGift = new RecyclerHelper(rvGift)
                         .initLayoutManager(new LinearLayoutManager(mActivity))
                         .initAdapter(new GiftAdapter(mActivity))
+                        .viewAnim()
                         .setAdapter()
                         .listenerClick(new OnItemLongClickListener() {
                             @Override
@@ -257,6 +258,7 @@ public class AngryDetailActivity extends BaseActivity<AngryDetailActivity> {
                 recyclerPromise = new RecyclerHelper(rvPromise)
                         .initLayoutManager(new LinearLayoutManager(mActivity))
                         .initAdapter(new PromiseAdapter(mActivity))
+                        .viewAnim()
                         .setAdapter()
                         .listenerClick(new OnItemClickListener() {
                             @Override

@@ -78,6 +78,7 @@ public class CouplePlaceActivity extends BaseActivity<CouplePlaceActivity> {
                 .initAdapter(new PlaceAdapter(mActivity))
                 .viewEmpty(mActivity, R.layout.list_empty_white, true, true)
                 .viewLoadMore(new RecyclerHelper.MoreGreyView())
+                .viewAnim()
                 .setAdapter()
                 .listenerRefresh(() -> refreshData(false))
                 .listenerMore(currentCount -> refreshData(true))

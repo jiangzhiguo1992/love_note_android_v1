@@ -163,6 +163,7 @@ public class TravelEditActivity extends BaseActivity<TravelEditActivity> {
                     }
                 })
                 .initAdapter(new TravelPlaceAdapter(mActivity))
+                .viewAnim()
                 .setAdapter()
                 .listenerClick(new OnItemClickListener() {
                     @Override
@@ -187,6 +188,7 @@ public class TravelEditActivity extends BaseActivity<TravelEditActivity> {
                     }
                 })
                 .initAdapter(new AlbumAdapter(mActivity))
+                .viewAnim()
                 .setAdapter()
                 .listenerClick(new OnItemClickListener() {
                     @Override
@@ -211,6 +213,7 @@ public class TravelEditActivity extends BaseActivity<TravelEditActivity> {
                     }
                 })
                 .initAdapter(new VideoAdapter(mActivity))
+                .viewAnim()
                 .setAdapter()
                 .listenerClick(new OnItemChildClickListener() {
                     @Override
@@ -246,6 +249,7 @@ public class TravelEditActivity extends BaseActivity<TravelEditActivity> {
                     }
                 })
                 .initAdapter(new FoodAdapter(mActivity))
+                .viewAnim()
                 .setAdapter()
                 .listenerClick(new OnItemChildClickListener() {
                     @Override
@@ -274,6 +278,7 @@ public class TravelEditActivity extends BaseActivity<TravelEditActivity> {
                     }
                 })
                 .initAdapter(new MovieAdapter(mActivity))
+                .viewAnim()
                 .setAdapter()
                 .listenerClick(new OnItemChildClickListener() {
                     @Override
@@ -302,6 +307,7 @@ public class TravelEditActivity extends BaseActivity<TravelEditActivity> {
                     }
                 })
                 .initAdapter(new DiaryAdapter(mActivity))
+                .viewAnim()
                 .setAdapter()
                 .listenerClick(new OnItemClickListener() {
                     @Override

@@ -161,6 +161,7 @@ public class PostDetailActivity extends BaseActivity<PostDetailActivity> {
                 .viewHeader(mActivity, R.layout.list_head_post_comment)
                 .viewEmpty(mActivity, R.layout.list_empty_grey, true, true)
                 .viewLoadMore(new RecyclerHelper.MoreGreyView())
+                .viewAnim()
                 .setAdapter()
                 .listenerRefresh(() -> getCommentData(false))
                 .listenerMore(currentCount -> getCommentData(true))
@@ -448,6 +449,7 @@ public class PostDetailActivity extends BaseActivity<PostDetailActivity> {
                         }
                     })
                     .initAdapter(new ImgSquareShowAdapter(mActivity, 1))
+                    .viewAnim()
                     .setAdapter()
                     .dataNew(imageList, 0);
         }

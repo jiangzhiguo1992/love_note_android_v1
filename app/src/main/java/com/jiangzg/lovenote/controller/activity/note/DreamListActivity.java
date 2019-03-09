@@ -88,6 +88,7 @@ public class DreamListActivity extends BaseActivity<DreamListActivity> {
                 .initAdapter(new DreamAdapter(mActivity))
                 .viewEmpty(mActivity, R.layout.list_empty_grey, true, true)
                 .viewLoadMore(new RecyclerHelper.MoreGreyView())
+                .viewAnim()
                 .setAdapter()
                 .listenerRefresh(() -> getData(false))
                 .listenerMore(currentCount -> getData(true))

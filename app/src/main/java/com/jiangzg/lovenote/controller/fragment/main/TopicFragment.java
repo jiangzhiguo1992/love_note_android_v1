@@ -68,6 +68,7 @@ public class TopicFragment extends BasePagerFragment<TopicFragment> {
                 .initRefresh(srl, true)
                 .initAdapter(new HomeKindAdapter(mActivity, mFragment))
                 .viewEmpty(mActivity, R.layout.list_empty_grey, false, false)
+                .viewAnim()
                 .setAdapter()
                 .listenerRefresh(this::refreshData)
                 .listenerClick(new OnItemClickListener() {

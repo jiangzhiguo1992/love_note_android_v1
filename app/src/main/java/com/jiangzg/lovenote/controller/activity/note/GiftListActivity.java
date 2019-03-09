@@ -110,6 +110,7 @@ public class GiftListActivity extends BaseActivity<GiftListActivity> {
                 .initAdapter(new GiftAdapter(mActivity))
                 .viewEmpty(mActivity, R.layout.list_empty_grey, true, true)
                 .viewLoadMore(new RecyclerHelper.MoreGreyView())
+                .viewAnim()
                 .setAdapter()
                 .listenerRefresh(() -> getData(false))
                 .listenerMore(currentCount -> getData(true))

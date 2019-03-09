@@ -239,6 +239,7 @@ public class TravelDetailActivity extends BaseActivity<TravelDetailActivity> {
                             }
                         })
                         .initAdapter(new TravelPlaceAdapter(mActivity))
+                        .viewAnim()
                         .setAdapter()
                         .listenerClick(new OnItemClickListener() {
                             @Override
@@ -267,6 +268,7 @@ public class TravelDetailActivity extends BaseActivity<TravelDetailActivity> {
                             }
                         })
                         .initAdapter(new AlbumAdapter(mActivity))
+                        .viewAnim()
                         .setAdapter()
                         .listenerClick(new OnItemClickListener() {
                             @Override
@@ -295,6 +297,7 @@ public class TravelDetailActivity extends BaseActivity<TravelDetailActivity> {
                             }
                         })
                         .initAdapter(new VideoAdapter(mActivity))
+                        .viewAnim()
                         .setAdapter()
                         .listenerClick(new OnItemChildClickListener() {
                             @Override
@@ -330,6 +333,7 @@ public class TravelDetailActivity extends BaseActivity<TravelDetailActivity> {
                             }
                         })
                         .initAdapter(new FoodAdapter(mActivity))
+                        .viewAnim()
                         .setAdapter()
                         .listenerClick(new OnItemChildClickListener() {
                             @Override
@@ -362,6 +366,7 @@ public class TravelDetailActivity extends BaseActivity<TravelDetailActivity> {
                             }
                         })
                         .initAdapter(new MovieAdapter(mActivity))
+                        .viewAnim()
                         .setAdapter()
                         .listenerClick(new OnItemChildClickListener() {
                             @Override
@@ -394,6 +399,7 @@ public class TravelDetailActivity extends BaseActivity<TravelDetailActivity> {
                             }
                         })
                         .initAdapter(new DiaryAdapter(mActivity))
+                        .viewAnim()
                         .setAdapter()
                         .listenerClick(new OnItemClickListener() {
                             @Override

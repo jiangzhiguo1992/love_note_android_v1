@@ -92,6 +92,7 @@ public class CoupleWallPaperActivity extends BaseActivity<CoupleWallPaperActivit
                 .initRefresh(srl, true)
                 .initAdapter(new WallPaperAdapter(mActivity))
                 .viewEmpty(mActivity, R.layout.list_empty_grey, true, true)
+                .viewAnim()
                 .setAdapter()
                 .listenerRefresh(this::refreshData)
                 .listenerClick(new OnItemLongClickListener() {

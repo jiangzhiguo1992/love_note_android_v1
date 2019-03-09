@@ -149,6 +149,7 @@ public class SouvenirForeignFragment extends BasePagerFragment<SouvenirForeignFr
                             }
                         })
                         .initAdapter(new GiftAdapter(mActivity))
+                        .viewAnim()
                         .setAdapter();
             }
             recyclerGift.dataNew(giftList, 0);
@@ -170,6 +171,7 @@ public class SouvenirForeignFragment extends BasePagerFragment<SouvenirForeignFr
                             }
                         })
                         .initAdapter(new TravelAdapter(mActivity))
+                        .viewAnim()
                         .setAdapter()
                         .listenerClick(new OnItemClickListener() {
                             @Override
@@ -198,6 +200,7 @@ public class SouvenirForeignFragment extends BasePagerFragment<SouvenirForeignFr
                             }
                         })
                         .initAdapter(new AlbumAdapter(mActivity))
+                        .viewAnim()
                         .setAdapter()
                         .listenerClick(new OnItemClickListener() {
                             @Override
@@ -226,6 +229,7 @@ public class SouvenirForeignFragment extends BasePagerFragment<SouvenirForeignFr
                             }
                         })
                         .initAdapter(new VideoAdapter(mActivity))
+                        .viewAnim()
                         .setAdapter()
                         .listenerClick(new OnItemChildClickListener() {
                             @Override
@@ -261,6 +265,7 @@ public class SouvenirForeignFragment extends BasePagerFragment<SouvenirForeignFr
                             }
                         })
                         .initAdapter(new FoodAdapter(mActivity))
+                        .viewAnim()
                         .setAdapter()
                         .listenerClick(new OnItemChildClickListener() {
                             @Override
@@ -293,6 +298,7 @@ public class SouvenirForeignFragment extends BasePagerFragment<SouvenirForeignFr
                             }
                         })
                         .initAdapter(new MovieAdapter(mActivity))
+                        .viewAnim()
                         .setAdapter()
                         .listenerClick(new OnItemChildClickListener() {
                             @Override
@@ -325,6 +331,7 @@ public class SouvenirForeignFragment extends BasePagerFragment<SouvenirForeignFr
                             }
                         })
                         .initAdapter(new DiaryAdapter(mActivity))
+                        .viewAnim()
                         .setAdapter()
                         .listenerClick(new OnItemClickListener() {
                             @Override

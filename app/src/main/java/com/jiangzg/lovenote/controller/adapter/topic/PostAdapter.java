@@ -126,6 +126,7 @@ public class PostAdapter extends BaseQuickAdapter<Post, BaseViewHolder> {
             new RecyclerHelper(rvImage)
                     .initLayoutManager(new GridLayoutManager(mActivity, spanCount))
                     .initAdapter(adapter)
+                    .viewAnim()
                     .setAdapter()
                     .dataNew(imageList, 0);
             adapter.setVisibleLimit(3);

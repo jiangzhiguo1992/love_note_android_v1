@@ -57,6 +57,7 @@ public class TravelAdapter extends BaseQuickAdapter<Travel, BaseViewHolder> {
             new RecyclerHelper(rv)
                     .initLayoutManager(new LinearLayoutManager(mActivity))
                     .initAdapter(new TravelPlaceAdapter(mActivity))
+                    .viewAnim()
                     .setAdapter()
                     .listenerClick(new com.chad.library.adapter.base.listener.OnItemClickListener() {
                         @Override

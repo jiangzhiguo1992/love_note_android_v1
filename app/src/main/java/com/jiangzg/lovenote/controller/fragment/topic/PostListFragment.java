@@ -67,6 +67,7 @@ public class PostListFragment extends BasePagerFragment<PostListFragment> {
                 .initAdapter(new PostAdapter(mActivity, false, true))
                 .viewEmpty(mActivity, R.layout.list_empty_grey, true, true)
                 .viewLoadMore(new RecyclerHelper.MoreGreyView())
+                .viewAnim()
                 .setAdapter()
                 .listenerRefresh(() -> getData(false))
                 .listenerMore(currentCount -> getData(true))

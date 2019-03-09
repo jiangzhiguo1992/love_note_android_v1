@@ -61,6 +61,7 @@ public class FoodAdapter extends BaseQuickAdapter<Food, BaseViewHolder> {
             new RecyclerHelper(rv)
                     .initLayoutManager(new GridLayoutManager(mActivity, spanCount))
                     .initAdapter(new ImgSquareShowAdapter(mActivity, spanCount))
+                    .viewAnim()
                     .setAdapter()
                     .dataNew(imageList, 0);
         } else {

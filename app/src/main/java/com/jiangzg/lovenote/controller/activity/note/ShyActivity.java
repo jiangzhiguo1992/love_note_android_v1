@@ -143,6 +143,7 @@ public class ShyActivity extends BaseActivity<ShyActivity> {
         recyclerHelper = new RecyclerHelper(rv)
                 .initLayoutManager(new LinearLayoutManager(mActivity))
                 .initAdapter(new ShyAdapter(mActivity))
+                .viewAnim()
                 .setAdapter()
                 .listenerClick(new OnItemLongClickListener() {
                     @Override

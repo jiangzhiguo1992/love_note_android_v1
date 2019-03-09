@@ -107,6 +107,7 @@ public class HelpActivity extends BaseActivity<HelpActivity> {
                 .initLayoutManager(new LinearLayoutManager(mActivity))
                 .initAdapter(new HelpSubAdapter())
                 .viewHeader(mActivity, R.layout.list_head_help)
+                .viewAnim()
                 .listenerClick(new OnItemClickListener() {
                     @Override
                     public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
@@ -160,7 +161,8 @@ public class HelpActivity extends BaseActivity<HelpActivity> {
             if (recyclerHelperHead == null) {
                 recyclerHelperHead = new RecyclerHelper(rv)
                         .initLayoutManager(new LinearLayoutManager(mActivity))
-                        .initAdapter(new HelpContentAdapter());
+                        .initAdapter(new HelpContentAdapter())
+                        .viewAnim();
             }
             recyclerHelperHead.dataNew(contentList, 0);
         }

@@ -195,6 +195,7 @@ public class DiaryDetailActivity extends BaseActivity<DiaryDetailActivity> {
                 recyclerHelper = new RecyclerHelper(rv)
                         .initLayoutManager(new GridLayoutManager(mActivity, spanCount))
                         .initAdapter(new ImgSquareShowAdapter(mActivity, spanCount))
+                        .viewAnim()
                         .setAdapter();
             }
             recyclerHelper.dataNew(imageList, 0);

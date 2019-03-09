@@ -92,6 +92,7 @@ public class TravelListActivity extends BaseActivity<TravelListActivity> {
                 .initAdapter(new TravelAdapter(mActivity))
                 .viewEmpty(mActivity, R.layout.list_empty_grey, true, true)
                 .viewLoadMore(new RecyclerHelper.MoreGreyView())
+                .viewAnim()
                 .setAdapter()
                 .listenerRefresh(() -> getData(false))
                 .listenerMore(currentCount -> getData(true))

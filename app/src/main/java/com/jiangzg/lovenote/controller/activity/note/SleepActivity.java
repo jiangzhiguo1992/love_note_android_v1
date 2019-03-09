@@ -160,6 +160,7 @@ public class SleepActivity extends BaseActivity<SleepActivity> {
         recyclerRight = new RecyclerHelper(rvRight)
                 .initLayoutManager(new LinearLayoutManager(mActivity))
                 .initAdapter(new SleepAdapter(mActivity))
+                .viewAnim()
                 .setAdapter()
                 .listenerClick(new OnItemLongClickListener() {
                     @Override
@@ -171,6 +172,7 @@ public class SleepActivity extends BaseActivity<SleepActivity> {
         recyclerLeft = new RecyclerHelper(rvLeft)
                 .initLayoutManager(new LinearLayoutManager(mActivity))
                 .initAdapter(new SleepAdapter(mActivity))
+                .viewAnim()
                 .setAdapter()
                 .listenerClick(new OnItemLongClickListener() {
                     @Override

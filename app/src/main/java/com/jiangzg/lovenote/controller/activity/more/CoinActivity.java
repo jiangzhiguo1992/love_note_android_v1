@@ -90,6 +90,7 @@ public class CoinActivity extends BaseActivity<CoinActivity> {
                 .initAdapter(new CoinAdapter(mActivity))
                 .viewEmpty(mActivity, R.layout.list_empty_grey, true, true)
                 .viewLoadMore(new RecyclerHelper.MoreGreyView())
+                .viewAnim()
                 .setAdapter()
                 .listenerRefresh(() -> getCoinListData(false))
                 .listenerMore(currentCount -> getCoinListData(true));

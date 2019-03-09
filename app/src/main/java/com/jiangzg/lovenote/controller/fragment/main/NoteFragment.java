@@ -118,6 +118,7 @@ public class NoteFragment extends BasePagerFragment<NoteFragment> {
         rhLive = new RecyclerHelper(rvLive)
                 .initLayoutManager(new GridLayoutManager(mActivity, 4, LinearLayoutManager.VERTICAL, false))
                 .initAdapter(new ModelAdapter(mFragment))
+                .viewAnim()
                 .setAdapter()
                 .listenerClick(new OnItemClickListener() {
                     @Override
@@ -128,6 +129,7 @@ public class NoteFragment extends BasePagerFragment<NoteFragment> {
         rhNote = new RecyclerHelper(rvNote)
                 .initLayoutManager(new GridLayoutManager(mActivity, 4, LinearLayoutManager.VERTICAL, false))
                 .initAdapter(new ModelAdapter(mFragment))
+                .viewAnim()
                 .setAdapter()
                 .listenerClick(new OnItemClickListener() {
                     @Override
@@ -138,6 +140,7 @@ public class NoteFragment extends BasePagerFragment<NoteFragment> {
         rhMedia = new RecyclerHelper(rvMedia)
                 .initLayoutManager(new GridLayoutManager(mActivity, 4, LinearLayoutManager.VERTICAL, false))
                 .initAdapter(new ModelAdapter(mFragment))
+                .viewAnim()
                 .setAdapter()
                 .listenerClick(new OnItemClickListener() {
                     @Override
@@ -148,6 +151,7 @@ public class NoteFragment extends BasePagerFragment<NoteFragment> {
         rhOther = new RecyclerHelper(rvOther)
                 .initLayoutManager(new GridLayoutManager(mActivity, 4, LinearLayoutManager.VERTICAL, false))
                 .initAdapter(new ModelAdapter(mFragment))
+                .viewAnim()
                 .setAdapter()
                 .listenerClick(new OnItemClickListener() {
                     @Override

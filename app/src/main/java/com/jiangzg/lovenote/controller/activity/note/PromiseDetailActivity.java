@@ -120,6 +120,7 @@ public class PromiseDetailActivity extends BaseActivity<PromiseDetailActivity> {
                 .viewHeader(mActivity, R.layout.list_head_promise_break)
                 .viewEmpty(mActivity, R.layout.list_empty_grey, true, true)
                 .viewLoadMore(new RecyclerHelper.MoreGreyView())
+                .viewAnim()
                 .setAdapter()
                 .listenerRefresh(() -> getBreakData(false))
                 .listenerMore(currentCount -> getBreakData(true))

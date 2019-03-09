@@ -77,7 +77,6 @@ public class RecyclerHelper {
      */
     public RecyclerHelper initAdapter(BaseQuickAdapter adapter) {
         mAdapter = adapter;
-        viewAnim();
         return this;
     }
 
@@ -88,7 +87,6 @@ public class RecyclerHelper {
     public RecyclerHelper setAdapter() {
         if (mRecycler == null || mAdapter == null) return this;
         mRecycler.setAdapter(mAdapter);
-        viewAnim();
         return this;
     }
 

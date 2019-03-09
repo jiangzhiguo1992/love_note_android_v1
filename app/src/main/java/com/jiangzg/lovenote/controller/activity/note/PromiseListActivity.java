@@ -101,6 +101,7 @@ public class PromiseListActivity extends BaseActivity<PromiseListActivity> {
                 .initAdapter(new PromiseAdapter(mActivity))
                 .viewEmpty(mActivity, R.layout.list_empty_grey, true, true)
                 .viewLoadMore(new RecyclerHelper.MoreGreyView())
+                .viewAnim()
                 .setAdapter()
                 .listenerRefresh(() -> getData(false))
                 .listenerMore(currentCount -> getData(true))

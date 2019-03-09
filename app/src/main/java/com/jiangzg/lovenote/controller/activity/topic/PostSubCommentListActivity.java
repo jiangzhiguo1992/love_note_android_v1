@@ -133,6 +133,7 @@ public class PostSubCommentListActivity extends BaseActivity<PostSubCommentListA
                 .viewHeader(mActivity, R.layout.list_head_post_sub_comment)
                 .viewEmpty(mActivity, R.layout.list_empty_grey, true, true)
                 .viewLoadMore(new RecyclerHelper.MoreGreyView())
+                .viewAnim()
                 .setAdapter()
                 .listenerRefresh(() -> getSubCommentData(false))
                 .listenerMore(currentCount -> getSubCommentData(true))

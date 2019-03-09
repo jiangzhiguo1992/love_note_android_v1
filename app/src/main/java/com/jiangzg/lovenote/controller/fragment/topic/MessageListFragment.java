@@ -54,6 +54,7 @@ public class MessageListFragment extends BasePagerFragment<MessageListFragment> 
                 .initAdapter(new MessageAdapter(mActivity))
                 .viewEmpty(mActivity, R.layout.list_empty_grey, true, true)
                 .viewLoadMore(new RecyclerHelper.MoreGreyView())
+                .viewAnim()
                 .setAdapter()
                 .listenerRefresh(() -> getData(false))
                 .listenerMore(currentCount -> getData(true))

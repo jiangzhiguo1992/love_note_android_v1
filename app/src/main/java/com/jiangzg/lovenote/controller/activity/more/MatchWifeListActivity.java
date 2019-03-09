@@ -112,6 +112,7 @@ public class MatchWifeListActivity extends BaseActivity<MatchWifeListActivity> {
                 .viewHeader(mActivity, R.layout.list_head_match_work)
                 .viewEmpty(mActivity, R.layout.list_empty_grey, true, true)
                 .viewLoadMore(new RecyclerHelper.MoreGreyView())
+                .viewAnim()
                 .setAdapter()
                 .listenerRefresh(() -> getData(false))
                 .listenerMore(currentCount -> getData(true))
