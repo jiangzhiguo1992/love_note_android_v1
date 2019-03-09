@@ -139,7 +139,6 @@ public class SouvenirEditForeignActivity extends BaseActivity<SouvenirEditForeig
                     }
                 })
                 .initAdapter(new GiftAdapter(mActivity))
-                .viewAnim()
                 .setAdapter()
                 .listenerClick(new OnItemLongClickListener() {
                     @Override
@@ -157,7 +156,6 @@ public class SouvenirEditForeignActivity extends BaseActivity<SouvenirEditForeig
                     }
                 })
                 .initAdapter(new TravelAdapter(mActivity))
-                .viewAnim()
                 .setAdapter()
                 .listenerClick(new OnItemClickListener() {
                     @Override
@@ -182,7 +180,6 @@ public class SouvenirEditForeignActivity extends BaseActivity<SouvenirEditForeig
                     }
                 })
                 .initAdapter(new AlbumAdapter(mActivity))
-                .viewAnim()
                 .setAdapter()
                 .listenerClick(new OnItemClickListener() {
                     @Override
@@ -207,7 +204,6 @@ public class SouvenirEditForeignActivity extends BaseActivity<SouvenirEditForeig
                     }
                 })
                 .initAdapter(new VideoAdapter(mActivity))
-                .viewAnim()
                 .setAdapter()
                 .listenerClick(new OnItemChildClickListener() {
                     @Override
@@ -243,7 +239,6 @@ public class SouvenirEditForeignActivity extends BaseActivity<SouvenirEditForeig
                     }
                 })
                 .initAdapter(new FoodAdapter(mActivity))
-                .viewAnim()
                 .setAdapter()
                 .listenerClick(new OnItemChildClickListener() {
                     @Override
@@ -272,7 +267,6 @@ public class SouvenirEditForeignActivity extends BaseActivity<SouvenirEditForeig
                     }
                 })
                 .initAdapter(new MovieAdapter(mActivity))
-                .viewAnim()
                 .setAdapter()
                 .listenerClick(new OnItemChildClickListener() {
                     @Override
@@ -301,7 +295,6 @@ public class SouvenirEditForeignActivity extends BaseActivity<SouvenirEditForeig
                     }
                 })
                 .initAdapter(new DiaryAdapter(mActivity))
-                .viewAnim()
                 .setAdapter()
                 .listenerClick(new OnItemClickListener() {
                     @Override

@@ -61,7 +61,6 @@ public class MovieAdapter extends BaseQuickAdapter<Movie, BaseViewHolder> {
             new RecyclerHelper(rv)
                     .initLayoutManager(new GridLayoutManager(mActivity, spanCount))
                     .initAdapter(new ImgSquareShowAdapter(mActivity, spanCount))
-                    .viewAnim()
                     .setAdapter()
                     .dataNew(imageList, 0);
         } else {

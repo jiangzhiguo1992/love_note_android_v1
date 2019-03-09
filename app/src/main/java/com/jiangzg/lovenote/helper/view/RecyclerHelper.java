@@ -187,8 +187,12 @@ public class RecyclerHelper {
      * item动画
      */
     public RecyclerHelper viewAnim() {
+        return viewAnim(BaseQuickAdapter.SCALEIN);
+    }
+
+    public RecyclerHelper viewAnim(int type) {
         if (mAdapter == null) return this;
-        mAdapter.openLoadAnimation();
+        mAdapter.openLoadAnimation(type);
         mAdapter.isFirstOnly(true);
         return this;
     }

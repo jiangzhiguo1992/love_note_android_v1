@@ -92,7 +92,7 @@ public class AudioListActivity extends BaseActivity<AudioListActivity> {
                 .initAdapter(new AudioAdapter(mActivity, mediaPlayer))
                 .viewEmpty(mActivity, R.layout.list_empty_grey, true, true)
                 .viewLoadMore(new RecyclerHelper.MoreGreyView())
-                .viewAnim()
+                .viewAnim(BaseQuickAdapter.ALPHAIN)
                 .setAdapter()
                 .listenerRefresh(() -> getData(false))
                 .listenerMore(currentCount -> getData(true))

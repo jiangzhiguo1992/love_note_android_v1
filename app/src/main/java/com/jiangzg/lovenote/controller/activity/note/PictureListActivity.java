@@ -132,7 +132,7 @@ public class PictureListActivity extends BaseActivity<PictureListActivity> {
                 .initAdapter(new PictureSectionAdapter(mActivity))
                 .viewEmpty(mActivity, R.layout.list_empty_grey, true, true)
                 .viewLoadMore(new RecyclerHelper.MoreGreyView())
-                .viewAnim()
+                .viewAnim(BaseQuickAdapter.SCALEIN)
                 .setAdapter()
                 .listenerRefresh(() -> getPictureList(false))
                 .listenerMore(currentCount -> getPictureList(true))

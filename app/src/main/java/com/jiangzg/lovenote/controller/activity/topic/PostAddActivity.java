@@ -119,7 +119,6 @@ public class PostAddActivity extends BaseActivity<PostAddActivity> {
                 recyclerHelper = new RecyclerHelper(rvImage)
                         .initLayoutManager(new GridLayoutManager(mActivity, spanCount))
                         .initAdapter(imgAdapter)
-                        .viewAnim()
                         .setAdapter();
             }
         }

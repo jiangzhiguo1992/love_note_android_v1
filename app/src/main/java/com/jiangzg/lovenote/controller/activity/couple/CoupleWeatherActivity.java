@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.jiangzg.base.common.DateUtils;
 import com.jiangzg.base.component.ActivityTrans;
 import com.jiangzg.base.view.BarUtils;
@@ -130,6 +131,7 @@ public class CoupleWeatherActivity extends BaseActivity<CoupleWeatherActivity> {
                 .initLayoutManager(new LinearLayoutManager(mActivity))
                 .initAdapter(new WeatherAdapter(mActivity))
                 .viewEmpty(mActivity, R.layout.list_empty_white, true, true)
+                .viewAnim(BaseQuickAdapter.SCALEIN)
                 .setAdapter();
     }
 

@@ -17,6 +17,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.jiangzg.base.common.FileUtils;
 import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.base.component.ActivityTrans;
@@ -102,7 +103,7 @@ public class WhisperListActivity extends BaseActivity<WhisperListActivity> {
                 .initAdapter(new WhisperAdapter(mActivity))
                 .viewEmpty(mActivity, R.layout.list_empty_grey, true, true)
                 .viewLoadMore(new RecyclerHelper.MoreGreyView())
-                .viewAnim()
+                .viewAnim(BaseQuickAdapter.ALPHAIN)
                 .setAdapter()
                 .listenerRefresh(() -> getData(false))
                 .listenerMore(currentCount -> getData(true));
