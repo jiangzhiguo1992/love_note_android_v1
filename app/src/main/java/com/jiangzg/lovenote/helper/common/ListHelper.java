@@ -121,7 +121,7 @@ public class ListHelper {
         return ossKeyList;
     }
 
-    // 集合类型转换(Audio -> ossKey)
+    // 集合类型转换(Audio -> ossKey) TODO 删除
     public static ArrayList<String> getOssKeyListByAudio(List<Audio> audioList) {
         ArrayList<String> ossKeyList = new ArrayList<>();
         if (audioList == null || audioList.size() <= 0) return ossKeyList;
@@ -134,7 +134,7 @@ public class ListHelper {
         return ossKeyList;
     }
 
-    // 集合类型转换(Video -> ossKey)
+    // 集合类型转换(Video -> ossKey) TODO 删除
     public static ArrayList<String> getOssKeyListByVideo(List<Video> videoList) {
         ArrayList<String> ossKeyList = new ArrayList<>();
         if (videoList == null || videoList.size() <= 0) return ossKeyList;
