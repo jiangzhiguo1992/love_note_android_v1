@@ -31,6 +31,7 @@ import com.jiangzg.lovenote.model.api.Result;
 import com.jiangzg.lovenote.model.entity.Audio;
 import com.jiangzg.lovenote.view.GSwipeRefreshLayout;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -170,7 +171,7 @@ public class AudioListActivity extends BaseActivity<AudioListActivity> {
                 List<Audio> audioList = data.getAudioList();
                 recyclerHelper.dataOk(data.getShow(), audioList, more);
                 // 刷新本地资
-                List<String> ossKeyList = ListHelper.getOssKeyListByAudio(audioList);
+                List<String> ossKeyList = getOssKeyListByAudio(audioList);
                 OssResHelper.refreshResWithDelExpire(OssResHelper.TYPE_NOTE_AUDIO, ossKeyList);
             }
 
@@ -181,6 +182,19 @@ public class AudioListActivity extends BaseActivity<AudioListActivity> {
             }
         });
         pushApi(api);
+    }
+
+    // 集合类型转换(Audio -> ossKey)
+    public static ArrayList<String> getOssKeyListByAudio(List<Audio> audioList) {
+        ArrayList<String> ossKeyList = new ArrayList<>();
+        if (audioList == null || audioList.size() <= 0) return ossKeyList;
+        for (Audio audio : audioList) {
+            if (audio == null || audio.getContentAudio() == null) {
+                continue;
+            }
+            ossKeyList.add(audio.getContentAudio());
+        }
+        return ossKeyList;
     }
 
 }

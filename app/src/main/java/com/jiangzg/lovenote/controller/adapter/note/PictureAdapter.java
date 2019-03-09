@@ -142,7 +142,7 @@ public class PictureAdapter extends BaseQuickAdapter<Picture, BaseViewHolder> {
         // 点击全屏
         ivPicture.setClickListener(iv -> {
             List<Picture> data = PictureAdapter.this.getData();
-            ArrayList<String> ossKeyList = ListHelper.getOssKeyListByPicture(data);
+            ArrayList<String> ossKeyList = PictureAdapter.getOssKeyListByPicture(data);
             int position = helper.getLayoutPosition();
             BigImageActivity.goActivityByOssList(mActivity, ossKeyList, position, iv);
         });
@@ -310,5 +310,18 @@ public class PictureAdapter extends BaseQuickAdapter<Picture, BaseViewHolder> {
     //    // position
     //    operationPosition = -1;
     //}
+
+    // 集合类型转换(Picture -> ossKey)
+    public static ArrayList<String> getOssKeyListByPicture(List<Picture> pictureList) {
+        ArrayList<String> ossKeyList = new ArrayList<>();
+        if (pictureList == null || pictureList.size() <= 0) return ossKeyList;
+        for (Picture picture : pictureList) {
+            if (picture == null || StringUtils.isEmpty(picture.getContentImage())) {
+                continue;
+            }
+            ossKeyList.add(picture.getContentImage());
+        }
+        return ossKeyList;
+    }
 
 }
