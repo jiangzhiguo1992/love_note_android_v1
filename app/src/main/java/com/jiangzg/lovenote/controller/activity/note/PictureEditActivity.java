@@ -276,14 +276,11 @@ public class PictureEditActivity extends BaseActivity<PictureEditActivity> {
 
     private void checkCommit() {
         if (picture == null) return;
-        if ((album == null || album.getId() == 0) && picture.getAlbumId() == 0) {
+        if ((album == null || album.getId() == 0)) {
             ToastUtils.show(getString(R.string.please_select_album));
             return;
-        } else {
-            if (album != null && album.getId() != 0) {
-                picture.setAlbumId(album.getId());
-            }
         }
+        picture.setAlbumId(album.getId());
         if (isFromUpdate()) {
             // 更新
             commitUpdate();

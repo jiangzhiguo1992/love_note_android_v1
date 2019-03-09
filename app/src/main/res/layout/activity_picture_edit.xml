@@ -35,7 +35,7 @@
             <View
                 style="@style/LineHorizontal"
                 android:layout_marginStart="10dp"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="20dp"
                 android:layout_marginEnd="10dp"/>
 
             <LinearLayout
