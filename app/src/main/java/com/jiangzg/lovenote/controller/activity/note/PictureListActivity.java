@@ -28,7 +28,7 @@ import com.jiangzg.base.view.ScreenUtils;
 import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.controller.activity.base.BaseActivity;
-import com.jiangzg.lovenote.controller.adapter.note.PictureAdapter;
+import com.jiangzg.lovenote.controller.adapter.note.PictureSectionAdapter;
 import com.jiangzg.lovenote.helper.common.ListHelper;
 import com.jiangzg.lovenote.helper.common.RxBus;
 import com.jiangzg.lovenote.helper.common.TimeHelper;
@@ -38,6 +38,7 @@ import com.jiangzg.lovenote.helper.view.RecyclerHelper;
 import com.jiangzg.lovenote.helper.view.ViewHelper;
 import com.jiangzg.lovenote.model.api.API;
 import com.jiangzg.lovenote.model.api.Result;
+import com.jiangzg.lovenote.model.engine.PictureSection;
 import com.jiangzg.lovenote.model.entity.Album;
 import com.jiangzg.lovenote.model.entity.Picture;
 import com.jiangzg.lovenote.view.FrescoView;
@@ -125,9 +126,10 @@ public class PictureListActivity extends BaseActivity<PictureListActivity> {
         }
         // recycler
         recyclerHelper = new RecyclerHelper(rv)
-                .initLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL))
+                .initLayoutManager(new StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL))
                 .initRefresh(srl, true)
-                .initAdapter(new PictureAdapter(mActivity))
+                //.initAdapter(new PictureAdapter(mActivity))
+                .initAdapter(new PictureSectionAdapter(mActivity))
                 .viewEmpty(mActivity, R.layout.list_empty_grey, true, true)
                 .viewLoadMore(new RecyclerHelper.MoreGreyView())
                 .setAdapter()
@@ -136,15 +138,14 @@ public class PictureListActivity extends BaseActivity<PictureListActivity> {
                 .listenerClick(new OnItemLongClickListener() {
                     @Override
                     public void onSimpleItemLongClick(BaseQuickAdapter adapter, View view, int position) {
-                        PictureAdapter pictureAdapter = (PictureAdapter) adapter;
-                        //pictureAdapter.showOperation(position);
+                        PictureSectionAdapter pictureAdapter = (PictureSectionAdapter) adapter;
                         pictureAdapter.showDeleteDialog(position);
                     }
                 })
                 .listenerClick(new OnItemChildClickListener() {
                     @Override
                     public void onSimpleItemChildClick(BaseQuickAdapter adapter, View view, int position) {
-                        PictureAdapter pictureAdapter = (PictureAdapter) adapter;
+                        PictureSectionAdapter pictureAdapter = (PictureSectionAdapter) adapter;
                         switch (view.getId()) {
                             case R.id.tvAddress: // 地址
                                 pictureAdapter.onLocationClick(position);
@@ -253,7 +254,7 @@ public class PictureListActivity extends BaseActivity<PictureListActivity> {
         switch (view.getId()) {
             case R.id.fabModel: // 模式
                 if (recyclerHelper == null || recyclerHelper.getAdapter() == null) return;
-                PictureAdapter adapter = recyclerHelper.getAdapter();
+                PictureSectionAdapter adapter = recyclerHelper.getAdapter();
                 adapter.toggleModel();
                 break;
             case R.id.fabAdd: // 添加
@@ -321,8 +322,9 @@ public class PictureListActivity extends BaseActivity<PictureListActivity> {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 if (recyclerHelper == null) return;
-                List<Picture> pictureList = data.getPictureList();
-                recyclerHelper.dataOk(data.getShow(), pictureList, more);
+                PictureSectionAdapter adapter = recyclerHelper.getAdapter();
+                List<PictureSection> sectionList = adapter.getSectionList(!more, data.getPictureList());
+                recyclerHelper.dataOk(data.getShow(), sectionList, more);
             }
 
             @Override

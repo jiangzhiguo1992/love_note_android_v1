@@ -22,8 +22,6 @@
             android:layout_height="200dp"
             android:background="?attr/selectableItemBackground"
             android:foreground="?attr/selectableItemBackground"
-            android:maxHeight="400dp"
-            android:minHeight="100dp"
             app:actualImageScaleType="centerCrop"
             tools:background="@mipmap/ic_launcher"/>
 
