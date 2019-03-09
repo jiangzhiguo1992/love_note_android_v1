@@ -119,9 +119,7 @@ public class PictureSectionAdapter extends BaseSectionQuickAdapter<PictureSectio
             if (i <= 0 || sectionList.size() <= 0 || head == null) {
                 // 第一个
                 List<PictureSection> datas = getData();
-                if (datas.size() > 0) {
-                    head = datas.get(getItemCount() - 1);
-                } else {
+                if (datas.size() <= 0) {
                     head = new PictureSection(true, "");
                     head.t = picture;
                     sectionList.add(head);
@@ -129,6 +127,8 @@ public class PictureSectionAdapter extends BaseSectionQuickAdapter<PictureSectio
                     section.t = picture;
                     sectionList.add(section);
                     continue;
+                } else {
+                    head = datas.get(getItemCount() - 1);
                 }
                 long headHappenAt = TimeHelper.getJavaTimeByGo(head.t.getHappenAt());
                 long nowHappenAt = TimeHelper.getJavaTimeByGo(picture.getHappenAt());
