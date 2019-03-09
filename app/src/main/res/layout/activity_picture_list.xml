@@ -94,14 +94,14 @@
         android:id="@+id/srl"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginStart="2.5dp"
+        android:layout_marginEnd="2.5dp"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/rv"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginStart="5dp"
-            android:layout_marginEnd="5dp"
             app:layout_behavior="@string/appbar_scrolling_view_behavior"
             tools:listitem="@layout/list_item_picture"/>
     </com.jiangzg.lovenote.view.GSwipeRefreshLayout>
