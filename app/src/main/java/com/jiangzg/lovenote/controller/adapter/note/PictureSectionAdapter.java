@@ -4,15 +4,12 @@ import android.graphics.Bitmap;
 import android.os.Build;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.graphics.Palette;
-import android.widget.RelativeLayout;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.chad.library.adapter.base.BaseSectionQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
-import com.facebook.imagepipeline.image.ImageInfo;
 import com.jiangzg.base.common.ConvertUtils;
 import com.jiangzg.base.common.DateUtils;
-import com.jiangzg.base.common.LogUtils;
 import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.base.view.ScreenUtils;
 import com.jiangzg.base.view.ViewUtils;
@@ -44,7 +41,8 @@ public class PictureSectionAdapter extends BaseSectionQuickAdapter<PictureSectio
     private static final int MODEL_DETAIL = 1;
 
     private final BaseActivity mActivity;
-    private final int imageWidth, imageHeight, minHeight, maxHeight;
+    private final int imageWidth, imageHeight;
+    //private final int minHeight, maxHeight;
     private final int colorPrimary;
     private int mModel;
 
@@ -55,8 +53,8 @@ public class PictureSectionAdapter extends BaseSectionQuickAdapter<PictureSectio
         float screenWidth = ScreenUtils.getScreenRealWidth(activity);
         int dp5 = ConvertUtils.dp2px(5);
         imageWidth = imageHeight = (int) (screenWidth - dp5 * 4) / 3;
-        minHeight = imageHeight / 2;
-        maxHeight = imageHeight * 2;
+        //minHeight = imageHeight / 2;
+        //maxHeight = imageHeight * 2;
         colorPrimary = ContextCompat.getColor(activity, ViewUtils.getColorPrimary(mActivity));
     }
 
@@ -271,24 +269,24 @@ public class PictureSectionAdapter extends BaseSectionQuickAdapter<PictureSectio
             }
         });
         // 为瀑布流定制不一样的宽高(这里起始高度一定不能wrap，否则会一开始就都加在)
-        ivPicture.setLoadListener(new FrescoView.LoadListener() {
-            @Override
-            public void onLoadSuccess(FrescoView iv, ImageInfo imageInfo) {
-                float width = imageInfo.getWidth();
-                float height = imageInfo.getHeight();
-                float finalHeight = (height / width * imageWidth);
-                if (finalHeight < minHeight) finalHeight = minHeight;
-                if (finalHeight > maxHeight) finalHeight = maxHeight;
-                LogUtils.i(PictureSectionAdapter.class, "高度", finalHeight + " == " + width + " " + height);
-                RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) iv.getLayoutParams();
-                layoutParams.height = (int) finalHeight;
-                iv.setLayoutParams(layoutParams);
-            }
-
-            @Override
-            public void onLoadFail(FrescoView iv) {
-            }
-        });
+        //ivPicture.setLoadListener(new FrescoView.LoadListener() {
+        //    @Override
+        //    public void onLoadSuccess(FrescoView iv, ImageInfo imageInfo) {
+        //        float width = imageInfo.getWidth();
+        //        float height = imageInfo.getHeight();
+        //        float finalHeight = (height / width * imageWidth);
+        //        if (finalHeight < minHeight) finalHeight = minHeight;
+        //        if (finalHeight > maxHeight) finalHeight = maxHeight;
+        //        LogUtils.i(PictureSectionAdapter.class, "高度", finalHeight + " == " + width + " " + height);
+        //        RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) iv.getLayoutParams();
+        //        layoutParams.height = (int) finalHeight;
+        //        iv.setLayoutParams(layoutParams);
+        //    }
+        //
+        //    @Override
+        //    public void onLoadFail(FrescoView iv) {
+        //    }
+        //});
         // 点击全屏
         ivPicture.setClickListener(iv -> {
             ArrayList<String> ossKeyList = PictureSectionAdapter.this.getOssKeyListWithoutHeader();

@@ -239,7 +239,7 @@ public class PictureListActivity extends BaseActivity<PictureListActivity> {
             }
             if (index < 0 || index >= dataList.size()) return;
             adapter.remove(index);
-            rv.scrollBy(0, 1); // 必须要滚动一下才行
+            rv.scrollBy(0, 0); // 必须要滚动一下才行
         });
         pushBus(RxBus.EVENT_PICTURE_LIST_ITEM_DELETE, obListItemDelete);
         // refresh
@@ -346,7 +346,7 @@ public class PictureListActivity extends BaseActivity<PictureListActivity> {
                 PictureSectionAdapter adapter = recyclerHelper.getAdapter();
                 List<PictureSection> sectionList = adapter.getSectionList(!more, data.getPictureList());
                 recyclerHelper.dataOk(data.getShow(), sectionList, more);
-                rv.scrollBy(0, 1); // 必须要滚动一下才行
+                rv.scrollBy(0, 0); // 必须要滚动一下才行
             }
 
             @Override
