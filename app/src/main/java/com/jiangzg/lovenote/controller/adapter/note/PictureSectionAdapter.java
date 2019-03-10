@@ -202,21 +202,6 @@ public class PictureSectionAdapter extends BaseSectionQuickAdapter<PictureSectio
         return ossKeyList;
     }
 
-    public List<Picture> getPictureList() {
-        List<Picture> pictureList = new ArrayList<>();
-        List<PictureSection> datas = getData();
-        if (datas.size() <= 0) return pictureList;
-        for (PictureSection section : datas) {
-            Picture picture = section.t;
-            if (picture == null) {
-                // 不能continue
-                picture = new Picture();
-            }
-            pictureList.add(picture);
-        }
-        return pictureList;
-    }
-
     // 切换显示模式
     public void toggleModel() {
         mModel = (mModel == MODEL_DETAIL) ? MODEL_IMAGE : MODEL_DETAIL;
