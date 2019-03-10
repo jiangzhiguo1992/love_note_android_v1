@@ -79,26 +79,32 @@ public class PictureSectionAdapter extends BaseSectionQuickAdapter<PictureSectio
                 // 第一个
                 head = new PictureSection(true, "");
                 head.t = picture;
+                head.setSection(0);
                 sectionList.add(head);
                 PictureSection section = new PictureSection(false, "");
                 section.t = picture;
+                section.setSection(0);
                 sectionList.add(section);
             } else {
                 // 不是第一个
+                int oldSection = head.getSection();
                 long headHappenAt = TimeHelper.getJavaTimeByGo(head.t.getHappenAt());
                 long nowHappenAt = TimeHelper.getJavaTimeByGo(picture.getHappenAt());
                 if (!DateUtils.isSameDay(headHappenAt, nowHappenAt)) {
                     // 不是同一天
                     head = new PictureSection(true, "");
                     head.t = picture;
+                    head.setSection(oldSection + 1);
                     sectionList.add(head);
                     PictureSection section = new PictureSection(false, "");
                     section.t = picture;
+                    section.setSection(oldSection + 1);
                     sectionList.add(section);
                 } else {
                     // 是同一天
                     PictureSection section = new PictureSection(false, "");
                     section.t = picture;
+                    section.setSection(oldSection);
                     sectionList.add(section);
                 }
             }
@@ -122,46 +128,56 @@ public class PictureSectionAdapter extends BaseSectionQuickAdapter<PictureSectio
                 if (datas.size() <= 0) {
                     head = new PictureSection(true, "");
                     head.t = picture;
+                    head.setSection(0);
                     sectionList.add(head);
                     PictureSection section = new PictureSection(false, "");
                     section.t = picture;
+                    section.setSection(0);
                     sectionList.add(section);
                     continue;
                 } else {
                     head = datas.get(getItemCount() - 1);
                 }
+                int oldSection = head.getSection();
                 long headHappenAt = TimeHelper.getJavaTimeByGo(head.t.getHappenAt());
                 long nowHappenAt = TimeHelper.getJavaTimeByGo(picture.getHappenAt());
                 if (!DateUtils.isSameDay(headHappenAt, nowHappenAt)) {
                     // 不是同一天
                     head = new PictureSection(true, "");
                     head.t = picture;
+                    head.setSection(oldSection + 1);
                     sectionList.add(head);
                     PictureSection section = new PictureSection(false, "");
                     section.t = picture;
+                    section.setSection(oldSection + 1);
                     sectionList.add(section);
                 } else {
                     // 是同一天
                     PictureSection section = new PictureSection(false, "");
                     section.t = picture;
+                    section.setSection(oldSection);
                     sectionList.add(section);
                 }
             } else {
                 // 不是第一个
+                int oldSection = head.getSection();
                 long headHappenAt = TimeHelper.getJavaTimeByGo(head.t.getHappenAt());
                 long nowHappenAt = TimeHelper.getJavaTimeByGo(picture.getHappenAt());
                 if (!DateUtils.isSameDay(headHappenAt, nowHappenAt)) {
                     // 不是同一天
                     head = new PictureSection(true, "");
                     head.t = picture;
+                    head.setSection(oldSection + 1);
                     sectionList.add(head);
                     PictureSection section = new PictureSection(false, "");
                     section.t = picture;
+                    section.setSection(oldSection + 1);
                     sectionList.add(section);
                 } else {
                     // 是同一天
                     PictureSection section = new PictureSection(false, "");
                     section.t = picture;
+                    section.setSection(oldSection);
                     sectionList.add(section);
                 }
             }
@@ -169,11 +185,14 @@ public class PictureSectionAdapter extends BaseSectionQuickAdapter<PictureSectio
         return sectionList;
     }
 
-    public ArrayList<String> getOssKeyList() {
+    private ArrayList<String> getOssKeyListWithoutHeader() {
         ArrayList<String> ossKeyList = new ArrayList<>();
         List<PictureSection> datas = getData();
         if (datas.size() <= 0) return ossKeyList;
         for (PictureSection section : datas) {
+            if (section == null || section.isHeader) {
+                continue;
+            }
             Picture picture = section.t;
             if (picture == null || StringUtils.isEmpty(picture.getContentImage())) {
                 continue;
@@ -181,6 +200,21 @@ public class PictureSectionAdapter extends BaseSectionQuickAdapter<PictureSectio
             ossKeyList.add(picture.getContentImage());
         }
         return ossKeyList;
+    }
+
+    public List<Picture> getPictureList() {
+        List<Picture> pictureList = new ArrayList<>();
+        List<PictureSection> datas = getData();
+        if (datas.size() <= 0) return pictureList;
+        for (PictureSection section : datas) {
+            Picture picture = section.t;
+            if (picture == null) {
+                // 不能continue
+                picture = new Picture();
+            }
+            pictureList.add(picture);
+        }
+        return pictureList;
     }
 
     // 切换显示模式
@@ -272,8 +306,14 @@ public class PictureSectionAdapter extends BaseSectionQuickAdapter<PictureSectio
         });
         // 点击全屏
         ivPicture.setClickListener(iv -> {
-            ArrayList<String> ossKeyList = PictureSectionAdapter.this.getOssKeyList();
-            int position = helper.getLayoutPosition();
+            ArrayList<String> ossKeyList = PictureSectionAdapter.this.getOssKeyListWithoutHeader();
+            if (ossKeyList.size() <= 0) return;
+            int layoutPosition = helper.getLayoutPosition();
+            PictureSection ps = getItem(layoutPosition);
+            int position = layoutPosition - ps.getSection() - 1;
+            if (position < 0 || position > ossKeyList.size()) {
+                position = 0;
+            }
             BigImageActivity.goActivityByOssList(mActivity, ossKeyList, position, iv);
         });
         ivPicture.setData(content);

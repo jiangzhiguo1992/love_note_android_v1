@@ -8,8 +8,21 @@ import com.jiangzg.lovenote.model.entity.Picture;
  */
 public class PictureSection extends SectionEntity<Picture> {
 
+    private int section;
+
     public PictureSection(boolean isHeader, String header) {
         super(isHeader, header);
     }
 
+    public PictureSection(Picture picture) {
+        super(picture);
+    }
+
+    public int getSection() {
+        return section;
+    }
+
+    public void setSection(int section) {
+        this.section = section;
+    }
 }
