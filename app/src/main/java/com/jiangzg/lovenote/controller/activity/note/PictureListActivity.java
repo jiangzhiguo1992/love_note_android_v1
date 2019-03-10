@@ -1,5 +1,6 @@
 package com.jiangzg.lovenote.controller.activity.note;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -29,7 +30,6 @@ import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.controller.activity.base.BaseActivity;
 import com.jiangzg.lovenote.controller.adapter.note.PictureSectionAdapter;
-import com.jiangzg.lovenote.helper.common.ListHelper;
 import com.jiangzg.lovenote.helper.common.RxBus;
 import com.jiangzg.lovenote.helper.common.TimeHelper;
 import com.jiangzg.lovenote.helper.system.RetrofitHelper;
@@ -209,16 +209,37 @@ public class PictureListActivity extends BaseActivity<PictureListActivity> {
         });
         pushBus(RxBus.EVENT_PICTURE_LIST_REFRESH, obListRefresh);
         Observable<Picture> obListItemRefresh = RxBus.register(RxBus.EVENT_PICTURE_LIST_ITEM_REFRESH, picture -> {
-            if (recyclerHelper == null) return;
-            ListHelper.refreshObjInAdapter(recyclerHelper.getAdapter(), picture);
+            // 老版的，需要用的时候记得修改
+            //if (recyclerHelper == null) return;
+            //ListHelper.refreshObjInAdapter(recyclerHelper.getAdapter(), picture);
         });
         pushBus(RxBus.EVENT_PICTURE_LIST_ITEM_REFRESH, obListItemRefresh);
+        @SuppressLint("Range")
         Observable<Picture> obListItemDelete = RxBus.register(RxBus.EVENT_PICTURE_LIST_ITEM_DELETE, picture -> {
+            if (album != null) {
+                album.setPictureCount(album.getPictureCount() - 1);
+                refreshAlbumView();
+            }
             if (recyclerHelper == null) return;
-            ListHelper.removeObjInAdapter(recyclerHelper.getAdapter(), picture);
-            if (album == null) return;
-            album.setPictureCount(album.getPictureCount() - 1);
-            refreshAlbumView();
+            PictureSectionAdapter adapter = recyclerHelper.getAdapter();
+            if (adapter == null) return;
+            List<PictureSection> dataList = adapter.getData();
+            if (dataList.size() <= 0) return;
+            if (picture == null || picture.getId() == 0) return;
+            int index = -1;
+            for (int i = 0; i < dataList.size(); i++) {
+                PictureSection ps = dataList.get(i);
+                if (ps == null || ps.isHeader) continue;
+                Picture p = ps.t;
+                if (p == null) continue;
+                if (p.getId() == picture.getId()) {
+                    // 找到了
+                    index = i;
+                }
+            }
+            if (index < 0 || index >= dataList.size()) return;
+            adapter.remove(index);
+            rv.scrollBy(0, 1); // 必须要滚动一下才行
         });
         pushBus(RxBus.EVENT_PICTURE_LIST_ITEM_DELETE, obListItemDelete);
         // refresh
@@ -273,7 +294,6 @@ public class PictureListActivity extends BaseActivity<PictureListActivity> {
                 if (data.getAlbum() == null) return;
                 album = data.getAlbum();
                 refreshAlbumView();
-                recyclerHelper.dataRefresh();
             }
 
             @Override
@@ -326,6 +346,7 @@ public class PictureListActivity extends BaseActivity<PictureListActivity> {
                 PictureSectionAdapter adapter = recyclerHelper.getAdapter();
                 List<PictureSection> sectionList = adapter.getSectionList(!more, data.getPictureList());
                 recyclerHelper.dataOk(data.getShow(), sectionList, more);
+                rv.scrollBy(0, 1); // 必须要滚动一下才行
             }
 
             @Override
