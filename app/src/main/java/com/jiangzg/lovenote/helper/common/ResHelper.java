@@ -61,8 +61,12 @@ public class ResHelper {
         List<String> filesList = new ArrayList<>();
         String inCacheDir = AppInfo.get().getInCacheDir();
         String outCacheDir = AppInfo.get().getOutCacheDir();
+        String imgCache = createImgCacheDir().getAbsolutePath();
+        String apkCache = newApkDir().getAbsolutePath();
         filesList.add(inCacheDir);
         filesList.add(outCacheDir);
+        filesList.add(imgCache);
+        filesList.add(apkCache);
         return filesList;
     }
 
@@ -157,33 +161,6 @@ public class ResHelper {
         return dir + File.separator + "oss" + File.separator;
     }
 
-    // apk-目录
-    public static File newApkDir() {
-        return new File(AppInfo.get().getOutFilesDir(), "apk");
-    }
-
-    // 图片-缓存目录
-    public static File createImgCacheDir() {
-        File dir = new File(AppInfo.get().getOutFilesDir(), "mm_img_cache");
-        FileUtils.createOrExistsDir(dir);
-        return dir;
-    }
-
-    // 图片-缓存文件
-    public static File newImageCacheFile() {
-        String fileName = StringUtils.getUUID(10) + ".jpeg";
-        File file = new File(createImgCacheDir(), fileName);
-        LogUtils.d(ResHelper.class, "newImageCacheFile", file.getAbsolutePath());
-        return file;
-    }
-
-    // apk-文件
-    public static File newApkFile(String versionName) {
-        File apkFile = new File(newApkDir(), versionName + ".apk");
-        LogUtils.d(ResHelper.class, "newApkFile", apkFile.getAbsolutePath());
-        return apkFile;
-    }
-
     // 图片-fresco缓存目录
     public static File createFrescoCacheDir() {
         File file = new File(AppInfo.get().getOutCacheDir(), "fresco");
@@ -213,6 +190,33 @@ public class ResHelper {
         String fileName = split[split.length - 1];
         File file = new File(createSdCardImageDir(), fileName);
         LogUtils.d(ResHelper.class, "newImageDownLoadFile", file.getAbsolutePath());
+        return file;
+    }
+
+    // apk-目录
+    public static File newApkDir() {
+        return new File(AppInfo.get().getOutFilesDir(), "apk");
+    }
+
+    // apk-文件
+    public static File newApkFile(String versionName) {
+        File apkFile = new File(newApkDir(), versionName + ".apk");
+        LogUtils.d(ResHelper.class, "newApkFile", apkFile.getAbsolutePath());
+        return apkFile;
+    }
+
+    // 图片-缓存目录
+    public static File createImgCacheDir() {
+        File dir = new File(AppInfo.get().getOutFilesDir(), "mm_img_cache");
+        FileUtils.createOrExistsDir(dir);
+        return dir;
+    }
+
+    // 图片-缓存文件
+    public static File newImageCacheFile() {
+        String fileName = StringUtils.getUUID(10) + ".jpeg";
+        File file = new File(createImgCacheDir(), fileName);
+        LogUtils.d(ResHelper.class, "newImageCacheFile", file.getAbsolutePath());
         return file;
     }
 
