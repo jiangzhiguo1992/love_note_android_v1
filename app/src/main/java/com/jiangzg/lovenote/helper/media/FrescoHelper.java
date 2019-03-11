@@ -50,7 +50,7 @@ public class FrescoHelper {
         // 设置缓存目录
         DiskCacheConfig diskCacheConfig = DiskCacheConfig.newBuilder(ctx)
                 .setBaseDirectoryPath(ResHelper.createFrescoCacheDir()) // 路径
-                .setMaxCacheSize(2047 * FileUtils.MB) // 大小
+                .setMaxCacheSize(100L * FileUtils.GB) // 大小
                 .build();
         // 初始化配置，使用okHttp的，会有准确的加载进度
         ImagePipelineConfig config = OkHttpImagePipelineConfigFactory.newBuilder(ctx, new OkHttpClient())
