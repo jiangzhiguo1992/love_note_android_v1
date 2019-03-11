@@ -65,7 +65,6 @@ public class PictureSectionAdapter extends BaseSectionQuickAdapter<PictureSectio
 
     private List<PictureSection> getNewPictureList(List<Picture> list) {
         List<PictureSection> sectionList = new ArrayList<>();
-        if (sectionList.size() > 0) sectionList.clear();
         if (list == null || list.size() <= 0) return sectionList;
         // 当前head
         PictureSection head = null;
@@ -73,7 +72,7 @@ public class PictureSectionAdapter extends BaseSectionQuickAdapter<PictureSectio
             // 开始循环
             Picture picture = list.get(i);
             if (picture == null) continue;
-            if (i <= 0 || sectionList.size() <= 0 || head == null) {
+            if (i <= 0 || sectionList.size() <= 0) {
                 // 第一个
                 head = new PictureSection(true, "");
                 head.t = picture;
@@ -113,14 +112,13 @@ public class PictureSectionAdapter extends BaseSectionQuickAdapter<PictureSectio
     private List<PictureSection> getMorePictureList(List<Picture> list) {
         List<PictureSection> sectionList = new ArrayList<>();
         if (list == null || list.size() <= 0) return sectionList;
-        if (sectionList.size() <= 0) return getNewPictureList(list);
         // 当前head
         PictureSection head = null;
         for (int i = 0; i < list.size(); i++) {
             // 开始循环
             Picture picture = list.get(i);
             if (picture == null) continue;
-            if (i <= 0 || sectionList.size() <= 0 || head == null) {
+            if (i <= 0 || sectionList.size() <= 0) {
                 // 第一个
                 List<PictureSection> datas = getData();
                 if (datas.size() <= 0) {
@@ -134,7 +132,7 @@ public class PictureSectionAdapter extends BaseSectionQuickAdapter<PictureSectio
                     sectionList.add(section);
                     continue;
                 } else {
-                    head = datas.get(getItemCount() - 1);
+                    head = datas.get(datas.size() - 1);
                 }
                 int oldSection = head.getSection();
                 long headHappenAt = TimeHelper.getJavaTimeByGo(head.t.getHappenAt());
