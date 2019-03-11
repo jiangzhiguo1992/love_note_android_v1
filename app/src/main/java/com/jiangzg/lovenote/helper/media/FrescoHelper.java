@@ -21,6 +21,7 @@ import com.facebook.imagepipeline.core.ImagePipelineConfig;
 import com.facebook.imagepipeline.decoder.SimpleProgressiveJpegConfig;
 import com.facebook.imagepipeline.request.ImageRequest;
 import com.facebook.imagepipeline.request.ImageRequestBuilder;
+import com.jiangzg.base.common.FileUtils;
 import com.jiangzg.base.common.LogUtils;
 import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.lovenote.helper.common.ResHelper;
@@ -48,7 +49,8 @@ public class FrescoHelper {
         };
         // 设置缓存目录
         DiskCacheConfig diskCacheConfig = DiskCacheConfig.newBuilder(ctx)
-                .setBaseDirectoryPath(ResHelper.createFrescoCacheDir())
+                .setBaseDirectoryPath(ResHelper.createFrescoCacheDir()) // 路径
+                .setMaxCacheSize(2047 * FileUtils.MB) // 大小
                 .build();
         // 初始化配置，使用okHttp的，会有准确的加载进度
         ImagePipelineConfig config = OkHttpImagePipelineConfigFactory.newBuilder(ctx, new OkHttpClient())
@@ -77,6 +79,7 @@ public class FrescoHelper {
     // 清除磁盘
     public static void clearDiskCaches() {
         ImagePipeline imagePipeline = Fresco.getImagePipeline();
+        imagePipeline.clearMemoryCaches();
         imagePipeline.clearDiskCaches();
     }
 
