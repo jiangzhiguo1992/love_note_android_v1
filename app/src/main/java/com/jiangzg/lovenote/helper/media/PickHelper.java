@@ -6,12 +6,12 @@ import android.content.pm.ActivityInfo;
 import android.graphics.Bitmap;
 import android.net.Uri;
 
-import com.jiangzg.base.application.AppInfo;
 import com.jiangzg.base.common.FileUtils;
 import com.jiangzg.base.common.LogUtils;
 import com.jiangzg.base.component.IntentResult;
 import com.jiangzg.base.component.ProviderUtils;
 import com.jiangzg.base.media.BitmapUtils;
+import com.jiangzg.base.system.DeviceInfo;
 import com.jiangzg.base.system.PermUtils;
 import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.controller.activity.base.BaseActivity;
@@ -87,7 +87,7 @@ public class PickHelper {
         } else {
             LogUtils.w(IntentResult.class, "getResultFile", "uri == null");
             long time = new Date().getTime();
-            file = new File(AppInfo.get().getInCacheDir(), time + ".jpeg");
+            file = new File(DeviceInfo.get().getInCacheDir(), time + ".jpeg");
             FileUtils.createFileByDeleteOldFile(file);
             Bitmap picture = data.getParcelableExtra("data");
             BitmapUtils.saveBitmap(picture, file.getAbsolutePath(), Bitmap.CompressFormat.JPEG, true);
@@ -118,7 +118,7 @@ public class PickHelper {
             } else {
                 LogUtils.w(IntentResult.class, "getResultFileList", "uri == null");
                 long time = new Date().getTime();
-                file = new File(AppInfo.get().getInCacheDir(), time + ".jpeg");
+                file = new File(DeviceInfo.get().getInCacheDir(), time + ".jpeg");
                 FileUtils.createFileByDeleteOldFile(file);
                 Bitmap picture = data.getParcelableExtra("data");
                 BitmapUtils.saveBitmap(picture, file.getAbsolutePath(), Bitmap.CompressFormat.JPEG, true);

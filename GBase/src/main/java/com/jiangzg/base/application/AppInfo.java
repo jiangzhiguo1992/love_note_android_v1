@@ -6,13 +6,10 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.Signature;
 import android.graphics.drawable.Drawable;
-import android.os.Environment;
 
 import com.jiangzg.base.common.EncryptUtils;
 import com.jiangzg.base.common.LogUtils;
-import com.jiangzg.base.common.StringUtils;
 
-import java.io.File;
 import java.util.Arrays;
 
 /**
@@ -32,11 +29,6 @@ public class AppInfo {
     private boolean isSystem; // 是否是系统级别
     private Signature[] signature; // 签名
     private String SHA1; // 地图的sha1值
-    private String inCacheDir; // 内部缓存目录 /data/user/0/packageName/cache，拍照裁剪没权限
-    private String inFilesDir; // 内部文件目录 /data/user/0/packageName/files，拍照裁剪没权限
-    private String outCacheDir; // sd卡缓存目录 /storage/emulated/0/Android/data/packageName/cache
-    private String outFilesDir; // sd卡文件目录 /storage/emulated/0/Android/data/packageName/files
-    private String sdCardDir; // sd卡路径 /storage/emulated/0/ 或 /
 
     /**
      * 获取当前App信息
@@ -160,70 +152,6 @@ public class AppInfo {
         return versionName;
     }
 
-    public String getInCacheDir() {
-        if (StringUtils.isEmpty(inCacheDir)) {
-            File cacheDir = AppBase.getInstance().getCacheDir();
-            inCacheDir = cacheDir.getAbsolutePath();
-        }
-        LogUtils.d(AppInfo.class, "getInCacheDir", inCacheDir);
-        return inCacheDir;
-    }
-
-    public String getInFilesDir() {
-        if (StringUtils.isEmpty(inFilesDir)) {
-            File filesDir = AppBase.getInstance().getFilesDir();
-            inFilesDir = filesDir.getAbsolutePath();
-        }
-        LogUtils.d(AppInfo.class, "getInFilesDir", inFilesDir);
-        return inFilesDir;
-    }
-
-    public String getOutCacheDir() {
-        if (StringUtils.isEmpty(outCacheDir)) {
-            File externalCacheDir = AppBase.getInstance().getExternalCacheDir();
-            if (isSDCardExits() && externalCacheDir != null && !StringUtils.isEmpty(externalCacheDir.getAbsolutePath())) {
-                outCacheDir = externalCacheDir.getAbsolutePath();
-            } else {
-                outCacheDir = getInCacheDir();
-            }
-        }
-        LogUtils.d(AppInfo.class, "getOutCacheDir", outCacheDir);
-        return outCacheDir;
-    }
-
-    public String getOutFilesDir() {
-        if (StringUtils.isEmpty(outFilesDir)) {
-            File externalFilesDir = AppBase.getInstance().getExternalFilesDir("");
-            if (isSDCardExits() && externalFilesDir != null && !StringUtils.isEmpty(externalFilesDir.getAbsolutePath())) {
-                outFilesDir = externalFilesDir.getAbsolutePath();
-            } else {
-                outFilesDir = getInFilesDir();
-            }
-        }
-        LogUtils.d(AppInfo.class, "getOutFilesDir", outFilesDir);
-        return outFilesDir;
-    }
-
-    /**
-     * 获取可用的SD卡路径，需要动态权限
-     */
-    @SuppressLint("MissingPermission")
-    public String getSdCardDir() {
-        if (StringUtils.isEmpty(sdCardDir)) {
-            if (isSDCardExits()) { // 有sd卡 == /storage/emulated/0/
-                this.sdCardDir = Environment.getExternalStorageDirectory().getPath() + File.separator;
-            } else { // 没sd卡 == /
-                this.sdCardDir = Environment.getRootDirectory() + File.separator;
-            }
-        }
-        LogUtils.d(AppInfo.class, "getSDCardDir", sdCardDir);
-        return this.sdCardDir;
-    }
-
-    public static boolean isSDCardExits() {
-        return Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState());
-    }
-
     @Override
     public String toString() {
         return "AppInfo{" +
@@ -236,11 +164,6 @@ public class AppInfo {
                 ", isSystem=" + isSystem +
                 ", signature=" + Arrays.toString(signature) +
                 ", SHA1='" + SHA1 + '\'' +
-                ", inCacheDir='" + inCacheDir + '\'' +
-                ", inFilesDir='" + inFilesDir + '\'' +
-                ", outCacheDir='" + outCacheDir + '\'' +
-                ", outFilesDir='" + outFilesDir + '\'' +
-                ", sdCardDir='" + sdCardDir + '\'' +
                 '}';
     }
 }

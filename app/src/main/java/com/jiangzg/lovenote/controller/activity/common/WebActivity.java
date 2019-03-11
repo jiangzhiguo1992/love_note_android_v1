@@ -16,10 +16,10 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
-import com.jiangzg.base.application.AppInfo;
 import com.jiangzg.base.common.FileUtils;
 import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.base.component.ActivityTrans;
+import com.jiangzg.base.system.DeviceInfo;
 import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.controller.activity.base.BaseActivity;
 import com.jiangzg.lovenote.helper.view.ViewHelper;
@@ -78,7 +78,7 @@ public class WebActivity extends BaseActivity<WebActivity> {
 
     @SuppressLint("SetJavaScriptEnabled")
     public void initWebView(boolean zoom, boolean cache) {
-        String appCacheDir = AppInfo.get().getInCacheDir();
+        String appCacheDir = DeviceInfo.get().getInCacheDir();
         String cacheDir = new File(appCacheDir, "web_cache").getAbsolutePath();
         FileUtils.createOrExistsFile(cacheDir);
         wv.requestFocusFromTouch(); // 支持获取手势焦点

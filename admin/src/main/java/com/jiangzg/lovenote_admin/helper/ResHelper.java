@@ -3,6 +3,7 @@ package com.jiangzg.lovenote_admin.helper;
 import com.jiangzg.base.application.AppInfo;
 import com.jiangzg.base.common.ConvertUtils;
 import com.jiangzg.base.common.FileUtils;
+import com.jiangzg.base.system.DeviceInfo;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -17,8 +18,8 @@ public class ResHelper {
     // 获取具有缓存的文件夹
     private static List<String> getCaches() {
         List<String> filesList = new ArrayList<>();
-        String inCacheDir = AppInfo.get().getInCacheDir();
-        String outCacheDir = AppInfo.get().getOutCacheDir();
+        String inCacheDir = DeviceInfo.get().getInCacheDir();
+        String outCacheDir = DeviceInfo.get().getOutCacheDir();
         filesList.add(inCacheDir);
         filesList.add(outCacheDir);
         return filesList;
@@ -62,7 +63,7 @@ public class ResHelper {
      */
     // 图片-fresco缓存目录
     public static File createFrescoCacheDir() {
-        File file = new File(AppInfo.get().getOutCacheDir(), "fresco");
+        File file = new File(DeviceInfo.get().getOutCacheDir(), "fresco");
         FileUtils.createOrExistsDir(file);
         return file;
     }

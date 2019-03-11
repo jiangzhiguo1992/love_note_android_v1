@@ -8,6 +8,7 @@ import com.jiangzg.base.application.AppBase;
 import com.jiangzg.base.application.AppInfo;
 import com.jiangzg.base.application.AppUtils;
 import com.jiangzg.base.component.ActivityStack;
+import com.jiangzg.base.system.DeviceInfo;
 
 import java.io.File;
 import java.util.Arrays;
@@ -146,7 +147,7 @@ public class LogUtils {
 
     // Log目录
     public static File getLogDir() {
-        File logDir = new File(AppInfo.get().getOutFilesDir(), "log");
+        File logDir = new File(DeviceInfo.get().getOutFilesDir(), "log");
         FileUtils.createOrExistsDir(logDir); // 并创建
         return logDir;
     }

@@ -8,11 +8,11 @@ import android.net.Uri;
 import android.provider.MediaStore;
 
 import com.jiangzg.base.application.AppBase;
-import com.jiangzg.base.application.AppInfo;
 import com.jiangzg.base.common.FileUtils;
 import com.jiangzg.base.common.LogUtils;
 import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.base.media.BitmapUtils;
+import com.jiangzg.base.system.DeviceInfo;
 
 import java.io.File;
 import java.util.Date;
@@ -70,7 +70,7 @@ public class IntentResult {
         } else {
             LogUtils.w(IntentResult.class, "getPictureFile", "uri == null");
             long time = new Date().getTime();
-            file = new File(AppInfo.get().getInCacheDir(), time + ".jpeg");
+            file = new File(DeviceInfo.get().getInCacheDir(), time + ".jpeg");
             FileUtils.createFileByDeleteOldFile(file);
             Bitmap picture = data.getParcelableExtra("data");
             BitmapUtils.saveBitmap(picture, file.getAbsolutePath(), Bitmap.CompressFormat.JPEG, true);

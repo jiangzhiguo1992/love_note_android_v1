@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.pm.ProviderInfo;
 import android.content.res.Configuration;
 
-import com.jiangzg.base.application.AppInfo;
 import com.jiangzg.base.application.AppListener;
 import com.jiangzg.base.application.AppUtils;
 import com.jiangzg.base.common.ConvertUtils;
@@ -13,6 +12,7 @@ import com.jiangzg.base.common.LogUtils;
 import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.base.component.ActivityStack;
 import com.jiangzg.base.component.BroadcastUtils;
+import com.jiangzg.base.system.DeviceInfo;
 import com.jiangzg.base.system.PermUtils;
 import com.jiangzg.lovenote.controller.activity.base.BaseActivity;
 import com.jiangzg.lovenote.helper.media.FrescoHelper;
@@ -59,8 +59,8 @@ public class ResHelper {
     // 获取具有缓存的文件夹
     private static List<String> getCaches() {
         List<String> filesList = new ArrayList<>();
-        String inCacheDir = AppInfo.get().getInCacheDir();
-        String outCacheDir = AppInfo.get().getOutCacheDir();
+        String inCacheDir = DeviceInfo.get().getInCacheDir();
+        String outCacheDir = DeviceInfo.get().getOutCacheDir();
         String imgCache = createImgCacheDir().getAbsolutePath();
         String apkCache = newApkDir().getAbsolutePath();
         filesList.add(inCacheDir);
@@ -157,13 +157,13 @@ public class ResHelper {
      */
     // 图片-oss目录
     public static String getOssResDirPath() {
-        String dir = AppInfo.get().getOutFilesDir();
+        String dir = DeviceInfo.get().getOutFilesDir();
         return dir + File.separator + "oss" + File.separator;
     }
 
     // 图片-fresco缓存目录
     public static File createFrescoCacheDir() {
-        File file = new File(AppInfo.get().getOutCacheDir(), "fresco");
+        File file = new File(DeviceInfo.get().getOutCacheDir(), "fresco");
         FileUtils.createOrExistsDir(file);
         return file;
     }
@@ -171,7 +171,7 @@ public class ResHelper {
     // 图片-downLoad目录
     public static File createSdCardImageDir() {
         String dirName = "YuSheng";
-        File dir = new File(AppInfo.get().getSdCardDir(), dirName);
+        File dir = new File(DeviceInfo.get().getSdCardDir(), dirName);
         FileUtils.createOrExistsDir(dir);
         return dir;
     }
@@ -195,7 +195,7 @@ public class ResHelper {
 
     // apk-目录
     public static File newApkDir() {
-        return new File(AppInfo.get().getOutFilesDir(), "apk");
+        return new File(DeviceInfo.get().getOutFilesDir(), "apk");
     }
 
     // apk-文件
@@ -207,7 +207,7 @@ public class ResHelper {
 
     // 图片-缓存目录
     public static File createImgCacheDir() {
-        File dir = new File(AppInfo.get().getOutFilesDir(), "mm_img_cache");
+        File dir = new File(DeviceInfo.get().getOutFilesDir(), "mm_img_cache");
         FileUtils.createOrExistsDir(dir);
         return dir;
     }
