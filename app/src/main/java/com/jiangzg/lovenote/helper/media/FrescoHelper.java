@@ -3,6 +3,7 @@ package com.jiangzg.lovenote.helper.media;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.os.Environment;
 
 import com.facebook.cache.disk.DiskCacheConfig;
 import com.facebook.cache.disk.FileCache;
@@ -48,9 +49,11 @@ public class FrescoHelper {
             }
         };
         // 设置缓存目录
+        long maxSize = Environment.getExternalStorageDirectory().getTotalSpace() / 2;
+        if (maxSize <= 0) maxSize = 10L * FileUtils.GB;
         DiskCacheConfig diskCacheConfig = DiskCacheConfig.newBuilder(ctx)
                 .setBaseDirectoryPath(ResHelper.createFrescoCacheDir()) // 路径
-                .setMaxCacheSize(100L * FileUtils.GB) // 大小
+                .setMaxCacheSize(maxSize) // 大小
                 .build();
         // 初始化配置，使用okHttp的，会有准确的加载进度
         ImagePipelineConfig config = OkHttpImagePipelineConfigFactory.newBuilder(ctx, new OkHttpClient())
