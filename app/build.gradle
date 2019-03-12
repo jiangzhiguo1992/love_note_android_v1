@@ -9,7 +9,7 @@ android {
         minSdkVersion 21 // 最低运行版本
         multiDexEnabled true // 允许分包
         versionCode 16
-        versionName "1.1.5"
+        versionName "1.1.6"
         vectorDrawables.useSupportLibrary = true // 用于支持vectorDrawables
         flavorDimensions "release" // 多渠道打包分支
         ndk {
