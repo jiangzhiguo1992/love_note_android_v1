@@ -190,6 +190,7 @@
     <string name="not_found_upload_file">没有找到要上传的文件</string>
     <string name="file_no_exits">文件不存在</string>
     <string name="now_just_can_push_holder_img" formatted="false">现在只能上传%d张图片</string>
+    <string name="index_holder_file_too_large_cant_over_holder" formatted="false">第%d个文件过大，不能超过%s</string>
     <string name="file_too_large_cant_over_holder" formatted="false">文件过大，不能超过%s</string>
     <string name="success_push_holder_paper_picture">成功上传%d张照片</string>
     <string name="file_create_fail">文件创建失败</string>

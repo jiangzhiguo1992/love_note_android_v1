@@ -1098,17 +1098,18 @@ public class OssHelper {
     public static void uploadPicture(Activity activity, final List<String> sourceList, final OssUploadsCallBack callBack) {
         long maxSize = SPHelper.getVipLimit().getPictureSize();
         final List<File> fileList = ListHelper.getFileListByPath(sourceList);
-        boolean overLimit = false;
-        for (File file : fileList) {
+        int overLimit = 0;
+        for (int i = 0; i < fileList.size(); i++) {
+            File file = fileList.get(i);
             if (FileUtils.isFileEmpty(file)) continue;
             if (file.length() >= maxSize) {
-                overLimit = true;
+                overLimit = i + 1;
                 break;
             }
         }
-        if (overLimit) {
+        if (overLimit > 0) {
             String sizeFormat = ConvertUtils.byte2FitSize(maxSize);
-            String format = String.format(Locale.getDefault(), activity.getString(R.string.file_too_large_cant_over_holder), sizeFormat);
+            String format = String.format(Locale.getDefault(), activity.getString(R.string.index_holder_file_too_large_cant_over_holder), overLimit, sizeFormat);
             ToastUtils.show(format);
             if (callBack != null) {
                 callBack.failure(0, fileList, format);
@@ -1131,17 +1132,18 @@ public class OssHelper {
     public static void uploadDiary(Activity activity, final List<String> sourceList, final OssUploadsCallBack callBack) {
         long maxSize = SPHelper.getVipLimit().getDiaryImageSize();
         final List<File> fileList = ListHelper.getFileListByPath(sourceList);
-        boolean overLimit = false;
-        for (File file : fileList) {
+        int overLimit = 0;
+        for (int i = 0; i < fileList.size(); i++) {
+            File file = fileList.get(i);
             if (FileUtils.isFileEmpty(file)) continue;
             if (file.length() >= maxSize) {
-                overLimit = true;
+                overLimit = i + 1;
                 break;
             }
         }
-        if (overLimit) {
+        if (overLimit > 0) {
             String sizeFormat = ConvertUtils.byte2FitSize(maxSize);
-            String format = String.format(Locale.getDefault(), activity.getString(R.string.file_too_large_cant_over_holder), sizeFormat);
+            String format = String.format(Locale.getDefault(), activity.getString(R.string.index_holder_file_too_large_cant_over_holder), overLimit, sizeFormat);
             ToastUtils.show(format);
             if (callBack != null) {
                 callBack.failure(0, fileList, format);
