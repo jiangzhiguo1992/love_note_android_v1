@@ -55,33 +55,29 @@ public class FrescoAvatarView extends SimpleDraweeView {
 
     private int mWidth, mHeight;
 
-    public FrescoAvatarView(Context context, GenericDraweeHierarchy hierarchy) {
-        super(context, hierarchy);
-        init(context, null, hierarchy);
-    }
-
     public FrescoAvatarView(Context context) {
         super(context);
-        init(context, null, null);
+        initHierarchy(null);
     }
 
     public FrescoAvatarView(Context context, AttributeSet attrs) {
         super(context, attrs);
-        init(context, attrs, null);
+        initHierarchy(null);
     }
 
     public FrescoAvatarView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
-        init(context, attrs, null);
+        initHierarchy(null);
     }
 
     public FrescoAvatarView(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
-        init(context, attrs, null);
+        initHierarchy(null);
     }
 
-    private void init(Context context, AttributeSet attrs, GenericDraweeHierarchy h) {
-        initHierarchy(h);
+    public FrescoAvatarView(Context context, GenericDraweeHierarchy hierarchy) {
+        super(context, hierarchy);
+        initHierarchy(hierarchy);
     }
 
     private void initHierarchy(GenericDraweeHierarchy h) {
