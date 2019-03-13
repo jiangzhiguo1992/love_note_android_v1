@@ -122,12 +122,7 @@ public class FrescoNativeView extends SimpleDraweeView {
                                 " fullQuality = " + qualityInfo.isOfFullQuality());
                 // 点击事件
                 if (mSuccessClickListener != null) {
-                    FrescoNativeView.this.setOnClickListener(new OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            mSuccessClickListener.onClick(FrescoNativeView.this);
-                        }
-                    });
+                    FrescoNativeView.this.setOnClickListener(v -> mSuccessClickListener.onClick(FrescoNativeView.this));
                 }
             }
 

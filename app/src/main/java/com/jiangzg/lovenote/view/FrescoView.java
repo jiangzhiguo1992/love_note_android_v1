@@ -310,7 +310,7 @@ public class FrescoView extends SimpleDraweeView {
             //StaticLayout myStaticLayout = new StaticLayout(mText, getWidth() / 2, getHeight() / 2,mTextPaint, canvas.getWidth(), Layout.Alignment.ALIGN_NORMAL, 1.0F, 0.0F, false);
             //myStaticLayout.draw(canvas);
 
-            canvas.drawText(mText, getWidth() / 2, getHeight() / 2, mTextPaint);
+            canvas.drawText(mText, (float) getWidth() / 2, (float) getHeight() / 2, mTextPaint);
         }
 
         @Override
@@ -362,8 +362,8 @@ public class FrescoView extends SimpleDraweeView {
         @Override
         public void draw(@NonNull Canvas canvas) {
             canvas.drawColor(mBackgroundColor);
-            canvas.drawText(mTextTop, getWidth() / 2, getHeight() / 2, mTextTopPaint);
-            canvas.drawText(mProgressText, getWidth() / 2, getHeight() / 4 * 3, mTextBottomPaint);
+            canvas.drawText(mTextTop, (float)getWidth() / 2, (float)getHeight() / 2, mTextTopPaint);
+            canvas.drawText(mProgressText, (float)getWidth() / 2, (float)getHeight() / 4 * 3, mTextBottomPaint);
         }
 
         @Override
@@ -419,7 +419,7 @@ public class FrescoView extends SimpleDraweeView {
             //StaticLayout myStaticLayout = new StaticLayout(mText, getWidth() / 2, getHeight() / 2,mTextPaint, canvas.getWidth(), Layout.Alignment.ALIGN_NORMAL, 1.0F, 0.0F, false);
             //myStaticLayout.draw(canvas);
 
-            canvas.drawText(mText, getWidth() / 2, getHeight() / 2, mTextPaint);
+            canvas.drawText(mText, (float)getWidth() / 2, (float)getHeight() / 2, mTextPaint);
         }
 
         @Override
@@ -465,7 +465,7 @@ public class FrescoView extends SimpleDraweeView {
             //StaticLayout myStaticLayout = new StaticLayout(mText, getWidth() / 2, getHeight() / 2,mTextPaint, canvas.getWidth(), Layout.Alignment.ALIGN_NORMAL, 1.0F, 0.0F, false);
             //myStaticLayout.draw(canvas);
 
-            canvas.drawText(mText, getWidth() / 2, getHeight() / 2, mTextPaint);
+            canvas.drawText(mText, (float)getWidth() / 2, (float)getHeight() / 2, mTextPaint);
         }
 
         @Override
