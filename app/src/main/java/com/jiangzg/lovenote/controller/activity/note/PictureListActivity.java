@@ -123,7 +123,7 @@ public class PictureListActivity extends BaseActivity<PictureListActivity> {
         // init
         album = intent.getParcelableExtra("album");
         if (album == null) {
-            refreshAlbum(intent.getLongExtra("albumId", 0));
+            refreshAlbum(intent.getLongExtra("albumId", 0), true);
         }
         // recycler
         recyclerHelper = new RecyclerHelper(rv)
@@ -201,7 +201,7 @@ public class PictureListActivity extends BaseActivity<PictureListActivity> {
         // event
         Observable<Album> obAlbumRefresh = RxBus.register(RxBus.EVENT_ALBUM_DETAIL_REFRESH, a -> {
             if (album == null) return;
-            refreshAlbum(album.getId());
+            refreshAlbum(album.getId(), false);
         });
         pushBus(RxBus.EVENT_ALBUM_DETAIL_REFRESH, obAlbumRefresh);
         Observable<List<Picture>> obListRefresh = RxBus.register(RxBus.EVENT_PICTURE_LIST_REFRESH, pictureList -> {
@@ -286,7 +286,7 @@ public class PictureListActivity extends BaseActivity<PictureListActivity> {
         }
     }
 
-    private void refreshAlbum(long albumId) {
+    private void refreshAlbum(long albumId, boolean refresh) {
         Call<Result> api = new RetrofitHelper().call(API.class).noteAlbumGet(albumId);
         RetrofitHelper.enqueue(api, getLoading(true), new RetrofitHelper.CallBack() {
             @Override
@@ -295,6 +295,7 @@ public class PictureListActivity extends BaseActivity<PictureListActivity> {
                 if (data.getAlbum() == null) return;
                 album = data.getAlbum();
                 refreshAlbumView();
+                if (refresh) recyclerHelper.dataRefresh();
             }
 
             @Override
