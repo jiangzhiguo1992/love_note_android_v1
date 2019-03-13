@@ -6,7 +6,6 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.widget.ImageView;
 
-import com.facebook.drawee.drawable.ScalingUtils;
 import com.jiangzg.base.common.ConvertUtils;
 import com.jiangzg.base.view.ScreenUtils;
 import com.jiangzg.lovenote.controller.activity.common.BigImageActivity;
@@ -112,9 +111,8 @@ public class BroadcastBanner extends Banner {
         @Override
         public FrescoView createImageView(Context context) {
             FrescoView view = new FrescoView(context);
-            view.getHierarchy().setActualImageScaleType(ScalingUtils.ScaleType.CENTER_CROP);
-            view.getHierarchy().setFadeDuration(0);
-            return new FrescoView(context);
+            view.initHierarchy(null, true, true, true, true, true, true);
+            return view;
         }
     }
 }

@@ -11,7 +11,6 @@ import android.view.animation.AnimationUtils;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.ViewFlipper;
 
-import com.facebook.drawee.drawable.ScalingUtils;
 import com.jiangzg.base.common.LogUtils;
 import com.jiangzg.base.view.ScreenUtils;
 import com.jiangzg.lovenote.R;
@@ -117,11 +116,10 @@ public class HomeWallPagerAdapter extends PagerAdapter {
     public Object instantiateItem(@NonNull ViewGroup container, int position) {
         // view
         FrescoView imageView = new FrescoView(mContext);
+        imageView.initHierarchy(null, false, true, false, false, false, false);
         ViewFlipper.LayoutParams paramsImage = new ViewFlipper.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
         imageView.setLayoutParams(paramsImage);
         imageView.setWidthAndHeight(screenWidth / 2, screenHeight / 2);
-        imageView.getHierarchy().setActualImageScaleType(ScalingUtils.ScaleType.CENTER_CROP);
-        imageView.getHierarchy().setFadeDuration(0);
         // data
         String ossKey = ossKeyList.get(position);
         imageView.setData(ossKey);

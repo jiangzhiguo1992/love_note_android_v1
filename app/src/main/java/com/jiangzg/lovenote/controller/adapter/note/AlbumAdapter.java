@@ -47,6 +47,7 @@ public class AlbumAdapter extends BaseQuickAdapter<Album, BaseViewHolder> {
         helper.setText(R.id.tvTitle, title);
         helper.setText(R.id.tvTime, time);
         FrescoView ivAlbum = helper.getView(R.id.ivAlbum);
+        ivAlbum.initHierarchy(null, true, false, false, false, false, false);
         ivAlbum.setWidthAndHeight(imageWidth, imageHeight);
         if (StringUtils.isEmpty(cover)) {
             // 没有封面时，随机给个颜色

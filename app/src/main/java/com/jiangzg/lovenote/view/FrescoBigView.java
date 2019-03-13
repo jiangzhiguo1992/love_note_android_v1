@@ -287,7 +287,7 @@ public class FrescoBigView extends PhotoDraweeView {
             //StaticLayout myStaticLayout = new StaticLayout(mText, getWidth() / 2, getHeight() / 2,mTextPaint, canvas.getWidth(), Layout.Alignment.ALIGN_NORMAL, 1.0F, 0.0F, false);
             //myStaticLayout.draw(canvas);
 
-            canvas.drawText(mText, (float)getWidth() / 2, (float)getHeight() / 2, mTextPaint);
+            canvas.drawText(mText, (float) getWidth() / 2, (float) getHeight() / 2, mTextPaint);
         }
 
         @Override
@@ -333,7 +333,7 @@ public class FrescoBigView extends PhotoDraweeView {
             //StaticLayout myStaticLayout = new StaticLayout(mText, getWidth() / 2, getHeight() / 2,mTextPaint, canvas.getWidth(), Layout.Alignment.ALIGN_NORMAL, 1.0F, 0.0F, false);
             //myStaticLayout.draw(canvas);
 
-            canvas.drawText(mText, (float)getWidth() / 2, (float)getHeight() / 2, mTextPaint);
+            canvas.drawText(mText, (float) getWidth() / 2, (float) getHeight() / 2, mTextPaint);
         }
 
         @Override

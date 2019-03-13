@@ -88,6 +88,7 @@ public class VideoAdapter extends BaseMultiItemQuickAdapter<Video, BaseViewHolde
             ivThumb.setVisibility(View.GONE);
         } else {
             ivThumb.setVisibility(View.VISIBLE);
+            ivThumb.initHierarchy(null, true, false, false, false, false, false);
             ivThumb.setWidthAndHeight(dp200, dp150);
             ivThumb.setData(thumb);
         }

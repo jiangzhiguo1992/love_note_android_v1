@@ -63,36 +63,33 @@ public class FrescoView extends SimpleDraweeView {
     private LoadListener mLoadListener;
     private BitmapListener mBitmapListener;
 
-    public FrescoView(Context context, GenericDraweeHierarchy hierarchy) {
-        super(context, hierarchy);
-        init(context, hierarchy);
-    }
-
     public FrescoView(Context context) {
         super(context);
-        init(context, null);
+        initHierarchy(null, true, false, true, true, true, true);
     }
 
     public FrescoView(Context context, AttributeSet attrs) {
         super(context, attrs);
-        init(context, null);
+        initHierarchy(null, true, false, true, true, true, true);
     }
 
     public FrescoView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
-        init(context, null);
+        initHierarchy(null, true, false, true, true, true, true);
     }
 
     public FrescoView(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
-        init(context, null);
+        initHierarchy(null, true, false, true, true, true, true);
     }
 
-    private void init(Context context, GenericDraweeHierarchy h) {
-        initHierarchy(h);
+    public FrescoView(Context context, GenericDraweeHierarchy hierarchy) {
+        super(context, hierarchy);
+        initHierarchy(hierarchy, true, false, true, true, true, true);
     }
 
-    private void initHierarchy(GenericDraweeHierarchy h) {
+    public void initHierarchy(GenericDraweeHierarchy h, boolean fade, boolean scale, boolean holder,
+                              boolean progress, boolean retry, boolean failure) {
         GenericDraweeHierarchy hierarchy;
         if (h != null) {
             hierarchy = h;
@@ -103,12 +100,30 @@ public class FrescoView extends SimpleDraweeView {
                 this.setHierarchy(hierarchy);
             }
         }
-        hierarchy.setFadeDuration(300);
-        //hierarchy.setActualImageScaleType(ScalingUtils.ScaleType.CENTER_CROP); // 在xml里设置
-        hierarchy.setPlaceholderImage(new ImageLoadingReactDrawable(), ScalingUtils.ScaleType.CENTER_CROP);
-        hierarchy.setProgressBarImage(new ImageProgressReactDrawable(), ScalingUtils.ScaleType.CENTER_INSIDE);
-        hierarchy.setRetryImage(new ImageRetryReactDrawable(), ScalingUtils.ScaleType.FIT_XY);
-        hierarchy.setFailureImage(new ImageFailureReactDrawable(), ScalingUtils.ScaleType.FIT_XY);
+        hierarchy.setFadeDuration(fade ? 300 : 0);
+        if (scale) {
+            hierarchy.setActualImageScaleType(ScalingUtils.ScaleType.CENTER_CROP);
+        }
+        if (holder) {
+            hierarchy.setPlaceholderImage(new ImageLoadingReactDrawable(), ScalingUtils.ScaleType.CENTER_CROP);
+        } else {
+            hierarchy.setPlaceholderImage(new EmptyDrawable());
+        }
+        if (progress) {
+            hierarchy.setProgressBarImage(new ImageProgressReactDrawable(), ScalingUtils.ScaleType.CENTER_INSIDE);
+        } else {
+            hierarchy.setProgressBarImage(new EmptyDrawable());
+        }
+        if (retry) {
+            hierarchy.setRetryImage(new ImageRetryReactDrawable(), ScalingUtils.ScaleType.FIT_XY);
+        } else {
+            hierarchy.setRetryImage(new EmptyDrawable());
+        }
+        if (failure) {
+            hierarchy.setFailureImage(new ImageFailureReactDrawable(), ScalingUtils.ScaleType.FIT_XY);
+        } else {
+            hierarchy.setFailureImage(new EmptyDrawable());
+        }
     }
 
     private void setController(Uri uri) {
@@ -181,12 +196,7 @@ public class FrescoView extends SimpleDraweeView {
                 }
                 // 点击事件
                 if (mClickListener != null) {
-                    FrescoView.this.setOnClickListener(new OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            mClickListener.onSuccessClick(FrescoView.this);
-                        }
-                    });
+                    FrescoView.this.setOnClickListener(v -> mClickListener.onSuccessClick(FrescoView.this));
                 }
             }
 
@@ -362,8 +372,8 @@ public class FrescoView extends SimpleDraweeView {
         @Override
         public void draw(@NonNull Canvas canvas) {
             canvas.drawColor(mBackgroundColor);
-            canvas.drawText(mTextTop, (float)getWidth() / 2, (float)getHeight() / 2, mTextTopPaint);
-            canvas.drawText(mProgressText, (float)getWidth() / 2, (float)getHeight() / 4 * 3, mTextBottomPaint);
+            canvas.drawText(mTextTop, (float) getWidth() / 2, (float) getHeight() / 2, mTextTopPaint);
+            canvas.drawText(mProgressText, (float) getWidth() / 2, (float) getHeight() / 4 * 3, mTextBottomPaint);
         }
 
         @Override
@@ -419,7 +429,7 @@ public class FrescoView extends SimpleDraweeView {
             //StaticLayout myStaticLayout = new StaticLayout(mText, getWidth() / 2, getHeight() / 2,mTextPaint, canvas.getWidth(), Layout.Alignment.ALIGN_NORMAL, 1.0F, 0.0F, false);
             //myStaticLayout.draw(canvas);
 
-            canvas.drawText(mText, (float)getWidth() / 2, (float)getHeight() / 2, mTextPaint);
+            canvas.drawText(mText, (float) getWidth() / 2, (float) getHeight() / 2, mTextPaint);
         }
 
         @Override
@@ -465,7 +475,7 @@ public class FrescoView extends SimpleDraweeView {
             //StaticLayout myStaticLayout = new StaticLayout(mText, getWidth() / 2, getHeight() / 2,mTextPaint, canvas.getWidth(), Layout.Alignment.ALIGN_NORMAL, 1.0F, 0.0F, false);
             //myStaticLayout.draw(canvas);
 
-            canvas.drawText(mText, (float)getWidth() / 2, (float)getHeight() / 2, mTextPaint);
+            canvas.drawText(mText, (float) getWidth() / 2, (float) getHeight() / 2, mTextPaint);
         }
 
         @Override
@@ -476,6 +486,33 @@ public class FrescoView extends SimpleDraweeView {
         @Override
         public void setColorFilter(@Nullable ColorFilter colorFilter) {
             mTextPaint.setColorFilter(colorFilter);
+        }
+
+        @Override
+        public int getOpacity() {
+            return PixelFormat.TRANSLUCENT;
+        }
+    }
+
+    public class EmptyDrawable extends Drawable {
+
+        private int mBackgroundColor;
+
+        public EmptyDrawable() {
+            mBackgroundColor = ContextCompat.getColor(MyApp.get(), R.color.background_color);
+        }
+
+        @Override
+        public void draw(@NonNull Canvas canvas) {
+            canvas.drawColor(mBackgroundColor);
+        }
+
+        @Override
+        public void setAlpha(int alpha) {
+        }
+
+        @Override
+        public void setColorFilter(@Nullable ColorFilter colorFilter) {
         }
 
         @Override
