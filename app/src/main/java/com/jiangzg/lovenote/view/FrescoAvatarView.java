@@ -296,7 +296,7 @@ public class FrescoAvatarView extends SimpleDraweeView {
 
         private void drawBar(Canvas canvas, int level, Paint paint) {
             if (level > 0) {
-                float mRingRadius = getWidth() / 2;
+                float mRingRadius = (float) getWidth() / 2;
                 Rect bound = getBounds();
                 int mXCenter = bound.centerX();
                 int mYCenter = bound.centerY();
