@@ -96,41 +96,70 @@
         android:layout_height="match_parent"
         android:layout_marginStart="2.5dp"
         android:layout_marginEnd="2.5dp"
+        android:layout_marginBottom="35dp"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/rv"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior"
             tools:listitem="@layout/list_item_picture"/>
     </com.jiangzg.lovenote.view.GSwipeRefreshLayout>
 
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fabModel"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:id="@+id/llBottom"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom|start"
-        android:layout_margin="@dimen/fab_margin"
-        android:src="@mipmap/ic_loop_white_24dp"
-        app:backgroundTint="?attr/colorAccent"
-        app:borderWidth="0dp"
-        app:elevation="@dimen/elevation_normal"
-        app:fabSize="mini"
-        app:pressedTranslationZ="@dimen/elevation_big"
-        app:rippleColor="?attr/colorPrimaryDark"/>
+        android:layout_gravity="bottom"
+        android:background="@drawable/layer_line_border_grey_in_white"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
 
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fabAdd"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_margin="@dimen/fab_margin"
-        android:src="@mipmap/ic_add_white_24dp"
-        app:backgroundTint="?attr/colorAccent"
-        app:borderWidth="0dp"
-        app:elevation="@dimen/elevation_normal"
-        app:fabSize="mini"
-        app:pressedTranslationZ="@dimen/elevation_big"
-        app:rippleColor="?attr/colorPrimaryDark"/>
+        <LinearLayout
+            android:id="@+id/llModel"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="?attr/selectableItemBackground"
+            android:foreground="?attr/selectableItemBackground"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp">
+
+            <TextView
+                android:id="@+id/tvModel"
+                style="@style/FontGreyNormal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableStart="@mipmap/ic_loop_grey_18dp"
+                android:drawablePadding="10dp"
+                android:gravity="center"
+                android:text="@string/model"/>
+        </LinearLayout>
+
+        <View style="@style/LineVertical"/>
+
+        <LinearLayout
+            android:id="@+id/llAdd"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="?attr/selectableItemBackground"
+            android:foreground="?attr/selectableItemBackground"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp">
+
+            <TextView
+                style="@style/FontGreyNormal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableStart="@mipmap/ic_add_circle_outline_grey_18dp"
+                android:drawablePadding="10dp"
+                android:gravity="center"
+                android:text="@string/add"/>
+        </LinearLayout>
+    </LinearLayout>
 </android.support.design.widget.CoordinatorLayout>

@@ -8,13 +8,13 @@ import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.CoordinatorLayout;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -79,10 +79,10 @@ public class PictureListActivity extends BaseActivity<PictureListActivity> {
     RecyclerView rv;
     @BindView(R.id.srl)
     GSwipeRefreshLayout srl;
-    @BindView(R.id.fabModel)
-    FloatingActionButton fabModel;
-    @BindView(R.id.fabAdd)
-    FloatingActionButton fabAdd;
+    @BindView(R.id.llModel)
+    LinearLayout llModel;
+    @BindView(R.id.llAdd)
+    LinearLayout llAdd;
 
     private Album album;
     private RecyclerHelper recyclerHelper;
@@ -272,15 +272,15 @@ public class PictureListActivity extends BaseActivity<PictureListActivity> {
         return super.onOptionsItemSelected(item);
     }
 
-    @OnClick({R.id.fabModel, R.id.fabAdd})
+    @OnClick({R.id.llModel, R.id.llAdd})
     public void onViewClicked(View view) {
         switch (view.getId()) {
-            case R.id.fabModel: // 模式
+            case R.id.llModel: // 模式
                 if (recyclerHelper == null || recyclerHelper.getAdapter() == null) return;
                 PictureSectionAdapter adapter = recyclerHelper.getAdapter();
                 adapter.toggleModel();
                 break;
-            case R.id.fabAdd: // 添加
+            case R.id.llAdd: // 添加
                 PictureEditActivity.goActivity(mActivity, album);
                 break;
         }
