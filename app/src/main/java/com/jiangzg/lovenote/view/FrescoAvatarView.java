@@ -91,7 +91,7 @@ public class FrescoAvatarView extends SimpleDraweeView {
                 this.setHierarchy(hierarchy);
             }
         }
-        hierarchy.setFadeDuration(300);
+        hierarchy.setFadeDuration(100);
         hierarchy.setActualImageScaleType(ScalingUtils.ScaleType.CENTER_CROP);
         hierarchy.setRoundingParams(RoundingParams.asCircle());
         //hierarchy.setPlaceholderImage(new ImageLoadingCircleDrawable(), ScalingUtils.ScaleType.CENTER_CROP);

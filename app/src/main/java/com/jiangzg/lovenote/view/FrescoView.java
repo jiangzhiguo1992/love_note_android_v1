@@ -100,7 +100,7 @@ public class FrescoView extends SimpleDraweeView {
                 this.setHierarchy(hierarchy);
             }
         }
-        hierarchy.setFadeDuration(fade ? 300 : 0);
+        hierarchy.setFadeDuration(fade ? 100 : 0);
         if (scale) {
             hierarchy.setActualImageScaleType(ScalingUtils.ScaleType.CENTER_CROP);
         }
