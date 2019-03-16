@@ -107,7 +107,6 @@ public class MapShowActivity extends BaseActivity<MapShowActivity> {
                         LatLonPoint latLonPoint = poiItem.getLatLonPoint();
                         double longitude = latLonPoint.getLongitude();
                         double latitude = latLonPoint.getLatitude();
-                        // 根据经纬度
                         MapHelper.showMarker(aMap, longitude, latitude, title);
                         MapHelper.moveMapByLatLon(aMap, longitude, latitude);
                     }

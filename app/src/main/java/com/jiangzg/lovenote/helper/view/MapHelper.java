@@ -1,5 +1,6 @@
 package com.jiangzg.lovenote.helper.view;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.support.v4.content.ContextCompat;
@@ -47,7 +48,7 @@ public class MapHelper {
         if (aMap == null) return;
         UiSettings uiSettings = aMap.getUiSettings();
         uiSettings.setZoomControlsEnabled(false); // 缩放按钮
-        uiSettings.setCompassEnabled(false); // 指南针
+        uiSettings.setCompassEnabled(true); // 指南针
         uiSettings.setMyLocationButtonEnabled(false); // 刷新定位按钮
         uiSettings.setScaleControlsEnabled(true); // 比例尺控件
         uiSettings.setLogoPosition(AMapOptions.LOGO_POSITION_BOTTOM_LEFT); // logo位置
@@ -90,6 +91,7 @@ public class MapHelper {
     }
 
     // marker
+    @SuppressLint("InflateParams")
     public static void initMarkerStyle(AMap aMap, final Activity activity) {
         if (aMap == null) return;
         aMap.setInfoWindowAdapter(new AMap.InfoWindowAdapter() {
@@ -132,7 +134,7 @@ public class MapHelper {
     }
 
     // 修改marker的信息
-    public static Marker setMarker(Marker marker, double longitude, double latitude, String title) {
+    public static Marker updateMarker(Marker marker, double longitude, double latitude, String title) {
         if (marker == null) return null;
         LatLng latLng;
         if (longitude != 0 || latitude != 0) {
@@ -276,7 +278,6 @@ public class MapHelper {
 
             @Override
             public void onPoiItemSearched(PoiItem poiItem, int i) {
-
             }
         };
     }
