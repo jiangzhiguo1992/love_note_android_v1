@@ -224,7 +224,6 @@ public class CoupleFragment extends BasePagerFragment<CoupleFragment> {
     // 获取自己的位置并上传
     private void refreshPlaceWeatherDate() {
         if (UserHelper.isCoupleBreak(SPHelper.getCouple())) return; // 还是要检查的，防止后台返回错误
-        if (!LocationHelper.checkLocationEnable(mActivity)) return;
         LocationHelper.startLocation(mActivity, true, new LocationHelper.LocationCallBack() {
             @Override
             public void onSuccess(LocationInfo info) {
