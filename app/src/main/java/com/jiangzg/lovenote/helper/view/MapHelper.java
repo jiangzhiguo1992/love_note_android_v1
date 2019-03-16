@@ -2,7 +2,7 @@ package com.jiangzg.lovenote.helper.view;
 
 import android.app.Activity;
 import android.content.Context;
-import android.graphics.Color;
+import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
@@ -28,6 +28,7 @@ import com.amap.api.services.poisearch.PoiResult;
 import com.amap.api.services.poisearch.PoiSearch;
 import com.jiangzg.base.common.LogUtils;
 import com.jiangzg.base.common.StringUtils;
+import com.jiangzg.base.view.ViewUtils;
 import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.main.MyApp;
 
@@ -65,19 +66,27 @@ public class MapHelper {
     }
 
     // 自定位坐标
-    public static void initMyLocation(AMap aMap) {
+    public static void initMyLocation(Context context, AMap aMap, AMap.OnMyLocationChangeListener listener) {
         if (aMap == null) return;
         // myLocation
         MyLocationStyle myLocationStyle = new MyLocationStyle();
-        myLocationStyle.myLocationType(MyLocationStyle.LOCATION_TYPE_LOCATE); // 只定位一次，没有方向，且将视角移动到地图中心点
-        myLocationStyle.myLocationIcon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_location_on_grey_24dp));
-        myLocationStyle.strokeWidth(Color.BLACK);
-        myLocationStyle.strokeColor(5);
+        myLocationStyle.myLocationType(MyLocationStyle.LOCATION_TYPE_SHOW); // 只定位一次，没有方向，且将视角移动到地图中心点
+        //myLocationStyle.myLocationType(MyLocationStyle.LOCATION_TYPE_FOLLOW_NO_CENTER);
+        myLocationStyle.myLocationIcon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_brightness_1_grey_24dp));
+        myLocationStyle.strokeWidth(10);
+        int primary = ContextCompat.getColor(context, ViewUtils.getColorPrimary(context));
+        float a = 0.5F; // 50透明度
+        float r = ((primary >> 16) & 0xff) / 255.0f;
+        float g = ((primary >> 8) & 0xff) / 255.0f;
+        float b = ((primary) & 0xff) / 255.0f;
+        int primary50 = ((int) (a * 255.0f + 0.5f) << 24) | ((int) (r * 255.0f + 0.5f) << 16) | ((int) (g * 255.0f + 0.5f) << 8) | (int) (b * 255.0f + 0.5f);
+        myLocationStyle.strokeColor(primary);
+        myLocationStyle.radiusFillColor(primary50);
         myLocationStyle.showMyLocation(true); // 不仅定位，还要定位蓝点
         // aMap
         aMap.setMyLocationStyle(myLocationStyle); // 设置定位蓝点的Style
         aMap.setMyLocationEnabled(true);// 显示定位蓝点，默认是false
-        //aMap.setOnMyLocationChangeListener();
+        if (listener != null) aMap.setOnMyLocationChangeListener(listener);
     }
 
     // marker

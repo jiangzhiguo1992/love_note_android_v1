@@ -5,16 +5,13 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 
-import com.amap.api.location.AMapLocationClient;
 import com.amap.api.maps2d.AMap;
 import com.amap.api.maps2d.MapView;
-import com.amap.api.maps2d.model.Marker;
 import com.amap.api.services.core.LatLonPoint;
 import com.amap.api.services.core.PoiItem;
 import com.amap.api.services.poisearch.PoiSearch;
 import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.base.component.ActivityTrans;
-import com.jiangzg.base.system.LocationInfo;
 import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.controller.activity.base.BaseActivity;
@@ -39,7 +36,6 @@ public class MapShowActivity extends BaseActivity<MapShowActivity> {
     private AMap aMap;
     private PoiSearch poiTarget;
     private PoiSearch.OnPoiSearchListener poiTargetListener;
-    private AMapLocationClient locationMe;
 
     // 当前我的位置
     //public static void goActivity(final Activity from) {
@@ -52,11 +48,11 @@ public class MapShowActivity extends BaseActivity<MapShowActivity> {
 
     // 传入的位置
     public static void goActivity(final Activity from, final String address, final double longitude, final double latitude) {
+        if (!LocationHelper.checkLocationEnable(from)) return;
         if (StringUtils.isEmpty(address) && (longitude == 0 && latitude == 0)) {
             ToastUtils.show(from.getString(R.string.no_location_info_cant_go_map));
             return;
         }
-        if (!LocationHelper.checkLocationEnable(from)) return;
         Intent intent = new Intent(from, MapShowActivity.class);
         intent.putExtra("address", address);
         intent.putExtra("longitude", longitude);
@@ -89,64 +85,45 @@ public class MapShowActivity extends BaseActivity<MapShowActivity> {
     @Override
     protected void initData(Intent intent, Bundle state) {
         if (aMap == null) return;
-        // 设置market
-        final String tarAddress = intent.getStringExtra("address");
-        final double tarLongitude = intent.getDoubleExtra("longitude", 0);
-        final double tarLatitude = intent.getDoubleExtra("latitude", 0);
-        // 目标market
-        if (tarLongitude != 0 || tarLatitude != 0) {
-            // 根据经纬度
-            MapHelper.moveMapByLatLon(aMap, tarLongitude, tarLatitude);
-            MapHelper.showMarker(aMap, tarLongitude, tarLatitude, tarAddress);
-        } else if (!StringUtils.isEmpty(tarAddress)) {
-            // 根据地址
-            poiTargetListener = MapHelper.getPoiSearchListener(new MapHelper.SearchCallBack() {
-                @Override
-                public void onSuccess(ArrayList<PoiItem> pois) {
-                    if (aMap == null) return;
-                    if (pois == null || pois.size() <= 0) return;
-                    PoiItem poiItem = pois.get(0);
-                    String title = poiItem.getTitle();
-                    LatLonPoint latLonPoint = poiItem.getLatLonPoint();
-                    double longitude = latLonPoint.getLongitude();
-                    double latitude = latLonPoint.getLatitude();
-                    // 根据经纬度
-                    MapHelper.moveMapByLatLon(aMap, longitude, latitude);
-                    MapHelper.showMarker(aMap, longitude, latitude, title);
-                }
+        // 我的定位(自带系统market)
+        MapHelper.initMyLocation(mActivity, aMap, location -> {
+            final String tarAddress = intent.getStringExtra("address");
+            final double tarLongitude = intent.getDoubleExtra("longitude", 0);
+            final double tarLatitude = intent.getDoubleExtra("latitude", 0);
+            // 目标market
+            if (tarLongitude != 0 || tarLatitude != 0) {
+                // 根据经纬度
+                MapHelper.showMarker(aMap, tarLongitude, tarLatitude, tarAddress);
+                MapHelper.moveMapByLatLon(aMap, tarLongitude, tarLatitude);
+            } else if (!StringUtils.isEmpty(tarAddress)) {
+                // 根据地址
+                poiTargetListener = MapHelper.getPoiSearchListener(new MapHelper.SearchCallBack() {
+                    @Override
+                    public void onSuccess(ArrayList<PoiItem> pois) {
+                        if (aMap == null) return;
+                        if (pois == null || pois.size() <= 0) return;
+                        PoiItem poiItem = pois.get(0);
+                        String title = poiItem.getTitle();
+                        LatLonPoint latLonPoint = poiItem.getLatLonPoint();
+                        double longitude = latLonPoint.getLongitude();
+                        double latitude = latLonPoint.getLatitude();
+                        // 根据经纬度
+                        MapHelper.showMarker(aMap, longitude, latitude, title);
+                        MapHelper.moveMapByLatLon(aMap, longitude, latitude);
+                    }
 
-                @Override
-                public void onFailed() {
-                    ToastUtils.show(getString(R.string.location_error));
-                }
-            });
-            poiTarget = MapHelper.startSearch(mActivity, tarAddress, tarLongitude, tarLatitude, poiTargetListener);
-        }
-        // 我的market
-        locationMe = LocationHelper.startLocation(mActivity, false, new LocationHelper.LocationCallBack() {
-            @Override
-            public void onSuccess(LocationInfo info) {
-                if (aMap == null) return;
-                double longitude = info.getLongitude();
-                double latitude = info.getLatitude();
-                Marker marker = MapHelper.setMarker(aMap, longitude, latitude, getString(R.string.my_location));
-                // 没有Target位置
-                if (StringUtils.isEmpty(tarAddress) && (tarLongitude == 0 && tarLatitude == 0)) {
-                    MapHelper.showMarker(marker);
-                    MapHelper.moveMapByLatLon(aMap, tarLongitude, tarLatitude);
-                }
-            }
-
-            @Override
-            public void onFailed(String errMsg) {
-                //ToastUtils.show(getStr(R.string.location_error));
+                    @Override
+                    public void onFailed() {
+                        ToastUtils.show(getString(R.string.location_error));
+                    }
+                });
+                poiTarget = MapHelper.startSearch(mActivity, tarAddress, tarLongitude, tarLatitude, poiTargetListener);
             }
         });
     }
 
     @Override
     protected void onFinish(Bundle state) {
-        LocationHelper.stopLocation(locationMe);
         if (poiTarget != null) {
             poiTarget.setOnPoiSearchListener(null);
         }
