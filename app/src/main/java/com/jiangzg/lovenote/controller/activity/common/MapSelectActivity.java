@@ -58,7 +58,6 @@ public class MapSelectActivity extends BaseActivity<MapSelectActivity> {
 
     private AMap aMap;
     private LocationInfo locationMe;
-    private LocationInfo locationSearch;
     private LocationInfo locationSelect;
     private PoiSearch poiSearch;
     private PoiSearch.OnPoiSearchListener poiSearchListener;
@@ -286,14 +285,12 @@ public class MapSelectActivity extends BaseActivity<MapSelectActivity> {
 
     // 修改搜索列表
     private void setLocationSearch(LocationInfo info) {
-        if (aMap == null) return;
+        if (aMap == null || info == null) return;
         if (srl != null && !srl.isRefreshing()) {
             srl.setRefreshing(true);
         }
-        if (info != null) locationSearch = info;
-        if (locationSearch == null) return;
         // 检查搜索条件
-        if (StringUtils.isEmpty(locationSearch.getAddress()) && locationSearch.getLongitude() == 0 && locationSearch.getLatitude() == 0) {
+        if (StringUtils.isEmpty(info.getAddress()) && info.getLongitude() == 0 && info.getLatitude() == 0) {
             ToastUtils.show(getString(R.string.search_location_no_exist));
             return;
         }
@@ -320,8 +317,7 @@ public class MapSelectActivity extends BaseActivity<MapSelectActivity> {
             });
         }
         // 开始poi检索
-        poiSearch = MapHelper.startSearch(mActivity, locationSearch.getAddress(),
-                locationSearch.getLongitude(), locationSearch.getLatitude(), poiSearchListener);
+        poiSearch = MapHelper.startSearch(mActivity, info.getAddress(), info.getLongitude(), info.getLatitude(), poiSearchListener);
     }
 
 }
