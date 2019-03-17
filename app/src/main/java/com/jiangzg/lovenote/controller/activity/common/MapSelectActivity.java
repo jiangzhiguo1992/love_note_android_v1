@@ -286,13 +286,13 @@ public class MapSelectActivity extends BaseActivity<MapSelectActivity> {
     // 修改搜索列表
     private void setLocationSearch(LocationInfo info) {
         if (aMap == null || info == null) return;
-        if (srl != null && !srl.isRefreshing()) {
-            srl.setRefreshing(true);
-        }
         // 检查搜索条件
         if (StringUtils.isEmpty(info.getAddress()) && info.getLongitude() == 0 && info.getLatitude() == 0) {
             ToastUtils.show(getString(R.string.search_location_no_exist));
             return;
+        }
+        if (srl != null && !srl.isRefreshing()) {
+            srl.setRefreshing(true);
         }
         // 搜索回调
         if (poiSearchListener == null) {
@@ -300,12 +300,11 @@ public class MapSelectActivity extends BaseActivity<MapSelectActivity> {
                 @Override
                 public void onSuccess(ArrayList<PoiItem> pois) {
                     if (srl != null) srl.setRefreshing(false);
+                    // 取消选中的数据
                     if (recyclerHelper != null && recyclerHelper.getAdapter() != null) {
-                        // list的数据
                         ((MapSelectAdapter) recyclerHelper.getAdapter()).select(-1);
                         recyclerHelper.dataNew(pois);
                     }
-                    // 选中的数据
                     setLocationSelect(null, false, false);
                 }
 
