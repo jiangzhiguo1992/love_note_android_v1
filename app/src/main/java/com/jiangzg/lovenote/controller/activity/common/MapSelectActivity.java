@@ -112,10 +112,10 @@ public class MapSelectActivity extends BaseActivity<MapSelectActivity> {
                 .listenerClick(new OnItemClickListener() {
                     @Override
                     public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
-                        MapSelectAdapter mapAdapter = (MapSelectAdapter) adapter;
-                        LocationInfo locationSelect = mapAdapter.select(position);
                         // 修改选中位置，移动，但不搜索
-                        setLocationSelect(locationSelect, true, false);
+                        MapSelectAdapter mapAdapter = (MapSelectAdapter) adapter;
+                        LocationInfo info = mapAdapter.select(position);
+                        setLocationSelect(info, true, false);
                     }
                 });
     }
@@ -187,12 +187,6 @@ public class MapSelectActivity extends BaseActivity<MapSelectActivity> {
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.search_complete, menu);
-        return super.onCreateOptionsMenu(menu);
-    }
-
-    @Override
     protected void onPause() {
         super.onPause();
         if (map != null) {
@@ -223,10 +217,22 @@ public class MapSelectActivity extends BaseActivity<MapSelectActivity> {
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.search_complete, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menuSearch: // 搜索
-                MapSearchActivity.goActivity(mActivity, 0, 0);
+                double longitude = 0;
+                double latitude = 0;
+                if (locationMe != null) {
+                    longitude = locationMe.getLongitude();
+                    latitude = locationMe.getLatitude();
+                }
+                MapSearchActivity.goActivity(mActivity, longitude, latitude);
                 return true;
             case R.id.menuComplete: // 完成
                 if (locationSelect == null) {

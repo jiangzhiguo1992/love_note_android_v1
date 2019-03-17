@@ -69,16 +69,12 @@ public class MapSelectAdapter extends BaseQuickAdapter<PoiItem, BaseViewHolder> 
     public LocationInfo select(int position) {
         int foreSelectIndex = selectIndex;
         selectIndex = position;
-        if (foreSelectIndex >= 0) {
+        if (foreSelectIndex >= 0 && foreSelectIndex < getData().size()) {
             notifyItemChanged(foreSelectIndex);
         }
-        if (selectIndex < 0) return null;
-        notifyItemChanged(selectIndex);
-        return getSelect();
-    }
-
-    public LocationInfo getSelect() {
         if (selectIndex < 0 || selectIndex >= getData().size()) return null;
+        notifyItemChanged(selectIndex);
+        // locationInfo
         PoiItem item = getItem(selectIndex);
         LocationInfo locationInfo = new LocationInfo();
         LatLonPoint latLonPoint = item.getLatLonPoint();
