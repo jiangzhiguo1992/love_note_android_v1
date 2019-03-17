@@ -315,8 +315,8 @@ public class MapSelectActivity extends BaseActivity<MapSelectActivity> {
                 }
             });
         }
-        // 开始poi检索
-        poiSearch = MapHelper.startSearch(mActivity, info.getAddress(), info.getLongitude(), info.getLatitude(), poiSearchListener);
+        // 开始poi检索，周边搜索
+        poiSearch = MapHelper.startSearch(mActivity, "", info.getLongitude(), info.getLatitude(), poiSearchListener);
     }
 
 }

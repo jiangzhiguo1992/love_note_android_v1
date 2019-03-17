@@ -146,8 +146,8 @@ public class MapSearchActivity extends BaseActivity<MapSearchActivity> {
                 }
             });
         }
-        // 开始poi检索
-        poiSearch = MapHelper.startSearch(mActivity, address, longitude, latitude, poiSearchListener);
+        // 开始poi检索，关键词搜索
+        poiSearch = MapHelper.startSearch(mActivity, address, 0, 0, poiSearchListener);
     }
 
 }

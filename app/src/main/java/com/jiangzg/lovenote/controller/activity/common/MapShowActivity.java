@@ -96,7 +96,7 @@ public class MapShowActivity extends BaseActivity<MapShowActivity> {
                 MapHelper.showMarker(aMap, tarLongitude, tarLatitude, tarAddress);
                 MapHelper.moveMapByLatLon(aMap, tarLongitude, tarLatitude);
             } else if (!StringUtils.isEmpty(tarAddress)) {
-                // 根据地址
+                // 根据地址，关键词搜索
                 poiTargetListener = MapHelper.getPoiSearchListener(new MapHelper.SearchCallBack() {
                     @Override
                     public void onSuccess(ArrayList<PoiItem> pois) {
@@ -116,7 +116,7 @@ public class MapShowActivity extends BaseActivity<MapShowActivity> {
                         ToastUtils.show(getString(R.string.location_error));
                     }
                 });
-                poiTarget = MapHelper.startSearch(mActivity, tarAddress, tarLongitude, tarLatitude, poiTargetListener);
+                poiTarget = MapHelper.startSearch(mActivity, tarAddress, 0, 0, poiTargetListener);
             }
         });
     }
