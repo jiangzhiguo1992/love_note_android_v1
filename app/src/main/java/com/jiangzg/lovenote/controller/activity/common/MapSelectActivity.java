@@ -141,15 +141,16 @@ public class MapSelectActivity extends BaseActivity<MapSelectActivity> {
             public void onCameraChangeFinish(CameraPosition cameraPosition) {
                 LatLng target = cameraPosition.target;
                 if (target == null) return;
-                // 修改搜索列表
                 LogUtils.i(MapSelectActivity.class, "onCameraChangeFinish", target.longitude + "---" + target.latitude);
-                if (moveWithSearch) {
-                    LocationInfo info = new LocationInfo();
-                    info.setLongitude(target.longitude);
-                    info.setLatitude(target.latitude);
-                    setLocationSearch(info);
+                if (!moveWithSearch) {
+                    moveWithSearch = true;
+                    return;
                 }
-                moveWithSearch = true; // 默认是要搜索的
+                // 修改搜索列表
+                LocationInfo info = new LocationInfo();
+                info.setLongitude(target.longitude);
+                info.setLatitude(target.latitude);
+                setLocationSearch(info);
             }
         });
         // 传入的位置
