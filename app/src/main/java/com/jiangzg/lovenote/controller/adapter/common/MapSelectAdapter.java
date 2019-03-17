@@ -46,10 +46,8 @@ public class MapSelectAdapter extends BaseQuickAdapter<PoiItem, BaseViewHolder> 
         if (provinceName != null && provinceName.equals(cityName)) {
             cityName = "";
         }
-        String adName = item.getAdName();
-        String snippet = item.getSnippet();
+        String location = provinceName + cityName + item.getAdName() + item.getSnippet();
         String distance = String.format(Locale.getDefault(), formatDistance, item.getDistance());
-        String location = provinceName + cityName + adName + snippet;
 
         helper.setText(R.id.tvAddress, title);
         helper.setText(R.id.tvLocation, location);

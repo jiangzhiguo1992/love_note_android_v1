@@ -122,8 +122,16 @@ public class MapSelectActivity extends BaseActivity<MapSelectActivity> {
 
     @Override
     protected void initData(Intent intent, Bundle state) {
-        moveWithSearch = true;
         if (aMap == null) return;
+        moveWithSearch = true;
+        // event
+        Observable<LocationInfo> bus = RxBus.register(RxBus.EVENT_MAP_SELECT, info -> {
+            // 修改选中位置
+            //setLocationSelect(info, true, true);
+            // 地址搜索成功，退出界面
+            mActivity.finish();
+        });
+        pushBus(RxBus.EVENT_MAP_SELECT, bus);
         // 地图拖动回调
         aMap.setOnCameraChangeListener(new AMap.OnCameraChangeListener() {
             @Override
@@ -145,13 +153,6 @@ public class MapSelectActivity extends BaseActivity<MapSelectActivity> {
                 moveWithSearch = true; // 默认是要搜索的
             }
         });
-        // 地图搜索
-        Observable<LocationInfo> bus = RxBus.register(RxBus.EVENT_MAP_SELECT, info -> {
-            // 修改选中位置
-            //setLocationSelect(info, true, true);
-            mActivity.finish();
-        });
-        pushBus(RxBus.EVENT_MAP_SELECT, bus);
         // 传入的位置
         LocationInfo info = null;
         String address = intent.getStringExtra("address");
