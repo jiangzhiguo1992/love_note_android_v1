@@ -66,19 +66,19 @@ android {
         official {} // 官方
         //---------------------手机厂商----------------------
 //        google {} // 谷歌
-        huawei {} // 华为
         oppo {} // oppo
         vivo {} // vivo
+        huawei {} // 华为
         xiaomi {} // 小米
         meizu {} // 魅族
         samsung {} // 三星
         lenovo {} // 联想
         //---------------------三方市场----------------------
-        kuan {} // 酷安
         tencent {} // 应用宝
         ali {} // 阿里
         baidu {} // 百度
         qh360 {} // 360
+        kuan {} // 酷安
     }
     productFlavors.all {
         flavor -> flavor.manifestPlaceholders = [MARKET_CHANNEL_VALUE: name]
