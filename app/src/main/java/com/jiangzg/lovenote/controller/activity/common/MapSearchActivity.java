@@ -124,7 +124,7 @@ public class MapSearchActivity extends BaseActivity<MapSearchActivity> {
     private void search() {
         String address = etSearch.getText().toString().trim();
         if (StringUtils.isEmpty(address)) {
-            ToastUtils.show(etSearch.getHint().toString());
+            ToastUtils.show(getString(R.string.please_input_search_content));
             return;
         }
         if (srl != null && !srl.isRefreshing()) {
