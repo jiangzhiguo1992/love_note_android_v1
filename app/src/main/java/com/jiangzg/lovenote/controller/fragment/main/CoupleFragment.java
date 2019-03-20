@@ -248,9 +248,9 @@ public class CoupleFragment extends BasePagerFragment<CoupleFragment> {
                     public void onResponse(int code, String message, Result.Data data) {
                         myPlace = data.getPlaceMe();
                         taPlace = data.getPlaceTa();
-                        myWeatherToday = data.getWeatherTodayMe();
-                        taWeatherToday = data.getWeatherTodayTa();
                         refreshPlaceView();
+                        // myWeatherToday = data.getWeatherTodayMe();
+                        // taWeatherToday = data.getWeatherTodayTa();
                         // refreshWeatherView();
                         refreshWeatherData();
                     }
