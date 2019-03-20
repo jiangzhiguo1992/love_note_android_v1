@@ -399,6 +399,7 @@ public class PostSubCommentListActivity extends BaseActivity<PostSubCommentListA
     private void initCommentOrderView() {
         if (recyclerHelper == null) return;
         View head = recyclerHelper.getViewHead();
+        if (head == null) return;
         TextView tvCommentSort = head.findViewById(R.id.tvCommentSort);
         if (orderIndex >= 0 && orderIndex < ApiHelper.LIST_COMMENT_ORDER_SHOW.length) {
             tvCommentSort.setText(ApiHelper.LIST_COMMENT_ORDER_SHOW[orderIndex]);

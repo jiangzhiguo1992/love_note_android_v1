@@ -215,6 +215,7 @@ public class MatchWifeListActivity extends BaseActivity<MatchWifeListActivity> {
         }
         // view
         View head = recyclerHelper.getViewHead();
+        if (head == null) return;
         CardView root = head.findViewById(R.id.root);
         TextView tvTitle = head.findViewById(R.id.tvTitle);
         TextView tvTime = head.findViewById(R.id.tvTime);

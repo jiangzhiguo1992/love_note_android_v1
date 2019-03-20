@@ -378,6 +378,7 @@ public class PostDetailActivity extends BaseActivity<PostDetailActivity> {
         String updatedShow = String.format(Locale.getDefault(), mActivity.getString(R.string.update_at_colon_space_holder), update);
         // view
         View head = recyclerHelper.getViewHead();
+        if (head == null) return;
         // couple
         LinearLayout llCouple = head.findViewById(R.id.llCouple);
         if (couple == null) {
@@ -538,6 +539,7 @@ public class PostDetailActivity extends BaseActivity<PostDetailActivity> {
         if (recyclerHelper == null) return;
         User me = SPHelper.getMe();
         View head = recyclerHelper.getViewHead();
+        if (head == null) return;
         TextView tvCommentUser = head.findViewById(R.id.tvCommentUser);
         if (searchUserId == post.getUserId()) {
             tvCommentUser.setText(R.string.floor_master);
@@ -557,6 +559,7 @@ public class PostDetailActivity extends BaseActivity<PostDetailActivity> {
     private void initCommentOrderView() {
         if (recyclerHelper == null) return;
         View head = recyclerHelper.getViewHead();
+        if (head == null) return;
         TextView tvCommentSort = head.findViewById(R.id.tvCommentSort);
         if (orderIndex >= 0 && orderIndex < ApiHelper.LIST_COMMENT_ORDER_SHOW.length) {
             tvCommentSort.setText(ApiHelper.LIST_COMMENT_ORDER_SHOW[orderIndex]);

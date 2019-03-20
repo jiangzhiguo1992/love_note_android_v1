@@ -256,6 +256,7 @@ public class SuggestDetailActivity extends BaseActivity<SuggestDetailActivity> {
         String contentText = suggest.getContentText();
         // view
         View head = recyclerHelper.getViewHead();
+        if (head == null) return;
         TextView tvTitle = head.findViewById(R.id.tvTitle);
         TextView tvCreateAt = head.findViewById(R.id.tvCreateAt);
         GWrapView wvTag = head.findViewById(R.id.wvTag);

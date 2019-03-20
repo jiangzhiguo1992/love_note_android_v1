@@ -157,6 +157,7 @@ public class SuggestHomeActivity extends BaseActivity<SuggestHomeActivity> {
     private void initHead() {
         if (recyclerHelper == null) return;
         View head = recyclerHelper.getViewHead();
+        if (head == null) return;
         TextView tvMy = head.findViewById(R.id.tvMy);
         TextView tvFollow = head.findViewById(R.id.tvFollow);
         TextView tvAdd = head.findViewById(R.id.tvAdd);

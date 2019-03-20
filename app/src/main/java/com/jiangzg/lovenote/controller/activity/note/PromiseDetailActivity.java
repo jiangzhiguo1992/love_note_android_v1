@@ -250,6 +250,7 @@ public class PromiseDetailActivity extends BaseActivity<PromiseDetailActivity> {
         String breakCount = String.format(Locale.getDefault(), getString(R.string.break_space_holder_space_time), promise.getBreakCount());
         // view
         View head = recyclerHelper.getViewHead();
+        if (head == null) return;
         TextView tvPromiseUser = head.findViewById(R.id.tvPromiseUser);
         TextView tvPromiseHappen = head.findViewById(R.id.tvPromiseHappen);
         TextView tvContent = head.findViewById(R.id.tvContent);

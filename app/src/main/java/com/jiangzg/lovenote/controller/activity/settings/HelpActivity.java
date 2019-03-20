@@ -140,6 +140,7 @@ public class HelpActivity extends BaseActivity<HelpActivity> {
         List<Help.HelpContent> contentList = help.getContentList();
         // view
         View head = recyclerHelper.getViewHead();
+        if (head == null) return;
         // desc
         TextView tvDesc = head.findViewById(R.id.tvDesc);
         if (StringUtils.isEmpty(desc)) {
