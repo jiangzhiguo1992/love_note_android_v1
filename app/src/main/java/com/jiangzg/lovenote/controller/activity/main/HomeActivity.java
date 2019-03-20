@@ -171,6 +171,7 @@ public class HomeActivity extends BaseActivity<HomeActivity> {
             @Override
             public void onPageSelected(int position) {
                 LogUtils.i(HomeActivity.class, "onPageSelected", String.valueOf(position));
+                if (bnvBottom == null) return;
                 bnvBottom.setSelectedItemId(menuIdArray[position]);
             }
 
@@ -190,6 +191,7 @@ public class HomeActivity extends BaseActivity<HomeActivity> {
     }
 
     private void initNavBottom() {
+        if (bnvBottom == null) return;
         bnvBottom.setOnNavigationItemSelectedListener(item -> {
             changeFragment(item.getItemId());
             return true;
