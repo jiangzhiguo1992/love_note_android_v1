@@ -8,8 +8,8 @@ android {
         targetSdkVersion 27 // 最高效果版本
         minSdkVersion 21 // 最低运行版本
         multiDexEnabled true // 允许分包
-        versionCode 16
-        versionName "1.1.6"
+        versionCode 17
+        versionName "1.1.7"
         vectorDrawables.useSupportLibrary = true // 用于支持vectorDrawables
         flavorDimensions "release" // 多渠道打包分支
         ndk {
@@ -66,9 +66,9 @@ android {
         official {} // 官方
         //---------------------手机厂商----------------------
 //        google {} // 谷歌
+        huawei {} // 华为
         oppo {} // oppo
         vivo {} // vivo
-        huawei {} // 华为
         xiaomi {} // 小米
         meizu {} // 魅族
         samsung {} // 三星
