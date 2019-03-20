@@ -1,6 +1,7 @@
 package com.jiangzg.lovenote.helper.system;
 
 import android.app.Activity;
+import android.content.Context;
 import android.support.v4.app.Fragment;
 
 import com.amap.api.location.AMapLocationClient;
@@ -8,21 +9,27 @@ import com.amap.api.location.AMapLocationClientOption;
 import com.amap.api.location.AMapLocationListener;
 import com.amap.api.maps2d.AMapUtils;
 import com.amap.api.maps2d.model.LatLng;
+import com.amap.api.services.weather.LocalWeatherForecastResult;
+import com.amap.api.services.weather.LocalWeatherLive;
+import com.amap.api.services.weather.LocalWeatherLiveResult;
+import com.amap.api.services.weather.WeatherSearch;
+import com.amap.api.services.weather.WeatherSearchQuery;
 import com.jiangzg.base.common.LogUtils;
 import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.base.system.LocationInfo;
 import com.jiangzg.base.system.PermUtils;
 import com.jiangzg.lovenote.controller.activity.base.BaseActivity;
+import com.jiangzg.lovenote.helper.common.WeatherHelper;
 import com.jiangzg.lovenote.helper.view.DialogHelper;
 import com.jiangzg.lovenote.main.MyApp;
+import com.jiangzg.lovenote.model.entity.Place;
+import com.jiangzg.lovenote.model.entity.WeatherToday;
 
 /**
  * Created by JZG on 2018/4/18.
  * 高德地图
  */
 public class LocationHelper {
-
-    private static final int CODE_SUCCESS = 0; // 以后可能会变
 
     public static boolean checkLocationEnable(final Fragment fragment) {
         return !(fragment == null || fragment.getActivity() == null) && checkLocationEnable(fragment.getActivity());
@@ -123,34 +130,39 @@ public class LocationHelper {
 
     private static AMapLocationListener getLocationListener(final LocationCallBack callBack) {
         return aMapLocation -> {
-            if (aMapLocation == null) return;
-            if (aMapLocation.getErrorCode() == CODE_SUCCESS) {
-                // 定位成功回调信息，设置相关消息
-                LogUtils.d(LocationHelper.class, "onLocationChanged", aMapLocation.getLongitude() + " - " + aMapLocation.getLatitude() + " - " + aMapLocation.getAddress());
-                LocationInfo info = LocationInfo.getInfo(); // 用来保存设备位置的对象
-                info.setLongitude(aMapLocation.getLongitude()); // 经度
-                info.setLatitude(aMapLocation.getLatitude()); // 纬度
-                info.setCountry(aMapLocation.getCountry()); // 国家
-                info.setProvince(aMapLocation.getProvince()); // 省份
-                info.setCity(aMapLocation.getCity()); // 城市
-                info.setDistrict(aMapLocation.getDistrict()); // 城区
-                info.setStreet(aMapLocation.getStreet()); // 街道
-                info.setCityId(aMapLocation.getCityCode()); // 城市编号
-                // 只有wifi会返回此字段
-                String address = aMapLocation.getAddress();
-                if (StringUtils.isEmpty(address)) {
-                    address = info.getProvince() + info.getCity() + info.getDistrict() + info.getStreet();
-                }
-                info.setAddress(address);
+            if (aMapLocation == null) {
                 if (callBack != null) {
-                    callBack.onSuccess(info);
+                    callBack.onFailed("");
                 }
-            } else {
+                return;
+            }
+            if (aMapLocation.getErrorCode() != 0) {
                 // 定位失败，打印相关信息
                 LogUtils.w(LocationHelper.class, "onLocationChanged", "ErrCode: " + aMapLocation.getErrorCode() + ", errInfo:" + aMapLocation.getErrorInfo());
                 if (callBack != null) {
                     callBack.onFailed(aMapLocation.getErrorInfo());
                 }
+                return;
+            }
+            // 定位成功回调信息，设置相关消息
+            LogUtils.d(LocationHelper.class, "onLocationChanged", aMapLocation.getLongitude() + " - " + aMapLocation.getLatitude() + " - " + aMapLocation.getAddress());
+            LocationInfo info = LocationInfo.getInfo(); // 用来保存设备位置的对象
+            info.setLongitude(aMapLocation.getLongitude()); // 经度
+            info.setLatitude(aMapLocation.getLatitude()); // 纬度
+            info.setCountry(aMapLocation.getCountry()); // 国家
+            info.setProvince(aMapLocation.getProvince()); // 省份
+            info.setCity(aMapLocation.getCity()); // 城市
+            info.setDistrict(aMapLocation.getDistrict()); // 城区
+            info.setStreet(aMapLocation.getStreet()); // 街道
+            info.setCityId(aMapLocation.getAdCode()); // 城市编号
+            // 只有wifi会返回此字段
+            String address = aMapLocation.getAddress();
+            if (StringUtils.isEmpty(address)) {
+                address = info.getProvince() + info.getCity() + info.getDistrict() + info.getStreet();
+            }
+            info.setAddress(address);
+            if (callBack != null) {
+                callBack.onSuccess(info);
             }
         };
     }
@@ -168,6 +180,55 @@ public class LocationHelper {
         //point2.setLatitude(info2.getLatitude());
         //point2.setLongitude(info2.getLongitude());
         //return CoordinateConverter.calculateLineDistance(point1, point2);
+    }
+
+    /* 定位 并 回调信息 */
+    public interface WeatherCallBack {
+        void onSuccess(WeatherToday weather);
+
+        void onFailed(String errMsg);
+    }
+
+    // 天气查询(实况)
+    public static void getWeatherToday(Context context, Place place, WeatherCallBack callBack) {
+        if (place == null) return;
+        WeatherSearch search = new WeatherSearch(context);
+        search.setQuery(new WeatherSearchQuery(place.getCity(), WeatherSearchQuery.WEATHER_TYPE_LIVE));
+        search.setOnWeatherSearchListener(new WeatherSearch.OnWeatherSearchListener() {
+            @Override
+            public void onWeatherLiveSearched(LocalWeatherLiveResult localWeatherLiveResult, int i) {
+                if (i != 1000) {
+                    LogUtils.w(LocationHelper.class, "getWeatherToday", "ErrCode: " + i);
+                    if (callBack != null) {
+                        callBack.onFailed("");
+                    }
+                    return;
+                }
+                if (localWeatherLiveResult == null || localWeatherLiveResult.getLiveResult() == null) {
+                    if (callBack != null) {
+                        callBack.onFailed("");
+                    }
+                    return;
+                }
+                LocalWeatherLive result = localWeatherLiveResult.getLiveResult();
+                WeatherToday weather = new WeatherToday();
+                weather.setCondition(result.getWeather());
+                weather.setIcon(WeatherHelper.getIcondByAmap(result.getWeather()));
+                weather.setTemp(result.getTemperature());
+                weather.setWindDir(result.getWindDirection());
+                weather.setWindLevel(result.getWindPower());
+                weather.setHumidity(result.getHumidity());
+                // weather.setUpdateAt();
+                if (callBack != null) {
+                    callBack.onSuccess(weather);
+                }
+            }
+
+            @Override
+            public void onWeatherForecastSearched(LocalWeatherForecastResult localWeatherForecastResult, int i) {
+            }
+        });
+        search.searchWeatherAsyn();
     }
 
 }

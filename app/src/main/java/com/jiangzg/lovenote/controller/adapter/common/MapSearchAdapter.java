@@ -47,7 +47,7 @@ public class MapSearchAdapter extends BaseQuickAdapter<PoiItem, BaseViewHolder> 
             select.setLongitude(latLonPoint.getLongitude());
         }
         select.setAddress(item.getTitle());
-        select.setCityId(item.getCityCode());
+        select.setCityId(item.getAdCode());
         // 传输数据
         RxBus.post(new RxBus.Event<>(RxBus.EVENT_MAP_SELECT, select));
         mActivity.finish();

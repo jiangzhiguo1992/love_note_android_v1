@@ -83,7 +83,7 @@ public class MapSelectAdapter extends BaseQuickAdapter<PoiItem, BaseViewHolder> 
             locationInfo.setLongitude(latLonPoint.getLongitude());
         }
         locationInfo.setAddress(item.getTitle());
-        locationInfo.setCityId(item.getCityCode());
+        locationInfo.setCityId(item.getAdCode());
         return locationInfo;
     }
 
