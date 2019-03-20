@@ -4,6 +4,7 @@ import android.support.v4.app.FragmentActivity;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
+import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.helper.common.TimeHelper;
 import com.jiangzg.lovenote.helper.common.WeatherHelper;
@@ -31,7 +32,7 @@ public class WeatherAdapter extends BaseQuickAdapter<WeatherAdapter.CoupleWeathe
     @Override
     protected void convert(BaseViewHolder helper, WeatherAdapter.CoupleWeatherForecast item) {
         // time
-        long time = 0;
+        String timeShow = "";
         // ta
         WeatherForecast taForecast = item.getTaForecast();
         if (taForecast == null) {
@@ -43,7 +44,11 @@ public class WeatherAdapter extends BaseQuickAdapter<WeatherAdapter.CoupleWeathe
             helper.setVisible(R.id.tvShowLeft, false);
             // taData
             long taTime = taForecast.getTimeAt();
-            if (taTime > 0) time = taTime;
+            if (taTime > 0) {
+                timeShow = TimeHelper.getTimeShowLocal_MD_YMD_ByGo(taTime);
+            } else if (!StringUtils.isEmpty(taForecast.getTimeShow())) {
+                timeShow = taForecast.getTimeShow();
+            }
             String condition = String.format(Locale.getDefault(), formatWave, taForecast.getConditionDay(), taForecast.getConditionNight());
             int iconDay = WeatherHelper.getIconById(taForecast.getIconDay());
             int iconNight = WeatherHelper.getIconById(taForecast.getIconNight());
@@ -74,8 +79,12 @@ public class WeatherAdapter extends BaseQuickAdapter<WeatherAdapter.CoupleWeathe
             helper.setVisible(R.id.rlWeatherRight, true);
             helper.setVisible(R.id.tvShowRight, false);
             // myData
-            long taTime = myForecast.getTimeAt();
-            if (taTime > 0) time = taTime;
+            long myTime = myForecast.getTimeAt();
+            if (myTime > 0) {
+                timeShow = TimeHelper.getTimeShowLocal_MD_YMD_ByGo(myTime);
+            } else if (!StringUtils.isEmpty(myForecast.getTimeShow())) {
+                timeShow = myForecast.getTimeShow();
+            }
             String condition = String.format(Locale.getDefault(), formatWave, myForecast.getConditionDay(), myForecast.getConditionNight());
             int iconDay = WeatherHelper.getIconById(myForecast.getIconDay());
             int iconNight = WeatherHelper.getIconById(myForecast.getIconNight());
@@ -96,7 +105,6 @@ public class WeatherAdapter extends BaseQuickAdapter<WeatherAdapter.CoupleWeathe
             helper.setText(R.id.tvTempRight, temp);
             helper.setText(R.id.tvWindRight, wind);
         }
-        String timeShow = TimeHelper.getTimeShowLocal_MD_YMD_ByGo(time);
         helper.setText(R.id.tvTime, timeShow);
     }
 

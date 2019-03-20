@@ -22,22 +22,20 @@ import com.jiangzg.lovenote.helper.common.SPHelper;
 import com.jiangzg.lovenote.helper.common.UserHelper;
 import com.jiangzg.lovenote.helper.common.WeatherHelper;
 import com.jiangzg.lovenote.helper.system.LocationHelper;
-import com.jiangzg.lovenote.helper.system.RetrofitHelper;
 import com.jiangzg.lovenote.helper.view.RecyclerHelper;
-import com.jiangzg.lovenote.model.api.API;
-import com.jiangzg.lovenote.model.api.Result;
+import com.jiangzg.lovenote.model.entity.Place;
 import com.jiangzg.lovenote.model.entity.User;
 import com.jiangzg.lovenote.model.entity.WeatherForecast;
 import com.jiangzg.lovenote.model.entity.WeatherForecastInfo;
 import com.jiangzg.lovenote.view.FrescoAvatarView;
 import com.jiangzg.lovenote.view.GSwipeRefreshLayout;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.OnClick;
-import retrofit2.Call;
 
 public class CoupleWeatherActivity extends BaseActivity<CoupleWeatherActivity> {
 
@@ -88,16 +86,21 @@ public class CoupleWeatherActivity extends BaseActivity<CoupleWeatherActivity> {
     @BindView(R.id.rv)
     RecyclerView rv;
 
+    private Place myPlace;
+    private Place taPlace;
+    private WeatherForecastInfo weatherForecastMe;
+    private WeatherForecastInfo weatherForecastTa;
     private RecyclerHelper recyclerHelper;
 
-    public static void goActivity(Fragment from) {
+    public static void goActivity(Fragment from, Place myPlace, Place taPlace) {
         if (!LocationHelper.checkLocationEnable(from)) return;
         if (UserHelper.isCoupleBreak(SPHelper.getCouple())) {
             CouplePairActivity.goActivity(from);
             return;
         }
         Intent intent = new Intent(from.getActivity(), CoupleWeatherActivity.class);
-        // intent.putExtra();
+        intent.putExtra("myPlace", myPlace);
+        intent.putExtra("taPlace", taPlace);
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         ActivityTrans.start(from, intent);
     }
@@ -137,6 +140,9 @@ public class CoupleWeatherActivity extends BaseActivity<CoupleWeatherActivity> {
 
     @Override
     protected void initData(Intent intent, Bundle state) {
+        // place
+        myPlace = intent.getParcelableExtra("myPlace");
+        taPlace = intent.getParcelableExtra("taPlace");
         // avatar
         User me = SPHelper.getMe();
         User ta = SPHelper.getTa();
@@ -163,45 +169,117 @@ public class CoupleWeatherActivity extends BaseActivity<CoupleWeatherActivity> {
     }
 
     private void refreshData() {
-        if (!srl.isRefreshing()) {
-            srl.setRefreshing(true);
-        }
-        // api
-        Call<Result> api = new RetrofitHelper().call(API.class).coupleWeatherForecastListGet();
-        RetrofitHelper.enqueue(api, null, new RetrofitHelper.CallBack() {
-            @Override
-            public void onResponse(int code, String message, Result.Data data) {
-                if (srl == null || recyclerHelper == null) return;
-                srl.setRefreshing(false);
-                // right
-                WeatherForecastInfo weatherForecastMe = data.getWeatherForecastMe();
-                if (weatherForecastMe == null) {
-                    weatherForecastMe = new WeatherForecastInfo();
-                }
-                String myShow = weatherForecastMe.getShow();
-                List<WeatherForecast> myWeatherForecastList = weatherForecastMe.getWeatherForecastList();
-                setTopViewRight(myShow, myWeatherForecastList);
-                // left
-                WeatherForecastInfo dataWeatherForecastTa = data.getWeatherForecastTa();
-                if (dataWeatherForecastTa == null) {
-                    dataWeatherForecastTa = new WeatherForecastInfo();
-                }
-                String taShow = dataWeatherForecastTa.getShow();
-                List<WeatherForecast> taWeatherForecastList = dataWeatherForecastTa.getWeatherForecastList();
-                setTopViewLeft(taShow, taWeatherForecastList);
-                // recycler
-                WeatherAdapter adapter = recyclerHelper.getAdapter();
-                adapter.setData(myWeatherForecastList, taWeatherForecastList);
+        // my
+        if (myPlace != null) {
+            if (!srl.isRefreshing()) {
+                srl.setRefreshing(true);
             }
+            LocationHelper.getWeatherForecast(mActivity, myPlace.getCity(), new LocationHelper.WeatherForecastCallBack() {
+                @Override
+                public void onSuccess(WeatherForecastInfo weather) {
+                    if (srl == null || recyclerHelper == null) return;
+                    srl.setRefreshing(false);
+                    // right
+                    weatherForecastMe = weather;
+                    if (weatherForecastMe == null) {
+                        weatherForecastMe = new WeatherForecastInfo();
+                    }
+                    String myShow = weatherForecastMe.getShow();
+                    List<WeatherForecast> myWeatherForecastList = weatherForecastMe.getWeatherForecastList();
+                    setTopViewRight(myShow, myWeatherForecastList);
+                    // recycler
+                    updateList();
+                }
 
-            @Override
-            public void onFailure(int code, String message, Result.Data data) {
-                if (srl == null || recyclerHelper == null) return;
-                srl.setRefreshing(false);
-                recyclerHelper.dataFail(false, message);
+                @Override
+                public void onFailed(String errMsg) {
+                    if (srl == null || recyclerHelper == null) return;
+                    srl.setRefreshing(false);
+                }
+            });
+        }
+        // ta
+        if (taPlace != null) {
+            if (!srl.isRefreshing()) {
+                srl.setRefreshing(true);
             }
-        });
-        pushApi(api);
+            LocationHelper.getWeatherForecast(mActivity, taPlace.getCity(), new LocationHelper.WeatherForecastCallBack() {
+                @Override
+                public void onSuccess(WeatherForecastInfo weather) {
+                    if (srl == null || recyclerHelper == null) return;
+                    srl.setRefreshing(false);
+                    // left
+                    weatherForecastTa = weather;
+                    if (weatherForecastTa == null) {
+                        weatherForecastTa = new WeatherForecastInfo();
+                    }
+                    String taShow = weatherForecastTa.getShow();
+                    List<WeatherForecast> taWeatherForecastList = weatherForecastTa.getWeatherForecastList();
+                    setTopViewLeft(taShow, taWeatherForecastList);
+                    // recycler
+                    updateList();
+                }
+
+                @Override
+                public void onFailed(String errMsg) {
+                    if (srl == null || recyclerHelper == null) return;
+                    srl.setRefreshing(false);
+                }
+            });
+        }
+        //// api
+        //Call<Result> api = new RetrofitHelper().call(API.class).coupleWeatherForecastListGet();
+        //RetrofitHelper.enqueue(api, null, new RetrofitHelper.CallBack() {
+        //    @Override
+        //    public void onResponse(int code, String message, Result.Data data) {
+        //        if (srl == null || recyclerHelper == null) return;
+        //        srl.setRefreshing(false);
+        //        // right
+        //        WeatherForecastInfo weatherForecastMe = data.getWeatherForecastMe();
+        //        if (weatherForecastMe == null) {
+        //            weatherForecastMe = new WeatherForecastInfo();
+        //        }
+        //        String myShow = weatherForecastMe.getShow();
+        //        List<WeatherForecast> myWeatherForecastList = weatherForecastMe.getWeatherForecastList();
+        //        setTopViewRight(myShow, myWeatherForecastList);
+        //        // left
+        //        WeatherForecastInfo weatherForecastTa = data.getWeatherForecastTa();
+        //        if (weatherForecastTa == null) {
+        //            weatherForecastTa = new WeatherForecastInfo();
+        //        }
+        //        String taShow = weatherForecastTa.getShow();
+        //        List<WeatherForecast> taWeatherForecastList = weatherForecastTa.getWeatherForecastList();
+        //        setTopViewLeft(taShow, taWeatherForecastList);
+        //        // recycler
+        //        WeatherAdapter adapter = recyclerHelper.getAdapter();
+        //        adapter.setData(myWeatherForecastList, taWeatherForecastList);
+        //    }
+        //
+        //    @Override
+        //    public void onFailure(int code, String message, Result.Data data) {
+        //        if (srl == null || recyclerHelper == null) return;
+        //        srl.setRefreshing(false);
+        //        recyclerHelper.dataFail(false, message);
+        //    }
+        //});
+        //pushApi(api);
+    }
+
+    private void updateList() {
+        WeatherAdapter adapter = recyclerHelper.getAdapter();
+        List<WeatherForecast> myWeatherForecastList;
+        if (weatherForecastMe != null) {
+            myWeatherForecastList = weatherForecastMe.getWeatherForecastList();
+        } else {
+            myWeatherForecastList = new ArrayList<>();
+        }
+        List<WeatherForecast> taWeatherForecastList;
+        if (weatherForecastTa != null) {
+            taWeatherForecastList = weatherForecastTa.getWeatherForecastList();
+        } else {
+            taWeatherForecastList = new ArrayList<>();
+        }
+        adapter.setData(myWeatherForecastList, taWeatherForecastList);
     }
 
     private void setTopViewRight(String msg, List<WeatherForecast> forecastList) {

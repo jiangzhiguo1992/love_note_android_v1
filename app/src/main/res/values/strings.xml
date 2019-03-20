@@ -390,6 +390,7 @@
 
     <!-- weather -->
     <string name="holder_wave_holder_c">%s~%s℃</string>
+    <string name="holder_level_holder_wind">%s级%s风</string>
     <string name="sunny">晴天</string>
     <string name="cloudy">多云</string>
     <string name="over_cast">阴</string>

@@ -9,6 +9,8 @@ import com.amap.api.location.AMapLocationClientOption;
 import com.amap.api.location.AMapLocationListener;
 import com.amap.api.maps2d.AMapUtils;
 import com.amap.api.maps2d.model.LatLng;
+import com.amap.api.services.weather.LocalDayWeatherForecast;
+import com.amap.api.services.weather.LocalWeatherForecast;
 import com.amap.api.services.weather.LocalWeatherForecastResult;
 import com.amap.api.services.weather.LocalWeatherLive;
 import com.amap.api.services.weather.LocalWeatherLiveResult;
@@ -18,12 +20,18 @@ import com.jiangzg.base.common.LogUtils;
 import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.base.system.LocationInfo;
 import com.jiangzg.base.system.PermUtils;
+import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.controller.activity.base.BaseActivity;
 import com.jiangzg.lovenote.helper.common.WeatherHelper;
 import com.jiangzg.lovenote.helper.view.DialogHelper;
 import com.jiangzg.lovenote.main.MyApp;
-import com.jiangzg.lovenote.model.entity.Place;
+import com.jiangzg.lovenote.model.entity.WeatherForecast;
+import com.jiangzg.lovenote.model.entity.WeatherForecastInfo;
 import com.jiangzg.lovenote.model.entity.WeatherToday;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
 
 /**
  * Created by JZG on 2018/4/18.
@@ -182,23 +190,27 @@ public class LocationHelper {
         //return CoordinateConverter.calculateLineDistance(point1, point2);
     }
 
-    /* 定位 并 回调信息 */
-    public interface WeatherCallBack {
+    public interface WeatherTodayCallBack {
         void onSuccess(WeatherToday weather);
 
         void onFailed(String errMsg);
     }
 
+    public interface WeatherForecastCallBack {
+        void onSuccess(WeatherForecastInfo weather);
+
+        void onFailed(String errMsg);
+    }
+
     // 天气查询(实况)
-    public static void getWeatherToday(Context context, Place place, WeatherCallBack callBack) {
-        if (place == null) return;
+    public static void getWeatherToday(Context context, String city, WeatherTodayCallBack callBack) {
         WeatherSearch search = new WeatherSearch(context);
-        search.setQuery(new WeatherSearchQuery(place.getCity(), WeatherSearchQuery.WEATHER_TYPE_LIVE));
+        search.setQuery(new WeatherSearchQuery(city, WeatherSearchQuery.WEATHER_TYPE_LIVE));
         search.setOnWeatherSearchListener(new WeatherSearch.OnWeatherSearchListener() {
             @Override
-            public void onWeatherLiveSearched(LocalWeatherLiveResult localWeatherLiveResult, int i) {
-                if (i != 1000) {
-                    LogUtils.w(LocationHelper.class, "getWeatherToday", "ErrCode: " + i);
+            public void onWeatherLiveSearched(LocalWeatherLiveResult localWeatherLiveResult, int code) {
+                if (code != 1000) {
+                    LogUtils.w(LocationHelper.class, "getWeatherToday", "ErrCode: " + code);
                     if (callBack != null) {
                         callBack.onFailed("");
                     }
@@ -213,7 +225,7 @@ public class LocationHelper {
                 LocalWeatherLive result = localWeatherLiveResult.getLiveResult();
                 WeatherToday weather = new WeatherToday();
                 weather.setCondition(result.getWeather());
-                weather.setIcon(WeatherHelper.getIcondByAmap(result.getWeather()));
+                weather.setIcon(WeatherHelper.getIconByAMap(result.getWeather()));
                 weather.setTemp(result.getTemperature());
                 weather.setWindDir(result.getWindDirection());
                 weather.setWindLevel(result.getWindPower());
@@ -226,6 +238,69 @@ public class LocationHelper {
 
             @Override
             public void onWeatherForecastSearched(LocalWeatherForecastResult localWeatherForecastResult, int i) {
+            }
+        });
+        search.searchWeatherAsyn();
+    }
+
+    // 天气查询(预报)
+    public static void getWeatherForecast(Context context, String city, WeatherForecastCallBack callBack) {
+        WeatherSearch search = new WeatherSearch(context);
+        search.setQuery(new WeatherSearchQuery(city, WeatherSearchQuery.WEATHER_TYPE_FORECAST));
+        search.setOnWeatherSearchListener(new WeatherSearch.OnWeatherSearchListener() {
+            @Override
+            public void onWeatherLiveSearched(LocalWeatherLiveResult localWeatherLiveResult, int i) {
+            }
+
+            @Override
+            public void onWeatherForecastSearched(LocalWeatherForecastResult localWeatherForecastResult, int code) {
+                WeatherForecastInfo info = new WeatherForecastInfo();
+                if (code != 1000) {
+                    LogUtils.w(LocationHelper.class, "getWeatherForecast", "ErrCode: " + code);
+                    if (callBack != null) {
+                        info.setShow(context.getString(R.string.now_no_weather_info));
+                        callBack.onSuccess(info);
+                    }
+                    return;
+                }
+                if (localWeatherForecastResult == null || localWeatherForecastResult.getForecastResult() == null) {
+                    if (callBack != null) {
+                        info.setShow(context.getString(R.string.now_no_weather_info));
+                        callBack.onSuccess(info);
+                    }
+                    return;
+                }
+                LocalWeatherForecast forecastResult = localWeatherForecastResult.getForecastResult();
+                List<LocalDayWeatherForecast> weatherForecast = forecastResult.getWeatherForecast();
+                if (weatherForecast == null || weatherForecast.size() <= 0) {
+                    if (callBack != null) {
+                        info.setShow(context.getString(R.string.now_no_weather_info));
+                        callBack.onSuccess(info);
+                    }
+                    return;
+                }
+                List<WeatherForecast> forecastList = new ArrayList<>();
+                for (int i = 0; i < weatherForecast.size(); i++) {
+                    LocalDayWeatherForecast forecast = weatherForecast.get(i);
+                    if (forecast == null) continue;
+                    WeatherForecast weather = new WeatherForecast();
+                    weather.setConditionDay(forecast.getDayWeather());
+                    weather.setConditionNight(forecast.getNightWeather());
+                    weather.setIconDay(WeatherHelper.getIconByAMap(forecast.getDayWeather()));
+                    weather.setIconNight(WeatherHelper.getIconByAMap(forecast.getNightWeather()));
+                    weather.setTempDay(forecast.getDayTemp());
+                    weather.setTempNight(forecast.getNightTemp());
+                    weather.setWindDay(String.format(Locale.getDefault(), context.getString(R.string.holder_level_holder_wind), forecast.getDayWindPower(), forecast.getDayWindDirection()));
+                    weather.setWindNight(String.format(Locale.getDefault(), context.getString(R.string.holder_level_holder_wind), forecast.getNightWindPower(), forecast.getNightWindDirection()));
+                    weather.setTimeShow(forecast.getDate());
+                    // weather.setTimeAt();
+                    // weather.setUpdateAt();
+                    forecastList.add(weather);
+                }
+                info.setWeatherForecastList(forecastList);
+                if (callBack != null) {
+                    callBack.onSuccess(info);
+                }
             }
         });
         search.searchWeatherAsyn();

@@ -187,7 +187,7 @@ public class CoupleFragment extends BasePagerFragment<CoupleFragment> {
                 CouplePlaceActivity.goActivity(mFragment);
                 break;
             case R.id.llWeather: // 天气信息
-                CoupleWeatherActivity.goActivity(mFragment);
+                CoupleWeatherActivity.goActivity(mFragment, myPlace, taPlace);
                 break;
         }
     }
@@ -209,8 +209,8 @@ public class CoupleFragment extends BasePagerFragment<CoupleFragment> {
                 SPHelper.setTa(data.getTa());
                 SPHelper.setWallPaper(data.getWallPaper());
                 refreshView();
-                // 刷新地址+天气
-                refreshPlaceWeatherDate();
+                // 刷新地址
+                refreshPlaceDate();
             }
 
             @Override
@@ -222,7 +222,7 @@ public class CoupleFragment extends BasePagerFragment<CoupleFragment> {
     }
 
     // 获取自己的位置并上传
-    private void refreshPlaceWeatherDate() {
+    private void refreshPlaceDate() {
         if (UserHelper.isCoupleBreak(SPHelper.getCouple())) return; // 还是要检查的，防止后台返回错误
         LocationHelper.startLocation(mActivity, true, new LocationHelper.LocationCallBack() {
             @Override
@@ -251,7 +251,8 @@ public class CoupleFragment extends BasePagerFragment<CoupleFragment> {
                         myWeatherToday = data.getWeatherTodayMe();
                         taWeatherToday = data.getWeatherTodayTa();
                         refreshPlaceView();
-                        refreshWeatherView();
+                        // refreshWeatherView();
+                        refreshWeatherData();
                     }
 
                     @Override
@@ -267,6 +268,36 @@ public class CoupleFragment extends BasePagerFragment<CoupleFragment> {
                 ToastUtils.show(String.format(Locale.getDefault(), mActivity.getString(R.string.address_get_fail_reason_colon_holder), errMsg));
             }
         });
+    }
+
+    // 刷新天气数据
+    private void refreshWeatherData() {
+        if (myPlace != null) {
+            LocationHelper.getWeatherToday(mActivity, myPlace.getCity(), new LocationHelper.WeatherTodayCallBack() {
+                @Override
+                public void onSuccess(WeatherToday weather) {
+                    myWeatherToday = weather;
+                    refreshWeatherView();
+                }
+
+                @Override
+                public void onFailed(String errMsg) {
+                }
+            });
+        }
+        if (taPlace != null) {
+            LocationHelper.getWeatherToday(mActivity, taPlace.getCity(), new LocationHelper.WeatherTodayCallBack() {
+                @Override
+                public void onSuccess(WeatherToday weather) {
+                    taWeatherToday = weather;
+                    refreshWeatherView();
+                }
+
+                @Override
+                public void onFailed(String errMsg) {
+                }
+            });
+        }
     }
 
     private void refreshView() {
@@ -397,7 +428,7 @@ public class CoupleFragment extends BasePagerFragment<CoupleFragment> {
             if (StringUtils.isNumber(temp)) {
                 myTemp = Integer.parseInt(temp);
             }
-            myWeatherShow = temp + "℃ " + myWeatherToday.getCondition() + " " + myWeatherToday.getHumidity();
+            myWeatherShow = temp + "℃ " + myWeatherToday.getCondition();
         }
         // taWeather
         int taTemp = 520;
@@ -413,7 +444,7 @@ public class CoupleFragment extends BasePagerFragment<CoupleFragment> {
             if (StringUtils.isNumber(temp)) {
                 taTemp = Integer.parseInt(temp);
             }
-            taWeatherShow = temp + "℃ " + taWeatherToday.getCondition() + " " + taWeatherToday.getHumidity();
+            taWeatherShow = temp + "℃ " + taWeatherToday.getCondition();
         }
         // diff
         String diff;

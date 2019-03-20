@@ -7,6 +7,7 @@ package com.jiangzg.lovenote.model.entity;
 public class WeatherForecast {
 
     private long timeAt;
+    private String timeShow;
     private String conditionDay;
     private String conditionNight;
     private String iconDay;
@@ -16,6 +17,14 @@ public class WeatherForecast {
     private String windDay;
     private String windNight;
     private long updateAt;
+
+    public String getTimeShow() {
+        return timeShow;
+    }
+
+    public void setTimeShow(String timeShow) {
+        this.timeShow = timeShow;
+    }
 
     public long getTimeAt() {
         return timeAt;
