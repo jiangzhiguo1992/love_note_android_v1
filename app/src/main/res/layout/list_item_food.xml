@@ -15,7 +15,8 @@
     app:cardBackgroundColor="@color/white"
     app:cardCornerRadius="@dimen/radius_normal"
     app:cardElevation="@dimen/elevation_normal"
-    app:cardMaxElevation="@dimen/elevation_big">
+    app:cardMaxElevation="@dimen/elevation_big"
+    tools:cardBackgroundColor="?attr/colorPrimary">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -35,7 +36,7 @@
                 android:layout_marginStart="5dp"
                 android:layout_marginTop="5dp"
                 android:layout_marginEnd="20dp"
-                android:layout_marginBottom="10dp"
+                android:layout_marginBottom="5dp"
                 app:cardCornerRadius="20dp"
                 app:cardElevation="@dimen/elevation_big"
                 app:cardMaxElevation="@dimen/elevation_huge">
@@ -117,9 +118,7 @@
             style="@style/FontGreyNormal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="5dp"
-            android:layout_marginEnd="5dp"
-            android:layout_marginBottom="5dp"
+            android:layout_margin="5dp"
             android:visibility="gone"
             tools:text="美食评价美食评价美食评价美食评价美食评价美食评价美食评价"
             tools:visibility="visible"/>
@@ -128,8 +127,7 @@
             android:id="@+id/rv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="2.5dp"
-            android:layout_marginEnd="2.5dp"
+            android:layout_margin="2.5dp"
             android:visibility="gone"
             tools:visibility="visible"/>
     </LinearLayout>
