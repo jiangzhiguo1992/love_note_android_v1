@@ -39,13 +39,17 @@ import java.util.Locale;
  */
 public class LocationHelper {
 
+    public static boolean isLocationPermissionOK(Activity activity) {
+        return PermUtils.isPermissionOK(activity, PermUtils.location);
+    }
+
     public static boolean checkLocationEnable(final Fragment fragment) {
         return !(fragment == null || fragment.getActivity() == null) && checkLocationEnable(fragment.getActivity());
     }
 
     // 检查并请求位置服务
     public static boolean checkLocationEnable(final Activity activity) {
-        if (!PermUtils.isPermissionOK(activity, PermUtils.location)) {
+        if (!isLocationPermissionOK(activity)) {
             // 权限不过关
             PermUtils.requestPermissions(activity, BaseActivity.REQUEST_LOCATION, PermUtils.location, new PermUtils.OnPermissionListener() {
                 @Override

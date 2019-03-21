@@ -224,6 +224,7 @@ public class CoupleFragment extends BasePagerFragment<CoupleFragment> {
     // 获取自己的位置并上传
     private void refreshPlaceDate() {
         if (UserHelper.isCoupleBreak(SPHelper.getCouple())) return; // 还是要检查的，防止后台返回错误
+        if (!LocationHelper.isLocationPermissionOK(mActivity)) return; // 没同意不要弹
         LocationHelper.startLocation(mActivity, true, new LocationHelper.LocationCallBack() {
             @Override
             public void onSuccess(LocationInfo info) {
