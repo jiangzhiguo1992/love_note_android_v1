@@ -19,8 +19,6 @@
             android:id="@+id/rv"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginStart="5dp"
-            android:layout_marginEnd="5dp"
             tools:listitem="@layout/list_item_video_left"/>
     </com.jiangzg.lovenote.view.GSwipeRefreshLayout>
 

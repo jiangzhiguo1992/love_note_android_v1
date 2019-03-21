@@ -6,21 +6,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginStart="10dp"
-    android:layout_marginTop="5dp"
     android:layout_marginEnd="10dp"
     android:layout_marginBottom="5dp">
-
-    <TextView
-        android:id="@+id/tvHappenAt"
-        style="@style/FontGreySmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/llContent"
-        android:layout_alignStart="@+id/llContent"
-        android:layout_alignEnd="@id/llContent"
-        android:layout_marginTop="5dp"
-        android:gravity="end"
-        tools:text="2017-12-3 06:30"/>
 
     <com.jiangzg.lovenote.view.FrescoAvatarView
         android:id="@+id/ivAvatar"
@@ -28,12 +15,14 @@
         android:layout_height="40dp"
         android:layout_alignParentEnd="true"
         android:layout_marginStart="10dp"
+        android:layout_marginTop="5dp"
         tools:background="@mipmap/ic_account_circle_grey_48dp"/>
 
     <LinearLayout
         android:id="@+id/llContent"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
         android:layout_toStartOf="@+id/ivAvatar"
         android:background="@drawable/shape_solid_white_left_circle_right_react"
         android:elevation="@dimen/elevation_normal"
@@ -81,4 +70,16 @@
                 tools:text="10:10:10"/>
         </RelativeLayout>
     </LinearLayout>
+
+    <TextView
+        android:id="@+id/tvHappenAt"
+        style="@style/FontGreySmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/llContent"
+        android:layout_alignStart="@+id/llContent"
+        android:layout_alignEnd="@id/llContent"
+        android:layout_marginTop="5dp"
+        android:gravity="end"
+        tools:text="2017-12-3 06:30"/>
 </RelativeLayout>
