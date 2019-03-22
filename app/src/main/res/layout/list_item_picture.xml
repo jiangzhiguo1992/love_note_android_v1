@@ -24,7 +24,8 @@
             android:foreground="?attr/selectableItemBackground"
             app:actualImageScaleType="centerCrop"
             app:viewAspectRatio="1"
-            tools:background="@mipmap/ic_launcher"/>
+            tools:background="@mipmap/ic_launcher"
+            tools:layout_height="150dp"/>
 
         <LinearLayout
             android:id="@+id/llBottom"
@@ -40,11 +41,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="?attr/selectableItemBackground"
-                android:drawableStart="@mipmap/ic_location_on_white_18dp"
-                android:drawablePadding="10dp"
                 android:ellipsize="middle"
                 android:foreground="?attr/selectableItemBackground"
-                android:gravity="center_vertical|start"
                 android:paddingStart="10dp"
                 android:paddingTop="5dp"
                 android:paddingEnd="10dp"
@@ -63,12 +61,9 @@
 
             <TextView
                 android:id="@+id/tvHappenAt"
-                style="@style/FontWhiteNormal"
+                style="@style/FontWhiteSmall"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:drawableStart="@mipmap/ic_access_time_white_18dp"
-                android:drawablePadding="10dp"
-                android:gravity="center_vertical|start"
                 android:maxLines="1"
                 android:paddingStart="10dp"
                 android:paddingTop="5dp"
