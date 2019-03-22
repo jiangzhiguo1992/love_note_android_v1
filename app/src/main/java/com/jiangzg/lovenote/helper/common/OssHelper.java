@@ -1156,13 +1156,6 @@ public class OssHelper {
         uploadFilesInForegroundWithName(activity, fileList, ossDirPath, true, callBack);
     }
 
-    // 美食 (压缩)
-    public static void uploadFood(Activity activity, final List<String> sourceList, final OssUploadsCallBack callBack) {
-        String ossDirPath = SPHelper.getOssInfo().getPathNoteFood();
-        List<File> fileList = ListHelper.getFileListByPath(sourceList);
-        uploadMiniFilesInForegroundWithName(activity, ossDirPath, fileList, false, callBack);
-    }
-
     // 礼物 (压缩)
     public static void uploadGift(Activity activity, final List<String> sourceList, final OssUploadsCallBack callBack) {
         String ossDirPath = SPHelper.getOssInfo().getPathNoteGift();
@@ -1173,6 +1166,13 @@ public class OssHelper {
     // 电影 (压缩)
     public static void uploadMovie(Activity activity, final List<String> sourceList, final OssUploadsCallBack callBack) {
         String ossDirPath = SPHelper.getOssInfo().getPathNoteMovie();
+        List<File> fileList = ListHelper.getFileListByPath(sourceList);
+        uploadMiniFilesInForegroundWithName(activity, ossDirPath, fileList, false, callBack);
+    }
+
+    // 美食 (压缩)
+    public static void uploadFood(Activity activity, final List<String> sourceList, final OssUploadsCallBack callBack) {
+        String ossDirPath = SPHelper.getOssInfo().getPathNoteFood();
         List<File> fileList = ListHelper.getFileListByPath(sourceList);
         uploadMiniFilesInForegroundWithName(activity, ossDirPath, fileList, false, callBack);
     }
