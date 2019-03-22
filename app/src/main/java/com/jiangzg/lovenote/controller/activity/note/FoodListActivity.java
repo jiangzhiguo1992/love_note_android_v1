@@ -14,7 +14,6 @@ import android.view.View;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemChildClickListener;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
-import com.chad.library.adapter.base.listener.OnItemLongClickListener;
 import com.jiangzg.base.component.ActivityTrans;
 import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.controller.activity.base.BaseActivity;
@@ -113,18 +112,14 @@ public class FoodListActivity extends BaseActivity<FoodListActivity> {
                         }
                     }
                 })
-                .listenerClick(new OnItemLongClickListener() {
-                    @Override
-                    public void onSimpleItemLongClick(BaseQuickAdapter adapter, View view, int position) {
-                        FoodAdapter foodAdapter = (FoodAdapter) adapter;
-                        foodAdapter.goEditActivity(position);
-                    }
-                })
                 .listenerClick(new OnItemChildClickListener() {
                     @Override
                     public void onSimpleItemChildClick(BaseQuickAdapter adapter, View view, int position) {
                         FoodAdapter foodAdapter = (FoodAdapter) adapter;
                         switch (view.getId()) {
+                            case R.id.ivMore: // 编辑
+                                foodAdapter.goEditActivity(position);
+                                break;
                             case R.id.tvAddress: // 地图显示
                                 foodAdapter.goMapShow(position);
                                 break;

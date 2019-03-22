@@ -10,8 +10,6 @@
     android:layout_marginTop="5dp"
     android:layout_marginEnd="10dp"
     android:layout_marginBottom="5dp"
-    android:background="?attr/selectableItemBackground"
-    android:foreground="?attr/selectableItemBackground"
     app:cardBackgroundColor="@color/white"
     app:cardCornerRadius="@dimen/radius_normal"
     app:cardElevation="@dimen/elevation_normal"
@@ -48,23 +46,44 @@
                     tools:background="@mipmap/ic_account_circle_grey_48dp"/>
             </android.support.v7.widget.CardView>
 
-            <TextView
-                android:id="@+id/tvTitle"
-                style="@style/FontBlackNormalBold"
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignTop="@+id/cvAvatar"
                 android:layout_marginEnd="5dp"
                 android:layout_toEndOf="@+id/cvAvatar"
-                android:ellipsize="middle"
                 android:gravity="center_vertical"
-                android:singleLine="true"
-                tools:text="天津波波鱼吃饭"/>
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tvTitle"
+                    style="@style/FontBlackNormalBold"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="5dp"
+                    android:layout_toStartOf="@+id/ivMore"
+                    android:ellipsize="middle"
+                    android:gravity="center_vertical"
+                    android:singleLine="true"
+                    tools:text="天津波波鱼吃饭"/>
+
+                <ImageView
+                    android:id="@+id/ivMore"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="5dp"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:foreground="?attr/selectableItemBackgroundBorderless"
+                    android:src="@mipmap/ic_more_horiz_grey_18dp"/>
+            </RelativeLayout>
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignBottom="@+id/cvAvatar"
+                android:layout_marginEnd="5dp"
                 android:layout_toEndOf="@+id/cvAvatar"
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
@@ -75,8 +94,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="5dp"
+                    android:ellipsize="middle"
                     android:gravity="center"
-                    android:maxLines="1"
                     android:singleLine="true"
                     tools:text="2017年12月31日"/>
 
@@ -86,29 +105,14 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="5dp"
-                    android:layout_marginEnd="5dp"
-                    android:layout_toStartOf="@+id/ivAddress"
                     android:layout_toEndOf="@+id/tvHappenAt"
                     android:background="?attr/selectableItemBackground"
-                    android:ellipsize="start"
+                    android:ellipsize="middle"
                     android:foreground="?attr/selectableItemBackground"
                     android:gravity="end"
                     android:singleLine="true"
                     android:visibility="gone"
                     tools:text="天津师范大学"
-                    tools:visibility="visible"/>
-
-                <ImageView
-                    android:id="@+id/ivAddress"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignTop="@+id/tvAddress"
-                    android:layout_alignBottom="@+id/tvAddress"
-                    android:layout_alignParentEnd="true"
-                    android:layout_marginEnd="5dp"
-                    android:src="@mipmap/ic_location_on_grey_18dp"
-                    android:tint="@color/font_grey"
-                    android:visibility="gone"
                     tools:visibility="visible"/>
             </RelativeLayout>
         </RelativeLayout>

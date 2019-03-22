@@ -50,7 +50,6 @@ public class FoodAdapter extends BaseQuickAdapter<Food, BaseViewHolder> {
         FrescoAvatarView ivAvatar = helper.getView(R.id.ivAvatar);
         ivAvatar.setData(avatar, item.getUserId());
         helper.setText(R.id.tvTitle, title);
-        helper.setVisible(R.id.ivAddress, !StringUtils.isEmpty(address));
         helper.setVisible(R.id.tvAddress, !StringUtils.isEmpty(address));
         helper.setText(R.id.tvAddress, address);
         helper.setText(R.id.tvHappenAt, happen);
@@ -69,6 +68,7 @@ public class FoodAdapter extends BaseQuickAdapter<Food, BaseViewHolder> {
         helper.setVisible(R.id.tvContent, !StringUtils.isEmpty(contentText));
         helper.setText(R.id.tvContent, contentText);
         // click
+        helper.addOnClickListener(R.id.ivMore);
         helper.addOnClickListener(R.id.tvAddress);
         helper.addOnClickListener(R.id.rv);
     }

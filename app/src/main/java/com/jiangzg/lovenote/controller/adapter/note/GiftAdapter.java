@@ -60,6 +60,7 @@ public class GiftAdapter extends BaseQuickAdapter<Gift, BaseViewHolder> {
             rv.setVisibility(View.GONE);
         }
         // click
+        helper.addOnClickListener(R.id.ivMore);
         helper.addOnClickListener(R.id.rv);
     }
 

@@ -14,8 +14,8 @@ import android.widget.TextView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.chad.library.adapter.base.listener.OnItemChildClickListener;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
-import com.chad.library.adapter.base.listener.OnItemLongClickListener;
 import com.jiangzg.base.component.ActivityTrans;
 import com.jiangzg.base.view.DialogUtils;
 import com.jiangzg.lovenote.R;
@@ -124,11 +124,15 @@ public class GiftListActivity extends BaseActivity<GiftListActivity> {
                         }
                     }
                 })
-                .listenerClick(new OnItemLongClickListener() {
+                .listenerClick(new OnItemChildClickListener() {
                     @Override
-                    public void onSimpleItemLongClick(BaseQuickAdapter adapter, View view, int position) {
+                    public void onSimpleItemChildClick(BaseQuickAdapter adapter, View view, int position) {
                         GiftAdapter giftAdapter = (GiftAdapter) adapter;
-                        giftAdapter.goEditActivity(position);
+                        switch (view.getId()) {
+                            case R.id.ivMore: // 编辑
+                                giftAdapter.goEditActivity(position);
+                                break;
+                        }
                     }
                 });
     }
