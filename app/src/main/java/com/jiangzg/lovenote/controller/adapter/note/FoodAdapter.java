@@ -50,9 +50,11 @@ public class FoodAdapter extends BaseQuickAdapter<Food, BaseViewHolder> {
         FrescoAvatarView ivAvatar = helper.getView(R.id.ivAvatar);
         ivAvatar.setData(avatar, item.getUserId());
         helper.setText(R.id.tvTitle, title);
+        helper.setText(R.id.tvHappenAt, happen);
         helper.setVisible(R.id.tvAddress, !StringUtils.isEmpty(address));
         helper.setText(R.id.tvAddress, address);
-        helper.setText(R.id.tvHappenAt, happen);
+        helper.setVisible(R.id.tvContent, !StringUtils.isEmpty(contentText));
+        helper.setText(R.id.tvContent, contentText);
         RecyclerView rv = helper.getView(R.id.rv);
         if (imageList != null && imageList.size() > 0) {
             rv.setVisibility(View.VISIBLE);
@@ -65,8 +67,6 @@ public class FoodAdapter extends BaseQuickAdapter<Food, BaseViewHolder> {
         } else {
             rv.setVisibility(View.GONE);
         }
-        helper.setVisible(R.id.tvContent, !StringUtils.isEmpty(contentText));
-        helper.setText(R.id.tvContent, contentText);
         // click
         helper.addOnClickListener(R.id.ivMore);
         helper.addOnClickListener(R.id.tvAddress);
