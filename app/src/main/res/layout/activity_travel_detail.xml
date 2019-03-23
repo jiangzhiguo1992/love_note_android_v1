@@ -53,6 +53,7 @@
                             style="@style/FontBlackNormal"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
+                            android:layout_marginEnd="5dp"
                             android:layout_weight="1"
                             android:gravity="start|center_vertical"
                             tools:text="时间: 2018年 12月 21号"/>
@@ -62,6 +63,7 @@
                             style="@style/FontBlackNormal"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
+                            android:layout_marginStart="5dp"
                             android:layout_weight="1"
                             android:gravity="end|center_vertical"
                             tools:text="创建者: XXXXXXX"/>
