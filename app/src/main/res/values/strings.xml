@@ -146,6 +146,7 @@
     <string name="please_input_title_no_over_holder_text" formatted="false">请输入标题，不得超过%d个字</string>
     <string name="please_input_name_no_over_holder_text" formatted="false">请输入名称，不得超过%d个字</string>
     <string name="please_input_pwd_no_over_holder_text" formatted="false">请输入密码，不得超过%d个字</string>
+    <string name="please_input_channel_no_over_holder_text" formatted="false">请输入频道，不得超过%d个字</string>
     <string name="holder_paper" formatted="false">%d张</string>
     <string name="holder_thousand_point1" formatted="false">%.1f万</string>
     <string name="text_number_space_colon_holder" formatted="false">字数: %d</string>

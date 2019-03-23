@@ -194,10 +194,11 @@ public class WhisperListActivity extends BaseActivity<WhisperListActivity> {
     }
 
     private void getData(final boolean more) {
-        page = more ? page + 1 : 0;
         InputUtils.hideSoftInput(etChannel);
+        page = more ? page + 1 : 0;
         channel = etChannel.getText().toString().trim();
-        tvCurrentChannel.setText(getChannelShow());
+        String channelShow = StringUtils.isEmpty(channel) ? getString(R.string.now_no) : channel;
+        tvCurrentChannel.setText(String.format(Locale.getDefault(), getString(R.string.current_channel_colon_space_holder), channelShow));
         // api
         Call<Result> api = new RetrofitHelper().call(API.class).noteWhisperListGet(channel, page);
         RetrofitHelper.enqueue(api, null, new RetrofitHelper.CallBack() {
@@ -215,11 +216,6 @@ public class WhisperListActivity extends BaseActivity<WhisperListActivity> {
             }
         });
         pushApi(api);
-    }
-
-    private String getChannelShow() {
-        String channelShow = StringUtils.isEmpty(channel) ? getString(R.string.now_no) : channel;
-        return String.format(Locale.getDefault(), getString(R.string.current_channel_colon_space_holder), channelShow);
     }
 
     private void onChannelInput(String input) {
@@ -263,7 +259,7 @@ public class WhisperListActivity extends BaseActivity<WhisperListActivity> {
         body.setChannel(channel);
         body.setImage(false);
         body.setContent(content);
-        checkApi(body);
+        apiAdd(body);
     }
 
     // 图片获取
@@ -284,7 +280,7 @@ public class WhisperListActivity extends BaseActivity<WhisperListActivity> {
                 body.setChannel(channel);
                 body.setImage(true);
                 body.setContent(ossPath);
-                checkApi(body);
+                apiAdd(body);
             }
 
             @Override
@@ -293,7 +289,7 @@ public class WhisperListActivity extends BaseActivity<WhisperListActivity> {
         });
     }
 
-    private void checkApi(Whisper whisper) {
+    private void apiAdd(Whisper whisper) {
         // api
         Call<Result> api = new RetrofitHelper().call(API.class).noteWhisperAdd(whisper);
         RetrofitHelper.enqueue(api, getLoading(true), new RetrofitHelper.CallBack() {
