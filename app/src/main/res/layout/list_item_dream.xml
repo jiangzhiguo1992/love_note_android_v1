@@ -21,19 +21,30 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:padding="10dp">
+        android:padding="5dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="5dp"
             android:gravity="center_vertical"
             android:orientation="horizontal">
 
-            <com.jiangzg.lovenote.view.FrescoAvatarView
-                android:id="@+id/ivAvatar"
+            <android.support.v7.widget.CardView
+                android:id="@+id/cvAvatar"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                tools:background="@mipmap/ic_account_circle_grey_48dp"/>
+                android:layout_margin="5dp"
+                app:cardCornerRadius="15dp"
+                app:cardElevation="@dimen/elevation_normal"
+                app:cardMaxElevation="@dimen/elevation_big">
+
+                <com.jiangzg.lovenote.view.FrescoAvatarView
+                    android:id="@+id/ivAvatar"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    tools:background="@mipmap/ic_account_circle_grey_48dp"/>
+            </android.support.v7.widget.CardView>
 
             <TextView
                 android:id="@+id/tvHappenAt"
@@ -57,14 +68,14 @@
 
         <View
             style="@style/LineHorizontal"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp"/>
+            android:layout_margin="5dp"/>
 
         <TextView
             android:id="@+id/tvContent"
             style="@style/FontGreyNormal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_margin="5dp"
             android:ellipsize="end"
             android:maxLines="5"
             tools:text="建议内容建议内容建议内容建议内容建议内容建议内容建建议内容建议内容建议内容建议内容建议内容建议内容建建议内容建议内容建议内容建议内容建议内容建议内容建建议内容建议内容建议内容建议内容建议内容建议内容建建议内容建议内容建议内容建议内容建议内容建议内容建建议内容建议内容建议内容建议内容建议内容建议内容建"/>
