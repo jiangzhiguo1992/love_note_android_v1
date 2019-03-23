@@ -38,7 +38,6 @@
                 android:gravity="center"
                 tools:text="建议内容建议内容建议内容建议内容建议内容建议内容建建议内容建议内容建议内容建议内容建议内容建议内容建建议内容建议内容建议内容建议内容建议内容建议内容建建议内容建议内容建议内容建议内容建议内容建议内容建建议内容建议内容建议内容建议内容建议内容建议内容建建议内容建议内容建议内容建议内容建议内容建议内容建"/>
 
-
             <ImageView
                 android:id="@+id/ivCreator"
                 android:layout_width="wrap_content"

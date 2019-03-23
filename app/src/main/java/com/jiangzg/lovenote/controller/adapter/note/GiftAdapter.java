@@ -44,7 +44,7 @@ public class GiftAdapter extends BaseQuickAdapter<Gift, BaseViewHolder> {
         List<String> imageList = item.getContentImageList();
         // view
         FrescoAvatarView ivAvatar = helper.getView(R.id.ivAvatar);
-        ivAvatar.setData(avatar, item.getUserId());
+        ivAvatar.setData(avatar, item.getReceiveId());
         helper.setText(R.id.tvTitle, title);
         helper.setText(R.id.tvHappenAt, happen);
         RecyclerView rv = helper.getView(R.id.rv);
