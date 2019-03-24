@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -21,12 +22,64 @@
             android:gravity="center_horizontal"
             android:orientation="vertical">
 
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="30dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="20dp"
+                app:cardBackgroundColor="?attr/colorPrimary"
+                app:cardCornerRadius="30dp"
+                app:cardElevation="@dimen/elevation_normal"
+                app:cardMaxElevation="@dimen/elevation_big">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:id="@+id/btnScoreAdd"
+                        style="@style/FontWhiteHugeBold"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="@null"
+                        android:elevation="0dp"
+                        android:text="@string/symbol_add"
+                        android:textSize="35sp"/>
+
+                    <TextView
+                        android:id="@+id/tvScore"
+                        style="@style/FontWhiteHugeBold"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:elevation="0dp"
+                        android:gravity="center"
+                        android:textSize="30sp"
+                        tools:text="0"/>
+
+                    <Button
+                        android:id="@+id/btnScoreSub"
+                        style="@style/FontWhiteHugeBold"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="@null"
+                        android:elevation="0dp"
+                        android:text="@string/symbol_sub"
+                        android:textSize="35sp"/>
+                </LinearLayout>
+            </android.support.v7.widget.CardView>
+
             <EditText
                 android:id="@+id/etTitle"
                 style="@style/FontGreyNormal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
                 android:background="@null"
                 android:gravity="start"
                 android:hint="@string/please_input_rule_content"
@@ -44,48 +97,6 @@
                 android:layout_marginEnd="10dp"
                 android:gravity="end"
                 tools:text="0/2000"/>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="30dp"
-                android:gravity="center_vertical"
-                android:orientation="horizontal">
-
-                <Button
-                    android:id="@+id/btnScoreAdd"
-                    style="@style/FontWhiteHugeBold"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:layout_marginStart="5dp"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginBottom="5dp"
-                    android:background="@drawable/selector_enable_press_solid_light_primary_dark_r3"
-                    android:text="@string/symbol_add"
-                    android:textSize="35sp"/>
-
-                <TextView
-                    android:id="@+id/tvScore"
-                    style="@style/FontBlackHugeBold"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:textSize="30sp"
-                    tools:text="0"/>
-
-                <Button
-                    android:id="@+id/btnScoreSub"
-                    style="@style/FontWhiteHugeBold"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginEnd="5dp"
-                    android:layout_marginBottom="5dp"
-                    android:background="@drawable/selector_enable_press_solid_light_primary_dark_r3"
-                    android:text="@string/symbol_sub"
-                    android:textSize="35sp"/>
-            </LinearLayout>
         </LinearLayout>
     </ScrollView>
 </LinearLayout>
