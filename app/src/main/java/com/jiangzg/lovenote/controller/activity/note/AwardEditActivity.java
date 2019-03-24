@@ -218,17 +218,15 @@ public class AwardEditActivity extends BaseActivity<AwardEditActivity> {
 
     private void refreshRuleView() {
         if (award == null) return;
+        if (StringUtils.isEmpty(etContent.getText().toString().trim())) {
+            etContent.setText(rule == null ? "" : rule.getTitle());
+        }
         String scoreShow = "0";
-        String content = "";
         if (rule != null) {
             scoreShow = String.valueOf(rule.getScore());
             if (rule.getScore() > 0) {
                 scoreShow = "+" + scoreShow;
             }
-            content = rule.getTitle();
-        }
-        if (StringUtils.isEmpty(etContent.getText().toString().trim())) {
-            etContent.setText(content);
         }
         tvRule.setText(String.format(Locale.getDefault(), getString(R.string.rule_colon_space_holder), scoreShow));
     }
