@@ -164,7 +164,7 @@ public class AwardListActivity extends BaseActivity<AwardListActivity> {
             case R.id.llSearch: // 搜索
                 showSearchDialog();
                 break;
-            case R.id.llRule: // 搜索
+            case R.id.llRule: // 规则
                 AwardRuleListActivity.goActivity(mActivity);
                 break;
             case R.id.llAdd: // 添加
@@ -219,7 +219,6 @@ public class AwardListActivity extends BaseActivity<AwardListActivity> {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 AwardScore awardScoreMe = data.getAwardScoreMe();
-                AwardScore awardScoreTa = data.getAwardScoreTa();
                 String scoreMe = "0";
                 if (awardScoreMe != null) {
                     long totalScore = awardScoreMe.getTotalScore();
@@ -228,6 +227,8 @@ public class AwardListActivity extends BaseActivity<AwardListActivity> {
                         scoreMe = "+" + scoreMe;
                     }
                 }
+                tvScoreMe.setText(scoreMe);
+                AwardScore awardScoreTa = data.getAwardScoreTa();
                 String scoreTa = "0";
                 if (awardScoreTa != null) {
                     long totalScore = awardScoreTa.getTotalScore();
@@ -236,7 +237,6 @@ public class AwardListActivity extends BaseActivity<AwardListActivity> {
                         scoreTa = "+" + scoreTa;
                     }
                 }
-                tvScoreMe.setText(scoreMe);
                 tvScoreTa.setText(scoreTa);
             }
 
