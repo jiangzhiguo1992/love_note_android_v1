@@ -48,6 +48,8 @@
                         android:layout_weight="1"
                         android:background="@null"
                         android:elevation="0dp"
+                        android:ellipsize="middle"
+                        android:singleLine="true"
                         android:text="@string/symbol_add"
                         android:textSize="35sp"/>
 
@@ -58,7 +60,9 @@
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:elevation="0dp"
+                        android:ellipsize="middle"
                         android:gravity="center"
+                        android:singleLine="true"
                         android:textSize="30sp"
                         tools:text="0"/>
 
@@ -70,6 +74,8 @@
                         android:layout_weight="1"
                         android:background="@null"
                         android:elevation="0dp"
+                        android:ellipsize="middle"
+                        android:singleLine="true"
                         android:text="@string/symbol_sub"
                         android:textSize="35sp"/>
                 </LinearLayout>

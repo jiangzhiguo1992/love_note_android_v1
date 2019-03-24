@@ -50,7 +50,6 @@ public class AwardRuleEditActivity extends BaseActivity<AwardRuleEditActivity> {
 
     private AwardRule awardRule;
     private int limitTitleLength;
-    private int scoreMax;
 
     public static void goActivity(Activity from) {
         Intent intent = new Intent(from, AwardRuleEditActivity.class);
@@ -118,9 +117,7 @@ public class AwardRuleEditActivity extends BaseActivity<AwardRuleEditActivity> {
 
     private void changeScore(boolean add) {
         if (awardRule == null) return;
-        if (scoreMax == 0) {
-            scoreMax = SPHelper.getLimit().getAwardRuleScoreMax();
-        }
+        int scoreMax = SPHelper.getLimit().getAwardRuleScoreMax();
         int score = awardRule.getScore();
         if (add) {
             awardRule.setScore(++score);
