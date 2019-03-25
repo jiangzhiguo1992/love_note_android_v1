@@ -86,7 +86,9 @@
                 android:layout_alignBottom="@+id/cvAvatar"
                 android:layout_marginEnd="5dp"
                 android:layout_toEndOf="@+id/cvAvatar"
+                android:ellipsize="middle"
                 android:gravity="center_vertical"
+                android:singleLine="true"
                 tools:text="2017年12月31日"/>
         </RelativeLayout>
 
