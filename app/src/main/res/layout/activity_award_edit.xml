@@ -31,7 +31,7 @@
                 android:gravity="start"
                 android:hint="@string/please_input_trigger_rule"
                 android:inputType="textMultiLine"
-                android:minLines="3"
+                android:minLines="5"
                 android:padding="10dp"
                 android:textColorHint="@color/font_hint"/>
 
