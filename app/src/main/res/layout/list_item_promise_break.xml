@@ -26,8 +26,10 @@
         <TextView
             android:id="@+id/tvHappenAt"
             style="@style/FontGreySmall"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:ellipsize="middle"
+            android:singleLine="true"
             tools:text="12-31 16:22"/>
 
         <TextView
