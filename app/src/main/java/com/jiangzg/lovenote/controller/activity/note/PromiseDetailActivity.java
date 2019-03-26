@@ -178,8 +178,9 @@ public class PromiseDetailActivity extends BaseActivity<PromiseDetailActivity> {
                 if (recyclerHelper == null) return;
                 srl.setRefreshing(false);
                 promise = data.getPromise();
-                // view
+                // head
                 initHead();
+                // break
                 recyclerHelper.dataRefresh();
                 // event
                 RxBus.post(new RxBus.Event<>(RxBus.EVENT_PROMISE_LIST_ITEM_REFRESH, promise));
