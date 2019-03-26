@@ -64,12 +64,7 @@ public class PromiseBreakAdapter extends BaseQuickAdapter<PromiseBreak, BaseView
             public void onResponse(int code, String message, Result.Data data) {
                 remove(position);
                 // event
-                RxBus.post(new RxBus.Event<>(RxBus.EVENT_PROMISE_DETAIL_REFRESH, new Promise()));
-                if (promise != null) {
-                    int breakCount = promise.getBreakCount() - 1;
-                    promise.setBreakCount(breakCount < 0 ? 0 : breakCount);
-                    RxBus.post(new RxBus.Event<>(RxBus.EVENT_PROMISE_LIST_ITEM_REFRESH, promise));
-                }
+                RxBus.post(new RxBus.Event<>(RxBus.EVENT_PROMISE_DETAIL_REFRESH, promise));
             }
 
             @Override
