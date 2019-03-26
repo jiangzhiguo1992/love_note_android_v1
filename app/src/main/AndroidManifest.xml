@@ -213,8 +213,7 @@
         </service>
         <service
             android:name="com.alibaba.sdk.android.push.AliyunPushIntentService"
-            android:exported="true"
-            >
+            android:exported="true">
             <intent-filter>
                 <action android:name="org.agoo.android.intent.action.RECEIVE"/>
             </intent-filter>
@@ -360,6 +359,7 @@
         <activity android:name=".controller.activity.note.PromiseListActivity"/>
         <activity android:name=".controller.activity.note.PromiseEditActivity"/>
         <activity android:name=".controller.activity.note.PromiseDetailActivity"/>
+        <activity android:name=".controller.activity.note.PromiseBreakEditActivity"/>
         <activity android:name=".controller.activity.note.MovieEditActivity"/>
         <activity android:name=".controller.activity.note.MovieListActivity"/>
         <!-- topic -->
