@@ -14,8 +14,8 @@ import android.widget.TextView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.chad.library.adapter.base.listener.OnItemChildClickListener;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
-import com.chad.library.adapter.base.listener.OnItemLongClickListener;
 import com.jiangzg.base.component.ActivityTrans;
 import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.lovenote.R;
@@ -232,10 +232,14 @@ public class AngryDetailActivity extends BaseActivity<AngryDetailActivity> {
                         .initAdapter(new GiftAdapter(mActivity))
                         .viewAnim()
                         .setAdapter()
-                        .listenerClick(new OnItemLongClickListener() {
+                        .listenerClick(new OnItemChildClickListener() {
                             @Override
-                            public void onSimpleItemLongClick(BaseQuickAdapter adapter, View view, int position) {
-                                showDeleteGiftDialog();
+                            public void onSimpleItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+                                switch (view.getId()) {
+                                    case R.id.ivMore: // 移除
+                                        showRemoveGiftDialog();
+                                        break;
+                                }
                             }
                         });
             }
@@ -257,7 +261,7 @@ public class AngryDetailActivity extends BaseActivity<AngryDetailActivity> {
             if (recyclerPromise == null) {
                 recyclerPromise = new RecyclerHelper(rvPromise)
                         .initLayoutManager(new LinearLayoutManager(mActivity))
-                        .initAdapter(new PromiseAdapter(mActivity))
+                        .initAdapter(new PromiseAdapter(mActivity, true))
                         .viewAnim()
                         .setAdapter()
                         .listenerClick(new OnItemClickListener() {
@@ -267,10 +271,14 @@ public class AngryDetailActivity extends BaseActivity<AngryDetailActivity> {
                                 promiseAdapter.goPromiseDetail(position);
                             }
                         })
-                        .listenerClick(new OnItemLongClickListener() {
+                        .listenerClick(new OnItemChildClickListener() {
                             @Override
-                            public void onSimpleItemLongClick(BaseQuickAdapter adapter, View view, int position) {
-                                showDeletePromiseDialog();
+                            public void onSimpleItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+                                switch (view.getId()) {
+                                    case R.id.ivMore: // 移除
+                                        showRemovePromiseDialog();
+                                        break;
+                                }
                             }
                         });
             }
@@ -313,7 +321,7 @@ public class AngryDetailActivity extends BaseActivity<AngryDetailActivity> {
         pushApi(api);
     }
 
-    private void showDeleteGiftDialog() {
+    private void showRemoveGiftDialog() {
         if (angry == null) return;
         MaterialDialog dialog = DialogHelper.getBuild(mActivity)
                 .cancelable(true)
@@ -326,7 +334,7 @@ public class AngryDetailActivity extends BaseActivity<AngryDetailActivity> {
         DialogHelper.showWithAnim(dialog);
     }
 
-    private void showDeletePromiseDialog() {
+    private void showRemovePromiseDialog() {
         if (angry == null) return;
         MaterialDialog dialog = DialogHelper.getBuild(mActivity)
                 .cancelable(true)

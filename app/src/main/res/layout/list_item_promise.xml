@@ -74,6 +74,18 @@
                 android:gravity="bottom"
                 android:paddingBottom="5dp"
                 android:text="@string/ci"/>
+
+            <ImageView
+                android:id="@+id/ivMore"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="top"
+                android:layout_marginStart="5dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:foreground="?attr/selectableItemBackgroundBorderless"
+                android:src="@mipmap/ic_more_horiz_grey_18dp"
+                android:visibility="gone"
+                tools:visibility="visible"/>
         </LinearLayout>
 
         <View
