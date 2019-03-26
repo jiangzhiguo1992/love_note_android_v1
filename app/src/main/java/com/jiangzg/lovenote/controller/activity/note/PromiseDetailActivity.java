@@ -4,27 +4,19 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.BottomSheetBehavior;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.text.Editable;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemLongClickListener;
-import com.jiangzg.base.common.DateUtils;
-import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.base.component.ActivityTrans;
-import com.jiangzg.base.system.InputUtils;
 import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.controller.activity.base.BaseActivity;
@@ -40,7 +32,6 @@ import com.jiangzg.lovenote.helper.view.ViewHelper;
 import com.jiangzg.lovenote.model.api.API;
 import com.jiangzg.lovenote.model.api.Result;
 import com.jiangzg.lovenote.model.entity.Promise;
-import com.jiangzg.lovenote.model.entity.PromiseBreak;
 import com.jiangzg.lovenote.model.entity.User;
 import com.jiangzg.lovenote.view.GSwipeRefreshLayout;
 
@@ -48,7 +39,6 @@ import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.OnClick;
-import butterknife.OnTextChanged;
 import retrofit2.Call;
 import rx.Observable;
 
@@ -62,23 +52,10 @@ public class PromiseDetailActivity extends BaseActivity<PromiseDetailActivity> {
     RecyclerView rv;
     @BindView(R.id.fabAdd)
     FloatingActionButton fabAdd;
-    @BindView(R.id.rlBreak)
-    RelativeLayout rlBreak;
-    @BindView(R.id.ivBreakClose)
-    ImageView ivBreakClose;
-    @BindView(R.id.ivAddCommit)
-    ImageView ivAddCommit;
-    @BindView(R.id.tvBreakContentLimit)
-    TextView tvBreakContentLimit;
-    @BindView(R.id.etBreakContent)
-    EditText etBreakContent;
 
     private Promise promise;
     private RecyclerHelper recyclerHelper;
-    private BottomSheetBehavior behaviorBreak;
     private int page = 0;
-    private int limitBreakContentLength;
-    private long breakHappen;
 
     public static void goActivity(Activity from, Promise promise) {
         Intent intent = new Intent(from, PromiseDetailActivity.class);
@@ -148,10 +125,6 @@ public class PromiseDetailActivity extends BaseActivity<PromiseDetailActivity> {
         } else {
             mActivity.finish();
         }
-        // break
-        breakShow(false);
-        // content 防止开始显示错误
-        etBreakContent.setText("");
     }
 
     @Override
@@ -185,31 +158,12 @@ public class PromiseDetailActivity extends BaseActivity<PromiseDetailActivity> {
         return super.onOptionsItemSelected(item);
     }
 
-    @Override
-    public void onBackPressed() {
-        if (behaviorBreak.getState() != BottomSheetBehavior.STATE_HIDDEN) {
-            behaviorBreak.setState(BottomSheetBehavior.STATE_HIDDEN);
-        } else {
-            super.onBackPressed();
-        }
-    }
-
-    @OnTextChanged({R.id.etBreakContent})
-    public void afterTextChanged(Editable s) {
-        onBreakContentInput(s.toString());
-    }
-
-    @OnClick({R.id.fabAdd, R.id.ivBreakClose, R.id.ivAddCommit})
+    @OnClick({R.id.fabAdd})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.fabAdd:
-                showBreakTimePicker();
-                break;
-            case R.id.ivBreakClose:
-                breakShow(false);
-                break;
-            case R.id.ivAddCommit:
-                commitBreak();
+                if (promise == null) return;
+                PromiseBreakEditActivity.goActivity(mActivity, promise.getId());
                 break;
         }
     }
@@ -228,6 +182,8 @@ public class PromiseDetailActivity extends BaseActivity<PromiseDetailActivity> {
                 // view
                 initHead();
                 recyclerHelper.dataRefresh();
+                // event
+                RxBus.post(new RxBus.Event<>(RxBus.EVENT_PROMISE_LIST_ITEM_REFRESH, promise));
             }
 
             @Override
@@ -283,30 +239,6 @@ public class PromiseDetailActivity extends BaseActivity<PromiseDetailActivity> {
         pushApi(api);
     }
 
-    private void onBreakContentInput(String input) {
-        if (limitBreakContentLength <= 0) {
-            limitBreakContentLength = SPHelper.getLimit().getPromiseBreakContentLength();
-        }
-        int length = input.length();
-        if (length > limitBreakContentLength) {
-            CharSequence charSequence = input.subSequence(0, limitBreakContentLength);
-            etBreakContent.setText(charSequence);
-            etBreakContent.setSelection(charSequence.length());
-            length = charSequence.length();
-        }
-        String limitShow = String.format(Locale.getDefault(), getString(R.string.holder_sprit_holder), length, limitBreakContentLength);
-        tvBreakContentLimit.setText(limitShow);
-    }
-
-    private void breakShow(boolean show) {
-        //if (!show) InputUtils.hideSoftInput(etBreakContent);
-        if (behaviorBreak == null) {
-            behaviorBreak = BottomSheetBehavior.from(rlBreak);
-        }
-        int state = show ? BottomSheetBehavior.STATE_COLLAPSED : BottomSheetBehavior.STATE_HIDDEN;
-        behaviorBreak.setState(state);
-    }
-
     private void showDelDialog() {
         if (promise == null || !promise.isMine()) {
             ToastUtils.show(mActivity.getString(R.string.can_operation_self_create_note));
@@ -332,50 +264,6 @@ public class PromiseDetailActivity extends BaseActivity<PromiseDetailActivity> {
                 // event
                 RxBus.post(new RxBus.Event<>(RxBus.EVENT_PROMISE_LIST_ITEM_DELETE, promise));
                 mActivity.finish();
-            }
-
-            @Override
-            public void onFailure(int code, String message, Result.Data data) {
-            }
-        });
-        pushApi(api);
-    }
-
-    private void showBreakTimePicker() {
-        DialogHelper.showDateTimePicker(mActivity, DateUtils.getCurrentLong(), time -> {
-            breakHappen = TimeHelper.getGoTimeByJava(time);
-            if (breakHappen == 0) {
-                breakHappen = DateUtils.getCurrentLong();
-            }
-            breakShow(true);
-        });
-    }
-
-    private void commitBreak() {
-        if (promise == null) return;
-        String content = etBreakContent.getText().toString().trim();
-        if (StringUtils.isEmpty(content)) {
-            ToastUtils.show(etBreakContent.getHint());
-            return;
-        }
-        InputUtils.hideSoftInput(etBreakContent);
-        PromiseBreak promiseBreak = new PromiseBreak();
-        promiseBreak.setPromiseId(promise.getId());
-        promiseBreak.setHappenAt(breakHappen);
-        promiseBreak.setContentText(content);
-        // api
-        Call<Result> api = new RetrofitHelper().call(API.class).notePromiseBreakAdd(promiseBreak);
-        RetrofitHelper.enqueue(api, getLoading(true), new RetrofitHelper.CallBack() {
-            @Override
-            public void onResponse(int code, String message, Result.Data data) {
-                etBreakContent.setText("");
-                breakShow(false);
-                getBreakData(false);
-                // head
-                promise.setBreakCount(promise.getBreakCount() + 1);
-                initHead();
-                // event
-                RxBus.post(new RxBus.Event<>(RxBus.EVENT_PROMISE_LIST_ITEM_REFRESH, promise));
             }
 
             @Override

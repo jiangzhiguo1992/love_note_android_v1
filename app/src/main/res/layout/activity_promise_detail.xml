@@ -33,64 +33,8 @@
         app:backgroundTint="?attr/colorAccent"
         app:borderWidth="0dp"
         app:elevation="@dimen/elevation_normal"
-        app:fabSize="mini"
+        app:fabSize="auto"
         app:layout_behavior="@string/behavior_fab_depend_app_bar"
         app:pressedTranslationZ="@dimen/elevation_big"
         app:rippleColor="?attr/colorPrimaryDark"/>
-
-    <RelativeLayout
-        android:id="@+id/rlBreak"
-        android:layout_width="match_parent"
-        android:layout_height="400dp"
-        android:background="@drawable/layer_line_border_grey_in_white"
-        app:behavior_hideable="true"
-        app:behavior_peekHeight="200dp"
-        app:elevation="@dimen/elevation_normal"
-        app:layout_behavior="@string/bottom_sheet_behavior"
-        tools:visibility="visible">
-
-        <RelativeLayout
-            android:id="@+id/rlBreakTop"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <ImageView
-                android:id="@+id/ivBreakClose"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="10dp"
-                android:src="@mipmap/ic_close_grey_24dp"/>
-
-            <TextView
-                android:id="@+id/tvBreakContentLimit"
-                style="@style/FontGreySmall"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                tools:text="0/200"/>
-
-            <ImageView
-                android:id="@+id/ivAddCommit"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:padding="10dp"
-                android:src="@mipmap/ic_near_me_grey_24dp"/>
-        </RelativeLayout>
-
-        <EditText
-            android:id="@+id/etBreakContent"
-            style="@style/FontGreyNormal"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_below="@+id/rlBreakTop"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
-            android:layout_marginBottom="10dp"
-            android:background="@drawable/shape_stroke_primary_r3"
-            android:gravity="start"
-            android:hint="@string/please_input_content"
-            android:inputType="textMultiLine"
-            android:padding="8dp"/>
-    </RelativeLayout>
 </android.support.design.widget.CoordinatorLayout>
