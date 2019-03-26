@@ -24,13 +24,6 @@ public class PromiseAdapter extends BaseQuickAdapter<Promise, BaseViewHolder> {
     private FragmentActivity mActivity;
     private boolean more;
 
-    public PromiseAdapter(FragmentActivity activity) {
-        super(R.layout.list_item_promise);
-        mActivity = activity;
-        couple = SPHelper.getCouple();
-        this.more = false;
-    }
-
     public PromiseAdapter(FragmentActivity activity, boolean more) {
         super(R.layout.list_item_promise);
         mActivity = activity;
@@ -51,7 +44,7 @@ public class PromiseAdapter extends BaseQuickAdapter<Promise, BaseViewHolder> {
         helper.setText(R.id.tvBreakCount, breakCount);
         helper.setText(R.id.tvContent, content);
         helper.setVisible(R.id.ivMore, more);
-        // cli
+        // listener
         if (more) helper.addOnClickListener(R.id.ivMore);
     }
 
