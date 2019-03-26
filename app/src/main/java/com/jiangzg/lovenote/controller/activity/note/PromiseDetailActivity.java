@@ -114,14 +114,13 @@ public class PromiseDetailActivity extends BaseActivity<PromiseDetailActivity> {
             promise = intent.getParcelableExtra("promise");
             // view
             initHead();
-            recyclerHelper.dataRefresh();
             // 没有详情页的，可以不加
             if (promise != null) {
-                refreshPromise(promise.getId());
+                refreshPromiseData(promise.getId());
             }
         } else if (from == BaseActivity.ACT_DETAIL_FROM_ID) {
             long pid = intent.getLongExtra("pid", 0);
-            refreshPromise(pid);
+            refreshPromiseData(pid);
         } else {
             mActivity.finish();
         }
@@ -132,7 +131,7 @@ public class PromiseDetailActivity extends BaseActivity<PromiseDetailActivity> {
         // event
         Observable<Promise> obDetailRefresh = RxBus.register(RxBus.EVENT_PROMISE_DETAIL_REFRESH, promise -> {
             if (PromiseDetailActivity.this.promise == null) return;
-            refreshPromise(PromiseDetailActivity.this.promise.getId());
+            refreshPromiseData(PromiseDetailActivity.this.promise.getId());
         });
         pushBus(RxBus.EVENT_PROMISE_DETAIL_REFRESH, obDetailRefresh);
     }
@@ -168,7 +167,7 @@ public class PromiseDetailActivity extends BaseActivity<PromiseDetailActivity> {
         }
     }
 
-    private void refreshPromise(long pid) {
+    private void refreshPromiseData(long pid) {
         if (!srl.isRefreshing()) {
             srl.setRefreshing(true);
         }
