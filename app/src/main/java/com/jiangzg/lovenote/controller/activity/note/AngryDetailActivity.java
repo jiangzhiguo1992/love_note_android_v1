@@ -131,7 +131,7 @@ public class AngryDetailActivity extends BaseActivity<AngryDetailActivity> {
         pushBus(RxBus.EVENT_GIFT_SELECT, busGiftSelect);
         Observable<Promise> busPromiseSelect = RxBus.register(RxBus.EVENT_PROMISE_SELECT, this::updatePromise);
         pushBus(RxBus.EVENT_PROMISE_SELECT, busPromiseSelect);
-        Observable<Gift> busGiftListDelete = RxBus.register(RxBus.EVENT_PROMISE_LIST_ITEM_DELETE, gift -> {
+        Observable<Gift> busGiftListDelete = RxBus.register(RxBus.EVENT_GIFT_LIST_ITEM_DELETE, gift -> {
             if (recyclerGift == null) return;
             ListHelper.removeObjInAdapter(recyclerGift.getAdapter(), gift);
             if (recyclerGift.getAdapter().getData().size() <= 0) {
@@ -140,7 +140,7 @@ public class AngryDetailActivity extends BaseActivity<AngryDetailActivity> {
                 rvGift.setVisibility(View.GONE);
             }
         });
-        pushBus(RxBus.EVENT_PROMISE_LIST_ITEM_DELETE, busGiftListDelete);
+        pushBus(RxBus.EVENT_GIFT_LIST_ITEM_DELETE, busGiftListDelete);
         Observable<Gift> busGiftListRefresh = RxBus.register(RxBus.EVENT_GIFT_LIST_ITEM_REFRESH, gift -> {
             if (recyclerGift == null) return;
             ListHelper.refreshObjInAdapter(recyclerGift.getAdapter(), gift);
