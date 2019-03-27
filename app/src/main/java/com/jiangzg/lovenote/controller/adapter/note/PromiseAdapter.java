@@ -22,13 +22,11 @@ public class PromiseAdapter extends BaseQuickAdapter<Promise, BaseViewHolder> {
 
     private final Couple couple;
     private FragmentActivity mActivity;
-    private boolean more;
 
-    public PromiseAdapter(FragmentActivity activity, boolean more) {
+    public PromiseAdapter(FragmentActivity activity) {
         super(R.layout.list_item_promise);
         mActivity = activity;
         couple = SPHelper.getCouple();
-        this.more = more;
     }
 
     @Override
@@ -43,9 +41,6 @@ public class PromiseAdapter extends BaseQuickAdapter<Promise, BaseViewHolder> {
         helper.setText(R.id.tvHappenAt, happen);
         helper.setText(R.id.tvBreakCount, breakCount);
         helper.setText(R.id.tvContent, content);
-        helper.setVisible(R.id.ivMore, more);
-        // listener
-        if (more) helper.addOnClickListener(R.id.ivMore);
     }
 
     public void goPromiseDetail(int position) {
