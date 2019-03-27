@@ -16,6 +16,7 @@ import com.afollestad.materialdialogs.MaterialDialog;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemChildClickListener;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
+import com.chad.library.adapter.base.listener.OnItemLongClickListener;
 import com.jiangzg.base.component.ActivityTrans;
 import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.lovenote.R;
@@ -130,6 +131,21 @@ public class AngryDetailActivity extends BaseActivity<AngryDetailActivity> {
         pushBus(RxBus.EVENT_GIFT_SELECT, busGiftSelect);
         Observable<Promise> busPromiseSelect = RxBus.register(RxBus.EVENT_PROMISE_SELECT, this::updatePromise);
         pushBus(RxBus.EVENT_PROMISE_SELECT, busPromiseSelect);
+        Observable<Gift> busGiftListDelete = RxBus.register(RxBus.EVENT_PROMISE_LIST_ITEM_DELETE, gift -> {
+            if (recyclerGift == null) return;
+            ListHelper.removeObjInAdapter(recyclerGift.getAdapter(), gift);
+            if (recyclerGift.getAdapter().getData().size() <= 0) {
+                // 删除礼物
+                tvGiftAdd.setVisibility(View.VISIBLE);
+                rvGift.setVisibility(View.GONE);
+            }
+        });
+        pushBus(RxBus.EVENT_PROMISE_LIST_ITEM_DELETE, busGiftListDelete);
+        Observable<Gift> busGiftListRefresh = RxBus.register(RxBus.EVENT_GIFT_LIST_ITEM_REFRESH, gift -> {
+            if (recyclerGift == null) return;
+            ListHelper.refreshObjInAdapter(recyclerGift.getAdapter(), gift);
+        });
+        pushBus(RxBus.EVENT_GIFT_LIST_ITEM_REFRESH, busGiftListRefresh);
         Observable<Promise> busPromiseListDelete = RxBus.register(RxBus.EVENT_PROMISE_LIST_ITEM_DELETE, promise -> {
             if (recyclerPromise == null) return;
             ListHelper.removeObjInAdapter(recyclerPromise.getAdapter(), promise);
@@ -235,11 +251,18 @@ public class AngryDetailActivity extends BaseActivity<AngryDetailActivity> {
                         .listenerClick(new OnItemChildClickListener() {
                             @Override
                             public void onSimpleItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+                                GiftAdapter giftAdapter = (GiftAdapter) adapter;
                                 switch (view.getId()) {
-                                    case R.id.ivMore: // 移除
-                                        showRemoveGiftDialog();
+                                    case R.id.ivMore: // 编辑
+                                        giftAdapter.goEditActivity(position);
                                         break;
                                 }
+                            }
+                        })
+                        .listenerClick(new OnItemLongClickListener() {
+                            @Override
+                            public void onSimpleItemLongClick(BaseQuickAdapter adapter, View view, int position) {
+                                showRemoveGiftDialog();
                             }
                         });
             }
@@ -261,7 +284,7 @@ public class AngryDetailActivity extends BaseActivity<AngryDetailActivity> {
             if (recyclerPromise == null) {
                 recyclerPromise = new RecyclerHelper(rvPromise)
                         .initLayoutManager(new LinearLayoutManager(mActivity))
-                        .initAdapter(new PromiseAdapter(mActivity, true))
+                        .initAdapter(new PromiseAdapter(mActivity))
                         .viewAnim()
                         .setAdapter()
                         .listenerClick(new OnItemClickListener() {
@@ -271,14 +294,10 @@ public class AngryDetailActivity extends BaseActivity<AngryDetailActivity> {
                                 promiseAdapter.goPromiseDetail(position);
                             }
                         })
-                        .listenerClick(new OnItemChildClickListener() {
+                        .listenerClick(new OnItemLongClickListener() {
                             @Override
-                            public void onSimpleItemChildClick(BaseQuickAdapter adapter, View view, int position) {
-                                switch (view.getId()) {
-                                    case R.id.ivMore: // 移除
-                                        showRemovePromiseDialog();
-                                        break;
-                                }
+                            public void onSimpleItemLongClick(BaseQuickAdapter adapter, View view, int position) {
+                                showRemovePromiseDialog();
                             }
                         });
             }
