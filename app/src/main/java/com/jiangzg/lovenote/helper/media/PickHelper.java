@@ -47,6 +47,20 @@ public class PickHelper {
         });
     }
 
+    public static void selectVideo(Activity activity, int maxCount) {
+        PermUtils.requestPermissions(activity, BaseActivity.REQUEST_APP_INFO, PermUtils.appInfo, new PermUtils.OnPermissionListener() {
+            @Override
+            public void onPermissionGranted(int requestCode, String[] permissions) {
+                PickHelper.selectVideoWithOutPermission(activity, maxCount);
+            }
+
+            @Override
+            public void onPermissionDenied(int requestCode, String[] permissions) {
+                DialogHelper.showGoPermDialog(activity);
+            }
+        });
+    }
+
     private static void selectImageWithOutPermission(Activity activity, int maxCount, boolean gif) {
         if (activity == null) return;
         Matisse.from(activity)
@@ -63,6 +77,22 @@ public class PickHelper {
                 .thumbnailScale(0.75f) // 缩略图(0.75倍)
                 .imageEngine(new GlideEngine()) // 构造器(glide)
                 .forResult(BaseActivity.REQUEST_PICTURE); // 请求码
+    }
+
+    private static void selectVideoWithOutPermission(Activity activity, int maxCount) {
+        if (activity == null) return;
+        Matisse.from(activity)
+                .choose(MimeType.ofVideo()) // 文件类型
+                .showSingleMediaType(true) // 只显示选择类型
+                .spanCount(3) // 行列数(默认3)
+                .theme(R.style.Matisse_Dracula) // 样式(自带暗黑)
+                .countable(maxCount > 1) // 是否显示数字
+                .maxSelectable(maxCount) // 最大选择数
+                //.gridExpectedSize(activity.getResources().getDimensionPixelSize(R.dimen.grid_expected_size))
+                .restrictOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED) // 文件方向(默认值)
+                .thumbnailScale(0.75f) // 缩略图(0.75倍)
+                .imageEngine(new GlideEngine()) // 构造器(glide)
+                .forResult(BaseActivity.REQUEST_VIDEO); // 请求码
     }
 
     public static File getResultFile(Activity activity, Intent data) {

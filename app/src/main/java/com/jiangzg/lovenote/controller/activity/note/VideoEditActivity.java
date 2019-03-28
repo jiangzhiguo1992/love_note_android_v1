@@ -20,13 +20,10 @@ import com.jiangzg.base.common.FileUtils;
 import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.base.common.TimeUnit;
 import com.jiangzg.base.component.ActivityTrans;
-import com.jiangzg.base.component.IntentFactory;
-import com.jiangzg.base.component.IntentResult;
 import com.jiangzg.base.component.ProviderUtils;
 import com.jiangzg.base.media.BitmapUtils;
 import com.jiangzg.base.media.VideoUtils;
 import com.jiangzg.base.system.LocationInfo;
-import com.jiangzg.base.system.PermUtils;
 import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.controller.activity.base.BaseActivity;
@@ -36,6 +33,7 @@ import com.jiangzg.lovenote.helper.common.ResHelper;
 import com.jiangzg.lovenote.helper.common.RxBus;
 import com.jiangzg.lovenote.helper.common.SPHelper;
 import com.jiangzg.lovenote.helper.common.TimeHelper;
+import com.jiangzg.lovenote.helper.media.PickHelper;
 import com.jiangzg.lovenote.helper.system.RetrofitHelper;
 import com.jiangzg.lovenote.helper.view.DialogHelper;
 import com.jiangzg.lovenote.helper.view.ViewHelper;
@@ -140,19 +138,40 @@ public class VideoEditActivity extends BaseActivity<VideoEditActivity> {
         if (resultCode != RESULT_OK || video == null) return;
         if (requestCode == BaseActivity.REQUEST_VIDEO) {
             // file
-            videoFile = IntentResult.getVideoFile(data);
+            videoFile = PickHelper.getResultFile(mActivity, data);
+            if (videoFile == null || FileUtils.isFileEmpty(videoFile)) {
+                ToastUtils.show(getString(R.string.file_no_exits));
+                return;
+            }
             // duration
             Map<String, String> videoInfo = ProviderUtils.getVideoInfo(data == null ? null : data.getData());
             String duration = videoInfo.get(MediaStore.Video.Media.DURATION);
-            if (StringUtils.isNumber(duration)) {
+            if (video != null && StringUtils.isNumber(duration)) {
                 video.setDuration((int) TimeHelper.getGoTimeByJava(Integer.parseInt(duration)));
             }
-            if (video.getDuration() <= 0 && videoFile != null) {
-                duration = VideoUtils.getVideoDuration(videoFile.getAbsolutePath());
-                if (StringUtils.isNumber(duration)) {
-                    video.setDuration((int) TimeHelper.getGoTimeByJava(Integer.parseInt(duration)));
-                }
+            duration = VideoUtils.getVideoDuration(videoFile.getAbsolutePath());
+            if (video != null && StringUtils.isNumber(duration)) {
+                video.setDuration((int) TimeHelper.getGoTimeByJava(Integer.parseInt(duration)));
             }
+            // thumb
+            final MaterialDialog loading = mActivity.getLoading(true);
+            loading.show();
+            if (!FileUtils.isFileEmpty(thumbFile)) {
+                // 临时的上次选的缩略图要删掉
+                File delFile = thumbFile;
+                thumbFile = null;
+                ResHelper.deleteFileInBackground(delFile);
+            }
+            MyApp.get().getThread().execute(() -> {
+                thumbFile = ResHelper.newImageCacheFile();
+                FileUtils.createFileByDeleteOldFile(thumbFile);
+                Bitmap videoThumbnail = ThumbnailUtils.createVideoThumbnail(videoFile.getAbsolutePath(), MediaStore.Images.Thumbnails.MINI_KIND);
+                BitmapUtils.saveBitmap(videoThumbnail, thumbFile.getAbsolutePath(), Bitmap.CompressFormat.JPEG, true);
+                MyApp.get().getHandler().post(() -> {
+                    loading.dismiss();
+                    refreshVideoView();
+                });
+            });
             // view
             refreshVideoView();
         }
@@ -179,7 +198,7 @@ public class VideoEditActivity extends BaseActivity<VideoEditActivity> {
                 MapSelectActivity.goActivity(mActivity, video.getAddress(), video.getLongitude(), video.getLatitude());
                 break;
             case R.id.llDuration: // 视频
-                selectVideo();
+                PickHelper.selectVideo(mActivity, 1);
                 break;
         }
     }
@@ -204,24 +223,8 @@ public class VideoEditActivity extends BaseActivity<VideoEditActivity> {
         tvAddress.setText(String.format(Locale.getDefault(), getString(R.string.address_colon_space_holder), address));
     }
 
-    private void selectVideo() {
-        PermUtils.requestPermissions(mActivity, BaseActivity.REQUEST_APP_INFO, PermUtils.appInfo, new PermUtils.OnPermissionListener() {
-            @Override
-            public void onPermissionGranted(int requestCode, String[] permissions) {
-                Intent intent = IntentFactory.getVideo();
-                ActivityTrans.startResult(mActivity, intent, BaseActivity.REQUEST_VIDEO);
-            }
-
-            @Override
-            public void onPermissionDenied(int requestCode, String[] permissions) {
-                DialogHelper.showGoPermDialog(mActivity);
-            }
-        });
-    }
-
     private void refreshVideoView() {
         if (video == null) return;
-
         // duration
         String year = mActivity.getString(R.string.year);
         String month = mActivity.getString(R.string.month);
@@ -237,25 +240,6 @@ public class VideoEditActivity extends BaseActivity<VideoEditActivity> {
         }
         duration = StringUtils.isEmpty(duration) ? "--" : duration;
         tvDuration.setText(String.format(Locale.getDefault(), getString(R.string.duration_colon_space_holder), duration));
-        // thumb
-        if (FileUtils.isFileEmpty(videoFile)) {
-            return;
-        }
-        final MaterialDialog loading = mActivity.getLoading(true);
-        loading.show();
-        if (!FileUtils.isFileEmpty(thumbFile)) {
-            // 临时的上次选的缩略图要删掉
-            File delFile = thumbFile;
-            thumbFile = null;
-            ResHelper.deleteFileInBackground(delFile);
-        }
-        MyApp.get().getThread().execute(() -> {
-            thumbFile = ResHelper.newImageCacheFile();
-            FileUtils.createFileByDeleteOldFile(thumbFile);
-            Bitmap videoThumbnail = ThumbnailUtils.createVideoThumbnail(videoFile.getAbsolutePath(), MediaStore.Images.Thumbnails.MINI_KIND);
-            BitmapUtils.saveBitmap(videoThumbnail, thumbFile.getAbsolutePath(), Bitmap.CompressFormat.JPEG, true);
-            MyApp.get().getHandler().post(loading::dismiss);
-        });
     }
 
     private void checkPush() {
