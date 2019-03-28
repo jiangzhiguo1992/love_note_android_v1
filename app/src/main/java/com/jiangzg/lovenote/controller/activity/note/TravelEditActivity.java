@@ -252,7 +252,10 @@ public class TravelEditActivity extends BaseActivity<TravelEditActivity> {
                     public void onSimpleItemChildClick(BaseQuickAdapter adapter, View view, int position) {
                         FoodAdapter foodAdapter = (FoodAdapter) adapter;
                         switch (view.getId()) {
-                            case R.id.tvAddress:
+                            case R.id.ivMore: // 编辑
+                                foodAdapter.goEditActivity(position);
+                                break;
+                            case R.id.tvAddress: // 地图显示
                                 foodAdapter.goMapShow(position);
                                 break;
                         }
@@ -280,7 +283,10 @@ public class TravelEditActivity extends BaseActivity<TravelEditActivity> {
                     public void onSimpleItemChildClick(BaseQuickAdapter adapter, View view, int position) {
                         MovieAdapter movieAdapter = (MovieAdapter) adapter;
                         switch (view.getId()) {
-                            case R.id.tvAddress:
+                            case R.id.ivMore: // 编辑
+                                movieAdapter.goEditActivity(position);
+                                break;
+                            case R.id.tvAddress: // 地图显示
                                 movieAdapter.goMapShow(position);
                                 break;
                         }
@@ -372,6 +378,67 @@ public class TravelEditActivity extends BaseActivity<TravelEditActivity> {
             refreshAddView();
         });
         pushBus(RxBus.EVENT_DIARY_SELECT, obSelectDiary);
+
+        Observable<Album> busAlbumListDelete = RxBus.register(RxBus.EVENT_ALBUM_LIST_ITEM_DELETE, album -> {
+            if (recyclerAlbum == null) return;
+            ListHelper.removeObjInAdapter(recyclerAlbum.getAdapter(), album);
+            if (recyclerAlbum.getAdapter().getData().size() <= 0) {
+                // 删除礼物
+                rlAlbumAdd.setVisibility(View.VISIBLE);
+                rvAlbum.setVisibility(View.GONE);
+            }
+        });
+        pushBus(RxBus.EVENT_ALBUM_LIST_ITEM_DELETE, busAlbumListDelete);
+        Observable<Album> busAlbumListRefresh = RxBus.register(RxBus.EVENT_ALBUM_LIST_ITEM_REFRESH, album -> {
+            if (recyclerAlbum == null) return;
+            ListHelper.refreshObjInAdapter(recyclerAlbum.getAdapter(), album);
+        });
+        pushBus(RxBus.EVENT_ALBUM_LIST_ITEM_REFRESH, busAlbumListRefresh);
+        Observable<Food> busFoodListDelete = RxBus.register(RxBus.EVENT_FOOD_LIST_ITEM_DELETE, food -> {
+            if (recyclerFood == null) return;
+            ListHelper.removeObjInAdapter(recyclerFood.getAdapter(), food);
+            if (recyclerFood.getAdapter().getData().size() <= 0) {
+                // 删除美食
+                rlFoodAdd.setVisibility(View.VISIBLE);
+                rvFood.setVisibility(View.GONE);
+            }
+        });
+        pushBus(RxBus.EVENT_FOOD_LIST_ITEM_DELETE, busFoodListDelete);
+        Observable<Food> busFoodListRefresh = RxBus.register(RxBus.EVENT_FOOD_LIST_ITEM_REFRESH, food -> {
+            if (recyclerFood == null) return;
+            ListHelper.refreshObjInAdapter(recyclerFood.getAdapter(), food);
+        });
+        pushBus(RxBus.EVENT_FOOD_LIST_ITEM_REFRESH, busFoodListRefresh);
+        Observable<Movie> busMovieListDelete = RxBus.register(RxBus.EVENT_MOVIE_LIST_ITEM_DELETE, movie -> {
+            if (recyclerMovie == null) return;
+            ListHelper.removeObjInAdapter(recyclerMovie.getAdapter(), movie);
+            if (recyclerMovie.getAdapter().getData().size() <= 0) {
+                // 删除电影
+                rlMovieAdd.setVisibility(View.VISIBLE);
+                rvMovie.setVisibility(View.GONE);
+            }
+        });
+        pushBus(RxBus.EVENT_MOVIE_LIST_ITEM_DELETE, busMovieListDelete);
+        Observable<Movie> busMovieListRefresh = RxBus.register(RxBus.EVENT_MOVIE_LIST_ITEM_REFRESH, movie -> {
+            if (recyclerMovie == null) return;
+            ListHelper.refreshObjInAdapter(recyclerMovie.getAdapter(), movie);
+        });
+        pushBus(RxBus.EVENT_MOVIE_LIST_ITEM_REFRESH, busMovieListRefresh);
+        Observable<Diary> busDiaryListDelete = RxBus.register(RxBus.EVENT_DIARY_LIST_ITEM_DELETE, diary -> {
+            if (recyclerDiary == null) return;
+            ListHelper.removeObjInAdapter(recyclerDiary.getAdapter(), diary);
+            if (recyclerDiary.getAdapter().getData().size() <= 0) {
+                // 删除日记
+                rlDiaryAdd.setVisibility(View.VISIBLE);
+                rvDiary.setVisibility(View.GONE);
+            }
+        });
+        pushBus(RxBus.EVENT_DIARY_LIST_ITEM_DELETE, busDiaryListDelete);
+        Observable<Diary> busDiaryListRefresh = RxBus.register(RxBus.EVENT_DIARY_LIST_ITEM_REFRESH, diary -> {
+            if (recyclerDiary == null) return;
+            ListHelper.refreshObjInAdapter(recyclerDiary.getAdapter(), diary);
+        });
+        pushBus(RxBus.EVENT_DIARY_LIST_ITEM_REFRESH, busDiaryListRefresh);
     }
 
     @Override

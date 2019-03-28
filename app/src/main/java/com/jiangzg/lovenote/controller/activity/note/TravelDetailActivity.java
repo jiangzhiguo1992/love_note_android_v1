@@ -180,7 +180,7 @@ public class TravelDetailActivity extends BaseActivity<TravelDetailActivity> {
             if (recyclerFood.getAdapter().getData().size() <= 0) {
                 // 删除美食
                 llFood.setVisibility(View.GONE);
-                llFood.setVisibility(View.GONE);
+                rvFood.setVisibility(View.GONE);
             }
         });
         pushBus(RxBus.EVENT_FOOD_LIST_ITEM_DELETE, busFoodListDelete);
