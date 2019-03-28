@@ -378,7 +378,6 @@ public class TravelEditActivity extends BaseActivity<TravelEditActivity> {
             refreshAddView();
         });
         pushBus(RxBus.EVENT_DIARY_SELECT, obSelectDiary);
-
         Observable<Album> busAlbumListDelete = RxBus.register(RxBus.EVENT_ALBUM_LIST_ITEM_DELETE, album -> {
             if (recyclerAlbum == null) return;
             ListHelper.removeObjInAdapter(recyclerAlbum.getAdapter(), album);
