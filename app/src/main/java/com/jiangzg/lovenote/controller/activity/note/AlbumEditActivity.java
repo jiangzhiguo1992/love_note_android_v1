@@ -126,16 +126,14 @@ public class AlbumEditActivity extends BaseActivity<AlbumEditActivity> {
         if (resultCode != RESULT_OK) return;
         if (requestCode == BaseActivity.REQUEST_PICTURE) {
             // 相册
-            File albumFile = PickHelper.getResultFile(mActivity, data);
-            if (FileUtils.isFileEmpty(albumFile)) {
+            List<String> pathList = PickHelper.getResultFilePathList(mActivity, data);
+            if (pathList == null || pathList.size() <= 0) {
                 ToastUtils.show(getString(R.string.file_no_exits));
                 return;
             }
             if (recyclerHelper == null) return;
             ImgSquareEditAdapter adapter = recyclerHelper.getAdapter();
-            if (adapter == null || albumFile == null) return;
-            List<String> pathList = new ArrayList<>();
-            pathList.add(albumFile.getAbsolutePath());
+            if (adapter == null) return;
             adapter.addFileDataList(pathList);
         }
     }
