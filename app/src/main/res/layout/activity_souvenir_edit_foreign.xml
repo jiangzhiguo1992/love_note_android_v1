@@ -22,62 +22,6 @@
             android:orientation="vertical">
 
             <LinearLayout
-                android:id="@+id/llGift"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginEnd="10dp"
-                android:layout_marginBottom="10dp"
-                android:gravity="center_vertical"
-                android:orientation="horizontal">
-
-                <View
-                    style="@style/LineHorizontal"
-                    android:layout_weight="1"/>
-
-                <TextView
-                    style="@style/FontGreySmall"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginEnd="10dp"
-                    android:text="@string/gift"/>
-
-                <View
-                    style="@style/LineHorizontal"
-                    android:layout_weight="1"/>
-            </LinearLayout>
-
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/rvGift"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
-
-            <RelativeLayout
-                android:id="@+id/rlGiftAdd"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:background="?attr/selectableItemBackground"
-                android:foreground="?attr/selectableItemBackground"
-                android:visibility="gone"
-                tools:visibility="visible">
-
-                <TextView
-                    style="@style/FontGreyNormal"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:drawableStart="@mipmap/ic_add_circle_outline_grey_18dp"
-                    android:drawablePadding="5dp"
-                    android:gravity="center"
-                    android:paddingTop="10dp"
-                    android:paddingBottom="10dp"
-                    android:text="@string/add_gift"/>
-            </RelativeLayout>
-
-            <LinearLayout
                 android:id="@+id/llTravel"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -131,6 +75,62 @@
                     android:paddingTop="10dp"
                     android:paddingBottom="10dp"
                     android:text="@string/add_travel"/>
+            </RelativeLayout>
+
+            <LinearLayout
+                android:id="@+id/llGift"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="10dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <View
+                    style="@style/LineHorizontal"
+                    android:layout_weight="1"/>
+
+                <TextView
+                    style="@style/FontGreySmall"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:text="@string/gift"/>
+
+                <View
+                    style="@style/LineHorizontal"
+                    android:layout_weight="1"/>
+            </LinearLayout>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rvGift"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+            <RelativeLayout
+                android:id="@+id/rlGiftAdd"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:background="?attr/selectableItemBackground"
+                android:foreground="?attr/selectableItemBackground"
+                android:visibility="gone"
+                tools:visibility="visible">
+
+                <TextView
+                    style="@style/FontGreyNormal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:drawableStart="@mipmap/ic_add_circle_outline_grey_18dp"
+                    android:drawablePadding="5dp"
+                    android:gravity="center"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
+                    android:text="@string/add_gift"/>
             </RelativeLayout>
 
             <LinearLayout

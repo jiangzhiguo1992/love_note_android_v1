@@ -65,14 +65,14 @@ public class SouvenirEditForeignActivity extends BaseActivity<SouvenirEditForeig
 
     @BindView(R.id.tb)
     Toolbar tb;
-    @BindView(R.id.rvGift)
-    RecyclerView rvGift;
-    @BindView(R.id.rlGiftAdd)
-    RelativeLayout rlGiftAdd;
     @BindView(R.id.rvTravel)
     RecyclerView rvTravel;
     @BindView(R.id.rlTravelAdd)
     RelativeLayout rlTravelAdd;
+    @BindView(R.id.rvGift)
+    RecyclerView rvGift;
+    @BindView(R.id.rlGiftAdd)
+    RelativeLayout rlGiftAdd;
     @BindView(R.id.rvAlbum)
     RecyclerView rvAlbum;
     @BindView(R.id.rlAlbumAdd)
@@ -96,8 +96,8 @@ public class SouvenirEditForeignActivity extends BaseActivity<SouvenirEditForeig
 
     private int year;
     private Souvenir souvenir;
-    private RecyclerHelper recyclerGift;
     private RecyclerHelper recyclerTravel;
+    private RecyclerHelper recyclerGift;
     private RecyclerHelper recyclerAlbum;
     private RecyclerHelper recyclerVideo;
     private RecyclerHelper recyclerFood;
@@ -130,23 +130,6 @@ public class SouvenirEditForeignActivity extends BaseActivity<SouvenirEditForeig
         if (souvenir == null) {
             souvenir = new Souvenir();
         }
-        // gift
-        recyclerGift = new RecyclerHelper(rvGift)
-                .initLayoutManager(new LinearLayoutManager(mActivity) {
-                    @Override
-                    public boolean canScrollVertically() {
-                        return false;
-                    }
-                })
-                .initAdapter(new GiftAdapter(mActivity))
-                .setAdapter()
-                .listenerClick(new OnItemLongClickListener() {
-                    @Override
-                    public void onSimpleItemLongClick(BaseQuickAdapter adapter, View view, int position) {
-                        showDeleteDialogNoApi(adapter, position);
-                    }
-                });
-        refreshGiftView();
         // travel
         recyclerTravel = new RecyclerHelper(rvTravel)
                 .initLayoutManager(new LinearLayoutManager(mActivity) {
@@ -161,7 +144,7 @@ public class SouvenirEditForeignActivity extends BaseActivity<SouvenirEditForeig
                     @Override
                     public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
                         TravelAdapter travelAdapter = (TravelAdapter) adapter;
-                        travelAdapter.goTravelDetail(position);
+                        travelAdapter.goTravelDetail(position); // TODO event
                     }
                 })
                 .listenerClick(new OnItemLongClickListener() {
@@ -171,6 +154,34 @@ public class SouvenirEditForeignActivity extends BaseActivity<SouvenirEditForeig
                     }
                 });
         refreshTravelView();
+        // gift
+        recyclerGift = new RecyclerHelper(rvGift)
+                .initLayoutManager(new LinearLayoutManager(mActivity) {
+                    @Override
+                    public boolean canScrollVertically() {
+                        return false;
+                    }
+                })
+                .initAdapter(new GiftAdapter(mActivity))
+                .setAdapter()
+                .listenerClick(new OnItemChildClickListener() {
+                    @Override
+                    public void onSimpleItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+                        GiftAdapter giftAdapter = (GiftAdapter) adapter;
+                        switch (view.getId()) {
+                            case R.id.ivMore: // 编辑 // TODO event
+                                giftAdapter.goEditActivity(position);
+                                break;
+                        }
+                    }
+                })
+                .listenerClick(new OnItemLongClickListener() {
+                    @Override
+                    public void onSimpleItemLongClick(BaseQuickAdapter adapter, View view, int position) {
+                        showDeleteDialogNoApi(adapter, position);
+                    }
+                });
+        refreshGiftView();
         // album
         recyclerAlbum = new RecyclerHelper(rvAlbum)
                 .initLayoutManager(new LinearLayoutManager(mActivity) {
@@ -185,7 +196,7 @@ public class SouvenirEditForeignActivity extends BaseActivity<SouvenirEditForeig
                     @Override
                     public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
                         AlbumAdapter albumAdapter = (AlbumAdapter) adapter;
-                        albumAdapter.goAlbumDetail(position);
+                        albumAdapter.goAlbumDetail(position); // TODO event
                     }
                 })
                 .listenerClick(new OnItemLongClickListener() {
@@ -245,7 +256,10 @@ public class SouvenirEditForeignActivity extends BaseActivity<SouvenirEditForeig
                     public void onSimpleItemChildClick(BaseQuickAdapter adapter, View view, int position) {
                         FoodAdapter foodAdapter = (FoodAdapter) adapter;
                         switch (view.getId()) {
-                            case R.id.tvAddress:
+                            case R.id.ivMore: // 编辑 // TODO event
+                                foodAdapter.goEditActivity(position);
+                                break;
+                            case R.id.tvAddress: // 地图显示
                                 foodAdapter.goMapShow(position);
                                 break;
                         }
@@ -273,7 +287,10 @@ public class SouvenirEditForeignActivity extends BaseActivity<SouvenirEditForeig
                     public void onSimpleItemChildClick(BaseQuickAdapter adapter, View view, int position) {
                         MovieAdapter movieAdapter = (MovieAdapter) adapter;
                         switch (view.getId()) {
-                            case R.id.tvAddress:
+                            case R.id.ivMore: // 编辑 // TODO event
+                                movieAdapter.goEditActivity(position);
+                                break;
+                            case R.id.tvAddress: // 地图显示
                                 movieAdapter.goMapShow(position);
                                 break;
                         }
@@ -300,7 +317,7 @@ public class SouvenirEditForeignActivity extends BaseActivity<SouvenirEditForeig
                     @Override
                     public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
                         DiaryAdapter diaryAdapter = (DiaryAdapter) adapter;
-                        diaryAdapter.goDiaryDetail(position);
+                        diaryAdapter.goDiaryDetail(position); // TODO event
                     }
                 })
                 .listenerClick(new OnItemLongClickListener() {
@@ -317,14 +334,6 @@ public class SouvenirEditForeignActivity extends BaseActivity<SouvenirEditForeig
     @Override
     protected void initData(Intent intent, Bundle state) {
         // event
-        Observable<Gift> obSelectGift = RxBus.register(RxBus.EVENT_GIFT_SELECT, gift -> {
-            if (recyclerGift == null) return;
-            List<Gift> giftList = new ArrayList<>();
-            giftList.add(gift);
-            recyclerGift.dataAdd(giftList);
-            refreshAddView();
-        });
-        pushBus(RxBus.EVENT_GIFT_SELECT, obSelectGift);
         Observable<Travel> obSelectTravel = RxBus.register(RxBus.EVENT_TRAVEL_SELECT, travel -> {
             if (recyclerTravel == null) return;
             List<Travel> travelList = new ArrayList<>();
@@ -333,6 +342,14 @@ public class SouvenirEditForeignActivity extends BaseActivity<SouvenirEditForeig
             refreshAddView();
         });
         pushBus(RxBus.EVENT_TRAVEL_SELECT, obSelectTravel);
+        Observable<Gift> obSelectGift = RxBus.register(RxBus.EVENT_GIFT_SELECT, gift -> {
+            if (recyclerGift == null) return;
+            List<Gift> giftList = new ArrayList<>();
+            giftList.add(gift);
+            recyclerGift.dataAdd(giftList);
+            refreshAddView();
+        });
+        pushBus(RxBus.EVENT_GIFT_SELECT, obSelectGift);
         Observable<Album> obSelectAlbum = RxBus.register(RxBus.EVENT_ALBUM_SELECT, album -> {
             if (recyclerAlbum == null) return;
             List<Album> albumList = new ArrayList<>();
@@ -377,8 +394,8 @@ public class SouvenirEditForeignActivity extends BaseActivity<SouvenirEditForeig
 
     @Override
     protected void onFinish(Bundle state) {
-        RecyclerHelper.release(recyclerGift);
         RecyclerHelper.release(recyclerTravel);
+        RecyclerHelper.release(recyclerGift);
         RecyclerHelper.release(recyclerAlbum);
         RecyclerHelper.release(recyclerVideo);
         RecyclerHelper.release(recyclerFood);
@@ -402,15 +419,15 @@ public class SouvenirEditForeignActivity extends BaseActivity<SouvenirEditForeig
         return super.onOptionsItemSelected(item);
     }
 
-    @OnClick({R.id.rlGiftAdd, R.id.rlTravelAdd, R.id.rlAlbumAdd, R.id.rlVideoAdd,
+    @OnClick({R.id.rlTravelAdd, R.id.rlGiftAdd, R.id.rlAlbumAdd, R.id.rlVideoAdd,
             R.id.rlFoodAdd, R.id.rlMovieAdd, R.id.rlDiaryAdd})
     public void onViewClicked(View view) {
         switch (view.getId()) {
-            case R.id.rlGiftAdd: // 礼物
-                GiftListActivity.goActivityBySelect(mActivity);
-                break;
             case R.id.rlTravelAdd: // 游记
                 TravelListActivity.goActivityBySelect(mActivity);
+                break;
+            case R.id.rlGiftAdd: // 礼物
+                GiftListActivity.goActivityBySelect(mActivity);
                 break;
             case R.id.rlAlbumAdd: // 相册
                 AlbumListActivity.goActivityBySelect(mActivity);
@@ -447,8 +464,8 @@ public class SouvenirEditForeignActivity extends BaseActivity<SouvenirEditForeig
 
     private void refreshAddView() {
         if (souvenir == null) {
-            rlGiftAdd.setVisibility(View.VISIBLE);
             rlTravelAdd.setVisibility(View.VISIBLE);
+            rlGiftAdd.setVisibility(View.VISIBLE);
             rlAlbumAdd.setVisibility(View.VISIBLE);
             rlVideoAdd.setVisibility(View.VISIBLE);
             rlFoodAdd.setVisibility(View.VISIBLE);
@@ -457,14 +474,6 @@ public class SouvenirEditForeignActivity extends BaseActivity<SouvenirEditForeig
             return;
         }
         int limitCount = SPHelper.getLimit().getSouvenirForeignYearCount();
-        // gift
-        if (recyclerGift == null || recyclerGift.getAdapter() == null) {
-            rlGiftAdd.setVisibility(View.VISIBLE);
-        } else if (recyclerGift.getAdapter().getData().size() < limitCount) {
-            rlGiftAdd.setVisibility(View.VISIBLE);
-        } else {
-            rlGiftAdd.setVisibility(View.GONE);
-        }
         // travel
         if (recyclerTravel == null || recyclerTravel.getAdapter() == null) {
             rlTravelAdd.setVisibility(View.VISIBLE);
@@ -472,6 +481,14 @@ public class SouvenirEditForeignActivity extends BaseActivity<SouvenirEditForeig
             rlTravelAdd.setVisibility(View.VISIBLE);
         } else {
             rlTravelAdd.setVisibility(View.GONE);
+        }
+        // gift
+        if (recyclerGift == null || recyclerGift.getAdapter() == null) {
+            rlGiftAdd.setVisibility(View.VISIBLE);
+        } else if (recyclerGift.getAdapter().getData().size() < limitCount) {
+            rlGiftAdd.setVisibility(View.VISIBLE);
+        } else {
+            rlGiftAdd.setVisibility(View.GONE);
         }
         // album
         if (recyclerAlbum == null || recyclerAlbum.getAdapter() == null) {
@@ -515,16 +532,16 @@ public class SouvenirEditForeignActivity extends BaseActivity<SouvenirEditForeig
         }
     }
 
-    private void refreshGiftView() {
-        if (souvenir == null || recyclerGift == null) return;
-        List<Gift> giftList = ListHelper.getGiftListBySouvenir(souvenir.getSouvenirGiftList(), true);
-        recyclerGift.dataNew(giftList, 0);
-    }
-
     private void refreshTravelView() {
         if (souvenir == null || recyclerTravel == null) return;
         List<Travel> travelList = ListHelper.getTravelListBySouvenir(souvenir.getSouvenirTravelList(), true);
         recyclerTravel.dataNew(travelList, 0);
+    }
+
+    private void refreshGiftView() {
+        if (souvenir == null || recyclerGift == null) return;
+        List<Gift> giftList = ListHelper.getGiftListBySouvenir(souvenir.getSouvenirGiftList(), true);
+        recyclerGift.dataNew(giftList, 0);
     }
 
     private void refreshAlbumView() {
@@ -562,17 +579,17 @@ public class SouvenirEditForeignActivity extends BaseActivity<SouvenirEditForeig
         // 封装body
         Souvenir body = new Souvenir();
         body.setId(souvenir.getId());
-        // bodyGift
-        if (recyclerGift != null && recyclerGift.getAdapter() != null) {
-            GiftAdapter adapter = recyclerGift.getAdapter();
-            List<SouvenirGift> giftList = ListHelper.getSouvenirGiftListByOld(souvenir.getSouvenirGiftList(), adapter.getData());
-            body.setSouvenirGiftList(giftList);
-        }
         // bodyTravel
         if (recyclerTravel != null && recyclerTravel.getAdapter() != null) {
             TravelAdapter adapter = recyclerTravel.getAdapter();
             List<SouvenirTravel> travelList = ListHelper.getSouvenirTravelListByOld(souvenir.getSouvenirTravelList(), adapter.getData());
             body.setSouvenirTravelList(travelList);
+        }
+        // bodyGift
+        if (recyclerGift != null && recyclerGift.getAdapter() != null) {
+            GiftAdapter adapter = recyclerGift.getAdapter();
+            List<SouvenirGift> giftList = ListHelper.getSouvenirGiftListByOld(souvenir.getSouvenirGiftList(), adapter.getData());
+            body.setSouvenirGiftList(giftList);
         }
         // bodyAlbum
         if (recyclerAlbum != null && recyclerAlbum.getAdapter() != null) {

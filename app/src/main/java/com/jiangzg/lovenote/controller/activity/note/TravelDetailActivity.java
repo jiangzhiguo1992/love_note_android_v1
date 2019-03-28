@@ -163,7 +163,7 @@ public class TravelDetailActivity extends BaseActivity<TravelDetailActivity> {
             if (recyclerAlbum == null) return;
             ListHelper.removeObjInAdapter(recyclerAlbum.getAdapter(), album);
             if (recyclerAlbum.getAdapter().getData().size() <= 0) {
-                // 删除礼物
+                // 删除相册
                 llAlbum.setVisibility(View.GONE);
                 rvAlbum.setVisibility(View.GONE);
             }

@@ -23,6 +23,7 @@ import com.jiangzg.lovenote.controller.adapter.note.VideoAdapter;
 import com.jiangzg.lovenote.controller.fragment.base.BaseFragment;
 import com.jiangzg.lovenote.controller.fragment.base.BasePagerFragment;
 import com.jiangzg.lovenote.helper.common.ListHelper;
+import com.jiangzg.lovenote.helper.common.RxBus;
 import com.jiangzg.lovenote.helper.view.RecyclerHelper;
 import com.jiangzg.lovenote.model.entity.Album;
 import com.jiangzg.lovenote.model.entity.Diary;
@@ -38,6 +39,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import rx.Observable;
 
 public class SouvenirForeignFragment extends BasePagerFragment<SouvenirForeignFragment> {
 
@@ -74,8 +76,8 @@ public class SouvenirForeignFragment extends BasePagerFragment<SouvenirForeignFr
 
     private int year;
     private Souvenir souvenir;
-    private RecyclerHelper recyclerGift;
     private RecyclerHelper recyclerTravel;
+    private RecyclerHelper recyclerGift;
     private RecyclerHelper recyclerAlbum;
     private RecyclerHelper recyclerVideo;
     private RecyclerHelper recyclerFood;
@@ -110,12 +112,103 @@ public class SouvenirForeignFragment extends BasePagerFragment<SouvenirForeignFr
 
     @Override
     protected void loadData() {
+        // event
+        Observable<Travel> busTravelListDelete = RxBus.register(RxBus.EVENT_TRAVEL_LIST_ITEM_DELETE, travel -> {
+            if (recyclerTravel == null) return;
+            ListHelper.removeObjInAdapter(recyclerTravel.getAdapter(), travel);
+            if (recyclerTravel.getAdapter().getData().size() <= 0) {
+                // 删除游记
+                tvTravel.setVisibility(View.GONE);
+                rvTravel.setVisibility(View.GONE);
+            }
+        });
+        pushBus(RxBus.EVENT_TRAVEL_LIST_ITEM_DELETE, busTravelListDelete);
+        Observable<Travel> busTravelListRefresh = RxBus.register(RxBus.EVENT_TRAVEL_LIST_ITEM_REFRESH, travel -> {
+            if (recyclerTravel == null) return;
+            ListHelper.refreshObjInAdapter(recyclerTravel.getAdapter(), travel);
+        });
+        pushBus(RxBus.EVENT_TRAVEL_LIST_ITEM_REFRESH, busTravelListRefresh);
+        Observable<Gift> busGiftListDelete = RxBus.register(RxBus.EVENT_GIFT_LIST_ITEM_DELETE, gift -> {
+            if (recyclerGift == null) return;
+            ListHelper.removeObjInAdapter(recyclerGift.getAdapter(), gift);
+            if (recyclerGift.getAdapter().getData().size() <= 0) {
+                // 删除礼物
+                tvGift.setVisibility(View.GONE);
+                rvGift.setVisibility(View.GONE);
+            }
+        });
+        pushBus(RxBus.EVENT_GIFT_LIST_ITEM_DELETE, busGiftListDelete);
+        Observable<Gift> busGiftListRefresh = RxBus.register(RxBus.EVENT_GIFT_LIST_ITEM_REFRESH, gift -> {
+            if (recyclerGift == null) return;
+            ListHelper.refreshObjInAdapter(recyclerGift.getAdapter(), gift);
+        });
+        pushBus(RxBus.EVENT_GIFT_LIST_ITEM_REFRESH, busGiftListRefresh);
+        Observable<Album> busAlbumListDelete = RxBus.register(RxBus.EVENT_ALBUM_LIST_ITEM_DELETE, album -> {
+            if (recyclerAlbum == null) return;
+            ListHelper.removeObjInAdapter(recyclerAlbum.getAdapter(), album);
+            if (recyclerAlbum.getAdapter().getData().size() <= 0) {
+                // 删除相册
+                tvAlbum.setVisibility(View.GONE);
+                rvAlbum.setVisibility(View.GONE);
+            }
+        });
+        pushBus(RxBus.EVENT_ALBUM_LIST_ITEM_DELETE, busAlbumListDelete);
+        Observable<Album> busAlbumListRefresh = RxBus.register(RxBus.EVENT_ALBUM_LIST_ITEM_REFRESH, album -> {
+            if (recyclerAlbum == null) return;
+            ListHelper.refreshObjInAdapter(recyclerAlbum.getAdapter(), album);
+        });
+        pushBus(RxBus.EVENT_ALBUM_LIST_ITEM_REFRESH, busAlbumListRefresh);
+        Observable<Food> busFoodListDelete = RxBus.register(RxBus.EVENT_FOOD_LIST_ITEM_DELETE, food -> {
+            if (recyclerFood == null) return;
+            ListHelper.removeObjInAdapter(recyclerFood.getAdapter(), food);
+            if (recyclerFood.getAdapter().getData().size() <= 0) {
+                // 删除美食
+                tvFood.setVisibility(View.GONE);
+                rvFood.setVisibility(View.GONE);
+            }
+        });
+        pushBus(RxBus.EVENT_FOOD_LIST_ITEM_DELETE, busFoodListDelete);
+        Observable<Food> busFoodListRefresh = RxBus.register(RxBus.EVENT_FOOD_LIST_ITEM_REFRESH, food -> {
+            if (recyclerFood == null) return;
+            ListHelper.refreshObjInAdapter(recyclerFood.getAdapter(), food);
+        });
+        pushBus(RxBus.EVENT_FOOD_LIST_ITEM_REFRESH, busFoodListRefresh);
+        Observable<Movie> busMovieListDelete = RxBus.register(RxBus.EVENT_MOVIE_LIST_ITEM_DELETE, movie -> {
+            if (recyclerMovie == null) return;
+            ListHelper.removeObjInAdapter(recyclerMovie.getAdapter(), movie);
+            if (recyclerMovie.getAdapter().getData().size() <= 0) {
+                // 删除电影
+                tvMovie.setVisibility(View.GONE);
+                rvMovie.setVisibility(View.GONE);
+            }
+        });
+        pushBus(RxBus.EVENT_MOVIE_LIST_ITEM_DELETE, busMovieListDelete);
+        Observable<Movie> busMovieListRefresh = RxBus.register(RxBus.EVENT_MOVIE_LIST_ITEM_REFRESH, movie -> {
+            if (recyclerMovie == null) return;
+            ListHelper.refreshObjInAdapter(recyclerMovie.getAdapter(), movie);
+        });
+        pushBus(RxBus.EVENT_MOVIE_LIST_ITEM_REFRESH, busMovieListRefresh);
+        Observable<Diary> busDiaryListDelete = RxBus.register(RxBus.EVENT_DIARY_LIST_ITEM_DELETE, diary -> {
+            if (recyclerDiary == null) return;
+            ListHelper.removeObjInAdapter(recyclerDiary.getAdapter(), diary);
+            if (recyclerDiary.getAdapter().getData().size() <= 0) {
+                // 删除日记
+                tvDiary.setVisibility(View.GONE);
+                rvDiary.setVisibility(View.GONE);
+            }
+        });
+        pushBus(RxBus.EVENT_DIARY_LIST_ITEM_DELETE, busDiaryListDelete);
+        Observable<Diary> busDiaryListRefresh = RxBus.register(RxBus.EVENT_DIARY_LIST_ITEM_REFRESH, diary -> {
+            if (recyclerDiary == null) return;
+            ListHelper.refreshObjInAdapter(recyclerDiary.getAdapter(), diary);
+        });
+        pushBus(RxBus.EVENT_DIARY_LIST_ITEM_REFRESH, busDiaryListRefresh);
     }
 
     @Override
     protected void onFinish(Bundle state) {
-        RecyclerHelper.release(recyclerGift);
         RecyclerHelper.release(recyclerTravel);
+        RecyclerHelper.release(recyclerGift);
         RecyclerHelper.release(recyclerAlbum);
         RecyclerHelper.release(recyclerVideo);
         RecyclerHelper.release(recyclerFood);
@@ -135,28 +228,6 @@ public class SouvenirForeignFragment extends BasePagerFragment<SouvenirForeignFr
 
     private void refreshView() {
         if (souvenir == null) return;
-        // gift
-        List<Gift> giftList = ListHelper.getGiftListBySouvenir(souvenir.getSouvenirGiftList(), false);
-        if (giftList != null && giftList.size() > 0) {
-            tvGift.setVisibility(View.VISIBLE);
-            rvGift.setVisibility(View.VISIBLE);
-            if (recyclerGift == null) {
-                recyclerGift = new RecyclerHelper(rvGift)
-                        .initLayoutManager(new LinearLayoutManager(mActivity) {
-                            @Override
-                            public boolean canScrollVertically() {
-                                return false;
-                            }
-                        })
-                        .initAdapter(new GiftAdapter(mActivity))
-                        .viewAnim()
-                        .setAdapter();
-            }
-            recyclerGift.dataNew(giftList, 0);
-        } else {
-            tvGift.setVisibility(View.GONE);
-            rvGift.setVisibility(View.GONE);
-        }
         // travel
         List<Travel> travelList = ListHelper.getTravelListBySouvenir(souvenir.getSouvenirTravelList(), false);
         if (travelList != null && travelList.size() > 0) {
@@ -185,6 +256,39 @@ public class SouvenirForeignFragment extends BasePagerFragment<SouvenirForeignFr
         } else {
             tvTravel.setVisibility(View.GONE);
             rvTravel.setVisibility(View.GONE);
+        }
+        // gift
+        List<Gift> giftList = ListHelper.getGiftListBySouvenir(souvenir.getSouvenirGiftList(), false);
+        if (giftList != null && giftList.size() > 0) {
+            tvGift.setVisibility(View.VISIBLE);
+            rvGift.setVisibility(View.VISIBLE);
+            if (recyclerGift == null) {
+                recyclerGift = new RecyclerHelper(rvGift)
+                        .initLayoutManager(new LinearLayoutManager(mActivity) {
+                            @Override
+                            public boolean canScrollVertically() {
+                                return false;
+                            }
+                        })
+                        .initAdapter(new GiftAdapter(mActivity))
+                        .viewAnim()
+                        .setAdapter()
+                        .listenerClick(new OnItemChildClickListener() {
+                            @Override
+                            public void onSimpleItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+                                GiftAdapter giftAdapter = (GiftAdapter) adapter;
+                                switch (view.getId()) {
+                                    case R.id.ivMore: // 编辑
+                                        giftAdapter.goEditActivity(position);
+                                        break;
+                                }
+                            }
+                        });
+            }
+            recyclerGift.dataNew(giftList, 0);
+        } else {
+            tvGift.setVisibility(View.GONE);
+            rvGift.setVisibility(View.GONE);
         }
         // album
         List<Album> albumList = ListHelper.getAlbumListBySouvenir(souvenir.getSouvenirAlbumList(), false);
@@ -272,7 +376,10 @@ public class SouvenirForeignFragment extends BasePagerFragment<SouvenirForeignFr
                             public void onSimpleItemChildClick(BaseQuickAdapter adapter, View view, int position) {
                                 FoodAdapter foodAdapter = (FoodAdapter) adapter;
                                 switch (view.getId()) {
-                                    case R.id.tvAddress:
+                                    case R.id.ivMore: // 编辑
+                                        foodAdapter.goEditActivity(position);
+                                        break;
+                                    case R.id.tvAddress: // 地图显示
                                         foodAdapter.goMapShow(position);
                                         break;
                                 }
@@ -305,7 +412,10 @@ public class SouvenirForeignFragment extends BasePagerFragment<SouvenirForeignFr
                             public void onSimpleItemChildClick(BaseQuickAdapter adapter, View view, int position) {
                                 MovieAdapter movieAdapter = (MovieAdapter) adapter;
                                 switch (view.getId()) {
-                                    case R.id.tvAddress:
+                                    case R.id.ivMore: // 编辑
+                                        movieAdapter.goEditActivity(position);
+                                        break;
+                                    case R.id.tvAddress: // 地图显示
                                         movieAdapter.goMapShow(position);
                                         break;
                                 }

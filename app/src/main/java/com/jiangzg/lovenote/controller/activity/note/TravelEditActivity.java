@@ -383,7 +383,7 @@ public class TravelEditActivity extends BaseActivity<TravelEditActivity> {
             if (recyclerAlbum == null) return;
             ListHelper.removeObjInAdapter(recyclerAlbum.getAdapter(), album);
             if (recyclerAlbum.getAdapter().getData().size() <= 0) {
-                // 删除礼物
+                // 删除相册
                 rlAlbumAdd.setVisibility(View.VISIBLE);
                 rvAlbum.setVisibility(View.GONE);
             }
