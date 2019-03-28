@@ -3,6 +3,7 @@ package com.jiangzg.lovenote.controller.activity.note;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -14,7 +15,6 @@ import android.widget.RelativeLayout;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemChildClickListener;
-import com.chad.library.adapter.base.listener.OnItemChildLongClickListener;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.chad.library.adapter.base.listener.OnItemLongClickListener;
 import com.jiangzg.base.component.ActivityTrans;
@@ -208,7 +208,7 @@ public class SouvenirEditForeignActivity extends BaseActivity<SouvenirEditForeig
         refreshAlbumView();
         // video
         recyclerVideo = new RecyclerHelper(rvVideo)
-                .initLayoutManager(new LinearLayoutManager(mActivity) {
+                .initLayoutManager(new GridLayoutManager(mActivity, 2) {
                     @Override
                     public boolean canScrollVertically() {
                         return false;
@@ -221,23 +221,23 @@ public class SouvenirEditForeignActivity extends BaseActivity<SouvenirEditForeig
                     public void onSimpleItemChildClick(BaseQuickAdapter adapter, View view, int position) {
                         VideoAdapter videoAdapter = (VideoAdapter) adapter;
                         switch (view.getId()) {
-                            case R.id.cvVideo: // 播放
-                                videoAdapter.playVideo(position);
-                                break;
-                            case R.id.tvAddress: // 地图
+                            case R.id.ivLocation: // 地图
                                 videoAdapter.goMapShow(position);
                                 break;
                         }
                     }
                 })
-                .listenerClick(new OnItemChildLongClickListener() {
+                .listenerClick(new OnItemClickListener() {
                     @Override
-                    public void onSimpleItemChildLongClick(BaseQuickAdapter adapter, View view, int position) {
-                        switch (view.getId()) {
-                            case R.id.cvVideo: // 删除
-                                showDeleteDialogNoApi(adapter, position);
-                                break;
-                        }
+                    public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
+                        VideoAdapter videoAdapter = (VideoAdapter) adapter;
+                        videoAdapter.playVideo(position);
+                    }
+                })
+                .listenerClick(new OnItemLongClickListener() {
+                    @Override
+                    public void onSimpleItemLongClick(BaseQuickAdapter adapter, View view, int position) {
+                        showDeleteDialogNoApi(adapter, position);
                     }
                 });
         refreshVideoView();

@@ -4,32 +4,27 @@ import android.content.Intent;
 import android.view.View;
 
 import com.afollestad.materialdialogs.MaterialDialog;
-import com.chad.library.adapter.base.BaseMultiItemQuickAdapter;
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
-import com.jiangzg.base.common.ConvertUtils;
 import com.jiangzg.base.common.FileUtils;
 import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.base.common.TimeUnit;
 import com.jiangzg.base.component.ActivityTrans;
 import com.jiangzg.base.component.IntentFactory;
+import com.jiangzg.base.view.ScreenUtils;
 import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.controller.activity.base.BaseActivity;
 import com.jiangzg.lovenote.controller.activity.common.MapShowActivity;
-import com.jiangzg.lovenote.helper.common.ApiHelper;
 import com.jiangzg.lovenote.helper.common.OssResHelper;
 import com.jiangzg.lovenote.helper.common.ResHelper;
 import com.jiangzg.lovenote.helper.common.RxBus;
-import com.jiangzg.lovenote.helper.common.SPHelper;
 import com.jiangzg.lovenote.helper.common.TimeHelper;
-import com.jiangzg.lovenote.helper.common.UserHelper;
 import com.jiangzg.lovenote.helper.system.RetrofitHelper;
 import com.jiangzg.lovenote.helper.view.DialogHelper;
 import com.jiangzg.lovenote.model.api.API;
 import com.jiangzg.lovenote.model.api.Result;
-import com.jiangzg.lovenote.model.entity.Couple;
 import com.jiangzg.lovenote.model.entity.Video;
-import com.jiangzg.lovenote.view.FrescoAvatarView;
 import com.jiangzg.lovenote.view.FrescoView;
 
 import java.io.File;
@@ -40,67 +35,43 @@ import retrofit2.Call;
  * Created by JZG on 2018/3/12.
  * 视频适配器
  */
-public class VideoAdapter extends BaseMultiItemQuickAdapter<Video, BaseViewHolder> {
+public class VideoAdapter extends BaseQuickAdapter<Video, BaseViewHolder> {
 
-    private final Couple couple;
-    private final int dp200;
-    private final int dp150;
-    private final String year;
-    private final String month;
-    private final String dayT;
-    private final String hour;
-    private final String minute;
-    private final String second;
+    private final int imgWidth, imgHeight;
     private BaseActivity mActivity;
 
     public VideoAdapter(BaseActivity activity) {
-        super(null);
-        addItemType(ApiHelper.LIST_NOTE_WHO_MY, R.layout.list_item_video_right);
-        addItemType(ApiHelper.LIST_NOTE_WHO_TA, R.layout.list_item_video_left);
+        super(R.layout.list_item_video);
         mActivity = activity;
-        couple = SPHelper.getCouple();
-        dp200 = ConvertUtils.dp2px(200);
-        dp150 = ConvertUtils.dp2px(150);
-        year = mActivity.getString(R.string.year);
-        month = mActivity.getString(R.string.month);
-        dayT = mActivity.getString(R.string.dayT);
-        hour = mActivity.getString(R.string.hour_short);
-        minute = mActivity.getString(R.string.minute_short);
-        second = mActivity.getString(R.string.second);
+        imgWidth = imgHeight = ScreenUtils.getScreenRealWidth(activity) / 2;
     }
 
     @Override
     protected void convert(BaseViewHolder helper, Video item) {
         // data
-        String avatar = UserHelper.getAvatar(couple, item.getUserId());
         String thumb = item.getContentThumb();
         String title = item.getTitle();
         TimeUnit timeUnit = TimeUnit.get(TimeHelper.getJavaTimeByGo(item.getDuration()));
-        String duration = timeUnit.getAllShow(true, true, true, true, true, true, year, month, dayT, hour, minute, second);
-        duration = StringUtils.isEmpty(duration) ? "--" : duration;
+        String duration = timeUnit.getAllShow(true, true, true, true, true, true, ":", ":", ":", ":", ":", "");
+        duration = StringUtils.isEmpty(duration) ? "--:--" : duration;
         String happenAt = TimeHelper.getTimeShowLine_HM_MDHM_YMDHM_ByGo(item.getHappenAt());
         String address = item.getAddress();
         // view
-        FrescoAvatarView ivAvatar = helper.getView(R.id.ivAvatar);
-        ivAvatar.setData(avatar, item.getUserId());
         FrescoView ivThumb = helper.getView(R.id.ivThumb);
         if (StringUtils.isEmpty(thumb)) {
             ivThumb.setVisibility(View.GONE);
         } else {
             ivThumb.setVisibility(View.VISIBLE);
             ivThumb.initHierarchy(null, true, false, false, false, false, false);
-            ivThumb.setWidthAndHeight(dp200, dp150);
+            ivThumb.setWidthAndHeight(imgWidth, imgHeight);
             ivThumb.setData(thumb);
         }
-        helper.setText(R.id.tvTitle, title);
         helper.setText(R.id.tvDuration, duration);
+        helper.setText(R.id.tvTitle, title);
         helper.setText(R.id.tvHappenAt, happenAt);
-        helper.setText(R.id.tvAddress, address);
-        helper.setVisible(R.id.tvAddress, !StringUtils.isEmpty(address));
+        helper.setVisible(R.id.ivLocation, !StringUtils.isEmpty(address));
         // click
-        helper.addOnClickListener(R.id.cvVideo);
-        helper.addOnClickListener(R.id.tvAddress);
-        helper.addOnLongClickListener(R.id.cvVideo);
+        helper.addOnClickListener(R.id.ivLocation);
     }
 
     public void playVideo(int position) {

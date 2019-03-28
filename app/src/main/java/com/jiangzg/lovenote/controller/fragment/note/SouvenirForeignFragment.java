@@ -2,6 +2,7 @@ package com.jiangzg.lovenote.controller.fragment.note;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -326,7 +327,7 @@ public class SouvenirForeignFragment extends BasePagerFragment<SouvenirForeignFr
             rvVideo.setVisibility(View.VISIBLE);
             if (recyclerVideo == null) {
                 recyclerVideo = new RecyclerHelper(rvVideo)
-                        .initLayoutManager(new LinearLayoutManager(mActivity) {
+                        .initLayoutManager(new GridLayoutManager(mActivity, 2) {
                             @Override
                             public boolean canScrollVertically() {
                                 return false;
@@ -340,13 +341,17 @@ public class SouvenirForeignFragment extends BasePagerFragment<SouvenirForeignFr
                             public void onSimpleItemChildClick(BaseQuickAdapter adapter, View view, int position) {
                                 VideoAdapter videoAdapter = (VideoAdapter) adapter;
                                 switch (view.getId()) {
-                                    case R.id.cvVideo: // 播放
-                                        videoAdapter.playVideo(position);
-                                        break;
-                                    case R.id.tvAddress: // 地图
+                                    case R.id.ivLocation: // 地图
                                         videoAdapter.goMapShow(position);
                                         break;
                                 }
+                            }
+                        })
+                        .listenerClick(new OnItemClickListener() {
+                            @Override
+                            public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
+                                VideoAdapter videoAdapter = (VideoAdapter) adapter;
+                                videoAdapter.playVideo(position);
                             }
                         });
             }

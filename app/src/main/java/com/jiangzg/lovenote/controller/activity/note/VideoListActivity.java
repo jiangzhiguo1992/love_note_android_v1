@@ -6,20 +6,20 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemChildClickListener;
-import com.chad.library.adapter.base.listener.OnItemChildLongClickListener;
+import com.chad.library.adapter.base.listener.OnItemClickListener;
+import com.chad.library.adapter.base.listener.OnItemLongClickListener;
 import com.jiangzg.base.component.ActivityTrans;
 import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.controller.activity.base.BaseActivity;
 import com.jiangzg.lovenote.controller.adapter.note.VideoAdapter;
 import com.jiangzg.lovenote.helper.common.ListHelper;
-import com.jiangzg.lovenote.helper.common.OssResHelper;
 import com.jiangzg.lovenote.helper.common.RxBus;
 import com.jiangzg.lovenote.helper.system.RetrofitHelper;
 import com.jiangzg.lovenote.helper.view.RecyclerHelper;
@@ -95,7 +95,7 @@ public class VideoListActivity extends BaseActivity<VideoListActivity> {
         ViewHelper.initTopBar(mActivity, tb, title, true);
         // recycler
         recyclerHelper = new RecyclerHelper(rv)
-                .initLayoutManager(new LinearLayoutManager(mActivity))
+                .initLayoutManager(new GridLayoutManager(mActivity, 2))
                 .initRefresh(srl, true)
                 .initAdapter(new VideoAdapter(mActivity))
                 .viewEmpty(mActivity, R.layout.list_empty_grey, true, true)
@@ -109,28 +109,28 @@ public class VideoListActivity extends BaseActivity<VideoListActivity> {
                     public void onSimpleItemChildClick(BaseQuickAdapter adapter, View view, int position) {
                         VideoAdapter videoAdapter = (VideoAdapter) adapter;
                         switch (view.getId()) {
-                            case R.id.cvVideo:
-                                if (isFromSelect()) { // 视频选择
-                                    videoAdapter.selectVideo(position);
-                                } else { // 播放
-                                    videoAdapter.playVideo(position);
-                                }
-                                break;
-                            case R.id.tvAddress: // 地图
+                            case R.id.ivLocation: // 地图
                                 videoAdapter.goMapShow(position);
                                 break;
                         }
                     }
                 })
-                .listenerClick(new OnItemChildLongClickListener() {
+                .listenerClick(new OnItemClickListener() {
                     @Override
-                    public void onSimpleItemChildLongClick(BaseQuickAdapter adapter, View view, int position) {
+                    public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
                         VideoAdapter videoAdapter = (VideoAdapter) adapter;
-                        switch (view.getId()) {
-                            case R.id.cvVideo: // 删除
-                                videoAdapter.showDeleteDialog(position);
-                                break;
+                        if (isFromSelect()) { // 视频选择
+                            videoAdapter.selectVideo(position);
+                        } else { // 播放
+                            videoAdapter.playVideo(position);
                         }
+                    }
+                })
+                .listenerClick(new OnItemLongClickListener() {
+                    @Override
+                    public void onSimpleItemLongClick(BaseQuickAdapter adapter, View view, int position) {
+                        VideoAdapter videoAdapter = (VideoAdapter) adapter;
+                        videoAdapter.showDeleteDialog(position);
                     }
                 });
     }
