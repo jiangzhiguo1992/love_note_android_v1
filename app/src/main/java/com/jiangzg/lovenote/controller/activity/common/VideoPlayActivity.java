@@ -10,6 +10,8 @@ import com.google.android.exoplayer2.ui.PlayerView;
 import com.google.android.exoplayer2.upstream.cache.SimpleCache;
 import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.base.component.ActivityTrans;
+import com.jiangzg.base.view.BarUtils;
+import com.jiangzg.base.view.ScreenUtils;
 import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.controller.activity.base.BaseActivity;
 import com.jiangzg.lovenote.helper.media.PlayerHelper;
@@ -40,6 +42,8 @@ public class VideoPlayActivity extends BaseActivity<VideoPlayActivity> {
 
     @Override
     protected int getView(Intent intent) {
+        ScreenUtils.requestNoOrientation(mActivity); // 可以横屏
+        BarUtils.setAllBarHide(mActivity); // 隐藏bar
         return R.layout.activity_video_play;
     }
 
@@ -58,33 +62,23 @@ public class VideoPlayActivity extends BaseActivity<VideoPlayActivity> {
     @Override
     protected void onStart() {
         super.onStart();
-        initSource();
+        if (video == null) return;
+        // 缓存
+        simpleCache = PlayerHelper.getSimpleCache();
+        // 资源
+        mediaSource = PlayerHelper.getDataSource(mActivity, simpleCache, video.getContentVideo());
+        // 播放
+        PlayerHelper.play(player, mediaSource);
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-        releasePlayer();
+        PlayerHelper.release(player, simpleCache, mediaSource);
     }
 
     @Override
     protected void onFinish(Bundle state) {
-    }
-
-    private void initSource() {
-        if (video == null) return;
-        // 缓存
-        simpleCache = PlayerHelper.getSimpleCache();
-
-        // 资源
-        mediaSource = PlayerHelper.getDataSource(mActivity, simpleCache, video.getContentVideo());
-
-        // 播放
-        PlayerHelper.play(player, mediaSource);
-    }
-
-    private void releasePlayer() {
-        PlayerHelper.release(player, simpleCache, mediaSource);
     }
 
 }

@@ -43,6 +43,23 @@ public class BarUtils {
     }
 
     /**
+     * 隐藏状态栏+导航栏 , 底部上滑会出现
+     */
+    public static void setAllBarHide(Activity activity) {
+        if (activity == null) {
+            LogUtils.w(BarUtils.class, "setNaviBarHide", "activity == null");
+            return;
+        }
+        int options = View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION // hide nav bar
+                | View.SYSTEM_UI_FLAG_FULLSCREEN // hide status bar
+                | View.SYSTEM_UI_FLAG_IMMERSIVE;
+        activity.getWindow().getDecorView().setSystemUiVisibility(options);
+    }
+
+    /**
      * 判断状态栏是否存在
      */
     public static boolean isStatusExists(Activity activity) {

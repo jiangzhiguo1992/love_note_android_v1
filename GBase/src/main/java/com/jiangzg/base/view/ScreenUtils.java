@@ -45,6 +45,17 @@ public class ScreenUtils {
     }
 
     /**
+     * 设置屏幕为可变
+     */
+    public static void requestNoOrientation(Activity activity) {
+        if (activity == null) {
+            LogUtils.w(ScreenUtils.class, "requestNoOrientation", "activity == null");
+            return;
+        }
+        activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
+    }
+
+    /**
      * 获取屏幕参数集
      */
     public static DisplayMetrics getDisplay(Context context) {
