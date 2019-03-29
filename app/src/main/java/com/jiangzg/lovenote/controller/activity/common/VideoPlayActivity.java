@@ -50,7 +50,7 @@ public class VideoPlayActivity extends BaseActivity<VideoPlayActivity> {
     protected void initView(Intent intent, Bundle state) {
         ossKey = intent.getStringExtra("ossKey");
         // init
-        player = PlayerHelper.getPlayer(mActivity);
+        player = PlayerHelper.getVideoPlayer(mActivity);
         simpleCache = PlayerHelper.getSimpleCache();
         vPlayer.setPlayer(player);
     }
@@ -62,6 +62,7 @@ public class VideoPlayActivity extends BaseActivity<VideoPlayActivity> {
     @Override
     protected void onStart() {
         super.onStart();
+        PlayerHelper.release(null, null, mediaSource);
         mediaSource = PlayerHelper.getDataSource(mActivity, simpleCache, ossKey);
         PlayerHelper.play(player, mediaSource);
     }

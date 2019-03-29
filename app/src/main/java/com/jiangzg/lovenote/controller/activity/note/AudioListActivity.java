@@ -3,7 +3,6 @@ package com.jiangzg.lovenote.controller.activity.note;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
@@ -16,7 +15,6 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemChildClickListener;
 import com.chad.library.adapter.base.listener.OnItemLongClickListener;
 import com.jiangzg.base.component.ActivityTrans;
-import com.jiangzg.base.media.PlayerUtils;
 import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.controller.activity.base.BaseActivity;
 import com.jiangzg.lovenote.controller.adapter.note.AudioAdapter;
@@ -48,7 +46,6 @@ public class AudioListActivity extends BaseActivity<AudioListActivity> {
     @BindView(R.id.fabAdd)
     FloatingActionButton fabAdd;
 
-    private MediaPlayer mediaPlayer;
     private RecyclerHelper recyclerHelper;
     private int page = 0;
 
@@ -81,13 +78,11 @@ public class AudioListActivity extends BaseActivity<AudioListActivity> {
     @Override
     protected void initView(Intent intent, Bundle state) {
         ViewHelper.initTopBar(mActivity, tb, getString(R.string.audio), true);
-        // player
-        mediaPlayer = PlayerUtils.getMediaPlayer();
         // recycler
         recyclerHelper = new RecyclerHelper(rv)
                 .initLayoutManager(new LinearLayoutManager(mActivity))
                 .initRefresh(srl, true)
-                .initAdapter(new AudioAdapter(mActivity, mediaPlayer))
+                .initAdapter(new AudioAdapter(mActivity))
                 .viewEmpty(mActivity, R.layout.list_empty_grey, true, true)
                 .viewLoadMore(new RecyclerHelper.MoreGreyView())
                 .viewAnim(BaseQuickAdapter.ALPHAIN)
@@ -133,27 +128,31 @@ public class AudioListActivity extends BaseActivity<AudioListActivity> {
 
     @Override
     protected void onFinish(Bundle state) {
-        RecyclerHelper.release(recyclerHelper);
+        // RecyclerHelper.release(recyclerHelper); 不放放在这里
     }
 
     @Override
     protected void onPause() {
         super.onPause();
         if (recyclerHelper != null && recyclerHelper.getAdapter() != null) {
-            // 被遮挡时 停止播放
             AudioAdapter adapter = recyclerHelper.getAdapter();
-            adapter.stopPlay();
-        }
-        if (isFinishing()) {
-            // 退出时 释放资源
-            PlayerUtils.destroy(mediaPlayer);
+            if (!isFinishing()) {
+                adapter.stopPlay();
+            } else {
+                adapter.releasePlay();
+                RecyclerHelper.release(recyclerHelper);
+            }
         }
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-        PlayerUtils.destroy(mediaPlayer);
+        if (recyclerHelper != null && recyclerHelper.getAdapter() != null) {
+            AudioAdapter adapter = recyclerHelper.getAdapter();
+            adapter.releasePlay();
+            RecyclerHelper.release(recyclerHelper);
+        }
     }
 
     @OnClick({R.id.fabAdd})

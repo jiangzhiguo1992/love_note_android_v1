@@ -1,21 +1,21 @@
 package com.jiangzg.lovenote.controller.adapter.note;
 
-import android.media.MediaPlayer;
-
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.chad.library.adapter.base.BaseMultiItemQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
-import com.jiangzg.base.media.PlayerUtils;
+import com.google.android.exoplayer2.ExoPlayer;
+import com.google.android.exoplayer2.source.ExtractorMediaSource;
+import com.google.android.exoplayer2.upstream.cache.SimpleCache;
 import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.controller.activity.base.BaseActivity;
 import com.jiangzg.lovenote.helper.common.ApiHelper;
 import com.jiangzg.lovenote.helper.common.CountHelper;
-import com.jiangzg.lovenote.helper.common.ResHelper;
 import com.jiangzg.lovenote.helper.common.RxBus;
 import com.jiangzg.lovenote.helper.common.SPHelper;
 import com.jiangzg.lovenote.helper.common.TimeHelper;
 import com.jiangzg.lovenote.helper.common.UserHelper;
+import com.jiangzg.lovenote.helper.media.PlayerHelper;
 import com.jiangzg.lovenote.helper.system.RetrofitHelper;
 import com.jiangzg.lovenote.helper.view.DialogHelper;
 import com.jiangzg.lovenote.model.api.API;
@@ -23,8 +23,6 @@ import com.jiangzg.lovenote.model.api.Result;
 import com.jiangzg.lovenote.model.entity.Audio;
 import com.jiangzg.lovenote.model.entity.Couple;
 import com.jiangzg.lovenote.view.FrescoAvatarView;
-
-import java.io.File;
 
 import retrofit2.Call;
 
@@ -36,16 +34,21 @@ public class AudioAdapter extends BaseMultiItemQuickAdapter<Audio, BaseViewHolde
 
     private final Couple couple;
     private BaseActivity mActivity;
-    private int playingIndex;
-    private MediaPlayer mMediaPlayer;
 
-    public AudioAdapter(BaseActivity activity, MediaPlayer mediaPlayer) {
+    private ExoPlayer player;
+    private SimpleCache simpleCache;
+    private ExtractorMediaSource mediaSource;
+    private int playingIndex;
+
+    public AudioAdapter(BaseActivity activity) {
         super(null);
         addItemType(ApiHelper.LIST_NOTE_WHO_MY, R.layout.list_item_audio_right);
         addItemType(ApiHelper.LIST_NOTE_WHO_TA, R.layout.list_item_audio_left);
         mActivity = activity;
         couple = SPHelper.getCouple();
-        mMediaPlayer = mediaPlayer;
+        // player
+        player = PlayerHelper.getAudioPlayer(mActivity);
+        simpleCache = PlayerHelper.getSimpleCache();
         playingIndex = -1;
     }
 
@@ -71,13 +74,6 @@ public class AudioAdapter extends BaseMultiItemQuickAdapter<Audio, BaseViewHolde
     public void togglePlayAudio(int position) {
         Audio item = getItem(position);
         if (item == null) return;
-        // 检查是否下载完毕
-        String contentAudio = item.getContentAudio();
-        boolean fileExists = ResHelper.isKeyFileExists(contentAudio);
-        if (!fileExists) {
-            ToastUtils.show(mActivity.getString(R.string.are_download));
-            return;
-        }
         // 记录上一个播放
         int oldPlayingIndex = playingIndex;
         if (oldPlayingIndex == position) {
@@ -99,30 +95,21 @@ public class AudioAdapter extends BaseMultiItemQuickAdapter<Audio, BaseViewHolde
     }
 
     private void togglePlay() {
-        if (mMediaPlayer == null) {
-            ToastUtils.show(mActivity.getString(R.string.audio_load_fail));
-            return;
+        if (player == null) {
+            player = PlayerHelper.getAudioPlayer(mActivity);
+        }
+        if (simpleCache == null) {
+            simpleCache = PlayerHelper.getSimpleCache();
         }
         if (playingIndex >= 0) {
             // 播放
             String contentAudio = getItem(playingIndex).getContentAudio();
-            File audioFile = ResHelper.newKeyFile(contentAudio);
-            if (audioFile == null) {
-                ToastUtils.show(mActivity.getString(R.string.audio_load_fail));
-                return;
-            }
-            PlayerUtils.setData(mMediaPlayer, audioFile.getAbsolutePath());
-            PlayerUtils.play(mMediaPlayer, mp -> {
-                int oldPlay = AudioAdapter.this.playingIndex;
-                AudioAdapter.this.playingIndex = -1;
-                AudioAdapter.this.notifyItemChanged(oldPlay);
-            }, null, (mp, what, extra) -> {
-                ToastUtils.show(mActivity.getString(R.string.audio_load_fail));
-                return true;
-            });
+            PlayerHelper.release(null, null, mediaSource);
+            mediaSource = PlayerHelper.getDataSource(mActivity, simpleCache, contentAudio);
+            PlayerHelper.play(player, mediaSource);
         } else {
             // 暂停
-            PlayerUtils.stop(mMediaPlayer);
+            player.stop();
         }
     }
 
@@ -132,7 +119,13 @@ public class AudioAdapter extends BaseMultiItemQuickAdapter<Audio, BaseViewHolde
         if (oldPlayingIndex >= 0) {
             notifyItemChanged(oldPlayingIndex);
         }
-        PlayerUtils.stop(mMediaPlayer);
+        if (player != null) {
+            player.stop();
+        }
+    }
+
+    public void releasePlay() {
+        PlayerHelper.release(player, simpleCache, mediaSource);
     }
 
     public void showDeleteDialog(final int position) {

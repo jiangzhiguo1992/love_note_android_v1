@@ -9,6 +9,7 @@ import com.google.android.exoplayer2.ExoPlaybackException;
 import com.google.android.exoplayer2.ExoPlayer;
 import com.google.android.exoplayer2.ExoPlayerFactory;
 import com.google.android.exoplayer2.Player;
+import com.google.android.exoplayer2.SimpleExoPlayer;
 import com.google.android.exoplayer2.source.ExtractorMediaSource;
 import com.google.android.exoplayer2.trackselection.DefaultTrackSelector;
 import com.google.android.exoplayer2.upstream.DataSink;
@@ -33,11 +34,20 @@ import com.jiangzg.lovenote.helper.common.ResHelper;
  */
 public class PlayerHelper {
 
-    public static ExoPlayer getPlayer(Context context) {
-        return ExoPlayerFactory.newSimpleInstance(context,
+    public static ExoPlayer getAudioPlayer(Context context) {
+        SimpleExoPlayer player = ExoPlayerFactory.newSimpleInstance(context, new DefaultTrackSelector());
+        player.setRepeatMode(Player.REPEAT_MODE_ALL);
+        player.setPlayWhenReady(true);
+        return player;
+    }
+
+    public static ExoPlayer getVideoPlayer(Context context) {
+        SimpleExoPlayer player = ExoPlayerFactory.newSimpleInstance(context,
                 new DefaultRenderersFactory(context), // 渲染处理器
                 new DefaultTrackSelector(), // 轨道提取器
-                new DefaultLoadControl()); // 控制面板
+                new DefaultLoadControl());// 控制面板
+        player.setPlayWhenReady(true);
+        return player;
     }
 
     public static SimpleCache getSimpleCache() {
