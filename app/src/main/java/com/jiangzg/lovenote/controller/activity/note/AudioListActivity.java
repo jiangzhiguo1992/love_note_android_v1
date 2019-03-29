@@ -145,16 +145,6 @@ public class AudioListActivity extends BaseActivity<AudioListActivity> {
         }
     }
 
-    @Override
-    protected void onStop() {
-        super.onStop();
-        if (recyclerHelper != null && recyclerHelper.getAdapter() != null) {
-            AudioAdapter adapter = recyclerHelper.getAdapter();
-            adapter.releasePlay();
-            RecyclerHelper.release(recyclerHelper);
-        }
-    }
-
     @OnClick({R.id.fabAdd})
     public void onViewClicked(View view) {
         switch (view.getId()) {
