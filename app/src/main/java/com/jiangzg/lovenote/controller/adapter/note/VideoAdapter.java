@@ -65,7 +65,6 @@ public class VideoAdapter extends BaseQuickAdapter<Video, BaseViewHolder> {
         helper.addOnClickListener(R.id.ivLocation);
     }
 
-    // TODO
     public void playVideo(int position) {
         Video item = getItem(position);
         if (item == null) return;
