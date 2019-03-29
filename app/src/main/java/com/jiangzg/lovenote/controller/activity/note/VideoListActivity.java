@@ -29,7 +29,6 @@ import com.jiangzg.lovenote.model.api.Result;
 import com.jiangzg.lovenote.model.entity.Video;
 import com.jiangzg.lovenote.view.GSwipeRefreshLayout;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -189,19 +188,6 @@ public class VideoListActivity extends BaseActivity<VideoListActivity> {
             }
         });
         pushApi(api);
-    }
-
-    // 集合类型转换(Video -> ossKey)
-    public static ArrayList<String> getOssKeyListByVideo(List<Video> videoList) {
-        ArrayList<String> ossKeyList = new ArrayList<>();
-        if (videoList == null || videoList.size() <= 0) return ossKeyList;
-        for (Video video : videoList) {
-            if (video == null || video.getContentVideo() == null) {
-                continue;
-            }
-            ossKeyList.add(video.getContentVideo());
-        }
-        return ossKeyList;
     }
 
 }
