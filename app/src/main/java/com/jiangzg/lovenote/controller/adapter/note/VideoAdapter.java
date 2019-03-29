@@ -69,7 +69,7 @@ public class VideoAdapter extends BaseQuickAdapter<Video, BaseViewHolder> {
         Video item = getItem(position);
         if (item == null) return;
         // 跳转视频播放页面
-        VideoPlayActivity.goActivity(mActivity, item);
+        VideoPlayActivity.goActivity(mActivity, item.getContentVideo());
         //// 检查是否下载完毕
         //String contentVideo = item.getContentVideo();
         //File file = ResHelper.newKeyFile(contentVideo);

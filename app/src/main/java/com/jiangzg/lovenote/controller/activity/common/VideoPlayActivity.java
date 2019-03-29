@@ -15,7 +15,6 @@ import com.jiangzg.base.view.ScreenUtils;
 import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.controller.activity.base.BaseActivity;
 import com.jiangzg.lovenote.helper.media.PlayerHelper;
-import com.jiangzg.lovenote.model.entity.Video;
 
 import butterknife.BindView;
 
@@ -24,18 +23,18 @@ public class VideoPlayActivity extends BaseActivity<VideoPlayActivity> {
     @BindView(R.id.vPlayer)
     PlayerView vPlayer;
 
-    private Video video;
+    private String ossKey;
 
     private ExoPlayer player;
     private ExtractorMediaSource mediaSource;
     private SimpleCache simpleCache;
 
-    public static void goActivity(Activity from, Video video) {
-        if (video == null || StringUtils.isEmpty(video.getContentVideo())) {
+    public static void goActivity(Activity from, String ossKey) {
+        if (StringUtils.isEmpty(ossKey)) {
             return;
         }
         Intent intent = new Intent(from, VideoPlayActivity.class);
-        intent.putExtra("video", video);
+        intent.putExtra("ossKey", ossKey);
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         ActivityTrans.start(from, intent);
     }
@@ -49,7 +48,7 @@ public class VideoPlayActivity extends BaseActivity<VideoPlayActivity> {
 
     @Override
     protected void initView(Intent intent, Bundle state) {
-        video = intent.getParcelableExtra("video");
+        ossKey = intent.getStringExtra("ossKey");
         // init
         player = PlayerHelper.getPlayer(mActivity);
         vPlayer.setPlayer(player);
@@ -62,11 +61,10 @@ public class VideoPlayActivity extends BaseActivity<VideoPlayActivity> {
     @Override
     protected void onStart() {
         super.onStart();
-        if (video == null) return;
         // 缓存
         simpleCache = PlayerHelper.getSimpleCache();
         // 资源
-        mediaSource = PlayerHelper.getDataSource(mActivity, simpleCache, video.getContentVideo());
+        mediaSource = PlayerHelper.getDataSource(mActivity, simpleCache, ossKey);
         // 播放
         PlayerHelper.play(player, mediaSource);
     }

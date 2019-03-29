@@ -115,17 +115,19 @@ public class AudioEditActivity extends BaseActivity<AudioEditActivity> {
         if (requestCode == BaseActivity.REQUEST_AUDIO) {
             // file
             audioFile = IntentResult.getAudioFile(data);
+            if (audioFile == null || FileUtils.isFileEmpty(audioFile)) {
+                ToastUtils.show(getString(R.string.file_no_exits));
+                return;
+            }
             // duration
             Map<String, String> audioInfo = ProviderUtils.getAudioInfo(data == null ? null : data.getData());
             String duration = audioInfo.get(MediaStore.Audio.Media.DURATION);
-            if (StringUtils.isNumber(duration)) {
+            if (audio != null && StringUtils.isNumber(duration)) {
                 audio.setDuration((int) TimeHelper.getGoTimeByJava(Integer.parseInt(duration)));
             }
-            if (audio.getDuration() <= 0 && audioFile != null) {
-                duration = VideoUtils.getVideoDuration(audioFile.getAbsolutePath());
-                if (StringUtils.isNumber(duration)) {
-                    audio.setDuration((int) TimeHelper.getGoTimeByJava(Integer.parseInt(duration)));
-                }
+            duration = VideoUtils.getVideoDuration(audioFile.getAbsolutePath());
+            if (audio != null && StringUtils.isNumber(duration)) {
+                audio.setDuration((int) TimeHelper.getGoTimeByJava(Integer.parseInt(duration)));
             }
             // view
             refreshAudioView();

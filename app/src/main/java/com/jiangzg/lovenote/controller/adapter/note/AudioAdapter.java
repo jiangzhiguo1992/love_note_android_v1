@@ -35,12 +35,6 @@ import retrofit2.Call;
 public class AudioAdapter extends BaseMultiItemQuickAdapter<Audio, BaseViewHolder> {
 
     private final Couple couple;
-    private final String year;
-    private final String month;
-    private final String dayT;
-    private final String hour;
-    private final String minute;
-    private final String second;
     private BaseActivity mActivity;
     private int playingIndex;
     private MediaPlayer mMediaPlayer;
@@ -53,12 +47,6 @@ public class AudioAdapter extends BaseMultiItemQuickAdapter<Audio, BaseViewHolde
         couple = SPHelper.getCouple();
         mMediaPlayer = mediaPlayer;
         playingIndex = -1;
-        year = mActivity.getString(R.string.year);
-        month = mActivity.getString(R.string.month);
-        dayT = mActivity.getString(R.string.dayT);
-        hour = mActivity.getString(R.string.hour_short);
-        minute = mActivity.getString(R.string.minute_short);
-        second = mActivity.getString(R.string.second);
     }
 
     @Override
