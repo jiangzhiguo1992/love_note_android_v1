@@ -51,9 +51,25 @@ public class VideoAdapter extends BaseQuickAdapter<Video, BaseViewHolder> {
         // data
         String thumb = item.getContentThumb();
         String title = item.getTitle();
-        TimeUnit timeUnit = TimeUnit.get(TimeHelper.getJavaTimeByGo(item.getDuration()));
-        String duration = timeUnit.getAllShow(true, true, true, true, true, true, ":", ":", ":", ":", ":", "");
-        duration = StringUtils.isEmpty(duration) ? "--:--" : duration;
+        String secShow;
+        long sec = item.getDuration() % (TimeUnit.MIN / TimeUnit.SEC);
+        if (sec < 1) {
+            secShow = "00";
+        } else if (sec < 10) {
+            secShow = "0" + String.valueOf(sec);
+        } else {
+            secShow = String.valueOf(sec);
+        }
+        String minShow;
+        long min = item.getDuration() / (TimeUnit.MIN / TimeUnit.SEC);
+        if (min < 1) {
+            minShow = "00";
+        } else if (min < 10) {
+            minShow = "0" + String.valueOf(min);
+        } else {
+            minShow = String.valueOf(min);
+        }
+        String duration = minShow + ":" + secShow;
         String happenAt = TimeHelper.getTimeShowLine_HM_MDHM_YMDHM_ByGo(item.getHappenAt());
         String address = item.getAddress();
         // view
