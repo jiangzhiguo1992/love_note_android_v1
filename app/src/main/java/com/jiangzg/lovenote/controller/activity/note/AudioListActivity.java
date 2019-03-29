@@ -150,6 +150,12 @@ public class AudioListActivity extends BaseActivity<AudioListActivity> {
         }
     }
 
+    @Override
+    protected void onStop() {
+        super.onStop();
+        PlayerUtils.destroy(mediaPlayer);
+    }
+
     @OnClick({R.id.fabAdd})
     public void onViewClicked(View view) {
         switch (view.getId()) {

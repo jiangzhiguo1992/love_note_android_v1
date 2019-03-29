@@ -26,8 +26,8 @@ public class VideoPlayActivity extends BaseActivity<VideoPlayActivity> {
     private String ossKey;
 
     private ExoPlayer player;
-    private ExtractorMediaSource mediaSource;
     private SimpleCache simpleCache;
+    private ExtractorMediaSource mediaSource;
 
     public static void goActivity(Activity from, String ossKey) {
         if (StringUtils.isEmpty(ossKey)) {
@@ -51,6 +51,7 @@ public class VideoPlayActivity extends BaseActivity<VideoPlayActivity> {
         ossKey = intent.getStringExtra("ossKey");
         // init
         player = PlayerHelper.getPlayer(mActivity);
+        simpleCache = PlayerHelper.getSimpleCache();
         vPlayer.setPlayer(player);
     }
 
@@ -61,12 +62,16 @@ public class VideoPlayActivity extends BaseActivity<VideoPlayActivity> {
     @Override
     protected void onStart() {
         super.onStart();
-        // 缓存
-        simpleCache = PlayerHelper.getSimpleCache();
-        // 资源
         mediaSource = PlayerHelper.getDataSource(mActivity, simpleCache, ossKey);
-        // 播放
         PlayerHelper.play(player, mediaSource);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if (isFinishing()) {
+            PlayerHelper.release(player, simpleCache, mediaSource);
+        }
     }
 
     @Override
