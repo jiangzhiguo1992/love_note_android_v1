@@ -1,5 +1,6 @@
 package com.jiangzg.lovenote.helper.common;
 
+import com.jiangzg.base.common.TimeUnit;
 import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.main.MyApp;
 
@@ -31,6 +32,28 @@ public class CountHelper {
             distanceShow = String.format(Locale.getDefault(), "%.0fm", distance);
         }
         return distanceShow;
+    }
+
+    public static String getDurationShow(int duration) {
+        String secShow;
+        long sec = duration % (TimeUnit.MIN / TimeUnit.SEC);
+        if (sec < 1) {
+            secShow = "00";
+        } else if (sec < 10) {
+            secShow = "0" + String.valueOf(sec);
+        } else {
+            secShow = String.valueOf(sec);
+        }
+        String minShow;
+        long min = duration / (TimeUnit.MIN / TimeUnit.SEC);
+        if (min < 1) {
+            minShow = "00";
+        } else if (min < 10) {
+            minShow = "0" + String.valueOf(min);
+        } else {
+            minShow = String.valueOf(min);
+        }
+        return minShow + ":" + secShow;
     }
 
 }

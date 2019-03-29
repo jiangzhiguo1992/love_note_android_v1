@@ -5,13 +5,12 @@ import android.media.MediaPlayer;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.chad.library.adapter.base.BaseMultiItemQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
-import com.jiangzg.base.common.StringUtils;
-import com.jiangzg.base.common.TimeUnit;
 import com.jiangzg.base.media.PlayerUtils;
 import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.controller.activity.base.BaseActivity;
 import com.jiangzg.lovenote.helper.common.ApiHelper;
+import com.jiangzg.lovenote.helper.common.CountHelper;
 import com.jiangzg.lovenote.helper.common.OssResHelper;
 import com.jiangzg.lovenote.helper.common.RxBus;
 import com.jiangzg.lovenote.helper.common.SPHelper;
@@ -67,9 +66,7 @@ public class AudioAdapter extends BaseMultiItemQuickAdapter<Audio, BaseViewHolde
         // data
         String avatar = UserHelper.getAvatar(couple, item.getUserId());
         int playIcon = (playingIndex == helper.getLayoutPosition()) ? R.mipmap.ic_pause_circle_outline_white_48dp : R.mipmap.ic_play_circle_outline_white_48dp;
-        TimeUnit timeUnit = TimeUnit.get(TimeHelper.getJavaTimeByGo(item.getDuration()));
-        String duration = timeUnit.getAllShow(true, true, true, true, true, true, year, month, dayT, hour, minute, second);
-        duration = StringUtils.isEmpty(duration) ? "--" : duration;
+        String duration = CountHelper.getDurationShow(item.getDuration());
         String happenAt = TimeHelper.getTimeShowLine_HM_MDHM_YMDHM_ByGo(item.getHappenAt());
         String title = item.getTitle();
         // view

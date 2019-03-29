@@ -42,21 +42,25 @@
             <TextView
                 android:id="@+id/tvTitle"
                 style="@style/FontBlackSmallBold"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:ellipsize="middle"
-                android:gravity="center"
+                android:ellipsize="marquee"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:gravity="start"
+                android:marqueeRepeatLimit="marquee_forever"
+                android:scrollHorizontally="true"
                 android:singleLine="true"
                 tools:text="录音介绍录音介绍"/>
 
             <TextView
                 android:id="@+id/tvDuration"
                 style="@style/FontGreySmall"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
-                android:gravity="center"
-                android:maxLines="1"
+                android:ellipsize="middle"
+                android:gravity="start"
                 android:singleLine="true"
                 tools:text="10:10:10"/>
         </RelativeLayout>

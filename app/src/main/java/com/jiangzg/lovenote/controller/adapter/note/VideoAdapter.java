@@ -8,7 +8,6 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.jiangzg.base.common.FileUtils;
 import com.jiangzg.base.common.StringUtils;
-import com.jiangzg.base.common.TimeUnit;
 import com.jiangzg.base.component.ActivityTrans;
 import com.jiangzg.base.component.IntentFactory;
 import com.jiangzg.base.view.ScreenUtils;
@@ -16,6 +15,7 @@ import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.controller.activity.base.BaseActivity;
 import com.jiangzg.lovenote.controller.activity.common.MapShowActivity;
+import com.jiangzg.lovenote.helper.common.CountHelper;
 import com.jiangzg.lovenote.helper.common.OssResHelper;
 import com.jiangzg.lovenote.helper.common.ResHelper;
 import com.jiangzg.lovenote.helper.common.RxBus;
@@ -51,25 +51,7 @@ public class VideoAdapter extends BaseQuickAdapter<Video, BaseViewHolder> {
         // data
         String thumb = item.getContentThumb();
         String title = item.getTitle();
-        String secShow;
-        long sec = item.getDuration() % (TimeUnit.MIN / TimeUnit.SEC);
-        if (sec < 1) {
-            secShow = "00";
-        } else if (sec < 10) {
-            secShow = "0" + String.valueOf(sec);
-        } else {
-            secShow = String.valueOf(sec);
-        }
-        String minShow;
-        long min = item.getDuration() / (TimeUnit.MIN / TimeUnit.SEC);
-        if (min < 1) {
-            minShow = "00";
-        } else if (min < 10) {
-            minShow = "0" + String.valueOf(min);
-        } else {
-            minShow = String.valueOf(min);
-        }
-        String duration = minShow + ":" + secShow;
+        String duration = CountHelper.getDurationShow(item.getDuration());
         String happenAt = TimeHelper.getTimeShowLine_HM_MDHM_YMDHM_ByGo(item.getHappenAt());
         String address = item.getAddress();
         // view
