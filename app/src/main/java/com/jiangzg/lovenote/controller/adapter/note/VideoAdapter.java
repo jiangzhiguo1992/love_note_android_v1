@@ -1,23 +1,18 @@
 package com.jiangzg.lovenote.controller.adapter.note;
 
-import android.content.Intent;
 import android.view.View;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
-import com.jiangzg.base.common.FileUtils;
 import com.jiangzg.base.common.StringUtils;
-import com.jiangzg.base.component.ActivityTrans;
-import com.jiangzg.base.component.IntentFactory;
 import com.jiangzg.base.view.ScreenUtils;
 import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.controller.activity.base.BaseActivity;
 import com.jiangzg.lovenote.controller.activity.common.MapShowActivity;
+import com.jiangzg.lovenote.controller.activity.common.VideoPlayActivity;
 import com.jiangzg.lovenote.helper.common.CountHelper;
-import com.jiangzg.lovenote.helper.common.OssResHelper;
-import com.jiangzg.lovenote.helper.common.ResHelper;
 import com.jiangzg.lovenote.helper.common.RxBus;
 import com.jiangzg.lovenote.helper.common.TimeHelper;
 import com.jiangzg.lovenote.helper.system.RetrofitHelper;
@@ -26,8 +21,6 @@ import com.jiangzg.lovenote.model.api.API;
 import com.jiangzg.lovenote.model.api.Result;
 import com.jiangzg.lovenote.model.entity.Video;
 import com.jiangzg.lovenote.view.FrescoView;
-
-import java.io.File;
 
 import retrofit2.Call;
 
@@ -72,22 +65,22 @@ public class VideoAdapter extends BaseQuickAdapter<Video, BaseViewHolder> {
         helper.addOnClickListener(R.id.ivLocation);
     }
 
+    // TODO
     public void playVideo(int position) {
         Video item = getItem(position);
         if (item == null) return;
-        //// 跳转视频播放页面
+        // 跳转视频播放页面
+        VideoPlayActivity.goActivity(mActivity, item);
+        //// 检查是否下载完毕
         //String contentVideo = item.getContentVideo();
-        //VideoPlayActivity.goActivity(mActivity, contentVideo);
-        // 检查是否下载完毕
-        String contentVideo = item.getContentVideo();
-        File file = OssResHelper.newKeyFile(contentVideo);
-        if (!FileUtils.isFileExists(file)) {
-            ToastUtils.show(mActivity.getString(R.string.are_download));
-            return;
-        }
-        // 播放调用系统界面
-        Intent intent = IntentFactory.getVideoPlayByFile(ResHelper.getFileProviderAuth(), file);
-        ActivityTrans.start(mActivity, intent);
+        //File file = ResHelper.newKeyFile(contentVideo);
+        //if (!FileUtils.isFileExists(file)) {
+        //    ToastUtils.show(mActivity.getString(R.string.are_download));
+        //    return;
+        //}
+        //// 播放调用系统界面
+        //Intent intent = IntentFactory.getVideoPlayByFile(ResHelper.getFileProviderAuth(), file);
+        //ActivityTrans.start(mActivity, intent);
     }
 
     public void goMapShow(int position) {

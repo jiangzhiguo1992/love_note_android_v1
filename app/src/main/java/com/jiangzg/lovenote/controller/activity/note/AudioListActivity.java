@@ -170,9 +170,6 @@ public class AudioListActivity extends BaseActivity<AudioListActivity> {
                 if (recyclerHelper == null) return;
                 List<Audio> audioList = data.getAudioList();
                 recyclerHelper.dataOk(data.getShow(), audioList, more);
-                // 刷新本地资
-                //List<String> ossKeyList = getOssKeyListByAudio(audioList);
-                //ResHelper.refreshResWithDelExpire(ResHelper.TYPE_NOTE_AUDIO, ossKeyList);
             }
 
             @Override

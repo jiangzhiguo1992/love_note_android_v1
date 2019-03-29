@@ -180,9 +180,6 @@ public class VideoListActivity extends BaseActivity<VideoListActivity> {
                 if (recyclerHelper == null) return;
                 List<Video> videoList = data.getVideoList();
                 recyclerHelper.dataOk(data.getShow(), videoList, more);
-                // 刷新本地资
-                //List<String> ossKeyList2 = getOssKeyListByVideo(videoList);
-                //ResHelper.refreshResWithDelExpire(ResHelper.TYPE_NOTE_VIDEO, ossKeyList2);
             }
 
             @Override

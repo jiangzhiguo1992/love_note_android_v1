@@ -506,14 +506,14 @@ public class ResHelper {
 
     // 图片-fresco缓存目录
     public static File createFrescoCacheDir() {
-        File file = new File(DeviceInfo.get().getOutFilesDir(), "fresco");
+        File file = new File(DeviceInfo.get().getOutCacheDir(), "fresco");
         FileUtils.createOrExistsDir(file);
         return file;
     }
 
-    // 视频-exo缓存目录
+    // 音视频-exo缓存目录
     public static File createExoCacheDir() {
-        File file = new File(DeviceInfo.get().getOutFilesDir(), "exo");
+        File file = new File(DeviceInfo.get().getOutCacheDir(), "exo");
         FileUtils.createOrExistsDir(file);
         return file;
     }
