@@ -31,7 +31,7 @@ import com.jiangzg.lovenote.controller.fragment.base.BaseFragment;
 import com.jiangzg.lovenote.controller.fragment.base.BasePagerFragment;
 import com.jiangzg.lovenote.helper.common.ApiHelper;
 import com.jiangzg.lovenote.helper.common.CountHelper;
-import com.jiangzg.lovenote.helper.common.OssResHelper;
+import com.jiangzg.lovenote.helper.common.ResHelper;
 import com.jiangzg.lovenote.helper.common.RxBus;
 import com.jiangzg.lovenote.helper.common.SPHelper;
 import com.jiangzg.lovenote.helper.common.UserHelper;
@@ -330,7 +330,7 @@ public class CoupleFragment extends BasePagerFragment<CoupleFragment> {
             List<String> imageList = new ArrayList<>();
             if (couple != null) imageList.add(couple.getCreatorAvatar());
             if (couple != null) imageList.add(couple.getInviteeAvatar());
-            OssResHelper.refreshResWithDelNoExist(OssResHelper.TYPE_COUPLE_AVATAR, imageList);
+            ResHelper.refreshResWithDelNoExist(ResHelper.TYPE_COUPLE_AVATAR, imageList);
             // 头像 + 名称
             User me = SPHelper.getMe();
             User ta = SPHelper.getTa();
@@ -360,14 +360,14 @@ public class CoupleFragment extends BasePagerFragment<CoupleFragment> {
             tvAddWallPaper.setVisibility(View.VISIBLE);
             vpWallPaper.setVisibility(View.GONE);
             // 删除本地文件
-            OssResHelper.refreshResWithDelNoExist(OssResHelper.TYPE_COUPLE_WALL, new ArrayList<>());
+            ResHelper.refreshResWithDelNoExist(ResHelper.TYPE_COUPLE_WALL, new ArrayList<>());
             return;
         }
         // 有图显示
         tvAddWallPaper.setVisibility(View.GONE);
         vpWallPaper.setVisibility(View.VISIBLE);
         // 本地文件刷新
-        OssResHelper.refreshResWithDelNoExist(OssResHelper.TYPE_COUPLE_WALL, imageList);
+        ResHelper.refreshResWithDelNoExist(ResHelper.TYPE_COUPLE_WALL, imageList);
         // vp适配器
         HomeWallPagerAdapter adapter = (HomeWallPagerAdapter) vpWallPaper.getAdapter();
         if (adapter == null) {

@@ -44,7 +44,6 @@ import com.jiangzg.base.view.ScreenUtils;
 import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.helper.common.ApiHelper;
 import com.jiangzg.lovenote.helper.common.OssHelper;
-import com.jiangzg.lovenote.helper.common.OssResHelper;
 import com.jiangzg.lovenote.helper.common.ResHelper;
 import com.jiangzg.lovenote.helper.media.FrescoHelper;
 import com.jiangzg.lovenote.main.MyApp;
@@ -251,11 +250,11 @@ public class FrescoView extends SimpleDraweeView {
 
     public void setData(String ossKey) {
         if (StringUtils.isEmpty(ossKey)) return;
-        if (OssResHelper.isKeyFileExists(ossKey)) {
-            File file = OssResHelper.newKeyFile(ossKey);
+        if (ResHelper.isKeyFileExists(ossKey)) {
+            File file = ResHelper.newKeyFile(ossKey);
             if (file != null && !FileUtils.isFileEmpty(file)) {
                 long lastModified = file.lastModified();
-                long maxOldTime = DateUtils.getCurrentLong() - OssResHelper.FILE_DOWNLOAD_WAIT;
+                long maxOldTime = DateUtils.getCurrentLong() - ResHelper.FILE_DOWNLOAD_WAIT;
                 if (lastModified > 0 && lastModified <= maxOldTime) {
                     // 有文件 已下载完
                     this.setDataFile(file);

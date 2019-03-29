@@ -3,7 +3,6 @@ package com.jiangzg.lovenote.helper.media;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.net.Uri;
-import android.os.Environment;
 
 import com.facebook.cache.disk.DiskCacheConfig;
 import com.facebook.cache.disk.FileCache;
@@ -22,11 +21,8 @@ import com.facebook.imagepipeline.core.ImagePipelineConfig;
 import com.facebook.imagepipeline.decoder.SimpleProgressiveJpegConfig;
 import com.facebook.imagepipeline.request.ImageRequest;
 import com.facebook.imagepipeline.request.ImageRequestBuilder;
-import com.jiangzg.base.common.FileUtils;
 import com.jiangzg.base.common.LogUtils;
-import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.lovenote.helper.common.ResHelper;
-import com.jiangzg.lovenote.helper.common.SPHelper;
 
 import okhttp3.OkHttpClient;
 
@@ -44,16 +40,14 @@ public class FrescoHelper {
             protected Uri getCacheKeySourceUri(Uri sourceUri) {
                 if (sourceUri == null) return null;
                 String key = sourceUri.toString();
-                String cacheKey = getOssPathByUrl(key);
+                String cacheKey = ResHelper.getOssPathByUrl(key);
                 return Uri.parse(cacheKey);
             }
         };
         // 设置缓存目录
-        long maxSize = Environment.getExternalStorageDirectory().getTotalSpace() / 2;
-        if (maxSize <= 0) maxSize = 10L * FileUtils.GB;
         DiskCacheConfig diskCacheConfig = DiskCacheConfig.newBuilder(ctx)
                 .setBaseDirectoryPath(ResHelper.createFrescoCacheDir()) // 路径
-                .setMaxCacheSize(maxSize) // 大小
+                .setMaxCacheSize(ResHelper.getMaxCacheSize()) // 大小
                 .build();
         // 初始化配置，使用okHttp的，会有准确的加载进度
         ImagePipelineConfig config = OkHttpImagePipelineConfigFactory.newBuilder(ctx, new OkHttpClient())
@@ -132,36 +126,6 @@ public class FrescoHelper {
             builder = builder.setTapToRetryEnabled(false); // 非网络图不支持重新加载
         }
         return builder;
-    }
-
-    // url转oss路径
-    private static String getOssPathByUrl(String url) {
-        if (StringUtils.isEmpty(url)) {
-            return "";
-        }
-        // 先剔除http:// 和 https://
-        if (url.startsWith("http")) {
-            String[] split = url.trim().split("//");
-            if (split.length >= 2) {
-                url = split[1];
-            }
-        }
-        // 再剔除get参数
-        if (url.contains("?")) {
-            String[] split = url.trim().split("\\?");
-            if (split.length > 0) {
-                url = split[0];
-            }
-        }
-        // 再剔除oss的endpoint
-        String domain = SPHelper.getOssInfo().getDomain();
-        if (url.contains(domain + "/")) {
-            String[] split = url.trim().split(domain + "/");
-            if (split.length >= 2) {
-                url = split[1];
-            }
-        }
-        return url;
     }
 
 }

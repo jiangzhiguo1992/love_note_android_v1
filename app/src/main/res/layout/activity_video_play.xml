@@ -6,8 +6,10 @@
     android:layout_height="match_parent"
     tools:context=".controller.activity.common.VideoPlayActivity">
 
-    <VideoView
-        android:id="@+id/vv"
+    <com.google.android.exoplayer2.ui.PlayerView
+        android:id="@+id/vPlayer"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent">
+
+    </com.google.android.exoplayer2.ui.PlayerView>
 </RelativeLayout>

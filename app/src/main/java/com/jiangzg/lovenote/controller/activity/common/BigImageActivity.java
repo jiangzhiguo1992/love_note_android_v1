@@ -23,7 +23,6 @@ import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.controller.activity.base.BaseActivity;
 import com.jiangzg.lovenote.controller.adapter.common.BigImagePagerAdapter;
 import com.jiangzg.lovenote.helper.common.OssHelper;
-import com.jiangzg.lovenote.helper.common.OssResHelper;
 import com.jiangzg.lovenote.helper.common.ResHelper;
 import com.jiangzg.lovenote.helper.view.DialogHelper;
 import com.jiangzg.lovenote.main.MyApp;
@@ -263,7 +262,7 @@ public class BigImageActivity extends BaseActivity<BigImageActivity> {
         PermUtils.requestPermissions(activity, BaseActivity.REQUEST_APP_INFO, PermUtils.appInfo, new PermUtils.OnPermissionListener() {
             @Override
             public void onPermissionGranted(int requestCode, String[] permissions) {
-                final File target = ResHelper.newImageDownLoadFile(objectKey);
+                final File target = ResHelper.newDownLoadFile(objectKey);
                 // 目标文件创建检查
                 if (target == null) {
                     ToastUtils.show(MyApp.get().getString(R.string.file_create_fail));
@@ -280,8 +279,8 @@ public class BigImageActivity extends BaseActivity<BigImageActivity> {
                     FileUtils.deleteFile(target); // 清除空文件
                 }
                 // 在OssRes中是否存在(note之类的缓存)
-                if (OssResHelper.isKeyFileExists(objectKey)) {
-                    File source = OssResHelper.newKeyFile(objectKey);
+                if (ResHelper.isKeyFileExists(objectKey)) {
+                    File source = ResHelper.newKeyFile(objectKey);
                     boolean copy = FileUtils.copyOrMoveFile(source, target, false);
                     if (copy) {
                         LogUtils.d(BigImageActivity.class, "downloadBigImage", "文件复制成功！");

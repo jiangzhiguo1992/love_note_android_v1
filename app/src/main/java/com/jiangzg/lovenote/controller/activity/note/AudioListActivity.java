@@ -21,7 +21,6 @@ import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.controller.activity.base.BaseActivity;
 import com.jiangzg.lovenote.controller.adapter.note.AudioAdapter;
 import com.jiangzg.lovenote.helper.common.ListHelper;
-import com.jiangzg.lovenote.helper.common.OssResHelper;
 import com.jiangzg.lovenote.helper.common.RxBus;
 import com.jiangzg.lovenote.helper.system.RetrofitHelper;
 import com.jiangzg.lovenote.helper.view.RecyclerHelper;
@@ -173,7 +172,7 @@ public class AudioListActivity extends BaseActivity<AudioListActivity> {
                 recyclerHelper.dataOk(data.getShow(), audioList, more);
                 // 刷新本地资
                 //List<String> ossKeyList = getOssKeyListByAudio(audioList);
-                //OssResHelper.refreshResWithDelExpire(OssResHelper.TYPE_NOTE_AUDIO, ossKeyList);
+                //ResHelper.refreshResWithDelExpire(ResHelper.TYPE_NOTE_AUDIO, ossKeyList);
             }
 
             @Override

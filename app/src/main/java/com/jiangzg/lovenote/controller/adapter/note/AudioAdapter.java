@@ -11,7 +11,7 @@ import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.controller.activity.base.BaseActivity;
 import com.jiangzg.lovenote.helper.common.ApiHelper;
 import com.jiangzg.lovenote.helper.common.CountHelper;
-import com.jiangzg.lovenote.helper.common.OssResHelper;
+import com.jiangzg.lovenote.helper.common.ResHelper;
 import com.jiangzg.lovenote.helper.common.RxBus;
 import com.jiangzg.lovenote.helper.common.SPHelper;
 import com.jiangzg.lovenote.helper.common.TimeHelper;
@@ -85,7 +85,7 @@ public class AudioAdapter extends BaseMultiItemQuickAdapter<Audio, BaseViewHolde
         if (item == null) return;
         // 检查是否下载完毕
         String contentAudio = item.getContentAudio();
-        boolean fileExists = OssResHelper.isKeyFileExists(contentAudio);
+        boolean fileExists = ResHelper.isKeyFileExists(contentAudio);
         if (!fileExists) {
             ToastUtils.show(mActivity.getString(R.string.are_download));
             return;
@@ -118,7 +118,7 @@ public class AudioAdapter extends BaseMultiItemQuickAdapter<Audio, BaseViewHolde
         if (playingIndex >= 0) {
             // 播放
             String contentAudio = getItem(playingIndex).getContentAudio();
-            File audioFile = OssResHelper.newKeyFile(contentAudio);
+            File audioFile = ResHelper.newKeyFile(contentAudio);
             if (audioFile == null) {
                 ToastUtils.show(mActivity.getString(R.string.audio_load_fail));
                 return;

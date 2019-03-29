@@ -19,7 +19,7 @@ import com.jiangzg.base.view.ScreenUtils;
 import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.controller.activity.base.BaseActivity;
 import com.jiangzg.lovenote.helper.common.ApiHelper;
-import com.jiangzg.lovenote.helper.common.OssResHelper;
+import com.jiangzg.lovenote.helper.common.ResHelper;
 import com.jiangzg.lovenote.helper.common.SPHelper;
 import com.jiangzg.lovenote.helper.common.UserHelper;
 import com.jiangzg.lovenote.helper.system.RetrofitHelper;
@@ -104,9 +104,9 @@ public class WelcomeActivity extends BaseActivity<WelcomeActivity> {
         List<File> fileList = new ArrayList<>();
         for (String path : imageList) {
             if (StringUtils.isEmpty(path)) continue;
-            boolean exists = OssResHelper.isKeyFileExists(path);
+            boolean exists = ResHelper.isKeyFileExists(path);
             if (!exists) continue;
-            File file = OssResHelper.newKeyFile(path);
+            File file = ResHelper.newKeyFile(path);
             fileList.add(file);
         }
         if (fileList.size() <= 0) {
