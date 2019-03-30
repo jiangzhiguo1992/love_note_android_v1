@@ -217,12 +217,9 @@ public class SPHelper {
     private static final String FIELD_VIP_LIMIT_GIFT_IMG_COUNT = "gift_image_count";
     private static final String FIELD_VIP_LIMIT_DIARY_IMG_SIZE = "diary_image_size";
     private static final String FIELD_VIP_LIMIT_DIARY_IMG_COUNT = "diary_image_count";
-    private static final String FIELD_VIP_LIMIT_PICTURE_SIZE = "picture_size";
-    private static final String FIELD_VIP_LIMIT_PICTURE_TOTAL_COUNT = "picture_total_count";
     private static final String FIELD_VIP_LIMIT_AUDIO_SIZE = "audio_size";
-    private static final String FIELD_VIP_LIMIT_AUDIO_TOTAL_COUNT = "audio_total_count";
     private static final String FIELD_VIP_LIMIT_VIDEO_SIZE = "video_size";
-    private static final String FIELD_VIP_LIMIT_VIDEO_TOTAL_COUNT = "video_total_count";
+    private static final String FIELD_VIP_LIMIT_PICTURE_ORIGINAL = "picture_original";
     private static final String FIELD_VIP_LIMIT_TOPIC_POST_IMAGE_COUNT = "topic_post_image_count";
     // version
     private static final String FIELD_VERSION_CREATE_AT = "create_at";
@@ -798,12 +795,9 @@ public class SPHelper {
         editor.putInt(FIELD_VIP_LIMIT_GIFT_IMG_COUNT, vipLimit.getGiftImageCount());
         editor.putInt(FIELD_VIP_LIMIT_DIARY_IMG_COUNT, vipLimit.getDiaryImageCount());
         editor.putLong(FIELD_VIP_LIMIT_DIARY_IMG_SIZE, vipLimit.getDiaryImageSize());
-        editor.putInt(FIELD_VIP_LIMIT_PICTURE_TOTAL_COUNT, vipLimit.getPictureTotalCount());
-        editor.putLong(FIELD_VIP_LIMIT_PICTURE_SIZE, vipLimit.getPictureSize());
         editor.putLong(FIELD_VIP_LIMIT_AUDIO_SIZE, vipLimit.getAudioSize());
-        editor.putInt(FIELD_VIP_LIMIT_AUDIO_TOTAL_COUNT, vipLimit.getAudioTotalCount());
         editor.putLong(FIELD_VIP_LIMIT_VIDEO_SIZE, vipLimit.getVideoSize());
-        editor.putInt(FIELD_VIP_LIMIT_VIDEO_TOTAL_COUNT, vipLimit.getVideoTotalCount());
+        editor.putBoolean(FIELD_VIP_LIMIT_PICTURE_ORIGINAL, vipLimit.isPictureOriginal());
         editor.putInt(FIELD_VIP_LIMIT_TOPIC_POST_IMAGE_COUNT, vipLimit.getTopicPostImageCount());
         editor.apply();
     }
@@ -821,12 +815,9 @@ public class SPHelper {
         vipLimit.setGiftImageCount(sp.getInt(FIELD_VIP_LIMIT_GIFT_IMG_COUNT, 0));
         vipLimit.setDiaryImageCount(sp.getInt(FIELD_VIP_LIMIT_DIARY_IMG_COUNT, 0));
         vipLimit.setDiaryImageSize(sp.getLong(FIELD_VIP_LIMIT_DIARY_IMG_SIZE, 0));
-        vipLimit.setPictureTotalCount(sp.getInt(FIELD_VIP_LIMIT_PICTURE_TOTAL_COUNT, 0));
-        vipLimit.setPictureSize(sp.getLong(FIELD_VIP_LIMIT_PICTURE_SIZE, 0));
         vipLimit.setAudioSize(sp.getLong(FIELD_VIP_LIMIT_AUDIO_SIZE, 0));
-        vipLimit.setAudioTotalCount(sp.getInt(FIELD_VIP_LIMIT_AUDIO_TOTAL_COUNT, 0));
         vipLimit.setVideoSize(sp.getLong(FIELD_VIP_LIMIT_VIDEO_SIZE, 0));
-        vipLimit.setVideoTotalCount(sp.getInt(FIELD_VIP_LIMIT_VIDEO_TOTAL_COUNT, 0));
+        vipLimit.setPictureOriginal(sp.getBoolean(FIELD_VIP_LIMIT_PICTURE_ORIGINAL, false));
         vipLimit.setTopicPostImageCount(sp.getInt(FIELD_VIP_LIMIT_TOPIC_POST_IMAGE_COUNT, 0));
         return vipLimit;
     }

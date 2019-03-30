@@ -1094,32 +1094,15 @@ public class OssHelper {
         uploadMiniFileInForegroundWithName(activity, ossDirPath, source, callBack);
     }
 
-    // 照片 (限制)
+    // 照片 (压缩)
     public static void uploadPicture(Activity activity, final List<String> sourceList, final OssUploadsCallBack callBack) {
-        long maxSize = SPHelper.getVipLimit().getPictureSize();
-        final List<File> fileList = ListHelper.getFileListByPath(sourceList);
-        int overLimit = 0;
-        for (int i = 0; i < fileList.size(); i++) {
-            File file = fileList.get(i);
-            if (FileUtils.isFileEmpty(file)) continue;
-            if (file.length() >= maxSize) {
-                overLimit = i + 1;
-                break;
-            }
-        }
-        if (overLimit > 0) {
-            String sizeFormat = ConvertUtils.byte2FitSize(maxSize);
-            String format = String.format(Locale.getDefault(), activity.getString(R.string.index_holder_file_too_large_cant_over_holder), overLimit, sizeFormat);
-            ToastUtils.show(format);
-            if (callBack != null) {
-                callBack.failure(0, fileList, format);
-            }
-            // vip跳转
-            VipActivity.goActivity(activity);
-            return;
-        }
         String ossDirPath = SPHelper.getOssInfo().getPathNotePicture();
-        uploadFilesInForegroundWithName(activity, fileList, ossDirPath, true, callBack);
+        List<File> fileList = ListHelper.getFileListByPath(sourceList);
+        if (SPHelper.getVipLimit().isPictureOriginal()) {
+            uploadFilesInForegroundWithName(activity, fileList, ossDirPath, true, callBack);
+        } else {
+            uploadMiniFilesInForegroundWithName(activity, ossDirPath, fileList, true, callBack);
+        }
     }
 
     // 耳语 (压缩)
@@ -1153,7 +1136,7 @@ public class OssHelper {
             return;
         }
         String ossDirPath = SPHelper.getOssInfo().getPathNoteDiary();
-        uploadFilesInForegroundWithName(activity, fileList, ossDirPath, true, callBack);
+        uploadFilesInForegroundWithName(activity, fileList, ossDirPath, false, callBack);
     }
 
     // 礼物 (压缩)

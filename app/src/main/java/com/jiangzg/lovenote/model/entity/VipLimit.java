@@ -13,11 +13,8 @@ public class VipLimit {
     private boolean noteTotalEnable;
     private int souvenirCount;
     private long videoSize;
-    private int videoTotalCount;
     private long audioSize;
-    private int audioTotalCount;
-    private long pictureSize;
-    private int pictureTotalCount;
+    private boolean pictureOriginal;
     private long diaryImageSize;
     private int diaryImageCount;
     private boolean whisperImageEnable;
@@ -26,6 +23,14 @@ public class VipLimit {
     private int movieImageCount;
     // topic
     private int topicPostImageCount;
+
+    public boolean isPictureOriginal() {
+        return pictureOriginal;
+    }
+
+    public void setPictureOriginal(boolean pictureOriginal) {
+        this.pictureOriginal = pictureOriginal;
+    }
 
     public int getMovieImageCount() {
         return movieImageCount;
@@ -75,22 +80,6 @@ public class VipLimit {
         this.foodImageCount = foodImageCount;
     }
 
-    public int getAudioTotalCount() {
-        return audioTotalCount;
-    }
-
-    public void setAudioTotalCount(int audioTotalCount) {
-        this.audioTotalCount = audioTotalCount;
-    }
-
-    public int getVideoTotalCount() {
-        return videoTotalCount;
-    }
-
-    public void setVideoTotalCount(int videoTotalCount) {
-        this.videoTotalCount = videoTotalCount;
-    }
-
     public long getAudioSize() {
         return audioSize;
     }
@@ -105,22 +94,6 @@ public class VipLimit {
 
     public void setVideoSize(long videoSize) {
         this.videoSize = videoSize;
-    }
-
-    public int getPictureTotalCount() {
-        return pictureTotalCount;
-    }
-
-    public void setPictureTotalCount(int pictureTotalCount) {
-        this.pictureTotalCount = pictureTotalCount;
-    }
-
-    public long getPictureSize() {
-        return pictureSize;
-    }
-
-    public void setPictureSize(long pictureSize) {
-        this.pictureSize = pictureSize;
     }
 
     public long getDiaryImageSize() {

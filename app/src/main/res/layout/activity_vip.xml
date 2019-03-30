@@ -294,41 +294,6 @@
                     </LinearLayout>
 
                     <LinearLayout
-                        android:id="@+id/llLimitVideoCount"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
-                        android:layout_marginBottom="5dp"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            style="@style/FontBlackNormal"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:gravity="center"
-                            android:text="@string/video"/>
-
-                        <TextView
-                            android:id="@+id/tvLimitLeftVideoCount"
-                            style="@style/FontGreyNormal"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="2"
-                            android:gravity="center"
-                            tools:text="上限10个"/>
-
-                        <TextView
-                            android:id="@+id/tvLimitRightVideoCount"
-                            style="@style/FontBlackNormalBold"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="2"
-                            android:gravity="center"
-                            tools:text="上限365个"/>
-                    </LinearLayout>
-
-                    <LinearLayout
                         android:id="@+id/llLimitAudioSize"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -364,42 +329,7 @@
                     </LinearLayout>
 
                     <LinearLayout
-                        android:id="@+id/llLimitAudioCount"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
-                        android:layout_marginBottom="5dp"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            style="@style/FontBlackNormal"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:gravity="center"
-                            android:text="@string/audio"/>
-
-                        <TextView
-                            android:id="@+id/tvLimitLeftAudioCount"
-                            style="@style/FontGreyNormal"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="2"
-                            android:gravity="center"
-                            tools:text="上限10个"/>
-
-                        <TextView
-                            android:id="@+id/tvLimitRightAudioCount"
-                            style="@style/FontBlackNormalBold"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="2"
-                            android:gravity="center"
-                            tools:text="上限365个"/>
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:id="@+id/llLimitPictureSize"
+                        android:id="@+id/llLimitPictureOriginal"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
@@ -415,57 +345,22 @@
                             android:text="@string/picture"/>
 
                         <TextView
-                            android:id="@+id/tvLimitLeftPictureSize"
+                            android:id="@+id/tvLimitLeftPictureOriginal"
                             style="@style/FontGreyNormal"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="2"
                             android:gravity="center"
-                            tools:text="单个大小"/>
+                            tools:text="压缩"/>
 
                         <TextView
-                            android:id="@+id/tvLimitRightPictureSize"
+                            android:id="@+id/tvLimitRightPictureOriginal"
                             style="@style/FontBlackNormalBold"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="2"
                             android:gravity="center"
-                            tools:text="单个大小"/>
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:id="@+id/llLimitPictureCount"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
-                        android:layout_marginBottom="5dp"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            style="@style/FontBlackNormal"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:gravity="center"
-                            android:text="@string/picture"/>
-
-                        <TextView
-                            android:id="@+id/tvLimitLeftPictureCount"
-                            style="@style/FontGreyNormal"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="2"
-                            android:gravity="center"
-                            tools:text="上限10个"/>
-
-                        <TextView
-                            android:id="@+id/tvLimitRightPictureCount"
-                            style="@style/FontBlackNormalBold"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="2"
-                            android:gravity="center"
-                            tools:text="上限365个"/>
+                            tools:text="原图"/>
                     </LinearLayout>
 
                     <LinearLayout

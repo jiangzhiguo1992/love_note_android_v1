@@ -84,6 +84,8 @@
     <string name="message">消息</string>
     <string name="publish">发表</string>
     <string name="take_picture">拍照</string>
+    <string name="compress">压缩</string>
+    <string name="original_image">原图</string>
     <string name="show">显示</string>
     <string name="notification">通知</string>
     <string name="other">其他</string>

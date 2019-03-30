@@ -78,26 +78,14 @@ public class VipActivity extends BaseActivity<VipActivity> {
     TextView tvLimitLeftVideoSize;
     @BindView(R.id.tvLimitRightVideoSize)
     TextView tvLimitRightVideoSize;
-    @BindView(R.id.tvLimitLeftVideoCount)
-    TextView tvLimitLeftVideoCount;
-    @BindView(R.id.tvLimitRightVideoCount)
-    TextView tvLimitRightVideoCount;
     @BindView(R.id.tvLimitLeftAudioSize)
     TextView tvLimitLeftAudioSize;
     @BindView(R.id.tvLimitRightAudioSize)
     TextView tvLimitRightAudioSize;
-    @BindView(R.id.tvLimitLeftAudioCount)
-    TextView tvLimitLeftAudioCount;
-    @BindView(R.id.tvLimitRightAudioCount)
-    TextView tvLimitRightAudioCount;
-    @BindView(R.id.tvLimitLeftPictureSize)
-    TextView tvLimitLeftPictureSize;
-    @BindView(R.id.tvLimitRightPictureSize)
-    TextView tvLimitRightPictureSize;
-    @BindView(R.id.tvLimitLeftPictureCount)
-    TextView tvLimitLeftPictureCount;
-    @BindView(R.id.tvLimitRightPictureCount)
-    TextView tvLimitRightPictureCount;
+    @BindView(R.id.tvLimitLeftPictureOriginal)
+    TextView tvLimitLeftPictureOriginal;
+    @BindView(R.id.tvLimitRightPictureOriginal)
+    TextView tvLimitRightPictureOriginal;
     @BindView(R.id.tvLimitLeftDiaryImageSize)
     TextView tvLimitLeftDiaryImageSize;
     @BindView(R.id.tvLimitRightDiaryImageSize)
@@ -252,11 +240,8 @@ public class VipActivity extends BaseActivity<VipActivity> {
             String noteTotal = vipNoLimit.isNoteTotalEnable() ? getString(R.string.open) : getString(R.string.refuse);
             String souvenir = String.format(Locale.getDefault(), getString(R.string.can_add_holder), vipNoLimit.getSouvenirCount());
             String videoSize = String.format(Locale.getDefault(), getString(R.string.single_max_holder), ConvertUtils.byte2FitSize(vipNoLimit.getVideoSize()));
-            String videoCount = String.format(Locale.getDefault(), getString(R.string.can_upload_holder), vipNoLimit.getVideoTotalCount());
             String audioSize = String.format(Locale.getDefault(), getString(R.string.single_max_holder), ConvertUtils.byte2FitSize(vipNoLimit.getAudioSize()));
-            String audioCount = String.format(Locale.getDefault(), getString(R.string.can_upload_holder), vipNoLimit.getAudioTotalCount());
-            String pictureSize = String.format(Locale.getDefault(), getString(R.string.single_paper_max_holder), ConvertUtils.byte2FitSize(vipNoLimit.getPictureSize()));
-            String pictureCount = String.format(Locale.getDefault(), getString(R.string.can_upload_holder_paper), vipNoLimit.getPictureTotalCount());
+            String pictureOriginal = vipNoLimit.isPictureOriginal() ? getString(R.string.original_image) : getString(R.string.compress);
             String diaryImageSize = String.format(Locale.getDefault(), getString(R.string.single_max_holder), ConvertUtils.byte2FitSize(vipNoLimit.getDiaryImageSize()));
             String diaryImageCount = String.format(Locale.getDefault(), getString(R.string.every_can_upload_holder_paper), vipNoLimit.getDiaryImageCount());
             String whisperImage = vipNoLimit.isWhisperImageEnable() ? getString(R.string.open_image_upload) : getString(R.string.refuse_image_upload);
@@ -271,11 +256,8 @@ public class VipActivity extends BaseActivity<VipActivity> {
             tvLimitLeftTotal.setText(noteTotal);
             tvLimitLeftSouvenir.setText(souvenir);
             tvLimitLeftVideoSize.setText(videoSize);
-            tvLimitLeftVideoCount.setText(videoCount);
             tvLimitLeftAudioSize.setText(audioSize);
-            tvLimitLeftAudioCount.setText(audioCount);
-            tvLimitLeftPictureSize.setText(pictureSize);
-            tvLimitLeftPictureCount.setText(pictureCount);
+            tvLimitLeftPictureOriginal.setText(pictureOriginal);
             tvLimitLeftDiaryImageSize.setText(diaryImageSize);
             tvLimitLeftDiaryImageCount.setText(diaryImageCount);
             tvLimitLeftWhisperImage.setText(whisperImage);
@@ -291,11 +273,8 @@ public class VipActivity extends BaseActivity<VipActivity> {
             String noteTotal = vipYesLimit.isNoteTotalEnable() ? getString(R.string.open) : getString(R.string.refuse);
             String souvenir = String.format(Locale.getDefault(), getString(R.string.can_add_holder), vipYesLimit.getSouvenirCount());
             String videoSize = String.format(Locale.getDefault(), getString(R.string.single_max_holder), ConvertUtils.byte2FitSize(vipYesLimit.getVideoSize()));
-            String videoCount = String.format(Locale.getDefault(), getString(R.string.can_upload_holder), vipYesLimit.getVideoTotalCount());
             String audioSize = String.format(Locale.getDefault(), getString(R.string.single_max_holder), ConvertUtils.byte2FitSize(vipYesLimit.getAudioSize()));
-            String audioCount = String.format(Locale.getDefault(), getString(R.string.can_upload_holder), vipYesLimit.getAudioTotalCount());
-            String pictureSize = String.format(Locale.getDefault(), getString(R.string.single_paper_max_holder), ConvertUtils.byte2FitSize(vipYesLimit.getPictureSize()));
-            String pictureCount = String.format(Locale.getDefault(), getString(R.string.can_upload_holder_paper), vipYesLimit.getPictureTotalCount());
+            String pictureOriginal = vipYesLimit.isPictureOriginal() ? getString(R.string.original_image) : getString(R.string.compress);
             String diaryImageSize = String.format(Locale.getDefault(), getString(R.string.single_max_holder), ConvertUtils.byte2FitSize(vipYesLimit.getDiaryImageSize()));
             String diaryImageCount = String.format(Locale.getDefault(), getString(R.string.every_can_upload_holder_paper), vipYesLimit.getDiaryImageCount());
             String whisperImage = vipYesLimit.isWhisperImageEnable() ? getString(R.string.open_image_upload) : getString(R.string.refuse_image_upload);
@@ -310,11 +289,8 @@ public class VipActivity extends BaseActivity<VipActivity> {
             tvLimitRightTotal.setText(noteTotal);
             tvLimitRightSouvenir.setText(souvenir);
             tvLimitRightVideoSize.setText(videoSize);
-            tvLimitRightVideoCount.setText(videoCount);
             tvLimitRightAudioSize.setText(audioSize);
-            tvLimitRightAudioCount.setText(audioCount);
-            tvLimitRightPictureSize.setText(pictureSize);
-            tvLimitRightPictureCount.setText(pictureCount);
+            tvLimitRightPictureOriginal.setText(pictureOriginal);
             tvLimitRightDiaryImageSize.setText(diaryImageSize);
             tvLimitRightDiaryImageCount.setText(diaryImageCount);
             tvLimitRightWhisperImage.setText(whisperImage);

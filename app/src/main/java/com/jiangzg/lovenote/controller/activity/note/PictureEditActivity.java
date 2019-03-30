@@ -263,10 +263,6 @@ public class PictureEditActivity extends BaseActivity<PictureEditActivity> {
     }
 
     private void goPicture() {
-        if (SPHelper.getVipLimit().getPictureTotalCount() <= 0) {
-            ToastUtils.show(mActivity.getString(R.string.refuse_image_upload));
-            return;
-        }
         if (recyclerHelper == null || recyclerHelper.getAdapter() == null) return;
         int pushCount = SPHelper.getLimit().getPicturePushCount();
         ImgSquareEditAdapter imgAdapter = recyclerHelper.getAdapter();
