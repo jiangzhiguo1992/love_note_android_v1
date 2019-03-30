@@ -25,4 +25,38 @@
         app:surface_type="surface_view"
         app:use_artwork="true"
         app:use_controller="true"/>
+
+    <LinearLayout
+        android:id="@+id/llTopInfo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/black_alpha_75">
+
+        <ImageView
+            android:id="@+id/ivBack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="?attr/selectableItemBackground"
+            android:foreground="?attr/selectableItemBackground"
+            android:padding="15dp"
+            android:src="@mipmap/ic_arrow_back_white_24dp"/>
+
+        <TextView
+            android:id="@+id/tvTitle"
+            style="@style/FontWhiteHuge"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_weight="1"
+            android:ellipsize="marquee"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:gravity="center_vertical|start"
+            android:marqueeRepeatLimit="marquee_forever"
+            android:scrollHorizontally="true"
+            android:singleLine="true"
+            tools:text="标题"/>
+    </LinearLayout>
+
 </RelativeLayout>
