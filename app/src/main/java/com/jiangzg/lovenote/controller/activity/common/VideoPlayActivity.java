@@ -45,8 +45,8 @@ public class VideoPlayActivity extends BaseActivity<VideoPlayActivity> {
             return;
         }
         Intent intent = new Intent(from, VideoPlayActivity.class);
-        intent.putExtra("ossKey", ossKey);
         intent.putExtra("title", title);
+        intent.putExtra("ossKey", ossKey);
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         ActivityTrans.start(from, intent);
     }
