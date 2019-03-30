@@ -14,12 +14,13 @@
     <com.jiangzg.lovenote.view.GSwipeRefreshLayout
         android:id="@+id/srl"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_margin="2.5dp">
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/rv"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_margin="2.5dp"/>
+            tools:listitem="@layout/list_item_wall_paper"/>
     </com.jiangzg.lovenote.view.GSwipeRefreshLayout>
 </LinearLayout>
