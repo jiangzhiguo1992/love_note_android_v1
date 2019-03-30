@@ -17,6 +17,7 @@ import com.jiangzg.base.component.ActivityTrans;
 import com.jiangzg.base.view.BarUtils;
 import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.controller.activity.base.BaseActivity;
+import com.jiangzg.lovenote.controller.activity.settings.HelpActivity;
 import com.jiangzg.lovenote.controller.adapter.couple.WeatherAdapter;
 import com.jiangzg.lovenote.helper.common.SPHelper;
 import com.jiangzg.lovenote.helper.common.UserHelper;
@@ -159,11 +160,14 @@ public class CoupleWeatherActivity extends BaseActivity<CoupleWeatherActivity> {
         RecyclerHelper.release(recyclerHelper);
     }
 
-    @OnClick({R.id.ivBack})
+    @OnClick({R.id.ivBack, R.id.ivHelp})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.ivBack: // 返回
                 mActivity.finish();
+                break;
+            case R.id.ivHelp: // 帮助
+                HelpActivity.goActivity(mActivity, HelpActivity.INDEX_COUPLE_WEATHER);
                 break;
         }
     }

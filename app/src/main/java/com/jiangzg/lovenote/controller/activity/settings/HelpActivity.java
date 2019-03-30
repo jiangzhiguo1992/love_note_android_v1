@@ -38,6 +38,8 @@ public class HelpActivity extends BaseActivity<HelpActivity> {
     public static final int INDEX_COUPLE_HOME = 100;
     public static final int INDEX_COUPLE_PAIR = 110;
     public static final int INDEX_COUPLE_INFO = 120;
+    public static final int INDEX_COUPLE_PLACE = 130;
+    public static final int INDEX_COUPLE_WEATHER = 140;
     // note
     public static final int INDEX_NOTE_HOME = 200;
     public static final int INDEX_NOTE_LOCK = 210;
@@ -177,6 +179,10 @@ public class HelpActivity extends BaseActivity<HelpActivity> {
                 return getHelpCouplePair(index);
             case INDEX_COUPLE_INFO:
                 return getHelpCoupleInfo(index);
+            case INDEX_COUPLE_PLACE:
+                return getHelpCouplePlace(index);
+            case INDEX_COUPLE_WEATHER:
+                return getHelpCoupleWeather(index);
             case INDEX_NOTE_HOME:
                 return getHelpNoteHome(index);
             case INDEX_NOTE_LOCK:
@@ -280,14 +286,6 @@ public class HelpActivity extends BaseActivity<HelpActivity> {
         c2.setQuestion(getString(R.string.help_couple_home_c2_q));
         c2.setAnswer(getString(R.string.help_couple_home_c2_a));
         contentList.add(c2);
-        Help.HelpContent c3 = new Help.HelpContent();
-        c3.setQuestion(getString(R.string.help_couple_home_c3_q));
-        c3.setAnswer(getString(R.string.help_couple_home_c3_a));
-        contentList.add(c3);
-        Help.HelpContent c4 = new Help.HelpContent();
-        c4.setQuestion(getString(R.string.help_couple_home_c4_q));
-        c4.setAnswer(getString(R.string.help_couple_home_c4_a));
-        contentList.add(c4);
         help.setContentList(contentList);
         // sub
         List<Help> subList = new ArrayList<>();
@@ -299,6 +297,14 @@ public class HelpActivity extends BaseActivity<HelpActivity> {
         s2.setIndex(INDEX_COUPLE_INFO);
         s2.setTitle(getString(R.string.pair_info));
         subList.add(s2);
+        Help s3 = new Help();
+        s3.setIndex(INDEX_COUPLE_PLACE);
+        s3.setTitle(getString(R.string.place));
+        subList.add(s3);
+        Help s4 = new Help();
+        s4.setIndex(INDEX_COUPLE_WEATHER);
+        s4.setTitle(getString(R.string.weather));
+        subList.add(s4);
         help.setSubList(subList);
         return help;
     }
@@ -351,6 +357,46 @@ public class HelpActivity extends BaseActivity<HelpActivity> {
         c4.setQuestion(getString(R.string.help_couple_info_c4_q));
         c4.setAnswer(String.format(Locale.getDefault(), getString(R.string.help_couple_info_c4_a), breakNeedDay, breakNeedDay, breakContinueHour));
         contentList.add(c4);
+        help.setContentList(contentList);
+        return help;
+    }
+
+    private Help getHelpCouplePlace(int index) {
+        Help help = new Help();
+        help.setIndex(index);
+        help.setTitle(getString(R.string.place));
+        // content
+        List<Help.HelpContent> contentList = new ArrayList<>();
+        Help.HelpContent c1 = new Help.HelpContent();
+        c1.setQuestion(getString(R.string.help_couple_place_c1_q));
+        c1.setAnswer(getString(R.string.help_couple_place_c1_a));
+        contentList.add(c1);
+        Help.HelpContent c2 = new Help.HelpContent();
+        c2.setQuestion(getString(R.string.help_couple_place_c2_q));
+        c2.setAnswer(getString(R.string.help_couple_place_c2_a));
+        contentList.add(c2);
+        Help.HelpContent c3 = new Help.HelpContent();
+        c3.setQuestion(getString(R.string.help_couple_place_c3_q));
+        c3.setAnswer(getString(R.string.help_couple_place_c3_a));
+        contentList.add(c3);
+        Help.HelpContent c4 = new Help.HelpContent();
+        c4.setQuestion(getString(R.string.help_couple_place_c4_q));
+        c4.setAnswer(getString(R.string.help_couple_place_c4_a));
+        contentList.add(c4);
+        help.setContentList(contentList);
+        return help;
+    }
+
+    private Help getHelpCoupleWeather(int index) {
+        Help help = new Help();
+        help.setIndex(index);
+        help.setTitle(getString(R.string.weather));
+        // content
+        List<Help.HelpContent> contentList = new ArrayList<>();
+        Help.HelpContent c1 = new Help.HelpContent();
+        c1.setQuestion(getString(R.string.help_couple_weather_c1_q));
+        c1.setAnswer(getString(R.string.help_couple_weather_c1_a));
+        contentList.add(c1);
         help.setContentList(contentList);
         return help;
     }

@@ -331,7 +331,7 @@
 
             <TextView
                 android:id="@+id/tvExist"
-                style="@style/FontBlackNormal"
+                style="@style/FontPrimaryNormal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
@@ -340,7 +340,7 @@
                 android:gravity="center"
                 android:padding="5dp"
                 android:text="@string/exist_account"
-                android:textColor="@color/theme_red_dark"/>
+                android:textColor="?attr/colorPrimaryDark"/>
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

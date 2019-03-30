@@ -639,10 +639,6 @@
     <string name="help_couple_home_c1_a">亲，下拉刷试试看哦！前提是对方已经同意了邀请哦。</string>
     <string name="help_couple_home_c2_q">怎么设置背景图？</string>
     <string name="help_couple_home_c2_a">点击右上角，即可进入相应界面进行设置，注意会员和非会员可上传的张数是不一样的哦。\n另外，只上传一张的话，是没有动画效果的。\n一定要记得上传哦，不仅好看，而且还会被当做app的启动图来展示呢！</string>
-    <string name="help_couple_home_c3_q">为什么位置和天气不更新？</string>
-    <string name="help_couple_home_c3_a">原因有以下几点：\n1.没有开启地理位置获取权限，导致不能上传位置给服务器，以及获取不到位置相关的天气信息。\n2.没有开启GPS，或者是GPS信号差，导致长时间获取不到位置信息。\n3.部分地区的位置和天气暂时无法获取，如撒哈拉沙漠。\n4.如果较上次更新的位置的移动距离过小，也是不会更新的哦。\n5.如果还是有问题，记得双方都下拉刷新试试能不能正常显示。如不能，请移步《意见反馈》中，反馈给我们。\n另外，为了确保用户设备的电量持久，以及为了遵守移动开发的基本准则。app不会在后台无限制的获取用户的地理位置，只有在app启动或者是下拉刷新的时候，才会获取用户的位置，进而更新天气信息。所以当位置和天气信息不准时，下拉刷新看看吧。</string>
-    <string name="help_couple_home_c4_q">位置可以删除或隐藏吗？</string>
-    <string name="help_couple_home_c4_a">目前不可以。</string>
     <string name="help_couple_pair_c1_q">只能输手机号配对吗？</string>
     <string name="help_couple_pair_c1_a">是的，我们摒弃了邀请码的配对方式，采用更坦诚的手机号邀请方式。</string>
     <string name="help_couple_pair_c2_q">为什么提示我邀请过于频繁？</string>
@@ -657,6 +653,16 @@
     <string name="help_couple_info_c3_a" formatted="false">在这里要着重声明一下，大家都没有错，只是概念不一样。其他app强调的是第几天，我们强调的是几天。\n举个例子：假设一对情侣是昨天早上10点在一起的话，今天早上9点看的话，其他app上当前显示的是第2天(今天加昨天)，我们这里显示的是第0天(23小时，不到一天)。懂了吗？</string>
     <string name="help_couple_info_c4_q">《解散》是干嘛的？</string>
     <string name="help_couple_info_c4_a" formatted="false">点击解散之后会出现两种状况:\n1.配对持续时长小于%d天时，直接解散。\n2.配对持续时长大于%d天时，会有%d小时的倒计时。倒计时内没有复合，视为单方面分手。倒计时内对方也点击解散，视为双方面分手。\n最后！注意！切记！如果是一些非原则性问题导致想不开的话，小编觉得还是多磨合一下的好。\n再一次最后，如果在感情上有什么疑问或者委屈，请移步《关于我们》，找到并联系我们，我们会尽最大的努力来帮助你。</string>
+    <string name="help_couple_place_c1_q">为什么位置不更新？</string>
+    <string name="help_couple_place_c1_a">原因有以下几点：\n1.没有开启地理位置获取权限，导致不能上传位置给服务器，以及获取不到位置相关的天气信息。\n2.没有开启GPS，或者是GPS信号差，导致长时间获取不到位置信息。\n3.部分地区的位置和天气暂时无法获取，如国外(部分可以)等等。\n4.如果较上次更新的位置的移动距离过小，也是不会更新的哦。具体的距离大小随地点不同而不同。\n5.如果还是有问题，记得双方都下拉刷新试试能不能正常显示。如不能，请移步《意见反馈》中，反馈给我们。\n另外，为了确保用户设备的电量持久，以及为了遵守移动开发的基本准则。app不会在后台无限制的获取用户的地理位置，只有在app启动或者是下拉刷新的时候，才会获取用户的位置，进而更新天气信息。所以当位置和天气信息不准时，下拉刷新看看吧。</string>
+    <string name="help_couple_place_c2_q">超过好几天没有更新位置了，正常吗？</string>
+    <string name="help_couple_place_c2_a">完全正常！上面提到过了，如果一直在同一位置(以及相距不远的位置)登录或刷新，是不会更新位置的！</string>
+    <string name="help_couple_place_c3_q">定位准确度不高怎么办？经常误差几十米！</string>
+    <string name="help_couple_place_c3_a">影响定位的精准度的因素有很多很多，除了上面提到的GPS、所处地区外，还有附近基站数量及信号强弱、定位的方式(wifi/基站/GPS)、天气状况等等很多很多因素。\n如果因为定位偏差带来情侣之间的误会，还请多多跟对方解释，说明缘由，必要时刻可以搬出客服人员帮您解说！</string>
+    <string name="help_couple_place_c4_q">位置可以删除或隐藏吗？</string>
+    <string name="help_couple_place_c4_a">目前不可以。</string>
+    <string name="help_couple_weather_c1_q">为什么没有天气信息？</string>
+    <string name="help_couple_weather_c1_a">原因有以下几点：\n1.如果没有位置信息的话，是不会有天气信息的。\n2.如果首页还没出现位置信息，就先打开天气预报的话，也是没有数据的，还请等首页位置刷出来之后，再点进来。\n3.另外，部分地区的天气预报暂无数据或数据异常，如国外等等。</string>
     <string name="help_note_home_d">记录与分享，这个模块更专注于记录。\n生活的点点滴滴，大小事项，都可以在这里记录哦！还不赶快动起手来？</string>
     <string name="help_note_home_c1_q">数据放在这里安全吗？</string>
     <string name="help_note_home_c1_a">请放心！此模块中的数据全为私有数据，除了你和TA之外无人可以访问。如果双方解除配对了，那么此配对中的记录模块的数据将不见天日，除非复合。</string>
