@@ -15,7 +15,6 @@ import android.widget.TextView;
 import com.jiangzg.base.common.DateUtils;
 import com.jiangzg.base.common.FileUtils;
 import com.jiangzg.base.common.StringUtils;
-import com.jiangzg.base.common.TimeUnit;
 import com.jiangzg.base.component.ActivityTrans;
 import com.jiangzg.base.component.IntentFactory;
 import com.jiangzg.base.component.IntentResult;
@@ -25,6 +24,7 @@ import com.jiangzg.base.system.PermUtils;
 import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.controller.activity.base.BaseActivity;
+import com.jiangzg.lovenote.helper.common.CountHelper;
 import com.jiangzg.lovenote.helper.common.OssHelper;
 import com.jiangzg.lovenote.helper.common.RxBus;
 import com.jiangzg.lovenote.helper.common.SPHelper;
@@ -187,19 +187,11 @@ public class AudioEditActivity extends BaseActivity<AudioEditActivity> {
 
     private void refreshAudioView() {
         if (audio == null) return;
-        String year = mActivity.getString(R.string.year);
-        String month = mActivity.getString(R.string.month);
-        String dayT = mActivity.getString(R.string.dayT);
-        String hour = mActivity.getString(R.string.hour_short);
-        String minute = mActivity.getString(R.string.minute_short);
-        String second = mActivity.getString(R.string.second);
-        TimeUnit timeUnit = TimeUnit.get(TimeHelper.getJavaTimeByGo(audio.getDuration()));
-        String duration = timeUnit.getAllShow(true, true, true, true, true, true, year, month, dayT, hour, minute, second);
-        if (StringUtils.isEmpty(duration) && audioFile == null) {
+        if (audio.getDuration() == 0 || audioFile == null) {
             tvDuration.setText(String.format(Locale.getDefault(), getString(R.string.duration_colon_space_holder), getString(R.string.please_select_audio)));
             return;
         }
-        duration = StringUtils.isEmpty(duration) ? "--" : duration;
+        String duration = CountHelper.getDurationShow(audio.getDuration());
         tvDuration.setText(String.format(Locale.getDefault(), getString(R.string.duration_colon_space_holder), duration));
     }
 
