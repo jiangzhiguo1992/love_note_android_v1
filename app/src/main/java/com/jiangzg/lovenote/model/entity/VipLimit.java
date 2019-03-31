@@ -14,6 +14,7 @@ public class VipLimit {
     private int souvenirCount;
     private long videoSize;
     private long audioSize;
+    private long pictureSize;
     private boolean pictureOriginal;
     private long diaryImageSize;
     private int diaryImageCount;
@@ -23,6 +24,14 @@ public class VipLimit {
     private int movieImageCount;
     // topic
     private int topicPostImageCount;
+
+    public long getPictureSize() {
+        return pictureSize;
+    }
+
+    public void setPictureSize(long pictureSize) {
+        this.pictureSize = pictureSize;
+    }
 
     public boolean isPictureOriginal() {
         return pictureOriginal;

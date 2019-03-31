@@ -1094,13 +1094,36 @@ public class OssHelper {
         uploadMiniFileInForegroundWithName(activity, ossDirPath, source, callBack);
     }
 
-    // 照片 (压缩)
+    // 照片 (压缩/限制)
     public static void uploadPicture(Activity activity, final List<String> sourceList, final OssUploadsCallBack callBack) {
         String ossDirPath = SPHelper.getOssInfo().getPathNotePicture();
         List<File> fileList = ListHelper.getFileListByPath(sourceList);
         if (SPHelper.getVipLimit().isPictureOriginal()) {
+            // 原图
+            long maxSize = SPHelper.getVipLimit().getPictureSize();
+            int overLimit = 0;
+            for (int i = 0; i < fileList.size(); i++) {
+                File file = fileList.get(i);
+                if (FileUtils.isFileEmpty(file)) continue;
+                if (file.length() >= maxSize) {
+                    overLimit = i + 1;
+                    break;
+                }
+            }
+            if (overLimit > 0) {
+                String sizeFormat = ConvertUtils.byte2FitSize(maxSize);
+                String format = String.format(Locale.getDefault(), activity.getString(R.string.index_holder_file_too_large_cant_over_holder), overLimit, sizeFormat);
+                ToastUtils.show(format);
+                if (callBack != null) {
+                    callBack.failure(0, fileList, format);
+                }
+                // vip跳转
+                VipActivity.goActivity(activity);
+                return;
+            }
             uploadFilesInForegroundWithName(activity, fileList, ossDirPath, true, callBack);
         } else {
+            // 压缩
             uploadMiniFilesInForegroundWithName(activity, ossDirPath, fileList, true, callBack);
         }
     }
