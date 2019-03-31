@@ -66,6 +66,8 @@ public class VideoPlayActivity extends BaseActivity<VideoPlayActivity> {
         simpleCache = PlayerHelper.getSimpleCache();
         vPlayer.setPlayer(player);
         // view
+        int barHeight = BarUtils.getStatusBarHeight(mActivity);
+        llTopInfo.setPadding(0, barHeight, 0, 0);
         tvTitle.setText(intent.getStringExtra("title"));
         // listener
         vPlayer.setControllerVisibilityListener(visibility -> {
