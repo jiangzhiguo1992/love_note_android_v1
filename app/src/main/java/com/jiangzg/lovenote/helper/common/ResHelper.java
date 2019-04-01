@@ -180,36 +180,6 @@ public class ResHelper {
     //public static final int TYPE_NOTE_FOOD = 280;
     //public static final int TYPE_NOTE_MOVIE = 290;
 
-    // url转oss路径
-    public static String getOssPathByUrl(String url) {
-        if (StringUtils.isEmpty(url)) {
-            return "";
-        }
-        // 先剔除http:// 和 https://
-        if (url.startsWith("http")) {
-            String[] split = url.trim().split("//");
-            if (split.length >= 2) {
-                url = split[1];
-            }
-        }
-        // 再剔除get参数
-        if (url.contains("?")) {
-            String[] split = url.trim().split("\\?");
-            if (split.length > 0) {
-                url = split[0];
-            }
-        }
-        // 再剔除oss的endpoint
-        String domain = SPHelper.getOssInfo().getDomain();
-        if (url.contains(domain + "/")) {
-            String[] split = url.trim().split(domain + "/");
-            if (split.length >= 2) {
-                url = split[1];
-            }
-        }
-        return url;
-    }
-
     // 获取ossKey的文件
     public static File newKeyFile(String objectKey) {
         if (StringUtils.isEmpty(objectKey)) {

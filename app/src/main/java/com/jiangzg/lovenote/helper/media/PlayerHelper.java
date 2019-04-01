@@ -154,7 +154,7 @@ class CacheKeyDataSourceFactory implements DataSource.Factory {
             Uri uri = dataSpec.uri;
             if (uri == null) return null;
             // uri转key
-            return ResHelper.getOssPathByUrl(uri.toString());
+            return OssHelper.getOssKey(uri.toString());
         });
     }
 

@@ -22,6 +22,7 @@ import com.facebook.imagepipeline.decoder.SimpleProgressiveJpegConfig;
 import com.facebook.imagepipeline.request.ImageRequest;
 import com.facebook.imagepipeline.request.ImageRequestBuilder;
 import com.jiangzg.base.common.LogUtils;
+import com.jiangzg.lovenote.helper.common.OssHelper;
 import com.jiangzg.lovenote.helper.common.ResHelper;
 
 import okhttp3.OkHttpClient;
@@ -40,7 +41,7 @@ public class FrescoHelper {
             protected Uri getCacheKeySourceUri(Uri sourceUri) {
                 if (sourceUri == null) return null;
                 String key = sourceUri.toString();
-                String cacheKey = ResHelper.getOssPathByUrl(key);
+                String cacheKey = OssHelper.getOssKey(key);
                 return Uri.parse(cacheKey);
             }
         };
