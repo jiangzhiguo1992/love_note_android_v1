@@ -29,57 +29,35 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
-            android:gravity="center"
             tools:text="内容介绍"/>
 
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <ImageView
-                android:id="@+id/ivHappenAt"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignTop="@+id/tvHappenAt"
-                android:layout_alignBottom="@+id/tvHappenAt"
-                android:layout_marginEnd="5dp"
-                android:src="@mipmap/ic_access_time_grey_18dp"
-                android:tint="@color/font_grey"/>
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
 
             <TextView
                 android:id="@+id/tvHappenAt"
                 style="@style/FontGreySmall"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_toEndOf="@+id/ivHappenAt"
-                android:gravity="center"
-                android:maxLines="1"
+                android:layout_marginEnd="5dp"
+                android:layout_weight="1"
+                android:ellipsize="middle"
                 android:singleLine="true"
                 tools:text="2017年 12月 31日"/>
 
             <TextView
                 android:id="@+id/tvAddress"
                 style="@style/FontGreySmall"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_toStartOf="@+id/ivAddress"
-                android:layout_toEndOf="@+id/tvHappenAt"
-                android:ellipsize="start"
+                android:layout_marginStart="5dp"
+                android:layout_weight="1"
+                android:ellipsize="middle"
                 android:gravity="end"
                 android:singleLine="true"
                 tools:text="地址地址地址地址"/>
-
-            <ImageView
-                android:id="@+id/ivAddress"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignTop="@+id/tvAddress"
-                android:layout_alignBottom="@+id/tvAddress"
-                android:layout_alignParentEnd="true"
-                android:layout_marginStart="5dp"
-                android:src="@mipmap/ic_location_on_grey_18dp"
-                android:tint="@color/font_grey"/>
-        </RelativeLayout>
+        </LinearLayout>
     </LinearLayout>
 </android.support.v7.widget.CardView>
