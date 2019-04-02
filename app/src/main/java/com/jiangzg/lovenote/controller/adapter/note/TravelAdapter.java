@@ -1,9 +1,5 @@
 package com.jiangzg.lovenote.controller.adapter.note;
 
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.view.View;
-
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.jiangzg.lovenote.R;
@@ -13,13 +9,9 @@ import com.jiangzg.lovenote.helper.common.RxBus;
 import com.jiangzg.lovenote.helper.common.SPHelper;
 import com.jiangzg.lovenote.helper.common.TimeHelper;
 import com.jiangzg.lovenote.helper.common.UserHelper;
-import com.jiangzg.lovenote.helper.view.RecyclerHelper;
 import com.jiangzg.lovenote.model.entity.Couple;
 import com.jiangzg.lovenote.model.entity.Travel;
-import com.jiangzg.lovenote.model.entity.TravelPlace;
 import com.jiangzg.lovenote.view.FrescoAvatarView;
-
-import java.util.List;
 
 /**
  * Created by JZG on 2018/3/13.

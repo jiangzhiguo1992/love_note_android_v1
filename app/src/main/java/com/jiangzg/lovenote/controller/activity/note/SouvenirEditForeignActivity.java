@@ -18,7 +18,6 @@ import com.chad.library.adapter.base.listener.OnItemChildClickListener;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.chad.library.adapter.base.listener.OnItemLongClickListener;
 import com.jiangzg.base.component.ActivityTrans;
-import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.controller.activity.base.BaseActivity;
 import com.jiangzg.lovenote.controller.adapter.note.AlbumAdapter;
