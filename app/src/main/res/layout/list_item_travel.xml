@@ -79,6 +79,6 @@
             android:layout_height="wrap_content"
             android:visibility="gone"
             tools:listitem="@layout/list_item_travel_place"
-            tools:visibility="visible"/>
+            tools:visibility="gone"/>
     </LinearLayout>
 </android.support.v7.widget.CardView>

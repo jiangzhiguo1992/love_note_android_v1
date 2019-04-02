@@ -41,37 +41,37 @@ public class TravelAdapter extends BaseQuickAdapter<Travel, BaseViewHolder> {
         String avatar = UserHelper.getAvatar(couple, item.getUserId());
         String title = item.getTitle();
         String happen = TimeHelper.getTimeShowLocal_HM_MD_YMD_ByGo(item.getHappenAt());
-        List<TravelPlace> placeList = item.getTravelPlaceList();
+        //List<TravelPlace> placeList = item.getTravelPlaceList();
         // view
         FrescoAvatarView ivAvatar = helper.getView(R.id.ivAvatar);
         ivAvatar.setData(avatar, item.getUserId());
         helper.setText(R.id.tvTitle, title);
         helper.setText(R.id.tvHappenAt, happen);
-        RecyclerView rv = helper.getView(R.id.rv);
-        if (placeList != null && placeList.size() > 0) {
-            rv.setVisibility(View.VISIBLE);
-            if (placeList.size() > 5) {
-                // 都返回，但是app最多显示5个
-                placeList = placeList.subList(0, 5);
-            }
-            new RecyclerHelper(rv)
-                    .initLayoutManager(new LinearLayoutManager(mActivity))
-                    .initAdapter(new TravelPlaceAdapter(mActivity))
-                    .viewAnim()
-                    .setAdapter()
-                    .listenerClick(new com.chad.library.adapter.base.listener.OnItemClickListener() {
-                        @Override
-                        public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
-                            TravelPlaceAdapter placeAdapter = (TravelPlaceAdapter) adapter;
-                            placeAdapter.goMapShow(position);
-                        }
-                    })
-                    .dataNew(placeList, 0);
-        } else {
-            rv.setVisibility(View.GONE);
-        }
+        //RecyclerView rv = helper.getView(R.id.rv);
+        //if (placeList != null && placeList.size() > 0) {
+        //    rv.setVisibility(View.VISIBLE);
+        //    if (placeList.size() > 5) {
+        //        // 都返回，但是app最多显示5个
+        //        placeList = placeList.subList(0, 5);
+        //    }
+        //    new RecyclerHelper(rv)
+        //            .initLayoutManager(new LinearLayoutManager(mActivity))
+        //            .initAdapter(new TravelPlaceAdapter(mActivity))
+        //            .viewAnim()
+        //            .setAdapter()
+        //            .listenerClick(new com.chad.library.adapter.base.listener.OnItemClickListener() {
+        //                @Override
+        //                public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
+        //                    TravelPlaceAdapter placeAdapter = (TravelPlaceAdapter) adapter;
+        //                    placeAdapter.goMapShow(position);
+        //                }
+        //            })
+        //            .dataNew(placeList, 0);
+        //} else {
+        //    rv.setVisibility(View.GONE);
+        //}
         // click
-        helper.addOnClickListener(R.id.rv);
+        //helper.addOnClickListener(R.id.rv);
     }
 
     public void selectTravel(int position) {
