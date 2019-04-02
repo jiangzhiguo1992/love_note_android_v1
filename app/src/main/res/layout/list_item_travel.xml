@@ -33,7 +33,7 @@
                 android:layout_alignParentStart="true"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="10dp"
-                android:layout_marginEnd="40dp"
+                android:layout_marginEnd="30dp"
                 android:layout_marginBottom="10dp"
                 app:cardCornerRadius="30dp"
                 app:cardElevation="@dimen/elevation_normal"
@@ -55,7 +55,6 @@
                 android:layout_marginEnd="10dp"
                 android:layout_toEndOf="@+id/cvAvatar"
                 android:ellipsize="middle"
-                android:gravity="center_vertical"
                 android:singleLine="true"
                 tools:text="天津波波鱼吃饭"/>
 
@@ -67,8 +66,7 @@
                 android:layout_alignBottom="@+id/cvAvatar"
                 android:layout_marginEnd="10dp"
                 android:layout_toEndOf="@+id/cvAvatar"
-                android:gravity="center_vertical"
-                android:maxLines="1"
+                android:ellipsize="middle"
                 android:singleLine="true"
                 tools:text="2017年12月31日"/>
         </RelativeLayout>
