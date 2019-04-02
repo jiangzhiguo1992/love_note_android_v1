@@ -105,10 +105,6 @@ public class SouvenirEditForeignActivity extends BaseActivity<SouvenirEditForeig
     private RecyclerHelper recyclerDiary;
 
     public static void goActivity(Fragment from, int year, Souvenir souvenir) {
-        if (souvenir == null || !souvenir.isMine()) {
-            ToastUtils.show(from.getString(R.string.can_operation_self_create_note));
-            return;
-        }
         Intent intent = new Intent(from.getActivity(), SouvenirEditForeignActivity.class);
         intent.putExtra("year", year);
         intent.putExtra("souvenir", souvenir);

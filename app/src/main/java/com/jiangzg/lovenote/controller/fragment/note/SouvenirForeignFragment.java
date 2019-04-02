@@ -101,12 +101,6 @@ public class SouvenirForeignFragment extends BasePagerFragment<SouvenirForeignFr
 
     @Override
     protected void initView(@Nullable Bundle state) {
-        // btn
-        if (souvenir == null || !souvenir.isMine()) {
-            rlEdit.setVisibility(View.GONE);
-        } else {
-            rlEdit.setVisibility(View.VISIBLE);
-        }
         // recycler
         refreshView();
     }

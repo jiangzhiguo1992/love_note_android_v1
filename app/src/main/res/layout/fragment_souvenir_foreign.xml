@@ -165,9 +165,7 @@
             android:layout_height="wrap_content"
             android:background="?attr/selectableItemBackground"
             android:foreground="?attr/selectableItemBackground"
-            android:padding="20dp"
-            android:visibility="gone"
-            tools:visibility="visible">
+            android:padding="20dp">
 
             <ImageView
                 android:layout_width="wrap_content"

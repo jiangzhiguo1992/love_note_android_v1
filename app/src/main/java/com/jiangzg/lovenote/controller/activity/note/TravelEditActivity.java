@@ -118,9 +118,6 @@ public class TravelEditActivity extends BaseActivity<TravelEditActivity> {
         if (travel == null) {
             goActivity(from);
             return;
-        } else if (!travel.isMine()) {
-            ToastUtils.show(from.getString(R.string.can_operation_self_create_note));
-            return;
         }
         Intent intent = new Intent(from, TravelEditActivity.class);
         intent.putExtra("from", BaseActivity.ACT_EDIT_FROM_UPDATE);
