@@ -5,7 +5,7 @@
     android:id="@+id/root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/shape_gradient_primary_trans"
+    android:background="?attr/colorPrimary"
     android:gravity="center_horizontal"
     android:orientation="vertical"
     tools:context=".controller.activity.couple.CoupleInfoActivity">
@@ -142,11 +142,11 @@
                 android:layout_marginStart="5dp"
                 android:layout_marginBottom="5dp"
                 android:src="@mipmap/ic_favorite_grey_18dp"
-                android:tint="?attr/colorPrimary"/>
+                android:tint="@color/white"/>
 
             <TextView
                 android:id="@+id/tvTogetherBefore"
-                style="@style/FontPrimaryNormal"
+                style="@style/FontWhiteNormal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignBottom="@+id/tvTogether"
@@ -157,7 +157,7 @@
 
             <TextView
                 android:id="@+id/tvTogether"
-                style="@style/FontPrimaryHugeBold"
+                style="@style/FontWhiteHugeBold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
@@ -168,7 +168,7 @@
 
             <TextView
                 android:id="@+id/tvTogetherAfter"
-                style="@style/FontPrimaryNormal"
+                style="@style/FontWhiteNormal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignBottom="@+id/tvTogether"
@@ -185,7 +185,7 @@
                 android:layout_marginEnd="3dp"
                 android:layout_toEndOf="@+id/tvTogetherAfter"
                 android:src="@mipmap/ic_favorite_grey_18dp"
-                android:tint="?attr/colorPrimary"/>
+                android:tint="@color/white"/>
         </RelativeLayout>
     </RelativeLayout>
 </LinearLayout>
