@@ -55,7 +55,9 @@
                             android:layout_height="wrap_content"
                             android:layout_marginEnd="5dp"
                             android:layout_weight="1"
-                            android:gravity="start|center_vertical"
+                            android:ellipsize="middle"
+                            android:gravity="start"
+                            android:singleLine="true"
                             tools:text="时间: 2018年 12月 21号"/>
 
                         <TextView
@@ -65,7 +67,9 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="5dp"
                             android:layout_weight="1"
-                            android:gravity="end|center_vertical"
+                            android:ellipsize="middle"
+                            android:gravity="end"
+                            android:singleLine="true"
                             tools:text="创建者: XXXXXXX"/>
                     </LinearLayout>
                 </LinearLayout>
@@ -75,7 +79,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
-                    android:layout_marginTop="20dp"
+                    android:layout_marginTop="30dp"
                     android:layout_marginEnd="10dp"
                     android:layout_marginBottom="10dp"
                     android:gravity="center_vertical"
