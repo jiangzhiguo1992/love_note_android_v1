@@ -357,6 +357,7 @@ public class CoupleFragment extends BasePagerFragment<CoupleFragment> {
         List<String> imageList = SPHelper.getWallPaper().getContentImageList();
         // 无图显示
         if (imageList == null || imageList.size() <= 0) {
+            ivBg.setVisibility(View.VISIBLE);
             tvAddWallPaper.setVisibility(View.VISIBLE);
             vpWallPaper.setVisibility(View.GONE);
             // 删除本地文件
@@ -364,6 +365,7 @@ public class CoupleFragment extends BasePagerFragment<CoupleFragment> {
             return;
         }
         // 有图显示
+        ivBg.setVisibility(View.GONE);
         tvAddWallPaper.setVisibility(View.GONE);
         vpWallPaper.setVisibility(View.VISIBLE);
         // 本地文件刷新
