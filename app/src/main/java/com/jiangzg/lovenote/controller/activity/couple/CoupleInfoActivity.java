@@ -23,6 +23,7 @@ import com.afollestad.materialdialogs.MaterialDialog;
 import com.jiangzg.base.common.DateUtils;
 import com.jiangzg.base.common.FileUtils;
 import com.jiangzg.base.common.LogUtils;
+import com.jiangzg.base.common.TimeUnit;
 import com.jiangzg.base.component.ActivityTrans;
 import com.jiangzg.base.component.IntentFactory;
 import com.jiangzg.base.view.BarUtils;
@@ -45,6 +46,7 @@ import com.jiangzg.lovenote.helper.media.PickHelper;
 import com.jiangzg.lovenote.helper.system.RetrofitHelper;
 import com.jiangzg.lovenote.helper.view.DialogHelper;
 import com.jiangzg.lovenote.helper.view.ViewHelper;
+import com.jiangzg.lovenote.main.MyApp;
 import com.jiangzg.lovenote.model.api.API;
 import com.jiangzg.lovenote.model.api.Result;
 import com.jiangzg.lovenote.model.entity.Couple;
@@ -88,8 +90,11 @@ public class CoupleInfoActivity extends BaseActivity<CoupleInfoActivity> {
     RelativeLayout rlTogether;
     @BindView(R.id.tvTogether)
     TextView tvTogether;
+    @BindView(R.id.tvTogetherTimer)
+    TextView tvTogetherTimer;
 
     private File cropFile;
+    private Runnable togetherCountDownTask;
 
     public static void goActivity(Fragment from) {
         if (UserHelper.isCoupleBreak(SPHelper.getCouple())) {
@@ -140,6 +145,7 @@ public class CoupleInfoActivity extends BaseActivity<CoupleInfoActivity> {
 
     @Override
     protected void onFinish(Bundle state) {
+        stopTogetherCountDownTask();
         // 创建成功的cropFile都要删除
         ResHelper.deleteFileInBackground(cropFile);
     }
@@ -261,6 +267,8 @@ public class CoupleInfoActivity extends BaseActivity<CoupleInfoActivity> {
         tvBirthLeft.setText(taBirthShow);
         tvBirthRight.setText(myBirthShow);
         tvTogether.setText(togetherDay);
+        // countdown
+        MyApp.get().getHandler().post(getTogetherCountDownTask());
     }
 
     @SuppressLint("InflateParams")
@@ -416,6 +424,47 @@ public class CoupleInfoActivity extends BaseActivity<CoupleInfoActivity> {
             }
         });
         pushApi(api);
+    }
+
+    // 分手倒计时
+    private Runnable getTogetherCountDownTask() {
+        if (togetherCountDownTask == null) {
+            togetherCountDownTask = new Runnable() {
+                @Override
+                public void run() {
+                    Couple couple = SPHelper.getCouple();
+                    if (couple == null) return;
+                    long togetherAt = TimeHelper.getJavaTimeByGo(couple.getTogetherAt());
+                    long timeGo = (DateUtils.getCurrentLong() - togetherAt) % TimeUnit.DAY / TimeUnit.SEC;
+                    if (timeGo <= 0) {
+                        String togetherDay = String.valueOf(UserHelper.getCoupleTogetherDay(couple));
+                        tvTogether.setText(togetherDay);
+                        RxBus.post(new RxBus.Event<>(RxBus.EVENT_COUPLE_REFRESH, couple));
+                    }
+                    String breakCountDownShow = getTogetherCountDownShow(timeGo);
+                    tvTogetherTimer.setText(breakCountDownShow);
+                    MyApp.get().getHandler().postDelayed(this, TimeUnit.SEC);
+                }
+            };
+        }
+        return togetherCountDownTask;
+    }
+
+    private void stopTogetherCountDownTask() {
+        if (togetherCountDownTask != null) {
+            MyApp.get().getHandler().removeCallbacks(togetherCountDownTask);
+            togetherCountDownTask = null;
+        }
+    }
+
+    private String getTogetherCountDownShow(long breakCountDown) {
+        long hour = breakCountDown / (TimeUnit.HOUR / TimeUnit.SEC);
+        String hourF = hour >= 10 ? "" : "0";
+        long min = (breakCountDown - hour * (TimeUnit.HOUR / TimeUnit.SEC)) / (TimeUnit.MIN / TimeUnit.SEC);
+        String minF = min >= 10 ? ":" : ":0";
+        long sec = breakCountDown - hour * (TimeUnit.HOUR / TimeUnit.SEC) - min * (TimeUnit.MIN / TimeUnit.SEC);
+        String secF = sec >= 10 ? ":" : ":0";
+        return hourF + hour + minF + min + secF + sec;
     }
 
 }

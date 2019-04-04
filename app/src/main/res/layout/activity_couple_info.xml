@@ -132,17 +132,20 @@
             android:id="@+id/rlTogether"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_centerInParent="true">
+            android:layout_centerInParent="true"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp">
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_above="@+id/tvTogetherBefore"
                 android:layout_alignStart="@+id/tvTogetherBefore"
+                android:layout_alignTop="@+id/tvTogether"
                 android:layout_marginStart="5dp"
-                android:layout_marginBottom="5dp"
                 android:src="@mipmap/ic_favorite_grey_18dp"
-                android:tint="@color/white"/>
+                android:tint="@color/white"
+                android:visibility="visible"/>
 
             <TextView
                 android:id="@+id/tvTogetherBefore"
@@ -152,7 +155,7 @@
                 android:layout_alignBottom="@+id/tvTogether"
                 android:layout_marginStart="3dp"
                 android:layout_marginEnd="3dp"
-                android:layout_toStartOf="@+id/tvTogether"
+                android:layout_marginBottom="13dp"
                 android:text="@string/in_together"/>
 
             <TextView
@@ -160,9 +163,9 @@
                 style="@style/FontWhiteHugeBold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
                 android:layout_marginStart="3dp"
                 android:layout_marginEnd="3dp"
+                android:layout_toEndOf="@+id/tvTogetherBefore"
                 android:textSize="50sp"
                 tools:text="365000"/>
 
@@ -174,18 +177,21 @@
                 android:layout_alignBottom="@+id/tvTogether"
                 android:layout_marginStart="3dp"
                 android:layout_marginEnd="3dp"
+                android:layout_marginBottom="13dp"
                 android:layout_toEndOf="@+id/tvTogether"
                 android:text="@string/dayT"/>
 
-            <ImageView
+            <TextView
+                android:id="@+id/tvTogetherTimer"
+                style="@style/FontWhiteHugeBold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignBottom="@+id/tvTogetherAfter"
-                android:layout_marginStart="3dp"
-                android:layout_marginEnd="3dp"
-                android:layout_toEndOf="@+id/tvTogetherAfter"
-                android:src="@mipmap/ic_favorite_grey_18dp"
-                android:tint="@color/white"/>
+                android:layout_alignBottom="@+id/tvTogether"
+                android:layout_alignParentEnd="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="7dp"
+                android:textSize="25sp"
+                tools:text="34:22:11"/>
         </RelativeLayout>
     </RelativeLayout>
 </LinearLayout>

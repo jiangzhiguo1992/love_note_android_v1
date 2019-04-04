@@ -14,8 +14,8 @@
     android:foreground="?attr/selectableItemBackground"
     app:cardBackgroundColor="@color/alpha_00"
     app:cardCornerRadius="@dimen/radius_normal"
-    app:cardElevation="@dimen/elevation_small"
-    app:cardMaxElevation="@dimen/elevation_normal">
+    app:cardElevation="0dp"
+    app:cardMaxElevation="@dimen/elevation_small">
 
     <LinearLayout
         android:layout_width="match_parent"
