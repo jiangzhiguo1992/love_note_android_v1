@@ -63,7 +63,7 @@ public class RxBus {
     public static final int EVENT_DIARY_LIST_ITEM_DELETE = 4131;
     public static final int EVENT_DIARY_LIST_ITEM_REFRESH = 4132;
     public static final int EVENT_DIARY_DETAIL_REFRESH = 4133;
-    public static final int EVENT_AWARD_LIST_REFRESH = 4140; // 奖励
+    public static final int EVENT_AWARD_LIST_REFRESH = 4140; // 约定
     public static final int EVENT_AWARD_LIST_ITEM_DELETE = 4141;
     public static final int EVENT_AWARD_RULE_LIST_REFRESH = 4142;
     public static final int EVENT_AWARD_RULE_LIST_ITEM_DELETE = 4143;

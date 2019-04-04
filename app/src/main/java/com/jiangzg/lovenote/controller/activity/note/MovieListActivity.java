@@ -107,7 +107,7 @@ public class MovieListActivity extends BaseActivity<MovieListActivity> {
                     public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
                         MovieAdapter movieAdapter = (MovieAdapter) adapter;
                         if (isFromSelect()) {
-                            // 规则选择
+                            // 电影选择
                             movieAdapter.selectMovie(position);
                         }
                     }

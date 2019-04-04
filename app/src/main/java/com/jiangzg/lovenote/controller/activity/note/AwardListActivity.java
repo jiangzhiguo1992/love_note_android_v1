@@ -164,7 +164,7 @@ public class AwardListActivity extends BaseActivity<AwardListActivity> {
             case R.id.llSearch: // 搜索
                 showSearchDialog();
                 break;
-            case R.id.llRule: // 规则
+            case R.id.llRule: // 约定
                 AwardRuleListActivity.goActivity(mActivity);
                 break;
             case R.id.llAdd: // 添加

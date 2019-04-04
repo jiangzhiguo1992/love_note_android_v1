@@ -128,7 +128,7 @@ public class AliPushReceiver extends MessageReceiver {
             case PushExtra.TYPE_NOTE_AWARD: // 奖励
                 AwardListActivity.goActivity(context);
                 break;
-            case PushExtra.TYPE_NOTE_AWARD_RULE: // 奖励规则
+            case PushExtra.TYPE_NOTE_AWARD_RULE: // 约定
                 AwardRuleListActivity.goActivity(context);
                 break;
             case PushExtra.TYPE_NOTE_DIARY: // 日记

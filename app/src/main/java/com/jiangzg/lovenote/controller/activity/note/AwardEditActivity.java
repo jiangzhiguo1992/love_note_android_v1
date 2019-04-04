@@ -144,7 +144,7 @@ public class AwardEditActivity extends BaseActivity<AwardEditActivity> {
             case R.id.llHappenUser: // 所属
                 showUserDialog();
                 break;
-            case R.id.llRule: // 规则
+            case R.id.llRule: // 约定
                 AwardRuleListActivity.goActivityBySelect(mActivity);
                 break;
         }

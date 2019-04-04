@@ -99,7 +99,7 @@ public class AwardRuleListActivity extends BaseActivity<AwardRuleListActivity> {
                     public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
                         AwardRuleAdapter awardRuleAdapter = (AwardRuleAdapter) adapter;
                         if (isFromSelect()) {
-                            // 规则选择
+                            // 约定选择
                             awardRuleAdapter.selectAwardRule(position);
                         }
                     }

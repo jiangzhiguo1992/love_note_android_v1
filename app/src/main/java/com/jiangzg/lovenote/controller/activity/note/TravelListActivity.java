@@ -101,7 +101,7 @@ public class TravelListActivity extends BaseActivity<TravelListActivity> {
                     public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
                         TravelAdapter travelAdapter = (TravelAdapter) adapter;
                         if (isFromSelect()) {
-                            // 规则选择
+                            // 游记选择
                             travelAdapter.selectTravel(position);
                         } else {
                             travelAdapter.goTravelDetail(position);

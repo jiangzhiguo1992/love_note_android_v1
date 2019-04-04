@@ -445,7 +445,7 @@ public class HelpActivity extends BaseActivity<HelpActivity> {
         subList.add(s4);
         Help s6 = new Help();
         s6.setIndex(INDEX_NOTE_AWARD);
-        s6.setTitle(getString(R.string.award));
+        s6.setTitle(getString(R.string.award_rule));
         subList.add(s6);
         Help s7 = new Help();
         s7.setIndex(INDEX_NOTE_TRAVEL);
@@ -592,7 +592,7 @@ public class HelpActivity extends BaseActivity<HelpActivity> {
     private Help getHelpNoteAward(int index) {
         Help help = new Help();
         help.setIndex(index);
-        help.setTitle(getString(R.string.award));
+        help.setTitle(getString(R.string.award_rule));
         help.setDesc(getString(R.string.help_note_award_d));
         // content
         List<Help.HelpContent> contentList = new ArrayList<>();

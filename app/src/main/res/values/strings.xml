@@ -442,7 +442,7 @@
     <string name="dream">梦境</string>
     <string name="award">奖励</string>
     <string name="movie">电影</string>
-    <string name="award_rule">奖励规则</string>
+    <string name="award_rule">约定</string>
     <string name="live">生活</string>
     <string name="note">笔记</string>
     <string name="media">多媒体</string>
@@ -463,14 +463,14 @@
     <string name="please_select_travel">请选择游记</string>
     <string name="please_select_gift">请选择礼物</string>
     <string name="please_select_promise">请选择承诺</string>
-    <string name="please_select_rule">请选择规则</string>
+    <string name="please_select_rule">请选择约定</string>
     <string name="please_select_score">请选择分数</string>
     <string name="is_save_draft">是否保存草稿</string>
     <string name="please_input_dream_content">请输入梦的情节，记得多少写多少</string>
     <string name="please_input_promise_content">请输入承诺的起因、经过和结果</string>
     <string name="please_input_angry_content">请输入生气的原由</string>
-    <string name="please_input_rule_content">请输入规则的具体内容</string>
-    <string name="please_input_trigger_rule">请输入触犯规则的情景</string>
+    <string name="please_input_rule_content">请输入约定的具体内容</string>
+    <string name="please_input_trigger_rule">请输入触犯约定的情景</string>
     <string name="please_input_track_content">请输入足迹的介绍</string>
     <string name="please_input_remark">请输入评价吧</string>
     <string name="confirm_del_comment">确定要删除评论吗？</string>
@@ -516,7 +516,7 @@
     <string name="belong_colon_space_holder" formatted="false">所属: %s</string>
     <string name="album_colon_space_holder" formatted="false">相册: %s</string>
     <string name="duration_colon_space_holder" formatted="false">时长: %s</string>
-    <string name="rule_colon_space_holder" formatted="false">规则: %s</string>
+    <string name="rule_colon_space_holder" formatted="false">约定: %s</string>
     <string name="picture_where">照片呢？</string>
     <string name="violate">违反</string>
     <string name="break_space_holder_space_time" formatted="false">违反 %d 次</string>
@@ -700,11 +700,11 @@
     <string name="help_note_whisper_c2_a">这个小的们也没辙啊！耳语的特性就是保密再保密，不可能有任何机会获取到已发布内容的频道号。所以，如果是重要的内容，还请大人们铭记频道！</string>
     <string name="help_note_whisper_c3_q">怎么删除？长按也不行！</string>
     <string name="help_note_whisper_c3_a">我想告诉你的是，这里的东西一旦发布，是不能删除的！\n所以要谨慎啊，要是是怕被TA看到的话，就找个难写的频道发表内容。</string>
-    <string name="help_note_award_d">这是一个奖善罚恶的机制。\n两个人的日常中，难免有人做错事，有人做对事。做错了就要惩罚，做对了就要奖励。\n情侣们可以在这里定制一套自己的规则，按规则来奖励与惩罚，以分数来论英雄。</string>
+    <string name="help_note_award_d">这是约定，也是一种奖善罚恶的机制。\n两个人的日常中，难免有人做错事，有人做对事。所以我们要来一些约定，违背了就要惩罚，做到了就要奖励。\n情侣们可以在这里定制一套自己的约定，按约定来奖励与惩罚，以分数来论英雄。</string>
     <string name="help_note_award_c1_q">怎么使用这个功能啊？</string>
-    <string name="help_note_award_c1_a">1.无规矩不成方圆。首先双方可以添加一些规则，用来告诉双方哪些事会触发机制。\n2.一旦触发了规则，就可以添加奖励，每个奖励必须依赖某个规则，不可以乱加哦！\n3.奖励发表的多了，就能看出来谁分高，谁分低了。谁做的好，谁做的不好。</string>
+    <string name="help_note_award_c1_a">1.无规矩不成方圆。首先双方可以添加一些约定，用来告诉双方哪些事会触发机制。\n2.一旦触发了约定，就可以添加奖励，每个奖励必须依赖某个约定，不可以乱加哦！\n3.奖励发表的多了，就能看出来谁分高，谁分低了。谁做的好，谁做的不好。</string>
     <string name="help_note_award_c2_q">举个栗子！</string>
-    <string name="help_note_award_c2_a">1.妹子讨厌男生抽烟，于是发布了一条规则：抽烟-10分。\n2.发现男生抽烟了，发布奖励，依赖抽烟的规则，男生总分数-10。\n3.分数总是负的不行啊，然后再发布一条规则：男生一天不打游戏的话，+10分。\n4.大概就是这样子，要有扣分规则，也要有加分规则，这样才平衡。</string>
+    <string name="help_note_award_c2_a">1.妹子讨厌男生抽烟，于是发布了一条约定：抽烟-10分。\n2.发现男生抽烟了，发布奖励，依赖抽烟的约定，男生总分数-10。\n3.分数总是负的不行啊，然后再发布一条约定：男生一天不打游戏的话，+10分。\n4.大概就是这样子，要有扣分约定，也要有加分约定，这样才平衡。</string>
     <string name="help_note_travel_d">一次约会，一次旅游，一次散步，一次踏足，甚至是一次异地恋的相见。都可以在这里记录哦！</string>
     <string name="help_note_travel_c1_q">每个游记可以添加多少关联数据呢？</string>
     <string name="help_note_travel_c1_a" formatted="false">%d个足迹，%d个相册，%d个视频，%d个美食，%d个电影，%d个日记。</string>

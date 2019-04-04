@@ -107,7 +107,7 @@ public class FoodListActivity extends BaseActivity<FoodListActivity> {
                     public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
                         FoodAdapter foodAdapter = (FoodAdapter) adapter;
                         if (isFromSelect()) {
-                            // 规则选择
+                            // 美食选择
                             foodAdapter.selectFood(position);
                         }
                     }

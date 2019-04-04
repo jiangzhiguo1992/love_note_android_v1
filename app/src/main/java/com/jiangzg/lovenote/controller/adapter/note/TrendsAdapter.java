@@ -140,7 +140,7 @@ public class TrendsAdapter extends BaseMultiItemQuickAdapter<Trends, BaseViewHol
             case Trends.TRENDS_CON_TYPE_DIARY: // 日记
                 return dDiary;
             case Trends.TRENDS_CON_TYPE_AWARD: // 奖励
-            case Trends.TRENDS_CON_TYPE_AWARD_RULE: // 规则
+            case Trends.TRENDS_CON_TYPE_AWARD_RULE: // 约定
                 return dAward;
             case Trends.TRENDS_CON_TYPE_DREAM: // 梦境
                 return dDream;
@@ -224,7 +224,7 @@ public class TrendsAdapter extends BaseMultiItemQuickAdapter<Trends, BaseViewHol
             case Trends.TRENDS_CON_TYPE_AWARD: // 奖励
                 AwardListActivity.goActivity(mActivity);
                 break;
-            case Trends.TRENDS_CON_TYPE_AWARD_RULE: // 奖励规则
+            case Trends.TRENDS_CON_TYPE_AWARD_RULE: // 约定
                 AwardRuleListActivity.goActivity(mActivity);
                 break;
             case Trends.TRENDS_CON_TYPE_DREAM: // 梦境
