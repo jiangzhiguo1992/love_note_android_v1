@@ -139,7 +139,7 @@ public class TrendsAdapter extends BaseMultiItemQuickAdapter<Trends, BaseViewHol
                 return dWhisper;
             case Trends.TRENDS_CON_TYPE_DIARY: // 日记
                 return dDiary;
-            case Trends.TRENDS_CON_TYPE_AWARD: // 奖励
+            case Trends.TRENDS_CON_TYPE_AWARD: // 打卡
             case Trends.TRENDS_CON_TYPE_AWARD_RULE: // 约定
                 return dAward;
             case Trends.TRENDS_CON_TYPE_DREAM: // 梦境
@@ -221,7 +221,7 @@ public class TrendsAdapter extends BaseMultiItemQuickAdapter<Trends, BaseViewHol
                     DiaryDetailActivity.goActivity(mActivity, contentId);
                 }
                 break;
-            case Trends.TRENDS_CON_TYPE_AWARD: // 奖励
+            case Trends.TRENDS_CON_TYPE_AWARD: // 打卡
                 AwardListActivity.goActivity(mActivity);
                 break;
             case Trends.TRENDS_CON_TYPE_AWARD_RULE: // 约定

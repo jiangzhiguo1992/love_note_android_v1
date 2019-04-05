@@ -91,7 +91,7 @@ public class ModelAdapter extends BaseQuickAdapter<Integer, BaseViewHolder> {
                 break;
             case AWARD:
                 helper.setImageResource(R.id.ivItem, R.mipmap.ic_note_award_24dp);
-                helper.setText(R.id.tvItem, MyApp.get().getString(R.string.award_rule));
+                helper.setText(R.id.tvItem, MyApp.get().getString(R.string.award));
                 break;
             case DREAM:
                 helper.setImageResource(R.id.ivItem, R.mipmap.ic_note_dream_24dp);

@@ -394,7 +394,7 @@
                             android:layout_height="wrap_content"
                             android:layout_centerVertical="true"
                             android:gravity="center_vertical"
-                            android:text="@string/award_rule"/>
+                            android:text="@string/award"/>
 
                         <ImageView
                             android:id="@+id/ivAward"

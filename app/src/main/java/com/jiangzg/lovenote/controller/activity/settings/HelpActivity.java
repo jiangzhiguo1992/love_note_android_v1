@@ -445,7 +445,7 @@ public class HelpActivity extends BaseActivity<HelpActivity> {
         subList.add(s4);
         Help s6 = new Help();
         s6.setIndex(INDEX_NOTE_AWARD);
-        s6.setTitle(getString(R.string.award_rule));
+        s6.setTitle(getString(R.string.award));
         subList.add(s6);
         Help s7 = new Help();
         s7.setIndex(INDEX_NOTE_TRAVEL);
@@ -592,7 +592,7 @@ public class HelpActivity extends BaseActivity<HelpActivity> {
     private Help getHelpNoteAward(int index) {
         Help help = new Help();
         help.setIndex(index);
-        help.setTitle(getString(R.string.award_rule));
+        help.setTitle(getString(R.string.award));
         help.setDesc(getString(R.string.help_note_award_d));
         // content
         List<Help.HelpContent> contentList = new ArrayList<>();
@@ -604,6 +604,14 @@ public class HelpActivity extends BaseActivity<HelpActivity> {
         c2.setQuestion(getString(R.string.help_note_award_c2_q));
         c2.setAnswer(getString(R.string.help_note_award_c2_a));
         contentList.add(c2);
+        Help.HelpContent c3 = new Help.HelpContent();
+        c3.setQuestion(getString(R.string.help_note_award_c3_q));
+        c3.setAnswer(getString(R.string.help_note_award_c3_a));
+        contentList.add(c3);
+        Help.HelpContent c4 = new Help.HelpContent();
+        c4.setQuestion(getString(R.string.help_note_award_c4_q));
+        c4.setAnswer(getString(R.string.help_note_award_c4_a));
+        contentList.add(c4);
         help.setContentList(contentList);
         return help;
     }

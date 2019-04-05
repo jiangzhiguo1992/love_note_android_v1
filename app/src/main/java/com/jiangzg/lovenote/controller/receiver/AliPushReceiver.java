@@ -125,7 +125,7 @@ public class AliPushReceiver extends MessageReceiver {
             case PushExtra.TYPE_NOTE_WORD: // 留言
                 WordListActivity.goActivity(context);
                 break;
-            case PushExtra.TYPE_NOTE_AWARD: // 奖励
+            case PushExtra.TYPE_NOTE_AWARD: // 打卡
                 AwardListActivity.goActivity(context);
                 break;
             case PushExtra.TYPE_NOTE_AWARD_RULE: // 约定

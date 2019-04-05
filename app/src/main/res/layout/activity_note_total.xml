@@ -256,7 +256,7 @@
                                     android:gravity="center"
                                     android:minWidth="60dp"
                                     android:padding="10dp"
-                                    android:text="@string/award_rule"/>
+                                    android:text="@string/award"/>
 
                                 <TextView
                                     android:id="@+id/tvAward"
