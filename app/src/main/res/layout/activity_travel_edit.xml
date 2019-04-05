@@ -26,7 +26,7 @@
                 style="@style/FontGreyNormal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
+                android:layout_marginTop="20dp"
                 android:background="@null"
                 android:hint="@string/please_input_title"
                 android:inputType="text"
@@ -101,27 +101,31 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
 
-            <RelativeLayout
-                android:id="@+id/rlPlaceAdd"
+            <LinearLayout
+                android:id="@+id/llPlaceAdd"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="10dp"
                 android:background="?attr/selectableItemBackground"
                 android:foreground="?attr/selectableItemBackground"
+                android:gravity="center"
+                android:padding="20dp"
                 android:visibility="gone"
                 tools:visibility="visible">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="5dp"
+                    android:src="@mipmap/ic_add_circle_outline_grey_18dp"
+                    android:tint="@color/font_grey"/>
 
                 <TextView
                     style="@style/FontGreyNormal"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:drawableStart="@mipmap/ic_add_circle_outline_grey_18dp"
-                    android:drawablePadding="5dp"
-                    android:paddingTop="10dp"
-                    android:paddingBottom="10dp"
+                    android:layout_marginStart="5dp"
                     android:text="@string/add_track"/>
-            </RelativeLayout>
+            </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/llAlbum"
@@ -157,27 +161,31 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
 
-            <RelativeLayout
-                android:id="@+id/rlAlbumAdd"
+            <LinearLayout
+                android:id="@+id/llAlbumAdd"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="10dp"
                 android:background="?attr/selectableItemBackground"
                 android:foreground="?attr/selectableItemBackground"
+                android:gravity="center"
+                android:padding="20dp"
                 android:visibility="gone"
                 tools:visibility="visible">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="5dp"
+                    android:src="@mipmap/ic_add_circle_outline_grey_18dp"
+                    android:tint="@color/font_grey"/>
 
                 <TextView
                     style="@style/FontGreyNormal"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:drawableStart="@mipmap/ic_add_circle_outline_grey_18dp"
-                    android:drawablePadding="5dp"
-                    android:paddingTop="10dp"
-                    android:paddingBottom="10dp"
+                    android:layout_marginStart="5dp"
                     android:text="@string/add_album"/>
-            </RelativeLayout>
+            </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/llVideo"
@@ -213,27 +221,31 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
 
-            <RelativeLayout
-                android:id="@+id/rlVideoAdd"
+            <LinearLayout
+                android:id="@+id/llVideoAdd"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="10dp"
                 android:background="?attr/selectableItemBackground"
                 android:foreground="?attr/selectableItemBackground"
+                android:gravity="center"
+                android:padding="20dp"
                 android:visibility="gone"
                 tools:visibility="visible">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="5dp"
+                    android:src="@mipmap/ic_add_circle_outline_grey_18dp"
+                    android:tint="@color/font_grey"/>
 
                 <TextView
                     style="@style/FontGreyNormal"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:drawableStart="@mipmap/ic_add_circle_outline_grey_18dp"
-                    android:drawablePadding="5dp"
-                    android:paddingTop="10dp"
-                    android:paddingBottom="10dp"
+                    android:layout_marginStart="5dp"
                     android:text="@string/add_video"/>
-            </RelativeLayout>
+            </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/llFood"
@@ -269,27 +281,31 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
 
-            <RelativeLayout
-                android:id="@+id/rlFoodAdd"
+            <LinearLayout
+                android:id="@+id/llFoodAdd"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="10dp"
                 android:background="?attr/selectableItemBackground"
                 android:foreground="?attr/selectableItemBackground"
+                android:gravity="center"
+                android:padding="20dp"
                 android:visibility="gone"
                 tools:visibility="visible">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="5dp"
+                    android:src="@mipmap/ic_add_circle_outline_grey_18dp"
+                    android:tint="@color/font_grey"/>
 
                 <TextView
                     style="@style/FontGreyNormal"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:drawableStart="@mipmap/ic_add_circle_outline_grey_18dp"
-                    android:drawablePadding="5dp"
-                    android:paddingTop="10dp"
-                    android:paddingBottom="10dp"
+                    android:layout_marginStart="5dp"
                     android:text="@string/add_food"/>
-            </RelativeLayout>
+            </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/llMovie"
@@ -325,27 +341,31 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
 
-            <RelativeLayout
-                android:id="@+id/rlMovieAdd"
+            <LinearLayout
+                android:id="@+id/llMovieAdd"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="10dp"
                 android:background="?attr/selectableItemBackground"
                 android:foreground="?attr/selectableItemBackground"
+                android:gravity="center"
+                android:padding="20dp"
                 android:visibility="gone"
                 tools:visibility="visible">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="5dp"
+                    android:src="@mipmap/ic_add_circle_outline_grey_18dp"
+                    android:tint="@color/font_grey"/>
 
                 <TextView
                     style="@style/FontGreyNormal"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:drawableStart="@mipmap/ic_add_circle_outline_grey_18dp"
-                    android:drawablePadding="5dp"
-                    android:paddingTop="10dp"
-                    android:paddingBottom="10dp"
+                    android:layout_marginStart="5dp"
                     android:text="@string/add_movie"/>
-            </RelativeLayout>
+            </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/llDiary"
@@ -381,27 +401,31 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
 
-            <RelativeLayout
-                android:id="@+id/rlDiaryAdd"
+            <LinearLayout
+                android:id="@+id/llDiaryAdd"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="10dp"
                 android:background="?attr/selectableItemBackground"
                 android:foreground="?attr/selectableItemBackground"
+                android:gravity="center"
+                android:padding="20dp"
                 android:visibility="gone"
                 tools:visibility="visible">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="5dp"
+                    android:src="@mipmap/ic_add_circle_outline_grey_18dp"
+                    android:tint="@color/font_grey"/>
 
                 <TextView
                     style="@style/FontGreyNormal"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:drawableStart="@mipmap/ic_add_circle_outline_grey_18dp"
-                    android:drawablePadding="5dp"
-                    android:paddingTop="10dp"
-                    android:paddingBottom="10dp"
+                    android:layout_marginStart="5dp"
                     android:text="@string/add_diary"/>
-            </RelativeLayout>
+            </LinearLayout>
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
 </LinearLayout>
