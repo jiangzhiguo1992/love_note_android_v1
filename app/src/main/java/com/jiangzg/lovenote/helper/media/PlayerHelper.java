@@ -94,68 +94,67 @@ public class PlayerHelper {
             cache = null;
         }
     }
-}
 
-// 带有缓存key的
-class CacheKeyDataSourceFactory implements DataSource.Factory {
+    // 带有缓存key的
+    static class CacheKeyDataSourceFactory implements DataSource.Factory {
 
-    private final Cache cache;
-    private final DataSource.Factory upstreamFactory;
-    private final DataSource.Factory cacheReadDataSourceFactory;
-    private final DataSink.Factory cacheWriteDataSinkFactory;
-    private final int flags;
-    private final CacheDataSource.EventListener eventListener;
+        private final Cache cache;
+        private final DataSource.Factory upstreamFactory;
+        private final DataSource.Factory cacheReadDataSourceFactory;
+        private final DataSink.Factory cacheWriteDataSinkFactory;
+        private final int flags;
+        private final CacheDataSource.EventListener eventListener;
 
-    /**
-     * @see CacheDataSource#CacheDataSource(Cache, DataSource)
-     */
-    public CacheKeyDataSourceFactory(Cache cache, DataSource.Factory upstreamFactory) {
-        this(cache, upstreamFactory, 0);
+        /**
+         * @see CacheDataSource#CacheDataSource(Cache, DataSource)
+         */
+        public CacheKeyDataSourceFactory(Cache cache, DataSource.Factory upstreamFactory) {
+            this(cache, upstreamFactory, 0);
+        }
+
+        /**
+         * @see CacheDataSource#CacheDataSource(Cache, DataSource, int)
+         */
+        public CacheKeyDataSourceFactory(Cache cache, DataSource.Factory upstreamFactory,
+                                         @CacheDataSource.Flags int flags) {
+            this(cache, upstreamFactory, flags, CacheDataSource.DEFAULT_MAX_CACHE_FILE_SIZE);
+        }
+
+        /**
+         * @see CacheDataSource#CacheDataSource(Cache, DataSource, int, long)
+         */
+        public CacheKeyDataSourceFactory(Cache cache, DataSource.Factory upstreamFactory,
+                                         @CacheDataSource.Flags int flags, long maxCacheFileSize) {
+            this(cache, upstreamFactory, new FileDataSourceFactory(),
+                    new CacheDataSinkFactory(cache, maxCacheFileSize), flags, null);
+        }
+
+        /**
+         * @see CacheDataSource#CacheDataSource(Cache, DataSource, DataSource, DataSink, int,
+         * CacheDataSource.EventListener)
+         */
+        public CacheKeyDataSourceFactory(Cache cache, DataSource.Factory upstreamFactory,
+                                         DataSource.Factory cacheReadDataSourceFactory, DataSink.Factory cacheWriteDataSinkFactory,
+                                         @CacheDataSource.Flags int flags, CacheDataSource.EventListener eventListener) {
+            this.cache = cache;
+            this.upstreamFactory = upstreamFactory;
+            this.cacheReadDataSourceFactory = cacheReadDataSourceFactory;
+            this.cacheWriteDataSinkFactory = cacheWriteDataSinkFactory;
+            this.flags = flags;
+            this.eventListener = eventListener;
+        }
+
+        @Override
+        public CacheDataSource createDataSource() {
+            return new CacheDataSource(cache, upstreamFactory.createDataSource(),
+                    cacheReadDataSourceFactory.createDataSource(),
+                    cacheWriteDataSinkFactory != null ? cacheWriteDataSinkFactory.createDataSink() : null,
+                    flags, eventListener, dataSpec -> {
+                Uri uri = dataSpec.uri;
+                if (uri == null) return null;
+                // uri转key
+                return OssHelper.getOssKey(uri.toString());
+            });
+        }
     }
-
-    /**
-     * @see CacheDataSource#CacheDataSource(Cache, DataSource, int)
-     */
-    public CacheKeyDataSourceFactory(Cache cache, DataSource.Factory upstreamFactory,
-                                     @CacheDataSource.Flags int flags) {
-        this(cache, upstreamFactory, flags, CacheDataSource.DEFAULT_MAX_CACHE_FILE_SIZE);
-    }
-
-    /**
-     * @see CacheDataSource#CacheDataSource(Cache, DataSource, int, long)
-     */
-    public CacheKeyDataSourceFactory(Cache cache, DataSource.Factory upstreamFactory,
-                                     @CacheDataSource.Flags int flags, long maxCacheFileSize) {
-        this(cache, upstreamFactory, new FileDataSourceFactory(),
-                new CacheDataSinkFactory(cache, maxCacheFileSize), flags, null);
-    }
-
-    /**
-     * @see CacheDataSource#CacheDataSource(Cache, DataSource, DataSource, DataSink, int,
-     * CacheDataSource.EventListener)
-     */
-    public CacheKeyDataSourceFactory(Cache cache, DataSource.Factory upstreamFactory,
-                                     DataSource.Factory cacheReadDataSourceFactory, DataSink.Factory cacheWriteDataSinkFactory,
-                                     @CacheDataSource.Flags int flags, CacheDataSource.EventListener eventListener) {
-        this.cache = cache;
-        this.upstreamFactory = upstreamFactory;
-        this.cacheReadDataSourceFactory = cacheReadDataSourceFactory;
-        this.cacheWriteDataSinkFactory = cacheWriteDataSinkFactory;
-        this.flags = flags;
-        this.eventListener = eventListener;
-    }
-
-    @Override
-    public CacheDataSource createDataSource() {
-        return new CacheDataSource(cache, upstreamFactory.createDataSource(),
-                cacheReadDataSourceFactory.createDataSource(),
-                cacheWriteDataSinkFactory != null ? cacheWriteDataSinkFactory.createDataSink() : null,
-                flags, eventListener, dataSpec -> {
-            Uri uri = dataSpec.uri;
-            if (uri == null) return null;
-            // uri转key
-            return OssHelper.getOssKey(uri.toString());
-        });
-    }
-
 }
