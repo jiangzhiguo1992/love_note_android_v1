@@ -419,6 +419,10 @@ public class HelpActivity extends BaseActivity<HelpActivity> {
         s1.setIndex(INDEX_NOTE_LOCK);
         s1.setTitle(getString(R.string.pwd_lock));
         subList.add(s1);
+        Help s2 = new Help();
+        s2.setIndex(INDEX_NOTE_SOUVENIR);
+        s2.setTitle(getString(R.string.souvenir));
+        subList.add(s2);
         Help s11 = new Help();
         s11.setIndex(INDEX_NOTE_SHY);
         s11.setTitle(getString(R.string.shy));
@@ -431,10 +435,6 @@ public class HelpActivity extends BaseActivity<HelpActivity> {
         s13.setIndex(INDEX_NOTE_SLEEP);
         s13.setTitle(getString(R.string.sleep));
         subList.add(s13);
-        Help s2 = new Help();
-        s2.setIndex(INDEX_NOTE_SOUVENIR);
-        s2.setTitle(getString(R.string.souvenir));
-        subList.add(s2);
         Help s3 = new Help();
         s3.setIndex(INDEX_NOTE_WORD);
         s3.setTitle(getString(R.string.word));
@@ -469,6 +469,26 @@ public class HelpActivity extends BaseActivity<HelpActivity> {
         Help.HelpContent c2 = new Help.HelpContent();
         c2.setQuestion(getString(R.string.help_note_lock_c2_q));
         c2.setAnswer(getString(R.string.help_note_lock_c2_a));
+        contentList.add(c2);
+        help.setContentList(contentList);
+        return help;
+    }
+
+    private Help getHelpNoteSouvenir(int index) {
+        int souvenirForeignYearCount = SPHelper.getLimit().getSouvenirForeignYearCount();
+        Help help = new Help();
+        help.setIndex(index);
+        help.setTitle(getString(R.string.souvenir));
+        help.setDesc(getString(R.string.help_note_souvenir_d));
+        // content
+        List<Help.HelpContent> contentList = new ArrayList<>();
+        Help.HelpContent c1 = new Help.HelpContent();
+        c1.setQuestion(getString(R.string.help_note_souvenir_c1_q));
+        c1.setAnswer(getString(R.string.help_note_souvenir_c1_a));
+        contentList.add(c1);
+        Help.HelpContent c2 = new Help.HelpContent();
+        c2.setQuestion(getString(R.string.help_note_souvenir_c2_q));
+        c2.setAnswer(String.format(Locale.getDefault(), getString(R.string.help_note_souvenir_c2_a), souvenirForeignYearCount));
         contentList.add(c2);
         help.setContentList(contentList);
         return help;
@@ -524,30 +544,6 @@ public class HelpActivity extends BaseActivity<HelpActivity> {
         c2.setQuestion(getString(R.string.help_note_sleep_c2_q));
         c2.setAnswer(getString(R.string.help_note_sleep_c2_a));
         contentList.add(c2);
-        help.setContentList(contentList);
-        return help;
-    }
-
-    private Help getHelpNoteSouvenir(int index) {
-        int souvenirForeignYearCount = SPHelper.getLimit().getSouvenirForeignYearCount();
-        Help help = new Help();
-        help.setIndex(index);
-        help.setTitle(getString(R.string.souvenir));
-        help.setDesc(getString(R.string.help_note_souvenir_d));
-        // content
-        List<Help.HelpContent> contentList = new ArrayList<>();
-        Help.HelpContent c1 = new Help.HelpContent();
-        c1.setQuestion(getString(R.string.help_note_souvenir_c1_q));
-        c1.setAnswer(getString(R.string.help_note_souvenir_c1_a));
-        contentList.add(c1);
-        Help.HelpContent c2 = new Help.HelpContent();
-        c2.setQuestion(getString(R.string.help_note_souvenir_c2_q));
-        c2.setAnswer(getString(R.string.help_note_souvenir_c2_a));
-        contentList.add(c2);
-        Help.HelpContent c3 = new Help.HelpContent();
-        c3.setQuestion(getString(R.string.help_note_souvenir_c3_q));
-        c3.setAnswer(String.format(Locale.getDefault(), getString(R.string.help_note_souvenir_c3_a), souvenirForeignYearCount));
-        contentList.add(c3);
         help.setContentList(contentList);
         return help;
     }
