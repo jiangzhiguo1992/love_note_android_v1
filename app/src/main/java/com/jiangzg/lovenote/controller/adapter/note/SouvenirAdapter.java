@@ -21,16 +21,10 @@ import java.util.Locale;
 public class SouvenirAdapter extends BaseQuickAdapter<Souvenir, BaseViewHolder> {
 
     private Fragment mFragment;
-    private boolean done;
-    private String formatGone;
-    private String formatHave;
 
     public SouvenirAdapter(Fragment fragment, boolean done) {
         super(R.layout.list_item_souvenir);
         mFragment = fragment;
-        this.done = done;
-        formatGone = mFragment.getString(R.string.add_holder);
-        formatHave = mFragment.getString(R.string.sub_holder);
     }
 
     @Override
@@ -41,11 +35,11 @@ public class SouvenirAdapter extends BaseQuickAdapter<Souvenir, BaseViewHolder> 
         long dayCount;
         String format;
         if (DateUtils.getCurrentLong() > happenAt) {
+            format = mFragment.getString(R.string.add_holder);
             dayCount = (DateUtils.getCurrentLong() - happenAt) / TimeUnit.DAY;
-            format = formatGone;
         } else {
+            format = mFragment.getString(R.string.sub_holder);
             dayCount = (happenAt - DateUtils.getCurrentLong()) / TimeUnit.DAY;
-            format = formatHave;
         }
         String days = String.format(Locale.getDefault(), format, dayCount);
         // view
@@ -56,7 +50,7 @@ public class SouvenirAdapter extends BaseQuickAdapter<Souvenir, BaseViewHolder> 
 
     public void goSouvenirDetail(int position) {
         Souvenir item = getItem(position);
-        if (done) {
+        if (item.isDone()) {
             SouvenirDetailDoneActivity.goActivity(mFragment, item);
         } else {
             SouvenirDetailWishActivity.goActivity(mFragment, item);
