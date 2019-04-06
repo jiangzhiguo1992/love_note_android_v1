@@ -29,7 +29,7 @@
             android:layout_height="wrap_content"
             android:layout_alignTop="@+id/tvDayCount"
             android:layout_toStartOf="@+id/tvDayCount"
-            android:ellipsize="middle"
+            android:ellipsize="end"
             android:gravity="start"
             android:singleLine="true"
             tools:text="在一起在一起在一起"/>

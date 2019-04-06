@@ -97,7 +97,7 @@
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:layout_toEndOf="@+id/tvSouvenirYear"
-                                        android:ellipsize="middle"
+                                        android:ellipsize="end"
                                         android:minLines="1"
                                         android:singleLine="true"
                                         tools:text="第一次拉手手"/>

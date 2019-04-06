@@ -54,7 +54,7 @@
                 android:layout_alignTop="@+id/cvAvatar"
                 android:layout_marginEnd="10dp"
                 android:layout_toEndOf="@+id/cvAvatar"
-                android:ellipsize="middle"
+                android:ellipsize="end"
                 android:singleLine="true"
                 tools:text="天津波波鱼吃饭"/>
 

@@ -62,7 +62,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="5dp"
                     android:layout_toStartOf="@+id/ivMore"
-                    android:ellipsize="middle"
+                    android:ellipsize="end"
                     android:gravity="center_vertical"
                     android:singleLine="true"
                     tools:text="天津波波鱼吃饭"/>
