@@ -41,8 +41,8 @@
             android:layout_height="wrap_content"
             android:layout_alignBottom="@+id/tvDayCount"
             android:layout_toStartOf="@+id/tvDayCount"
-            android:gravity="start|center_vertical"
-            android:maxLines="1"
+            android:ellipsize="end"
+            android:gravity="start"
             android:singleLine="true"
             tools:text="2017年12月31日 51:53"/>
 
