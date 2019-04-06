@@ -174,7 +174,8 @@
                 android:layout_alignBottom="@id/tvEdit"
                 android:layout_marginEnd="5dp"
                 android:layout_toStartOf="@+id/tvEdit"
-                android:src="@mipmap/ic_edit_grey_18dp"/>
+                android:src="@mipmap/ic_edit_grey_18dp"
+                android:tint="@color/font_hint"/>
 
             <TextView
                 android:id="@+id/tvEdit"
