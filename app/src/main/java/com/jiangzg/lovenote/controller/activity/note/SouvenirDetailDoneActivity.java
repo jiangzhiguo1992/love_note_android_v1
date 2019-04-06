@@ -208,12 +208,10 @@ public class SouvenirDetailDoneActivity extends BaseActivity<SouvenirDetailDoneA
         // address
         String address = StringUtils.isEmpty(souvenir.getAddress()) ? getString(R.string.now_no) : souvenir.getAddress();
         tvAddress.setText(address);
-        // foreign
-        List<SouvenirForeignFragment> fragmentList = new ArrayList<>();
-        List<String> titleList = new ArrayList<>();
+        // foreign-year
         Calendar calHappen = DateUtils.getCal(happenAt);
-        int yearHappen = calHappen.get(Calendar.YEAR);
         Calendar calNow = DateUtils.getCurrentCal();
+        int yearHappen = calHappen.get(Calendar.YEAR);
         int yearNow = calNow.get(Calendar.YEAR);
         calHappen.set(Calendar.YEAR, yearNow);
         if (calHappen.getTimeInMillis() > calNow.getTimeInMillis()) {
@@ -223,8 +221,11 @@ public class SouvenirDetailDoneActivity extends BaseActivity<SouvenirDetailDoneA
                 yearNow = yearHappen;
             }
         }
-        for (int i = yearHappen; i <= yearNow; i++) {
-            // obj
+        // foreign-data
+        List<SouvenirForeignFragment> fragmentList = new ArrayList<>();
+        List<String> titleList = new ArrayList<>();
+        for (int year = yearHappen; year <= yearNow; year++) {
+            // souvenir
             Souvenir s = new Souvenir();
             s.setId(souvenir.getId());
             s.setStatus(souvenir.getStatus());
@@ -232,16 +233,16 @@ public class SouvenirDetailDoneActivity extends BaseActivity<SouvenirDetailDoneA
             s.setUpdateAt(souvenir.getUpdateAt());
             s.setUserId(souvenir.getUserId());
             s.setCoupleId(souvenir.getCoupleId());
-            s.setSouvenirGiftList(ListHelper.getSouvenirGiftListByYear(souvenir.getSouvenirGiftList(), i));
-            s.setSouvenirTravelList(ListHelper.getSouvenirTravelListByYear(souvenir.getSouvenirTravelList(), i));
-            s.setSouvenirAlbumList(ListHelper.getSouvenirAlbumListByYear(souvenir.getSouvenirAlbumList(), i));
-            s.setSouvenirVideoList(ListHelper.getSouvenirVideoListByYear(souvenir.getSouvenirVideoList(), i));
-            s.setSouvenirFoodList(ListHelper.getSouvenirFoodListByYear(souvenir.getSouvenirFoodList(), i));
-            s.setSouvenirMovieList(ListHelper.getSouvenirMovieListByYear(souvenir.getSouvenirMovieList(), i));
-            s.setSouvenirDiaryList(ListHelper.getSouvenirDiaryListByYear(souvenir.getSouvenirDiaryList(), i));
+            s.setSouvenirTravelList(ListHelper.getSouvenirTravelListByYear(souvenir.getSouvenirTravelList(), year));
+            s.setSouvenirGiftList(ListHelper.getSouvenirGiftListByYear(souvenir.getSouvenirGiftList(), year));
+            s.setSouvenirAlbumList(ListHelper.getSouvenirAlbumListByYear(souvenir.getSouvenirAlbumList(), year));
+            s.setSouvenirVideoList(ListHelper.getSouvenirVideoListByYear(souvenir.getSouvenirVideoList(), year));
+            s.setSouvenirFoodList(ListHelper.getSouvenirFoodListByYear(souvenir.getSouvenirFoodList(), year));
+            s.setSouvenirMovieList(ListHelper.getSouvenirMovieListByYear(souvenir.getSouvenirMovieList(), year));
+            s.setSouvenirDiaryList(ListHelper.getSouvenirDiaryListByYear(souvenir.getSouvenirDiaryList(), year));
             // title
             String title;
-            int betweenYear = i - yearHappen;
+            int betweenYear = year - yearHappen;
             if (betweenYear <= 0) {
                 title = String.valueOf(yearHappen);
             } else {
@@ -249,7 +250,7 @@ public class SouvenirDetailDoneActivity extends BaseActivity<SouvenirDetailDoneA
             }
             titleList.add(title);
             // fragment
-            SouvenirForeignFragment fragment = SouvenirForeignFragment.newFragment(i, s);
+            SouvenirForeignFragment fragment = SouvenirForeignFragment.newFragment(year, s);
             fragmentList.add(fragment);
         }
         // adapter
