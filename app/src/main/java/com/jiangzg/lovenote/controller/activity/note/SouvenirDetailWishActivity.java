@@ -198,12 +198,8 @@ public class SouvenirDetailWishActivity extends BaseActivity<SouvenirDetailDoneA
         String days = String.format(Locale.getDefault(), format, dayCount);
         tvDayCount.setText(days);
         // address
-        if (StringUtils.isEmpty(souvenir.getAddress())) {
-            rlAddress.setVisibility(View.GONE);
-        } else {
-            rlAddress.setVisibility(View.VISIBLE);
-            tvAddress.setText(souvenir.getAddress());
-        }
+        String address = StringUtils.isEmpty(souvenir.getAddress()) ? getString(R.string.now_no) : souvenir.getAddress();
+        tvAddress.setText(address);
         // create
         User me = SPHelper.getMe();
         String name = UserHelper.getName(me, souvenir.getUserId());
