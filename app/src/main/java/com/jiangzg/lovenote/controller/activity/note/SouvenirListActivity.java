@@ -5,13 +5,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
-import android.support.v7.widget.Toolbar;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 
 import com.jiangzg.base.component.ActivityTrans;
 import com.jiangzg.lovenote.R;
@@ -19,17 +18,25 @@ import com.jiangzg.lovenote.controller.activity.base.BaseActivity;
 import com.jiangzg.lovenote.controller.activity.settings.HelpActivity;
 import com.jiangzg.lovenote.controller.adapter.common.CommonFragmentAdapter;
 import com.jiangzg.lovenote.controller.fragment.note.SouvenirListFragment;
-import com.jiangzg.lovenote.helper.view.ViewHelper;
 
 import butterknife.BindView;
 import butterknife.OnClick;
 
 public class SouvenirListActivity extends BaseActivity<SouvenirListActivity> {
 
-    @BindView(R.id.tb)
-    Toolbar tb;
-    @BindView(R.id.tl)
-    TabLayout tl;
+
+    @BindView(R.id.ivBack)
+    ImageView ivBack;
+    @BindView(R.id.ivHelp)
+    ImageView ivHelp;
+
+    @BindView(R.id.rgSouvenir)
+    RadioGroup rgSouvenir;
+    @BindView(R.id.rbSouvenir)
+    RadioButton rbSouvenir;
+    @BindView(R.id.rbWish)
+    RadioButton rbWish;
+
     @BindView(R.id.vpFragment)
     ViewPager vpFragment;
     @BindView(R.id.fabAdd)
@@ -63,48 +70,74 @@ public class SouvenirListActivity extends BaseActivity<SouvenirListActivity> {
 
     @Override
     protected void initView(Intent intent, Bundle state) {
-        String title = getString(R.string.souvenir);
-        ViewHelper.initTopBar(mActivity, tb, title, true);
         // fragment
         SouvenirListFragment souvenirDoneFragment = SouvenirListFragment.newFragment(true);
         SouvenirListFragment souvenirWishFragment = SouvenirListFragment.newFragment(false);
         // adapter
         CommonFragmentAdapter<SouvenirListFragment> adapter = new CommonFragmentAdapter<>(getSupportFragmentManager());
-        adapter.addData(title, souvenirDoneFragment);
-        adapter.addData(getString(R.string.wish_list), souvenirWishFragment);
-        // view
+        adapter.addData(rbSouvenir.getText().toString().trim(), souvenirDoneFragment);
+        adapter.addData(rbWish.getText().toString().trim(), souvenirWishFragment);
+        // group
+        rbSouvenir.setChecked(true);
+        rbWish.setChecked(false);
+        rgSouvenir.setOnCheckedChangeListener((group, checkedId) -> {
+            switch (checkedId) {
+                case R.id.rbSouvenir: // 纪念日
+                    vpFragment.setCurrentItem(0, true);
+                    break;
+                case R.id.rbWish: // 愿望清单
+                    vpFragment.setCurrentItem(1, true);
+                    break;
+            }
+        });
+        // viewPager
         vpFragment.setOffscreenPageLimit(1);
         vpFragment.setAdapter(adapter);
-        tl.setupWithViewPager(vpFragment);
+        vpFragment.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                boolean isSouvenir = position <= 0;
+                rbSouvenir.setChecked(isSouvenir);
+                rbWish.setChecked(!isSouvenir);
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+            }
+        });
     }
 
     @Override
     protected void initData(Intent intent, Bundle state) {
+        rbSouvenir.measure(0, 0);
+        rbWish.measure(0, 0);
+        int souvenirWidth = rbSouvenir.getMeasuredWidth();
+        int wishWidth = rbWish.getMeasuredWidth();
+        RadioGroup.LayoutParams layoutParamsSouvenir = (RadioGroup.LayoutParams) rbSouvenir.getLayoutParams();
+        RadioGroup.LayoutParams layoutParamsWidth = (RadioGroup.LayoutParams) rbWish.getLayoutParams();
+        layoutParamsSouvenir.width = Math.max(souvenirWidth, wishWidth);
+        layoutParamsWidth.width = Math.max(souvenirWidth, wishWidth);
+        rbSouvenir.setLayoutParams(layoutParamsSouvenir);
+        rbWish.setLayoutParams(layoutParamsWidth);
     }
 
     @Override
     protected void onFinish(Bundle state) {
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.help, menu);
-        return super.onCreateOptionsMenu(menu);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.menuHelp: // 帮助
-                HelpActivity.goActivity(mActivity, HelpActivity.INDEX_NOTE_SOUVENIR);
-                return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
-    @OnClick({R.id.fabAdd})
+    @OnClick({R.id.ivBack, R.id.ivHelp, R.id.fabAdd})
     public void onViewClicked(View view) {
         switch (view.getId()) {
+            case R.id.ivBack: // 返回
+                mActivity.finish();
+                break;
+            case R.id.ivHelp: // 帮助
+                HelpActivity.goActivity(mActivity, HelpActivity.INDEX_NOTE_SOUVENIR);
+                break;
             case R.id.fabAdd: // 添加
                 SouvenirEditActivity.goActivity(mActivity);
                 break;

@@ -44,6 +44,8 @@ public class CoupleWeatherActivity extends BaseActivity<CoupleWeatherActivity> {
     GSwipeRefreshLayout srl;
     @BindView(R.id.ivBack)
     ImageView ivBack;
+    @BindView(R.id.ivHelp)
+    ImageView ivHelp;
     @BindView(R.id.tvTime)
     TextView tvTime;
 
