@@ -490,80 +490,15 @@ public class ListHelper {
     /**
      * **************************************souvenir转换**************************************
      */
-    // 在adapter中显示的gift
-    public static ArrayList<Gift> getGiftListBySouvenir(List<SouvenirGift> souvenirGiftList, boolean checkStatus) {
-        ArrayList<Gift> giftList = new ArrayList<>();
-        if (souvenirGiftList == null || souvenirGiftList.size() <= 0) return giftList;
-        for (SouvenirGift souvenirGift : souvenirGiftList) {
-            if (souvenirGift == null || souvenirGift.getGift() == null || souvenirGift.getGift().getId() <= 0) {
-                // 所有的gift都是已经已存在的，必须有id
-                continue;
-            }
-            if (checkStatus && souvenirGift.isDelete()) continue;
-            giftList.add(souvenirGift.getGift());
-        }
-        return giftList;
-    }
-
-    // 获取souvenir中的year的giftList
-    public static ArrayList<SouvenirGift> getSouvenirGiftListByYear(List<SouvenirGift> souvenirGiftList, int year) {
-        ArrayList<SouvenirGift> returnList = new ArrayList<>();
-        if (souvenirGiftList == null || souvenirGiftList.size() <= 0) {
+    // 获取souvenir中的year的travelList
+    public static ArrayList<SouvenirTravel> getSouvenirTravelListByYear(List<SouvenirTravel> souvenirTravelList, int year) {
+        ArrayList<SouvenirTravel> returnList = new ArrayList<>();
+        if (souvenirTravelList == null || souvenirTravelList.size() <= 0) {
             return returnList;
         }
-        for (SouvenirGift souvenirGift : souvenirGiftList) {
-            if (year == souvenirGift.getYear()) {
-                returnList.add(souvenirGift);
-            }
-        }
-        return returnList;
-    }
-
-    // 获取souvenir中要上传的giftList
-    public static ArrayList<SouvenirGift> getSouvenirGiftListByOld(List<SouvenirGift> souvenirGiftList, List<Gift> giftList) {
-        ArrayList<SouvenirGift> returnList = new ArrayList<>();
-        if (souvenirGiftList == null) {
-            souvenirGiftList = new ArrayList<>();
-        }
-        // 检查原来的数据
-        if (souvenirGiftList.size() > 0) {
-            for (SouvenirGift souvenirGift : souvenirGiftList) {
-                if (souvenirGift == null || souvenirGift.getGift() == null || souvenirGift.getGift().getId() <= 0) {
-                    continue;
-                }
-                // 对比新旧数据，清理旧数据
-                int index = findIndexByIdInList(giftList, souvenirGift.getGift());
-                // 已存在数据需要给id
-                SouvenirGift newGift = new SouvenirGift();
-                newGift.setId(souvenirGift.getId());
-                newGift.setGiftId(souvenirGift.getGiftId());
-                if (index < 0 || index >= giftList.size()) {
-                    // 新数据里不存在，说明想要删掉
-                    newGift.setStatus(BaseObj.STATUS_DELETE);
-                } else {
-                    // 新数据里有，说明想要保留
-                    newGift.setStatus(BaseObj.STATUS_VISIBLE);
-                }
-                returnList.add(newGift);
-            }
-        }
-        // 检查添加的数据
-        if (giftList != null && giftList.size() > 0) {
-            // 先转换成数据集合
-            List<Gift> gifts = getGiftListBySouvenir(souvenirGiftList, false);
-            for (Gift gift : giftList) {
-                if (gift == null || gift.getId() <= 0) continue;
-                // 对比新旧数据，添加新数据
-                int index = findIndexByIdInList(gifts, gift);
-                if (index < 0 || index >= gifts.size()) {
-                    // 新数据不给id
-                    SouvenirGift newGift = new SouvenirGift();
-                    newGift.setStatus(BaseObj.STATUS_VISIBLE);
-                    newGift.setGiftId(gift.getId());
-                    // 不存在，加进去
-                    returnList.add(newGift);
-                }
-                // 存在就不要更新了，会覆盖id
+        for (SouvenirTravel souvenirTravel : souvenirTravelList) {
+            if (year == souvenirTravel.getYear()) {
+                returnList.add(souvenirTravel);
             }
         }
         return returnList;
@@ -582,20 +517,6 @@ public class ListHelper {
             travelList.add(souvenirTravel.getTravel());
         }
         return travelList;
-    }
-
-    // 获取souvenir中的year的travelList
-    public static ArrayList<SouvenirTravel> getSouvenirTravelListByYear(List<SouvenirTravel> souvenirTravelList, int year) {
-        ArrayList<SouvenirTravel> returnList = new ArrayList<>();
-        if (souvenirTravelList == null || souvenirTravelList.size() <= 0) {
-            return returnList;
-        }
-        for (SouvenirTravel souvenirTravel : souvenirTravelList) {
-            if (year == souvenirTravel.getYear()) {
-                returnList.add(souvenirTravel);
-            }
-        }
-        return returnList;
     }
 
     // 获取souvenir中要上传的travelList
@@ -648,19 +569,83 @@ public class ListHelper {
         return returnList;
     }
 
-    // 在adapter中显示的album
-    public static ArrayList<Album> getAlbumListBySouvenir(List<SouvenirAlbum> souvenirAlbumList, boolean checkStatus) {
-        ArrayList<Album> albumList = new ArrayList<>();
-        if (souvenirAlbumList == null || souvenirAlbumList.size() <= 0) return albumList;
-        for (SouvenirAlbum souvenirAlbum : souvenirAlbumList) {
-            if (souvenirAlbum == null || souvenirAlbum.getAlbum() == null || souvenirAlbum.getAlbum().getId() <= 0) {
-                // 所有的album都是已经已存在的，必须有id
+    // 获取souvenir中的year的giftList
+    public static ArrayList<SouvenirGift> getSouvenirGiftListByYear(List<SouvenirGift> souvenirGiftList, int year) {
+        ArrayList<SouvenirGift> returnList = new ArrayList<>();
+        if (souvenirGiftList == null || souvenirGiftList.size() <= 0) {
+            return returnList;
+        }
+        for (SouvenirGift souvenirGift : souvenirGiftList) {
+            if (year == souvenirGift.getYear()) {
+                returnList.add(souvenirGift);
+            }
+        }
+        return returnList;
+    }
+
+    // 在adapter中显示的gift
+    public static ArrayList<Gift> getGiftListBySouvenir(List<SouvenirGift> souvenirGiftList, boolean checkStatus) {
+        ArrayList<Gift> giftList = new ArrayList<>();
+        if (souvenirGiftList == null || souvenirGiftList.size() <= 0) return giftList;
+        for (SouvenirGift souvenirGift : souvenirGiftList) {
+            if (souvenirGift == null || souvenirGift.getGift() == null || souvenirGift.getGift().getId() <= 0) {
+                // 所有的gift都是已经已存在的，必须有id
                 continue;
             }
-            if (checkStatus && souvenirAlbum.isDelete()) continue;
-            albumList.add(souvenirAlbum.getAlbum());
+            if (checkStatus && souvenirGift.isDelete()) continue;
+            giftList.add(souvenirGift.getGift());
         }
-        return albumList;
+        return giftList;
+    }
+
+    // 获取souvenir中要上传的giftList
+    public static ArrayList<SouvenirGift> getSouvenirGiftListByOld(List<SouvenirGift> souvenirGiftList, List<Gift> giftList) {
+        ArrayList<SouvenirGift> returnList = new ArrayList<>();
+        if (souvenirGiftList == null) {
+            souvenirGiftList = new ArrayList<>();
+        }
+        // 检查原来的数据
+        if (souvenirGiftList.size() > 0) {
+            for (SouvenirGift souvenirGift : souvenirGiftList) {
+                if (souvenirGift == null || souvenirGift.getGift() == null || souvenirGift.getGift().getId() <= 0) {
+                    continue;
+                }
+                // 对比新旧数据，清理旧数据
+                int index = findIndexByIdInList(giftList, souvenirGift.getGift());
+                // 已存在数据需要给id
+                SouvenirGift newGift = new SouvenirGift();
+                newGift.setId(souvenirGift.getId());
+                newGift.setGiftId(souvenirGift.getGiftId());
+                if (index < 0 || index >= giftList.size()) {
+                    // 新数据里不存在，说明想要删掉
+                    newGift.setStatus(BaseObj.STATUS_DELETE);
+                } else {
+                    // 新数据里有，说明想要保留
+                    newGift.setStatus(BaseObj.STATUS_VISIBLE);
+                }
+                returnList.add(newGift);
+            }
+        }
+        // 检查添加的数据
+        if (giftList != null && giftList.size() > 0) {
+            // 先转换成数据集合
+            List<Gift> gifts = getGiftListBySouvenir(souvenirGiftList, false);
+            for (Gift gift : giftList) {
+                if (gift == null || gift.getId() <= 0) continue;
+                // 对比新旧数据，添加新数据
+                int index = findIndexByIdInList(gifts, gift);
+                if (index < 0 || index >= gifts.size()) {
+                    // 新数据不给id
+                    SouvenirGift newGift = new SouvenirGift();
+                    newGift.setStatus(BaseObj.STATUS_VISIBLE);
+                    newGift.setGiftId(gift.getId());
+                    // 不存在，加进去
+                    returnList.add(newGift);
+                }
+                // 存在就不要更新了，会覆盖id
+            }
+        }
+        return returnList;
     }
 
     // 获取souvenir中的year的albumList
@@ -675,6 +660,21 @@ public class ListHelper {
             }
         }
         return returnList;
+    }
+
+    // 在adapter中显示的album
+    public static ArrayList<Album> getAlbumListBySouvenir(List<SouvenirAlbum> souvenirAlbumList, boolean checkStatus) {
+        ArrayList<Album> albumList = new ArrayList<>();
+        if (souvenirAlbumList == null || souvenirAlbumList.size() <= 0) return albumList;
+        for (SouvenirAlbum souvenirAlbum : souvenirAlbumList) {
+            if (souvenirAlbum == null || souvenirAlbum.getAlbum() == null || souvenirAlbum.getAlbum().getId() <= 0) {
+                // 所有的album都是已经已存在的，必须有id
+                continue;
+            }
+            if (checkStatus && souvenirAlbum.isDelete()) continue;
+            albumList.add(souvenirAlbum.getAlbum());
+        }
+        return albumList;
     }
 
     // 获取souvenir中要上传的albumList
@@ -727,6 +727,20 @@ public class ListHelper {
         return returnList;
     }
 
+    // 获取souvenir中的year的videoList
+    public static ArrayList<SouvenirVideo> getSouvenirVideoListByYear(List<SouvenirVideo> souvenirVideoList, int year) {
+        ArrayList<SouvenirVideo> returnList = new ArrayList<>();
+        if (souvenirVideoList == null || souvenirVideoList.size() <= 0) {
+            return returnList;
+        }
+        for (SouvenirVideo souvenirVideo : souvenirVideoList) {
+            if (year == souvenirVideo.getYear()) {
+                returnList.add(souvenirVideo);
+            }
+        }
+        return returnList;
+    }
+
     // 在adapter中显示的video
     public static ArrayList<Video> getVideoListBySouvenir(List<SouvenirVideo> souvenirVideoList, boolean checkStatus) {
         ArrayList<Video> videoList = new ArrayList<>();
@@ -740,20 +754,6 @@ public class ListHelper {
             videoList.add(souvenirVideo.getVideo());
         }
         return videoList;
-    }
-
-    // 获取souvenir中的year的videoList
-    public static ArrayList<SouvenirVideo> getSouvenirVideoListByYear(List<SouvenirVideo> souvenirVideoList, int year) {
-        ArrayList<SouvenirVideo> returnList = new ArrayList<>();
-        if (souvenirVideoList == null || souvenirVideoList.size() <= 0) {
-            return returnList;
-        }
-        for (SouvenirVideo souvenirVideo : souvenirVideoList) {
-            if (year == souvenirVideo.getYear()) {
-                returnList.add(souvenirVideo);
-            }
-        }
-        return returnList;
     }
 
     // 获取souvenir中要上传的videoList
@@ -806,6 +806,20 @@ public class ListHelper {
         return returnList;
     }
 
+    // 获取souvenir中的year的foodList
+    public static ArrayList<SouvenirFood> getSouvenirFoodListByYear(List<SouvenirFood> souvenirFoodList, int year) {
+        ArrayList<SouvenirFood> returnList = new ArrayList<>();
+        if (souvenirFoodList == null || souvenirFoodList.size() <= 0) {
+            return returnList;
+        }
+        for (SouvenirFood souvenirFood : souvenirFoodList) {
+            if (year == souvenirFood.getYear()) {
+                returnList.add(souvenirFood);
+            }
+        }
+        return returnList;
+    }
+
     // 在adapter中显示的food
     public static ArrayList<Food> getFoodListBySouvenir(List<SouvenirFood> souvenirFoodList, boolean checkStatus) {
         ArrayList<Food> foodList = new ArrayList<>();
@@ -819,20 +833,6 @@ public class ListHelper {
             foodList.add(souvenirFood.getFood());
         }
         return foodList;
-    }
-
-    // 获取souvenir中的year的foodList
-    public static ArrayList<SouvenirFood> getSouvenirFoodListByYear(List<SouvenirFood> souvenirFoodList, int year) {
-        ArrayList<SouvenirFood> returnList = new ArrayList<>();
-        if (souvenirFoodList == null || souvenirFoodList.size() <= 0) {
-            return returnList;
-        }
-        for (SouvenirFood souvenirFood : souvenirFoodList) {
-            if (year == souvenirFood.getYear()) {
-                returnList.add(souvenirFood);
-            }
-        }
-        return returnList;
     }
 
     // 获取souvenir中要上传的foodList
@@ -885,6 +885,20 @@ public class ListHelper {
         return returnList;
     }
 
+    // 获取souvenir中的year的movieList
+    public static ArrayList<SouvenirMovie> getSouvenirMovieListByYear(List<SouvenirMovie> souvenirMovieList, int year) {
+        ArrayList<SouvenirMovie> returnList = new ArrayList<>();
+        if (souvenirMovieList == null || souvenirMovieList.size() <= 0) {
+            return returnList;
+        }
+        for (SouvenirMovie souvenirMovie : souvenirMovieList) {
+            if (year == souvenirMovie.getYear()) {
+                returnList.add(souvenirMovie);
+            }
+        }
+        return returnList;
+    }
+
     // 在adapter中显示的movie
     public static ArrayList<Movie> getMovieListBySouvenir(List<SouvenirMovie> souvenirMovieList, boolean checkStatus) {
         ArrayList<Movie> movieList = new ArrayList<>();
@@ -898,20 +912,6 @@ public class ListHelper {
             movieList.add(souvenirMovie.getMovie());
         }
         return movieList;
-    }
-
-    // 获取souvenir中的year的movieList
-    public static ArrayList<SouvenirMovie> getSouvenirMovieListByYear(List<SouvenirMovie> souvenirMovieList, int year) {
-        ArrayList<SouvenirMovie> returnList = new ArrayList<>();
-        if (souvenirMovieList == null || souvenirMovieList.size() <= 0) {
-            return returnList;
-        }
-        for (SouvenirMovie souvenirMovie : souvenirMovieList) {
-            if (year == souvenirMovie.getYear()) {
-                returnList.add(souvenirMovie);
-            }
-        }
-        return returnList;
     }
 
     // 获取souvenir中要上传的movieList
@@ -964,6 +964,20 @@ public class ListHelper {
         return returnList;
     }
 
+    // 获取souvenir中的year的diaryList
+    public static ArrayList<SouvenirDiary> getSouvenirDiaryListByYear(List<SouvenirDiary> souvenirDiaryList, int year) {
+        ArrayList<SouvenirDiary> returnList = new ArrayList<>();
+        if (souvenirDiaryList == null || souvenirDiaryList.size() <= 0) {
+            return returnList;
+        }
+        for (SouvenirDiary souvenirDiary : souvenirDiaryList) {
+            if (year == souvenirDiary.getYear()) {
+                returnList.add(souvenirDiary);
+            }
+        }
+        return returnList;
+    }
+
     // 在adapter中显示的diary
     public static ArrayList<Diary> getDiaryListBySouvenir(List<SouvenirDiary> souvenirDiaryList, boolean checkStatus) {
         ArrayList<Diary> diaryList = new ArrayList<>();
@@ -977,20 +991,6 @@ public class ListHelper {
             diaryList.add(souvenirDiary.getDiary());
         }
         return diaryList;
-    }
-
-    // 获取souvenir中的year的diaryList
-    public static ArrayList<SouvenirDiary> getSouvenirDiaryListByYear(List<SouvenirDiary> souvenirDiaryList, int year) {
-        ArrayList<SouvenirDiary> returnList = new ArrayList<>();
-        if (souvenirDiaryList == null || souvenirDiaryList.size() <= 0) {
-            return returnList;
-        }
-        for (SouvenirDiary souvenirDiary : souvenirDiaryList) {
-            if (year == souvenirDiary.getYear()) {
-                returnList.add(souvenirDiary);
-            }
-        }
-        return returnList;
     }
 
     // 获取souvenir中要上传的diaryList
