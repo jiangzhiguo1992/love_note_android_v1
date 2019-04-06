@@ -1019,7 +1019,7 @@ public class SPHelper {
             diary = new Diary();
         }
         SharedPreferences.Editor editor = SPUtils.getSharedPreferences(SHARE_DRAFT).edit();
-        editor.putLong(FIELD_DRAFT_DIARY_HAPPEN, diary.getHappenAt());
+        //editor.putLong(FIELD_DRAFT_DIARY_HAPPEN, diary.getHappenAt());
         editor.putString(FIELD_DRAFT_DIARY_CONTENT_TEXT, diary.getContentText());
         editor.apply();
     }
@@ -1027,7 +1027,7 @@ public class SPHelper {
     public static Diary getDraftDiary() {
         SharedPreferences sp = SPUtils.getSharedPreferences(SHARE_DRAFT);
         Diary diary = new Diary();
-        diary.setHappenAt(sp.getLong(FIELD_DRAFT_DIARY_HAPPEN, 0));
+        //diary.setHappenAt(sp.getLong(FIELD_DRAFT_DIARY_HAPPEN, 0));
         diary.setContentText(sp.getString(FIELD_DRAFT_DIARY_CONTENT_TEXT, ""));
         if (StringUtils.isEmpty(diary.getContentText())) {
             return null;
@@ -1040,7 +1040,7 @@ public class SPHelper {
             dream = new Dream();
         }
         SharedPreferences.Editor editor = SPUtils.getSharedPreferences(SHARE_DRAFT).edit();
-        editor.putLong(FIELD_DRAFT_DREAM_HAPPEN, dream.getHappenAt());
+        //editor.putLong(FIELD_DRAFT_DREAM_HAPPEN, dream.getHappenAt());
         editor.putString(FIELD_DRAFT_DREAM_CONTENT_TEXT, dream.getContentText());
         editor.apply();
     }
@@ -1048,7 +1048,7 @@ public class SPHelper {
     public static Dream getDraftDream() {
         SharedPreferences sp = SPUtils.getSharedPreferences(SHARE_DRAFT);
         Dream dream = new Dream();
-        dream.setHappenAt(sp.getLong(FIELD_DRAFT_DREAM_HAPPEN, 0));
+        //dream.setHappenAt(sp.getLong(FIELD_DRAFT_DREAM_HAPPEN, 0));
         dream.setContentText(sp.getString(FIELD_DRAFT_DREAM_CONTENT_TEXT, ""));
         if (StringUtils.isEmpty(dream.getContentText())) {
             return null;
