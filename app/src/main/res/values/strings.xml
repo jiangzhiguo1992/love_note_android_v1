@@ -466,6 +466,7 @@
     <string name="please_select_rule">请选择约定</string>
     <string name="please_select_score">请选择分数</string>
     <string name="is_save_draft">是否保存草稿</string>
+    <string name="holder_space_in_space_holder_space_make_this_wish" formatted="false">%s 于 %s 许下了这个愿望~</string>
     <string name="please_input_dream_content">请输入梦的情节，记得多少写多少</string>
     <string name="please_input_promise_content">请输入承诺的起因、经过和结果</string>
     <string name="please_input_angry_content">请输入生气的原由</string>

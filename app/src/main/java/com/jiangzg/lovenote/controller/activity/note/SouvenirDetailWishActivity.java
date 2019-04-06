@@ -57,10 +57,8 @@ public class SouvenirDetailWishActivity extends BaseActivity<SouvenirDetailDoneA
     RelativeLayout rlAddress;
     @BindView(R.id.tvAddress)
     TextView tvAddress;
-    @BindView(R.id.tvCreator)
-    TextView tvCreator;
-    @BindView(R.id.tvCreateAt)
-    TextView tvCreateAt;
+    @BindView(R.id.tvCreate)
+    TextView tvCreate;
 
     private Souvenir souvenir;
 
@@ -206,14 +204,11 @@ public class SouvenirDetailWishActivity extends BaseActivity<SouvenirDetailDoneA
             rlAddress.setVisibility(View.VISIBLE);
             tvAddress.setText(souvenir.getAddress());
         }
-        // creator
+        // create
         User me = SPHelper.getMe();
         String name = UserHelper.getName(me, souvenir.getUserId());
-        tvCreator.setText(String.format(Locale.getDefault(), getString(R.string.creator_colon_space_holder), name));
-        // createAt
         String createAt = TimeHelper.getTimeShowLine_HM_MDHM_YMDHM_ByGo(souvenir.getCreateAt());
-        String createShow = String.format(Locale.getDefault(), getString(R.string.create_at_colon_space_holder), createAt);
-        tvCreateAt.setText(createShow);
+        tvCreate.setText(String.format(Locale.getDefault(), getString(R.string.holder_space_in_space_holder_space_make_this_wish), name, createAt));
     }
 
     private void showDeleteDialog() {

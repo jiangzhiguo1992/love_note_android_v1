@@ -17,7 +17,8 @@
 
         <android.support.v4.widget.NestedScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:fillViewport="true">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -123,39 +124,24 @@
                             android:layout_height="wrap_content"
                             android:layout_alignParentEnd="true"
                             android:layout_centerVertical="true"
-                            android:gravity="center"
+                            android:ellipsize="end"
+                            android:gravity="end"
+                            android:singleLine="true"
                             android:textSize="40sp"
                             tools:text="+1365"/>
                     </RelativeLayout>
                 </LinearLayout>
 
-                <LinearLayout
+                <TextView
+                    android:id="@+id/tvCreate"
+                    style="@style/FontPrimaryNormalBold"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginEnd="10dp"
-                    android:layout_marginBottom="20dp"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:id="@+id/tvCreator"
-                        style="@style/FontGreyNormal"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:maxLines="1"
-                        android:singleLine="true"
-                        tools:text="创建者: XXX"/>
-
-                    <TextView
-                        android:id="@+id/tvCreateAt"
-                        style="@style/FontGreyNormal"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        tools:text="创建于: XXX"/>
-                </LinearLayout>
+                    android:layout_height="match_parent"
+                    android:background="@drawable/shape_gradient_primary_trans"
+                    android:gravity="center"
+                    android:textColor="?attr/colorPrimaryDark"
+                    android:textStyle="italic"
+                    tools:text="创建者: XXX"/>
             </LinearLayout>
         </android.support.v4.widget.NestedScrollView>
     </com.jiangzg.lovenote.view.GSwipeRefreshLayout>
