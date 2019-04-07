@@ -8,8 +8,8 @@ android {
         targetSdkVersion 27 // TODO 最高效果版本
         minSdkVersion 21 // 最低运行版本
         multiDexEnabled true // 允许分包
-        versionCode 18
-        versionName "1.1.8"
+        versionCode 19
+        versionName "1.1.9"
         vectorDrawables.useSupportLibrary = true // 用于支持vectorDrawables
         flavorDimensions "release" // 多渠道打包分支
         ndk {
