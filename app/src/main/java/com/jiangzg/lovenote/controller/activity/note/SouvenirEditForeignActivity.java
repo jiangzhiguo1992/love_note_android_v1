@@ -104,7 +104,7 @@ public class SouvenirEditForeignActivity extends BaseActivity<SouvenirEditForeig
     private RecyclerHelper recyclerDiary;
 
     public static void goActivity(Fragment from, int year, Souvenir souvenir) {
-        if (souvenir == null) return;
+        if (souvenir == null || souvenir.getId() == 0) return;
         Intent intent = new Intent(from.getActivity(), SouvenirEditForeignActivity.class);
         intent.putExtra("year", year);
         intent.putExtra("souvenir", souvenir);
@@ -418,7 +418,7 @@ public class SouvenirEditForeignActivity extends BaseActivity<SouvenirEditForeig
             if (recyclerAlbum == null) return;
             ListHelper.removeObjInAdapter(recyclerAlbum.getAdapter(), album);
             if (recyclerAlbum.getAdapter().getData().size() <= 0) {
-                // 删除相册
+                // 删除礼物
                 llAlbumAdd.setVisibility(View.VISIBLE);
             }
         });
