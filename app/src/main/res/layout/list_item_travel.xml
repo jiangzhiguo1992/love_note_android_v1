@@ -12,7 +12,7 @@
     android:layout_marginBottom="5dp"
     android:background="?attr/selectableItemBackground"
     android:foreground="?attr/selectableItemBackground"
-    app:cardBackgroundColor="@color/background_color"
+    app:cardBackgroundColor="@color/white"
     app:cardCornerRadius="@dimen/radius_normal"
     app:cardElevation="@dimen/elevation_normal"
     app:cardMaxElevation="@dimen/elevation_big">
