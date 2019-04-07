@@ -424,9 +424,10 @@ public class OssHelper {
                 .progressIndeterminateStyle(false)
                 .build();
         // compress
-        Luban.get(MyApp.get())
+        Luban.with(activity)
                 .load(source) // 压缩源文件
-                .putGear(Luban.THIRD_GEAR) // 设定压缩档次，默认三挡
+                .ignoreBy(100) // 需要压缩大小限制
+                .setTargetDir(ResHelper.createImgCacheDir().getAbsolutePath()) // 目标文件夹
                 .setCompressListener(new OnCompressListener() {
                     @Override
                     public void onStart() {
@@ -712,9 +713,10 @@ public class OssHelper {
             });
         }
         // compress
-        Luban.get(MyApp.get())
+        Luban.with(activity)
                 .load(source) // 压缩源文件
-                .putGear(Luban.THIRD_GEAR) // 设定压缩档次，默认三挡
+                .ignoreBy(100) // 需要压缩大小限制
+                .setTargetDir(ResHelper.createImgCacheDir().getAbsolutePath()) // 目标文件夹
                 .setCompressListener(new OnCompressListener() {
                     @Override
                     public void onStart() {
