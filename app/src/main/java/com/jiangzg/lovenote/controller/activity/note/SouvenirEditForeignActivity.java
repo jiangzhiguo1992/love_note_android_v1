@@ -104,6 +104,7 @@ public class SouvenirEditForeignActivity extends BaseActivity<SouvenirEditForeig
     private RecyclerHelper recyclerDiary;
 
     public static void goActivity(Fragment from, int year, Souvenir souvenir) {
+        if (souvenir == null) return;
         Intent intent = new Intent(from.getActivity(), SouvenirEditForeignActivity.class);
         intent.putExtra("year", year);
         intent.putExtra("souvenir", souvenir);
@@ -123,7 +124,7 @@ public class SouvenirEditForeignActivity extends BaseActivity<SouvenirEditForeig
         // init
         souvenir = intent.getParcelableExtra("souvenir");
         if (souvenir == null) {
-            souvenir = new Souvenir();
+            mActivity.finish();
         }
         // travel
         recyclerTravel = new RecyclerHelper(rvTravel)
