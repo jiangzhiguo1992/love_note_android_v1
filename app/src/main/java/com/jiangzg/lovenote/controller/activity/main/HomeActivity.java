@@ -200,6 +200,11 @@ public class HomeActivity extends BaseActivity<HomeActivity> {
     }
 
     private void changeFragment(int menuId) {
+        if (vpContent.getAdapter() == null) {
+            initViewPagerAdapter();
+            initViewPagerListener();
+            initViewPager();
+        }
         int selectItemIndex = 0;
         for (int i = 0; i < menuIdArray.length; i++) {
             if (menuId == menuIdArray[i]) {
@@ -207,6 +212,7 @@ public class HomeActivity extends BaseActivity<HomeActivity> {
                 break;
             }
         }
+        if (selectItemIndex >= pagerAdapter.getCount()) return;
         vpContent.setCurrentItem(selectItemIndex, true);
     }
 

@@ -129,6 +129,11 @@ public class AudioListActivity extends BaseActivity<AudioListActivity> {
     @Override
     protected void onFinish(Bundle state) {
         // RecyclerHelper.release(recyclerHelper); 不放放在这里
+        if (recyclerHelper != null && recyclerHelper.getAdapter() != null) {
+            AudioAdapter adapter = recyclerHelper.getAdapter();
+            adapter.releasePlay();
+            RecyclerHelper.release(recyclerHelper);
+        }
     }
 
     @Override
