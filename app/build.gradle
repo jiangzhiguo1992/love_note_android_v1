@@ -5,7 +5,7 @@ android {
     compileSdkVersion 27 // 最高运行版本
     defaultConfig {
         applicationId "com.jiangzg.lovenote" // 要和manifest一致
-        targetSdkVersion 27 // 最高效果版本
+        targetSdkVersion 27 // TODO 最高效果版本
         minSdkVersion 21 // 最低运行版本
         multiDexEnabled true // 允许分包
         versionCode 18
@@ -155,11 +155,11 @@ dependencies { // 及时更新
     implementation 'com.facebook.fresco:animated-gif:1.13.0'
     implementation 'com.facebook.fresco:animated-webp:1.13.0'
     implementation 'com.facebook.fresco:imagepipeline-okhttp3:1.13.0'
-    implementation 'com.haibin:calendarview:3.4.8'
+    implementation 'com.haibin:calendarview:3.5.9'
     implementation 'com.youth.banner:banner:1.4.10'
     implementation 'com.zhihu.android:matisse:0.5.2-beta4'
     implementation 'com.github.bumptech.glide:glide:3.7.0' // TODO 搭配matisse -> up
-    implementation 'com.afollestad.material-dialogs:core:0.9.6.0'
+    implementation 'com.afollestad.material-dialogs:core:0.9.6.0' // TODO 适配28 -> up
     implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.14' // TODO coupleWeather会乱 -> up
     implementation 'com.google.android.exoplayer:exoplayer:2.9.6'
     // 三方
