@@ -10,7 +10,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.RelativeLayout;
+import android.widget.LinearLayout;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -66,32 +66,32 @@ public class SouvenirEditForeignActivity extends BaseActivity<SouvenirEditForeig
     Toolbar tb;
     @BindView(R.id.rvTravel)
     RecyclerView rvTravel;
-    @BindView(R.id.rlTravelAdd)
-    RelativeLayout rlTravelAdd;
+    @BindView(R.id.llTravelAdd)
+    LinearLayout llTravelAdd;
     @BindView(R.id.rvGift)
     RecyclerView rvGift;
-    @BindView(R.id.rlGiftAdd)
-    RelativeLayout rlGiftAdd;
+    @BindView(R.id.llGiftAdd)
+    LinearLayout llGiftAdd;
     @BindView(R.id.rvAlbum)
     RecyclerView rvAlbum;
-    @BindView(R.id.rlAlbumAdd)
-    RelativeLayout rlAlbumAdd;
+    @BindView(R.id.llAlbumAdd)
+    LinearLayout llAlbumAdd;
     @BindView(R.id.rvVideo)
     RecyclerView rvVideo;
-    @BindView(R.id.rlVideoAdd)
-    RelativeLayout rlVideoAdd;
+    @BindView(R.id.llVideoAdd)
+    LinearLayout llVideoAdd;
     @BindView(R.id.rvFood)
     RecyclerView rvFood;
-    @BindView(R.id.rlFoodAdd)
-    RelativeLayout rlFoodAdd;
+    @BindView(R.id.llFoodAdd)
+    LinearLayout llFoodAdd;
     @BindView(R.id.rvMovie)
     RecyclerView rvMovie;
-    @BindView(R.id.rlMovieAdd)
-    RelativeLayout rlMovieAdd;
+    @BindView(R.id.llMovieAdd)
+    LinearLayout llMovieAdd;
     @BindView(R.id.rvDiary)
     RecyclerView rvDiary;
-    @BindView(R.id.rlDiaryAdd)
-    RelativeLayout rlDiaryAdd;
+    @BindView(R.id.llDiaryAdd)
+    LinearLayout llDiaryAdd;
 
     private int year;
     private Souvenir souvenir;
@@ -390,7 +390,7 @@ public class SouvenirEditForeignActivity extends BaseActivity<SouvenirEditForeig
             ListHelper.removeObjInAdapter(recyclerTravel.getAdapter(), travel);
             if (recyclerTravel.getAdapter().getData().size() <= 0) {
                 // 删除相册
-                rlTravelAdd.setVisibility(View.VISIBLE);
+                llTravelAdd.setVisibility(View.VISIBLE);
             }
         });
         pushBus(RxBus.EVENT_TRAVEL_LIST_ITEM_DELETE, busTravelListDelete);
@@ -404,7 +404,7 @@ public class SouvenirEditForeignActivity extends BaseActivity<SouvenirEditForeig
             ListHelper.removeObjInAdapter(recyclerGift.getAdapter(), gift);
             if (recyclerGift.getAdapter().getData().size() <= 0) {
                 // 删除相册
-                rlGiftAdd.setVisibility(View.VISIBLE);
+                llGiftAdd.setVisibility(View.VISIBLE);
             }
         });
         pushBus(RxBus.EVENT_GIFT_LIST_ITEM_DELETE, busGiftListDelete);
@@ -418,7 +418,7 @@ public class SouvenirEditForeignActivity extends BaseActivity<SouvenirEditForeig
             ListHelper.removeObjInAdapter(recyclerAlbum.getAdapter(), album);
             if (recyclerAlbum.getAdapter().getData().size() <= 0) {
                 // 删除相册
-                rlAlbumAdd.setVisibility(View.VISIBLE);
+                llAlbumAdd.setVisibility(View.VISIBLE);
             }
         });
         pushBus(RxBus.EVENT_ALBUM_LIST_ITEM_DELETE, busAlbumListDelete);
@@ -432,7 +432,7 @@ public class SouvenirEditForeignActivity extends BaseActivity<SouvenirEditForeig
             ListHelper.removeObjInAdapter(recyclerFood.getAdapter(), food);
             if (recyclerFood.getAdapter().getData().size() <= 0) {
                 // 删除美食
-                rlFoodAdd.setVisibility(View.VISIBLE);
+                llFoodAdd.setVisibility(View.VISIBLE);
             }
         });
         pushBus(RxBus.EVENT_FOOD_LIST_ITEM_DELETE, busFoodListDelete);
@@ -446,7 +446,7 @@ public class SouvenirEditForeignActivity extends BaseActivity<SouvenirEditForeig
             ListHelper.removeObjInAdapter(recyclerMovie.getAdapter(), movie);
             if (recyclerMovie.getAdapter().getData().size() <= 0) {
                 // 删除电影
-                rlMovieAdd.setVisibility(View.VISIBLE);
+                llMovieAdd.setVisibility(View.VISIBLE);
             }
         });
         pushBus(RxBus.EVENT_MOVIE_LIST_ITEM_DELETE, busMovieListDelete);
@@ -460,7 +460,7 @@ public class SouvenirEditForeignActivity extends BaseActivity<SouvenirEditForeig
             ListHelper.removeObjInAdapter(recyclerDiary.getAdapter(), diary);
             if (recyclerDiary.getAdapter().getData().size() <= 0) {
                 // 删除日记
-                rlDiaryAdd.setVisibility(View.VISIBLE);
+                llDiaryAdd.setVisibility(View.VISIBLE);
             }
         });
         pushBus(RxBus.EVENT_DIARY_LIST_ITEM_DELETE, busDiaryListDelete);
@@ -498,29 +498,29 @@ public class SouvenirEditForeignActivity extends BaseActivity<SouvenirEditForeig
         return super.onOptionsItemSelected(item);
     }
 
-    @OnClick({R.id.rlTravelAdd, R.id.rlGiftAdd, R.id.rlAlbumAdd, R.id.rlVideoAdd,
-            R.id.rlFoodAdd, R.id.rlMovieAdd, R.id.rlDiaryAdd})
+    @OnClick({R.id.llTravelAdd, R.id.llGiftAdd, R.id.llAlbumAdd, R.id.llVideoAdd,
+            R.id.llFoodAdd, R.id.llMovieAdd, R.id.llDiaryAdd})
     public void onViewClicked(View view) {
         switch (view.getId()) {
-            case R.id.rlTravelAdd: // 游记
+            case R.id.llTravelAdd: // 游记
                 TravelListActivity.goActivityBySelect(mActivity);
                 break;
-            case R.id.rlGiftAdd: // 礼物
+            case R.id.llGiftAdd: // 礼物
                 GiftListActivity.goActivityBySelect(mActivity);
                 break;
-            case R.id.rlAlbumAdd: // 相册
+            case R.id.llAlbumAdd: // 相册
                 AlbumListActivity.goActivityBySelect(mActivity);
                 break;
-            case R.id.rlVideoAdd: // 视频
+            case R.id.llVideoAdd: // 视频
                 VideoListActivity.goActivityBySelect(mActivity);
                 break;
-            case R.id.rlFoodAdd: // 美食
+            case R.id.llFoodAdd: // 美食
                 FoodListActivity.goActivityBySelect(mActivity);
                 break;
-            case R.id.rlMovieAdd: // 电影
+            case R.id.llMovieAdd: // 电影
                 MovieListActivity.goActivityBySelect(mActivity);
                 break;
-            case R.id.rlDiaryAdd: // 日记
+            case R.id.llDiaryAdd: // 日记
                 DiaryListActivity.goActivityBySelect(mActivity);
                 break;
         }
@@ -543,71 +543,71 @@ public class SouvenirEditForeignActivity extends BaseActivity<SouvenirEditForeig
 
     private void refreshAddView() {
         if (souvenir == null) {
-            rlTravelAdd.setVisibility(View.VISIBLE);
-            rlGiftAdd.setVisibility(View.VISIBLE);
-            rlAlbumAdd.setVisibility(View.VISIBLE);
-            rlVideoAdd.setVisibility(View.VISIBLE);
-            rlFoodAdd.setVisibility(View.VISIBLE);
-            rlMovieAdd.setVisibility(View.VISIBLE);
-            rlDiaryAdd.setVisibility(View.VISIBLE);
+            llTravelAdd.setVisibility(View.VISIBLE);
+            llGiftAdd.setVisibility(View.VISIBLE);
+            llAlbumAdd.setVisibility(View.VISIBLE);
+            llVideoAdd.setVisibility(View.VISIBLE);
+            llFoodAdd.setVisibility(View.VISIBLE);
+            llMovieAdd.setVisibility(View.VISIBLE);
+            llDiaryAdd.setVisibility(View.VISIBLE);
             return;
         }
         int limitCount = SPHelper.getLimit().getSouvenirForeignYearCount();
         // travel
         if (recyclerTravel == null || recyclerTravel.getAdapter() == null) {
-            rlTravelAdd.setVisibility(View.VISIBLE);
+            llTravelAdd.setVisibility(View.VISIBLE);
         } else if (recyclerTravel.getAdapter().getData().size() < limitCount) {
-            rlTravelAdd.setVisibility(View.VISIBLE);
+            llTravelAdd.setVisibility(View.VISIBLE);
         } else {
-            rlTravelAdd.setVisibility(View.GONE);
+            llTravelAdd.setVisibility(View.GONE);
         }
         // gift
         if (recyclerGift == null || recyclerGift.getAdapter() == null) {
-            rlGiftAdd.setVisibility(View.VISIBLE);
+            llGiftAdd.setVisibility(View.VISIBLE);
         } else if (recyclerGift.getAdapter().getData().size() < limitCount) {
-            rlGiftAdd.setVisibility(View.VISIBLE);
+            llGiftAdd.setVisibility(View.VISIBLE);
         } else {
-            rlGiftAdd.setVisibility(View.GONE);
+            llGiftAdd.setVisibility(View.GONE);
         }
         // album
         if (recyclerAlbum == null || recyclerAlbum.getAdapter() == null) {
-            rlAlbumAdd.setVisibility(View.VISIBLE);
+            llAlbumAdd.setVisibility(View.VISIBLE);
         } else if (recyclerAlbum.getAdapter().getData().size() < limitCount) {
-            rlAlbumAdd.setVisibility(View.VISIBLE);
+            llAlbumAdd.setVisibility(View.VISIBLE);
         } else {
-            rlAlbumAdd.setVisibility(View.GONE);
+            llAlbumAdd.setVisibility(View.GONE);
         }
         // video
         if (recyclerVideo == null || recyclerVideo.getAdapter() == null) {
-            rlVideoAdd.setVisibility(View.VISIBLE);
+            llVideoAdd.setVisibility(View.VISIBLE);
         } else if (recyclerVideo.getAdapter().getData().size() < limitCount) {
-            rlVideoAdd.setVisibility(View.VISIBLE);
+            llVideoAdd.setVisibility(View.VISIBLE);
         } else {
-            rlVideoAdd.setVisibility(View.GONE);
+            llVideoAdd.setVisibility(View.GONE);
         }
         // food
         if (recyclerFood == null || recyclerFood.getAdapter() == null) {
-            rlFoodAdd.setVisibility(View.VISIBLE);
+            llFoodAdd.setVisibility(View.VISIBLE);
         } else if (recyclerFood.getAdapter().getData().size() < limitCount) {
-            rlFoodAdd.setVisibility(View.VISIBLE);
+            llFoodAdd.setVisibility(View.VISIBLE);
         } else {
-            rlFoodAdd.setVisibility(View.GONE);
+            llFoodAdd.setVisibility(View.GONE);
         }
         // movie
         if (recyclerMovie == null || recyclerMovie.getAdapter() == null) {
-            rlMovieAdd.setVisibility(View.VISIBLE);
+            llMovieAdd.setVisibility(View.VISIBLE);
         } else if (recyclerMovie.getAdapter().getData().size() < limitCount) {
-            rlMovieAdd.setVisibility(View.VISIBLE);
+            llMovieAdd.setVisibility(View.VISIBLE);
         } else {
-            rlMovieAdd.setVisibility(View.GONE);
+            llMovieAdd.setVisibility(View.GONE);
         }
         // diary
         if (recyclerDiary == null || recyclerDiary.getAdapter() == null) {
-            rlDiaryAdd.setVisibility(View.VISIBLE);
+            llDiaryAdd.setVisibility(View.VISIBLE);
         } else if (recyclerDiary.getAdapter().getData().size() < limitCount) {
-            rlDiaryAdd.setVisibility(View.VISIBLE);
+            llDiaryAdd.setVisibility(View.VISIBLE);
         } else {
-            rlDiaryAdd.setVisibility(View.GONE);
+            llDiaryAdd.setVisibility(View.GONE);
         }
     }
 
