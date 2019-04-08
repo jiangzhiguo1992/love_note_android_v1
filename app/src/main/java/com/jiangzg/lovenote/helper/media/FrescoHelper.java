@@ -54,7 +54,7 @@ public class FrescoHelper {
         ImagePipelineConfig config = OkHttpImagePipelineConfigFactory.newBuilder(ctx, new OkHttpClient())
                 .setCacheKeyFactory(keyFactory)
                 .setProgressiveJpegConfig(new SimpleProgressiveJpegConfig()) // 渐进式实现
-                .setBitmapsConfig(Bitmap.Config.RGB_565) // 小图RGB_565 大图ARGB8888
+                .setBitmapsConfig(Bitmap.Config.ARGB_8888) // 小图RGB_565 大图ARGB8888
                 //.setBitmapMemoryCacheParamsSupplier() // 配置缓存策略
                 .setMainDiskCacheConfig(diskCacheConfig)
                 .setMemoryTrimmableRegistry(NoOpMemoryTrimmableRegistry.getInstance()) // 注册内存调用器，在需要回收内存的时候进行回收
