@@ -75,7 +75,7 @@ public class CalendarMonthView extends MonthView {
         mSelectedPaint.setStyle(Paint.Style.FILL);
         // 不要矩形
         //canvas.drawRect(x + mPadding, y + mPadding, x + mItemWidth - mPadding, y + mItemHeight - mPadding, mSelectedPaint);
-        canvas.drawCircle(x + mItemWidth / 2, y + (mItemWidth - mPadding) / 2, (mItemHeight - mPadding) / 2, mSelectedPaint);
+        canvas.drawCircle(x + mItemWidth / 2, y + mItemHeight / 2, (Math.min(mItemWidth, mItemHeight) - mPadding * 2) / 2, mSelectedPaint);
         return true;
     }
 
