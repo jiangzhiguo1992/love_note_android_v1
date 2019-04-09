@@ -278,10 +278,8 @@ public class TravelDetailActivity extends BaseActivity<TravelDetailActivity> {
         // headData
         Couple couple = SPHelper.getCouple();
         String title = travel.getTitle();
-        String happen = TimeHelper.getTimeShowLocal_HM_MD_YMD_ByGo(travel.getHappenAt());
-        String happenAt = String.format(Locale.getDefault(), getString(R.string.create_at_colon_space_holder), happen);
-        String name = UserHelper.getName(couple, travel.getUserId());
-        String creator = String.format(Locale.getDefault(), getString(R.string.creator_colon_space_holder), name);
+        String happenAt = TimeHelper.getTimeShowLocal_HM_MD_YMD_ByGo(travel.getHappenAt());
+        String creator = UserHelper.getName(couple, travel.getUserId());
         // headView
         tvTitle.setText(title);
         tvHappenAt.setText(happenAt);
