@@ -178,7 +178,7 @@ public class AwardEditActivity extends BaseActivity<AwardEditActivity> {
 
     private void refreshDateView() {
         if (award == null) return;
-        String happen = TimeHelper.getTimeShowLocal_HM_MDHM_YMDHM_ByGo(award.getHappenAt());
+        String happen = TimeHelper.getTimeShowLine_HM_MDHM_YMDHM_ByGo(award.getHappenAt());
         tvHappenAt.setText(String.format(Locale.getDefault(), getString(R.string.time_colon_space_holder), happen));
     }
 
