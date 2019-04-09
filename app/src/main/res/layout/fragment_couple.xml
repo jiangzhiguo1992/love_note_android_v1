@@ -208,7 +208,7 @@
                         android:gravity="bottom|end"
                         android:maxLines="1"
                         android:shadowColor="@color/black_alpha_50"
-                        android:shadowRadius="10"
+                        android:shadowRadius="20"
                         android:singleLine="true"
                         android:text="@string/in_together"/>
 
@@ -217,13 +217,13 @@
                         style="@style/FontWhiteHugeBold"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:layout_marginStart="5dp"
-                        android:layout_marginEnd="5dp"
-                        android:layout_marginBottom="10dp"
+                        android:layout_marginBottom="5dp"
                         android:ellipsize="middle"
                         android:gravity="bottom"
+                        android:paddingStart="5dp"
+                        android:paddingEnd="5dp"
                         android:shadowColor="@color/black_alpha_50"
-                        android:shadowRadius="10"
+                        android:shadowRadius="20"
                         android:singleLine="true"
                         android:textSize="35sp"
                         tools:text="365000"/>
@@ -236,7 +236,7 @@
                         android:gravity="bottom"
                         android:maxLines="1"
                         android:shadowColor="@color/black_alpha_50"
-                        android:shadowRadius="10"
+                        android:shadowRadius="20"
                         android:singleLine="true"
                         android:text="@string/dayT"/>
                 </LinearLayout>
