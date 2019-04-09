@@ -176,8 +176,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignBottom="@+id/tvTogether"
-                        android:layout_marginStart="3dp"
-                        android:layout_marginEnd="3dp"
+                        android:layout_marginEnd="2.5dp"
                         android:layout_marginBottom="10dp"
                         android:text="@string/in_together"/>
 
@@ -186,8 +185,8 @@
                         style="@style/FontPrimaryHugeBold"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="3dp"
-                        android:layout_marginEnd="3dp"
+                        android:layout_marginStart="2.5dp"
+                        android:layout_marginEnd="2.5dp"
                         android:layout_toEndOf="@+id/tvTogetherBefore"
                         android:textSize="50sp"
                         tools:text="365000"/>
@@ -198,8 +197,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignBottom="@+id/tvTogether"
-                        android:layout_marginStart="3dp"
-                        android:layout_marginEnd="3dp"
+                        android:layout_marginStart="2.5dp"
                         android:layout_marginBottom="10dp"
                         android:layout_toEndOf="@+id/tvTogether"
                         android:text="@string/dayT"/>
