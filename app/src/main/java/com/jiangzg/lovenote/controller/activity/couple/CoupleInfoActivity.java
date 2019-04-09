@@ -7,6 +7,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -86,8 +87,8 @@ public class CoupleInfoActivity extends BaseActivity<CoupleInfoActivity> {
     @BindView(R.id.tvBirthRight)
     TextView tvBirthRight;
 
-    @BindView(R.id.rlTogether)
-    RelativeLayout rlTogether;
+    @BindView(R.id.cvTogether)
+    CardView cvTogether;
     @BindView(R.id.tvTogether)
     TextView tvTogether;
     @BindView(R.id.tvTogetherTimer)
@@ -211,7 +212,7 @@ public class CoupleInfoActivity extends BaseActivity<CoupleInfoActivity> {
     }
 
     @OnClick({R.id.ivAvatarLeft, R.id.ivAvatarRight, R.id.tvNameLeft, R.id.tvPhoneLeft, R.id.tvPhoneRight,
-            R.id.tvBirthLeft, R.id.tvBirthRight, R.id.rlTogether})
+            R.id.tvBirthLeft, R.id.tvBirthRight, R.id.cvTogether})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.ivAvatarLeft: // 左头像
@@ -231,11 +232,10 @@ public class CoupleInfoActivity extends BaseActivity<CoupleInfoActivity> {
                 PhoneActivity.goActivity(mActivity);
                 break;
             case R.id.tvBirthLeft: // ta的生日
-                SouvenirListActivity.goActivity(mActivity);
                 break;
             case R.id.tvBirthRight: // 我的生日
                 break;
-            case R.id.rlTogether: // 在一起
+            case R.id.cvTogether: // 在一起
                 showTogetherTimePicker();
                 break;
         }
