@@ -148,6 +148,11 @@ public class SPHelper {
     private static final String FIELD_LIMIT_NOTE_OSS_EXPIRE_SECONDS = "note_oss_expire_seconds";
     private static final String FIELD_LIMIT_NOTE_SLEEP_SUCCESS_MIN_SEC = "note_sleep_success_min_sec";
     private static final String FIELD_LIMIT_NOTE_SLEEP_SUCCESS_MAX_SEC = "note_sleep_success_max_sec";
+    private static final String FIELD_LIMIT_SLEEP_MAX_PER_DAY = "sleep_max_per_day";
+    private static final String FIELD_LIMIT_SHY_MAX_PER_DAY = "shy_max_per_day";
+    private static final String FIELD_LIMIT_SHY_SAFE_LENGTH = "shy_safe_length";
+    private static final String FIELD_LIMIT_SHY_DESC_LENGTH = "shy_desc_length";
+    private static final String FIELD_LIMIT_MENSES_MAX_PER_DAY = "menses_max_per_day";
     private static final String FIELD_LIMIT_NOTE_LOCK_LENGTH = "note_lock_length";
     private static final String FIELD_LIMIT_SOUVENIR_TITLE_LENGTH = "souvenir_title_length";
     private static final String FIELD_LIMIT_SOUVENIR_FOREIGN_YEAR_COUNT = "souvenir_foreign_year_count";
@@ -641,6 +646,11 @@ public class SPHelper {
         editor.putLong(FIELD_LIMIT_NOTE_OSS_EXPIRE_SECONDS, limit.getNoteResExpireSec());
         editor.putLong(FIELD_LIMIT_NOTE_SLEEP_SUCCESS_MIN_SEC, limit.getNoteSleepSuccessMinSec());
         editor.putLong(FIELD_LIMIT_NOTE_SLEEP_SUCCESS_MAX_SEC, limit.getNoteSleepSuccessMaxSec());
+        editor.putInt(FIELD_LIMIT_SLEEP_MAX_PER_DAY, limit.getSleepMaxPerDay());
+        editor.putInt(FIELD_LIMIT_SHY_MAX_PER_DAY, limit.getShyMaxPerDay());
+        editor.putInt(FIELD_LIMIT_SHY_SAFE_LENGTH, limit.getShySafeLength());
+        editor.putInt(FIELD_LIMIT_SHY_DESC_LENGTH, limit.getShyDescLength());
+        editor.putInt(FIELD_LIMIT_MENSES_MAX_PER_DAY, limit.getMensesMaxPerDay());
         editor.putInt(FIELD_LIMIT_NOTE_LOCK_LENGTH, limit.getNoteLockLength());
         editor.putInt(FIELD_LIMIT_SOUVENIR_TITLE_LENGTH, limit.getSouvenirTitleLength());
         editor.putInt(FIELD_LIMIT_SOUVENIR_FOREIGN_YEAR_COUNT, limit.getSouvenirForeignYearCount());
@@ -719,6 +729,11 @@ public class SPHelper {
         limit.setNoteResExpireSec(sp.getLong(FIELD_LIMIT_NOTE_OSS_EXPIRE_SECONDS, 60 * 60 * 24 * 30 * 3));
         limit.setNoteSleepSuccessMinSec(sp.getLong(FIELD_LIMIT_NOTE_SLEEP_SUCCESS_MIN_SEC, 60 * 30));
         limit.setNoteSleepSuccessMaxSec(sp.getLong(FIELD_LIMIT_NOTE_SLEEP_SUCCESS_MAX_SEC, 60 * 60 * 24));
+        limit.setSleepMaxPerDay(sp.getInt(FIELD_LIMIT_SLEEP_MAX_PER_DAY, 10));
+        limit.setShyMaxPerDay(sp.getInt(FIELD_LIMIT_SHY_MAX_PER_DAY, 5));
+        limit.setShySafeLength(sp.getInt(FIELD_LIMIT_SHY_SAFE_LENGTH, 10));
+        limit.setShyDescLength(sp.getInt(FIELD_LIMIT_SHY_DESC_LENGTH, 50));
+        limit.setMensesMaxPerDay(sp.getInt(FIELD_LIMIT_MENSES_MAX_PER_DAY, 2));
         limit.setNoteLockLength(sp.getInt(FIELD_LIMIT_NOTE_LOCK_LENGTH, 6));
         limit.setSouvenirTitleLength(sp.getInt(FIELD_LIMIT_SOUVENIR_TITLE_LENGTH, 20));
         limit.setSouvenirForeignYearCount(sp.getInt(FIELD_LIMIT_SOUVENIR_FOREIGN_YEAR_COUNT, 1));

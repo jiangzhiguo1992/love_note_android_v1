@@ -78,7 +78,7 @@ public class MapSearchActivity extends BaseActivity<MapSearchActivity> {
     protected void initView(Intent intent, Bundle state) {
         ViewHelper.initTopBar(mActivity, tb, "", true);
         // edit
-        etSearch.setHint(R.string.please_input_search_address_remeber_get_province);
+        etSearch.setHint(R.string.please_input_search_address_remember_get_province);
         // recycler
         recyclerHelper = new RecyclerHelper(rv)
                 .initLayoutManager(new LinearLayoutManager(mActivity))

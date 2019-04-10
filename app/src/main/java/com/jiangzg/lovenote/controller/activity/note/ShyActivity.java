@@ -32,9 +32,7 @@ import com.jiangzg.lovenote.controller.activity.settings.HelpActivity;
 import com.jiangzg.lovenote.controller.adapter.note.ShyAdapter;
 import com.jiangzg.lovenote.helper.common.ListHelper;
 import com.jiangzg.lovenote.helper.common.RxBus;
-import com.jiangzg.lovenote.helper.common.TimeHelper;
 import com.jiangzg.lovenote.helper.system.RetrofitHelper;
-import com.jiangzg.lovenote.helper.view.DialogHelper;
 import com.jiangzg.lovenote.helper.view.RecyclerHelper;
 import com.jiangzg.lovenote.helper.view.ViewHelper;
 import com.jiangzg.lovenote.model.api.API;
@@ -174,6 +172,8 @@ public class ShyActivity extends BaseActivity<ShyActivity> {
     @Override
     protected void initData(Intent intent, Bundle state) {
         // event
+        Observable<List<Shy>> obListRefresh = RxBus.register(RxBus.EVENT_SHY_LIST_REFRESH, shyList -> refreshCenterMonthData());
+        pushBus(RxBus.EVENT_SHY_LIST_REFRESH, obListRefresh);
         Observable<Shy> obListItemDelete = RxBus.register(RxBus.EVENT_SHY_LIST_ITEM_DELETE, shy -> {
             if (recyclerHelper == null) return;
             ListHelper.removeObjInAdapter(recyclerHelper.getAdapter(), shy);
@@ -229,7 +229,7 @@ public class ShyActivity extends BaseActivity<ShyActivity> {
                 dateBack();
                 break;
             case R.id.cvPush: // 添加
-                // TODO
+                ShyEditActivity.goActivity(mActivity);
                 break;
         }
     }
@@ -371,30 +371,6 @@ public class ShyActivity extends BaseActivity<ShyActivity> {
             }
         }
         tvDateShow.setText(show);
-    }
-
-    // TODO
-    private void showDatePicker() {
-        DialogHelper.showDateTimePicker(mActivity, DateUtils.getCurrentLong(), time -> shyPush(TimeHelper.getGoTimeByJava(time)));
-    }
-
-    // TODO
-    private void shyPush(long happenAt) {
-        Shy shy = new Shy();
-        shy.setHappenAt(happenAt);
-        // api
-        Call<Result> api = new RetrofitHelper().call(API.class).noteShyAdd(shy);
-        RetrofitHelper.enqueue(api, mActivity.getLoading(true), new RetrofitHelper.CallBack() {
-            @Override
-            public void onResponse(int code, String message, Result.Data data) {
-                refreshCenterMonthData();
-            }
-
-            @Override
-            public void onFailure(int code, String message, Result.Data data) {
-            }
-        });
-        pushApi(api);
     }
 
 }

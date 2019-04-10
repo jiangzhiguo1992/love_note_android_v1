@@ -318,6 +318,7 @@
         <activity android:name=".controller.activity.note.NoteTotalActivity"/>
         <activity android:name=".controller.activity.note.TrendsListActivity"/>
         <activity android:name=".controller.activity.note.ShyActivity"/>
+        <activity android:name=".controller.activity.note.ShyEditActivity"/>
         <activity android:name=".controller.activity.note.MensesActivity"/>
         <activity android:name=".controller.activity.note.SleepActivity"/>
         <activity android:name=".controller.activity.note.AudioListActivity"/>

@@ -22,6 +22,11 @@ public class Limit {
     private long noteResExpireSec;
     private long noteSleepSuccessMinSec;
     private long noteSleepSuccessMaxSec;
+    private int sleepMaxPerDay;
+    private int shyMaxPerDay;
+    private int shySafeLength;
+    private int shyDescLength;
+    private int mensesMaxPerDay;
     private int noteLockLength;
     private int souvenirTitleLength;
     private int souvenirForeignYearCount;
@@ -84,6 +89,46 @@ public class Limit {
     private int matchWorkScreenReportCount;
     private int matchWorkTitleLength;
     private int matchWorkContentLength;
+
+    public int getSleepMaxPerDay() {
+        return sleepMaxPerDay;
+    }
+
+    public void setSleepMaxPerDay(int sleepMaxPerDay) {
+        this.sleepMaxPerDay = sleepMaxPerDay;
+    }
+
+    public int getShyMaxPerDay() {
+        return shyMaxPerDay;
+    }
+
+    public void setShyMaxPerDay(int shyMaxPerDay) {
+        this.shyMaxPerDay = shyMaxPerDay;
+    }
+
+    public int getShySafeLength() {
+        return shySafeLength;
+    }
+
+    public void setShySafeLength(int shySafeLength) {
+        this.shySafeLength = shySafeLength;
+    }
+
+    public int getShyDescLength() {
+        return shyDescLength;
+    }
+
+    public void setShyDescLength(int shyDescLength) {
+        this.shyDescLength = shyDescLength;
+    }
+
+    public int getMensesMaxPerDay() {
+        return mensesMaxPerDay;
+    }
+
+    public void setMensesMaxPerDay(int mensesMaxPerDay) {
+        this.mensesMaxPerDay = mensesMaxPerDay;
+    }
 
     public long getNoteSleepSuccessMinSec() {
         return noteSleepSuccessMinSec;

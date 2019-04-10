@@ -21,16 +21,12 @@
     <string name="dayR">日</string>
     <string name="month">月</string>
     <string name="year">年</string>
-    <string name="holder_second" formatted="false">%d秒</string>
-    <string name="holder_minute" formatted="false">%d分钟</string>
-    <string name="holder_minute_short" formatted="false">%d分</string>
-    <string name="holder_hour" formatted="false">%d小时</string>
-    <string name="holder_hour_short" formatted="false">%d时</string>
-    <string name="holder_dayT" formatted="false">%d天</string>
 
+    <!-- drawerLayout -->
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
+    <!-- behavior -->
     <string name="behavior_fab_depend_app_bar">com.jiangzg.lovenote.view.GBehaviorFABDependAppBar</string>
     <string name="behavior_fab_depend_app_bar3">com.jiangzg.lovenote.view.GBehaviorFABDependAppBar3</string>
     <string name="behavior_linear_depend_app_bar">com.jiangzg.lovenote.view.GBehaviorLinearDependAppBar</string>
@@ -41,6 +37,16 @@
         <item quantity="one">你只能选择1个文件</item>
         <item quantity="other">最多只能选择 %1$d 个文件</item>
     </plurals>
+
+    <!-- recycler -->
+    <string name="master_there_nothing">主人，这里啥也没有啊！</string>
+    <string name="master_we_worry">主人，咱们…好像…出错了！</string>
+    <string name="master_this_is_my_bottom">主人，这已经是我的底线了！</string>
+    <string name="master_no_hurry_quick_ok">主人莫急，马上就好…</string>
+
+    <!-- perm -->
+    <string name="need_check_some_perm">需要勾选某些权限</string>
+    <string name="need_check_some_perm_can_install">需要勾选相应权限后才能安装</string>
 
     <!-- common -->
     <string name="symbol_add">+</string>
@@ -65,6 +71,8 @@
     <string name="send">发送</string>
     <string name="wait">等待</string>
     <string name="no_read">未读</string>
+    <string name="title">标题</string>
+    <string name="content">内容</string>
     <string name="search">搜索</string>
     <string name="complete">完成</string>
     <string name="now_no">暂无</string>
@@ -134,43 +142,25 @@
     <string name="ta_collect">TA的收藏</string>
     <string name="my_relation">我的相关</string>
     <string name="my_message">我的消息</string>
-    <string name="please_input_search_content">请输入搜索内容</string>
 
-    <!-- limit -->
-    <string name="title">标题</string>
-    <string name="content">内容</string>
-    <string name="please_input_comment_content">请输入评论内容</string>
-    <string name="please_input_title">请输入标题</string>
-    <string name="please_input_content">请输入内容</string>
-    <string name="select_search_type">选择搜索类型</string>
-    <string name="select_user">选择用户</string>
-    <string name="select_order_type">选择排序类型</string>
-    <string name="please_select_classify">请选择分类</string>
-    <string name="please_input_nickname">请输入昵称</string>
-    <string name="need_check_some_perm">需要勾选某些权限</string>
-    <string name="confirm_delete_this_image">确定要删除这张图片吗</string>
-    <string name="need_check_some_perm_can_install">需要勾选相应权限后才能安装</string>
-    <string name="please_input_content_no_over_holder_text" formatted="false">请输入内容，不得超过%d个字</string>
-    <string name="please_input_title_no_over_holder_text" formatted="false">请输入标题，不得超过%d个字</string>
-    <string name="please_input_name_no_over_holder_text" formatted="false">请输入名称，不得超过%d个字</string>
-    <string name="please_input_pwd_no_over_holder_text" formatted="false">请输入密码，不得超过%d个字</string>
-    <string name="please_input_channel_no_over_holder_text" formatted="false">请输入频道，不得超过%d个字</string>
-    <string name="holder_paper" formatted="false">%d张</string>
-    <string name="holder_thousand_point1" formatted="false">%.1f万</string>
-    <string name="text_number_space_colon_holder" formatted="false">字数: %d</string>
-    <string name="read_space_colon_holder" formatted="false">阅读: %d</string>
-    <string name="comment_colon_holder" formatted="false">评论: %d</string>
-    <string name="create_at_colon_space_holder" formatted="false">创建于: %s</string>
-    <string name="update_at_colon_space_holder" formatted="false">更新于: %s</string>
-    <string name="creator_colon_space_holder" formatted="false">创建者: %s</string>
-    <string name="total_holder_paper" formatted="false">总共%d张</string>
-    <string name="forward_edit_colon_space_holder" formatted="false">上次编辑: %s</string>
-    <string name="master_there_nothing">主人，这里啥也没有啊！</string>
-    <string name="master_we_worry">主人，咱们…好像…出错了！</string>
-    <string name="master_this_is_my_bottom">主人，这已经是我的底线了！</string>
-    <string name="master_no_hurry_quick_ok">主人莫急，马上就好…</string>
+    <!-- network -->
+    <string name="no_network_title">网络不能访问</string>
+    <string name="server_error">服务器异常</string>
+    <string name="http_error_connect">网络连接错误</string>
+    <string name="http_error_time">网络连接超时</string>
+    <string name="http_error_time_maybe_setting_wrong">网络连接超时,是不是网络设置出错了吧</string>
+    <string name="http_error_request">网络请求异常</string>
+    <string name="err_un_know_server">服务器未知错误 (把这个bug提交给我们吧)</string>
+    <string name="err_un_know_client">客户端未知错误 (把这个bug提交给我们吧)</string>
+    <string name="err_data_null">空数据异常</string>
+    <string name="err_data_parse">数据解析异常</string>
+    <string name="http_response_error">网络响应异常</string>
+    <string name="http_response_error_403">Key错误</string>
+    <string name="http_response_error_404">资源未找到</string>
+    <string name="http_response_error_409">用户版本过低</string>
+    <string name="http_response_error_410">用户被禁用</string>
+    <string name="http_response_error_500">服务器异常</string>
     <string name="online_can_entry">联网才可以进入哦</string>
-    <string name="please_input_search_address_remeber_get_province">请输入搜索地址，记得带上省份！</string>
 
     <!-- file -->
     <string name="are_upload">正在上传</string>
@@ -204,23 +194,125 @@
     <string name="are_upload_space_holder_holder" formatted="false">正在上传 %d/%d</string>
     <string name="are_compress_space_holder_holder" formatted="false">正在获取 %d/%d</string>
 
-    <!-- network -->
-    <string name="no_network_title">网络不能访问</string>
-    <string name="server_error">服务器异常</string>
-    <string name="http_error_connect">网络连接错误</string>
-    <string name="http_error_time">网络连接超时</string>
-    <string name="http_error_time_maybe_setting_wrong">网络连接超时,是不是网络设置出错了吧</string>
-    <string name="http_error_request">网络请求异常</string>
-    <string name="err_un_know_server">服务器未知错误 (把这个bug提交给我们吧)</string>
-    <string name="err_un_know_client">客户端未知错误 (把这个bug提交给我们吧)</string>
-    <string name="err_data_null">空数据异常</string>
-    <string name="err_data_parse">数据解析异常</string>
-    <string name="http_response_error">网络响应异常</string>
-    <string name="http_response_error_403">Key错误</string>
-    <string name="http_response_error_404">资源未找到</string>
-    <string name="http_response_error_409">用户版本过低</string>
-    <string name="http_response_error_410">用户被禁用</string>
-    <string name="http_response_error_500">服务器异常</string>
+    <!-- version -->
+    <string name="check_update">检查更新</string>
+    <string name="update_now">立即更新</string>
+    <string name="already_is_latest_version">已是最新版本</string>
+    <string name="have_new_version">有新版本啦！</string>
+    <string name="are_update_check">正在检查更新</string>
+    <string name="version_number_colon">版本号:</string>
+    <string name="new_version_colon_space_holder" formatted="false">新版本: %s</string>
+
+    <!-- edit -->
+    <string name="click_me_edit">点我编辑</string>
+    <string name="add_track">添加足迹</string>
+    <string name="add_gift">添加礼物</string>
+    <string name="add_travel">添加游记</string>
+    <string name="add_album">添加相册</string>
+    <string name="add_video">添加视频</string>
+    <string name="add_food">添加美食</string>
+    <string name="add_movie">添加电影</string>
+    <string name="add_diary">添加日记</string>
+    <string name="select_user">选择用户</string>
+    <string name="in_here_input_channel">在这里输入频道</string>
+    <string name="select_search_type">选择搜索类型</string>
+    <string name="select_order_type">选择排序类型</string>
+    <string name="please_select_address">请选择地址</string>
+    <string name="please_select_diary">请选择日记</string>
+    <string name="please_select_album">请选择相册</string>
+    <string name="please_select_audio">请选择音频</string>
+    <string name="please_select_video">请选择视频</string>
+    <string name="please_select_food">请选择美食</string>
+    <string name="please_select_movie">请选择电影</string>
+    <string name="please_select_travel">请选择游记</string>
+    <string name="please_select_gift">请选择礼物</string>
+    <string name="please_select_promise">请选择承诺</string>
+    <string name="please_select_rule">请选择约定</string>
+    <string name="please_select_score">请选择分数</string>
+    <string name="please_select_classify">请选择分类</string>
+    <string name="please_select_safe_method">请选择安全措施</string>
+    <string name="please_input_content_no_over_holder_text" formatted="false">请输入内容，不得超过%d个字</string>
+    <string name="please_input_title_no_over_holder_text" formatted="false">请输入标题，不得超过%d个字</string>
+    <string name="please_input_name_no_over_holder_text" formatted="false">请输入名称，不得超过%d个字</string>
+    <string name="please_input_pwd_no_over_holder_text" formatted="false">请输入密码，不得超过%d个字</string>
+    <string name="please_input_channel_no_over_holder_text" formatted="false">请输入频道，不得超过%d个字</string>
+    <string name="please_input_nickname">请输入昵称</string>
+    <string name="please_input_title">请输入标题</string>
+    <string name="please_input_content">请输入内容</string>
+    <string name="please_input_remark">请输入评价吧</string>
+    <string name="please_input_comment_content">请输入评论内容</string>
+    <string name="please_input_search_content">请输入搜索内容</string>
+    <string name="please_input_shy_desc">请输入详情，例如场景和姿势等</string>
+    <string name="please_input_dream_content">请输入梦的情节，记得多少写多少</string>
+    <string name="please_input_promise_content">请输入承诺的起因、经过和结果</string>
+    <string name="please_input_angry_content">请输入生气的原由</string>
+    <string name="please_input_rule_content">请输入约定的具体内容</string>
+    <string name="please_input_trigger_rule">请输入触犯约定的情景</string>
+    <string name="please_input_track_content">请输入足迹的介绍</string>
+    <string name="input_coin_count">输入投币数量</string>
+    <string name="start_time_colon_holder" formatted="false">开始时间: %s</string>
+    <string name="end_time_colon_holder" formatted="false">结束时间: %s</string>
+    <string name="safe_method_colon_holder" formatted="false">安全措施: %s</string>
+    <string name="time_colon_space_holder" formatted="false">时间: %s</string>
+    <string name="address_colon_space_holder" formatted="false">位置: %s</string>
+    <string name="type_colon_space_holder" formatted="false">类型: %s</string>
+    <string name="belong_colon_space_holder" formatted="false">所属: %s</string>
+    <string name="album_colon_space_holder" formatted="false">相册: %s</string>
+    <string name="duration_colon_space_holder" formatted="false">时长: %s</string>
+    <string name="rule_colon_space_holder" formatted="false">约定: %s</string>
+    <string name="picture_where">照片呢？</string>
+    <string name="is_save_draft">是否保存草稿</string>
+    <string name="save_draft">保存草稿</string>
+    <string name="draft_save_success">草稿保存成功</string>
+    <string name="confirm_delete_this_image">确定要删除这张图片吗</string>
+    <string name="confirm_delete_this_note">确定删除这个记录？</string>
+    <string name="confirm_remove_this_note">确定移除这个记录？</string>
+    <string name="confirm_del_the_day_note">确定删除这天的记录？</string>
+    <string name="confirm_del_suggest">确定删除意见吗？</string>
+    <string name="confirm_del_comment">确定要删除评论吗？</string>
+    <string name="confirm_del_collect">确定要删除收藏吗？</string>
+    <string name="confirm_del_this_work">确定要删除这个作品吗？</string>
+    <string name="confirm_delete_this_post">确定删除这个帖子？</string>
+    <string name="can_delete_self_create_post">只能删除自己创建的帖子哦</string>
+    <string name="can_delete_self_create_comment">只能删除自己创建的评论哦</string>
+    <string name="can_operation_self_create_note">只能操作自己创建的记录哦！</string>
+
+    <!-- show-format -->
+    <string name="holder_second" formatted="false">%d秒</string>
+    <string name="holder_minute" formatted="false">%d分钟</string>
+    <string name="holder_minute_short" formatted="false">%d分</string>
+    <string name="holder_hour" formatted="false">%d小时</string>
+    <string name="holder_hour_short" formatted="false">%d时</string>
+    <string name="holder_dayT" formatted="false">%d天</string>
+    <string name="create_at_colon_space_holder" formatted="false">创建于: %s</string>
+    <string name="update_at_colon_space_holder" formatted="false">更新于: %s</string>
+    <string name="creator_colon_space_holder" formatted="false">创建者: %s</string>
+    <string name="already_start_space_holder" formatted="false">已开始 %s</string>
+    <string name="already_delay_space_holder" formatted="false">已推迟 %s</string>
+    <string name="start_at_colon_space_holder" formatted="false">开始于: %s</string>
+    <string name="end_at_colon_space_holder" formatted="false">结束与: %s</string>
+    <string name="continue_duration_colon_holder" formatted="false">持续时长: %s</string>
+    <string name="already_wake_space_holder" formatted="false">已醒来 %s</string>
+    <string name="already_sleep_space_holder" formatted="false">已睡眠 %s</string>
+    <string name="holder_colon_sleep" formatted="false">入睡时间: %s</string>
+    <string name="holder_colon_wake" formatted="false">醒来时间: %s</string>
+    <string name="holder_paper" formatted="false">%d张</string>
+    <string name="total_holder_paper" formatted="false">总共%d张</string>
+    <string name="holder_thousand_point1" formatted="false">%.1f万</string>
+    <string name="text_number_space_colon_holder" formatted="false">字数: %d</string>
+    <string name="read_space_colon_holder" formatted="false">阅读: %d</string>
+    <string name="comment_colon_holder" formatted="false">评论: %d</string>
+    <string name="point_colon_space_holder" formatted="false">点赞: %s</string>
+    <string name="collect_colon_space_holder" formatted="false">收藏: %s</string>
+    <string name="today_post_colon_space_holder" formatted="false">今日帖子: %s</string>
+    <string name="today_comment_colon_space_holder" formatted="false">今日评论: %s</string>
+    <string name="continue_colon_space_holder_space_day" formatted="false">购买时长: %d 天</string>
+    <string name="expire_colon_space_holder" formatted="false">到期时间: %s</string>
+    <string name="to_month_sign_holder_count" formatted="false">本月签到%d次</string>
+    <string name="go_in_award_colon_holder_coin" formatted="false">参与奖励: %d金币</string>
+    <string name="total_works_count_colon_holder" formatted="false">总作品数: %s</string>
+    <string name="total_coin_count_colon_holder" formatted="false">总金币数: %s</string>
+    <string name="total_point_count_colon_holder" formatted="false">总点赞数: %s</string>
 
     <!-- Nav -->
     <string name="nav_couple">我和TA</string>
@@ -289,15 +381,6 @@
     <string name="coffee_brown">咖啡棕</string>
     <string name="egg_grey">皮蛋灰</string>
 
-    <!-- version -->
-    <string name="check_update">检查更新</string>
-    <string name="update_now">立即更新</string>
-    <string name="already_is_latest_version">已是最新版本</string>
-    <string name="have_new_version">有新版本啦！</string>
-    <string name="are_update_check">正在检查更新</string>
-    <string name="version_number_colon">版本号:</string>
-    <string name="new_version_colon_space_holder" formatted="false">新版本: %s</string>
-
     <!-- suggest -->
     <string name="suggest_feedback">意见反馈</string>
     <string name="i_want_feedback">朕要反馈</string>
@@ -317,8 +400,6 @@
     <string name="search_condition_line">————搜索条件————</string>
     <string name="type_colon">类型:</string>
     <string name="status_colon">状态:</string>
-    <string name="confirm_del_suggest">确定删除意见吗？</string>
-    <string name="confirm_del_comment">确定要删除评论吗？</string>
     <string name="holder_floor" formatted="false">%d楼</string>
 
     <!-- user -->
@@ -387,13 +468,11 @@
     <string name="my_location">我的位置</string>
     <string name="lon_lat_colon">经纬度:</string>
     <string name="distance_colon_space_holder" formatted="false">距离: %d米</string>
-    <string name="input_search_address">输入搜索地址</string>
-    <string name="please_select_address">请选择地址</string>
-    <string name="address_search">地址搜索</string>
     <string name="location_search_fail">位置搜索失败</string>
     <string name="search_location_no_exist">搜索位置不存在</string>
     <string name="no_location_info_cant_go_map">没有地址信息，无法进入地图</string>
     <string name="address_get_fail_reason_colon_holder" formatted="false">地理位置获取失败，原因:%s</string>
+    <string name="please_input_search_address_remember_get_province">请输入搜索地址，记得带上省份！</string>
 
     <!-- weather -->
     <string name="holder_wave_holder_c">%s~%s℃</string>
@@ -452,46 +531,6 @@
     <string name="live">生活</string>
     <string name="note">笔记</string>
     <string name="media">多媒体</string>
-    <string name="add_track">添加足迹</string>
-    <string name="add_gift">添加礼物</string>
-    <string name="add_travel">添加游记</string>
-    <string name="add_album">添加相册</string>
-    <string name="add_video">添加视频</string>
-    <string name="add_food">添加美食</string>
-    <string name="add_movie">添加电影</string>
-    <string name="add_diary">添加日记</string>
-    <string name="please_select_diary">请选择日记</string>
-    <string name="please_select_album">请选择相册</string>
-    <string name="please_select_audio">请选择音频</string>
-    <string name="please_select_video">请选择视频</string>
-    <string name="please_select_food">请选择美食</string>
-    <string name="please_select_movie">请选择电影</string>
-    <string name="please_select_travel">请选择游记</string>
-    <string name="please_select_gift">请选择礼物</string>
-    <string name="please_select_promise">请选择承诺</string>
-    <string name="please_select_rule">请选择约定</string>
-    <string name="please_select_score">请选择分数</string>
-    <string name="is_save_draft">是否保存草稿</string>
-    <string name="please_input_dream_content">请输入梦的情节，记得多少写多少</string>
-    <string name="please_input_promise_content">请输入承诺的起因、经过和结果</string>
-    <string name="please_input_angry_content">请输入生气的原由</string>
-    <string name="please_input_rule_content">请输入约定的具体内容</string>
-    <string name="please_input_trigger_rule">请输入触犯约定的情景</string>
-    <string name="please_input_track_content">请输入足迹的介绍</string>
-    <string name="please_input_remark">请输入评价吧</string>
-    <string name="time_colon_space_holder" formatted="false">时间: %s</string>
-    <string name="address_colon_space_holder" formatted="false">位置: %s</string>
-    <string name="type_colon_space_holder" formatted="false">类型: %s</string>
-    <string name="belong_colon_space_holder" formatted="false">所属: %s</string>
-    <string name="album_colon_space_holder" formatted="false">相册: %s</string>
-    <string name="duration_colon_space_holder" formatted="false">时长: %s</string>
-    <string name="rule_colon_space_holder" formatted="false">约定: %s</string>
-    <string name="can_operation_self_create_note">只能操作自己创建的记录哦！</string>
-    <string name="confirm_delete_this_note">确定删除这个记录？</string>
-    <string name="confirm_remove_this_note">确定移除这个记录？</string>
-    <string name="confirm_del_the_day_note">确定删除这天的记录？</string>
-    <string name="save_draft">保存草稿</string>
-    <string name="draft_save_success">草稿保存成功</string>
     <string name="open_lock">开锁</string>
     <string name="close_lock">关锁</string>
     <string name="per_day_is_souvenir">有你的每一天，都是纪念日</string>
@@ -499,47 +538,29 @@
     <string name="holder_anniversary" formatted="false">%d周年</string>
     <string name="add_holder" formatted="false">+%d</string>
     <string name="sub_holder" formatted="false">-%d</string>
-    <string name="click_me_edit">点我编辑</string>
     <string name="holder_space_in_space_holder_space_make_this_wish" formatted="false">%s 于 %s 许下了这个愿望~</string>
+    <string name="condom">安全套</string>
+    <string name="acyeterion">避孕药</string>
+    <string name="out_shoot">体外射精</string>
     <string name="come">来</string>
     <string name="gone">走</string>
     <string name="back_current">回到当前</string>
     <string name="menses_come">姨妈来了</string>
     <string name="menses_gone">姨妈走了</string>
-    <string name="already_start_space_holder" formatted="false">已开始 %s</string>
-    <string name="already_delay_space_holder" formatted="false">已推迟 %s</string>
-    <string name="start_at_colon_space_holder" formatted="false">开始于: %s</string>
-    <string name="end_at_colon_space_holder" formatted="false">结束与: %s</string>
-    <string name="continue_duration_colon_holder" formatted="false">持续时长：%s</string>
-    <string name="safe_method_colon_holder" formatted="false">安全措施：%s</string>
-    <string name="already_wake_space_holder" formatted="false">已醒来 %s</string>
-    <string name="already_sleep_space_holder" formatted="false">已睡眠 %s</string>
-    <string name="holder_colon_sleep" formatted="false">入睡时间：%s</string>
-    <string name="holder_colon_wake" formatted="false">醒来时间：%s</string>
     <string name="good_night">晚安</string>
     <string name="i_am_wake">醒啦</string>
-    <string name="in_here_input_channel">在这里输入频道</string>
     <string name="change_channel">切换频道</string>
     <string name="current_channel_colon_space_holder" formatted="false">当前频道《%s》</string>
-    <string name="picture_where">照片呢？</string>
     <string name="break_space_holder_space_time" formatted="false">违反 %d 次</string>
     <string name="did_award_some_gift">有没有补偿什么礼物</string>
     <string name="did_do_some_promise">有没有做出什么承诺</string>
 
     <!-- topic -->
     <string name="post">帖子</string>
-    <string name="today_post_colon_space_holder" formatted="false">今日帖子: %s</string>
-    <string name="today_comment_colon_space_holder" formatted="false">今日评论: %s</string>
-    <string name="point_colon_space_holder" formatted="false">点赞: %s</string>
-    <string name="collect_colon_space_holder" formatted="false">收藏: %s</string>
     <string name="report">举报</string>
     <string name="already_report">已举报</string>
     <string name="jab_ta">戳TA</string>
     <string name="floor_master">楼主</string>
-    <string name="confirm_del_collect">确定要删除收藏吗？</string>
-    <string name="can_delete_self_create_post">只能删除自己创建的帖子哦</string>
-    <string name="can_delete_self_create_comment">只能删除自己创建的评论哦</string>
-    <string name="confirm_delete_this_post">确定删除这个帖子？</string>
     <string name="jab_a_little">戳了一下</string>
     <string name="all_space_brackets_holder_brackets" formatted="false">全部 (%d)</string>
     <string name="post_already_be_screen">帖子已被屏蔽</string>
@@ -574,8 +595,6 @@
     <string name="now_no_broadcast">暂无广播</string>
     <string name="now_no_activity">暂无活动</string>
     <string name="the_holder_period" formatted="false">第%d期</string>
-    <string name="start_time_colon_holder" formatted="false">开始时间：%s</string>
-    <string name="end_time_colon_holder" formatted="false">结束时间：%s</string>
     <string name="we_chat">微信</string>
     <string name="ali_pay">支付宝</string>
     <string name="pay">支付</string>
@@ -605,21 +624,12 @@
     <string name="every_can_upload_holder_paper" formatted="false">每个可上传%d张</string>
     <string name="continue_sign_holder_day" formatted="false">连续签到%d天</string>
     <string name="get_space_holder_space_day_vip_on_space_holder_space_expire" formatted="false">获得了 %d 天的会员，于 %s 到期</string>
-    <string name="continue_colon_space_holder_space_day" formatted="false">购买时长: %d 天</string>
-    <string name="expire_colon_space_holder" formatted="false">到期时间: %s</string>
-    <string name="to_month_sign_holder_count" formatted="false">本月签到%d次</string>
-    <string name="go_in_award_colon_holder_coin" formatted="false">参与奖励：%d金币</string>
-    <string name="total_works_count_colon_holder" formatted="false">总作品数：%s</string>
-    <string name="total_coin_count_colon_holder" formatted="false">总金币数：%s</string>
-    <string name="total_point_count_colon_holder" formatted="false">总点赞数：%s</string>
     <string name="old_period">往期</string>
     <string name="coin_board">金币榜</string>
     <string name="point_board">点赞榜</string>
     <string name="new_board">新人榜</string>
     <string name="work_already_be_screen">作品已被屏蔽</string>
     <string name="work_already_be_delete">作品已被删除</string>
-    <string name="confirm_del_this_work">确定要删除这个作品吗？</string>
-    <string name="input_coin_count">输入投币数量</string>
 
     <!--user_protocol-->
     <string name="agreement_import_know" formatted="false">重要须知:\n%s在此特别提醒用户认真阅读、充分理解本《用户协议》（下称《协议》）--- 用户应认真阅读、充分理解本《协议》中各条款，包括免除或者限制%s的免责条款及对用户的权利限制条款。请您审慎阅读并选择接受或不接受本《协议》（未成年人应在法定监护人陪同下阅读）。除非您接受本《协议》所有条款，否则您无权注册、登录或使用本协议所涉相关服务。您的注册、登录、使用等行为将视为对本《协议》的接受，并同意接受本《协议》各项条款的约束。本《协议》描述%s与用户之间关于%s服务相关方面的权利义务。“用户”是指注册、登录、使用、浏览本服务的个人或组织。本《协议》可随时更新，更新后的协议条款一旦公布即代替原来的协议条款，恕不再另行通知，用户可在本网站查阅最新版协议条款。在修改《协议》条款后，如果用户不接受修改后的条款，请立即停止使用%s提供的服务，用户继续使用提供的服务将被视为已接受了修改后的协议。</string>
