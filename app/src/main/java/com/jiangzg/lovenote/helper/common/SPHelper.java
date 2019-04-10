@@ -146,6 +146,8 @@ public class SPHelper {
     private static final String FIELD_LIMIT_COUPLE_BREAK_SEC = "couple_break_sec";
     private static final String FIELD_LIMIT_COUPLE_NAME_LENGTH = "couple_name_length";
     private static final String FIELD_LIMIT_NOTE_OSS_EXPIRE_SECONDS = "note_oss_expire_seconds";
+    private static final String FIELD_LIMIT_NOTE_SLEEP_SUCCESS_MIN_SEC = "note_sleep_success_min_sec";
+    private static final String FIELD_LIMIT_NOTE_SLEEP_SUCCESS_MAX_SEC = "note_sleep_success_max_sec";
     private static final String FIELD_LIMIT_NOTE_LOCK_LENGTH = "note_lock_length";
     private static final String FIELD_LIMIT_SOUVENIR_TITLE_LENGTH = "souvenir_title_length";
     private static final String FIELD_LIMIT_SOUVENIR_FOREIGN_YEAR_COUNT = "souvenir_foreign_year_count";
@@ -637,6 +639,8 @@ public class SPHelper {
         editor.putLong(FIELD_LIMIT_COUPLE_BREAK_SEC, limit.getCoupleBreakSec());
         editor.putInt(FIELD_LIMIT_COUPLE_NAME_LENGTH, limit.getCoupleNameLength());
         editor.putLong(FIELD_LIMIT_NOTE_OSS_EXPIRE_SECONDS, limit.getNoteResExpireSec());
+        editor.putLong(FIELD_LIMIT_NOTE_SLEEP_SUCCESS_MIN_SEC, limit.getNoteSleepSuccessMinSec());
+        editor.putLong(FIELD_LIMIT_NOTE_SLEEP_SUCCESS_MAX_SEC, limit.getNoteSleepSuccessMaxSec());
         editor.putInt(FIELD_LIMIT_NOTE_LOCK_LENGTH, limit.getNoteLockLength());
         editor.putInt(FIELD_LIMIT_SOUVENIR_TITLE_LENGTH, limit.getSouvenirTitleLength());
         editor.putInt(FIELD_LIMIT_SOUVENIR_FOREIGN_YEAR_COUNT, limit.getSouvenirForeignYearCount());
@@ -713,6 +717,8 @@ public class SPHelper {
         limit.setCoupleBreakSec(sp.getLong(FIELD_LIMIT_COUPLE_BREAK_SEC, 60 * 60 * 24));
         limit.setCoupleNameLength(sp.getInt(FIELD_LIMIT_COUPLE_NAME_LENGTH, 6));
         limit.setNoteResExpireSec(sp.getLong(FIELD_LIMIT_NOTE_OSS_EXPIRE_SECONDS, 60 * 60 * 24 * 30 * 3));
+        limit.setNoteSleepSuccessMinSec(sp.getLong(FIELD_LIMIT_NOTE_SLEEP_SUCCESS_MIN_SEC, 60 * 30));
+        limit.setNoteSleepSuccessMaxSec(sp.getLong(FIELD_LIMIT_NOTE_SLEEP_SUCCESS_MAX_SEC, 60 * 60 * 24));
         limit.setNoteLockLength(sp.getInt(FIELD_LIMIT_NOTE_LOCK_LENGTH, 6));
         limit.setSouvenirTitleLength(sp.getInt(FIELD_LIMIT_SOUVENIR_TITLE_LENGTH, 20));
         limit.setSouvenirForeignYearCount(sp.getInt(FIELD_LIMIT_SOUVENIR_FOREIGN_YEAR_COUNT, 1));

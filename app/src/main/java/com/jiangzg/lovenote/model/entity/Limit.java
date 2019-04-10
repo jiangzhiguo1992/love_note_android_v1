@@ -20,6 +20,8 @@ public class Limit {
     private int coupleNameLength;
     // note
     private long noteResExpireSec;
+    private long noteSleepSuccessMinSec;
+    private long noteSleepSuccessMaxSec;
     private int noteLockLength;
     private int souvenirTitleLength;
     private int souvenirForeignYearCount;
@@ -82,6 +84,22 @@ public class Limit {
     private int matchWorkScreenReportCount;
     private int matchWorkTitleLength;
     private int matchWorkContentLength;
+
+    public long getNoteSleepSuccessMinSec() {
+        return noteSleepSuccessMinSec;
+    }
+
+    public void setNoteSleepSuccessMinSec(long noteSleepSuccessMinSec) {
+        this.noteSleepSuccessMinSec = noteSleepSuccessMinSec;
+    }
+
+    public long getNoteSleepSuccessMaxSec() {
+        return noteSleepSuccessMaxSec;
+    }
+
+    public void setNoteSleepSuccessMaxSec(long noteSleepSuccessMaxSec) {
+        this.noteSleepSuccessMaxSec = noteSleepSuccessMaxSec;
+    }
 
     public int getMovieTitleLength() {
         return movieTitleLength;
