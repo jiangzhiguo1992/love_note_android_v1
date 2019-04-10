@@ -64,12 +64,18 @@ public class ShyActivity extends BaseActivity<ShyActivity> {
     TextView tvBackCur;
     @BindView(R.id.cvShy)
     CalendarView cvShy;
-    @BindView(R.id.tvMonth)
-    TextView tvMonth;
-    @BindView(R.id.cvPush)
-    CardView cvPush;
+    @BindView(R.id.cvExtend)
+    CardView cvExtend;
+    @BindView(R.id.tvExtendDuration)
+    TextView tvExtendDuration;
+    @BindView(R.id.tvExtendSafe)
+    TextView tvExtendSafe;
+    @BindView(R.id.tvExtendDesc)
+    TextView tvExtendDesc;
     @BindView(R.id.rv)
     RecyclerView rv;
+    @BindView(R.id.cvPush)
+    CardView cvPush;
 
     private List<Shy> shyList;
     private RecyclerHelper recyclerHelper;
@@ -128,15 +134,15 @@ public class ShyActivity extends BaseActivity<ShyActivity> {
                     // 只是选择的同月day
                     selectDay = calendar.getDay();
                     refreshTopDateShow();
-                    refreshDayView();
+                    refreshBottomRightDayView();
                     return;
                 }
                 selectYear = calendar.getYear();
                 selectMonth = calendar.getMonth();
                 selectDay = calendar.getDay();
                 refreshTopDateShow();
-                refreshMonthData();
-                refreshDayView();
+                refreshCenterMonthData();
+                refreshBottomRightDayView();
             }
         });
         // recycler
@@ -160,16 +166,16 @@ public class ShyActivity extends BaseActivity<ShyActivity> {
         Observable<Shy> obListItemDelete = RxBus.register(RxBus.EVENT_SHY_LIST_ITEM_DELETE, shy -> {
             if (recyclerHelper == null) return;
             ListHelper.removeObjInAdapter(recyclerHelper.getAdapter(), shy);
-            refreshMonthData();
+            refreshCenterMonthData();
         });
         pushBus(RxBus.EVENT_SHY_LIST_ITEM_DELETE, obListItemDelete);
         // 设置当前日期
         refreshDateToCurrent();
         // 显示当前数据
-        refreshMonthSchemeView();
-        refreshDayView();
+        refreshCenterMonthSchemeView();
+        refreshBottomRightDayView();
         // 开始获取数据
-        refreshMonthData();
+        refreshCenterMonthData();
     }
 
     @Override
@@ -227,15 +233,12 @@ public class ShyActivity extends BaseActivity<ShyActivity> {
         refreshTopDateShow();
     }
 
-    private void refreshMonthSchemeView() {
+    private void refreshCenterMonthSchemeView() {
         if (cvShy == null) return;
-        String monthFormat = getString(R.string.current_month_space_holder_space_second);
         // data
-        int monthCount = 0;
         SparseIntArray countArray = new SparseIntArray();
         Map<String, com.haibin.calendarview.Calendar> schemeMap = new HashMap<>();
         if (shyList != null && shyList.size() > 0) {
-            monthCount = shyList.size();
             for (Shy shy : shyList) {
                 if (shy == null) continue;
                 com.haibin.calendarview.Calendar calendar = CalendarMonthView.getCalendarView(shy.getHappenAt());
@@ -255,11 +258,9 @@ public class ShyActivity extends BaseActivity<ShyActivity> {
         // calendar
         cvShy.clearSchemeDate();
         cvShy.setSchemeDate(schemeMap);
-        // view
-        tvMonth.setText(String.format(Locale.getDefault(), monthFormat, monthCount));
     }
 
-    private void refreshDayView() {
+    private void refreshBottomRightDayView() {
         if (recyclerHelper == null) return;
         // data
         List<Shy> dayList = new ArrayList<>();
@@ -286,16 +287,16 @@ public class ShyActivity extends BaseActivity<ShyActivity> {
 
     private void dateBack() {
         refreshDateToCurrent();
-        refreshMonthData();
+        refreshCenterMonthData();
     }
 
-    private void refreshMonthData() {
+    private void refreshCenterMonthData() {
         if (!srl.isRefreshing()) {
             srl.setRefreshing(true);
         }
         // clear (data + view)
         shyList = null;
-        refreshDayView();
+        refreshBottomRightDayView();
         // call
         Call<Result> api = new RetrofitHelper().call(API.class).noteShyListGetByDate(selectYear, selectMonth);
         RetrofitHelper.enqueue(api, null, new RetrofitHelper.CallBack() {
@@ -304,8 +305,8 @@ public class ShyActivity extends BaseActivity<ShyActivity> {
                 srl.setRefreshing(false);
                 shyList = data.getShyList();
                 // view
-                refreshMonthSchemeView();
-                refreshDayView();
+                refreshCenterMonthSchemeView();
+                refreshBottomRightDayView();
             }
 
             @Override
@@ -342,7 +343,7 @@ public class ShyActivity extends BaseActivity<ShyActivity> {
         RetrofitHelper.enqueue(api, mActivity.getLoading(true), new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
-                refreshMonthData();
+                refreshCenterMonthData();
             }
 
             @Override

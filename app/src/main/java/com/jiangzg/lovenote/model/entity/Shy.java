@@ -13,6 +13,9 @@ public class Shy extends BaseCP implements Parcelable {
     private int monthOfYear;
     private int dayOfMonth;
     private long happenAt;
+    private long endAt;
+    private String safe;
+    private String desc;
 
     public int getYear() {
         return year;
@@ -46,6 +49,30 @@ public class Shy extends BaseCP implements Parcelable {
         this.happenAt = happenAt;
     }
 
+    public long getEndAt() {
+        return endAt;
+    }
+
+    public void setEndAt(long endAt) {
+        this.endAt = endAt;
+    }
+
+    public String getSafe() {
+        return safe;
+    }
+
+    public void setSafe(String safe) {
+        this.safe = safe;
+    }
+
+    public String getDesc() {
+        return desc;
+    }
+
+    public void setDesc(String desc) {
+        this.desc = desc;
+    }
+
     public Shy() {
     }
 
@@ -55,6 +82,9 @@ public class Shy extends BaseCP implements Parcelable {
         monthOfYear = in.readInt();
         dayOfMonth = in.readInt();
         happenAt = in.readLong();
+        endAt = in.readLong();
+        safe = in.readString();
+        desc = in.readString();
     }
 
     @Override
@@ -64,6 +94,9 @@ public class Shy extends BaseCP implements Parcelable {
         dest.writeInt(monthOfYear);
         dest.writeInt(dayOfMonth);
         dest.writeLong(happenAt);
+        dest.writeLong(endAt);
+        dest.writeString(safe);
+        dest.writeString(desc);
     }
 
     @Override
