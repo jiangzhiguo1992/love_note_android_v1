@@ -198,7 +198,7 @@
 
                             <TextView
                                 android:id="@+id/tvPush"
-                                style="@style/FontPrimaryNormal"
+                                style="@style/FontPrimaryNormalBold"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:gravity="center"

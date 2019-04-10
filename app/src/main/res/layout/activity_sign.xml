@@ -134,7 +134,7 @@
 
                         <TextView
                             android:id="@+id/tvCountLeft"
-                            style="@style/FontWhiteNormal"
+                            style="@style/FontWhiteNormalBold"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             tools:text="本月签到8次"/>
@@ -155,7 +155,7 @@
 
                         <TextView
                             android:id="@+id/tvState"
-                            style="@style/FontPrimaryHuge"
+                            style="@style/FontPrimaryHugeBold"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:gravity="center"
@@ -180,7 +180,7 @@
 
                         <TextView
                             android:id="@+id/tvCountRight"
-                            style="@style/FontWhiteNormal"
+                            style="@style/FontWhiteNormalBold"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             tools:text="本月签到8次"/>
