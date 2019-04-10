@@ -145,15 +145,15 @@ public class SleepActivity extends BaseActivity<SleepActivity> {
                     // 只是选择的同月day
                     selectDay = calendar.getDay();
                     refreshTopDateShow();
-                    refreshDayView();
+                    refreshCenterDayView();
                     return;
                 }
                 selectYear = calendar.getYear();
                 selectMonth = calendar.getMonth();
                 selectDay = calendar.getDay();
                 refreshTopDateShow();
-                refreshMonthData();
-                refreshDayView();
+                refreshCenterMonthData();
+                refreshCenterDayView();
             }
         });
         // recycler
@@ -200,19 +200,19 @@ public class SleepActivity extends BaseActivity<SleepActivity> {
             if (recyclerRight != null) {
                 ListHelper.removeObjInAdapter(recyclerRight.getAdapter(), sleep);
             }
-            getLatestData();
-            refreshMonthData();
+            getBottomLatestData();
+            refreshCenterMonthData();
         });
         pushBus(RxBus.EVENT_SLEEP_LIST_ITEM_DELETE, obListItemDelete);
         // 设置当前日期
         refreshDateToCurrent();
         // 显示当前数据
-        refreshMonthView();
-        refreshDayView();
-        refreshLatestView();
+        refreshCenterMonthView();
+        refreshCenterDayView();
+        refreshBottomLatestView();
         // 开始获取数据
-        getLatestData();
-        refreshMonthData();
+        getBottomLatestData();
+        refreshCenterMonthData();
     }
 
     @Override
@@ -271,7 +271,7 @@ public class SleepActivity extends BaseActivity<SleepActivity> {
         refreshTopDateShow();
     }
 
-    private void refreshMonthView() {
+    private void refreshCenterMonthView() {
         if (cvSleep == null) return;
         // data
         SparseIntArray countArray = new SparseIntArray();
@@ -298,7 +298,7 @@ public class SleepActivity extends BaseActivity<SleepActivity> {
         cvSleep.setSchemeDate(schemeMap);
     }
 
-    private void refreshDayView() {
+    private void refreshCenterDayView() {
         List<Sleep> selectLeftList = new ArrayList<>();
         List<Sleep> selectRightList = new ArrayList<>();
         if (sleepList != null && sleepList.size() > 0) {
@@ -328,7 +328,7 @@ public class SleepActivity extends BaseActivity<SleepActivity> {
 
     private void dateBack() {
         refreshDateToCurrent();
-        refreshMonthData();
+        refreshCenterMonthData();
     }
 
     private void refreshTopDateShow() {
@@ -345,7 +345,7 @@ public class SleepActivity extends BaseActivity<SleepActivity> {
         tvDateShow.setText(show);
     }
 
-    private void refreshLatestView() {
+    private void refreshBottomLatestView() {
         String sleepBtnShow = getString(R.string.good_night);
         String sleepShowMe = getString(R.string.now_no);
         if (sleepMe != null && sleepMe.getId() > 0) {
@@ -375,7 +375,7 @@ public class SleepActivity extends BaseActivity<SleepActivity> {
         tvStateLeft.setText(sleetShowTa);
     }
 
-    private void getLatestData() {
+    private void getBottomLatestData() {
         if (!srl.isRefreshing()) {
             srl.setRefreshing(true);
         }
@@ -387,7 +387,7 @@ public class SleepActivity extends BaseActivity<SleepActivity> {
                 sleepMe = data.getSleepMe();
                 sleepTa = data.getSleepTa();
                 // view
-                refreshLatestView();
+                refreshBottomLatestView();
             }
 
             @Override
@@ -398,13 +398,13 @@ public class SleepActivity extends BaseActivity<SleepActivity> {
         pushApi(api);
     }
 
-    private void refreshMonthData() {
+    private void refreshCenterMonthData() {
         if (!srl.isRefreshing()) {
             srl.setRefreshing(true);
         }
         // clear (data + view)
         sleepList = null;
-        refreshDayView();
+        refreshCenterDayView();
         // call
         Call<Result> api = new RetrofitHelper().call(API.class).noteSleepListGetByDate(selectYear, selectMonth);
         RetrofitHelper.enqueue(api, null, new RetrofitHelper.CallBack() {
@@ -413,8 +413,8 @@ public class SleepActivity extends BaseActivity<SleepActivity> {
                 srl.setRefreshing(false);
                 sleepList = data.getSleepList();
                 // view
-                refreshMonthView();
-                refreshDayView();
+                refreshCenterMonthView();
+                refreshCenterDayView();
             }
 
             @Override
@@ -435,9 +435,9 @@ public class SleepActivity extends BaseActivity<SleepActivity> {
             public void onResponse(int code, String message, Result.Data data) {
                 sleepMe = data.getSleep();
                 // view
-                refreshLatestView();
+                refreshBottomLatestView();
                 // data
-                refreshMonthData();
+                refreshCenterMonthData();
             }
 
             @Override

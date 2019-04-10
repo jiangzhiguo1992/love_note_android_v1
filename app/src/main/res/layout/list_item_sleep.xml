@@ -9,6 +9,6 @@
     android:background="?attr/selectableItemBackground"
     android:foreground="?attr/selectableItemBackground"
     android:gravity="center"
-    android:paddingTop="2dp"
-    android:paddingBottom="2dp"
-    tools:text="撒飒飒撒飒飒撒飒飒撒飒飒撒飒飒"/>
+    android:paddingTop="5dp"
+    android:paddingBottom="5dp"
+    tools:text="入睡时间：20：00"/>
