@@ -21,6 +21,12 @@
     <string name="dayR">日</string>
     <string name="month">月</string>
     <string name="year">年</string>
+    <string name="holder_second" formatted="false">%d秒</string>
+    <string name="holder_minute" formatted="false">%d分钟</string>
+    <string name="holder_minute_short" formatted="false">%d分</string>
+    <string name="holder_hour" formatted="false">%d小时</string>
+    <string name="holder_hour_short" formatted="false">%d时</string>
+    <string name="holder_dayT" formatted="false">%d天</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
@@ -312,6 +318,7 @@
     <string name="type_colon">类型:</string>
     <string name="status_colon">状态:</string>
     <string name="confirm_del_suggest">确定删除意见吗？</string>
+    <string name="confirm_del_comment">确定要删除评论吗？</string>
     <string name="holder_floor" formatted="false">%d楼</string>
 
     <!-- user -->
@@ -355,7 +362,6 @@
     <string name="now_null_nickname">暂无爱称</string>
     <string name="look_big_image">查看大图</string>
     <string name="change_image">更换图片</string>
-    <string name="holder_day" formatted="false">%d天</string>
     <string name="u_confirm_break">你确定要解除关系吗？</string>
     <string name="impulse_is_devil_3">冲动是魔鬼！冲动是魔鬼！冲动是魔鬼！</string>
     <string name="modify_ta_name">修改TA的名称</string>
@@ -446,7 +452,6 @@
     <string name="live">生活</string>
     <string name="note">笔记</string>
     <string name="media">多媒体</string>
-    <string name="add_extend_info">添加额外信息</string>
     <string name="add_track">添加足迹</string>
     <string name="add_gift">添加礼物</string>
     <string name="add_travel">添加游记</string>
@@ -467,7 +472,6 @@
     <string name="please_select_rule">请选择约定</string>
     <string name="please_select_score">请选择分数</string>
     <string name="is_save_draft">是否保存草稿</string>
-    <string name="holder_space_in_space_holder_space_make_this_wish" formatted="false">%s 于 %s 许下了这个愿望~</string>
     <string name="please_input_dream_content">请输入梦的情节，记得多少写多少</string>
     <string name="please_input_promise_content">请输入承诺的起因、经过和结果</string>
     <string name="please_input_angry_content">请输入生气的原由</string>
@@ -475,22 +479,28 @@
     <string name="please_input_trigger_rule">请输入触犯约定的情景</string>
     <string name="please_input_track_content">请输入足迹的介绍</string>
     <string name="please_input_remark">请输入评价吧</string>
-    <string name="confirm_del_comment">确定要删除评论吗？</string>
+    <string name="time_colon_space_holder" formatted="false">时间: %s</string>
+    <string name="address_colon_space_holder" formatted="false">位置: %s</string>
+    <string name="type_colon_space_holder" formatted="false">类型: %s</string>
+    <string name="belong_colon_space_holder" formatted="false">所属: %s</string>
+    <string name="album_colon_space_holder" formatted="false">相册: %s</string>
+    <string name="duration_colon_space_holder" formatted="false">时长: %s</string>
+    <string name="rule_colon_space_holder" formatted="false">约定: %s</string>
+    <string name="can_operation_self_create_note">只能操作自己创建的记录哦！</string>
     <string name="confirm_delete_this_note">确定删除这个记录？</string>
     <string name="confirm_remove_this_note">确定移除这个记录？</string>
     <string name="confirm_del_the_day_note">确定删除这天的记录？</string>
-    <string name="can_operation_self_create_note">只能操作自己创建的记录哦！</string>
     <string name="save_draft">保存草稿</string>
     <string name="draft_save_success">草稿保存成功</string>
     <string name="open_lock">开锁</string>
     <string name="close_lock">关锁</string>
     <string name="per_day_is_souvenir">有你的每一天，都是纪念日</string>
+    <string name="count_down_space_holder" formatted="false">倒计时 %s</string>
     <string name="holder_anniversary" formatted="false">%d周年</string>
-    <string name="already_gone_holder_day" formatted="false">已过 %d 天</string>
-    <string name="just_have_holder_day" formatted="false">还剩 %d 天</string>
     <string name="add_holder" formatted="false">+%d</string>
     <string name="sub_holder" formatted="false">-%d</string>
     <string name="click_me_edit">点我编辑</string>
+    <string name="holder_space_in_space_holder_space_make_this_wish" formatted="false">%s 于 %s 许下了这个愿望~</string>
     <string name="come">来</string>
     <string name="gone">走</string>
     <string name="back_current">回到当前</string>
@@ -498,11 +508,10 @@
     <string name="menses_gone">姨妈走了</string>
     <string name="already_start_space_holder" formatted="false">已开始 %s</string>
     <string name="already_delay_space_holder" formatted="false">已推迟 %s</string>
-    <string name="count_down_space_holder" formatted="false">倒计时 %s</string>
     <string name="start_at_colon_space_holder" formatted="false">开始于: %s</string>
     <string name="end_at_colon_space_holder" formatted="false">结束与: %s</string>
-    <string name="current_month_space_holder_space_second" formatted="false">本月 %d 次</string>
-    <string name="current_day_space_holder_space_second" formatted="false">今日 %d 次</string>
+    <string name="continue_duration_colon_holder" formatted="false">持续时长：%s</string>
+    <string name="safe_method_colon_holder" formatted="false">安全措施：%s</string>
     <string name="already_wake_space_holder" formatted="false">已醒来 %s</string>
     <string name="already_sleep_space_holder" formatted="false">已睡眠 %s</string>
     <string name="holder_colon_sleep" formatted="false">入睡时间：%s</string>
@@ -512,15 +521,7 @@
     <string name="in_here_input_channel">在这里输入频道</string>
     <string name="change_channel">切换频道</string>
     <string name="current_channel_colon_space_holder" formatted="false">当前频道《%s》</string>
-    <string name="time_colon_space_holder" formatted="false">时间: %s</string>
-    <string name="address_colon_space_holder" formatted="false">位置: %s</string>
-    <string name="type_colon_space_holder" formatted="false">类型: %s</string>
-    <string name="belong_colon_space_holder" formatted="false">所属: %s</string>
-    <string name="album_colon_space_holder" formatted="false">相册: %s</string>
-    <string name="duration_colon_space_holder" formatted="false">时长: %s</string>
-    <string name="rule_colon_space_holder" formatted="false">约定: %s</string>
     <string name="picture_where">照片呢？</string>
-    <string name="violate">违反</string>
     <string name="break_space_holder_space_time" formatted="false">违反 %d 次</string>
     <string name="did_award_some_gift">有没有补偿什么礼物</string>
     <string name="did_do_some_promise">有没有做出什么承诺</string>
@@ -588,7 +589,6 @@
     <string name="pay_coin_goods_format" formatted="false">%s\n%d 个\n\n￥ %.1f</string>
     <string name="pay_error">支付异常</string>
     <string name="pay_success_but_nothing">支付成功了，但是啥也没给？</string>
-    <string name="vip_over_due_next_holder" formatted="false">会员到期时间\n%s</string>
     <string name="history_info">历史信息</string>
     <string name="go_to_buy">前往购买</string>
     <string name="no_vip">非会员</string>

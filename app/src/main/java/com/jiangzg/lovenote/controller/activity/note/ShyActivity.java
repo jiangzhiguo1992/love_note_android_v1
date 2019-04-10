@@ -17,10 +17,13 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.chad.library.adapter.base.listener.OnItemLongClickListener;
 import com.haibin.calendarview.CalendarView;
 import com.haibin.calendarview.WeekView;
 import com.jiangzg.base.common.DateUtils;
+import com.jiangzg.base.common.StringUtils;
+import com.jiangzg.base.common.TimeUnit;
 import com.jiangzg.base.component.ActivityTrans;
 import com.jiangzg.base.view.ViewUtils;
 import com.jiangzg.lovenote.R;
@@ -80,6 +83,7 @@ public class ShyActivity extends BaseActivity<ShyActivity> {
     private List<Shy> shyList;
     private RecyclerHelper recyclerHelper;
     private int selectYear, selectMonth, selectDay;
+    private int selectShyIndex;
 
     public static void goActivity(Activity from) {
         Intent intent = new Intent(from, ShyActivity.class);
@@ -151,6 +155,13 @@ public class ShyActivity extends BaseActivity<ShyActivity> {
                 .initAdapter(new ShyAdapter(mActivity))
                 .viewAnim()
                 .setAdapter()
+                .listenerClick(new OnItemClickListener() {
+                    @Override
+                    public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
+                        selectShyIndex = position;
+                        refreshBottomLeftShyView();
+                    }
+                })
                 .listenerClick(new OnItemLongClickListener() {
                     @Override
                     public void onSimpleItemLongClick(BaseQuickAdapter adapter, View view, int position) {
@@ -217,8 +228,8 @@ public class ShyActivity extends BaseActivity<ShyActivity> {
             case R.id.tvBackCur: // 回到当前
                 dateBack();
                 break;
-            case R.id.cvPush: // 睡眠
-                showDatePicker();
+            case R.id.cvPush: // 添加
+                // TODO
                 break;
         }
     }
@@ -274,6 +285,37 @@ public class ShyActivity extends BaseActivity<ShyActivity> {
         }
         // view
         recyclerHelper.dataNew(dayList, 0);
+        // select
+        selectShyIndex = -1;
+        refreshBottomLeftShyView();
+    }
+
+    private void refreshBottomLeftShyView() {
+        if (recyclerHelper == null || recyclerHelper.getAdapter() == null || selectShyIndex < 0
+                || selectShyIndex >= recyclerHelper.getAdapter().getData().size()) {
+            cvExtend.setVisibility(View.GONE);
+            return;
+        }
+        cvExtend.setVisibility(View.VISIBLE);
+        // data
+        Shy shy = ((ShyAdapter) recyclerHelper.getAdapter()).getItem(selectShyIndex);
+        long durationMin = (shy.getEndAt() - shy.getHappenAt()) / (TimeUnit.MIN / TimeUnit.SEC);
+        if (durationMin == 0) {
+            durationMin = 1;
+        }
+        String durationMinShow;
+        if (durationMin > 0) {
+            durationMinShow = String.format(Locale.getDefault(), getString(R.string.holder_minute), durationMin);
+        } else {
+            durationMinShow = getString(R.string.nil);
+        }
+        String duration = String.format(Locale.getDefault(), getString(R.string.continue_duration_colon_holder), durationMinShow);
+        String safe = String.format(Locale.getDefault(), getString(R.string.safe_method_colon_holder), StringUtils.isEmpty(shy.getSafe()) ? getString(R.string.nil) : shy.getSafe());
+        String desc = shy.getDesc();
+        // view
+        tvExtendDuration.setText(duration);
+        tvExtendSafe.setText(safe);
+        tvExtendDesc.setText(desc);
     }
 
     private void yearShow() {
@@ -331,10 +373,12 @@ public class ShyActivity extends BaseActivity<ShyActivity> {
         tvDateShow.setText(show);
     }
 
+    // TODO
     private void showDatePicker() {
         DialogHelper.showDateTimePicker(mActivity, DateUtils.getCurrentLong(), time -> shyPush(TimeHelper.getGoTimeByJava(time)));
     }
 
+    // TODO
     private void shyPush(long happenAt) {
         Shy shy = new Shy();
         shy.setHappenAt(happenAt);
