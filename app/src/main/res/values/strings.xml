@@ -504,8 +504,8 @@
     <string name="current_day_space_holder_space_second" formatted="false">今日 %d 次</string>
     <string name="already_wake_space_holder" formatted="false">已醒来 %s</string>
     <string name="already_sleep_space_holder" formatted="false">已睡眠 %s</string>
-    <string name="holder_colon_sleep" formatted="false">%s：入睡</string>
-    <string name="holder_colon_wake" formatted="false">%s：醒来</string>
+    <string name="holder_colon_sleep" formatted="false">入睡时间：%s</string>
+    <string name="holder_colon_wake" formatted="false">醒来时间：%s</string>
     <string name="good_night">晚安</string>
     <string name="i_am_wake">醒啦</string>
     <string name="in_here_input_channel">在这里输入频道</string>
