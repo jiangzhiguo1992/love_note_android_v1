@@ -446,6 +446,7 @@
     <string name="live">生活</string>
     <string name="note">笔记</string>
     <string name="media">多媒体</string>
+    <string name="add_extend_info">添加额外信息</string>
     <string name="add_track">添加足迹</string>
     <string name="add_gift">添加礼物</string>
     <string name="add_travel">添加游记</string>
