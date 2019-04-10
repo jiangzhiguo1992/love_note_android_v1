@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.net.Uri;
 
+import com.facebook.cache.common.CacheErrorLogger;
 import com.facebook.cache.disk.DiskCacheConfig;
 import com.facebook.cache.disk.FileCache;
 import com.facebook.common.logging.FLog;
@@ -49,6 +50,7 @@ public class FrescoHelper {
         DiskCacheConfig diskCacheConfig = DiskCacheConfig.newBuilder(ctx)
                 .setBaseDirectoryPath(ResHelper.createFrescoCacheDir()) // 路径
                 .setMaxCacheSize(ResHelper.getMaxCacheSize()) // 大小
+                .setCacheErrorLogger((category, clazz, message, throwable) -> LogUtils.e(FrescoHelper.class, "initApp", throwable))
                 .build();
         // 初始化配置，使用okHttp的，会有准确的加载进度
         ImagePipelineConfig config = OkHttpImagePipelineConfigFactory.newBuilder(ctx, new OkHttpClient())
