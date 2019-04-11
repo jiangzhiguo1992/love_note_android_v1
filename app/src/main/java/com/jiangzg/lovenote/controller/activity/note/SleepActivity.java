@@ -200,7 +200,7 @@ public class SleepActivity extends BaseActivity<SleepActivity> {
             if (recyclerRight != null) {
                 ListHelper.removeObjInAdapter(recyclerRight.getAdapter(), sleep);
             }
-            getBottomStatusData();
+            refreshBottomStatusData();
             refreshCenterMonthData();
         });
         pushBus(RxBus.EVENT_SLEEP_LIST_ITEM_DELETE, obListItemDelete);
@@ -212,7 +212,7 @@ public class SleepActivity extends BaseActivity<SleepActivity> {
         refreshBottomStatusView();
         // 开始获取数据
         refreshCenterMonthData();
-        getBottomStatusData();
+        refreshBottomStatusData();
     }
 
     @Override
@@ -383,7 +383,7 @@ public class SleepActivity extends BaseActivity<SleepActivity> {
     /**
      * **************************************** bottom ***********************************************
      */
-    private void getBottomStatusData() {
+    private void refreshBottomStatusData() {
         if (!srl.isRefreshing()) {
             srl.setRefreshing(true);
         }

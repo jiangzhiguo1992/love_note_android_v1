@@ -136,7 +136,7 @@ public class ShyActivity extends BaseActivity<ShyActivity> {
                     // 只是选择的同月day
                     selectDay = calendar.getDay();
                     refreshTopDateShow();
-                    refreshBottomRightDayView();
+                    refreshBottomDayView();
                     return;
                 }
                 selectYear = calendar.getYear();
@@ -144,7 +144,7 @@ public class ShyActivity extends BaseActivity<ShyActivity> {
                 selectDay = calendar.getDay();
                 refreshTopDateShow();
                 refreshCenterMonthData();
-                refreshBottomRightDayView();
+                refreshBottomDayView();
             }
         });
         // recycler
@@ -157,7 +157,7 @@ public class ShyActivity extends BaseActivity<ShyActivity> {
                     @Override
                     public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
                         selectShyIndex = position;
-                        refreshBottomLeftShyView();
+                        refreshBottomDetailView();
                     }
                 })
                 .listenerClick(new OnItemLongClickListener() {
@@ -184,7 +184,7 @@ public class ShyActivity extends BaseActivity<ShyActivity> {
         refreshDateToCurrent();
         // 显示当前数据
         refreshCenterMonthView();
-        refreshBottomRightDayView();
+        refreshBottomDayView();
         // 开始获取数据
         refreshCenterMonthData();
     }
@@ -286,7 +286,7 @@ public class ShyActivity extends BaseActivity<ShyActivity> {
         if (shyList != null) {
             shyList.clear();
         }
-        refreshBottomRightDayView();
+        refreshBottomDayView();
         // call
         Call<Result> api = new RetrofitHelper().call(API.class).noteShyListGetByDate(selectYear, selectMonth);
         RetrofitHelper.enqueue(api, null, new RetrofitHelper.CallBack() {
@@ -296,7 +296,7 @@ public class ShyActivity extends BaseActivity<ShyActivity> {
                 shyList = data.getShyList();
                 // view
                 refreshCenterMonthView();
-                refreshBottomRightDayView();
+                refreshBottomDayView();
             }
 
             @Override
@@ -337,7 +337,7 @@ public class ShyActivity extends BaseActivity<ShyActivity> {
     /**
      * **************************************** bottom ***********************************************
      */
-    private void refreshBottomRightDayView() {
+    private void refreshBottomDayView() {
         if (recyclerHelper == null) return;
         // data
         List<Shy> dayList = new ArrayList<>();
@@ -353,10 +353,10 @@ public class ShyActivity extends BaseActivity<ShyActivity> {
         recyclerHelper.dataNew(dayList, 0);
         // select
         selectShyIndex = -1;
-        refreshBottomLeftShyView();
+        refreshBottomDetailView();
     }
 
-    private void refreshBottomLeftShyView() {
+    private void refreshBottomDetailView() {
         if (recyclerHelper == null || recyclerHelper.getAdapter() == null || selectShyIndex < 0
                 || selectShyIndex >= recyclerHelper.getAdapter().getData().size()) {
             cvExtend.setVisibility(View.GONE);
