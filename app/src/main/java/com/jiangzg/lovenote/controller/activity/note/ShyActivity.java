@@ -234,6 +234,23 @@ public class ShyActivity extends BaseActivity<ShyActivity> {
         }
     }
 
+    /**
+     * **************************************** top ***********************************************
+     */
+    private void yearShow() {
+        if (cvShy == null) return;
+        if (!cvShy.isYearSelectLayoutVisible()) {
+            cvShy.showYearSelectLayout(selectYear);
+        } else {
+            cvShy.closeYearSelectLayout();
+        }
+    }
+
+    private void dateBack() {
+        refreshDateToCurrent();
+        refreshCenterMonthData();
+    }
+
     private void refreshDateToCurrent() {
         Calendar calendar = DateUtils.getCurrentCal();
         selectYear = calendar.get(Calendar.YEAR);
@@ -242,6 +259,50 @@ public class ShyActivity extends BaseActivity<ShyActivity> {
         cvShy.scrollToCurrent(true);
         // 顶部显示
         refreshTopDateShow();
+    }
+
+    private void refreshTopDateShow() {
+        String show = "";
+        if (selectYear > 0) {
+            String year = String.valueOf(selectYear);
+            String month = String.valueOf(selectMonth);
+            if (selectMonth >= 0) {
+                show = String.format(Locale.getDefault(), getString(R.string.holder_space_line_space_holder), year, month);
+            } else {
+                show = year;
+            }
+        }
+        tvDateShow.setText(show);
+    }
+
+    /**
+     * **************************************** center ***********************************************
+     */
+    private void refreshCenterMonthData() {
+        if (!srl.isRefreshing()) {
+            srl.setRefreshing(true);
+        }
+        // clear (data + view)
+        shyList = null;
+        refreshBottomRightDayView();
+        // call
+        Call<Result> api = new RetrofitHelper().call(API.class).noteShyListGetByDate(selectYear, selectMonth);
+        RetrofitHelper.enqueue(api, null, new RetrofitHelper.CallBack() {
+            @Override
+            public void onResponse(int code, String message, Result.Data data) {
+                srl.setRefreshing(false);
+                shyList = data.getShyList();
+                // view
+                refreshCenterMonthSchemeView();
+                refreshBottomRightDayView();
+            }
+
+            @Override
+            public void onFailure(int code, String message, Result.Data data) {
+                srl.setRefreshing(false);
+            }
+        });
+        pushApi(api);
     }
 
     private void refreshCenterMonthSchemeView() {
@@ -271,6 +332,9 @@ public class ShyActivity extends BaseActivity<ShyActivity> {
         cvShy.setSchemeDate(schemeMap);
     }
 
+    /**
+     * **************************************** bottom ***********************************************
+     */
     private void refreshBottomRightDayView() {
         if (recyclerHelper == null) return;
         // data
@@ -316,61 +380,6 @@ public class ShyActivity extends BaseActivity<ShyActivity> {
         tvExtendDuration.setText(duration);
         tvExtendSafe.setText(safe);
         tvExtendDesc.setText(desc);
-    }
-
-    private void yearShow() {
-        if (cvShy == null) return;
-        if (!cvShy.isYearSelectLayoutVisible()) {
-            cvShy.showYearSelectLayout(selectYear);
-        } else {
-            cvShy.closeYearSelectLayout();
-        }
-    }
-
-    private void dateBack() {
-        refreshDateToCurrent();
-        refreshCenterMonthData();
-    }
-
-    private void refreshCenterMonthData() {
-        if (!srl.isRefreshing()) {
-            srl.setRefreshing(true);
-        }
-        // clear (data + view)
-        shyList = null;
-        refreshBottomRightDayView();
-        // call
-        Call<Result> api = new RetrofitHelper().call(API.class).noteShyListGetByDate(selectYear, selectMonth);
-        RetrofitHelper.enqueue(api, null, new RetrofitHelper.CallBack() {
-            @Override
-            public void onResponse(int code, String message, Result.Data data) {
-                srl.setRefreshing(false);
-                shyList = data.getShyList();
-                // view
-                refreshCenterMonthSchemeView();
-                refreshBottomRightDayView();
-            }
-
-            @Override
-            public void onFailure(int code, String message, Result.Data data) {
-                srl.setRefreshing(false);
-            }
-        });
-        pushApi(api);
-    }
-
-    private void refreshTopDateShow() {
-        String show = "";
-        if (selectYear > 0) {
-            String year = String.valueOf(selectYear);
-            String month = String.valueOf(selectMonth);
-            if (selectMonth >= 0) {
-                show = String.format(Locale.getDefault(), getString(R.string.holder_space_line_space_holder), year, month);
-            } else {
-                show = year;
-            }
-        }
-        tvDateShow.setText(show);
     }
 
 }

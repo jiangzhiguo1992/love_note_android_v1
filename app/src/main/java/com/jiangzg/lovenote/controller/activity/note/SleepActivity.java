@@ -132,7 +132,7 @@ public class SleepActivity extends BaseActivity<SleepActivity> {
             selectYear = year;
             selectMonth = -1;
             selectDay = -1;
-            refreshTopDateShow();
+            refreshTopDateView();
         });
         cvSleep.setOnCalendarSelectListener(new CalendarView.OnCalendarSelectListener() {
             @Override
@@ -144,14 +144,14 @@ public class SleepActivity extends BaseActivity<SleepActivity> {
                 if (selectYear == calendar.getYear() && selectMonth == calendar.getMonth()) {
                     // 只是选择的同月day
                     selectDay = calendar.getDay();
-                    refreshTopDateShow();
+                    refreshTopDateView();
                     refreshCenterDayView();
                     return;
                 }
                 selectYear = calendar.getYear();
                 selectMonth = calendar.getMonth();
                 selectDay = calendar.getDay();
-                refreshTopDateShow();
+                refreshTopDateView();
                 refreshCenterMonthData();
                 refreshCenterDayView();
             }
@@ -200,7 +200,7 @@ public class SleepActivity extends BaseActivity<SleepActivity> {
             if (recyclerRight != null) {
                 ListHelper.removeObjInAdapter(recyclerRight.getAdapter(), sleep);
             }
-            getBottomLatestData();
+            getBottomStatusData();
             refreshCenterMonthData();
         });
         pushBus(RxBus.EVENT_SLEEP_LIST_ITEM_DELETE, obListItemDelete);
@@ -209,9 +209,9 @@ public class SleepActivity extends BaseActivity<SleepActivity> {
         // 显示当前数据
         refreshCenterMonthView();
         refreshCenterDayView();
-        refreshBottomLatestView();
+        refreshBottomStatusView();
         // 开始获取数据
-        getBottomLatestData();
+        getBottomStatusData();
         refreshCenterMonthData();
     }
 
@@ -261,6 +261,23 @@ public class SleepActivity extends BaseActivity<SleepActivity> {
         }
     }
 
+    /**
+     * **************************************** top ***********************************************
+     */
+    private void yearShow() {
+        if (cvSleep == null) return;
+        if (!cvSleep.isYearSelectLayoutVisible()) {
+            cvSleep.showYearSelectLayout(selectYear);
+        } else {
+            cvSleep.closeYearSelectLayout();
+        }
+    }
+
+    private void dateBack() {
+        refreshDateToCurrent();
+        refreshCenterMonthData();
+    }
+
     private void refreshDateToCurrent() {
         Calendar calendar = DateUtils.getCurrentCal();
         selectYear = calendar.get(Calendar.YEAR);
@@ -268,7 +285,51 @@ public class SleepActivity extends BaseActivity<SleepActivity> {
         selectDay = calendar.get(Calendar.DAY_OF_MONTH);
         cvSleep.scrollToCurrent(true);
         // 顶部显示
-        refreshTopDateShow();
+        refreshTopDateView();
+    }
+
+    private void refreshTopDateView() {
+        String show = "";
+        if (selectYear > 0) {
+            String year = String.valueOf(selectYear);
+            String month = String.valueOf(selectMonth);
+            if (selectMonth >= 0) {
+                show = String.format(Locale.getDefault(), getString(R.string.holder_space_line_space_holder), year, month);
+            } else {
+                show = year;
+            }
+        }
+        tvDateShow.setText(show);
+    }
+
+    /**
+     * **************************************** center ***********************************************
+     */
+    private void refreshCenterMonthData() {
+        if (!srl.isRefreshing()) {
+            srl.setRefreshing(true);
+        }
+        // clear (data + view)
+        sleepList = null;
+        refreshCenterDayView();
+        // call
+        Call<Result> api = new RetrofitHelper().call(API.class).noteSleepListGetByDate(selectYear, selectMonth);
+        RetrofitHelper.enqueue(api, null, new RetrofitHelper.CallBack() {
+            @Override
+            public void onResponse(int code, String message, Result.Data data) {
+                srl.setRefreshing(false);
+                sleepList = data.getSleepList();
+                // view
+                refreshCenterMonthView();
+                refreshCenterDayView();
+            }
+
+            @Override
+            public void onFailure(int code, String message, Result.Data data) {
+                srl.setRefreshing(false);
+            }
+        });
+        pushApi(api);
     }
 
     private void refreshCenterMonthView() {
@@ -317,35 +378,33 @@ public class SleepActivity extends BaseActivity<SleepActivity> {
         recyclerLeft.dataNew(selectLeftList, 0);
     }
 
-    private void yearShow() {
-        if (cvSleep == null) return;
-        if (!cvSleep.isYearSelectLayoutVisible()) {
-            cvSleep.showYearSelectLayout(selectYear);
-        } else {
-            cvSleep.closeYearSelectLayout();
+    /**
+     * **************************************** bottom ***********************************************
+     */
+    private void getBottomStatusData() {
+        if (!srl.isRefreshing()) {
+            srl.setRefreshing(true);
         }
-    }
-
-    private void dateBack() {
-        refreshDateToCurrent();
-        refreshCenterMonthData();
-    }
-
-    private void refreshTopDateShow() {
-        String show = "";
-        if (selectYear > 0) {
-            String year = String.valueOf(selectYear);
-            String month = String.valueOf(selectMonth);
-            if (selectMonth >= 0) {
-                show = String.format(Locale.getDefault(), getString(R.string.holder_space_line_space_holder), year, month);
-            } else {
-                show = year;
+        Call<Result> api = new RetrofitHelper().call(API.class).noteSleepLatestGet();
+        RetrofitHelper.enqueue(api, null, new RetrofitHelper.CallBack() {
+            @Override
+            public void onResponse(int code, String message, Result.Data data) {
+                srl.setRefreshing(false);
+                sleepMe = data.getSleepMe();
+                sleepTa = data.getSleepTa();
+                // view
+                refreshBottomStatusView();
             }
-        }
-        tvDateShow.setText(show);
+
+            @Override
+            public void onFailure(int code, String message, Result.Data data) {
+                srl.setRefreshing(false);
+            }
+        });
+        pushApi(api);
     }
 
-    private void refreshBottomLatestView() {
+    private void refreshBottomStatusView() {
         String sleepBtnShow = getString(R.string.good_night);
         String sleepShowMe = getString(R.string.now_no);
         if (sleepMe != null && sleepMe.getId() > 0) {
@@ -375,56 +434,9 @@ public class SleepActivity extends BaseActivity<SleepActivity> {
         tvStateLeft.setText(sleetShowTa);
     }
 
-    private void getBottomLatestData() {
-        if (!srl.isRefreshing()) {
-            srl.setRefreshing(true);
-        }
-        Call<Result> api = new RetrofitHelper().call(API.class).noteSleepLatestGet();
-        RetrofitHelper.enqueue(api, null, new RetrofitHelper.CallBack() {
-            @Override
-            public void onResponse(int code, String message, Result.Data data) {
-                srl.setRefreshing(false);
-                sleepMe = data.getSleepMe();
-                sleepTa = data.getSleepTa();
-                // view
-                refreshBottomLatestView();
-            }
-
-            @Override
-            public void onFailure(int code, String message, Result.Data data) {
-                srl.setRefreshing(false);
-            }
-        });
-        pushApi(api);
-    }
-
-    private void refreshCenterMonthData() {
-        if (!srl.isRefreshing()) {
-            srl.setRefreshing(true);
-        }
-        // clear (data + view)
-        sleepList = null;
-        refreshCenterDayView();
-        // call
-        Call<Result> api = new RetrofitHelper().call(API.class).noteSleepListGetByDate(selectYear, selectMonth);
-        RetrofitHelper.enqueue(api, null, new RetrofitHelper.CallBack() {
-            @Override
-            public void onResponse(int code, String message, Result.Data data) {
-                srl.setRefreshing(false);
-                sleepList = data.getSleepList();
-                // view
-                refreshCenterMonthView();
-                refreshCenterDayView();
-            }
-
-            @Override
-            public void onFailure(int code, String message, Result.Data data) {
-                srl.setRefreshing(false);
-            }
-        });
-        pushApi(api);
-    }
-
+    /**
+     * **************************************** push ***********************************************
+     */
     private void sleepPush() {
         Sleep sleep = new Sleep();
         sleep.setSleep(sleepMe == null || !sleepMe.isSleep());
@@ -435,7 +447,7 @@ public class SleepActivity extends BaseActivity<SleepActivity> {
             public void onResponse(int code, String message, Result.Data data) {
                 sleepMe = data.getSleep();
                 // view
-                refreshBottomLatestView();
+                refreshBottomStatusView();
                 // data
                 refreshCenterMonthData();
             }
