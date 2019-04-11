@@ -16,87 +16,87 @@
         android:layout_height="match_parent"
         android:background="?attr/colorPrimary">
 
-        <ScrollView
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:fillViewport="true">
+            android:orientation="vertical">
 
-            <LinearLayout
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:layout_height="wrap_content">
 
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <TextView
-                        android:id="@+id/tvDateShow"
-                        style="@style/FontWhiteBigBold"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:foreground="?attr/selectableItemBackground"
-                        android:gravity="center"
-                        android:padding="10dp"
-                        tools:text="2018年 11月22号"/>
-
-                    <TextView
-                        android:id="@+id/tvBackCur"
-                        style="@style/FontWhiteSmall"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentEnd="true"
-                        android:layout_centerVertical="true"
-                        android:foreground="?attr/selectableItemBackground"
-                        android:gravity="center"
-                        android:padding="10dp"
-                        android:text="@string/back_current"/>
-                </RelativeLayout>
-
-                <android.support.v7.widget.CardView
+                <TextView
+                    android:id="@+id/tvDateShow"
+                    style="@style/FontWhiteBigBold"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginEnd="10dp"
-                    app:cardBackgroundColor="@color/white"
-                    app:cardCornerRadius="@dimen/radius_big"
-                    app:cardElevation="@dimen/elevation_big"
-                    app:cardMaxElevation="@dimen/elevation_huge">
+                    android:layout_centerVertical="true"
+                    android:foreground="?attr/selectableItemBackground"
+                    android:gravity="center"
+                    android:padding="10dp"
+                    tools:text="2018年 11月22号"/>
 
-                    <com.haibin.calendarview.CalendarView
-                        android:id="@+id/cvSign"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@color/white"
-                        app:current_day_lunar_text_color="@color/black"
-                        app:current_day_text_color="@color/black"
-                        app:current_month_lunar_text_color="?attr/colorAccent"
-                        app:current_month_text_color="?attr/colorAccent"
-                        app:day_text_size="@dimen/font_big"
-                        app:lunar_text_size="7sp"
-                        app:month_view_show_mode="mode_all"
-                        app:other_month_lunar_text_color="?attr/colorControlNormal"
-                        app:other_month_text_color="?attr/colorControlNormal"
-                        app:scheme_lunar_text_color="?attr/colorPrimaryDark"
-                        app:scheme_text_color="?attr/colorPrimaryDark"
-                        app:select_mode="default_mode"
-                        app:selected_lunar_text_color="@color/white"
-                        app:selected_text_color="@color/white"
-                        app:selected_theme_color="?attr/colorAccent"
-                        app:week_background="@color/alpha_00"
-                        app:week_start_with="sun"
-                        app:week_text_color="?attr/colorPrimary"
-                        app:week_text_size="@dimen/font_small"
-                        app:week_view_scrollable="true"
-                        app:year_view_background="@color/white"
-                        app:year_view_day_text_color="?attr/colorAccent"
-                        app:year_view_day_text_size="9sp"
-                        app:year_view_month_text_color="?attr/colorPrimary"
-                        app:year_view_month_text_size="@dimen/font_normal"
-                        app:year_view_scheme_color="?attr/colorPrimaryDark"
-                        app:year_view_scrollable="true"/>
-                </android.support.v7.widget.CardView>
+                <TextView
+                    android:id="@+id/tvBackCur"
+                    style="@style/FontWhiteSmall"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:foreground="?attr/selectableItemBackground"
+                    android:gravity="center"
+                    android:padding="10dp"
+                    android:text="@string/back_current"/>
+            </RelativeLayout>
+
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                app:cardBackgroundColor="@color/white"
+                app:cardCornerRadius="@dimen/radius_big"
+                app:cardElevation="@dimen/elevation_big"
+                app:cardMaxElevation="@dimen/elevation_huge">
+
+                <com.haibin.calendarview.CalendarView
+                    android:id="@+id/cvSign"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    app:current_day_lunar_text_color="@color/black"
+                    app:current_day_text_color="@color/black"
+                    app:current_month_lunar_text_color="?attr/colorAccent"
+                    app:current_month_text_color="?attr/colorAccent"
+                    app:day_text_size="@dimen/font_big"
+                    app:lunar_text_size="7sp"
+                    app:month_view_show_mode="mode_all"
+                    app:other_month_lunar_text_color="?attr/colorControlNormal"
+                    app:other_month_text_color="?attr/colorControlNormal"
+                    app:scheme_lunar_text_color="?attr/colorPrimaryDark"
+                    app:scheme_text_color="?attr/colorPrimaryDark"
+                    app:select_mode="default_mode"
+                    app:selected_lunar_text_color="@color/white"
+                    app:selected_text_color="@color/white"
+                    app:selected_theme_color="?attr/colorAccent"
+                    app:week_background="@color/alpha_00"
+                    app:week_start_with="sun"
+                    app:week_text_color="?attr/colorPrimary"
+                    app:week_text_size="@dimen/font_small"
+                    app:week_view_scrollable="true"
+                    app:year_view_background="@color/white"
+                    app:year_view_day_text_color="?attr/colorAccent"
+                    app:year_view_day_text_size="9sp"
+                    app:year_view_month_text_color="?attr/colorPrimary"
+                    app:year_view_month_text_size="@dimen/font_normal"
+                    app:year_view_scheme_color="?attr/colorPrimaryDark"
+                    app:year_view_scrollable="true"/>
+            </android.support.v7.widget.CardView>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1">
 
                 <TextView
                     android:id="@+id/tvContinue"
@@ -113,8 +113,9 @@
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:padding="10dp">
+                    android:layout_alignParentBottom="true"
+                    android:layout_margin="10dp"
+                    android:orientation="horizontal">
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -127,8 +128,8 @@
 
                         <com.jiangzg.lovenote.view.FrescoAvatarView
                             android:id="@+id/ivAvatarLeft"
-                            android:layout_width="30dp"
-                            android:layout_height="30dp"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
                             android:layout_marginBottom="10dp"
                             tools:background="@mipmap/ic_account_circle_grey_48dp"/>
 
@@ -173,8 +174,8 @@
 
                         <com.jiangzg.lovenote.view.FrescoAvatarView
                             android:id="@+id/ivAvatarRight"
-                            android:layout_width="30dp"
-                            android:layout_height="30dp"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
                             android:layout_marginBottom="10dp"
                             tools:background="@mipmap/ic_account_circle_grey_48dp"/>
 
@@ -186,7 +187,7 @@
                             tools:text="本月签到8次"/>
                     </LinearLayout>
                 </RelativeLayout>
-            </LinearLayout>
-        </ScrollView>
+            </RelativeLayout>
+        </LinearLayout>
     </com.jiangzg.lovenote.view.GSwipeRefreshLayout>
 </LinearLayout>
