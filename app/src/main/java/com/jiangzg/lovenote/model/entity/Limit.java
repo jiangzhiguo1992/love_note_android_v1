@@ -18,15 +18,15 @@ public class Limit {
     private long coupleBreakNeedSec;
     private long coupleBreakSec;
     private int coupleNameLength;
-    // note
+    // note TODO
     private long noteResExpireSec;
+    private int mensesMaxPerDay;
+    private int sleepMaxPerDay;
     private long noteSleepSuccessMinSec;
     private long noteSleepSuccessMaxSec;
-    private int sleepMaxPerDay;
     private int shyMaxPerDay;
     private int shySafeLength;
     private int shyDescLength;
-    private int mensesMaxPerDay;
     private int noteLockLength;
     private int souvenirTitleLength;
     private int souvenirForeignYearCount;
