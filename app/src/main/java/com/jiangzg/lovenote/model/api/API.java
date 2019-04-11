@@ -17,6 +17,7 @@ import com.jiangzg.lovenote.model.entity.MatchPoint;
 import com.jiangzg.lovenote.model.entity.MatchReport;
 import com.jiangzg.lovenote.model.entity.MatchWork;
 import com.jiangzg.lovenote.model.entity.Menses;
+import com.jiangzg.lovenote.model.entity.MensesDayInfo;
 import com.jiangzg.lovenote.model.entity.Movie;
 import com.jiangzg.lovenote.model.entity.Picture;
 import com.jiangzg.lovenote.model.entity.Place;
@@ -247,21 +248,21 @@ public interface API {
     @PUT("note/souvenir")
     Call<Result> noteSouvenirUpdateForeign(@Query("year") int year, @Body Souvenir souvenir);
 
-    // mensesList获取
-    @GET("note/menses?date=1")
-    Call<Result> noteMensesListGetByDate(@Query("mine") boolean mine, @Query("year") int year, @Query("month") int month);
+    // menses2Info获取 TODO 获取双方的MensesInfo
+    @GET("note/menses2?info=1")
+    Call<Result> noteMenses2InfoGet();
 
-    // menses获取
-    @GET("note/menses?latest=1")
-    Call<Result> noteMensesLatestGet();
+    // menses2List获取 TODO 获取List<menses2>，附带返回dayInfo，有length和首次经历的话都能返回数据
+    @GET("note/menses2?date=1")
+    Call<Result> noteMenses2ListGetByDate(@Query("mine") boolean mine, @Query("year") int year, @Query("month") int month);
 
-    // menses上传
-    @POST("note/menses")
-    Call<Result> noteMensesAdd(@Body Menses menses);
+    // menses2上传 TODO 上传menses返回menses2
+    @POST("note/menses2")
+    Call<Result> noteMenses2Add(@Body Menses menses);
 
-    // menses删除
-    @DELETE("note/menses")
-    Call<Result> noteMensesDel(@Query("year") int year, @Query("month") int month, @Query("day") int day);
+    // menses2更新 TODO 上传mensesDayInfo返回MensesDayInfo
+    @PUT("note/menses2")
+    Call<Result> noteMenses2Update(@Body MensesDayInfo mensesDayInfo);
 
     // shyList获取
     @GET("note/shy?date=1")

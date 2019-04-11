@@ -8,6 +8,8 @@ public class MensesInfo {
 
     private boolean canMe;
     private boolean canTa;
+    private MensesLength mensesLengthMe;
+    private MensesLength mensesLengthTa;
 
     public boolean isCanMe() {
         return canMe;
@@ -23,5 +25,21 @@ public class MensesInfo {
 
     public void setCanTa(boolean canTa) {
         this.canTa = canTa;
+    }
+
+    public MensesLength getMensesLengthMe() {
+        return mensesLengthMe;
+    }
+
+    public void setMensesLengthMe(MensesLength mensesLengthMe) {
+        this.mensesLengthMe = mensesLengthMe;
+    }
+
+    public MensesLength getMensesLengthTa() {
+        return mensesLengthTa;
+    }
+
+    public void setMensesLengthTa(MensesLength mensesLengthTa) {
+        this.mensesLengthTa = mensesLengthTa;
     }
 }

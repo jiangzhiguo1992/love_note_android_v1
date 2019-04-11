@@ -23,7 +23,8 @@ import com.jiangzg.lovenote.model.entity.MatchPeriod;
 import com.jiangzg.lovenote.model.entity.MatchPoint;
 import com.jiangzg.lovenote.model.entity.MatchReport;
 import com.jiangzg.lovenote.model.entity.MatchWork;
-import com.jiangzg.lovenote.model.entity.Menses;
+import com.jiangzg.lovenote.model.entity.Menses2;
+import com.jiangzg.lovenote.model.entity.MensesDayInfo;
 import com.jiangzg.lovenote.model.entity.MensesInfo;
 import com.jiangzg.lovenote.model.entity.ModelShow;
 import com.jiangzg.lovenote.model.entity.Movie;
@@ -149,11 +150,10 @@ public class Result implements Serializable {
         private Souvenir souvenirLatest;
         private Souvenir souvenir;
         private List<Souvenir> souvenirList;
-        private Menses menses;
         private MensesInfo mensesInfo;
-        private Menses mensesMe;
-        private Menses mensesTa;
-        private List<Menses> mensesList;
+        private Menses2 menses2;
+        private List<Menses2> menses2List;
+        private MensesDayInfo mensesDayInfo;
         private Shy shy;
         private List<Shy> shyList;
         private Sleep sleep;
@@ -272,6 +272,30 @@ public class Result implements Serializable {
 
         public void setMensesInfo(MensesInfo mensesInfo) {
             this.mensesInfo = mensesInfo;
+        }
+
+        public Menses2 getMenses2() {
+            return menses2;
+        }
+
+        public void setMenses2(Menses2 menses2) {
+            this.menses2 = menses2;
+        }
+
+        public List<Menses2> getMenses2List() {
+            return menses2List;
+        }
+
+        public void setMenses2List(List<Menses2> menses2List) {
+            this.menses2List = menses2List;
+        }
+
+        public MensesDayInfo getMensesDayInfo() {
+            return mensesDayInfo;
+        }
+
+        public void setMensesDayInfo(MensesDayInfo mensesDayInfo) {
+            this.mensesDayInfo = mensesDayInfo;
         }
 
         public WeatherForecastInfo getWeatherForecastMe() {
@@ -576,38 +600,6 @@ public class Result implements Serializable {
 
         public void setSouvenirList(List<Souvenir> souvenirList) {
             this.souvenirList = souvenirList;
-        }
-
-        public Menses getMenses() {
-            return menses;
-        }
-
-        public void setMenses(Menses menses) {
-            this.menses = menses;
-        }
-
-        public Menses getMensesMe() {
-            return mensesMe;
-        }
-
-        public void setMensesMe(Menses mensesMe) {
-            this.mensesMe = mensesMe;
-        }
-
-        public Menses getMensesTa() {
-            return mensesTa;
-        }
-
-        public void setMensesTa(Menses mensesTa) {
-            this.mensesTa = mensesTa;
-        }
-
-        public List<Menses> getMensesList() {
-            return mensesList;
-        }
-
-        public void setMensesList(List<Menses> mensesList) {
-            this.mensesList = mensesList;
         }
 
         public Shy getShy() {
