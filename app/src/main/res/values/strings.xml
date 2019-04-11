@@ -675,9 +675,11 @@
     <string name="help_note_lock_c2_a">值得注意的是，上锁和解锁都是用户去控制的，app不做任何操作，主要是为了避免频繁的解锁。\n其实一般在出去玩耍，或者是家里还熊孩子的时候上锁就可以了，你说呢？</string>
     <string name="help_note_souvenir_d">纪念日，最值得被记录的日子。可以关联每年当日发生的事哦。\n每年的纪念日当天，记得过来看看，有彩蛋哟！</string>
     <string name="help_note_souvenir_c1_q">纪念日和愿望清单有什么区别？</string>
-    <string name="help_note_souvenir_c1_a">当然有了，一个是已经实现的，一个是还没有实现的。\n两种数据的展现方式也不一样，纪念日可以关联每年当天所发生的事，愿望清单就不行了。\n值得注意的是，愿望清单实现的时候，不要忘了修改类型为纪念日哦，这样就又多了一个纪念日啦！</string>
+    <string name="help_note_souvenir_c1_a">当然有了，一个是已经实现的，一个是还没有实现的。\n两种数据的展现方式也不一样，纪念日可以关联每年当天所发生的事，愿望清单就不行了。</string>
     <string name="help_note_souvenir_c2_q">纪念日的关联数据，每年能关联几个同类型数据？</string>
     <string name="help_note_souvenir_c2_a" formatted="false">%d个哦！</string>
+    <string name="help_note_souvenir_c3_q">愿望清单不能关联数据、也不能打勾，有什么用呢？</string>
+    <string name="help_note_souvenir_c3_a" formatted="false">我们把重要的日子分为《纪念日》和《愿望》两种，一种是已完成，一种是未完成。所以愿望的定义就是未完成的纪念日，当一个愿望想要打勾的时候，直接修改成纪念日即可，这样就多了一个纪念日啦！</string>
     <string name="help_note_menses_c1_q">添加的时候 提示数量已达上限？</string>
     <string name="help_note_menses_c1_a">每天记录的数量上限是 %d 个，超过这个数量后不能再提交，可以删除不必要的记录后再添加，或者是添加记录到其他日期。</string>
     <string name="help_note_menses_c2_q">请问怎么删除数据呢？</string>
@@ -714,9 +716,13 @@
     <string name="help_note_award_c3_a">1.假如情侣双方都是学生，需要互相督促对方学习。\n2.先发布个约定：每天图书馆学习至少两小时。\n3.谁做到了就可以过来打卡，没做到的只能看着对方的分数蹭蹭的往上涨。</string>
     <string name="help_note_award_c4_q">还能怎么玩？</string>
     <string name="help_note_award_c4_a">相信会有很多安分守己的小乖乖分数一直居高不下，这时候可以发布一个扣分项，指使对方做件事哦！对方做到了，就可以扣掉自己的分数，比如：大街上喊爱你之类的。\n自由发挥吧，hiahiahia~</string>
+    <string name="help_note_diary_c1_q">日记能添加图片吗？</string>
+    <string name="help_note_diary_c1_a">目前只有会员可以在日记里插图片，详情可查看会员权限。</string>
     <string name="help_note_travel_d">一次约会，一次旅游，一次散步，一次踏足，甚至是一次异地恋的相见。都可以在这里记录哦！</string>
     <string name="help_note_travel_c1_q">每个游记可以添加多少关联数据呢？</string>
     <string name="help_note_travel_c1_a" formatted="false">%d个足迹，%d个相册，%d个视频，%d个美食，%d个电影，%d个日记。</string>
+    <string name="help_note_album_c1_q">为什么每次只能上传一张！打开看大图还很模糊！</string>
+    <string name="help_note_album_c1_a">亲，如果真是这样的话，说明您上传的是相册的封面！而不是照片！\n多媒体-图片里可以创建无数个相册，而相册里又可以放无数照片，这种关系懂了吗？\n点击相应的相册(就是封面图)，进入相册详情页面后，点击右下角就可以真正的上传照片了，一次能传很多张的！</string>
     <string name="help_topic_home_d">记录与分享，这个模块更专注于分享。\n有什么想要分享给大家的、或者是探讨的话题，就来这里诉说吧，相信会有很多聆听者的。</string>
     <string name="help_topic_home_c1_q">为什么有的类别我这里有，我的另一半没有呢？</string>
     <string name="help_topic_home_c1_a">亲，我们这里部分模块是区分用户和地域的。\n有的模块只对男性开放，有的只对女性开放，有的只对同性恋开放，有的只对异性恋开放。\n有的模块只对区域内用户开发，类似于《附近的帖子》。</string>

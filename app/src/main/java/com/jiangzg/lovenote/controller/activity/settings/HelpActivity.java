@@ -50,9 +50,9 @@ public class HelpActivity extends BaseActivity<HelpActivity> {
     public static final int INDEX_NOTE_WORD = 230;
     public static final int INDEX_NOTE_WHISPER = 231;
     public static final int INDEX_NOTE_AWARD = 232;
-    //public static final int INDEX_NOTE_DREAM = 233;
+    public static final int INDEX_NOTE_DIARY = 233;
     public static final int INDEX_NOTE_TRAVEL = 234;
-    //public static final int INDEX_NOTE_PROMISE = 235;
+    public static final int INDEX_NOTE_ALBUM = 235;
     // topic
     public static final int INDEX_TOPIC_HOME = 300;
     public static final int INDEX_TOPIC_POST = 310;
@@ -205,8 +205,12 @@ public class HelpActivity extends BaseActivity<HelpActivity> {
                 return getHelpNoteWhisper(index);
             case INDEX_NOTE_AWARD:
                 return getHelpNoteAward(index);
+            case INDEX_NOTE_DIARY:
+                return getHelpNoteDiary(index);
             case INDEX_NOTE_TRAVEL:
                 return getHelpNoteTravel(index);
+            case INDEX_NOTE_ALBUM:
+                return getHelpNoteAlbum(index);
             case INDEX_TOPIC_HOME:
                 return getHelpTopicHome(index);
             case INDEX_TOPIC_POST:
@@ -451,9 +455,17 @@ public class HelpActivity extends BaseActivity<HelpActivity> {
         s6.setTitle(getString(R.string.award));
         subList.add(s6);
         Help s7 = new Help();
-        s7.setIndex(INDEX_NOTE_TRAVEL);
-        s7.setTitle(getString(R.string.travel));
+        s7.setIndex(INDEX_NOTE_DIARY);
+        s7.setTitle(getString(R.string.diary));
         subList.add(s7);
+        Help s8 = new Help();
+        s8.setIndex(INDEX_NOTE_TRAVEL);
+        s8.setTitle(getString(R.string.travel));
+        subList.add(s8);
+        Help s9 = new Help();
+        s9.setIndex(INDEX_NOTE_ALBUM);
+        s9.setTitle(getString(R.string.album));
+        subList.add(s9);
         help.setSubList(subList);
         return help;
     }
@@ -493,6 +505,10 @@ public class HelpActivity extends BaseActivity<HelpActivity> {
         c2.setQuestion(getString(R.string.help_note_souvenir_c2_q));
         c2.setAnswer(String.format(Locale.getDefault(), getString(R.string.help_note_souvenir_c2_a), foreignYearCount));
         contentList.add(c2);
+        Help.HelpContent c3 = new Help.HelpContent();
+        c3.setQuestion(getString(R.string.help_note_souvenir_c3_q));
+        c3.setAnswer(getString(R.string.help_note_souvenir_c3_a));
+        contentList.add(c3);
         help.setContentList(contentList);
         return help;
     }
@@ -632,6 +648,20 @@ public class HelpActivity extends BaseActivity<HelpActivity> {
         return help;
     }
 
+    private Help getHelpNoteDiary(int index) {
+        Help help = new Help();
+        help.setIndex(index);
+        help.setTitle(getString(R.string.diary));
+        // content
+        List<Help.HelpContent> contentList = new ArrayList<>();
+        Help.HelpContent c1 = new Help.HelpContent();
+        c1.setQuestion(getString(R.string.help_note_diary_c1_q));
+        c1.setAnswer(getString(R.string.help_note_diary_c1_a));
+        contentList.add(c1);
+        help.setContentList(contentList);
+        return help;
+    }
+
     private Help getHelpNoteTravel(int index) {
         int placeCount = limit.getTravelPlaceCount();
         int albumCount = limit.getTravelAlbumCount();
@@ -648,6 +678,20 @@ public class HelpActivity extends BaseActivity<HelpActivity> {
         Help.HelpContent c1 = new Help.HelpContent();
         c1.setQuestion(getString(R.string.help_note_travel_c1_q));
         c1.setAnswer(String.format(Locale.getDefault(), getString(R.string.help_note_travel_c1_a), placeCount, albumCount, videoCount, foodCount, movieCount, diaryCount));
+        contentList.add(c1);
+        help.setContentList(contentList);
+        return help;
+    }
+
+    private Help getHelpNoteAlbum(int index) {
+        Help help = new Help();
+        help.setIndex(index);
+        help.setTitle(getString(R.string.album));
+        // content
+        List<Help.HelpContent> contentList = new ArrayList<>();
+        Help.HelpContent c1 = new Help.HelpContent();
+        c1.setQuestion(getString(R.string.help_note_album_c1_q));
+        c1.setAnswer(getString(R.string.help_note_album_c1_a));
         contentList.add(c1);
         help.setContentList(contentList);
         return help;
