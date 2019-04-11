@@ -3,8 +3,10 @@ package com.jiangzg.lovenote.controller.activity.note;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.ColorStateList;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -22,6 +24,7 @@ import com.haibin.calendarview.WeekView;
 import com.jiangzg.base.common.DateUtils;
 import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.base.component.ActivityTrans;
+import com.jiangzg.base.view.ViewUtils;
 import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.controller.activity.base.BaseActivity;
 import com.jiangzg.lovenote.controller.activity.settings.HelpActivity;
@@ -32,6 +35,7 @@ import com.jiangzg.lovenote.helper.view.ViewHelper;
 import com.jiangzg.lovenote.model.api.API;
 import com.jiangzg.lovenote.model.api.Result;
 import com.jiangzg.lovenote.model.entity.Menses2;
+import com.jiangzg.lovenote.model.entity.MensesDayInfo;
 import com.jiangzg.lovenote.model.entity.MensesInfo;
 import com.jiangzg.lovenote.model.entity.MensesLength;
 import com.jiangzg.lovenote.model.entity.User;
@@ -74,11 +78,11 @@ public class MensesActivity extends BaseActivity<MensesActivity> {
     @BindView(R.id.tvLengthDuration)
     TextView tvLengthDuration;
     @BindView(R.id.llDayInfo)
-    LinearLayout llDayInfo; // TODO show
+    LinearLayout llDayInfo;
     @BindView(R.id.sMensesStatus)
-    Switch sMensesStatus; // TODO check
+    Switch sMensesStatus;
     @BindView(R.id.cvDayInfo)
-    CardView cvDayInfo; // TODO show
+    CardView cvDayInfo;
     @BindView(R.id.ivBlood1)
     ImageView ivBlood1;
     @BindView(R.id.ivBlood2)
@@ -159,7 +163,7 @@ public class MensesActivity extends BaseActivity<MensesActivity> {
                     // 只是选择的同月day
                     selectDay = calendar.getDay();
                     refreshTopDateShow();
-                    refreshBottomLeftView();
+                    refreshBottomDayInfoView();
                     return;
                 }
                 selectYear = calendar.getYear();
@@ -167,8 +171,13 @@ public class MensesActivity extends BaseActivity<MensesActivity> {
                 selectDay = calendar.getDay();
                 refreshTopDateShow();
                 refreshCenterMonthData();
-                refreshBottomLeftView();
+                refreshBottomDayInfoView();
             }
+        });
+        // switch
+        sMensesStatus.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if (!sMensesStatus.isEnabled()) return;
+            mensesPush(selectYear, selectMonth, selectDay, isChecked);
         });
     }
 
@@ -177,7 +186,7 @@ public class MensesActivity extends BaseActivity<MensesActivity> {
         // event
         Observable<MensesLength> obLengthRefresh = RxBus.register(RxBus.EVENT_MENSES_LENGTH_UPDATE, mensesLength -> {
             refreshCenterMonthData();
-            getBottomRightMensesInfoData();
+            refreshBottomMensesInfoData();
         });
         pushBus(RxBus.EVENT_MENSES_LENGTH_UPDATE, obLengthRefresh);
         // user
@@ -192,10 +201,11 @@ public class MensesActivity extends BaseActivity<MensesActivity> {
         refreshDateToCurrent();
         // 显示当前数据
         refreshCenterMonthView("");
-        refreshBottomRightLengthView();
+        refreshBottomMensesInfoView();
+        refreshBottomDayInfoView();
         // 开始获取数据
         refreshCenterMonthData();
-        getBottomRightMensesInfoData();
+        refreshBottomMensesInfoData();
     }
 
     @Override
@@ -264,7 +274,7 @@ public class MensesActivity extends BaseActivity<MensesActivity> {
         }
         rgUser.setOnCheckedChangeListener((group, checkedId) -> {
             isMine = (R.id.rbMe == checkedId);
-            refreshBottomRightLengthView();
+            refreshBottomMensesInfoView();
             refreshCenterMonthData();
         });
     }
@@ -311,7 +321,7 @@ public class MensesActivity extends BaseActivity<MensesActivity> {
     }
 
     /**
-     * **************************************** top ***********************************************
+     * **************************************** center ***********************************************
      */
     private void refreshCenterMonthData() {
         if (!srl.isRefreshing()) {
@@ -321,6 +331,7 @@ public class MensesActivity extends BaseActivity<MensesActivity> {
         if (menses2List != null) {
             menses2List.clear();
         }
+        refreshBottomDayInfoView();
         // api
         Call<Result> api = new RetrofitHelper().call(API.class).noteMenses2ListGetByDate(isMine, selectYear, selectMonth);
         RetrofitHelper.enqueue(api, null, new RetrofitHelper.CallBack() {
@@ -330,6 +341,7 @@ public class MensesActivity extends BaseActivity<MensesActivity> {
                 menses2List = data.getMenses2List();
                 // view
                 refreshCenterMonthView(data.getShow());
+                refreshBottomDayInfoView();
             }
 
             @Override
@@ -371,7 +383,7 @@ public class MensesActivity extends BaseActivity<MensesActivity> {
     /**
      * **************************************** bottom ***********************************************
      */
-    private void getBottomRightMensesInfoData() {
+    private void refreshBottomMensesInfoData() {
         if (!srl.isRefreshing()) {
             srl.setRefreshing(true);
         }
@@ -382,7 +394,7 @@ public class MensesActivity extends BaseActivity<MensesActivity> {
                 srl.setRefreshing(false);
                 mensesInfo = data.getMensesInfo();
                 // view
-                refreshBottomRightLengthView();
+                refreshBottomMensesInfoView();
             }
 
             @Override
@@ -393,22 +405,28 @@ public class MensesActivity extends BaseActivity<MensesActivity> {
         pushApi(api);
     }
 
-    private void refreshBottomRightLengthView() {
+    private void refreshBottomMensesInfoView() {
         if (mensesInfo == null) {
             cvLength.setVisibility(View.GONE);
+            cvDayInfo.setVisibility(View.GONE);
             return;
         }
         if (isMine) {
             if (!mensesInfo.isCanMe()) {
                 cvLength.setVisibility(View.GONE);
+                cvDayInfo.setVisibility(View.GONE);
                 return;
             }
         } else {
             if (!mensesInfo.isCanTa()) {
                 cvLength.setVisibility(View.GONE);
+                cvDayInfo.setVisibility(View.GONE);
                 return;
             }
         }
+        // dayInfo
+        cvDayInfo.setVisibility(View.VISIBLE);
+        // length
         MensesLength length = isMine ? mensesInfo.getMensesLengthMe() : mensesInfo.getMensesLengthTa();
         if (length == null) {
             cvLength.setVisibility(View.GONE);
@@ -419,14 +437,94 @@ public class MensesActivity extends BaseActivity<MensesActivity> {
         tvLengthDuration.setText(String.format(Locale.getDefault(), getString(R.string.menses_duration_colon_holder_day), length.getDurationDay()));
     }
 
-    private void refreshBottomLeftView() {
-        // TODO
+    private void refreshBottomDayInfoView() {
+        boolean isStart = false;
+        MensesDayInfo mensesDayInfo = null;
+        if (menses2List != null && menses2List.size() > 0) {
+            for (Menses2 menses2 : menses2List) {
+                if (menses2 == null) continue;
+                // select
+                if (!isStart) {
+                    // 防止被后面的错误数据覆盖
+                    int startDay = menses2.getMensesStartDayOfMonth();
+                    int endDay = menses2.getMensesEndDayOfMonth();
+                    if (selectDay >= startDay && selectDay <= endDay) {
+                        isStart = true;
+                    }
+                }
+                // dayInfo
+                List<MensesDayInfo> dayInfoList = menses2.getMensesDayInfoList();
+                if (dayInfoList == null || dayInfoList.size() <= 0) continue;
+                for (MensesDayInfo dayInfo : dayInfoList) {
+                    if (dayInfo == null) continue;
+                    if (selectDay == dayInfo.getDayOfMonth()) {
+                        mensesDayInfo = dayInfo;
+                        break;
+                    }
+                }
+            }
+        }
+        // view
+        sMensesStatus.setEnabled(false);
+        sMensesStatus.setChecked(isStart);
+        sMensesStatus.setEnabled(true);
+        if (mensesDayInfo == null) {
+            llDayInfo.setVisibility(View.GONE);
+            return;
+        }
+        llDayInfo.setVisibility(View.VISIBLE);
+        int colorGrey = ContextCompat.getColor(mActivity, R.color.img_grey);
+        int colorPrimary = ContextCompat.getColor(mActivity, ViewUtils.getColorPrimary(mActivity));
+        ColorStateList colorGreyStateList = ColorStateList.valueOf(colorGrey);
+        ColorStateList colorPrimaryStateList = ColorStateList.valueOf(colorPrimary);
+        // blood
+        ivBlood1.setImageTintList(colorGreyStateList);
+        ivBlood2.setImageTintList(colorGreyStateList);
+        ivBlood3.setImageTintList(colorGreyStateList);
+        int blood = mensesDayInfo.getBlood();
+        if (blood > 0) {
+            ivBlood1.setImageTintList(colorPrimaryStateList);
+        }
+        if (blood > 1) {
+            ivBlood2.setImageTintList(colorPrimaryStateList);
+        }
+        if (blood > 2) {
+            ivBlood3.setImageTintList(colorPrimaryStateList);
+        }
+        // pain
+        ivPain1.setImageTintList(colorGreyStateList);
+        ivPain2.setImageTintList(colorGreyStateList);
+        ivPain3.setImageTintList(colorGreyStateList);
+        int pain = mensesDayInfo.getPain();
+        if (pain > 0) {
+            ivPain1.setImageTintList(colorPrimaryStateList);
+        }
+        if (pain > 1) {
+            ivPain2.setImageTintList(colorPrimaryStateList);
+        }
+        if (pain > 2) {
+            ivPain3.setImageTintList(colorPrimaryStateList);
+        }
+        // mood
+        ivMood1.setImageTintList(colorGreyStateList);
+        ivMood2.setImageTintList(colorGreyStateList);
+        ivMood3.setImageTintList(colorGreyStateList);
+        int mood = mensesDayInfo.getMood();
+        if (mood > 0) {
+            ivMood1.setImageTintList(colorPrimaryStateList);
+        }
+        if (mood > 1) {
+            ivMood2.setImageTintList(colorPrimaryStateList);
+        }
+        if (mood > 2) {
+            ivMood3.setImageTintList(colorPrimaryStateList);
+        }
     }
 
     /**
      * **************************************** push ***********************************************
      */
-    private void mensesPush(int year, int month, int day) {
+    private void mensesPush(int year, int month, int day, boolean come) {
         // TODO
         //Menses menses = new Menses();
         //menses.setYear(year);
