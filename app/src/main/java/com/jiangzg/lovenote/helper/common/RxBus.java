@@ -40,9 +40,9 @@ public class RxBus {
     public static final int EVENT_WALL_PAPER_REFRESH = 3100; // 墙纸
     public static final int EVENT_LOCK_REFRESH = 4010; // 密码锁
     public static final int EVENT_CUSTOM_REFRESH = 4020; // 功能定制
-    public static final int EVENT_SHY_LIST_REFRESH = 4030; // 羞羞
-    public static final int EVENT_SHY_LIST_ITEM_DELETE = 4031;
-    public static final int EVENT_MENSES_ = 4040; // 羞羞
+    public static final int EVENT_MENSES_LENGTH_UPDATE = 4030; // 姨妈
+    public static final int EVENT_SHY_LIST_REFRESH = 4040; // 羞羞
+    public static final int EVENT_SHY_LIST_ITEM_DELETE = 4041;
     public static final int EVENT_SLEEP_LIST_ITEM_DELETE = 4050; // 睡眠
     public static final int EVENT_AUDIO_LIST_REFRESH = 4060; // 音频
     public static final int EVENT_AUDIO_LIST_ITEM_DELETE = 4061;
