@@ -38,6 +38,29 @@
         <item quantity="other">最多只能选择 %1$d 个文件</item>
     </plurals>
 
+    <!-- weather -->
+    <string name="sunny">晴天</string>
+    <string name="cloudy">多云</string>
+    <string name="over_cast">阴</string>
+    <string name="showers">阵雨</string>
+    <string name="snow_showers">阵雪</string>
+    <string name="fog">雾</string>
+    <string name="sandstorm">沙尘暴</string>
+    <string name="dust">浮尘</string>
+    <string name="haze">霾</string>
+    <string name="thunder_shower">雷阵雨</string>
+    <string name="hail">冰雹</string>
+    <string name="sleet">雨夹雪</string>
+    <string name="light_rain">小雨</string>
+    <string name="rain">中雨</string>
+    <string name="heavy_rain">大雨</string>
+    <string name="rain_storm">暴雨</string>
+    <string name="light_snow">小雪</string>
+    <string name="snow">中雪</string>
+    <string name="heavy_snow">大雪</string>
+    <string name="blizzard">暴雪</string>
+    <string name="freezing_rain">冻雨</string>
+
     <!-- recycler -->
     <string name="master_there_nothing">主人，这里啥也没有啊！</string>
     <string name="master_we_worry">主人，咱们…好像…出错了！</string>
@@ -55,6 +78,8 @@
     <string name="he">他</string>
     <string name="ta">ta</string>
     <string name="she">她</string>
+    <string name="come">来</string>
+    <string name="gone">走</string>
     <string name="year_space">年 </string>
     <string name="month_space">月 </string>
     <string name="girl">女</string>
@@ -84,11 +109,6 @@
     <string name="go_in">进入</string>
     <string name="model">模式</string>
     <string name="comment">评论</string>
-    <string name="official">官方</string>
-    <string name="well">精华</string>
-    <string name="hot">热门</string>
-    <string name="point">点赞</string>
-    <string name="collect">收藏</string>
     <string name="screen">屏蔽</string>
     <string name="normal">普通</string>
     <string name="time">时间</string>
@@ -104,6 +124,8 @@
     <string name="show">显示</string>
     <string name="notification">通知</string>
     <string name="other">其他</string>
+    <string name="open">开启</string>
+    <string name="refuse">禁止</string>
     <string name="wait_point">等待…</string>
     <string name="please_wait">请等待…</string>
     <string name="we_de">我们的</string>
@@ -162,7 +184,7 @@
     <string name="http_response_error_500">服务器异常</string>
     <string name="online_can_entry">联网才可以进入哦</string>
 
-    <!-- file -->
+    <!-- file/image -->
     <string name="are_upload">正在上传</string>
     <string name="are_download">正在下载</string>
     <string name="cancel_upload">取消上传</string>
@@ -180,17 +202,17 @@
     <string name="file_resolve_fail_tell_we_this_bug">文件解析失败，可以把这个bug反馈给我们吗</string>
     <string name="upload_fail_please_check_native_net">上传失败，请检查本地网络环境</string>
     <string name="download_fail_please_check_native_net">下载失败，请检查本地网络环境</string>
+    <string name="file_create_fail">文件创建失败</string>
+    <string name="file_no_exits">文件不存在</string>
     <string name="upload_file_no_exists">上传文件不存在</string>
     <string name="download_file_no_exists">下载文件不存在</string>
     <string name="save_file_no_exists">保存文件不存在</string>
     <string name="access_resource_path_no_exists">访问资源路径不存在</string>
     <string name="not_found_upload_file">没有找到要上传的文件</string>
-    <string name="file_no_exits">文件不存在</string>
     <string name="now_just_can_push_holder_img" formatted="false">现在只能上传%d张图片</string>
     <string name="index_holder_file_too_large_cant_over_holder" formatted="false">第%d个文件过大，不能超过%s</string>
     <string name="file_too_large_cant_over_holder" formatted="false">文件过大，不能超过%s</string>
     <string name="success_push_holder_paper_picture">成功上传%d张照片</string>
-    <string name="file_create_fail">文件创建失败</string>
     <string name="are_upload_space_holder_holder" formatted="false">正在上传 %d/%d</string>
     <string name="are_compress_space_holder_holder" formatted="false">正在获取 %d/%d</string>
 
@@ -277,7 +299,7 @@
     <string name="can_delete_self_create_comment">只能删除自己创建的评论哦</string>
     <string name="can_operation_self_create_note">只能操作自己创建的记录哦！</string>
 
-    <!-- show-format -->
+    <!-- show-format-common -->
     <string name="holder_second" formatted="false">%d秒</string>
     <string name="holder_minute" formatted="false">%d分钟</string>
     <string name="holder_minute_short" formatted="false">%d分</string>
@@ -330,6 +352,33 @@
     <string name="splash_content_3">不管是搞笑的、悲伤的，什么事都可以在这里诉说！\n\n丰富的类别划分，满足你任何方面的吐槽！\n\n保密的区域隔离，让你随时随地说个不停！</string>
     <string name="splash_content_4">独乐乐不如众乐乐，来这里和大家一起秀恩爱吧！\n\n各种形式的比拼活动，让你在这里秀个不停！\n\n多种许愿活动，让所有人见证你的真心！</string>
 
+    <!-- user -->
+    <string name="login">登录</string>
+    <string name="register">注册</string>
+    <string name="input_hint_phone">请输入手机号</string>
+    <string name="input_hint_new_phone">请输入新手机号</string>
+    <string name="input_hint_verify">请输入验证码</string>
+    <string name="input_hint_pwd">请输入密码</string>
+    <string name="input_hint_old_pwd">请输入旧密码</string>
+    <string name="input_hint_new_pwd">请输入新密码</string>
+    <string name="input_hint_pwd_confirm">请再次输入密码</string>
+    <string name="input_hint_new_pwd_confirm">请再次新输入密码</string>
+    <string name="verify_login">验证码登录</string>
+    <string name="pwd_login">密码登录</string>
+    <string name="forget_pwd">忘记密码</string>
+    <string name="loading_logging">正在登录…</string>
+    <string name="user_protocol">用户协议</string>
+    <string name="login_register_agree_protocol">登录/注册，表示同意用户协议(页面右上角查看)</string>
+    <string name="twice_pwd_no_equals">两次密码输入不一致</string>
+    <string name="user_info">用户信息</string>
+    <string name="please_select_sex">请选择性别</string>
+    <string name="please_select_birth">请选择生日</string>
+    <string name="once_push_never_modify">一旦提交，将不允许修改！</string>
+    <string name="sex_colon">性别:</string>
+    <string name="birthday_colon">生日:</string>
+    <string name="send_validate_code">发送验证码</string>
+    <string name="are_send_validate_code">正在发送验证码…</string>
+
     <!-- settings -->
     <string name="settings">设置</string>
     <string name="base_settings">基本设置</string>
@@ -367,7 +416,7 @@
     <string name="exist_account">退出账号</string>
     <string name="confirm_exist_account">确定要退出账号吗？</string>
 
-    <!-- theme -->
+    <!-- settings-theme -->
     <string name="theme">主题</string>
     <string name="girl_pink">少女粉</string>
     <string name="menses_red">姨妈红</string>
@@ -381,7 +430,7 @@
     <string name="coffee_brown">咖啡棕</string>
     <string name="egg_grey">皮蛋灰</string>
 
-    <!-- suggest -->
+    <!-- settings-suggest -->
     <string name="suggest_feedback">意见反馈</string>
     <string name="i_want_feedback">朕要反馈</string>
     <string name="click_me_choose_type">点我选分类</string>
@@ -402,35 +451,14 @@
     <string name="status_colon">状态:</string>
     <string name="holder_floor" formatted="false">%d楼</string>
 
-    <!-- user -->
-    <string name="login">登录</string>
-    <string name="register">注册</string>
-    <string name="input_hint_phone">请输入手机号</string>
-    <string name="input_hint_new_phone">请输入新手机号</string>
-    <string name="input_hint_verify">请输入验证码</string>
-    <string name="input_hint_pwd">请输入密码</string>
-    <string name="input_hint_old_pwd">请输入旧密码</string>
-    <string name="input_hint_new_pwd">请输入新密码</string>
-    <string name="input_hint_pwd_confirm">请再次输入密码</string>
-    <string name="input_hint_new_pwd_confirm">请再次新输入密码</string>
-    <string name="verify_login">验证码登录</string>
-    <string name="pwd_login">密码登录</string>
-    <string name="forget_pwd">忘记密码</string>
-    <string name="loading_logging">正在登录…</string>
-    <string name="user_protocol">用户协议</string>
-    <string name="login_register_agree_protocol">登录/注册，表示同意用户协议(页面右上角查看)</string>
-    <string name="twice_pwd_no_equals">两次密码输入不一致</string>
-    <string name="user_info">用户信息</string>
-    <string name="please_select_sex">请选择性别</string>
-    <string name="please_select_birth">请选择生日</string>
-    <string name="once_push_never_modify">一旦提交，将不允许修改！</string>
-    <string name="sex_colon">性别:</string>
-    <string name="birthday_colon">生日:</string>
-    <string name="send_validate_code">发送验证码</string>
-    <string name="are_send_validate_code">正在发送验证码…</string>
-
     <!-- couple -->
     <string name="pair">配对</string>
+    <string name="pair_info">配对信息</string>
+    <string name="wall_paper">墙纸</string>
+    <string name="place">位置</string>
+    <string name="weather">天气</string>
+    <string name="map">地图</string>
+    <string name="place_info">位置信息</string>
     <string name="dissolve">解散</string>
     <string name="complex">复合</string>
     <string name="in_together">在一起</string>
@@ -439,65 +467,33 @@
     <string name="un_know_ta_phone">获取不到TA的手机号</string>
     <string name="ta_colon_space_holder" formatted="false">TA: %s</string>
     <string name="quick_pair_deblock_more_posture">快来和TA配对，解锁更多姿势</string>
-    <string name="pair_info">配对信息</string>
     <string name="now_null_nickname">暂无爱称</string>
     <string name="look_big_image">查看大图</string>
     <string name="change_image">更换图片</string>
-    <string name="u_confirm_break">你确定要解除关系吗？</string>
-    <string name="impulse_is_devil_3">冲动是魔鬼！冲动是魔鬼！冲动是魔鬼！</string>
     <string name="modify_ta_name">修改TA的名称</string>
-    <string name="wall_paper">墙纸</string>
-    <string name="click_right_top_add_wall_paper">点击右上角添加墙纸</string>
-    <string name="distance_space_holder" formatted="false">相距 %s</string>
-    <string name="differ_space_holder" formatted="false">相差 %s</string>
-    <string name="now_no_address_info">暂无地址信息</string>
-    <string name="now_no_weather_info">暂无天气信息</string>
     <string name="couple_state_0_show">发出邀请</string>
     <string name="couple_state_110_show">撤回邀请</string>
     <string name="couple_state_120_show">拒绝邀请</string>
     <string name="couple_state_210_show">提出分手</string>
     <string name="couple_state_220_show">同意分手</string>
     <string name="couple_state_520_show">成功配对</string>
-
-    <!-- place -->
-    <string name="place">位置</string>
-    <string name="weather">天气</string>
-    <string name="map">地图</string>
+    <string name="u_confirm_break">你确定要解除关系吗？</string>
+    <string name="impulse_is_devil_3">冲动是魔鬼！冲动是魔鬼！冲动是魔鬼！</string>
+    <string name="click_right_top_add_wall_paper">点击右上角添加墙纸</string>
+    <string name="now_no_address_info">暂无地址信息</string>
+    <string name="now_no_weather_info">暂无天气信息</string>
+    <string name="distance_space_holder" formatted="false">相距 %s</string>
+    <string name="differ_space_holder" formatted="false">相差 %s</string>
     <string name="location_error">定位失败</string>
-    <string name="place_info">位置信息</string>
-    <string name="my_location">我的位置</string>
-    <string name="lon_lat_colon">经纬度:</string>
     <string name="distance_colon_space_holder" formatted="false">距离: %d米</string>
-    <string name="location_search_fail">位置搜索失败</string>
-    <string name="search_location_no_exist">搜索位置不存在</string>
-    <string name="no_location_info_cant_go_map">没有地址信息，无法进入地图</string>
-    <string name="address_get_fail_reason_colon_holder" formatted="false">地理位置获取失败，原因:%s</string>
-    <string name="please_input_search_address_remember_get_province">请输入搜索地址，记得带上省份！</string>
-
-    <!-- weather -->
     <string name="holder_wave_holder_c">%s~%s℃</string>
     <string name="holder_level_holder_wind">%s级%s风</string>
-    <string name="sunny">晴天</string>
-    <string name="cloudy">多云</string>
-    <string name="over_cast">阴</string>
-    <string name="showers">阵雨</string>
-    <string name="snow_showers">阵雪</string>
-    <string name="fog">雾</string>
-    <string name="sandstorm">沙尘暴</string>
-    <string name="dust">浮尘</string>
-    <string name="haze">霾</string>
-    <string name="thunder_shower">雷阵雨</string>
-    <string name="hail">冰雹</string>
-    <string name="sleet">雨夹雪</string>
-    <string name="light_rain">小雨</string>
-    <string name="rain">中雨</string>
-    <string name="heavy_rain">大雨</string>
-    <string name="rain_storm">暴雨</string>
-    <string name="light_snow">小雪</string>
-    <string name="snow">中雪</string>
-    <string name="heavy_snow">大雪</string>
-    <string name="blizzard">暴雪</string>
-    <string name="freezing_rain">冻雨</string>
+    <string name="no_location_info_cant_go_map">没有地址信息，无法进入地图</string>
+    <string name="lon_lat_colon">经纬度:</string>
+    <string name="search_location_no_exist">搜索位置不存在</string>
+    <string name="location_search_fail">位置搜索失败</string>
+    <string name="address_get_fail_reason_colon_holder" formatted="false">地理位置获取失败，原因:%s</string>
+    <string name="please_input_search_address_remember_get_province">请输入搜索地址，记得带上省份！</string>
 
     <!-- note -->
     <string name="pwd_lock">密码锁</string>
@@ -541,9 +537,7 @@
     <string name="holder_space_in_space_holder_space_make_this_wish" formatted="false">%s 于 %s 许下了这个愿望~</string>
     <string name="condom">安全套</string>
     <string name="acyeterion">避孕药</string>
-    <string name="out_shoot">体外射精</string>
-    <string name="come">来</string>
-    <string name="gone">走</string>
+    <string name="out_shoot">体外排精</string>
     <string name="back_current">回到当前</string>
     <string name="menses_come">姨妈来了</string>
     <string name="menses_gone">姨妈走了</string>
@@ -557,9 +551,14 @@
 
     <!-- topic -->
     <string name="post">帖子</string>
+    <string name="point">点赞</string>
+    <string name="jab_ta">戳TA</string>
+    <string name="collect">收藏</string>
+    <string name="official">官方</string>
+    <string name="well">精华</string>
+    <string name="hot">热门</string>
     <string name="report">举报</string>
     <string name="already_report">已举报</string>
-    <string name="jab_ta">戳TA</string>
     <string name="floor_master">楼主</string>
     <string name="jab_a_little">戳了一下</string>
     <string name="all_space_brackets_holder_brackets" formatted="false">全部 (%d)</string>
@@ -581,20 +580,28 @@
     <string name="nav_pay">消费相关</string>
     <string name="nav_match">比拼活动</string>
     <string name="nav_future">许愿未来</string>
-    <string name="vip">会员</string>
-    <string name="coin">金币</string>
-    <string name="sign">签到</string>
     <string name="nav_wife">夫妻相</string>
     <string name="nav_letter">情书展</string>
     <string name="nav_wish">许愿树</string>
     <string name="nav_postcard">明信片</string>
+    <string name="now_no_broadcast">暂无广播</string>
+    <string name="now_no_activity">暂无活动</string>
+    <string name="the_holder_period" formatted="false">第%d期</string>
+    <string name="old_period">往期</string>
+    <string name="coin_board">金币榜</string>
+    <string name="point_board">点赞榜</string>
+    <string name="new_board">新人榜</string>
+    <string name="work_already_be_screen">作品已被屏蔽</string>
+    <string name="work_already_be_delete">作品已被删除</string>
+
+    <!-- more-pay -->
+    <string name="vip">会员</string>
+    <string name="coin">金币</string>
+    <string name="sign">签到</string>
     <string name="vip_no">未办理</string>
     <string name="vip_yes">已办理</string>
     <string name="no_sign">未完成</string>
     <string name="yes_sign">已完成</string>
-    <string name="now_no_broadcast">暂无广播</string>
-    <string name="now_no_activity">暂无活动</string>
-    <string name="the_holder_period" formatted="false">第%d期</string>
     <string name="we_chat">微信</string>
     <string name="ali_pay">支付宝</string>
     <string name="pay">支付</string>
@@ -612,8 +619,6 @@
     <string name="go_to_buy">前往购买</string>
     <string name="no_vip">非会员</string>
     <string name="no_handle">未办理</string>
-    <string name="open">开启</string>
-    <string name="refuse">禁止</string>
     <string name="open_image_upload">开启图片上传</string>
     <string name="refuse_image_upload">禁止图片上传</string>
     <string name="can_add_holder" formatted="false">可添加%d个</string>
@@ -624,12 +629,7 @@
     <string name="every_can_upload_holder_paper" formatted="false">每个可上传%d张</string>
     <string name="continue_sign_holder_day" formatted="false">连续签到%d天</string>
     <string name="get_space_holder_space_day_vip_on_space_holder_space_expire" formatted="false">获得了 %d 天的会员，于 %s 到期</string>
-    <string name="old_period">往期</string>
-    <string name="coin_board">金币榜</string>
-    <string name="point_board">点赞榜</string>
-    <string name="new_board">新人榜</string>
-    <string name="work_already_be_screen">作品已被屏蔽</string>
-    <string name="work_already_be_delete">作品已被删除</string>
+
 
     <!--user_protocol-->
     <string name="agreement_import_know" formatted="false">重要须知:\n%s在此特别提醒用户认真阅读、充分理解本《用户协议》（下称《协议》）--- 用户应认真阅读、充分理解本《协议》中各条款，包括免除或者限制%s的免责条款及对用户的权利限制条款。请您审慎阅读并选择接受或不接受本《协议》（未成年人应在法定监护人陪同下阅读）。除非您接受本《协议》所有条款，否则您无权注册、登录或使用本协议所涉相关服务。您的注册、登录、使用等行为将视为对本《协议》的接受，并同意接受本《协议》各项条款的约束。本《协议》描述%s与用户之间关于%s服务相关方面的权利义务。“用户”是指注册、登录、使用、浏览本服务的个人或组织。本《协议》可随时更新，更新后的协议条款一旦公布即代替原来的协议条款，恕不再另行通知，用户可在本网站查阅最新版协议条款。在修改《协议》条款后，如果用户不接受修改后的条款，请立即停止使用%s提供的服务，用户继续使用提供的服务将被视为已接受了修改后的协议。</string>
