@@ -44,8 +44,8 @@ public class HelpActivity extends BaseActivity<HelpActivity> {
     public static final int INDEX_NOTE_HOME = 200;
     public static final int INDEX_NOTE_LOCK = 210;
     public static final int INDEX_NOTE_SOUVENIR = 220;
-    public static final int INDEX_NOTE_SHY = 221;
-    public static final int INDEX_NOTE_MENSES = 222;
+    public static final int INDEX_NOTE_MENSES = 221;
+    public static final int INDEX_NOTE_SHY = 222;
     public static final int INDEX_NOTE_SLEEP = 223;
     public static final int INDEX_NOTE_WORD = 230;
     public static final int INDEX_NOTE_WHISPER = 231;
@@ -193,10 +193,10 @@ public class HelpActivity extends BaseActivity<HelpActivity> {
                 return getHelpNoteLock(index);
             case INDEX_NOTE_SOUVENIR:
                 return getHelpNoteSouvenir(index);
-            case INDEX_NOTE_SHY:
-                return getHelpNoteShy(index);
             case INDEX_NOTE_MENSES:
                 return getHelpNoteMenses(index);
+            case INDEX_NOTE_SHY:
+                return getHelpNoteShy(index);
             case INDEX_NOTE_SLEEP:
                 return getHelpNoteSleep(index);
             case INDEX_NOTE_WORD:
@@ -314,6 +314,7 @@ public class HelpActivity extends BaseActivity<HelpActivity> {
     }
 
     private Help getHelpCouplePair(int index) {
+        long intervalSec = limit.getCoupleInviteIntervalSec();
         Help help = new Help();
         help.setIndex(index);
         help.setTitle(getString(R.string.pair));
@@ -325,7 +326,7 @@ public class HelpActivity extends BaseActivity<HelpActivity> {
         contentList.add(c1);
         Help.HelpContent c2 = new Help.HelpContent();
         c2.setQuestion(getString(R.string.help_couple_pair_c2_q));
-        c2.setAnswer(String.format(Locale.getDefault(), getString(R.string.help_couple_pair_c2_a), limit.getCoupleInviteIntervalSec()));
+        c2.setAnswer(String.format(Locale.getDefault(), getString(R.string.help_couple_pair_c2_a), intervalSec));
         contentList.add(c2);
         Help.HelpContent c3 = new Help.HelpContent();
         c3.setQuestion(getString(R.string.help_couple_pair_c3_q));
@@ -425,14 +426,14 @@ public class HelpActivity extends BaseActivity<HelpActivity> {
         s2.setIndex(INDEX_NOTE_SOUVENIR);
         s2.setTitle(getString(R.string.souvenir));
         subList.add(s2);
-        Help s11 = new Help();
-        s11.setIndex(INDEX_NOTE_SHY);
-        s11.setTitle(getString(R.string.shy));
-        subList.add(s11);
         Help s12 = new Help();
         s12.setIndex(INDEX_NOTE_MENSES);
         s12.setTitle(getString(R.string.menses));
         subList.add(s12);
+        Help s11 = new Help();
+        s11.setIndex(INDEX_NOTE_SHY);
+        s11.setTitle(getString(R.string.shy));
+        subList.add(s11);
         Help s13 = new Help();
         s13.setIndex(INDEX_NOTE_SLEEP);
         s13.setTitle(getString(R.string.sleep));
@@ -477,6 +478,7 @@ public class HelpActivity extends BaseActivity<HelpActivity> {
     }
 
     private Help getHelpNoteSouvenir(int index) {
+        int foreignYearCount = limit.getSouvenirForeignYearCount();
         Help help = new Help();
         help.setIndex(index);
         help.setTitle(getString(R.string.souvenir));
@@ -489,31 +491,14 @@ public class HelpActivity extends BaseActivity<HelpActivity> {
         contentList.add(c1);
         Help.HelpContent c2 = new Help.HelpContent();
         c2.setQuestion(getString(R.string.help_note_souvenir_c2_q));
-        c2.setAnswer(String.format(Locale.getDefault(), getString(R.string.help_note_souvenir_c2_a), limit.getSouvenirForeignYearCount()));
-        contentList.add(c2);
-        help.setContentList(contentList);
-        return help;
-    }
-
-    private Help getHelpNoteShy(int index) {
-        Help help = new Help();
-        help.setIndex(index);
-        help.setTitle(getString(R.string.shy));
-        // content
-        List<Help.HelpContent> contentList = new ArrayList<>();
-        Help.HelpContent c1 = new Help.HelpContent();
-        c1.setQuestion(getString(R.string.help_note_shy_c1_q));
-        c1.setAnswer(getString(R.string.help_note_shy_c1_a));
-        contentList.add(c1);
-        Help.HelpContent c2 = new Help.HelpContent();
-        c2.setQuestion(getString(R.string.help_note_shy_c2_q));
-        c2.setAnswer(getString(R.string.help_note_shy_c2_a));
+        c2.setAnswer(String.format(Locale.getDefault(), getString(R.string.help_note_souvenir_c2_a), foreignYearCount));
         contentList.add(c2);
         help.setContentList(contentList);
         return help;
     }
 
     private Help getHelpNoteMenses(int index) {
+        int maxPerDay = limit.getMensesMaxPerDay();
         Help help = new Help();
         help.setIndex(index);
         help.setTitle(getString(R.string.menses));
@@ -521,12 +506,39 @@ public class HelpActivity extends BaseActivity<HelpActivity> {
         List<Help.HelpContent> contentList = new ArrayList<>();
         Help.HelpContent c1 = new Help.HelpContent();
         c1.setQuestion(getString(R.string.help_note_menses_c1_q));
-        c1.setAnswer(getString(R.string.help_note_menses_c1_a));
+        c1.setAnswer(String.format(Locale.getDefault(), getString(R.string.help_note_menses_c1_a), maxPerDay));
         contentList.add(c1);
         Help.HelpContent c2 = new Help.HelpContent();
         c2.setQuestion(getString(R.string.help_note_menses_c2_q));
         c2.setAnswer(getString(R.string.help_note_menses_c2_a));
         contentList.add(c2);
+        Help.HelpContent c3 = new Help.HelpContent();
+        c3.setQuestion(getString(R.string.help_note_menses_c3_q));
+        c3.setAnswer(getString(R.string.help_note_menses_c3_a));
+        contentList.add(c3);
+        help.setContentList(contentList);
+        return help;
+    }
+
+    private Help getHelpNoteShy(int index) {
+        int maxPerDay = limit.getShyMaxPerDay();
+        Help help = new Help();
+        help.setIndex(index);
+        help.setTitle(getString(R.string.shy));
+        // content
+        List<Help.HelpContent> contentList = new ArrayList<>();
+        Help.HelpContent c1 = new Help.HelpContent();
+        c1.setQuestion(getString(R.string.help_note_shy_c1_q));
+        c1.setAnswer(String.format(Locale.getDefault(), getString(R.string.help_note_shy_c1_a), maxPerDay));
+        contentList.add(c1);
+        Help.HelpContent c2 = new Help.HelpContent();
+        c2.setQuestion(getString(R.string.help_note_shy_c2_q));
+        c2.setAnswer(getString(R.string.help_note_shy_c2_a));
+        contentList.add(c2);
+        Help.HelpContent c3 = new Help.HelpContent();
+        c3.setQuestion(getString(R.string.help_note_shy_c3_q));
+        c3.setAnswer(getString(R.string.help_note_shy_c3_a));
+        contentList.add(c3);
         help.setContentList(contentList);
         return help;
     }
@@ -534,6 +546,7 @@ public class HelpActivity extends BaseActivity<HelpActivity> {
     private Help getHelpNoteSleep(int index) {
         long minMin = limit.getNoteSleepSuccessMinSec() / (TimeUnit.MIN / TimeUnit.SEC);
         long maxHour = limit.getNoteSleepSuccessMaxSec() / (TimeUnit.HOUR / TimeUnit.SEC);
+        int maxPerDay = limit.getSleepMaxPerDay();
         Help help = new Help();
         help.setIndex(index);
         help.setTitle(getString(R.string.sleep));
@@ -541,7 +554,7 @@ public class HelpActivity extends BaseActivity<HelpActivity> {
         List<Help.HelpContent> contentList = new ArrayList<>();
         Help.HelpContent c1 = new Help.HelpContent();
         c1.setQuestion(getString(R.string.help_note_sleep_c1_q));
-        c1.setAnswer(String.format(Locale.getDefault(), getString(R.string.help_note_sleep_c1_a), minMin, maxHour));
+        c1.setAnswer(String.format(Locale.getDefault(), getString(R.string.help_note_sleep_c1_a), maxPerDay));
         contentList.add(c1);
         Help.HelpContent c2 = new Help.HelpContent();
         c2.setQuestion(getString(R.string.help_note_sleep_c2_q));
@@ -549,7 +562,7 @@ public class HelpActivity extends BaseActivity<HelpActivity> {
         contentList.add(c2);
         Help.HelpContent c3 = new Help.HelpContent();
         c3.setQuestion(getString(R.string.help_note_sleep_c3_q));
-        c3.setAnswer(getString(R.string.help_note_sleep_c3_a));
+        c3.setAnswer(String.format(Locale.getDefault(), getString(R.string.help_note_sleep_c3_a), minMin, maxHour));
         contentList.add(c3);
         help.setContentList(contentList);
         return help;

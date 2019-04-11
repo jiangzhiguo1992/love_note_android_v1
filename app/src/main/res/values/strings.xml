@@ -535,7 +535,7 @@
     <string name="add_holder" formatted="false">+%d</string>
     <string name="sub_holder" formatted="false">-%d</string>
     <string name="holder_space_in_space_holder_space_make_this_wish" formatted="false">%s 于 %s 许下了这个愿望~</string>
-    <string name="condom">安全套</string>
+    <string name="condom">避孕套</string>
     <string name="acyeterion">避孕药</string>
     <string name="out_shoot">体外排精</string>
     <string name="back_current">回到当前</string>
@@ -678,20 +678,24 @@
     <string name="help_note_souvenir_c1_a">当然有了，一个是已经实现的，一个是还没有实现的。\n两种数据的展现方式也不一样，纪念日可以关联每年当天所发生的事，愿望清单就不行了。\n值得注意的是，愿望清单实现的时候，不要忘了修改类型为纪念日哦，这样就又多了一个纪念日啦！</string>
     <string name="help_note_souvenir_c2_q">纪念日的关联数据，每年能关联几个同类型数据？</string>
     <string name="help_note_souvenir_c2_a" formatted="false">%d个哦！</string>
-    <string name="help_note_shy_c1_q">请问怎么删除数据呢？</string>
-    <string name="help_note_shy_c1_a">点击日历视图的具体日期，会在底部展示区域展示出数据信息，然后长按想要删除的那个数据就可以了呢！\n前提是只能删除自己创建的哦！</string>
-    <string name="help_note_shy_c2_q">请问除了记录时间，还可以记录其他的吗？</string>
-    <string name="help_note_shy_c2_a">目前只有这些，但鱼笙还在成长中，我们会开发越来越多的记录形式，包括但不仅限于羞羞时间、姿势、安全措施等数据的记录。敬请期待！</string>
-    <string name="help_note_menses_c1_q">请问怎么删除数据呢？</string>
-    <string name="help_note_menses_c1_a">长按日历视图的具体日期，会弹出删除对话框，就可删除当天的姨妈数据！\n前提是只能删除自己创建的哦！</string>
-    <string name="help_note_menses_c2_q">请问除了记录时间，还可以记录其他的吗？</string>
-    <string name="help_note_menses_c2_a">目前只有这些，但鱼笙还在成长中，我们会开发越来越多的记录形式，包括但不仅限于排卵期、出血量、心情等数据的记录。敬请期待！</string>
-    <string name="help_note_sleep_c1_q">为什么会提示我时长太短/长？</string>
-    <string name="help_note_sleep_c1_a">为了防止提交无效的数据，我们在后台做了限制。\n睡眠时长小于%d分钟，或者大于%d小时的记录，都不允许被添加。如果影响到了后续的记录添加，请删除无效的记录，即可继续操作。</string>
-    <string name="help_note_sleep_c2_q">请问怎么删除数据呢？</string>
+    <string name="help_note_menses_c1_q">添加的时候 提示数量已达上限？</string>
+    <string name="help_note_menses_c1_a">每天记录的数量上限是 %d 个，超过这个数量后不能再提交，可以删除不必要的记录后再添加，或者是添加记录到其他日期。</string>
+    <string name="help_note_menses_c2_q">请问怎么删除数据呢？</string>
+    <string name="help_note_menses_c2_a">长按日历视图的具体日期，会弹出删除对话框，就可删除当天的姨妈数据！\n前提是只能删除自己创建的哦！</string>
+    <string name="help_note_menses_c3_q">请问除了记录时间，还可以记录其他的吗？</string>
+    <string name="help_note_menses_c3_a">目前只有这些，但鱼笙还在成长中，我们会开发越来越多的记录形式，包括但不仅限于排卵期、出血量、心情等数据的记录。敬请期待！</string>
+    <string name="help_note_shy_c1_q">添加的时候 提示数量已达上限？</string>
+    <string name="help_note_shy_c1_a">每天记录的数量上限是 %d 个，超过这个数量后不能再提交，可以删除不必要的记录后再添加，或者是添加记录到其他日期。</string>
+    <string name="help_note_shy_c2_q">请问怎么删除记录呢？</string>
+    <string name="help_note_shy_c2_a">点击日历视图的具体日期，会在底部区域展示出当天的记录，然后长按想要删除的那个记录就可以了！\n前提是只能删除自己创建的哦！</string>
+    <string name="help_note_shy_c3_q">添加的时候加了很多描述，怎么看不到了？</string>
+    <string name="help_note_shy_c3_a">点击日历视图的具体日期，会在底部区域展示出当天的记录，然后点击一下具体的记录，就会看到了！</string>
+    <string name="help_note_sleep_c1_q">添加的时候 提示数量已达上限？</string>
+    <string name="help_note_sleep_c1_a">每天记录的数量上限是 %d 个，超过这个数量后不能再提交，可以删除不必要的记录后再添加。</string>
+    <string name="help_note_sleep_c2_q">请问怎么删除记录呢？</string>
     <string name="help_note_sleep_c2_a">点击日历视图的具体日期，会在底部区域展示出当天的记录，然后长按想要删除的那个记录就可以了！\n前提是只能删除自己创建的哦！</string>
-    <string name="help_note_sleep_c3_q">请问只能记录吗？</string>
-    <string name="help_note_sleep_c3_a">对的，目前而言我们只有记录，但不排除后续会开发更多的功能，例如情侣闹钟、作息安排等等。</string>
+    <string name="help_note_sleep_c3_q">为什么会提示我时长太短/长？</string>
+    <string name="help_note_sleep_c3_a">为了防止提交无效的数据，我们在后台做了限制。\n睡眠时长小于%d分钟、或者大于%d小时的记录，都不允许被添加。如果影响到了后续的记录添加，请删除无效的记录，即可继续操作。</string>
     <string name="help_note_work_c1_q">为什么我发布了留言，对方却不能收到？</string>
     <string name="help_note_work_c1_a">这是留言板，不是聊天哦。不是实时发送的，需要下拉刷新才能看到哦。</string>
     <string name="help_note_whisper_d">这是一个可以说悄悄话的地方。\n是不是有些话憋在心里难受，说又没地方说？这里就是你发泄的天堂！\n当然了，除了发泄，还有点点情趣呢，发表一句TA想听到的话，然后让TA使劲找吧，hiahiahia~</string>
