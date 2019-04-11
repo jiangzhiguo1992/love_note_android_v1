@@ -211,8 +211,8 @@ public class SleepActivity extends BaseActivity<SleepActivity> {
         refreshCenterDayView();
         refreshBottomStatusView();
         // 开始获取数据
-        getBottomStatusData();
         refreshCenterMonthData();
+        getBottomStatusData();
     }
 
     @Override
@@ -310,7 +310,9 @@ public class SleepActivity extends BaseActivity<SleepActivity> {
             srl.setRefreshing(true);
         }
         // clear (data + view)
-        sleepList = null;
+        if (sleepList != null) {
+            sleepList.clear();
+        }
         refreshCenterDayView();
         // call
         Call<Result> api = new RetrofitHelper().call(API.class).noteSleepListGetByDate(selectYear, selectMonth);

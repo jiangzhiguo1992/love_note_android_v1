@@ -183,7 +183,7 @@ public class ShyActivity extends BaseActivity<ShyActivity> {
         // 设置当前日期
         refreshDateToCurrent();
         // 显示当前数据
-        refreshCenterMonthSchemeView();
+        refreshCenterMonthView();
         refreshBottomRightDayView();
         // 开始获取数据
         refreshCenterMonthData();
@@ -283,7 +283,9 @@ public class ShyActivity extends BaseActivity<ShyActivity> {
             srl.setRefreshing(true);
         }
         // clear (data + view)
-        shyList = null;
+        if (shyList != null) {
+            shyList.clear();
+        }
         refreshBottomRightDayView();
         // call
         Call<Result> api = new RetrofitHelper().call(API.class).noteShyListGetByDate(selectYear, selectMonth);
@@ -293,7 +295,7 @@ public class ShyActivity extends BaseActivity<ShyActivity> {
                 srl.setRefreshing(false);
                 shyList = data.getShyList();
                 // view
-                refreshCenterMonthSchemeView();
+                refreshCenterMonthView();
                 refreshBottomRightDayView();
             }
 
@@ -305,7 +307,7 @@ public class ShyActivity extends BaseActivity<ShyActivity> {
         pushApi(api);
     }
 
-    private void refreshCenterMonthSchemeView() {
+    private void refreshCenterMonthView() {
         if (cvShy == null) return;
         // data
         SparseIntArray countArray = new SparseIntArray();
