@@ -23,6 +23,7 @@ import com.haibin.calendarview.CalendarView;
 import com.haibin.calendarview.WeekView;
 import com.jiangzg.base.common.DateUtils;
 import com.jiangzg.base.common.StringUtils;
+import com.jiangzg.base.common.TimeUnit;
 import com.jiangzg.base.component.ActivityTrans;
 import com.jiangzg.base.view.ViewUtils;
 import com.jiangzg.lovenote.R;
@@ -30,10 +31,12 @@ import com.jiangzg.lovenote.controller.activity.base.BaseActivity;
 import com.jiangzg.lovenote.controller.activity.settings.HelpActivity;
 import com.jiangzg.lovenote.helper.common.RxBus;
 import com.jiangzg.lovenote.helper.common.SPHelper;
+import com.jiangzg.lovenote.helper.common.TimeHelper;
 import com.jiangzg.lovenote.helper.system.RetrofitHelper;
 import com.jiangzg.lovenote.helper.view.ViewHelper;
 import com.jiangzg.lovenote.model.api.API;
 import com.jiangzg.lovenote.model.api.Result;
+import com.jiangzg.lovenote.model.entity.Menses;
 import com.jiangzg.lovenote.model.entity.Menses2;
 import com.jiangzg.lovenote.model.entity.MensesDayInfo;
 import com.jiangzg.lovenote.model.entity.MensesInfo;
@@ -43,8 +46,10 @@ import com.jiangzg.lovenote.view.CalendarMonthView;
 import com.jiangzg.lovenote.view.GSwipeRefreshLayout;
 
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -106,6 +111,7 @@ public class MensesActivity extends BaseActivity<MensesActivity> {
     private MensesInfo mensesInfo;
     private List<Menses2> menses2List;
     private int selectYear, selectMonth, selectDay;
+    private ColorStateList colorGreyStateList, colorPrimaryStateList;
 
     public static void goActivity(Activity from) {
         Intent intent = new Intent(from, MensesActivity.class);
@@ -137,6 +143,11 @@ public class MensesActivity extends BaseActivity<MensesActivity> {
     protected void initView(Intent intent, Bundle state) {
         ViewHelper.initTopBar(mActivity, tb, getString(R.string.menses), true);
         srl.setEnabled(false);
+        // color
+        int colorGrey = ContextCompat.getColor(mActivity, R.color.img_grey);
+        int colorPrimary = ContextCompat.getColor(mActivity, ViewUtils.getColorPrimary(mActivity));
+        colorGreyStateList = ColorStateList.valueOf(colorGrey);
+        colorPrimaryStateList = ColorStateList.valueOf(colorPrimary);
         // calendar样式替换
         cvMenses.setWeekView(WeekView.class);
         cvMenses.setMonthView(CalendarMonthView.class);
@@ -253,14 +264,39 @@ public class MensesActivity extends BaseActivity<MensesActivity> {
                 // TODO goEdit
                 break;
             case R.id.ivBlood1: // 血量
+                ivBlood1.setImageTintList(colorPrimaryStateList);
+                pushMensesDayInfo();
+                break;
             case R.id.ivBlood2:
+                ivBlood2.setImageTintList(colorPrimaryStateList);
+                pushMensesDayInfo();
+                break;
             case R.id.ivBlood3:
+                ivBlood3.setImageTintList(colorPrimaryStateList);
+                pushMensesDayInfo();
+                break;
             case R.id.ivPain1: // 痛经
+                ivPain1.setImageTintList(colorPrimaryStateList);
+                pushMensesDayInfo();
+                break;
             case R.id.ivPain2:
+                ivPain2.setImageTintList(colorPrimaryStateList);
+                pushMensesDayInfo();
+                break;
             case R.id.ivPain3:
+                ivPain3.setImageTintList(colorPrimaryStateList);
+                pushMensesDayInfo();
+                break;
             case R.id.ivMood1: // 心情
+                ivMood1.setImageTintList(colorPrimaryStateList);
+                pushMensesDayInfo();
+                break;
             case R.id.ivMood2:
+                ivMood2.setImageTintList(colorPrimaryStateList);
+                pushMensesDayInfo();
+                break;
             case R.id.ivMood3:
+                ivMood3.setImageTintList(colorPrimaryStateList);
                 pushMensesDayInfo();
                 break;
         }
@@ -355,29 +391,44 @@ public class MensesActivity extends BaseActivity<MensesActivity> {
     private void refreshCenterMonthView(String show) {
         // show
         if (!StringUtils.isEmpty(show)) {
-            cvMenses.setVisibility(View.INVISIBLE);
             tvShow.setVisibility(View.VISIBLE);
             tvShow.setText(show);
+            cvMenses.setVisibility(View.INVISIBLE);
             return;
         }
-        cvMenses.setVisibility(View.VISIBLE);
         tvShow.setVisibility(View.GONE);
-        // TODO data
-        //Map<String, com.haibin.calendarview.Calendar> schemeMap = new HashMap<>();
-        //if (mensesList != null && mensesList.size() > 0) {
-        //    String come = getString(R.string.come);
-        //    String gone = getString(R.string.gone);
-        //    for (Menses menses : mensesList) {
-        //        if (menses == null) continue;
-        //        com.haibin.calendarview.Calendar calendar = CalendarMonthView.getCalendarView(menses.getYear(), menses.getMonthOfYear(), menses.getDayOfMonth());
-        //        calendar.setSchemeColor(ContextCompat.getColor(mActivity, ViewUtils.getColorDark(mActivity)));
-        //        calendar.setScheme(menses.isStart() ? come : gone);
-        //        schemeMap.put(calendar.toString(), calendar);
-        //    }
-        //}
-        //// calendar
-        //cvMenses.clearSchemeDate();
-        //cvMenses.setSchemeDate(schemeMap);
+        cvMenses.setVisibility(View.VISIBLE);
+        // data
+        Map<String, com.haibin.calendarview.Calendar> schemeMap = new HashMap<>();
+        long dayTimestamp = TimeUnit.DAY / TimeUnit.SEC;
+        if (menses2List != null && menses2List.size() > 0) {
+            for (Menses2 menses2 : menses2List) {
+                if (menses2 == null) continue;
+                int startYear = menses2.getMensesStartYear();
+                int endYear = menses2.getMensesEndYear();
+                int startMonth = menses2.getMensesStartMonthOfYear();
+                int endMonth = menses2.getMensesEndMonthOfYear();
+                int startDay = menses2.getMensesStartDayOfMonth();
+                int endDay = menses2.getMensesEndDayOfMonth();
+                if (startYear == endYear && startMonth == endMonth && startDay == endDay) {
+                    // 周期小于一天
+                    continue;
+                }
+                // 循环相距天数
+                for (long timestamp = menses2.getStartAt() - dayTimestamp; timestamp <= menses2.getEndAt(); timestamp = timestamp + dayTimestamp) {
+                    Calendar cal = DateUtils.getCal(TimeHelper.getJavaTimeByGo(timestamp));
+                    int index = (int) ((timestamp - menses2.getStartAt()) / dayTimestamp);
+                    // 相应的scheme
+                    com.haibin.calendarview.Calendar calendar = CalendarMonthView.getCalendarView(cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH));
+                    calendar.setSchemeColor(ContextCompat.getColor(mActivity, ViewUtils.getColorDark(mActivity)));
+                    calendar.setScheme(String.valueOf(index));
+                    schemeMap.put(calendar.toString(), calendar);
+                }
+            }
+        }
+        // calendar
+        cvMenses.clearSchemeDate();
+        cvMenses.setSchemeDate(schemeMap);
     }
 
     /**
@@ -473,10 +524,6 @@ public class MensesActivity extends BaseActivity<MensesActivity> {
             return;
         }
         llDayInfo.setVisibility(View.VISIBLE);
-        int colorGrey = ContextCompat.getColor(mActivity, R.color.img_grey);
-        int colorPrimary = ContextCompat.getColor(mActivity, ViewUtils.getColorPrimary(mActivity));
-        ColorStateList colorGreyStateList = ColorStateList.valueOf(colorGrey);
-        ColorStateList colorPrimaryStateList = ColorStateList.valueOf(colorPrimary);
         // blood
         ivBlood1.setImageTintList(colorGreyStateList);
         ivBlood2.setImageTintList(colorGreyStateList);
@@ -525,33 +572,73 @@ public class MensesActivity extends BaseActivity<MensesActivity> {
      * **************************************** push ***********************************************
      */
     private void mensesPush(int year, int month, int day, boolean come) {
-        // TODO
-        //Menses menses = new Menses();
-        //menses.setYear(year);
-        //menses.setMonthOfYear(month);
-        //menses.setDayOfMonth(day);
-        //menses.setStart();
-        //// api
-        //Call<Result> api = new RetrofitHelper().call(API.class).noteMenses2Add(menses);
-        //RetrofitHelper.enqueue(api, mActivity.getLoading(true), new RetrofitHelper.CallBack() {
-        //    @Override
-        //    public void onResponse(int code, String message, Result.Data data) {
-        //        menses2List = data.getMenses2List();
-        //        // data
-        //        refreshCenterMonthData();
-        //        // view
-        //        refreshBottomRightLengthView();
-        //    }
-        //
-        //    @Override
-        //    public void onFailure(int code, String message, Result.Data data) {
-        //    }
-        //});
-        //pushApi(api);
+        Menses menses = new Menses();
+        menses.setYear(year);
+        menses.setMonthOfYear(month);
+        menses.setDayOfMonth(day);
+        menses.setStart(come);
+        // api
+        Call<Result> api = new RetrofitHelper().call(API.class).noteMenses2Add(menses);
+        RetrofitHelper.enqueue(api, mActivity.getLoading(true), new RetrofitHelper.CallBack() {
+            @Override
+            public void onResponse(int code, String message, Result.Data data) {
+                // data
+                refreshCenterMonthData();
+            }
+
+            @Override
+            public void onFailure(int code, String message, Result.Data data) {
+            }
+        });
+        pushApi(api);
     }
 
     private void pushMensesDayInfo() {
-        // TODO
+        MensesDayInfo dayInfo = new MensesDayInfo();
+        dayInfo.setYear(selectYear);
+        dayInfo.setMonthOfYear(selectMonth);
+        dayInfo.setDayOfMonth(selectDay);
+        if (ivBlood3.getImageTintList() == colorPrimaryStateList) {
+            dayInfo.setBlood(3);
+        } else if (ivBlood2.getImageTintList() == colorPrimaryStateList) {
+            dayInfo.setBlood(2);
+        } else if (ivBlood1.getImageTintList() == colorPrimaryStateList) {
+            dayInfo.setBlood(1);
+        } else {
+            dayInfo.setBlood(0);
+        }
+        if (ivPain3.getImageTintList() == colorPrimaryStateList) {
+            dayInfo.setPain(3);
+        } else if (ivPain2.getImageTintList() == colorPrimaryStateList) {
+            dayInfo.setPain(2);
+        } else if (ivPain1.getImageTintList() == colorPrimaryStateList) {
+            dayInfo.setPain(1);
+        } else {
+            dayInfo.setPain(0);
+        }
+        if (ivMood3.getImageTintList() == colorPrimaryStateList) {
+            dayInfo.setMood(3);
+        } else if (ivMood2.getImageTintList() == colorPrimaryStateList) {
+            dayInfo.setMood(2);
+        } else if (ivMood1.getImageTintList() == colorPrimaryStateList) {
+            dayInfo.setMood(1);
+        } else {
+            dayInfo.setMood(0);
+        }
+        // api
+        Call<Result> api = new RetrofitHelper().call(API.class).noteMenses2DayInfoUpdate(dayInfo);
+        RetrofitHelper.enqueue(api, mActivity.getLoading(true), new RetrofitHelper.CallBack() {
+            @Override
+            public void onResponse(int code, String message, Result.Data data) {
+                // data
+                refreshCenterMonthData();
+            }
+
+            @Override
+            public void onFailure(int code, String message, Result.Data data) {
+            }
+        });
+        pushApi(api);
     }
 
 }

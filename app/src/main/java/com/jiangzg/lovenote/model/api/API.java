@@ -18,6 +18,7 @@ import com.jiangzg.lovenote.model.entity.MatchReport;
 import com.jiangzg.lovenote.model.entity.MatchWork;
 import com.jiangzg.lovenote.model.entity.Menses;
 import com.jiangzg.lovenote.model.entity.MensesDayInfo;
+import com.jiangzg.lovenote.model.entity.MensesLength;
 import com.jiangzg.lovenote.model.entity.Movie;
 import com.jiangzg.lovenote.model.entity.Picture;
 import com.jiangzg.lovenote.model.entity.Place;
@@ -248,21 +249,30 @@ public interface API {
     @PUT("note/souvenir")
     Call<Result> noteSouvenirUpdateForeign(@Query("year") int year, @Body Souvenir souvenir);
 
-    // menses2Info获取 TODO 获取双方的MensesInfo
-    @GET("note/menses2?info=1")
-    Call<Result> noteMenses2InfoGet();
-
-    // menses2List获取 TODO 获取List<menses2>，附带返回dayInfo，有length和首次经历的话都能返回数据
+    // menses2List获取
+    // TODO 获取List<menses2>，附带返回dayInfo，主要有一条menses2记录就能返回数据
     @GET("note/menses2?date=1")
     Call<Result> noteMenses2ListGetByDate(@Query("mine") boolean mine, @Query("year") int year, @Query("month") int month);
 
-    // menses2上传 TODO 上传menses返回menses2
+    // menses2上传
+    // TODO 上传menses返回menses2，是start就重置endAt，不是就判断距startAt不能超过DurationDayLimitMax
     @POST("note/menses2")
     Call<Result> noteMenses2Add(@Body Menses menses);
 
-    // menses2更新 TODO 上传mensesDayInfo返回MensesDayInfo
-    @PUT("note/menses2")
-    Call<Result> noteMenses2Update(@Body MensesDayInfo mensesDayInfo);
+    // menses2DayInfo更新
+    // TODO 上传mensesDayInfo返回MensesDayInfo ，先查找同天的(包括删除)，有就修改，没就添加
+    @PUT("note/menses2/dayInfo")
+    Call<Result> noteMenses2DayInfoUpdate(@Body MensesDayInfo mensesDayInfo);
+
+    // menses2Info获取
+    // TODO 获取双方的MensesInfo，没有length就返回limit里默认的数值
+    @GET("note/menses2/length?info=1")
+    Call<Result> noteMenses2InfoGet();
+
+    // menses2Length更新
+    // TODO 上传mensesLength返回mensesLength，注意limit，修改成功后不再修改已记录的menses2，但会返回不一样的预测的menses2
+    @PUT("note/menses2/length")
+    Call<Result> noteMenses2LengthUpdate(@Body MensesLength mensesLength);
 
     // shyList获取
     @GET("note/shy?date=1")
