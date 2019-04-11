@@ -5,49 +5,47 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Switch;
 import android.widget.TextView;
 
-import com.afollestad.materialdialogs.MaterialDialog;
 import com.haibin.calendarview.CalendarView;
 import com.haibin.calendarview.WeekView;
 import com.jiangzg.base.common.DateUtils;
 import com.jiangzg.base.common.StringUtils;
-import com.jiangzg.base.common.TimeUnit;
 import com.jiangzg.base.component.ActivityTrans;
-import com.jiangzg.base.view.ViewUtils;
 import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.controller.activity.base.BaseActivity;
 import com.jiangzg.lovenote.controller.activity.settings.HelpActivity;
+import com.jiangzg.lovenote.helper.common.RxBus;
 import com.jiangzg.lovenote.helper.common.SPHelper;
-import com.jiangzg.lovenote.helper.common.TimeHelper;
 import com.jiangzg.lovenote.helper.system.RetrofitHelper;
-import com.jiangzg.lovenote.helper.view.DialogHelper;
 import com.jiangzg.lovenote.helper.view.ViewHelper;
 import com.jiangzg.lovenote.model.api.API;
 import com.jiangzg.lovenote.model.api.Result;
-import com.jiangzg.lovenote.model.entity.Menses;
+import com.jiangzg.lovenote.model.entity.Menses2;
 import com.jiangzg.lovenote.model.entity.MensesInfo;
+import com.jiangzg.lovenote.model.entity.MensesLength;
 import com.jiangzg.lovenote.model.entity.User;
 import com.jiangzg.lovenote.view.CalendarMonthView;
 import com.jiangzg.lovenote.view.GSwipeRefreshLayout;
 
 import java.util.Calendar;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
-import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.OnClick;
 import retrofit2.Call;
+import rx.Observable;
 
 public class MensesActivity extends BaseActivity<MensesActivity> {
 
@@ -59,29 +57,51 @@ public class MensesActivity extends BaseActivity<MensesActivity> {
     TextView tvDateShow;
     @BindView(R.id.tvBackCur)
     TextView tvBackCur;
-    @BindView(R.id.cvMenses)
-    CalendarView cvMenses;
     @BindView(R.id.tvShow)
     TextView tvShow;
-    @BindView(R.id.tvTip)
-    TextView tvTip;
+    @BindView(R.id.cvMenses)
+    CalendarView cvMenses;
     @BindView(R.id.rgUser)
     RadioGroup rgUser;
     @BindView(R.id.rbMe)
     RadioButton rbMe;
     @BindView(R.id.rbTa)
     RadioButton rbTa;
-    @BindView(R.id.cvPush)
-    CardView cvPush;
-    @BindView(R.id.tvPush)
-    TextView tvPush;
+    @BindView(R.id.cvLength)
+    CardView cvLength;
+    @BindView(R.id.tvLengthCycle)
+    TextView tvLengthCycle;
+    @BindView(R.id.tvLengthDuration)
+    TextView tvLengthDuration;
+    @BindView(R.id.llDayInfo)
+    LinearLayout llDayInfo; // TODO show
+    @BindView(R.id.sMensesStatus)
+    Switch sMensesStatus; // TODO check
+    @BindView(R.id.cvDayInfo)
+    CardView cvDayInfo; // TODO show
+    @BindView(R.id.ivBlood1)
+    ImageView ivBlood1;
+    @BindView(R.id.ivBlood2)
+    ImageView ivBlood2;
+    @BindView(R.id.ivBlood3)
+    ImageView ivBlood3;
+    @BindView(R.id.ivPain1)
+    ImageView ivPain1;
+    @BindView(R.id.ivPain2)
+    ImageView ivPain2;
+    @BindView(R.id.ivPain3)
+    ImageView ivPain3;
+    @BindView(R.id.ivMood1)
+    ImageView ivMood1;
+    @BindView(R.id.ivMood2)
+    ImageView ivMood2;
+    @BindView(R.id.ivMood3)
+    ImageView ivMood3;
 
     private boolean isMine;
     private MensesInfo mensesInfo;
-    private Menses mensesMe;
-    private Menses mensesTa;
-    private List<Menses> mensesList;
-    private int selectYear, selectMonth;
+    private List<Menses2> menses2List;
+    private int selectYear, selectMonth, selectDay;
 
     public static void goActivity(Activity from) {
         Intent intent = new Intent(from, MensesActivity.class);
@@ -113,23 +133,18 @@ public class MensesActivity extends BaseActivity<MensesActivity> {
     protected void initView(Intent intent, Bundle state) {
         ViewHelper.initTopBar(mActivity, tb, getString(R.string.menses), true);
         srl.setEnabled(false);
-        // data
-        User me = SPHelper.getMe();
-        isMine = (me != null && me.getSex() == User.SEX_GIRL);
-        mensesInfo = new MensesInfo();
-        mensesInfo.setCanMe(false);
-        mensesInfo.setCanTa(false);
-        // check
-        initCheckView();
         // calendar样式替换
         cvMenses.setWeekView(WeekView.class);
         cvMenses.setMonthView(CalendarMonthView.class);
         cvMenses.update();
         // calendar监听
         cvMenses.setOnYearChangeListener(year -> {
-            if (selectYear == year) return;
+            if (selectYear == year || cvMenses == null || cvMenses.getVisibility() != View.VISIBLE) {
+                return;
+            }
             selectYear = year;
             selectMonth = -1;
+            selectDay = -1;
             refreshTopDateShow();
         });
         cvMenses.setOnCalendarSelectListener(new CalendarView.OnCalendarSelectListener() {
@@ -139,42 +154,48 @@ public class MensesActivity extends BaseActivity<MensesActivity> {
 
             @Override
             public void onCalendarSelect(com.haibin.calendarview.Calendar calendar, boolean isClick) {
+                if (cvMenses == null || cvMenses.getVisibility() != View.VISIBLE) return;
                 if (selectYear == calendar.getYear() && selectMonth == calendar.getMonth()) {
+                    // 只是选择的同月day
+                    selectDay = calendar.getDay();
+                    refreshTopDateShow();
+                    refreshBottomLeftView();
                     return;
                 }
                 selectYear = calendar.getYear();
                 selectMonth = calendar.getMonth();
+                selectDay = calendar.getDay();
                 refreshTopDateShow();
-                refreshMonthData();
-                refreshBottomView();
-            }
-        });
-        cvMenses.setOnCalendarLongClickListener(new CalendarView.OnCalendarLongClickListener() {
-            @Override
-            public void onCalendarLongClickOutOfRange(com.haibin.calendarview.Calendar calendar) {
-            }
-
-            @Override
-            public void onCalendarLongClick(com.haibin.calendarview.Calendar calendar) {
-                if (mensesInfo == null || !mensesInfo.isCanMe()) return;
-                int year = calendar.getYear();
-                int month = calendar.getMonth();
-                int day = calendar.getDay();
-                showDeleteDialog(year, month, day);
+                refreshCenterMonthData();
+                refreshBottomLeftView();
             }
         });
     }
 
     @Override
     protected void initData(Intent intent, Bundle state) {
+        // event
+        Observable<MensesLength> obLengthRefresh = RxBus.register(RxBus.EVENT_MENSES_LENGTH_UPDATE, mensesLength -> {
+            refreshCenterMonthData();
+            getBottomRightMensesInfoData();
+        });
+        pushBus(RxBus.EVENT_MENSES_LENGTH_UPDATE, obLengthRefresh);
+        // user
+        User me = SPHelper.getMe();
+        isMine = (me != null && me.getSex() == User.SEX_GIRL);
+        initBottomRightUserCheckView();
+        // info
+        mensesInfo = new MensesInfo();
+        mensesInfo.setCanMe(false);
+        mensesInfo.setCanTa(false);
         // 设置当前日期
         refreshDateToCurrent();
         // 显示当前数据
-        refreshMonthView("");
-        refreshBottomView();
+        refreshCenterMonthView("");
+        refreshBottomRightLengthView();
         // 开始获取数据
-        getLatestData();
-        refreshMonthData();
+        refreshCenterMonthData();
+        getBottomRightMensesInfoData();
     }
 
     @Override
@@ -206,7 +227,10 @@ public class MensesActivity extends BaseActivity<MensesActivity> {
         super.onBackPressed();
     }
 
-    @OnClick({R.id.tvDateShow, R.id.tvBackCur, R.id.cvPush})
+    @OnClick({R.id.tvDateShow, R.id.tvBackCur, R.id.cvLength,
+            R.id.ivBlood1, R.id.ivBlood2, R.id.ivBlood3,
+            R.id.ivPain1, R.id.ivPain2, R.id.ivPain3,
+            R.id.ivMood1, R.id.ivMood2, R.id.ivMood3})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.tvDateShow: // 日期显示
@@ -215,49 +239,39 @@ public class MensesActivity extends BaseActivity<MensesActivity> {
             case R.id.tvBackCur: // 回到当前
                 dateBack();
                 break;
-            case R.id.cvPush: // 发布
-                showDatePicker();
+            case R.id.cvLength: // 经期/周期设置
+                // TODO goEdit
+                break;
+            case R.id.ivBlood1: // 血量
+            case R.id.ivBlood2:
+            case R.id.ivBlood3:
+            case R.id.ivPain1: // 痛经
+            case R.id.ivPain2:
+            case R.id.ivPain3:
+            case R.id.ivMood1: // 心情
+            case R.id.ivMood2:
+            case R.id.ivMood3:
+                pushMensesDayInfo();
                 break;
         }
     }
 
-    private void refreshDateToCurrent() {
-        Calendar calendar = DateUtils.getCurrentCal();
-        selectYear = calendar.get(Calendar.YEAR);
-        selectMonth = calendar.get(Calendar.MONTH) + 1;
-        cvMenses.scrollToCurrent(true);
-        // 顶部显示
-        refreshTopDateShow();
+    private void initBottomRightUserCheckView() {
+        if (isMine) {
+            rbMe.setChecked(true);
+        } else {
+            rbTa.setChecked(true);
+        }
+        rgUser.setOnCheckedChangeListener((group, checkedId) -> {
+            isMine = (R.id.rbMe == checkedId);
+            refreshBottomRightLengthView();
+            refreshCenterMonthData();
+        });
     }
 
-    private void refreshMonthView(String show) {
-        // show
-        if (!StringUtils.isEmpty(show)) {
-            cvMenses.setVisibility(View.GONE);
-            tvShow.setVisibility(View.VISIBLE);
-            tvShow.setText(show);
-            return;
-        }
-        cvMenses.setVisibility(View.VISIBLE);
-        tvShow.setVisibility(View.GONE);
-        // data
-        Map<String, com.haibin.calendarview.Calendar> schemeMap = new HashMap<>();
-        if (mensesList != null && mensesList.size() > 0) {
-            String come = getString(R.string.come);
-            String gone = getString(R.string.gone);
-            for (Menses menses : mensesList) {
-                if (menses == null) continue;
-                com.haibin.calendarview.Calendar calendar = CalendarMonthView.getCalendarView(menses.getYear(), menses.getMonthOfYear(), menses.getDayOfMonth());
-                calendar.setSchemeColor(ContextCompat.getColor(mActivity, ViewUtils.getColorDark(mActivity)));
-                calendar.setScheme(menses.isStart() ? come : gone);
-                schemeMap.put(calendar.toString(), calendar);
-            }
-        }
-        // calendar
-        cvMenses.clearSchemeDate();
-        cvMenses.setSchemeDate(schemeMap);
-    }
-
+    /**
+     * **************************************** top ***********************************************
+     */
     private void yearShow() {
         if (cvMenses == null) return;
         if (!cvMenses.isYearSelectLayoutVisible()) {
@@ -269,7 +283,17 @@ public class MensesActivity extends BaseActivity<MensesActivity> {
 
     private void dateBack() {
         refreshDateToCurrent();
-        refreshMonthData();
+        refreshCenterMonthData();
+    }
+
+    private void refreshDateToCurrent() {
+        Calendar calendar = DateUtils.getCurrentCal();
+        selectYear = calendar.get(Calendar.YEAR);
+        selectMonth = calendar.get(Calendar.MONTH) + 1;
+        selectDay = calendar.get(Calendar.DAY_OF_MONTH);
+        cvMenses.scrollToCurrent(true);
+        // 顶部显示
+        refreshTopDateShow();
     }
 
     private void refreshTopDateShow() {
@@ -286,97 +310,79 @@ public class MensesActivity extends BaseActivity<MensesActivity> {
         tvDateShow.setText(show);
     }
 
-    private void initCheckView() {
-        if (isMine) {
-            rbMe.setChecked(true);
-        } else {
-            rbTa.setChecked(true);
-        }
-        rgUser.setOnCheckedChangeListener((group, checkedId) -> {
-            isMine = (R.id.rbMe == checkedId);
-            refreshBottomView();
-            refreshMonthData();
-        });
-    }
-
-    private void refreshBottomView() {
-        // tip
-        if (isMine) {
-            if (!mensesInfo.isCanMe() || mensesMe == null || mensesMe.getId() <= 0) {
-                tvTip.setVisibility(View.INVISIBLE);
-            } else {
-                tvTip.setVisibility(View.VISIBLE);
-                tvTip.setText(getTipShow(mensesMe));
-            }
-        } else {
-            if (!mensesInfo.isCanTa() || mensesTa == null || mensesTa.getId() <= 0) {
-                tvTip.setVisibility(View.INVISIBLE);
-            } else {
-                tvTip.setVisibility(View.VISIBLE);
-                tvTip.setText(getTipShow(mensesTa));
-            }
-        }
-        // push
-        if (!mensesInfo.isCanMe()) {
-            cvPush.setVisibility(View.GONE);
-        } else {
-            if (mensesMe == null) {
-                mensesMe = new Menses();
-                mensesMe.setStart(false);
-            }
-            cvPush.setVisibility(View.VISIBLE);
-            String pushShow = mensesMe.isStart() ? getString(R.string.menses_gone) : getString(R.string.menses_come);
-            tvPush.setText(pushShow);
-        }
-    }
-
-    private String getTipShow(Menses menses) {
-        if (menses == null) return "";
-        String tipShow;
-        boolean start = menses.isStart();
-        long createAt = TimeHelper.getJavaTimeByGo(menses.getCreateAt());
-        if (start) {
-            // 已开始
-            TimeUnit timeUnit = TimeUnit.get(DateUtils.getCurrentLong() - createAt);
-            String timeSHow = timeUnit.getAllShow(false, false, true, true, true, true,
-                    R.string.year, R.string.month, R.string.dayT,
-                    R.string.hour_short, R.string.minute_short, R.string.second);
-            tipShow = String.format(Locale.getDefault(), getString(R.string.already_start_space_holder), timeSHow);
-        } else {
-            long between = DateUtils.getCurrentLong() - createAt;
-            if (between > TimeUnit.DAY * 30) {
-                // 已推迟
-                TimeUnit timeUnit = TimeUnit.get(between - TimeUnit.DAY * 30);
-                String timeSHow = timeUnit.getMaxShow(false, true, true, true, true, true,
-                        R.string.year, R.string.month, R.string.dayT,
-                        R.string.hour_short, R.string.minute_short, R.string.second);
-                tipShow = String.format(Locale.getDefault(), getString(R.string.already_delay_space_holder), timeSHow);
-            } else {
-                // 倒计时
-                TimeUnit timeUnit = TimeUnit.get(TimeUnit.DAY * 30 - between);
-                String timeSHow = timeUnit.getMaxShow(false, true, true, true, true, true,
-                        R.string.year, R.string.month, R.string.dayT,
-                        R.string.hour_short, R.string.minute_short, R.string.second);
-                tipShow = String.format(Locale.getDefault(), getString(R.string.count_down_space_holder), timeSHow);
-            }
-        }
-        return tipShow;
-    }
-
-    private void getLatestData() {
+    /**
+     * **************************************** top ***********************************************
+     */
+    private void refreshCenterMonthData() {
         if (!srl.isRefreshing()) {
             srl.setRefreshing(true);
         }
-        Call<Result> api = new RetrofitHelper().call(API.class).noteMensesLatestGet();
+        // clear
+        if (menses2List != null) {
+            menses2List.clear();
+        }
+        // api
+        Call<Result> api = new RetrofitHelper().call(API.class).noteMenses2ListGetByDate(isMine, selectYear, selectMonth);
+        RetrofitHelper.enqueue(api, null, new RetrofitHelper.CallBack() {
+            @Override
+            public void onResponse(int code, String message, Result.Data data) {
+                srl.setRefreshing(false);
+                menses2List = data.getMenses2List();
+                // view
+                refreshCenterMonthView(data.getShow());
+            }
+
+            @Override
+            public void onFailure(int code, String message, Result.Data data) {
+                srl.setRefreshing(false);
+            }
+        });
+        pushApi(api);
+    }
+
+    private void refreshCenterMonthView(String show) {
+        // show
+        if (!StringUtils.isEmpty(show)) {
+            cvMenses.setVisibility(View.INVISIBLE);
+            tvShow.setVisibility(View.VISIBLE);
+            tvShow.setText(show);
+            return;
+        }
+        cvMenses.setVisibility(View.VISIBLE);
+        tvShow.setVisibility(View.GONE);
+        // TODO data
+        //Map<String, com.haibin.calendarview.Calendar> schemeMap = new HashMap<>();
+        //if (mensesList != null && mensesList.size() > 0) {
+        //    String come = getString(R.string.come);
+        //    String gone = getString(R.string.gone);
+        //    for (Menses menses : mensesList) {
+        //        if (menses == null) continue;
+        //        com.haibin.calendarview.Calendar calendar = CalendarMonthView.getCalendarView(menses.getYear(), menses.getMonthOfYear(), menses.getDayOfMonth());
+        //        calendar.setSchemeColor(ContextCompat.getColor(mActivity, ViewUtils.getColorDark(mActivity)));
+        //        calendar.setScheme(menses.isStart() ? come : gone);
+        //        schemeMap.put(calendar.toString(), calendar);
+        //    }
+        //}
+        //// calendar
+        //cvMenses.clearSchemeDate();
+        //cvMenses.setSchemeDate(schemeMap);
+    }
+
+    /**
+     * **************************************** bottom ***********************************************
+     */
+    private void getBottomRightMensesInfoData() {
+        if (!srl.isRefreshing()) {
+            srl.setRefreshing(true);
+        }
+        Call<Result> api = new RetrofitHelper().call(API.class).noteMenses2InfoGet();
         RetrofitHelper.enqueue(api, null, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 srl.setRefreshing(false);
                 mensesInfo = data.getMensesInfo();
-                mensesMe = data.getMensesMe();
-                mensesTa = data.getMensesTa();
                 // view
-                refreshBottomView();
+                refreshBottomRightLengthView();
             }
 
             @Override
@@ -387,93 +393,67 @@ public class MensesActivity extends BaseActivity<MensesActivity> {
         pushApi(api);
     }
 
-    private void refreshMonthData() {
-        if (!srl.isRefreshing()) {
-            srl.setRefreshing(true);
+    private void refreshBottomRightLengthView() {
+        if (mensesInfo == null) {
+            cvLength.setVisibility(View.GONE);
+            return;
         }
-        // clear
-        if (mensesList != null) {
-            mensesList.clear();
+        if (isMine) {
+            if (!mensesInfo.isCanMe()) {
+                cvLength.setVisibility(View.GONE);
+                return;
+            }
+        } else {
+            if (!mensesInfo.isCanTa()) {
+                cvLength.setVisibility(View.GONE);
+                return;
+            }
         }
-        // api
-        Call<Result> api = new RetrofitHelper().call(API.class).noteMensesListGetByDate(isMine, selectYear, selectMonth);
-        RetrofitHelper.enqueue(api, null, new RetrofitHelper.CallBack() {
-            @Override
-            public void onResponse(int code, String message, Result.Data data) {
-                srl.setRefreshing(false);
-                mensesList = data.getMensesList();
-                // view
-                refreshMonthView(data.getShow());
-            }
-
-            @Override
-            public void onFailure(int code, String message, Result.Data data) {
-                srl.setRefreshing(false);
-            }
-        });
-        pushApi(api);
+        MensesLength length = isMine ? mensesInfo.getMensesLengthMe() : mensesInfo.getMensesLengthTa();
+        if (length == null) {
+            cvLength.setVisibility(View.GONE);
+            return;
+        }
+        cvLength.setVisibility(View.VISIBLE);
+        tvLengthCycle.setText(String.format(Locale.getDefault(), getString(R.string.menses_cycle_colon_holder_day), length.getCycleDay()));
+        tvLengthDuration.setText(String.format(Locale.getDefault(), getString(R.string.menses_duration_colon_holder_day), length.getDurationDay()));
     }
 
-    private void showDatePicker() {
-        DialogHelper.showDatePicker(mActivity, DateUtils.getCurrentLong(), time -> {
-            Calendar cal = DateUtils.getCal(time);
-            int year = cal.get(Calendar.YEAR);
-            int month = cal.get(Calendar.MONTH) + 1;
-            int day = cal.get(Calendar.DAY_OF_MONTH);
-            mensesPush(year, month, day);
-        });
+    private void refreshBottomLeftView() {
+        // TODO
     }
 
+    /**
+     * **************************************** push ***********************************************
+     */
     private void mensesPush(int year, int month, int day) {
-        Menses menses = new Menses();
-        menses.setYear(year);
-        menses.setMonthOfYear(month);
-        menses.setDayOfMonth(day);
-        // api
-        Call<Result> api = new RetrofitHelper().call(API.class).noteMensesAdd(menses);
-        RetrofitHelper.enqueue(api, mActivity.getLoading(true), new RetrofitHelper.CallBack() {
-            @Override
-            public void onResponse(int code, String message, Result.Data data) {
-                mensesMe = data.getMenses();
-                // data
-                refreshMonthData();
-                // view
-                refreshBottomView();
-            }
-
-            @Override
-            public void onFailure(int code, String message, Result.Data data) {
-            }
-        });
-        pushApi(api);
+        // TODO
+        //Menses menses = new Menses();
+        //menses.setYear(year);
+        //menses.setMonthOfYear(month);
+        //menses.setDayOfMonth(day);
+        //menses.setStart();
+        //// api
+        //Call<Result> api = new RetrofitHelper().call(API.class).noteMenses2Add(menses);
+        //RetrofitHelper.enqueue(api, mActivity.getLoading(true), new RetrofitHelper.CallBack() {
+        //    @Override
+        //    public void onResponse(int code, String message, Result.Data data) {
+        //        menses2List = data.getMenses2List();
+        //        // data
+        //        refreshCenterMonthData();
+        //        // view
+        //        refreshBottomRightLengthView();
+        //    }
+        //
+        //    @Override
+        //    public void onFailure(int code, String message, Result.Data data) {
+        //    }
+        //});
+        //pushApi(api);
     }
 
-    public void showDeleteDialog(final int year, final int month, final int day) {
-        MaterialDialog dialog = DialogHelper.getBuild(mActivity)
-                .cancelable(true)
-                .canceledOnTouchOutside(true)
-                .content(R.string.confirm_del_the_day_note)
-                .positiveText(R.string.confirm_no_wrong)
-                .negativeText(R.string.i_think_again)
-                .onPositive((dialog1, which) -> deleteApi(year, month, day))
-                .build();
-        DialogHelper.showWithAnim(dialog);
-    }
-
-    private void deleteApi(int year, int month, int day) {
-        Call<Result> call = new RetrofitHelper().call(API.class).noteMensesDel(year, month, day);
-        MaterialDialog loading = mActivity.getLoading(true);
-        RetrofitHelper.enqueue(call, loading, new RetrofitHelper.CallBack() {
-            @Override
-            public void onResponse(int code, String message, Result.Data data) {
-                getLatestData();
-                refreshMonthData();
-            }
-
-            @Override
-            public void onFailure(int code, String message, Result.Data data) {
-            }
-        });
+    private void pushMensesDayInfo() {
+        // TODO
     }
 
 }
