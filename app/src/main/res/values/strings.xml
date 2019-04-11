@@ -274,7 +274,6 @@
     <string name="input_coin_count">输入投币数量</string>
     <string name="start_time_colon_holder" formatted="false">开始时间: %s</string>
     <string name="end_time_colon_holder" formatted="false">结束时间: %s</string>
-    <string name="safe_method_colon_holder" formatted="false">安全措施: %s</string>
     <string name="time_colon_space_holder" formatted="false">时间: %s</string>
     <string name="address_colon_space_holder" formatted="false">位置: %s</string>
     <string name="type_colon_space_holder" formatted="false">类型: %s</string>
@@ -309,11 +308,10 @@
     <string name="create_at_colon_space_holder" formatted="false">创建于: %s</string>
     <string name="update_at_colon_space_holder" formatted="false">更新于: %s</string>
     <string name="creator_colon_space_holder" formatted="false">创建者: %s</string>
-    <string name="already_start_space_holder" formatted="false">已开始 %s</string>
-    <string name="already_delay_space_holder" formatted="false">已推迟 %s</string>
-    <string name="start_at_colon_space_holder" formatted="false">开始于: %s</string>
-    <string name="end_at_colon_space_holder" formatted="false">结束与: %s</string>
+    <string name="safe_method_colon_holder" formatted="false">安全措施: %s</string>
     <string name="continue_duration_colon_holder" formatted="false">持续时长: %s</string>
+    <string name="menses_cycle_colon_holder" formatted="false">经期长度: %s</string>
+    <string name="menses_duration_colon_holder" formatted="false">周期长度: %s</string>
     <string name="already_wake_space_holder" formatted="false">已醒来 %s</string>
     <string name="already_sleep_space_holder" formatted="false">已睡眠 %s</string>
     <string name="holder_colon_sleep" formatted="false">入睡时间: %s</string>
@@ -535,12 +533,14 @@
     <string name="add_holder" formatted="false">+%d</string>
     <string name="sub_holder" formatted="false">-%d</string>
     <string name="holder_space_in_space_holder_space_make_this_wish" formatted="false">%s 于 %s 许下了这个愿望~</string>
+    <string name="back_current">回到当前</string>
     <string name="condom">避孕套</string>
     <string name="acyeterion">避孕药</string>
     <string name="out_shoot">体外排精</string>
-    <string name="back_current">回到当前</string>
-    <string name="menses_come">姨妈来了</string>
-    <string name="menses_gone">姨妈走了</string>
+    <string name="menses_progress">姨妈期间</string>
+    <string name="blood_count">血量</string>
+    <string name="menses_pain">痛经</string>
+    <string name="mood">心情</string>
     <string name="good_night">晚安</string>
     <string name="i_am_wake">醒啦</string>
     <string name="change_channel">切换频道</string>

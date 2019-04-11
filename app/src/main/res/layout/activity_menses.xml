@@ -16,197 +16,431 @@
         android:layout_height="match_parent"
         android:background="?attr/colorPrimary">
 
-        <ScrollView
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:fillViewport="true">
+            android:orientation="vertical">
 
-            <LinearLayout
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:layout_height="wrap_content">
 
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <TextView
-                        android:id="@+id/tvDateShow"
-                        style="@style/FontWhiteBigBold"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:foreground="?attr/selectableItemBackground"
-                        android:gravity="center"
-                        android:padding="10dp"
-                        tools:text="2018年 11月22号"/>
-
-                    <TextView
-                        android:id="@+id/tvBackCur"
-                        style="@style/FontWhiteSmall"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentEnd="true"
-                        android:layout_centerVertical="true"
-                        android:foreground="?attr/selectableItemBackground"
-                        android:gravity="center"
-                        android:padding="10dp"
-                        android:text="@string/back_current"/>
-                </RelativeLayout>
-
-                <android.support.v7.widget.CardView
+                <TextView
+                    android:id="@+id/tvDateShow"
+                    style="@style/FontWhiteBigBold"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginEnd="10dp"
-                    app:cardBackgroundColor="@color/white"
-                    app:cardCornerRadius="@dimen/radius_big"
-                    app:cardElevation="@dimen/elevation_big"
-                    app:cardMaxElevation="@dimen/elevation_huge">
+                    android:layout_centerVertical="true"
+                    android:foreground="?attr/selectableItemBackground"
+                    android:gravity="center"
+                    android:padding="10dp"
+                    tools:text="2018年 11月22号"/>
 
-                    <com.haibin.calendarview.CalendarView
-                        android:id="@+id/cvMenses"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@color/white"
-                        android:visibility="gone"
-                        app:current_day_lunar_text_color="@color/black"
-                        app:current_day_text_color="@color/black"
-                        app:current_month_lunar_text_color="?attr/colorAccent"
-                        app:current_month_text_color="?attr/colorAccent"
-                        app:day_text_size="@dimen/font_big"
-                        app:lunar_text_size="7sp"
-                        app:month_view_show_mode="mode_all"
-                        app:other_month_lunar_text_color="?attr/colorControlNormal"
-                        app:other_month_text_color="?attr/colorControlNormal"
-                        app:scheme_lunar_text_color="?attr/colorPrimaryDark"
-                        app:scheme_text_color="?attr/colorPrimaryDark"
-                        app:select_mode="default_mode"
-                        app:selected_lunar_text_color="@color/white"
-                        app:selected_text_color="@color/white"
-                        app:selected_theme_color="?attr/colorAccent"
-                        app:week_background="@color/alpha_00"
-                        app:week_start_with="sun"
-                        app:week_text_color="?attr/colorPrimary"
-                        app:week_text_size="@dimen/font_small"
-                        app:week_view_scrollable="true"
-                        app:year_view_background="@color/white"
-                        app:year_view_day_text_color="?attr/colorAccent"
-                        app:year_view_day_text_size="9sp"
-                        app:year_view_month_text_color="?attr/colorPrimary"
-                        app:year_view_month_text_size="@dimen/font_normal"
-                        app:year_view_scheme_color="?attr/colorPrimaryDark"
-                        app:year_view_scrollable="true"
-                        tools:visibility="visible"/>
-                </android.support.v7.widget.CardView>
+                <TextView
+                    android:id="@+id/tvBackCur"
+                    style="@style/FontWhiteSmall"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:foreground="?attr/selectableItemBackground"
+                    android:gravity="center"
+                    android:padding="10dp"
+                    android:text="@string/back_current"/>
+            </RelativeLayout>
+
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                app:cardBackgroundColor="@color/white"
+                app:cardCornerRadius="@dimen/radius_big"
+                app:cardElevation="@dimen/elevation_big"
+                app:cardMaxElevation="@dimen/elevation_huge">
 
                 <TextView
                     android:id="@+id/tvShow"
-                    style="@style/FontWhiteHuge"
+                    style="@style/FontPrimaryHugeBold"
                     android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="1"
+                    android:layout_height="match_parent"
                     android:gravity="center"
+                    android:visibility="gone"
                     tools:text="只能是女性哦"
                     tools:visibility="gone"/>
 
-                <TextView
-                    android:id="@+id/tvTip"
-                    style="@style/FontWhiteHugeBold"
+                <com.haibin.calendarview.CalendarView
+                    android:id="@+id/cvMenses"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginEnd="10dp"
-                    android:layout_marginBottom="20dp"
-                    android:gravity="center"
-                    tools:text="已开始 00:00:00"/>
+                    android:background="@color/white"
+                    android:visibility="invisible"
+                    app:current_day_lunar_text_color="@color/black"
+                    app:current_day_text_color="@color/black"
+                    app:current_month_lunar_text_color="?attr/colorAccent"
+                    app:current_month_text_color="?attr/colorAccent"
+                    app:day_text_size="@dimen/font_big"
+                    app:lunar_text_size="7sp"
+                    app:month_view_show_mode="mode_all"
+                    app:other_month_lunar_text_color="?attr/colorControlNormal"
+                    app:other_month_text_color="?attr/colorControlNormal"
+                    app:scheme_lunar_text_color="?attr/colorPrimaryDark"
+                    app:scheme_text_color="?attr/colorPrimaryDark"
+                    app:select_mode="default_mode"
+                    app:selected_lunar_text_color="@color/white"
+                    app:selected_text_color="@color/white"
+                    app:selected_theme_color="?attr/colorAccent"
+                    app:week_background="@color/alpha_00"
+                    app:week_start_with="sun"
+                    app:week_text_color="?attr/colorPrimary"
+                    app:week_text_size="@dimen/font_small"
+                    app:week_view_scrollable="true"
+                    app:year_view_background="@color/white"
+                    app:year_view_day_text_color="?attr/colorAccent"
+                    app:year_view_day_text_size="9sp"
+                    app:year_view_month_text_color="?attr/colorPrimary"
+                    app:year_view_month_text_size="@dimen/font_normal"
+                    app:year_view_scheme_color="?attr/colorPrimaryDark"
+                    app:year_view_scrollable="true"
+                    tools:visibility="visible"/>
+            </android.support.v7.widget.CardView>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1">
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal"
-                    android:padding="10dp">
-
-                    <RadioGroup
-                        android:id="@+id/rgUser"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:background="@drawable/shape_solid_white_r5"
-                        android:gravity="center"
-                        android:orientation="vertical">
-
-                        <RadioButton
-                            android:id="@+id/rbMe"
-                            style="@style/FontWhiteNormal"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:background="?attr/selectableItemBackground"
-                            android:button="@null"
-                            android:foreground="?attr/selectableItemBackground"
-                            android:gravity="center"
-                            android:minLines="1"
-                            android:paddingTop="10dp"
-                            android:paddingBottom="10dp"
-                            android:singleLine="true"
-                            android:text="@string/me_de"
-                            android:textColor="@color/selector_text_check_light_primary"
-                            tools:checked="true"/>
-
-                        <View
-                            style="@style/LineHorizontal"
-                            android:background="?attr/colorPrimary"/>
-
-                        <RadioButton
-                            android:id="@+id/rbTa"
-                            style="@style/FontWhiteNormal"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:background="?attr/selectableItemBackground"
-                            android:button="@null"
-                            android:foreground="?attr/selectableItemBackground"
-                            android:gravity="center"
-                            android:minLines="1"
-                            android:paddingTop="10dp"
-                            android:paddingBottom="10dp"
-                            android:singleLine="true"
-                            android:text="@string/ta_de"
-                            android:textColor="@color/selector_text_check_light_primary"/>
-                    </RadioGroup>
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
 
                     <RelativeLayout
                         android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:gravity="center">
+                        android:layout_height="match_parent"
+                        android:layout_weight="1">
 
                         <android.support.v7.widget.CardView
-                            android:id="@+id/cvPush"
-                            android:layout_width="80dp"
-                            android:layout_height="80dp"
-                            android:layout_margin="10dp"
-                            android:background="?attr/selectableItemBackground"
-                            android:foreground="?attr/selectableItemBackground"
+                            android:id="@+id/cvDayInfo"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginEnd="5dp"
+                            android:layout_marginBottom="10dp"
                             android:visibility="gone"
                             app:cardBackgroundColor="@color/white"
-                            app:cardCornerRadius="40dp"
+                            app:cardCornerRadius="@dimen/radius_big"
                             app:cardElevation="@dimen/elevation_big"
                             app:cardMaxElevation="@dimen/elevation_huge"
                             tools:visibility="visible">
 
-                            <TextView
-                                android:id="@+id/tvPush"
-                                style="@style/FontPrimaryNormalBold"
+                            <LinearLayout
                                 android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:gravity="center"
-                                tools:text="姨妈来了"/>
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical">
+
+                                <RelativeLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="10dp"
+                                    android:layout_marginBottom="10dp">
+
+                                    <TextView
+                                        style="@style/FontPrimaryNormal"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_centerVertical="true"
+                                        android:layout_toStartOf="@+id/sMensesStatus"
+                                        android:ellipsize="end"
+                                        android:padding="10dp"
+                                        android:singleLine="true"
+                                        android:text="@string/menses_progress"/>
+
+                                    <Switch
+                                        android:id="@+id/sMensesStatus"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_alignParentEnd="true"
+                                        android:layout_centerVertical="true"
+                                        android:layout_marginEnd="10dp"
+                                        android:background="?attr/selectableItemBackground"
+                                        android:foreground="?attr/selectableItemBackground"/>
+                                </RelativeLayout>
+
+                                <LinearLayout
+                                    android:id="@+id/llDayInfo"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:orientation="vertical"
+                                    android:visibility="gone"
+                                    tools:visibility="visible">
+
+                                    <RelativeLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:orientation="horizontal">
+
+                                        <TextView
+                                            style="@style/FontPrimaryNormal"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_centerVertical="true"
+                                            android:ellipsize="end"
+                                            android:padding="10dp"
+                                            android:singleLine="true"
+                                            tools:text="@string/blood_count"/>
+
+                                        <ImageView
+                                            android:id="@+id/ivBlood1"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_centerVertical="true"
+                                            android:layout_toStartOf="@+id/ivBlood2"
+                                            android:background="?attr/selectableItemBackground"
+                                            android:foreground="?attr/selectableItemBackground"
+                                            android:padding="5dp"
+                                            android:src="@mipmap/ic_invert_colors_grey_18dp"
+                                            tools:tint="?attr/colorPrimary"/>
+
+                                        <ImageView
+                                            android:id="@+id/ivBlood2"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_centerVertical="true"
+                                            android:layout_toStartOf="@+id/ivBlood3"
+                                            android:background="?attr/selectableItemBackground"
+                                            android:foreground="?attr/selectableItemBackground"
+                                            android:padding="5dp"
+                                            android:src="@mipmap/ic_invert_colors_grey_18dp"/>
+
+                                        <ImageView
+                                            android:id="@+id/ivBlood3"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_alignParentEnd="true"
+                                            android:layout_centerVertical="true"
+                                            android:layout_marginEnd="5dp"
+                                            android:background="?attr/selectableItemBackground"
+                                            android:foreground="?attr/selectableItemBackground"
+                                            android:padding="5dp"
+                                            android:src="@mipmap/ic_invert_colors_grey_18dp"/>
+                                    </RelativeLayout>
+
+                                    <RelativeLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:orientation="horizontal">
+
+                                        <TextView
+                                            style="@style/FontPrimaryNormal"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_centerVertical="true"
+                                            android:ellipsize="end"
+                                            android:padding="10dp"
+                                            android:singleLine="true"
+                                            tools:text="@string/menses_pain"/>
+
+                                        <ImageView
+                                            android:id="@+id/ivPain1"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_centerVertical="true"
+                                            android:layout_toStartOf="@+id/ivPain2"
+                                            android:background="?attr/selectableItemBackground"
+                                            android:foreground="?attr/selectableItemBackground"
+                                            android:padding="5dp"
+                                            android:src="@mipmap/ic_flash_on_grey_18dp"
+                                            tools:tint="?attr/colorPrimary"/>
+
+                                        <ImageView
+                                            android:id="@+id/ivPain2"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_centerVertical="true"
+                                            android:layout_toStartOf="@+id/ivPain3"
+                                            android:background="?attr/selectableItemBackground"
+                                            android:foreground="?attr/selectableItemBackground"
+                                            android:padding="5dp"
+                                            android:src="@mipmap/ic_flash_on_grey_18dp"/>
+
+                                        <ImageView
+                                            android:id="@+id/ivPain3"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_alignParentEnd="true"
+                                            android:layout_centerVertical="true"
+                                            android:layout_marginEnd="5dp"
+                                            android:background="?attr/selectableItemBackground"
+                                            android:foreground="?attr/selectableItemBackground"
+                                            android:padding="5dp"
+                                            android:src="@mipmap/ic_flash_on_grey_18dp"/>
+                                    </RelativeLayout>
+
+                                    <RelativeLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:orientation="horizontal">
+
+                                        <TextView
+                                            style="@style/FontPrimaryNormal"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_centerVertical="true"
+                                            android:ellipsize="end"
+                                            android:padding="10dp"
+                                            android:singleLine="true"
+                                            tools:text="@string/mood"/>
+
+                                        <ImageView
+                                            android:id="@+id/ivMood1"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_centerVertical="true"
+                                            android:layout_toStartOf="@+id/ivMood2"
+                                            android:background="?attr/selectableItemBackground"
+                                            android:foreground="?attr/selectableItemBackground"
+                                            android:padding="5dp"
+                                            android:src="@mipmap/ic_sentiment_very_dissatisfied_grey_18dp"
+                                            tools:tint="?attr/colorPrimary"/>
+
+                                        <ImageView
+                                            android:id="@+id/ivMood2"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_centerVertical="true"
+                                            android:layout_toStartOf="@+id/ivMood3"
+                                            android:background="?attr/selectableItemBackground"
+                                            android:foreground="?attr/selectableItemBackground"
+                                            android:padding="5dp"
+                                            android:src="@mipmap/ic_sentiment_neutral_grey_18dp"/>
+
+                                        <ImageView
+                                            android:id="@+id/ivMood3"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_alignParentEnd="true"
+                                            android:layout_centerVertical="true"
+                                            android:layout_marginEnd="5dp"
+                                            android:background="?attr/selectableItemBackground"
+                                            android:foreground="?attr/selectableItemBackground"
+                                            android:padding="5dp"
+                                            android:src="@mipmap/ic_sentiment_very_satisfied_grey_18dp"/>
+                                    </RelativeLayout>
+                                </LinearLayout>
+                            </LinearLayout>
                         </android.support.v7.widget.CardView>
                     </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <android.support.v7.widget.CardView
+                            android:id="@+id/cvLength"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="5dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginEnd="10dp"
+                            android:layout_marginBottom="10dp"
+                            android:background="?attr/selectableItemBackground"
+                            android:foreground="?attr/selectableItemBackground"
+                            android:visibility="gone"
+                            app:cardBackgroundColor="@color/white"
+                            app:cardCornerRadius="@dimen/radius_big"
+                            app:cardElevation="@dimen/elevation_big"
+                            app:cardMaxElevation="@dimen/elevation_huge"
+                            tools:visibility="visible">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:id="@+id/tvLengthCycle"
+                                    style="@style/FontPrimaryNormal"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:ellipsize="end"
+                                    android:padding="10dp"
+                                    android:singleLine="true"
+                                    tools:text="周期长度: 365天"/>
+
+                                <View
+                                    style="@style/LineHorizontal"
+                                    android:background="?attr/colorPrimary"/>
+
+                                <TextView
+                                    android:id="@+id/tvLengthDuration"
+                                    style="@style/FontPrimaryNormal"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:ellipsize="end"
+                                    android:padding="10dp"
+                                    android:singleLine="true"
+                                    tools:text="经期长度: 365天"/>
+                            </LinearLayout>
+                        </android.support.v7.widget.CardView>
+
+                        <RadioGroup
+                            android:id="@+id/rgUser"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentBottom="true"
+                            android:layout_marginStart="5dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginEnd="10dp"
+                            android:layout_marginBottom="10dp"
+                            android:background="@drawable/shape_solid_white_r5"
+                            android:elevation="@dimen/elevation_big"
+                            android:gravity="center"
+                            android:orientation="vertical">
+
+                            <RadioButton
+                                android:id="@+id/rbMe"
+                                style="@style/FontWhiteNormal"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:background="?attr/selectableItemBackground"
+                                android:button="@null"
+                                android:foreground="?attr/selectableItemBackground"
+                                android:gravity="center"
+                                android:minLines="1"
+                                android:paddingTop="10dp"
+                                android:paddingBottom="10dp"
+                                android:singleLine="true"
+                                android:text="@string/me_de"
+                                android:textColor="@color/selector_text_check_light_primary"
+                                tools:checked="true"/>
+
+                            <View
+                                style="@style/LineHorizontal"
+                                android:background="?attr/colorPrimary"/>
+
+                            <RadioButton
+                                android:id="@+id/rbTa"
+                                style="@style/FontWhiteNormal"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:background="?attr/selectableItemBackground"
+                                android:button="@null"
+                                android:foreground="?attr/selectableItemBackground"
+                                android:gravity="center"
+                                android:minLines="1"
+                                android:paddingTop="10dp"
+                                android:paddingBottom="10dp"
+                                android:singleLine="true"
+                                android:text="@string/ta_de"
+                                android:textColor="@color/selector_text_check_light_primary"/>
+                        </RadioGroup>
+                    </RelativeLayout>
                 </LinearLayout>
-            </LinearLayout>
-        </ScrollView>
+            </RelativeLayout>
+        </LinearLayout>
     </com.jiangzg.lovenote.view.GSwipeRefreshLayout>
 </LinearLayout>

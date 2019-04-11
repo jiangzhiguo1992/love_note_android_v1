@@ -65,6 +65,10 @@ public class ShyActivity extends BaseActivity<ShyActivity> {
     TextView tvBackCur;
     @BindView(R.id.cvShy)
     CalendarView cvShy;
+    @BindView(R.id.rv)
+    RecyclerView rv;
+    @BindView(R.id.cvPush)
+    CardView cvPush;
     @BindView(R.id.cvExtend)
     CardView cvExtend;
     @BindView(R.id.tvExtendDuration)
@@ -73,10 +77,6 @@ public class ShyActivity extends BaseActivity<ShyActivity> {
     TextView tvExtendSafe;
     @BindView(R.id.tvExtendDesc)
     TextView tvExtendDesc;
-    @BindView(R.id.rv)
-    RecyclerView rv;
-    @BindView(R.id.cvPush)
-    CardView cvPush;
 
     private List<Shy> shyList;
     private RecyclerHelper recyclerHelper;
