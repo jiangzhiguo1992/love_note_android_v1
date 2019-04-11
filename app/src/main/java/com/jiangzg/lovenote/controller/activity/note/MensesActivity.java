@@ -438,7 +438,7 @@ public class MensesActivity extends BaseActivity<MensesActivity> {
         if (!srl.isRefreshing()) {
             srl.setRefreshing(true);
         }
-        Call<Result> api = new RetrofitHelper().call(API.class).noteMenses2InfoGet();
+        Call<Result> api = new RetrofitHelper().call(API.class).noteMensesInfoGet();
         RetrofitHelper.enqueue(api, null, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
