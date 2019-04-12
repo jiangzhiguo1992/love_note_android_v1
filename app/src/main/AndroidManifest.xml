@@ -312,7 +312,7 @@
         <activity android:name=".controller.activity.couple.CoupleWallPaperActivity"/>
         <activity android:name=".controller.activity.couple.CouplePlaceActivity"/>
         <activity android:name=".controller.activity.couple.CoupleWeatherActivity"/>
-        <!-- book -->
+        <!-- note -->
         <activity android:name=".controller.activity.note.LockActivity"/>
         <activity android:name=".controller.activity.note.NoteCustomActivity"/>
         <activity android:name=".controller.activity.note.NoteTotalActivity"/>
@@ -320,6 +320,7 @@
         <activity android:name=".controller.activity.note.ShyActivity"/>
         <activity android:name=".controller.activity.note.ShyEditActivity"/>
         <activity android:name=".controller.activity.note.MensesActivity"/>
+        <activity android:name=".controller.activity.note.MensesInfoEditActivity"/>
         <activity android:name=".controller.activity.note.SleepActivity"/>
         <activity android:name=".controller.activity.note.AudioListActivity"/>
         <activity android:name=".controller.activity.note.AudioEditActivity"/>
