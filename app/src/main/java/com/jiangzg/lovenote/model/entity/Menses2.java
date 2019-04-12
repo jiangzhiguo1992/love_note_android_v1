@@ -11,8 +11,8 @@ import java.util.List;
  */
 public class Menses2 extends BaseCP implements Parcelable {
 
-    private int startAt;
-    private int endAt;
+    private long startAt;
+    private long endAt;
     private int startYear;
     private int startMonthOfYear;
     private int startDayOfMonth;
@@ -54,19 +54,19 @@ public class Menses2 extends BaseCP implements Parcelable {
         isReal = real;
     }
 
-    public int getStartAt() {
+    public long getStartAt() {
         return startAt;
     }
 
-    public void setStartAt(int startAt) {
+    public void setStartAt(long startAt) {
         this.startAt = startAt;
     }
 
-    public int getEndAt() {
+    public long getEndAt() {
         return endAt;
     }
 
-    public void setEndAt(int endAt) {
+    public void setEndAt(long endAt) {
         this.endAt = endAt;
     }
 
@@ -244,8 +244,8 @@ public class Menses2 extends BaseCP implements Parcelable {
     protected Menses2(Parcel in) {
         super(in);
         isReal = in.readByte() != 0;
-        startAt = in.readInt();
-        endAt = in.readInt();
+        startAt = in.readLong();
+        endAt = in.readLong();
         startYear = in.readInt();
         startMonthOfYear = in.readInt();
         startDayOfMonth = in.readInt();
@@ -274,8 +274,8 @@ public class Menses2 extends BaseCP implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         super.writeToParcel(dest, flags);
         dest.writeByte((byte) (isReal ? 1 : 0));
-        dest.writeInt(startAt);
-        dest.writeInt(endAt);
+        dest.writeLong(startAt);
+        dest.writeLong(endAt);
         dest.writeInt(startYear);
         dest.writeInt(startMonthOfYear);
         dest.writeInt(startDayOfMonth);
