@@ -404,12 +404,12 @@ public class MensesActivity extends BaseActivity<MensesActivity> {
         if (menses2List != null && menses2List.size() > 0) {
             for (Menses2 menses2 : menses2List) {
                 if (menses2 == null) continue;
-                int startYear = menses2.getMensesStartYear();
-                int endYear = menses2.getMensesEndYear();
-                int startMonth = menses2.getMensesStartMonthOfYear();
-                int endMonth = menses2.getMensesEndMonthOfYear();
-                int startDay = menses2.getMensesStartDayOfMonth();
-                int endDay = menses2.getMensesEndDayOfMonth();
+                int startYear = menses2.getStartYear();
+                int endYear = menses2.getEndYear();
+                int startMonth = menses2.getStartMonthOfYear();
+                int endMonth = menses2.getEndMonthOfYear();
+                int startDay = menses2.getStartDayOfMonth();
+                int endDay = menses2.getEndDayOfMonth();
                 if (startYear == endYear && startMonth == endMonth && startDay == endDay) {
                     // 周期小于一天
                     continue;
@@ -497,8 +497,8 @@ public class MensesActivity extends BaseActivity<MensesActivity> {
                 // select
                 if (!isStart) {
                     // 防止被后面的错误数据覆盖
-                    int startDay = menses2.getMensesStartDayOfMonth();
-                    int endDay = menses2.getMensesEndDayOfMonth();
+                    int startDay = menses2.getStartDayOfMonth();
+                    int endDay = menses2.getEndDayOfMonth();
                     if (selectDay >= startDay && selectDay <= endDay) {
                         isStart = true;
                     }

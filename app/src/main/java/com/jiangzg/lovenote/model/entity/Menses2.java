@@ -13,12 +13,15 @@ public class Menses2 extends BaseCP implements Parcelable {
 
     private int startAt;
     private int endAt;
-    private int mensesStartYear;
-    private int mensesStartMonthOfYear;
-    private int mensesStartDayOfMonth;
-    private int mensesEndYear;
-    private int mensesEndMonthOfYear;
-    private int mensesEndDayOfMonth;
+    private int startYear;
+    private int startMonthOfYear;
+    private int startDayOfMonth;
+    private int endYear;
+    private int endMonthOfYear;
+    private int endDayOfMonth;
+    // 关联
+    private boolean isReal;
+    private List<MensesDayInfo> mensesDayInfoList;
     private int safeStartYear;
     private int safeStartMonthOfYear;
     private int safeStartDayOfMonth;
@@ -34,8 +37,6 @@ public class Menses2 extends BaseCP implements Parcelable {
     private int ovulationYear;
     private int ovulationMonthOfYear;
     private int ovulationDayOfMonth;
-    private boolean isReal;
-    private List<MensesDayInfo> mensesDayInfoList;
 
     public List<MensesDayInfo> getMensesDayInfoList() {
         return mensesDayInfoList;
@@ -69,52 +70,52 @@ public class Menses2 extends BaseCP implements Parcelable {
         this.endAt = endAt;
     }
 
-    public int getMensesStartYear() {
-        return mensesStartYear;
+    public int getStartYear() {
+        return startYear;
     }
 
-    public void setMensesStartYear(int mensesStartYear) {
-        this.mensesStartYear = mensesStartYear;
+    public void setStartYear(int startYear) {
+        this.startYear = startYear;
     }
 
-    public int getMensesStartMonthOfYear() {
-        return mensesStartMonthOfYear;
+    public int getStartMonthOfYear() {
+        return startMonthOfYear;
     }
 
-    public void setMensesStartMonthOfYear(int mensesStartMonthOfYear) {
-        this.mensesStartMonthOfYear = mensesStartMonthOfYear;
+    public void setStartMonthOfYear(int startMonthOfYear) {
+        this.startMonthOfYear = startMonthOfYear;
     }
 
-    public int getMensesStartDayOfMonth() {
-        return mensesStartDayOfMonth;
+    public int getStartDayOfMonth() {
+        return startDayOfMonth;
     }
 
-    public void setMensesStartDayOfMonth(int mensesStartDayOfMonth) {
-        this.mensesStartDayOfMonth = mensesStartDayOfMonth;
+    public void setStartDayOfMonth(int startDayOfMonth) {
+        this.startDayOfMonth = startDayOfMonth;
     }
 
-    public int getMensesEndYear() {
-        return mensesEndYear;
+    public int getEndYear() {
+        return endYear;
     }
 
-    public void setMensesEndYear(int mensesEndYear) {
-        this.mensesEndYear = mensesEndYear;
+    public void setEndYear(int endYear) {
+        this.endYear = endYear;
     }
 
-    public int getMensesEndMonthOfYear() {
-        return mensesEndMonthOfYear;
+    public int getEndMonthOfYear() {
+        return endMonthOfYear;
     }
 
-    public void setMensesEndMonthOfYear(int mensesEndMonthOfYear) {
-        this.mensesEndMonthOfYear = mensesEndMonthOfYear;
+    public void setEndMonthOfYear(int endMonthOfYear) {
+        this.endMonthOfYear = endMonthOfYear;
     }
 
-    public int getMensesEndDayOfMonth() {
-        return mensesEndDayOfMonth;
+    public int getEndDayOfMonth() {
+        return endDayOfMonth;
     }
 
-    public void setMensesEndDayOfMonth(int mensesEndDayOfMonth) {
-        this.mensesEndDayOfMonth = mensesEndDayOfMonth;
+    public void setEndDayOfMonth(int endDayOfMonth) {
+        this.endDayOfMonth = endDayOfMonth;
     }
 
     public int getSafeStartYear() {
@@ -245,12 +246,12 @@ public class Menses2 extends BaseCP implements Parcelable {
         isReal = in.readByte() != 0;
         startAt = in.readInt();
         endAt = in.readInt();
-        mensesStartYear = in.readInt();
-        mensesStartMonthOfYear = in.readInt();
-        mensesStartDayOfMonth = in.readInt();
-        mensesEndYear = in.readInt();
-        mensesEndMonthOfYear = in.readInt();
-        mensesEndDayOfMonth = in.readInt();
+        startYear = in.readInt();
+        startMonthOfYear = in.readInt();
+        startDayOfMonth = in.readInt();
+        endYear = in.readInt();
+        endMonthOfYear = in.readInt();
+        endDayOfMonth = in.readInt();
         safeStartYear = in.readInt();
         safeStartMonthOfYear = in.readInt();
         safeStartDayOfMonth = in.readInt();
@@ -275,12 +276,12 @@ public class Menses2 extends BaseCP implements Parcelable {
         dest.writeByte((byte) (isReal ? 1 : 0));
         dest.writeInt(startAt);
         dest.writeInt(endAt);
-        dest.writeInt(mensesStartYear);
-        dest.writeInt(mensesStartMonthOfYear);
-        dest.writeInt(mensesStartDayOfMonth);
-        dest.writeInt(mensesEndYear);
-        dest.writeInt(mensesEndMonthOfYear);
-        dest.writeInt(mensesEndDayOfMonth);
+        dest.writeInt(startYear);
+        dest.writeInt(startMonthOfYear);
+        dest.writeInt(startDayOfMonth);
+        dest.writeInt(endYear);
+        dest.writeInt(endMonthOfYear);
+        dest.writeInt(endDayOfMonth);
         dest.writeInt(safeStartYear);
         dest.writeInt(safeStartMonthOfYear);
         dest.writeInt(safeStartDayOfMonth);
