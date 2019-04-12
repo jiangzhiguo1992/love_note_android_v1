@@ -9,10 +9,19 @@ import android.os.Parcelable;
  */
 public class Menses extends BaseCP implements Parcelable {
 
+    private boolean isMe;
     private int year;
     private int monthOfYear;
     private int dayOfMonth;
     private boolean isStart;
+
+    public boolean isMe() {
+        return isMe;
+    }
+
+    public void setMe(boolean me) {
+        isMe = me;
+    }
 
     public int getYear() {
         return year;
@@ -51,6 +60,7 @@ public class Menses extends BaseCP implements Parcelable {
 
     protected Menses(Parcel in) {
         super(in);
+        isMe = in.readByte() != 0;
         year = in.readInt();
         monthOfYear = in.readInt();
         dayOfMonth = in.readInt();
@@ -60,6 +70,7 @@ public class Menses extends BaseCP implements Parcelable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         super.writeToParcel(dest, flags);
+        dest.writeByte((byte) (isMe ? 1 : 0));
         dest.writeInt(year);
         dest.writeInt(monthOfYear);
         dest.writeInt(dayOfMonth);

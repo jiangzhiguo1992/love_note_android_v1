@@ -261,7 +261,7 @@ public class MensesActivity extends BaseActivity<MensesActivity> {
                 dateBack();
                 break;
             case R.id.cvLength: // 经期/周期设置
-                // TODO goEdit
+                // TODO sexLimit goEdit
                 break;
             case R.id.ivBlood1: // 血量
                 ivBlood1.setImageTintList(colorPrimaryStateList);
@@ -573,6 +573,7 @@ public class MensesActivity extends BaseActivity<MensesActivity> {
      */
     private void mensesPush(int year, int month, int day, boolean come) {
         Menses menses = new Menses();
+        menses.setMe(isMine);
         menses.setYear(year);
         menses.setMonthOfYear(month);
         menses.setDayOfMonth(day);
