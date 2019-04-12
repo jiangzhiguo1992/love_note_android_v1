@@ -626,7 +626,7 @@ public class MensesActivity extends BaseActivity<MensesActivity> {
             dayInfo.setMood(0);
         }
         // api
-        Call<Result> api = new RetrofitHelper().call(API.class).noteMenses2DayInfoUpdate(dayInfo);
+        Call<Result> api = new RetrofitHelper().call(API.class).noteMensesDayInfoAdd(dayInfo);
         RetrofitHelper.enqueue(api, mActivity.getLoading(true), new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
