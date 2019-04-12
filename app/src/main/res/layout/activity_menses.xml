@@ -137,14 +137,12 @@
 
                             <LinearLayout
                                 android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
+                                android:layout_height="match_parent"
                                 android:orientation="vertical">
 
                                 <RelativeLayout
                                     android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginTop="10dp"
-                                    android:layout_marginBottom="10dp">
+                                    android:layout_height="wrap_content">
 
                                     <TextView
                                         style="@style/FontPrimaryNormal"
@@ -168,10 +166,37 @@
                                         android:foreground="?attr/selectableItemBackground"/>
                                 </RelativeLayout>
 
+                                <RelativeLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content">
+
+                                    <TextView
+                                        style="@style/FontPrimaryNormal"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_centerVertical="true"
+                                        android:layout_toStartOf="@+id/sMensesEnd"
+                                        android:ellipsize="end"
+                                        android:padding="10dp"
+                                        android:singleLine="true"
+                                        android:text="@string/menses_end"/>
+
+                                    <Switch
+                                        android:id="@+id/sMensesEnd"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_alignParentEnd="true"
+                                        android:layout_centerVertical="true"
+                                        android:layout_marginEnd="10dp"
+                                        android:background="?attr/selectableItemBackground"
+                                        android:foreground="?attr/selectableItemBackground"/>
+                                </RelativeLayout>
+
                                 <LinearLayout
                                     android:id="@+id/llDayInfo"
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
+                                    android:gravity="center"
                                     android:orientation="vertical"
                                     android:visibility="gone"
                                     tools:visibility="visible">

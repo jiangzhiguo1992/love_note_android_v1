@@ -86,6 +86,8 @@ public class MensesActivity extends BaseActivity<MensesActivity> {
     LinearLayout llDayInfo;
     @BindView(R.id.sMensesStatus)
     Switch sMensesStatus;
+    @BindView(R.id.sMensesEnd)
+    Switch sMensesEnd;
     @BindView(R.id.cvDayInfo)
     CardView cvDayInfo;
     @BindView(R.id.ivBlood1)
@@ -189,6 +191,10 @@ public class MensesActivity extends BaseActivity<MensesActivity> {
         sMensesStatus.setOnCheckedChangeListener((buttonView, isChecked) -> {
             if (!sMensesStatus.isEnabled()) return;
             mensesPush(selectYear, selectMonth, selectDay, isChecked);
+        });
+        sMensesEnd.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if (!sMensesEnd.isEnabled() || !isChecked) return;
+            mensesPush(selectYear, selectMonth, selectDay, false);
         });
     }
 
@@ -404,24 +410,14 @@ public class MensesActivity extends BaseActivity<MensesActivity> {
         if (menses2List != null && menses2List.size() > 0) {
             for (Menses2 menses2 : menses2List) {
                 if (menses2 == null) continue;
-                int startYear = menses2.getStartYear();
-                int endYear = menses2.getEndYear();
-                int startMonth = menses2.getStartMonthOfYear();
-                int endMonth = menses2.getEndMonthOfYear();
-                int startDay = menses2.getStartDayOfMonth();
-                int endDay = menses2.getEndDayOfMonth();
-                if (startYear == endYear && startMonth == endMonth && startDay == endDay) {
-                    // 周期小于一天
-                    continue;
-                }
                 // 循环相距天数
-                for (long timestamp = menses2.getStartAt() - dayTimestamp; timestamp <= menses2.getEndAt(); timestamp = timestamp + dayTimestamp) {
+                for (long timestamp = menses2.getStartAt(); timestamp <= menses2.getEndAt(); timestamp = timestamp + dayTimestamp) {
                     Calendar cal = DateUtils.getCal(TimeHelper.getJavaTimeByGo(timestamp));
                     int index = (int) ((timestamp - menses2.getStartAt()) / dayTimestamp);
-                    // 相应的scheme
-                    com.haibin.calendarview.Calendar calendar = CalendarMonthView.getCalendarView(cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH));
+                    // 相应的scheme TODO isReal颜色
+                    com.haibin.calendarview.Calendar calendar = CalendarMonthView.getCalendarView(cal.get(Calendar.YEAR), cal.get(Calendar.MONTH) + 1, cal.get(Calendar.DAY_OF_MONTH));
                     calendar.setSchemeColor(ContextCompat.getColor(mActivity, ViewUtils.getColorDark(mActivity)));
-                    calendar.setScheme(String.valueOf(index));
+                    calendar.setScheme(String.valueOf(index + 1));
                     schemeMap.put(calendar.toString(), calendar);
                 }
             }
@@ -497,9 +493,13 @@ public class MensesActivity extends BaseActivity<MensesActivity> {
                 // select
                 if (!isStart) {
                     // 防止被后面的错误数据覆盖
-                    int startDay = menses2.getStartDayOfMonth();
-                    int endDay = menses2.getEndDayOfMonth();
-                    if (selectDay >= startDay && selectDay <= endDay) {
+                    Calendar cStart = DateUtils.getCurrentCal();
+                    cStart.set(menses2.getStartYear(), menses2.getStartMonthOfYear(), menses2.getStartDayOfMonth());
+                    Calendar cEnd = DateUtils.getCurrentCal();
+                    cEnd.set(menses2.getEndYear(), menses2.getEndMonthOfYear(), menses2.getEndDayOfMonth());
+                    Calendar cSelect = DateUtils.getCurrentCal();
+                    cSelect.set(selectYear, selectMonth, selectDay);
+                    if (cSelect.getTimeInMillis() >= cStart.getTimeInMillis() && cSelect.getTimeInMillis() <= cEnd.getTimeInMillis()) {
                         isStart = true;
                     }
                 }
@@ -519,6 +519,9 @@ public class MensesActivity extends BaseActivity<MensesActivity> {
         sMensesStatus.setEnabled(false);
         sMensesStatus.setChecked(isStart);
         sMensesStatus.setEnabled(true);
+        sMensesEnd.setEnabled(false);
+        sMensesEnd.setChecked(false);
+        sMensesEnd.setEnabled(true);
         if (mensesDayInfo == null) {
             llDayInfo.setVisibility(View.GONE);
             return;
