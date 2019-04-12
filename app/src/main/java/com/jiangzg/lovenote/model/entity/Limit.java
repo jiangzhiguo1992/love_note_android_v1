@@ -18,15 +18,19 @@ public class Limit {
     private long coupleBreakNeedSec;
     private long coupleBreakSec;
     private int coupleNameLength;
-    // note TODO
+    // note
     private long noteResExpireSec;
-    private int mensesMaxPerDay;
-    private int sleepMaxPerDay;
-    private long noteSleepSuccessMinSec;
-    private long noteSleepSuccessMaxSec;
+    private int mensesMaxPerMonth;
+    private int mensesMaxCycleDay;
+    private int mensesMaxDurationDay;
+    private int mensesDefaultCycleDay;
+    private int mensesDefaultDurationDay;
     private int shyMaxPerDay;
     private int shySafeLength;
     private int shyDescLength;
+    private int sleepMaxPerDay;
+    private long noteSleepSuccessMinSec;
+    private long noteSleepSuccessMaxSec;
     private int noteLockLength;
     private int souvenirTitleLength;
     private int souvenirForeignYearCount;
@@ -90,6 +94,46 @@ public class Limit {
     private int matchWorkTitleLength;
     private int matchWorkContentLength;
 
+    public int getMensesMaxPerMonth() {
+        return mensesMaxPerMonth;
+    }
+
+    public void setMensesMaxPerMonth(int mensesMaxPerMonth) {
+        this.mensesMaxPerMonth = mensesMaxPerMonth;
+    }
+
+    public int getMensesMaxCycleDay() {
+        return mensesMaxCycleDay;
+    }
+
+    public void setMensesMaxCycleDay(int mensesMaxCycleDay) {
+        this.mensesMaxCycleDay = mensesMaxCycleDay;
+    }
+
+    public int getMensesMaxDurationDay() {
+        return mensesMaxDurationDay;
+    }
+
+    public void setMensesMaxDurationDay(int mensesMaxDurationDay) {
+        this.mensesMaxDurationDay = mensesMaxDurationDay;
+    }
+
+    public int getMensesDefaultCycleDay() {
+        return mensesDefaultCycleDay;
+    }
+
+    public void setMensesDefaultCycleDay(int mensesDefaultCycleDay) {
+        this.mensesDefaultCycleDay = mensesDefaultCycleDay;
+    }
+
+    public int getMensesDefaultDurationDay() {
+        return mensesDefaultDurationDay;
+    }
+
+    public void setMensesDefaultDurationDay(int mensesDefaultDurationDay) {
+        this.mensesDefaultDurationDay = mensesDefaultDurationDay;
+    }
+
     public int getSleepMaxPerDay() {
         return sleepMaxPerDay;
     }
@@ -120,14 +164,6 @@ public class Limit {
 
     public void setShyDescLength(int shyDescLength) {
         this.shyDescLength = shyDescLength;
-    }
-
-    public int getMensesMaxPerDay() {
-        return mensesMaxPerDay;
-    }
-
-    public void setMensesMaxPerDay(int mensesMaxPerDay) {
-        this.mensesMaxPerDay = mensesMaxPerDay;
     }
 
     public long getNoteSleepSuccessMinSec() {

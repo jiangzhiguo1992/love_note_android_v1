@@ -267,7 +267,7 @@ public class MensesActivity extends BaseActivity<MensesActivity> {
                 dateBack();
                 break;
             case R.id.cvLength: // 经期/周期设置
-                // TODO sexLimit goEdit
+                MensesInfoEditActivity.goActivity(mActivity, mensesInfo);
                 break;
             case R.id.ivBlood1: // 血量
                 ivBlood1.setImageTintList(colorPrimaryStateList);
