@@ -47,12 +47,12 @@ public class HelpActivity extends BaseActivity<HelpActivity> {
     public static final int INDEX_NOTE_MENSES = 221;
     public static final int INDEX_NOTE_SHY = 222;
     public static final int INDEX_NOTE_SLEEP = 223;
-    public static final int INDEX_NOTE_WORD = 230;
-    public static final int INDEX_NOTE_WHISPER = 231;
-    public static final int INDEX_NOTE_AWARD = 232;
-    public static final int INDEX_NOTE_DIARY = 233;
-    public static final int INDEX_NOTE_TRAVEL = 234;
-    public static final int INDEX_NOTE_ALBUM = 235;
+    public static final int INDEX_NOTE_ALBUM = 230;
+    public static final int INDEX_NOTE_WORD = 240;
+    public static final int INDEX_NOTE_WHISPER = 241;
+    public static final int INDEX_NOTE_AWARD = 242;
+    public static final int INDEX_NOTE_DIARY = 243;
+    public static final int INDEX_NOTE_TRAVEL = 244;
     // topic
     public static final int INDEX_TOPIC_HOME = 300;
     public static final int INDEX_TOPIC_POST = 310;
@@ -199,6 +199,8 @@ public class HelpActivity extends BaseActivity<HelpActivity> {
                 return getHelpNoteShy(index);
             case INDEX_NOTE_SLEEP:
                 return getHelpNoteSleep(index);
+            case INDEX_NOTE_ALBUM:
+                return getHelpNoteAlbum(index);
             case INDEX_NOTE_WORD:
                 return getHelpNoteWork(index);
             case INDEX_NOTE_WHISPER:
@@ -209,8 +211,6 @@ public class HelpActivity extends BaseActivity<HelpActivity> {
                 return getHelpNoteDiary(index);
             case INDEX_NOTE_TRAVEL:
                 return getHelpNoteTravel(index);
-            case INDEX_NOTE_ALBUM:
-                return getHelpNoteAlbum(index);
             case INDEX_TOPIC_HOME:
                 return getHelpTopicHome(index);
             case INDEX_TOPIC_POST:
@@ -446,6 +446,10 @@ public class HelpActivity extends BaseActivity<HelpActivity> {
         s13.setIndex(INDEX_NOTE_SLEEP);
         s13.setTitle(getString(R.string.sleep));
         subList.add(s13);
+        Help s9 = new Help();
+        s9.setIndex(INDEX_NOTE_ALBUM);
+        s9.setTitle(getString(R.string.album));
+        subList.add(s9);
         Help s3 = new Help();
         s3.setIndex(INDEX_NOTE_WORD);
         s3.setTitle(getString(R.string.word));
@@ -466,10 +470,6 @@ public class HelpActivity extends BaseActivity<HelpActivity> {
         s8.setIndex(INDEX_NOTE_TRAVEL);
         s8.setTitle(getString(R.string.travel));
         subList.add(s8);
-        Help s9 = new Help();
-        s9.setIndex(INDEX_NOTE_ALBUM);
-        s9.setTitle(getString(R.string.album));
-        subList.add(s9);
         help.setSubList(subList);
         return help;
     }
@@ -592,6 +592,24 @@ public class HelpActivity extends BaseActivity<HelpActivity> {
         return help;
     }
 
+    private Help getHelpNoteAlbum(int index) {
+        Help help = new Help();
+        help.setIndex(index);
+        help.setTitle(getString(R.string.album));
+        // content
+        List<Help.HelpContent> contentList = new ArrayList<>();
+        Help.HelpContent c1 = new Help.HelpContent();
+        c1.setQuestion(getString(R.string.help_note_album_c1_q));
+        c1.setAnswer(getString(R.string.help_note_album_c1_a));
+        contentList.add(c1);
+        Help.HelpContent c2 = new Help.HelpContent();
+        c2.setQuestion(getString(R.string.help_note_album_c2_q));
+        c2.setAnswer(getString(R.string.help_note_album_c2_a));
+        contentList.add(c2);
+        help.setContentList(contentList);
+        return help;
+    }
+
     private Help getHelpNoteWork(int index) {
         Help help = new Help();
         help.setIndex(index);
@@ -687,24 +705,6 @@ public class HelpActivity extends BaseActivity<HelpActivity> {
         c1.setQuestion(getString(R.string.help_note_travel_c1_q));
         c1.setAnswer(String.format(Locale.getDefault(), getString(R.string.help_note_travel_c1_a), placeCount, albumCount, videoCount, foodCount, movieCount, diaryCount));
         contentList.add(c1);
-        help.setContentList(contentList);
-        return help;
-    }
-
-    private Help getHelpNoteAlbum(int index) {
-        Help help = new Help();
-        help.setIndex(index);
-        help.setTitle(getString(R.string.album));
-        // content
-        List<Help.HelpContent> contentList = new ArrayList<>();
-        Help.HelpContent c1 = new Help.HelpContent();
-        c1.setQuestion(getString(R.string.help_note_album_c1_q));
-        c1.setAnswer(getString(R.string.help_note_album_c1_a));
-        contentList.add(c1);
-        Help.HelpContent c2 = new Help.HelpContent();
-        c2.setQuestion(getString(R.string.help_note_album_c2_q));
-        c2.setAnswer(getString(R.string.help_note_album_c2_a));
-        contentList.add(c2);
         help.setContentList(contentList);
         return help;
     }
