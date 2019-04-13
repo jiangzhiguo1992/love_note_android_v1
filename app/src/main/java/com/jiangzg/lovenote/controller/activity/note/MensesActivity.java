@@ -438,9 +438,9 @@ public class MensesActivity extends BaseActivity<MensesActivity> {
                     calendar.setScheme(String.valueOf(index + 1));
                     schemeMap.put(calendar.toString(), calendar);
                 }
-                // TODO 安全期
-                // TODO 危险期
-                // TODO 排卵日
+                // 安全期
+                // 危险期
+                // 排卵日
             }
         }
         // calendar
@@ -507,21 +507,27 @@ public class MensesActivity extends BaseActivity<MensesActivity> {
 
     private void refreshBottomDayInfoView() {
         boolean isStart = false;
+        boolean isReal = false;
         MensesDay mensesDay = null;
         if (menses2List != null && menses2List.size() > 0) {
             for (Menses2 menses2 : menses2List) {
                 if (menses2 == null) continue;
                 // select
-                if (!isStart) {
-                    // 防止被后面的错误数据覆盖
-                    Calendar cStart = DateUtils.getCurrentCal();
-                    cStart.set(menses2.getStartYear(), menses2.getStartMonthOfYear(), menses2.getStartDayOfMonth());
-                    Calendar cEnd = DateUtils.getCurrentCal();
-                    cEnd.set(menses2.getEndYear(), menses2.getEndMonthOfYear(), menses2.getEndDayOfMonth());
-                    Calendar cSelect = DateUtils.getCurrentCal();
-                    cSelect.set(selectYear, selectMonth, selectDay);
-                    if (cSelect.getTimeInMillis() >= cStart.getTimeInMillis() && cSelect.getTimeInMillis() <= cEnd.getTimeInMillis()) {
-                        isStart = true;
+                if (menses2.isReal()) {
+                    if (!isStart) {
+                        // 防止被后面的错误数据覆盖
+                        Calendar cStart = DateUtils.getCurrentCal();
+                        cStart.set(menses2.getStartYear(), menses2.getStartMonthOfYear(), menses2.getStartDayOfMonth());
+                        Calendar cEnd = DateUtils.getCurrentCal();
+                        cEnd.set(menses2.getEndYear(), menses2.getEndMonthOfYear(), menses2.getEndDayOfMonth());
+                        Calendar cSelect = DateUtils.getCurrentCal();
+                        cSelect.set(selectYear, selectMonth, selectDay);
+                        if (cSelect.getTimeInMillis() >= cStart.getTimeInMillis() && cSelect.getTimeInMillis() <= cEnd.getTimeInMillis()) {
+                            isStart = true;
+                        }
+                    }
+                    if (isStart && !isReal) {
+                        isReal = menses2.isReal();
                     }
                 }
                 // dayInfo
@@ -543,7 +549,7 @@ public class MensesActivity extends BaseActivity<MensesActivity> {
         sMensesEnd.setEnabled(false);
         sMensesEnd.setChecked(false);
         sMensesEnd.setEnabled(true);
-        if (!isStart) {
+        if (!isStart || !isReal) {
             llDayInfo.setVisibility(View.GONE);
             return;
         }
