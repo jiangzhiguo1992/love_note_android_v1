@@ -314,9 +314,6 @@
     <string name="collect_colon_space_holder" formatted="false">收藏: %s</string>
     <string name="today_post_colon_space_holder" formatted="false">今日帖子: %s</string>
     <string name="today_comment_colon_space_holder" formatted="false">今日评论: %s</string>
-    <string name="continue_colon_space_holder_space_day" formatted="false">购买时长: %d 天</string>
-    <string name="expire_colon_space_holder" formatted="false">到期时间: %s</string>
-    <string name="to_month_sign_holder_count" formatted="false">本月签到%d次</string>
     <string name="go_in_award_colon_holder_coin" formatted="false">参与奖励: %d金币</string>
     <string name="total_works_count_colon_holder" formatted="false">总作品数: %s</string>
     <string name="total_coin_count_colon_holder" formatted="false">总金币数: %s</string>
@@ -488,7 +485,6 @@
     <string name="func_custom">定制</string>
     <string name="trends">动态</string>
     <string name="statistics">统计</string>
-    <string name="recycle_bin">回收箱</string>
     <string name="souvenir">纪念日</string>
     <string name="wish_list">愿望清单</string>
     <string name="menses">姨妈</string>
@@ -595,27 +591,28 @@
     <string name="vip">会员</string>
     <string name="coin">金币</string>
     <string name="sign">签到</string>
+    <string name="no_vip">非会员</string>
     <string name="vip_no">未办理</string>
     <string name="vip_yes">已办理</string>
     <string name="no_sign">未完成</string>
     <string name="yes_sign">已完成</string>
+    <string name="go_to_buy">前往购买</string>
+    <string name="history_info">历史信息</string>
+    <string name="pay">支付</string>
     <string name="we_chat">微信</string>
     <string name="ali_pay">支付宝</string>
-    <string name="pay">支付</string>
-    <string name="unknown_kind">未知类型</string>
-    <string name="sys_change">系统变更</string>
+    <string name="wechat_pay">微信支付</string>
+    <string name="alipay_pay">支付宝支付</string>
     <string name="vip_buy">会员购买</string>
     <string name="coin_buy">金币购买</string>
-    <string name="alipay_pay">支付宝支付</string>
-    <string name="wechat_pay">微信支付</string>
+    <string name="sys_change">系统变更</string>
+    <string name="unknown_kind">未知类型</string>
     <string name="pay_vip_goods_format" formatted="false">%s\n%d 天\n\n￥ %.1f</string>
     <string name="pay_coin_goods_format" formatted="false">%s\n%d 个\n\n￥ %.1f</string>
     <string name="pay_error">支付异常</string>
     <string name="pay_success_but_nothing">支付成功了，但是啥也没给？</string>
-    <string name="history_info">历史信息</string>
-    <string name="go_to_buy">前往购买</string>
-    <string name="no_vip">非会员</string>
-    <string name="no_handle">未办理</string>
+    <string name="expire_colon_space_holder" formatted="false">到期时间: %s</string>
+    <string name="continue_colon_space_holder_space_day" formatted="false">购买时长: %d 天</string>
     <string name="open_image_upload">开启图片上传</string>
     <string name="refuse_image_upload">禁止图片上传</string>
     <string name="can_add_holder" formatted="false">可添加%d个</string>
@@ -625,7 +622,7 @@
     <string name="can_upload_holder" formatted="false">可上传%d个</string>
     <string name="every_can_upload_holder_paper" formatted="false">每个可上传%d张</string>
     <string name="continue_sign_holder_day" formatted="false">连续签到%d天</string>
-    <string name="get_space_holder_space_day_vip_on_space_holder_space_expire" formatted="false">获得了 %d 天的会员，于 %s 到期</string>
+    <string name="to_month_sign_holder_count" formatted="false">本月签到%d次</string>
 
     <!-- help -->
     <string name="help_home_d">《帮助文档》旨在让大家快速理解这个app，如有不明白的地方，就来这里找找答案吧</string>
