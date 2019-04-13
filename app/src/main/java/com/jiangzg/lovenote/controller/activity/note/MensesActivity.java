@@ -146,7 +146,7 @@ public class MensesActivity extends BaseActivity<MensesActivity> {
         ViewHelper.initTopBar(mActivity, tb, getString(R.string.menses), true);
         srl.setEnabled(false);
         // color
-        int colorGrey = ContextCompat.getColor(mActivity, R.color.img_grey);
+        int colorGrey = ContextCompat.getColor(mActivity, R.color.icon_grey);
         int colorPrimary = ContextCompat.getColor(mActivity, ViewUtils.getColorPrimary(mActivity));
         colorGreyStateList = ColorStateList.valueOf(colorGrey);
         colorPrimaryStateList = ColorStateList.valueOf(colorPrimary);
@@ -271,37 +271,55 @@ public class MensesActivity extends BaseActivity<MensesActivity> {
                 break;
             case R.id.ivBlood1: // 血量
                 ivBlood1.setImageTintList(colorPrimaryStateList);
+                ivBlood2.setImageTintList(colorGreyStateList);
+                ivBlood3.setImageTintList(colorGreyStateList);
                 pushMensesDay();
                 break;
             case R.id.ivBlood2:
+                ivBlood1.setImageTintList(colorPrimaryStateList);
                 ivBlood2.setImageTintList(colorPrimaryStateList);
+                ivBlood3.setImageTintList(colorGreyStateList);
                 pushMensesDay();
                 break;
             case R.id.ivBlood3:
+                ivBlood1.setImageTintList(colorPrimaryStateList);
+                ivBlood2.setImageTintList(colorPrimaryStateList);
                 ivBlood3.setImageTintList(colorPrimaryStateList);
                 pushMensesDay();
                 break;
             case R.id.ivPain1: // 痛经
                 ivPain1.setImageTintList(colorPrimaryStateList);
+                ivPain2.setImageTintList(colorGreyStateList);
+                ivPain3.setImageTintList(colorGreyStateList);
                 pushMensesDay();
                 break;
             case R.id.ivPain2:
+                ivPain1.setImageTintList(colorPrimaryStateList);
                 ivPain2.setImageTintList(colorPrimaryStateList);
+                ivPain3.setImageTintList(colorGreyStateList);
                 pushMensesDay();
                 break;
             case R.id.ivPain3:
+                ivPain1.setImageTintList(colorPrimaryStateList);
+                ivPain2.setImageTintList(colorPrimaryStateList);
                 ivPain3.setImageTintList(colorPrimaryStateList);
                 pushMensesDay();
                 break;
             case R.id.ivMood1: // 心情
                 ivMood1.setImageTintList(colorPrimaryStateList);
+                ivMood2.setImageTintList(colorGreyStateList);
+                ivMood3.setImageTintList(colorGreyStateList);
                 pushMensesDay();
                 break;
             case R.id.ivMood2:
+                ivMood1.setImageTintList(colorGreyStateList);
                 ivMood2.setImageTintList(colorPrimaryStateList);
+                ivMood3.setImageTintList(colorGreyStateList);
                 pushMensesDay();
                 break;
             case R.id.ivMood3:
+                ivMood1.setImageTintList(colorGreyStateList);
+                ivMood2.setImageTintList(colorGreyStateList);
                 ivMood3.setImageTintList(colorPrimaryStateList);
                 pushMensesDay();
                 break;
@@ -410,7 +428,7 @@ public class MensesActivity extends BaseActivity<MensesActivity> {
         if (menses2List != null && menses2List.size() > 0) {
             for (Menses2 menses2 : menses2List) {
                 if (menses2 == null) continue;
-                // 循环相距天数
+                // 姨妈期
                 for (long timestamp = menses2.getStartAt(); timestamp <= menses2.getEndAt(); timestamp = timestamp + dayTimestamp) {
                     Calendar cal = DateUtils.getCal(TimeHelper.getJavaTimeByGo(timestamp));
                     int index = (int) ((timestamp - menses2.getStartAt()) / dayTimestamp);
@@ -420,6 +438,9 @@ public class MensesActivity extends BaseActivity<MensesActivity> {
                     calendar.setScheme(String.valueOf(index + 1));
                     schemeMap.put(calendar.toString(), calendar);
                 }
+                // TODO 安全期
+                // TODO 危险期
+                // TODO 排卵日
             }
         }
         // calendar
@@ -522,7 +543,7 @@ public class MensesActivity extends BaseActivity<MensesActivity> {
         sMensesEnd.setEnabled(false);
         sMensesEnd.setChecked(false);
         sMensesEnd.setEnabled(true);
-        if (mensesDay == null) {
+        if (!isStart) {
             llDayInfo.setVisibility(View.GONE);
             return;
         }
@@ -531,7 +552,7 @@ public class MensesActivity extends BaseActivity<MensesActivity> {
         ivBlood1.setImageTintList(colorGreyStateList);
         ivBlood2.setImageTintList(colorGreyStateList);
         ivBlood3.setImageTintList(colorGreyStateList);
-        int blood = mensesDay.getBlood();
+        int blood = mensesDay == null ? 0 : mensesDay.getBlood();
         if (blood > 0) {
             ivBlood1.setImageTintList(colorPrimaryStateList);
         }
@@ -545,7 +566,7 @@ public class MensesActivity extends BaseActivity<MensesActivity> {
         ivPain1.setImageTintList(colorGreyStateList);
         ivPain2.setImageTintList(colorGreyStateList);
         ivPain3.setImageTintList(colorGreyStateList);
-        int pain = mensesDay.getPain();
+        int pain = mensesDay == null ? 0 : mensesDay.getPain();
         if (pain > 0) {
             ivPain1.setImageTintList(colorPrimaryStateList);
         }
@@ -559,15 +580,21 @@ public class MensesActivity extends BaseActivity<MensesActivity> {
         ivMood1.setImageTintList(colorGreyStateList);
         ivMood2.setImageTintList(colorGreyStateList);
         ivMood3.setImageTintList(colorGreyStateList);
-        int mood = mensesDay.getMood();
-        if (mood > 0) {
+        int mood = mensesDay == null ? 0 : mensesDay.getMood();
+        if (mood == 1) {
             ivMood1.setImageTintList(colorPrimaryStateList);
+        } else {
+            ivMood1.setImageTintList(colorGreyStateList);
         }
-        if (mood > 1) {
+        if (mood == 2) {
             ivMood2.setImageTintList(colorPrimaryStateList);
+        } else {
+            ivMood2.setImageTintList(colorGreyStateList);
         }
-        if (mood > 2) {
+        if (mood == 3) {
             ivMood3.setImageTintList(colorPrimaryStateList);
+        } else {
+            ivMood3.setImageTintList(colorGreyStateList);
         }
     }
 

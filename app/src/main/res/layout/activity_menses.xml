@@ -207,14 +207,14 @@
                                         android:orientation="horizontal">
 
                                         <TextView
-                                            style="@style/FontPrimaryNormal"
+                                            style="@style/FontPrimaryNormalBold"
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
                                             android:layout_centerVertical="true"
                                             android:ellipsize="end"
                                             android:padding="10dp"
                                             android:singleLine="true"
-                                            tools:text="@string/blood_count"/>
+                                            android:text="@string/blood_count"/>
 
                                         <ImageView
                                             android:id="@+id/ivBlood1"
@@ -258,14 +258,14 @@
                                         android:orientation="horizontal">
 
                                         <TextView
-                                            style="@style/FontPrimaryNormal"
+                                            style="@style/FontPrimaryNormalBold"
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
                                             android:layout_centerVertical="true"
                                             android:ellipsize="end"
                                             android:padding="10dp"
                                             android:singleLine="true"
-                                            tools:text="@string/menses_pain"/>
+                                            android:text="@string/menses_pain"/>
 
                                         <ImageView
                                             android:id="@+id/ivPain1"
@@ -309,14 +309,14 @@
                                         android:orientation="horizontal">
 
                                         <TextView
-                                            style="@style/FontPrimaryNormal"
+                                            style="@style/FontPrimaryNormalBold"
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
                                             android:layout_centerVertical="true"
                                             android:ellipsize="end"
                                             android:padding="10dp"
                                             android:singleLine="true"
-                                            tools:text="@string/mood"/>
+                                            android:text="@string/mood"/>
 
                                         <ImageView
                                             android:id="@+id/ivMood1"
