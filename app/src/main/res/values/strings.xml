@@ -197,7 +197,7 @@
     <string name="now_just_can_push_holder_img" formatted="false">现在只能上传%d张图片</string>
     <string name="index_holder_file_too_large_cant_over_holder" formatted="false">第%d个文件过大，不能超过%s</string>
     <string name="file_too_large_cant_over_holder" formatted="false">文件过大，不能超过%s</string>
-    <string name="success_push_holder_paper_picture">成功上传%d张照片</string>
+    <string name="success_push_holder_paper_picture" formatted="false">成功上传%d张照片</string>
     <string name="are_upload_space_holder_holder" formatted="false">正在上传 %d/%d</string>
     <string name="are_compress_space_holder_holder" formatted="false">正在获取 %d/%d</string>
 
@@ -471,8 +471,8 @@
     <string name="differ_space_holder" formatted="false">相差 %s</string>
     <string name="location_error">定位失败</string>
     <string name="distance_colon_space_holder" formatted="false">距离: %d米</string>
-    <string name="holder_wave_holder_c">%s~%s℃</string>
-    <string name="holder_level_holder_wind">%s级%s风</string>
+    <string name="holder_wave_holder_c" formatted="false">%s~%s℃</string>
+    <string name="holder_level_holder_wind" formatted="false">%s级%s风</string>
     <string name="no_location_info_cant_go_map">没有地址信息，无法进入地图</string>
     <string name="lon_lat_colon">经纬度:</string>
     <string name="search_location_no_exist">搜索位置不存在</string>
@@ -675,9 +675,9 @@
     <string name="help_note_souvenir_c2_q">纪念日的关联数据，每年能关联几个同类型数据？</string>
     <string name="help_note_souvenir_c2_a" formatted="false">%d个哦！</string>
     <string name="help_note_souvenir_c3_q">愿望清单不能关联数据、也不能打勾，有什么用呢？</string>
-    <string name="help_note_souvenir_c3_a" formatted="false">我们把重要的日子分为《纪念日》和《愿望》两种，一种是已完成，一种是未完成。所以愿望的定义就是未完成的纪念日，当一个愿望想要打勾的时候，直接修改成纪念日即可，这样就多了一个纪念日啦！</string>
+    <string name="help_note_souvenir_c3_a">我们把重要的日子分为《纪念日》和《愿望》两种，一种是已完成，一种是未完成。所以愿望的定义就是未完成的纪念日，当一个愿望想要打勾的时候，直接修改成纪念日即可，这样就多了一个纪念日啦！</string>
     <string name="help_note_menses_c1_q">添加的时候，提示数量已达上限？</string>
-    <string name="help_note_menses_c1_a">每月记录的数量上限是 %d 个，超过这个数量后不能再提交，可以删除不必要的记录后再添加，或者是添加记录到其他月份。</string>
+    <string name="help_note_menses_c1_a" formatted="false">每月记录的数量上限是 %d 个，超过这个数量后不能再提交，可以删除不必要的记录后再添加，或者是添加记录到其他月份。</string>
     <string name="help_note_menses_c2_q">请问怎么删除记录呢？</string>
     <string name="help_note_menses_c2_a">在具体姨妈期的第一天，关闭(姨妈期间)或者是勾选(姨妈结束)都可以删除姨妈记录哦。</string>
     <string name="help_note_menses_c3_q">怎么修改经期和周期呢？</string>
@@ -685,17 +685,21 @@
     <string name="help_note_menses_c4_q">这个模块男生可以用吗？</string>
     <string name="help_note_menses_c4_a">男生可以帮女生记录，但不能记录自己的(而且也没有啊)。</string>
     <string name="help_note_shy_c1_q">添加的时候，提示数量已达上限？</string>
-    <string name="help_note_shy_c1_a">每天记录的数量上限是 %d 个，超过这个数量后不能再提交，可以删除不必要的记录后再添加，或者是添加记录到其他日期。</string>
+    <string name="help_note_shy_c1_a" formatted="false">每天记录的数量上限是 %d 个，超过这个数量后不能再提交，可以删除不必要的记录后再添加，或者是添加记录到其他日期。</string>
     <string name="help_note_shy_c2_q">请问怎么删除记录呢？</string>
     <string name="help_note_shy_c2_a">点击日历视图的具体日期，会在底部区域展示出当天的记录，然后长按想要删除的那个记录就可以了！\n前提是只能删除自己创建的哦！</string>
     <string name="help_note_shy_c3_q">添加的时候加了很多描述，怎么看不到了？</string>
     <string name="help_note_shy_c3_a">点击日历视图的具体日期，会在底部区域展示出当天的记录，然后点击一下具体的记录，就会看到了！</string>
     <string name="help_note_sleep_c1_q">添加的时候，提示数量已达上限？</string>
-    <string name="help_note_sleep_c1_a">每天记录的数量上限是 %d 个，超过这个数量后不能再提交，可以删除不必要的记录后再添加。</string>
+    <string name="help_note_sleep_c1_a" formatted="false">每天记录的数量上限是 %d 个，超过这个数量后不能再提交，可以删除不必要的记录后再添加。</string>
     <string name="help_note_sleep_c2_q">请问怎么删除记录呢？</string>
     <string name="help_note_sleep_c2_a">点击日历视图的具体日期，会在底部区域展示出当天的记录，然后长按想要删除的那个记录就可以了！\n前提是只能删除自己创建的哦！</string>
     <string name="help_note_sleep_c3_q">为什么会提示我时长太短/长？</string>
-    <string name="help_note_sleep_c3_a">为了防止提交无效的数据，我们在后台做了限制。\n睡眠时长小于%d分钟、或者大于%d小时的记录，都不允许被添加。如果影响到了后续的记录添加，请删除无效的记录，即可继续操作。</string>
+    <string name="help_note_sleep_c3_a" formatted="false">为了防止提交无效的数据，我们在后台做了限制。\n睡眠时长小于%d分钟、或者大于%d小时的记录，都不允许被添加。如果影响到了后续的记录添加，请删除无效的记录，即可继续操作。</string>
+    <string name="help_note_album_c1_q">为什么每次只能上传一张！打开看大图还很模糊！</string>
+    <string name="help_note_album_c1_a">亲，如果真是这样的话，说明您上传的是相册的封面！而不是照片！\n多媒体-图片里可以创建无数个相册，而相册里又可以放无数照片，这种关系懂了吗？\n点击相应的相册(就是封面图)，进入相册详情页面后，点击右下角就可以真正的上传照片了，一次能传很多张的！</string>
+    <string name="help_note_album_c2_q">请问怎么删除？</string>
+    <string name="help_note_album_c2_a">点击相册封面，进入照片列表页，然后就可以看到删除选项了。删除整个相册是点击右上角；删除单张照片的话，长按要删除的照片就可以了。</string>
     <string name="help_note_work_c1_q">为什么我发布了留言，对方却不能收到？</string>
     <string name="help_note_work_c1_a">这是留言板，不是聊天哦。不是实时发送的，需要下拉刷新才能看到哦。</string>
     <string name="help_note_whisper_d">这是一个可以说悄悄话的地方。\n是不是有些话憋在心里难受，说又没地方说？这里就是你发泄的天堂！\n当然了，除了发泄，还有点点情趣呢，发表一句TA想听到的话，然后让TA使劲找吧，hiahiahia~</string>
@@ -719,10 +723,6 @@
     <string name="help_note_travel_d">一次约会，一次旅游，一次散步，一次踏足，甚至是一次异地恋的相见。都可以在这里记录哦！</string>
     <string name="help_note_travel_c1_q">每个游记可以添加多少关联数据呢？</string>
     <string name="help_note_travel_c1_a" formatted="false">%d个足迹，%d个相册，%d个视频，%d个美食，%d个电影，%d个日记。</string>
-    <string name="help_note_album_c1_q">为什么每次只能上传一张！打开看大图还很模糊！</string>
-    <string name="help_note_album_c1_a">亲，如果真是这样的话，说明您上传的是相册的封面！而不是照片！\n多媒体-图片里可以创建无数个相册，而相册里又可以放无数照片，这种关系懂了吗？\n点击相应的相册(就是封面图)，进入相册详情页面后，点击右下角就可以真正的上传照片了，一次能传很多张的！</string>
-    <string name="help_note_album_c2_q">请问怎么删除？</string>
-    <string name="help_note_album_c2_a">点击相册封面，进入照片列表页，然后就可以看到删除选项了。删除整个相册是点击右上角；删除单张照片的话，长按要删除的照片就可以了。</string>
     <string name="help_topic_home_d">记录与分享，这个模块更专注于分享。\n有什么想要分享给大家的、或者是探讨的话题，就来这里诉说吧，相信会有很多聆听者的。</string>
     <string name="help_topic_home_c1_q">为什么有的类别我这里有，我的另一半没有呢？</string>
     <string name="help_topic_home_c1_a">亲，我们这里部分模块是区分用户和地域的。\n有的模块只对男性开放，有的只对女性开放，有的只对同性恋开放，有的只对异性恋开放。\n有的模块只对区域内用户开发，类似于《附近的帖子》。</string>
