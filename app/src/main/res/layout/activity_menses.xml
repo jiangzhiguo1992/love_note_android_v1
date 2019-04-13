@@ -192,6 +192,17 @@
                                         android:foreground="?attr/selectableItemBackground"/>
                                 </RelativeLayout>
 
+                                <TextView
+                                    android:id="@+id/tvForecast"
+                                    style="@style/FontPrimaryNormal"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:gravity="center"
+                                    android:orientation="vertical"
+                                    android:text="@string/forecast_menses"
+                                    android:visibility="gone"
+                                    tools:visibility="gone"/>
+
                                 <LinearLayout
                                     android:id="@+id/llDayInfo"
                                     android:layout_width="match_parent"
@@ -392,6 +403,7 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:ellipsize="end"
+                                    android:gravity="center"
                                     android:padding="10dp"
                                     android:singleLine="true"
                                     tools:text="周期长度: 365天"/>
@@ -406,6 +418,7 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:ellipsize="end"
+                                    android:gravity="center"
                                     android:padding="10dp"
                                     android:singleLine="true"
                                     tools:text="经期长度: 365天"/>

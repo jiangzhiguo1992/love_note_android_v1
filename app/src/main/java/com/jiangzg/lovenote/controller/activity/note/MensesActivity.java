@@ -82,14 +82,16 @@ public class MensesActivity extends BaseActivity<MensesActivity> {
     TextView tvLengthCycle;
     @BindView(R.id.tvLengthDuration)
     TextView tvLengthDuration;
-    @BindView(R.id.llDayInfo)
-    LinearLayout llDayInfo;
+    @BindView(R.id.cvDayInfo)
+    CardView cvDayInfo;
     @BindView(R.id.sMensesStatus)
     Switch sMensesStatus;
     @BindView(R.id.sMensesEnd)
     Switch sMensesEnd;
-    @BindView(R.id.cvDayInfo)
-    CardView cvDayInfo;
+    @BindView(R.id.tvForecast)
+    TextView tvForecast;
+    @BindView(R.id.llDayInfo)
+    LinearLayout llDayInfo;
     @BindView(R.id.ivBlood1)
     ImageView ivBlood1;
     @BindView(R.id.ivBlood2)
@@ -432,9 +434,9 @@ public class MensesActivity extends BaseActivity<MensesActivity> {
                 for (long timestamp = menses2.getStartAt(); timestamp <= menses2.getEndAt(); timestamp = timestamp + dayTimestamp) {
                     Calendar cal = DateUtils.getCal(TimeHelper.getJavaTimeByGo(timestamp));
                     int index = (int) ((timestamp - menses2.getStartAt()) / dayTimestamp);
-                    // 相应的scheme TODO Style(real/isReal)
+                    // scheme
                     com.haibin.calendarview.Calendar calendar = CalendarMonthView.getCalendarView(cal.get(Calendar.YEAR), cal.get(Calendar.MONTH) + 1, cal.get(Calendar.DAY_OF_MONTH));
-                    calendar.setSchemeColor(ContextCompat.getColor(mActivity, ViewUtils.getColorDark(mActivity)));
+                    calendar.setSchemeColor(ContextCompat.getColor(mActivity, menses2.isReal() ? ViewUtils.getColorDark(mActivity) : R.color.icon_grey));
                     calendar.setScheme(String.valueOf(index + 1));
                     schemeMap.put(calendar.toString(), calendar);
                 }
@@ -506,50 +508,45 @@ public class MensesActivity extends BaseActivity<MensesActivity> {
     }
 
     private void refreshBottomDayInfoView() {
-        boolean isStart = false;
-        boolean isReal = false;
+        boolean isProgress = false, isForecast = false;
         MensesDay mensesDay = null;
         if (menses2List != null && menses2List.size() > 0) {
             for (Menses2 menses2 : menses2List) {
                 if (menses2 == null) continue;
-                // select
-                if (menses2.isReal()) {
-                    if (!isStart) {
-                        // 防止被后面的错误数据覆盖
-                        Calendar cStart = DateUtils.getCurrentCal();
-                        cStart.set(menses2.getStartYear(), menses2.getStartMonthOfYear(), menses2.getStartDayOfMonth());
-                        Calendar cEnd = DateUtils.getCurrentCal();
-                        cEnd.set(menses2.getEndYear(), menses2.getEndMonthOfYear(), menses2.getEndDayOfMonth());
-                        Calendar cSelect = DateUtils.getCurrentCal();
-                        cSelect.set(selectYear, selectMonth, selectDay);
-                        if (cSelect.getTimeInMillis() >= cStart.getTimeInMillis() && cSelect.getTimeInMillis() <= cEnd.getTimeInMillis()) {
-                            isStart = true;
+                // 先找出所属menses2
+                Calendar cStart = DateUtils.getCurrentCal();
+                cStart.set(menses2.getStartYear(), menses2.getStartMonthOfYear(), menses2.getStartDayOfMonth());
+                Calendar cEnd = DateUtils.getCurrentCal();
+                cEnd.set(menses2.getEndYear(), menses2.getEndMonthOfYear(), menses2.getEndDayOfMonth());
+                Calendar cSelect = DateUtils.getCurrentCal();
+                cSelect.set(selectYear, selectMonth, selectDay);
+                if (cSelect.getTimeInMillis() >= cStart.getTimeInMillis() && cSelect.getTimeInMillis() <= cEnd.getTimeInMillis()) {
+                    // menses
+                    isProgress = menses2.isReal();
+                    isForecast = !menses2.isReal();
+                    // dayInfo
+                    List<MensesDay> dayInfoList = menses2.getMensesDayList();
+                    if (dayInfoList == null || dayInfoList.size() <= 0) continue;
+                    for (MensesDay dayInfo : dayInfoList) {
+                        if (dayInfo == null) continue;
+                        if (selectYear == dayInfo.getYear() && selectMonth == dayInfo.getMonthOfYear() && selectDay == dayInfo.getDayOfMonth()) {
+                            mensesDay = dayInfo;
+                            break;
                         }
                     }
-                    if (isStart && !isReal) {
-                        isReal = menses2.isReal();
-                    }
-                }
-                // dayInfo
-                List<MensesDay> dayInfoList = menses2.getMensesDayList();
-                if (dayInfoList == null || dayInfoList.size() <= 0) continue;
-                for (MensesDay dayInfo : dayInfoList) {
-                    if (dayInfo == null) continue;
-                    if (selectDay == dayInfo.getDayOfMonth()) {
-                        mensesDay = dayInfo;
-                        break;
-                    }
+                    break;
                 }
             }
         }
         // view
         sMensesStatus.setEnabled(false);
-        sMensesStatus.setChecked(isStart);
+        sMensesStatus.setChecked(isProgress);
         sMensesStatus.setEnabled(true);
         sMensesEnd.setEnabled(false);
         sMensesEnd.setChecked(false);
         sMensesEnd.setEnabled(true);
-        if (!isStart || !isReal) {
+        tvForecast.setVisibility(isForecast ? View.VISIBLE : View.GONE);
+        if (!isProgress) {
             llDayInfo.setVisibility(View.GONE);
             return;
         }
