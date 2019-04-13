@@ -681,19 +681,21 @@
     <string name="help_note_souvenir_c2_a" formatted="false">%d个哦！</string>
     <string name="help_note_souvenir_c3_q">愿望清单不能关联数据、也不能打勾，有什么用呢？</string>
     <string name="help_note_souvenir_c3_a" formatted="false">我们把重要的日子分为《纪念日》和《愿望》两种，一种是已完成，一种是未完成。所以愿望的定义就是未完成的纪念日，当一个愿望想要打勾的时候，直接修改成纪念日即可，这样就多了一个纪念日啦！</string>
-    <string name="help_note_menses_c1_q">添加的时候 提示数量已达上限？</string>
-    <string name="help_note_menses_c1_a">每天记录的数量上限是 %d 个，超过这个数量后不能再提交，可以删除不必要的记录后再添加，或者是添加记录到其他日期。</string>
-    <string name="help_note_menses_c2_q">请问怎么删除数据呢？</string>
-    <string name="help_note_menses_c2_a">长按日历视图的具体日期，会弹出删除对话框，就可删除当天的姨妈数据！\n前提是只能删除自己创建的哦！</string>
-    <string name="help_note_menses_c3_q">请问除了记录时间，还可以记录其他的吗？</string>
-    <string name="help_note_menses_c3_a">目前只有这些，但鱼笙还在成长中，我们会开发越来越多的记录形式，包括但不仅限于排卵期、出血量、心情等数据的记录。敬请期待！</string>
-    <string name="help_note_shy_c1_q">添加的时候 提示数量已达上限？</string>
+    <string name="help_note_menses_c1_q">添加的时候，提示数量已达上限？</string>
+    <string name="help_note_menses_c1_a">每月记录的数量上限是 %d 个，超过这个数量后不能再提交，可以删除不必要的记录后再添加，或者是添加记录到其他月份。</string>
+    <string name="help_note_menses_c2_q">请问怎么删除记录呢？</string>
+    <string name="help_note_menses_c2_a">在具体姨妈期的第一天，关闭(姨妈期间)或者是勾选(姨妈结束)都可以删除姨妈记录哦。</string>
+    <string name="help_note_menses_c3_q">怎么修改经期和周期呢？</string>
+    <string name="help_note_menses_c3_a">点击经期/周期的视图展示界面，即可进入姨妈设置页面进行修改。</string>
+    <string name="help_note_menses_c4_q">这个模块男生可以用吗？</string>
+    <string name="help_note_menses_c4_a">男生可以帮女生记录，但不能记录自己的(而且也没有啊)。</string>
+    <string name="help_note_shy_c1_q">添加的时候，提示数量已达上限？</string>
     <string name="help_note_shy_c1_a">每天记录的数量上限是 %d 个，超过这个数量后不能再提交，可以删除不必要的记录后再添加，或者是添加记录到其他日期。</string>
     <string name="help_note_shy_c2_q">请问怎么删除记录呢？</string>
     <string name="help_note_shy_c2_a">点击日历视图的具体日期，会在底部区域展示出当天的记录，然后长按想要删除的那个记录就可以了！\n前提是只能删除自己创建的哦！</string>
     <string name="help_note_shy_c3_q">添加的时候加了很多描述，怎么看不到了？</string>
     <string name="help_note_shy_c3_a">点击日历视图的具体日期，会在底部区域展示出当天的记录，然后点击一下具体的记录，就会看到了！</string>
-    <string name="help_note_sleep_c1_q">添加的时候 提示数量已达上限？</string>
+    <string name="help_note_sleep_c1_q">添加的时候，提示数量已达上限？</string>
     <string name="help_note_sleep_c1_a">每天记录的数量上限是 %d 个，超过这个数量后不能再提交，可以删除不必要的记录后再添加。</string>
     <string name="help_note_sleep_c2_q">请问怎么删除记录呢？</string>
     <string name="help_note_sleep_c2_a">点击日历视图的具体日期，会在底部区域展示出当天的记录，然后长按想要删除的那个记录就可以了！\n前提是只能删除自己创建的哦！</string>
