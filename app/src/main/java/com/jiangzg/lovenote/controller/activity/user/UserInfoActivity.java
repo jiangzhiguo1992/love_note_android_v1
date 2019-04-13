@@ -145,8 +145,8 @@ public class UserInfoActivity extends BaseActivity<UserInfoActivity> {
         final long birth = TimeHelper.getGoTimeByJava(calendar.getTimeInMillis());
         String title = getString(R.string.once_push_never_modify);
         String birthShow = year + getString(R.string.year) + " " + month + getString(R.string.month) + " " + day + getString(R.string.dayR);
-        String message = getString(R.string.sex_colon) + sexShow +
-                "\n" + getString(R.string.birthday_colon) + birthShow;
+        String message = getString(R.string.sex_colon_space) + sexShow +
+                "\n" + getString(R.string.birthday_colon_space) + birthShow;
         MaterialDialog dialog = DialogHelper.getBuild(mActivity)
                 .cancelable(true)
                 .canceledOnTouchOutside(true)

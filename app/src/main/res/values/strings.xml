@@ -149,17 +149,6 @@
     <string name="loading_sending">正在发送…</string>
     <string name="press_again_exit">再按一次退出</string>
     <string name="exit_app">您确定要退出？</string>
-    <string name="holder_sprit_holder" formatted="false">%d/%d</string>
-    <string name="holder_wave_holder" formatted="false">%s~%s</string>
-    <string name="holder_space_line_space_holder" formatted="false">%s - %s</string>
-    <string name="holder_space_space_holder" formatted="false">%s  %s</string>
-    <string name="space_bracket_holder" formatted="false"> (%d)</string>
-    <string name="my_follow">我的关注</string>
-    <string name="my_push">我的发布</string>
-    <string name="my_collect">我的收藏</string>
-    <string name="ta_collect">TA的收藏</string>
-    <string name="my_relation">我的相关</string>
-    <string name="my_message">我的消息</string>
 
     <!-- network -->
     <string name="no_network_title">网络不能访问</string>
@@ -218,7 +207,7 @@
     <string name="already_is_latest_version">已是最新版本</string>
     <string name="have_new_version">有新版本啦！</string>
     <string name="are_update_check">正在检查更新</string>
-    <string name="version_number_colon">版本号:</string>
+    <string name="version_number_colon">版本号: </string>
     <string name="new_version_colon_space_holder" formatted="false">新版本: %s</string>
 
     <!-- edit -->
@@ -235,6 +224,7 @@
     <string name="in_here_input_channel">在这里输入频道</string>
     <string name="select_search_type">选择搜索类型</string>
     <string name="select_order_type">选择排序类型</string>
+    <string name="please_select_classify">请选择分类</string>
     <string name="please_select_address">请选择地址</string>
     <string name="please_select_diary">请选择日记</string>
     <string name="please_select_album">请选择相册</string>
@@ -247,7 +237,6 @@
     <string name="please_select_promise">请选择承诺</string>
     <string name="please_select_rule">请选择约定</string>
     <string name="please_select_score">请选择分数</string>
-    <string name="please_select_classify">请选择分类</string>
     <string name="please_select_safe_method">请选择安全措施</string>
     <string name="please_input_content_no_over_holder_text" formatted="false">请输入内容，不得超过%d个字</string>
     <string name="please_input_title_no_over_holder_text" formatted="false">请输入标题，不得超过%d个字</string>
@@ -277,24 +266,27 @@
     <string name="album_colon_space_holder" formatted="false">相册: %s</string>
     <string name="duration_colon_space_holder" formatted="false">时长: %s</string>
     <string name="rule_colon_space_holder" formatted="false">约定: %s</string>
-    <string name="picture_where">照片呢？</string>
-    <string name="is_save_draft">是否保存草稿</string>
-    <string name="save_draft">保存草稿</string>
-    <string name="draft_save_success">草稿保存成功</string>
     <string name="confirm_delete_this_image">确定要删除这张图片吗</string>
     <string name="confirm_delete_this_note">确定删除这个记录？</string>
     <string name="confirm_remove_this_note">确定移除这个记录？</string>
-    <string name="confirm_del_the_day_note">确定删除这天的记录？</string>
     <string name="confirm_del_suggest">确定删除意见吗？</string>
     <string name="confirm_del_comment">确定要删除评论吗？</string>
     <string name="confirm_del_collect">确定要删除收藏吗？</string>
-    <string name="confirm_del_this_work">确定要删除这个作品吗？</string>
     <string name="confirm_delete_this_post">确定删除这个帖子？</string>
+    <string name="confirm_del_this_work">确定要删除这个作品吗？</string>
     <string name="can_delete_self_create_post">只能删除自己创建的帖子哦</string>
     <string name="can_delete_self_create_comment">只能删除自己创建的评论哦</string>
     <string name="can_operation_self_create_note">只能操作自己创建的记录哦！</string>
+    <string name="picture_where">照片呢？</string>
+    <string name="save_draft">保存草稿</string>
+    <string name="is_save_draft">是否保存草稿</string>
+    <string name="draft_save_success">草稿保存成功</string>
 
     <!-- show-format-common -->
+    <string name="holder_sprit_holder" formatted="false">%d/%d</string>
+    <string name="holder_wave_holder" formatted="false">%s~%s</string>
+    <string name="holder_space_line_space_holder" formatted="false">%s - %s</string>
+    <string name="holder_space_space_holder" formatted="false">%s  %s</string>
     <string name="holder_second" formatted="false">%d秒</string>
     <string name="holder_minute" formatted="false">%d分钟</string>
     <string name="holder_minute_short" formatted="false">%d分</string>
@@ -368,8 +360,8 @@
     <string name="please_select_sex">请选择性别</string>
     <string name="please_select_birth">请选择生日</string>
     <string name="once_push_never_modify">一旦提交，将不允许修改！</string>
-    <string name="sex_colon">性别:</string>
-    <string name="birthday_colon">生日:</string>
+    <string name="sex_colon_space">性别: </string>
+    <string name="birthday_colon_space">生日: </string>
     <string name="send_validate_code">发送验证码</string>
     <string name="are_send_validate_code">正在发送验证码…</string>
 
@@ -427,6 +419,8 @@
     <!-- settings-suggest -->
     <string name="suggest_feedback">意见反馈</string>
     <string name="i_want_feedback">朕要反馈</string>
+    <string name="my_follow">我的关注</string>
+    <string name="my_push">我的发布</string>
     <string name="click_me_choose_type">点我选分类</string>
     <string name="click_me_add_image">点我添加图片</string>
     <string name="click_me_to_del_image">点我删除照片</string>
@@ -556,6 +550,10 @@
     <string name="official">官方</string>
     <string name="well">精华</string>
     <string name="hot">热门</string>
+    <string name="my_collect">我的收藏</string>
+    <string name="ta_collect">TA的收藏</string>
+    <string name="my_relation">我的相关</string>
+    <string name="my_message">我的消息</string>
     <string name="report">举报</string>
     <string name="already_report">已举报</string>
     <string name="floor_master">楼主</string>
