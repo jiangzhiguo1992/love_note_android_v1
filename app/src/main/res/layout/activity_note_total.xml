@@ -380,106 +380,6 @@
                         android:weightSum="2">
 
                         <android.support.v7.widget.CardView
-                            android:id="@+id/cvPromise"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="10dp"
-                            android:layout_marginTop="5dp"
-                            android:layout_marginEnd="5dp"
-                            android:layout_marginBottom="5dp"
-                            android:layout_weight="1"
-                            android:background="?attr/selectableItemBackground"
-                            android:foreground="?attr/selectableItemBackground"
-                            app:cardBackgroundColor="@color/white"
-                            app:cardCornerRadius="@dimen/radius_normal"
-                            app:cardElevation="@dimen/elevation_normal"
-                            app:cardMaxElevation="@dimen/elevation_big">
-
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:gravity="center_vertical"
-                                android:orientation="horizontal">
-
-                                <TextView
-                                    style="@style/FontGreyNormal"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:drawableTop="@mipmap/ic_note_promise_24dp"
-                                    android:drawablePadding="5dp"
-                                    android:gravity="center"
-                                    android:minWidth="60dp"
-                                    android:padding="10dp"
-                                    android:text="@string/promise"/>
-
-                                <TextView
-                                    android:id="@+id/tvPromise"
-                                    style="@style/FontPrimaryHugeBold"
-                                    android:layout_width="0dp"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginEnd="10dp"
-                                    android:layout_weight="1"
-                                    android:gravity="end"
-                                    android:textSize="40sp"
-                                    tools:text="99999"/>
-                            </LinearLayout>
-                        </android.support.v7.widget.CardView>
-
-                        <android.support.v7.widget.CardView
-                            android:id="@+id/cvGift"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="5dp"
-                            android:layout_marginTop="5dp"
-                            android:layout_marginEnd="10dp"
-                            android:layout_marginBottom="5dp"
-                            android:layout_weight="1"
-                            android:background="?attr/selectableItemBackground"
-                            android:foreground="?attr/selectableItemBackground"
-                            app:cardBackgroundColor="@color/white"
-                            app:cardCornerRadius="@dimen/radius_normal"
-                            app:cardElevation="@dimen/elevation_normal"
-                            app:cardMaxElevation="@dimen/elevation_big">
-
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:gravity="center_vertical"
-                                android:orientation="horizontal">
-
-                                <TextView
-                                    style="@style/FontGreyNormal"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:drawableTop="@mipmap/ic_note_gift_24dp"
-                                    android:drawablePadding="5dp"
-                                    android:gravity="center"
-                                    android:minWidth="60dp"
-                                    android:padding="10dp"
-                                    android:text="@string/gift"/>
-
-                                <TextView
-                                    android:id="@+id/tvGift"
-                                    style="@style/FontPrimaryHugeBold"
-                                    android:layout_width="0dp"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginEnd="10dp"
-                                    android:layout_weight="1"
-                                    android:gravity="end"
-                                    android:textSize="40sp"
-                                    tools:text="99999"/>
-                            </LinearLayout>
-                        </android.support.v7.widget.CardView>
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center_vertical"
-                        android:orientation="horizontal"
-                        android:weightSum="2">
-
-                        <android.support.v7.widget.CardView
                             android:id="@+id/cvMovie"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
@@ -560,6 +460,106 @@
 
                                 <TextView
                                     android:id="@+id/tvFood"
+                                    style="@style/FontPrimaryHugeBold"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginEnd="10dp"
+                                    android:layout_weight="1"
+                                    android:gravity="end"
+                                    android:textSize="40sp"
+                                    tools:text="99999"/>
+                            </LinearLayout>
+                        </android.support.v7.widget.CardView>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:weightSum="2">
+
+                        <android.support.v7.widget.CardView
+                            android:id="@+id/cvPromise"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginEnd="5dp"
+                            android:layout_marginBottom="5dp"
+                            android:layout_weight="1"
+                            android:background="?attr/selectableItemBackground"
+                            android:foreground="?attr/selectableItemBackground"
+                            app:cardBackgroundColor="@color/white"
+                            app:cardCornerRadius="@dimen/radius_normal"
+                            app:cardElevation="@dimen/elevation_normal"
+                            app:cardMaxElevation="@dimen/elevation_big">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:gravity="center_vertical"
+                                android:orientation="horizontal">
+
+                                <TextView
+                                    style="@style/FontGreyNormal"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:drawableTop="@mipmap/ic_note_promise_24dp"
+                                    android:drawablePadding="5dp"
+                                    android:gravity="center"
+                                    android:minWidth="60dp"
+                                    android:padding="10dp"
+                                    android:text="@string/promise"/>
+
+                                <TextView
+                                    android:id="@+id/tvPromise"
+                                    style="@style/FontPrimaryHugeBold"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginEnd="10dp"
+                                    android:layout_weight="1"
+                                    android:gravity="end"
+                                    android:textSize="40sp"
+                                    tools:text="99999"/>
+                            </LinearLayout>
+                        </android.support.v7.widget.CardView>
+
+                        <android.support.v7.widget.CardView
+                            android:id="@+id/cvGift"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="5dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginEnd="10dp"
+                            android:layout_marginBottom="5dp"
+                            android:layout_weight="1"
+                            android:background="?attr/selectableItemBackground"
+                            android:foreground="?attr/selectableItemBackground"
+                            app:cardBackgroundColor="@color/white"
+                            app:cardCornerRadius="@dimen/radius_normal"
+                            app:cardElevation="@dimen/elevation_normal"
+                            app:cardMaxElevation="@dimen/elevation_big">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:gravity="center_vertical"
+                                android:orientation="horizontal">
+
+                                <TextView
+                                    style="@style/FontGreyNormal"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:drawableTop="@mipmap/ic_note_gift_24dp"
+                                    android:drawablePadding="5dp"
+                                    android:gravity="center"
+                                    android:minWidth="60dp"
+                                    android:padding="10dp"
+                                    android:text="@string/gift"/>
+
+                                <TextView
+                                    android:id="@+id/tvGift"
                                     style="@style/FontPrimaryHugeBold"
                                     android:layout_width="0dp"
                                     android:layout_height="wrap_content"
