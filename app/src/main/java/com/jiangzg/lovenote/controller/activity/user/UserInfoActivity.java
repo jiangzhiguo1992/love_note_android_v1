@@ -25,7 +25,7 @@ import com.jiangzg.lovenote.helper.view.ViewHelper;
 import com.jiangzg.lovenote.model.api.API;
 import com.jiangzg.lovenote.model.api.Result;
 import com.jiangzg.lovenote.model.entity.User;
-import com.jiangzg.lovenote.view.BirthPicker;
+import com.jiangzg.lovenote.view.GNumberPicker;
 
 import java.util.Calendar;
 import java.util.Stack;
@@ -47,11 +47,11 @@ public class UserInfoActivity extends BaseActivity<UserInfoActivity> {
     @BindView(R.id.cvBoy)
     CardView cvBoy;
     @BindView(R.id.npYear)
-    BirthPicker npYear;
+    GNumberPicker npYear;
     @BindView(R.id.npMonth)
-    BirthPicker npMonth;
+    GNumberPicker npMonth;
     @BindView(R.id.npDay)
-    BirthPicker npDay;
+    GNumberPicker npDay;
     @BindView(R.id.btnOk)
     Button btnOk;
 

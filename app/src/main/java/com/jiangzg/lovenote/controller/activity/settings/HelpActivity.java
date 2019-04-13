@@ -514,7 +514,7 @@ public class HelpActivity extends BaseActivity<HelpActivity> {
     }
 
     private Help getHelpNoteMenses(int index) {
-        int maxPerDay = limit.getMensesMaxPerDay();
+        int maxPerDay = limit.getMensesMaxPerMonth();
         Help help = new Help();
         help.setIndex(index);
         help.setTitle(getString(R.string.menses));
