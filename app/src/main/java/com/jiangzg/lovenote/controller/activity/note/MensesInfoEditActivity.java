@@ -77,22 +77,22 @@ public class MensesInfoEditActivity extends BaseActivity<MensesInfoEditActivity>
         npDay.setOnValueChangedListener((picker, oldVal, newVal) -> {
             switch (selectId) {
                 case R.id.tvMeCycle:
-                    if (lengthMe != null) {
+                    if (lengthMe != null && newVal > 0 && newVal <= limit.getMensesMaxCycleDay()) {
                         lengthMe.setCycleDay(newVal);
                     }
                     break;
                 case R.id.tvMeDuration:
-                    if (lengthMe != null) {
+                    if (lengthMe != null && newVal > 0 && newVal <= limit.getMensesMaxDurationDay()) {
                         lengthMe.setDurationDay(newVal);
                     }
                     break;
                 case R.id.tvTaCycle:
-                    if (lengthTa != null) {
+                    if (lengthTa != null && newVal > 0 && newVal <= limit.getMensesMaxCycleDay()) {
                         lengthTa.setCycleDay(newVal);
                     }
                     break;
                 case R.id.tvTaDuration:
-                    if (lengthTa != null) {
+                    if (lengthTa != null && newVal > 0 && newVal <= limit.getMensesMaxDurationDay()) {
                         lengthTa.setDurationDay(newVal);
                     }
                     break;
@@ -146,7 +146,7 @@ public class MensesInfoEditActivity extends BaseActivity<MensesInfoEditActivity>
             case R.id.tvMeDuration:
             case R.id.tvTaCycle:
             case R.id.tvTaDuration:
-                whenShouldWheel(view.getId());
+                toggleNumberPicker(view.getId());
                 break;
         }
     }
@@ -162,8 +162,15 @@ public class MensesInfoEditActivity extends BaseActivity<MensesInfoEditActivity>
         tvTaDuration.setText(String.format(Locale.getDefault(), getString(R.string.menses_duration_colon_holder_day), taDuration));
     }
 
-    private void whenShouldWheel(int resId) {
+    private void toggleNumberPicker(int resId) {
+        // view
+        if (selectId == resId) {
+            selectId = 0;
+            npDay.setVisibility(View.GONE);
+            return;
+        }
         selectId = resId;
+        npDay.setVisibility(View.VISIBLE);
         // data
         int maxCycle = limit.getMensesMaxCycleDay();
         int maxDuration = limit.getMensesMaxDurationDay();
@@ -171,8 +178,6 @@ public class MensesInfoEditActivity extends BaseActivity<MensesInfoEditActivity>
         int meDuration = lengthMe == null ? limit.getMensesDefaultDurationDay() : lengthMe.getDurationDay();
         int taCycle = lengthTa == null ? limit.getMensesDefaultCycleDay() : lengthTa.getCycleDay();
         int taDuration = lengthTa == null ? limit.getMensesDefaultDurationDay() : lengthTa.getDurationDay();
-        // view
-        npDay.setVisibility(View.VISIBLE);
         switch (resId) {
             case R.id.tvMeCycle:
                 npDay.setMaxValue(maxCycle);
