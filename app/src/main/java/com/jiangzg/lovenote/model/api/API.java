@@ -17,7 +17,7 @@ import com.jiangzg.lovenote.model.entity.MatchPoint;
 import com.jiangzg.lovenote.model.entity.MatchReport;
 import com.jiangzg.lovenote.model.entity.MatchWork;
 import com.jiangzg.lovenote.model.entity.Menses;
-import com.jiangzg.lovenote.model.entity.MensesDayInfo;
+import com.jiangzg.lovenote.model.entity.MensesDay;
 import com.jiangzg.lovenote.model.entity.MensesInfo;
 import com.jiangzg.lovenote.model.entity.Movie;
 import com.jiangzg.lovenote.model.entity.Picture;
@@ -265,9 +265,9 @@ public interface API {
     @POST("note/menses2")
     Call<Result> noteMenses2Add(@Body Menses menses);
 
-    // menses2DayInfo添加
-    @POST("note/mensesDayInfo")
-    Call<Result> noteMensesDayInfoAdd(@Body MensesDayInfo mensesDayInfo);
+    // mensesDay添加
+    @POST("note/mensesDay")
+    Call<Result> noteMensesDayAdd(@Body MensesDay mensesDay);
 
     // shyList获取
     @GET("note/shy?date=1")

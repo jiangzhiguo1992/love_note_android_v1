@@ -24,7 +24,7 @@ import com.jiangzg.lovenote.model.entity.MatchPoint;
 import com.jiangzg.lovenote.model.entity.MatchReport;
 import com.jiangzg.lovenote.model.entity.MatchWork;
 import com.jiangzg.lovenote.model.entity.Menses2;
-import com.jiangzg.lovenote.model.entity.MensesDayInfo;
+import com.jiangzg.lovenote.model.entity.MensesDay;
 import com.jiangzg.lovenote.model.entity.MensesInfo;
 import com.jiangzg.lovenote.model.entity.ModelShow;
 import com.jiangzg.lovenote.model.entity.Movie;
@@ -153,7 +153,7 @@ public class Result implements Serializable {
         private MensesInfo mensesInfo;
         private Menses2 menses2;
         private List<Menses2> menses2List;
-        private MensesDayInfo mensesDayInfo;
+        private MensesDay mensesDay;
         private Shy shy;
         private List<Shy> shyList;
         private Sleep sleep;
@@ -290,12 +290,12 @@ public class Result implements Serializable {
             this.menses2List = menses2List;
         }
 
-        public MensesDayInfo getMensesDayInfo() {
-            return mensesDayInfo;
+        public MensesDay getMensesDay() {
+            return mensesDay;
         }
 
-        public void setMensesDayInfo(MensesDayInfo mensesDayInfo) {
-            this.mensesDayInfo = mensesDayInfo;
+        public void setMensesDay(MensesDay mensesDay) {
+            this.mensesDay = mensesDay;
         }
 
         public WeatherForecastInfo getWeatherForecastMe() {

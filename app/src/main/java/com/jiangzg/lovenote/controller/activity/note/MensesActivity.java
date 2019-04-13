@@ -38,7 +38,7 @@ import com.jiangzg.lovenote.model.api.API;
 import com.jiangzg.lovenote.model.api.Result;
 import com.jiangzg.lovenote.model.entity.Menses;
 import com.jiangzg.lovenote.model.entity.Menses2;
-import com.jiangzg.lovenote.model.entity.MensesDayInfo;
+import com.jiangzg.lovenote.model.entity.MensesDay;
 import com.jiangzg.lovenote.model.entity.MensesInfo;
 import com.jiangzg.lovenote.model.entity.MensesLength;
 import com.jiangzg.lovenote.model.entity.User;
@@ -271,39 +271,39 @@ public class MensesActivity extends BaseActivity<MensesActivity> {
                 break;
             case R.id.ivBlood1: // 血量
                 ivBlood1.setImageTintList(colorPrimaryStateList);
-                pushMensesDayInfo();
+                pushMensesDay();
                 break;
             case R.id.ivBlood2:
                 ivBlood2.setImageTintList(colorPrimaryStateList);
-                pushMensesDayInfo();
+                pushMensesDay();
                 break;
             case R.id.ivBlood3:
                 ivBlood3.setImageTintList(colorPrimaryStateList);
-                pushMensesDayInfo();
+                pushMensesDay();
                 break;
             case R.id.ivPain1: // 痛经
                 ivPain1.setImageTintList(colorPrimaryStateList);
-                pushMensesDayInfo();
+                pushMensesDay();
                 break;
             case R.id.ivPain2:
                 ivPain2.setImageTintList(colorPrimaryStateList);
-                pushMensesDayInfo();
+                pushMensesDay();
                 break;
             case R.id.ivPain3:
                 ivPain3.setImageTintList(colorPrimaryStateList);
-                pushMensesDayInfo();
+                pushMensesDay();
                 break;
             case R.id.ivMood1: // 心情
                 ivMood1.setImageTintList(colorPrimaryStateList);
-                pushMensesDayInfo();
+                pushMensesDay();
                 break;
             case R.id.ivMood2:
                 ivMood2.setImageTintList(colorPrimaryStateList);
-                pushMensesDayInfo();
+                pushMensesDay();
                 break;
             case R.id.ivMood3:
                 ivMood3.setImageTintList(colorPrimaryStateList);
-                pushMensesDayInfo();
+                pushMensesDay();
                 break;
         }
     }
@@ -414,7 +414,7 @@ public class MensesActivity extends BaseActivity<MensesActivity> {
                 for (long timestamp = menses2.getStartAt(); timestamp <= menses2.getEndAt(); timestamp = timestamp + dayTimestamp) {
                     Calendar cal = DateUtils.getCal(TimeHelper.getJavaTimeByGo(timestamp));
                     int index = (int) ((timestamp - menses2.getStartAt()) / dayTimestamp);
-                    // 相应的scheme TODO isReal颜色
+                    // 相应的scheme TODO Style(real/isReal)
                     com.haibin.calendarview.Calendar calendar = CalendarMonthView.getCalendarView(cal.get(Calendar.YEAR), cal.get(Calendar.MONTH) + 1, cal.get(Calendar.DAY_OF_MONTH));
                     calendar.setSchemeColor(ContextCompat.getColor(mActivity, ViewUtils.getColorDark(mActivity)));
                     calendar.setScheme(String.valueOf(index + 1));
@@ -486,7 +486,7 @@ public class MensesActivity extends BaseActivity<MensesActivity> {
 
     private void refreshBottomDayInfoView() {
         boolean isStart = false;
-        MensesDayInfo mensesDayInfo = null;
+        MensesDay mensesDay = null;
         if (menses2List != null && menses2List.size() > 0) {
             for (Menses2 menses2 : menses2List) {
                 if (menses2 == null) continue;
@@ -504,12 +504,12 @@ public class MensesActivity extends BaseActivity<MensesActivity> {
                     }
                 }
                 // dayInfo
-                List<MensesDayInfo> dayInfoList = menses2.getMensesDayInfoList();
+                List<MensesDay> dayInfoList = menses2.getMensesDayList();
                 if (dayInfoList == null || dayInfoList.size() <= 0) continue;
-                for (MensesDayInfo dayInfo : dayInfoList) {
+                for (MensesDay dayInfo : dayInfoList) {
                     if (dayInfo == null) continue;
                     if (selectDay == dayInfo.getDayOfMonth()) {
-                        mensesDayInfo = dayInfo;
+                        mensesDay = dayInfo;
                         break;
                     }
                 }
@@ -522,7 +522,7 @@ public class MensesActivity extends BaseActivity<MensesActivity> {
         sMensesEnd.setEnabled(false);
         sMensesEnd.setChecked(false);
         sMensesEnd.setEnabled(true);
-        if (mensesDayInfo == null) {
+        if (mensesDay == null) {
             llDayInfo.setVisibility(View.GONE);
             return;
         }
@@ -531,7 +531,7 @@ public class MensesActivity extends BaseActivity<MensesActivity> {
         ivBlood1.setImageTintList(colorGreyStateList);
         ivBlood2.setImageTintList(colorGreyStateList);
         ivBlood3.setImageTintList(colorGreyStateList);
-        int blood = mensesDayInfo.getBlood();
+        int blood = mensesDay.getBlood();
         if (blood > 0) {
             ivBlood1.setImageTintList(colorPrimaryStateList);
         }
@@ -545,7 +545,7 @@ public class MensesActivity extends BaseActivity<MensesActivity> {
         ivPain1.setImageTintList(colorGreyStateList);
         ivPain2.setImageTintList(colorGreyStateList);
         ivPain3.setImageTintList(colorGreyStateList);
-        int pain = mensesDayInfo.getPain();
+        int pain = mensesDay.getPain();
         if (pain > 0) {
             ivPain1.setImageTintList(colorPrimaryStateList);
         }
@@ -559,7 +559,7 @@ public class MensesActivity extends BaseActivity<MensesActivity> {
         ivMood1.setImageTintList(colorGreyStateList);
         ivMood2.setImageTintList(colorGreyStateList);
         ivMood3.setImageTintList(colorGreyStateList);
-        int mood = mensesDayInfo.getMood();
+        int mood = mensesDay.getMood();
         if (mood > 0) {
             ivMood1.setImageTintList(colorPrimaryStateList);
         }
@@ -597,8 +597,8 @@ public class MensesActivity extends BaseActivity<MensesActivity> {
         pushApi(api);
     }
 
-    private void pushMensesDayInfo() {
-        MensesDayInfo dayInfo = new MensesDayInfo();
+    private void pushMensesDay() {
+        MensesDay dayInfo = new MensesDay();
         dayInfo.setYear(selectYear);
         dayInfo.setMonthOfYear(selectMonth);
         dayInfo.setDayOfMonth(selectDay);
@@ -630,7 +630,7 @@ public class MensesActivity extends BaseActivity<MensesActivity> {
             dayInfo.setMood(0);
         }
         // api
-        Call<Result> api = new RetrofitHelper().call(API.class).noteMensesDayInfoAdd(dayInfo);
+        Call<Result> api = new RetrofitHelper().call(API.class).noteMensesDayAdd(dayInfo);
         RetrofitHelper.enqueue(api, mActivity.getLoading(true), new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {

@@ -21,7 +21,7 @@ public class Menses2 extends BaseCP implements Parcelable {
     private int endDayOfMonth;
     // 关联
     private boolean isReal;
-    private List<MensesDayInfo> mensesDayInfoList;
+    private List<MensesDay> mensesDayList;
     private int safeStartYear;
     private int safeStartMonthOfYear;
     private int safeStartDayOfMonth;
@@ -38,12 +38,12 @@ public class Menses2 extends BaseCP implements Parcelable {
     private int ovulationMonthOfYear;
     private int ovulationDayOfMonth;
 
-    public List<MensesDayInfo> getMensesDayInfoList() {
-        return mensesDayInfoList;
+    public List<MensesDay> getMensesDayList() {
+        return mensesDayList;
     }
 
-    public void setMensesDayInfoList(List<MensesDayInfo> mensesDayInfoList) {
-        this.mensesDayInfoList = mensesDayInfoList;
+    public void setMensesDayList(List<MensesDay> mensesDayList) {
+        this.mensesDayList = mensesDayList;
     }
 
     public boolean isReal() {
@@ -267,7 +267,7 @@ public class Menses2 extends BaseCP implements Parcelable {
         ovulationYear = in.readInt();
         ovulationMonthOfYear = in.readInt();
         ovulationDayOfMonth = in.readInt();
-        mensesDayInfoList = in.createTypedArrayList(MensesDayInfo.CREATOR);
+        mensesDayList = in.createTypedArrayList(MensesDay.CREATOR);
     }
 
     @Override
@@ -297,7 +297,7 @@ public class Menses2 extends BaseCP implements Parcelable {
         dest.writeInt(ovulationYear);
         dest.writeInt(ovulationMonthOfYear);
         dest.writeInt(ovulationDayOfMonth);
-        dest.writeTypedList(mensesDayInfoList);
+        dest.writeTypedList(mensesDayList);
     }
 
     @Override
