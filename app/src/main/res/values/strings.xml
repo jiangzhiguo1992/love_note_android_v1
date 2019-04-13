@@ -665,8 +665,10 @@
     <string name="help_couple_weather_c1_q">为什么没有天气信息？</string>
     <string name="help_couple_weather_c1_a">原因有以下几点：\n1.如果没有位置信息的话，是不会有天气信息的。\n2.如果首页还没出现位置信息，就先打开天气预报的话，也是没有数据的，还请等首页位置刷出来之后，再点进来。\n3.另外，部分地区的天气预报暂无数据或数据异常，如国外等等。</string>
     <string name="help_note_home_d">记录与分享，这个模块更专注于记录。\n生活的点点滴滴，大小事项，都可以在这里记录哦！还不赶快动起手来？</string>
-    <string name="help_note_home_c1_q">数据放在这里安全吗？</string>
-    <string name="help_note_home_c1_a">请放心！此模块中的数据全为私有数据，除了你和TA之外无人可以访问。如果双方解除配对了，那么此配对中的记录模块的数据将不见天日，除非复合。</string>
+    <string name="help_note_home_c1_q">换了手机后，数据会丢失吗？</string>
+    <string name="help_note_home_c1_a">不会的，数据全部存放在服务器，即使换了手机，还是可以获取到的。</string>
+    <string name="help_note_home_c2_q">数据放在这里安全吗？</string>
+    <string name="help_note_home_c2_a">请放心！此模块中的数据全为私有数据，除了你和TA之外无人可以访问。如果双方解除配对了，那么此配对中的记录模块的数据将不见天日，除非复合。</string>
     <string name="help_note_lock_d">给你的小本本上个锁吧，这样就不怕别人瞎戳戳戳了。</string>
     <string name="help_note_lock_c1_q">为什么发送了验证码，我的手机却收不到！</string>
     <string name="help_note_lock_c1_a">前方高能！因为验证码是发到你的另一半手机上了啊。\n为了避免手机丢失后，被不法分子通过验证码重置密码锁，我们决定验证码只能发到TA的手机上。\n什么？两个人手机都丢了？还是被同一个小偷拿到？OMG！赶紧用其他手机登陆下，把那个账号顶下来吧！</string>
@@ -722,6 +724,8 @@
     <string name="help_note_travel_c1_a" formatted="false">%d个足迹，%d个相册，%d个视频，%d个美食，%d个电影，%d个日记。</string>
     <string name="help_note_album_c1_q">为什么每次只能上传一张！打开看大图还很模糊！</string>
     <string name="help_note_album_c1_a">亲，如果真是这样的话，说明您上传的是相册的封面！而不是照片！\n多媒体-图片里可以创建无数个相册，而相册里又可以放无数照片，这种关系懂了吗？\n点击相应的相册(就是封面图)，进入相册详情页面后，点击右下角就可以真正的上传照片了，一次能传很多张的！</string>
+    <string name="help_note_album_c2_q">请问怎么删除？</string>
+    <string name="help_note_album_c2_a">点击相册封面，进入照片列表页，然后就可以看到删除选项了。删除整个相册是点击右上角；删除单张照片的话，长按要删除的照片就可以了。</string>
     <string name="help_topic_home_d">记录与分享，这个模块更专注于分享。\n有什么想要分享给大家的、或者是探讨的话题，就来这里诉说吧，相信会有很多聆听者的。</string>
     <string name="help_topic_home_c1_q">为什么有的类别我这里有，我的另一半没有呢？</string>
     <string name="help_topic_home_c1_a">亲，我们这里部分模块是区分用户和地域的。\n有的模块只对男性开放，有的只对女性开放，有的只对同性恋开放，有的只对异性恋开放。\n有的模块只对区域内用户开发，类似于《附近的帖子》。</string>

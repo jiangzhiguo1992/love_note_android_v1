@@ -419,6 +419,10 @@ public class HelpActivity extends BaseActivity<HelpActivity> {
         c1.setQuestion(getString(R.string.help_note_home_c1_q));
         c1.setAnswer(getString(R.string.help_note_home_c1_a));
         contentList.add(c1);
+        Help.HelpContent c2 = new Help.HelpContent();
+        c2.setQuestion(getString(R.string.help_note_home_c2_q));
+        c2.setAnswer(getString(R.string.help_note_home_c2_a));
+        contentList.add(c2);
         help.setContentList(contentList);
         // sub
         List<Help> subList = new ArrayList<>();
@@ -693,6 +697,10 @@ public class HelpActivity extends BaseActivity<HelpActivity> {
         c1.setQuestion(getString(R.string.help_note_album_c1_q));
         c1.setAnswer(getString(R.string.help_note_album_c1_a));
         contentList.add(c1);
+        Help.HelpContent c2 = new Help.HelpContent();
+        c2.setQuestion(getString(R.string.help_note_album_c2_q));
+        c2.setAnswer(getString(R.string.help_note_album_c2_a));
+        contentList.add(c2);
         help.setContentList(contentList);
         return help;
     }
