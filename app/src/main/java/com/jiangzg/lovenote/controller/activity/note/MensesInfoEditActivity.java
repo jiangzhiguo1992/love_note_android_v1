@@ -196,12 +196,12 @@ public class MensesInfoEditActivity extends BaseActivity<MensesInfoEditActivity>
     private void push() {
         if (mensesInfo == null) return;
         // api
-        Call<Result> api = new RetrofitHelper().call(API.class).noteMensesInfohUpdate(mensesInfo);
+        Call<Result> api = new RetrofitHelper().call(API.class).noteMensesInfoUpdate(mensesInfo);
         RetrofitHelper.enqueue(api, getLoading(true), new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 // event
-                RxBus.post(new RxBus.Event<>(RxBus.EVENT_MENSES_LENGTH_UPDATE, mensesInfo));
+                RxBus.post(new RxBus.Event<>(RxBus.EVENT_MENSES_INFO_UPDATE, mensesInfo));
                 // finish
                 mActivity.finish();
             }

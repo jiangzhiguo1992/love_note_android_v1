@@ -255,7 +255,7 @@ public interface API {
 
     // menses2Info更新
     @PUT("note/mensesInfo")
-    Call<Result> noteMensesInfohUpdate(@Body MensesInfo mensesInfo);
+    Call<Result> noteMensesInfoUpdate(@Body MensesInfo mensesInfo);
 
     // menses2List获取
     @GET("note/menses2?date=1")

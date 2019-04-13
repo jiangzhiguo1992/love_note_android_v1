@@ -201,11 +201,11 @@ public class MensesActivity extends BaseActivity<MensesActivity> {
     @Override
     protected void initData(Intent intent, Bundle state) {
         // event
-        Observable<MensesLength> obLengthRefresh = RxBus.register(RxBus.EVENT_MENSES_LENGTH_UPDATE, mensesLength -> {
+        Observable<MensesInfo> obLengthRefresh = RxBus.register(RxBus.EVENT_MENSES_INFO_UPDATE, mensesInfo -> {
             refreshCenterMonthData();
             refreshBottomMensesInfoData();
         });
-        pushBus(RxBus.EVENT_MENSES_LENGTH_UPDATE, obLengthRefresh);
+        pushBus(RxBus.EVENT_MENSES_INFO_UPDATE, obLengthRefresh);
         // user
         User me = SPHelper.getMe();
         isMine = (me != null && me.getSex() == User.SEX_GIRL);
