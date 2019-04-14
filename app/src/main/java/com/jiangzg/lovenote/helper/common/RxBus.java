@@ -20,6 +20,7 @@ import rx.subjects.Subject;
  */
 public class RxBus {
 
+    // common
     public static final int EVENT_MAP_SELECT = 101; // 选择
     public static final int EVENT_VIDEO_SELECT = 102;
     public static final int EVENT_ALBUM_SELECT = 103;
@@ -31,13 +32,17 @@ public class RxBus {
     public static final int EVENT_PROMISE_SELECT = 110;
     public static final int EVENT_MOVIE_SELECT = 111;
     public static final int EVENT_PAY_WX_RESULT = 310;
+    // settings
     public static final int EVENT_SUGGEST_LIST_REFRESH = 1000; // 建议
     public static final int EVENT_SUGGEST_LIST_ITEM_DELETE = 1001;
     public static final int EVENT_SUGGEST_LIST_ITEM_REFRESH = 1002;
     public static final int EVENT_SUGGEST_DETAIL_REFRESH = 1003;
+    // user
     public static final int EVENT_USER_REFRESH = 2000; // 用户
+    // couple
     public static final int EVENT_COUPLE_REFRESH = 3000; // 配对
     public static final int EVENT_WALL_PAPER_REFRESH = 3100; // 墙纸
+    // note
     public static final int EVENT_LOCK_REFRESH = 4010; // 密码锁
     public static final int EVENT_CUSTOM_REFRESH = 4020; // 功能定制
     public static final int EVENT_MENSES_INFO_UPDATE = 4030; // 姨妈
@@ -60,14 +65,14 @@ public class RxBus {
     public static final int EVENT_SOUVENIR_LIST_ITEM_REFRESH = 4112;
     public static final int EVENT_SOUVENIR_DETAIL_REFRESH = 4113;
     public static final int EVENT_WORD_LIST_ITEM_DELETE = 4120; // 留言
-    public static final int EVENT_DIARY_LIST_REFRESH = 4130; // 日记
-    public static final int EVENT_DIARY_LIST_ITEM_DELETE = 4131;
-    public static final int EVENT_DIARY_LIST_ITEM_REFRESH = 4132;
-    public static final int EVENT_DIARY_DETAIL_REFRESH = 4133;
     public static final int EVENT_AWARD_LIST_REFRESH = 4140; // 约定
     public static final int EVENT_AWARD_LIST_ITEM_DELETE = 4141;
     public static final int EVENT_AWARD_RULE_LIST_REFRESH = 4142;
     public static final int EVENT_AWARD_RULE_LIST_ITEM_DELETE = 4143;
+    public static final int EVENT_DIARY_LIST_REFRESH = 4130; // 日记
+    public static final int EVENT_DIARY_LIST_ITEM_DELETE = 4131;
+    public static final int EVENT_DIARY_LIST_ITEM_REFRESH = 4132;
+    public static final int EVENT_DIARY_DETAIL_REFRESH = 4133;
     public static final int EVENT_DREAM_LIST_REFRESH = 4150; // 梦境
     public static final int EVENT_DREAM_LIST_ITEM_DELETE = 4151;
     public static final int EVENT_DREAM_LIST_ITEM_REFRESH = 4152;
@@ -93,6 +98,7 @@ public class RxBus {
     public static final int EVENT_MOVIE_LIST_REFRESH = 4210; // 电影
     public static final int EVENT_MOVIE_LIST_ITEM_DELETE = 4211;
     public static final int EVENT_MOVIE_LIST_ITEM_REFRESH = 4212;
+    // topic
     public static final int EVENT_POST_GO_TOP = 5100;
     public static final int EVENT_POST_SEARCH_ALL = 5101;
     public static final int EVENT_POST_SEARCH_OFFICIAL = 5102;
@@ -105,6 +111,7 @@ public class RxBus {
     public static final int EVENT_POST_COMMENT_LIST_ITEM_DELETE = 5301;
     public static final int EVENT_POST_COMMENT_LIST_ITEM_REFRESH = 5302;
     public static final int EVENT_POST_COMMENT_DETAIL_REFRESH = 5303;
+    // more
     public static final int EVENT_VIP_INFO_REFRESH = 6100;
     public static final int EVENT_COIN_INFO_REFRESH = 6200;
 
