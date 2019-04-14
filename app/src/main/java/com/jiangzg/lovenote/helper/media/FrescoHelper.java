@@ -4,7 +4,6 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.net.Uri;
 
-import com.facebook.cache.common.CacheErrorLogger;
 import com.facebook.cache.disk.DiskCacheConfig;
 import com.facebook.cache.disk.FileCache;
 import com.facebook.common.logging.FLog;

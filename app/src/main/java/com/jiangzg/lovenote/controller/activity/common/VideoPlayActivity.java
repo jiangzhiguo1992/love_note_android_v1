@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import com.google.android.exoplayer2.ExoPlayer;
 import com.google.android.exoplayer2.source.ExtractorMediaSource;
@@ -19,6 +18,7 @@ import com.jiangzg.base.view.ScreenUtils;
 import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.controller.activity.base.BaseActivity;
 import com.jiangzg.lovenote.helper.media.PlayerHelper;
+import com.jiangzg.lovenote.view.GMarqueeText;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -32,7 +32,7 @@ public class VideoPlayActivity extends BaseActivity<VideoPlayActivity> {
     @BindView(R.id.ivBack)
     ImageView ivBack;
     @BindView(R.id.tvTitle)
-    TextView tvTitle;
+    GMarqueeText tvTitle;
 
     private String ossKey;
 

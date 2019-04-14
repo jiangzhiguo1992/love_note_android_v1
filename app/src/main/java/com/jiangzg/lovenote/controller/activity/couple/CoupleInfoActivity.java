@@ -33,7 +33,6 @@ import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.controller.activity.base.BaseActivity;
 import com.jiangzg.lovenote.controller.activity.common.BigImageActivity;
-import com.jiangzg.lovenote.controller.activity.note.SouvenirListActivity;
 import com.jiangzg.lovenote.controller.activity.settings.HelpActivity;
 import com.jiangzg.lovenote.controller.activity.user.PhoneActivity;
 import com.jiangzg.lovenote.helper.common.ApiHelper;

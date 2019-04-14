@@ -35,7 +35,7 @@
             android:paddingStart="5dp"
             android:paddingEnd="0dp">
 
-            <TextView
+            <com.jiangzg.lovenote.view.GMarqueeText
                 android:id="@+id/tvTitle"
                 style="@style/FontBlackNormal"
                 android:layout_width="match_parent"

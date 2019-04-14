@@ -42,7 +42,7 @@
             android:padding="15dp"
             android:src="@mipmap/ic_arrow_back_white_24dp"/>
 
-        <TextView
+        <com.jiangzg.lovenote.view.GMarqueeText
             android:id="@+id/tvTitle"
             style="@style/FontWhiteHuge"
             android:layout_width="0dp"

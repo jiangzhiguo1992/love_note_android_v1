@@ -51,7 +51,6 @@ import com.jiangzg.lovenote.view.GSwipeRefreshLayout;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
 import butterknife.BindView;
 import retrofit2.Call;
