@@ -120,15 +120,15 @@ public class SignActivity extends BaseActivity<SignActivity> {
                     // 只是选择的同月day
                     selectDay = calendar.getDay();
                     refreshTopDateShow();
-                    refreshDayView();
+                    refreshBottomDayView();
                     return;
                 }
                 selectYear = calendar.getYear();
                 selectMonth = calendar.getMonth();
                 selectDay = calendar.getDay();
                 refreshTopDateShow();
-                refreshMonthData();
-                refreshDayView();
+                refreshCenterMonthData();
+                refreshBottomDayView();
             }
         });
         // avatar
@@ -145,10 +145,10 @@ public class SignActivity extends BaseActivity<SignActivity> {
         // 设置当前日期
         refreshDateToCurrent();
         // 显示当前数据
-        refreshMonthView();
-        refreshDayView();
+        refreshCenterMonthView();
+        refreshBottomDayView();
         // 开始获取数据
-        refreshMonthData();
+        refreshCenterMonthData();
     }
 
     @Override
@@ -195,6 +195,23 @@ public class SignActivity extends BaseActivity<SignActivity> {
         }
     }
 
+    /**
+     * **************************************** top ***********************************************
+     */
+    private void yearShow() {
+        if (cvSign == null) return;
+        if (!cvSign.isYearSelectLayoutVisible()) {
+            cvSign.showYearSelectLayout(selectYear);
+        } else {
+            cvSign.closeYearSelectLayout();
+        }
+    }
+
+    private void dateBack() {
+        refreshDateToCurrent();
+        refreshCenterMonthData();
+    }
+
     private void refreshDateToCurrent() {
         Calendar calendar = DateUtils.getCurrentCal();
         selectYear = calendar.get(Calendar.YEAR);
@@ -205,7 +222,49 @@ public class SignActivity extends BaseActivity<SignActivity> {
         refreshTopDateShow();
     }
 
-    private void refreshMonthView() {
+    private void refreshTopDateShow() {
+        String show = "";
+        if (selectYear > 0) {
+            if (selectMonth >= 0) {
+                show = String.format(Locale.getDefault(), getString(R.string.holder_month_space_holder), selectMonth, selectYear);
+            } else {
+                show = String.valueOf(selectYear);
+            }
+        }
+        tvDateShow.setText(show);
+    }
+
+    /**
+     * **************************************** center ***********************************************
+     */
+    private void refreshCenterMonthData() {
+        if (!srl.isRefreshing()) {
+            srl.setRefreshing(true);
+        }
+        // clear (data + view)
+        signList = null;
+        refreshBottomDayView();
+        // api
+        Call<Result> api = new RetrofitHelper().call(API.class).moreSignDateGet(selectYear, selectMonth);
+        RetrofitHelper.enqueue(api, null, new RetrofitHelper.CallBack() {
+            @Override
+            public void onResponse(int code, String message, Result.Data data) {
+                srl.setRefreshing(false);
+                signList = data.getSignList();
+                // view
+                refreshCenterMonthView();
+                refreshBottomDayView();
+            }
+
+            @Override
+            public void onFailure(int code, String message, Result.Data data) {
+                srl.setRefreshing(false);
+            }
+        });
+        pushApi(api);
+    }
+
+    private void refreshCenterMonthView() {
         if (cvSign == null) return;
         // data
         User ta = SPHelper.getTa();
@@ -250,7 +309,10 @@ public class SignActivity extends BaseActivity<SignActivity> {
         tvCountRight.setText(String.format(Locale.getDefault(), getString(R.string.to_month_sign_holder_count), rightCount));
     }
 
-    private void refreshDayView() {
+    /**
+     * **************************************** bottom ***********************************************
+     */
+    private void refreshBottomDayView() {
         if (cvSign == null) return;
         // data
         String signShow = null;
@@ -276,61 +338,6 @@ public class SignActivity extends BaseActivity<SignActivity> {
         tvState.setText(signShow);
     }
 
-    private void yearShow() {
-        if (cvSign == null) return;
-        if (!cvSign.isYearSelectLayoutVisible()) {
-            cvSign.showYearSelectLayout(selectYear);
-        } else {
-            cvSign.closeYearSelectLayout();
-        }
-    }
-
-    private void dateBack() {
-        refreshDateToCurrent();
-        refreshMonthData();
-    }
-
-    private void refreshTopDateShow() {
-        String show = "";
-        if (selectYear > 0) {
-            String year = String.valueOf(selectYear);
-            String month = String.valueOf(selectMonth);
-            if (selectMonth >= 0) {
-                show = String.format(Locale.getDefault(), getString(R.string.holder_space_line_space_holder), year, month);
-            } else {
-                show = year;
-            }
-        }
-        tvDateShow.setText(show);
-    }
-
-    private void refreshMonthData() {
-        if (!srl.isRefreshing()) {
-            srl.setRefreshing(true);
-        }
-        // clear (data + view)
-        signList = null;
-        refreshDayView();
-        // api
-        Call<Result> api = new RetrofitHelper().call(API.class).moreSignDateGet(selectYear, selectMonth);
-        RetrofitHelper.enqueue(api, null, new RetrofitHelper.CallBack() {
-            @Override
-            public void onResponse(int code, String message, Result.Data data) {
-                srl.setRefreshing(false);
-                signList = data.getSignList();
-                // view
-                refreshMonthView();
-                refreshDayView();
-            }
-
-            @Override
-            public void onFailure(int code, String message, Result.Data data) {
-                srl.setRefreshing(false);
-            }
-        });
-        pushApi(api);
-    }
-
     private void signPush() {
         Call<Result> api = new RetrofitHelper().call(API.class).moreSignAdd();
         RetrofitHelper.enqueue(api, mActivity.getLoading(true), new RetrofitHelper.CallBack() {
@@ -342,9 +349,9 @@ public class SignActivity extends BaseActivity<SignActivity> {
                 }
                 RxBus.post(new RxBus.Event<>(RxBus.EVENT_COIN_INFO_REFRESH, new Coin()));
                 // view
-                refreshDayView();
+                refreshBottomDayView();
                 // data
-                refreshMonthData();
+                refreshCenterMonthData();
             }
 
             @Override

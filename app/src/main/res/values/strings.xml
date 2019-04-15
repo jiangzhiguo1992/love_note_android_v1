@@ -293,6 +293,7 @@
     <string name="holder_hour" formatted="false">%d小时</string>
     <string name="holder_hour_short" formatted="false">%d时</string>
     <string name="holder_dayT" formatted="false">%d天</string>
+    <string name="holder_month_space_holder" formatted="false">%d月 %d</string>
     <string name="create_at_colon_space_holder" formatted="false">创建于: %s</string>
     <string name="update_at_colon_space_holder" formatted="false">更新于: %s</string>
     <string name="creator_colon_space_holder" formatted="false">创建者: %s</string>

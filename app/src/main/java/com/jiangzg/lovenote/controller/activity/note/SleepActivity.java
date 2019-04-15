@@ -291,12 +291,10 @@ public class SleepActivity extends BaseActivity<SleepActivity> {
     private void refreshTopDateView() {
         String show = "";
         if (selectYear > 0) {
-            String year = String.valueOf(selectYear);
-            String month = String.valueOf(selectMonth);
             if (selectMonth >= 0) {
-                show = String.format(Locale.getDefault(), getString(R.string.holder_space_line_space_holder), year, month);
+                show = String.format(Locale.getDefault(), getString(R.string.holder_month_space_holder), selectMonth, selectYear);
             } else {
-                show = year;
+                show = String.valueOf(selectYear);
             }
         }
         tvDateShow.setText(show);
