@@ -285,7 +285,7 @@ public class ShyActivity extends BaseActivity<ShyActivity> {
             shyList.clear();
         }
         refreshBottomDayView();
-        // call
+        // api
         Call<Result> api = new RetrofitHelper().call(API.class).noteShyListGetByDate(selectYear, selectMonth);
         RetrofitHelper.enqueue(api, null, new RetrofitHelper.CallBack() {
             @Override
