@@ -37,25 +37,12 @@
                 android:layout_marginBottom="10dp"
                 tools:text="建议内容建议内容建议内容建议内容建议内容建议内容建建议内容建议内容建议内容建议内容建议内容建议内容建建议内容建议内容建议内容建议内容建议内容建议内容建建议内容建议内容建议内容建议内容建议内容建议内容建建议内容建议内容建议内容建议内容建议内容建议内容建建议内容建议内容建议内容建议内容建议内容建议内容建"/>
 
-            <ImageView
-                android:id="@+id/ivCreator"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/tvContent"
-                android:layout_alignTop="@+id/tvCreator"
-                android:layout_alignBottom="@+id/tvCreator"
-                android:layout_alignParentStart="true"
-                android:layout_marginEnd="5dp"
-                android:src="@mipmap/ic_account_circle_grey_18dp"
-                android:tint="@color/font_grey"/>
-
             <TextView
                 android:id="@+id/tvCreator"
                 style="@style/FontGreySmall"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/tvContent"
-                android:layout_toEndOf="@+id/ivCreator"
                 android:gravity="center"
                 tools:text="创建者"/>
 
@@ -65,21 +52,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/tvContent"
-                android:layout_toStartOf="@+id/ivHappenAt"
+                android:layout_alignParentEnd="true"
                 android:gravity="center"
                 tools:text="2017年 12月 31日"/>
-
-            <ImageView
-                android:id="@+id/ivHappenAt"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/tvContent"
-                android:layout_alignTop="@+id/tvHappenAt"
-                android:layout_alignBottom="@+id/tvHappenAt"
-                android:layout_alignParentEnd="true"
-                android:layout_marginStart="5dp"
-                android:src="@mipmap/ic_access_time_grey_18dp"
-                android:tint="@color/font_grey"/>
         </RelativeLayout>
     </android.support.v7.widget.CardView>
 
