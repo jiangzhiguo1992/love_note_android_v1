@@ -199,8 +199,8 @@ public class SleepActivity extends BaseActivity<SleepActivity> {
             if (recyclerRight != null) {
                 ListHelper.removeObjInAdapter(recyclerRight.getAdapter(), sleep);
             }
-            refreshBottomStatusData();
             refreshCenterMonthData();
+            refreshBottomStatusData();
         });
         pushBus(RxBus.EVENT_SLEEP_LIST_ITEM_DELETE, obListItemDelete);
         // 设置当前日期
