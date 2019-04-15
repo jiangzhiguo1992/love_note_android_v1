@@ -363,7 +363,7 @@ public class SleepActivity extends BaseActivity<SleepActivity> {
         if (sleepList != null && sleepList.size() > 0) {
             for (Sleep s : sleepList) {
                 if (s == null) continue;
-                if (s.getDayOfMonth() == selectDay) {
+                if (s.getYear() == selectYear && s.getMonthOfYear() == selectMonth && s.getDayOfMonth() == selectDay) {
                     if (s.isMine()) { // 我的
                         selectRightList.add(s);
                     } else { // TA的

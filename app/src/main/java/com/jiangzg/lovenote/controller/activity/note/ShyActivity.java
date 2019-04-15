@@ -340,7 +340,7 @@ public class ShyActivity extends BaseActivity<ShyActivity> {
         if (shyList != null && shyList.size() > 0) {
             for (Shy shy : shyList) {
                 if (shy == null) continue;
-                if (selectDay == shy.getDayOfMonth()) {
+                if (shy.getYear() == selectYear && shy.getMonthOfYear() == selectMonth && selectDay == shy.getDayOfMonth()) {
                     dayList.add(shy);
                 }
             }
