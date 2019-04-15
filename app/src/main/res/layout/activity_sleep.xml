@@ -136,7 +136,8 @@
                         android:layout_alignBottom="@id/cvPush"
                         android:layout_toStartOf="@+id/cvPush"
                         android:gravity="center"
-                        android:orientation="vertical">
+                        android:orientation="vertical"
+                        android:visibility="gone">
 
                         <com.jiangzg.lovenote.view.FrescoAvatarView
                             android:id="@+id/ivAvatarLeft"
@@ -185,7 +186,8 @@
                         android:layout_alignBottom="@id/cvPush"
                         android:layout_toEndOf="@+id/cvPush"
                         android:gravity="center"
-                        android:orientation="vertical">
+                        android:orientation="vertical"
+                        android:visibility="gone">
 
                         <com.jiangzg.lovenote.view.FrescoAvatarView
                             android:id="@+id/ivAvatarRight"
