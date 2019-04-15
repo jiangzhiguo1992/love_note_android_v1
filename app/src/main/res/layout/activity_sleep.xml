@@ -68,7 +68,7 @@
                     app:current_day_text_color="@color/black"
                     app:current_month_lunar_text_color="?attr/colorAccent"
                     app:current_month_text_color="?attr/colorAccent"
-                    app:day_text_size="@dimen/font_big"
+                    app:day_text_size="@dimen/font_normal"
                     app:lunar_text_size="7sp"
                     app:month_view_show_mode="mode_only_current"
                     app:other_month_lunar_text_color="?attr/colorControlNormal"
