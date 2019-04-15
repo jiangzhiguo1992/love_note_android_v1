@@ -33,7 +33,7 @@
             android:name="is_debug"
             android:value="true"/>
 
-        <!-- api地址 api.fishlife520.com/192.168.18.3:30011 -->
+        <!-- api地址 api.fishlife520.com/192.168.18.2:30011 -->
         <meta-data
             android:name="api_base_url"
             android:value="http://api.fishlife520.com/v1/"/>
