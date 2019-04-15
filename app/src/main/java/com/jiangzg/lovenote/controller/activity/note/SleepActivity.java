@@ -153,7 +153,6 @@ public class SleepActivity extends BaseActivity<SleepActivity> {
                 selectDay = calendar.getDay();
                 refreshTopDateView();
                 refreshCenterMonthData();
-                refreshCenterDayView();
             }
         });
         // recycler
@@ -208,7 +207,6 @@ public class SleepActivity extends BaseActivity<SleepActivity> {
         refreshDateToCurrent();
         // 显示当前数据
         refreshCenterMonthView();
-        refreshCenterDayView();
         refreshBottomStatusView();
         // 开始获取数据
         refreshCenterMonthData();

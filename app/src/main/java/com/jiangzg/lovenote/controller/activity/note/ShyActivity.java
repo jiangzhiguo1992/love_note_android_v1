@@ -144,7 +144,6 @@ public class ShyActivity extends BaseActivity<ShyActivity> {
                 selectDay = calendar.getDay();
                 refreshTopDateShow();
                 refreshCenterMonthData();
-                refreshBottomDayView();
             }
         });
         // recycler
@@ -184,7 +183,6 @@ public class ShyActivity extends BaseActivity<ShyActivity> {
         refreshDateToCurrent();
         // 显示当前数据
         refreshCenterMonthView();
-        refreshBottomDayView();
         // 开始获取数据
         refreshCenterMonthData();
     }

@@ -186,7 +186,6 @@ public class MensesActivity extends BaseActivity<MensesActivity> {
                 selectDay = calendar.getDay();
                 refreshTopDateShow();
                 refreshCenterMonthData();
-                refreshBottomDayInfoView();
             }
         });
         // switch
@@ -221,7 +220,6 @@ public class MensesActivity extends BaseActivity<MensesActivity> {
         // 显示当前数据
         refreshCenterMonthView("");
         refreshBottomMensesInfoView();
-        refreshBottomDayInfoView();
         // 开始获取数据
         refreshCenterMonthData();
         refreshBottomMensesInfoData();
