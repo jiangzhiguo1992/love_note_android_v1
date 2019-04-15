@@ -128,7 +128,6 @@ public class SignActivity extends BaseActivity<SignActivity> {
                 selectDay = calendar.getDay();
                 refreshTopDateShow();
                 refreshCenterMonthData();
-                refreshBottomDayView();
             }
         });
         // avatar
@@ -146,7 +145,6 @@ public class SignActivity extends BaseActivity<SignActivity> {
         refreshDateToCurrent();
         // 显示当前数据
         refreshCenterMonthView();
-        refreshBottomDayView();
         // 开始获取数据
         refreshCenterMonthData();
     }
