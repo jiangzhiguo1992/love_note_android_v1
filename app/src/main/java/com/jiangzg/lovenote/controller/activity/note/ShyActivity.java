@@ -156,7 +156,7 @@ public class ShyActivity extends BaseActivity<ShyActivity> {
                     @Override
                     public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
                         selectShyIndex = position;
-                        refreshBottomDetailView();
+                        refreshBottomExtendView();
                     }
                 })
                 .listenerClick(new OnItemLongClickListener() {
@@ -347,12 +347,12 @@ public class ShyActivity extends BaseActivity<ShyActivity> {
         }
         // view
         recyclerHelper.dataNew(dayList, 0);
-        // detail
+        // extend
         selectShyIndex = -1;
-        refreshBottomDetailView();
+        refreshBottomExtendView();
     }
 
-    private void refreshBottomDetailView() {
+    private void refreshBottomExtendView() {
         if (recyclerHelper == null || recyclerHelper.getAdapter() == null || selectShyIndex < 0
                 || selectShyIndex >= recyclerHelper.getAdapter().getData().size()) {
             cvExtend.setVisibility(View.GONE);
