@@ -92,7 +92,7 @@ public class ShyEditActivity extends BaseActivity<ShyEditActivity> {
         safeItems = new String[]{getString(R.string.nil), getString(R.string.condom), getString(R.string.acyeterion), getString(R.string.out_shoot), getString(R.string.other)};
         safeIndex = 0;
         shy.setSafe(safeItems[safeIndex]);
-        refreshSafeUser();
+        refreshSafeView();
         // content
         etContent.setText(shy.getDesc());
     }
@@ -199,7 +199,7 @@ public class ShyEditActivity extends BaseActivity<ShyEditActivity> {
                     }
                     safeIndex = which;
                     shy.setSafe(safeItems[safeIndex]);
-                    refreshSafeUser();
+                    refreshSafeView();
                     DialogUtils.dismiss(dialog1);
                     return true;
                 })
@@ -207,7 +207,7 @@ public class ShyEditActivity extends BaseActivity<ShyEditActivity> {
         DialogHelper.showWithAnim(dialog);
     }
 
-    private void refreshSafeUser() {
+    private void refreshSafeView() {
         if (shy == null) return;
         tvSafe.setText(String.format(Locale.getDefault(), getString(R.string.safe_method_colon_holder), shy.getSafe()));
     }
