@@ -347,7 +347,7 @@ public class ShyActivity extends BaseActivity<ShyActivity> {
         }
         // view
         recyclerHelper.dataNew(dayList, 0);
-        // select
+        // detail
         selectShyIndex = -1;
         refreshBottomDetailView();
     }
