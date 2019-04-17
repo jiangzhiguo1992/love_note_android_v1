@@ -548,37 +548,40 @@ public class MensesActivity extends BaseActivity<MensesActivity> {
         }
         llDayInfo.setVisibility(View.VISIBLE);
         // blood
-        ivBlood1.setImageTintList(colorGreyStateList);
-        ivBlood2.setImageTintList(colorGreyStateList);
-        ivBlood3.setImageTintList(colorGreyStateList);
         int blood = mensesDay == null ? 0 : mensesDay.getBlood();
-        if (blood > 0) {
-            ivBlood1.setImageTintList(colorPrimaryStateList);
+        if (blood > 2) {
+            ivBlood3.setImageTintList(colorPrimaryStateList);
+        } else {
+            ivBlood3.setImageTintList(colorGreyStateList);
         }
         if (blood > 1) {
             ivBlood2.setImageTintList(colorPrimaryStateList);
+        } else {
+            ivBlood2.setImageTintList(colorGreyStateList);
         }
-        if (blood > 2) {
-            ivBlood3.setImageTintList(colorPrimaryStateList);
+        if (blood > 0) {
+            ivBlood1.setImageTintList(colorPrimaryStateList);
+        } else {
+            ivBlood1.setImageTintList(colorGreyStateList);
         }
         // pain
-        ivPain1.setImageTintList(colorGreyStateList);
-        ivPain2.setImageTintList(colorGreyStateList);
-        ivPain3.setImageTintList(colorGreyStateList);
         int pain = mensesDay == null ? 0 : mensesDay.getPain();
-        if (pain > 0) {
-            ivPain1.setImageTintList(colorPrimaryStateList);
+        if (pain > 2) {
+            ivPain3.setImageTintList(colorPrimaryStateList);
+        } else {
+            ivPain3.setImageTintList(colorGreyStateList);
         }
         if (pain > 1) {
             ivPain2.setImageTintList(colorPrimaryStateList);
+        } else {
+            ivPain2.setImageTintList(colorGreyStateList);
         }
-        if (pain > 2) {
-            ivPain3.setImageTintList(colorPrimaryStateList);
+        if (pain > 0) {
+            ivPain1.setImageTintList(colorPrimaryStateList);
+        } else {
+            ivPain1.setImageTintList(colorGreyStateList);
         }
         // mood
-        ivMood1.setImageTintList(colorGreyStateList);
-        ivMood2.setImageTintList(colorGreyStateList);
-        ivMood3.setImageTintList(colorGreyStateList);
         int mood = mensesDay == null ? 0 : mensesDay.getMood();
         if (mood == 1) {
             ivMood1.setImageTintList(colorPrimaryStateList);
