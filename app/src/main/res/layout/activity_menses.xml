@@ -453,7 +453,7 @@
                                 android:paddingBottom="10dp"
                                 android:singleLine="true"
                                 android:text="@string/me_de"
-                                android:textColor="@color/selector_text_check_light_primary"
+                                android:textColor="@color/selector_text_check_icon_gray_primary"
                                 tools:checked="true"/>
 
                             <View
@@ -474,7 +474,7 @@
                                 android:paddingBottom="10dp"
                                 android:singleLine="true"
                                 android:text="@string/ta_de"
-                                android:textColor="@color/selector_text_check_light_primary"/>
+                                android:textColor="@color/selector_text_check_icon_gray_primary"/>
                         </RadioGroup>
                     </RelativeLayout>
                 </LinearLayout>
