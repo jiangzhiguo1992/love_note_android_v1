@@ -299,8 +299,8 @@
     <string name="creator_colon_space_holder" formatted="false">创建者: %s</string>
     <string name="safe_method_colon_holder" formatted="false">安全措施: %s</string>
     <string name="continue_duration_colon_holder" formatted="false">持续时长: %s</string>
-    <string name="menses_cycle_colon_holder_day" formatted="false">经期长度: %d天</string>
-    <string name="menses_duration_colon_holder_day" formatted="false">周期长度: %d天</string>
+    <string name="menses_cycle_colon_holder_day" formatted="false">周期长度: %d天</string>
+    <string name="menses_duration_colon_holder_day" formatted="false">经期长度: %d天</string>
     <string name="already_wake_space_holder" formatted="false">已醒来 %s</string>
     <string name="already_sleep_space_holder" formatted="false">已睡眠 %s</string>
     <string name="holder_colon_sleep" formatted="false">入睡时间: %s</string>

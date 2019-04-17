@@ -35,7 +35,7 @@
             android:foreground="?attr/selectableItemBackground"
             android:padding="15dp"
             android:singleLine="true"
-            android:text="经期天数:"/>
+            tools:text="周期天数: 30天"/>
 
         <View
             style="@style/LineHorizontal"
@@ -52,7 +52,7 @@
             android:foreground="?attr/selectableItemBackground"
             android:padding="15dp"
             android:singleLine="true"
-            android:text="周期天数:"/>
+            tools:text="经期天数: 7天"/>
     </LinearLayout>
 
     <LinearLayout
@@ -80,7 +80,7 @@
             android:foreground="?attr/selectableItemBackground"
             android:padding="15dp"
             android:singleLine="true"
-            android:text="经期天数:"/>
+            tools:text="周期天数: 30天"/>
 
         <View
             style="@style/LineHorizontal"
@@ -97,7 +97,7 @@
             android:foreground="?attr/selectableItemBackground"
             android:padding="15dp"
             android:singleLine="true"
-            android:text="周期天数:"/>
+            tools:text="经期天数: 30天"/>
     </LinearLayout>
 
     <RelativeLayout
