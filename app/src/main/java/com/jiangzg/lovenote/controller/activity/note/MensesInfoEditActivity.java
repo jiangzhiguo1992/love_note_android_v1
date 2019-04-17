@@ -112,7 +112,17 @@ public class MensesInfoEditActivity extends BaseActivity<MensesInfoEditActivity>
             return;
         }
         lengthMe = mensesInfo.getMensesLengthMe();
+        if (lengthMe == null) {
+            lengthMe = new MensesLength();
+            lengthMe.setCycleDay(limit.getMensesDefaultCycleDay());
+            lengthMe.setDurationDay(limit.getMensesDefaultDurationDay());
+        }
         lengthTa = mensesInfo.getMensesLengthTa();
+        if (lengthTa == null) {
+            lengthTa = new MensesLength();
+            lengthTa.setCycleDay(limit.getMensesDefaultCycleDay());
+            lengthTa.setDurationDay(limit.getMensesDefaultDurationDay());
+        }
         // view
         llMe.setVisibility(mensesInfo.isCanMe() ? View.VISIBLE : View.GONE);
         llTa.setVisibility(mensesInfo.isCanTa() ? View.VISIBLE : View.GONE);
