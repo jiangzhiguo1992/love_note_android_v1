@@ -207,7 +207,8 @@
                                     android:id="@+id/llDayInfo"
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
-                                    android:gravity="center"
+                                    android:layout_marginBottom="10dp"
+                                    android:gravity="bottom"
                                     android:orientation="vertical"
                                     android:visibility="gone"
                                     tools:visibility="visible">
