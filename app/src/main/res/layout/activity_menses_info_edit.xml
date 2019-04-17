@@ -110,7 +110,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:layout_margin="10dp"
+            android:layout_margin="15dp"
             android:visibility="gone"
             app:custom_divider_color="?attr/colorPrimary"
             app:custom_text_color="?attr/colorPrimary"
