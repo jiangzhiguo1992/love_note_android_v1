@@ -437,41 +437,43 @@
                             android:background="@drawable/shape_solid_white_r5"
                             android:elevation="@dimen/elevation_big"
                             android:gravity="center"
-                            android:orientation="vertical">
+                            android:orientation="horizontal">
 
                             <RadioButton
                                 android:id="@+id/rbMe"
                                 style="@style/FontWhiteNormal"
-                                android:layout_width="match_parent"
+                                android:layout_width="0dp"
                                 android:layout_height="wrap_content"
+                                android:layout_weight="1"
                                 android:background="?attr/selectableItemBackground"
                                 android:button="@null"
                                 android:foreground="?attr/selectableItemBackground"
                                 android:gravity="center"
                                 android:minLines="1"
-                                android:paddingTop="10dp"
-                                android:paddingBottom="10dp"
+                                android:paddingTop="20dp"
+                                android:paddingBottom="20dp"
                                 android:singleLine="true"
                                 android:text="@string/me_de"
                                 android:textColor="@color/selector_text_check_icon_gray_primary"
                                 tools:checked="true"/>
 
                             <View
-                                style="@style/LineHorizontal"
+                                style="@style/LineVertical"
                                 android:background="?attr/colorPrimary"/>
 
                             <RadioButton
                                 android:id="@+id/rbTa"
                                 style="@style/FontWhiteNormal"
-                                android:layout_width="match_parent"
+                                android:layout_width="0dp"
                                 android:layout_height="wrap_content"
+                                android:layout_weight="1"
                                 android:background="?attr/selectableItemBackground"
                                 android:button="@null"
                                 android:foreground="?attr/selectableItemBackground"
                                 android:gravity="center"
                                 android:minLines="1"
-                                android:paddingTop="10dp"
-                                android:paddingBottom="10dp"
+                                android:paddingTop="20dp"
+                                android:paddingBottom="20dp"
                                 android:singleLine="true"
                                 android:text="@string/ta_de"
                                 android:textColor="@color/selector_text_check_icon_gray_primary"/>
