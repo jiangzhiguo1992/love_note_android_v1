@@ -207,14 +207,12 @@ public class MensesActivity extends BaseActivity<MensesActivity> {
             refreshBottomMensesInfoData();
         });
         pushBus(RxBus.EVENT_MENSES_INFO_UPDATE, obLengthRefresh);
-        // user
-        User me = SPHelper.getMe();
-        isMine = (me != null && me.getSex() == User.SEX_GIRL);
-        initBottomRightUserCheckView();
         // info
         mensesInfo = new MensesInfo();
         mensesInfo.setCanMe(false);
         mensesInfo.setCanTa(false);
+        // user
+        initBottomUserView();
         // 设置当前日期
         refreshDateToCurrent();
         // 显示当前数据
@@ -324,19 +322,6 @@ public class MensesActivity extends BaseActivity<MensesActivity> {
                 pushMensesDay();
                 break;
         }
-    }
-
-    private void initBottomRightUserCheckView() {
-        if (isMine) {
-            rbMe.setChecked(true);
-        } else {
-            rbTa.setChecked(true);
-        }
-        rgUser.setOnCheckedChangeListener((group, checkedId) -> {
-            isMine = (R.id.rbMe == checkedId);
-            refreshBottomMensesInfoView();
-            refreshCenterMonthData();
-        });
     }
 
     /**
@@ -449,6 +434,21 @@ public class MensesActivity extends BaseActivity<MensesActivity> {
     /**
      * **************************************** bottom ***********************************************
      */
+    private void initBottomUserView() {
+        User me = SPHelper.getMe();
+        isMine = (me != null && me.getSex() == User.SEX_GIRL);
+        if (isMine) {
+            rbMe.setChecked(true);
+        } else {
+            rbTa.setChecked(true);
+        }
+        rgUser.setOnCheckedChangeListener((group, checkedId) -> {
+            isMine = (R.id.rbMe == checkedId);
+            refreshBottomMensesInfoView();
+            refreshCenterMonthData();
+        });
+    }
+
     private void refreshBottomMensesInfoData() {
         if (!srl.isRefreshing()) {
             srl.setRefreshing(true);
