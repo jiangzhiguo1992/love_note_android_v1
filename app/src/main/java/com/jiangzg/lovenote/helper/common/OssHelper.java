@@ -71,7 +71,7 @@ public class OssHelper {
         conf.setMaxErrorRetry(5); // 失败后最大重试次数，默认2次
         //OSSLog.enableLog(); // 写入日志文件, 路径SDCard_path\OSSLog\logs.csv
         // oss客户端
-        ossClient = new OSSClient(MyApp.get(), ossInfo.getDomain(), credentialProvider, conf);
+        MyApp.get().getThread().execute(() -> ossClient = new OSSClient(MyApp.get(), ossInfo.getDomain(), credentialProvider, conf));
     }
 
     private static OSS getOssClient() {

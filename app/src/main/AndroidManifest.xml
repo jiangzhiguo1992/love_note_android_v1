@@ -16,8 +16,6 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppThemeGrey"
-        android:appComponentFactory=""
-        tools:replace="android:appComponentFactory"
         tools:ignore="AllowBackup,GoogleAppIndexingWarning,UnusedAttribute">
 
         <!-- 上线部署 1.version 2.clean 3.app_name 4.is_debug 5.api_url 6.market_publish -->
