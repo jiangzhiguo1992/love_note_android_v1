@@ -47,18 +47,15 @@ android {
         }
         applicationVariants.all { variant ->
             variant.outputs.all { output ->
-                def outputFile = output.outputFile
-                if (outputFile != null && outputFile.name.endsWith('.apk')) {
-                    def fileName
-                    if (variant.buildType.name == 'release') {
-                        // 输出apk名称为 软件名_版本号_渠道_日期.apk
-                        def date = new Date().format("yyyy-MM-dd_HH-mm", TimeZone.default)
-                        fileName = "ys_${android.defaultConfig.versionCode}_${variant.productFlavors[0].name}_${date}"
-                    } else {
-                        fileName = "ys_debug"
-                    }
-                    outputFileName = fileName + ".apk"
+                def fileName
+                if (variant.buildType.name == 'release') {
+                    // 输出apk名称为 软件名_版本号_渠道_日期.apk
+                    def date = new Date().format("yyyy-MM-dd_HH-mm", TimeZone.default)
+                    fileName = "${android.defaultConfig.versionCode}_${variant.productFlavors[0].name}_${date}"
+                } else {
+                    fileName = "debug"
                 }
+                outputFileName = "ys_" + fileName + ".apk"
             }
         }
     }
@@ -171,7 +168,7 @@ dependencies { // 及时更新
     implementation 'com.zhihu.android:matisse:0.5.2-beta4'
     implementation 'com.github.bumptech.glide:glide:3.7.0' // 搭配matisse -> up
     implementation 'com.afollestad.material-dialogs:core:0.9.6.0' // 适配28 -> up
-    implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.14' // coupleWeather会乱 -> up
+    implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.14' // weather会乱 -> up
     implementation 'com.google.android.exoplayer:exoplayer:2.9.6'
     // 三方
     implementation files('libs/alipaySdk-20180601.jar') // AliPay
