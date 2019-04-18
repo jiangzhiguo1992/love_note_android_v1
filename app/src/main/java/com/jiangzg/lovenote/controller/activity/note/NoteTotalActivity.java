@@ -118,7 +118,7 @@ public class NoteTotalActivity extends BaseActivity<NoteTotalActivity> {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 srl.setRefreshing(false);
-                refreshView(data);
+                refreshView(data.getShow(), data.getNoteTotal());
             }
 
             @Override
@@ -129,32 +129,32 @@ public class NoteTotalActivity extends BaseActivity<NoteTotalActivity> {
         pushApi(api);
     }
 
-    private void refreshView(Result.Data data) {
+    private void refreshView(String show, NoteTotal total) {
         tvShow.setVisibility(View.GONE);
         llTotal.setVisibility(View.GONE);
-        if (data == null) return;
-        if (!StringUtils.isEmpty(data.getShow())) {
+        if (!StringUtils.isEmpty(show)) {
             tvShow.setVisibility(View.VISIBLE);
-            tvShow.setText(data.getShow());
+            tvShow.setText(show);
             return;
         }
         llTotal.setVisibility(View.VISIBLE);
-        NoteTotal noteTotal = data.getNoteTotal();
-        if (noteTotal == null) return;
-        tvSouvenir.setText(String.valueOf(noteTotal.getTotalSouvenir()));
-        tvWord.setText(String.valueOf(noteTotal.getTotalWord()));
-        tvDiary.setText(String.valueOf(noteTotal.getTotalDiary()));
-        tvPicture.setText(String.valueOf(noteTotal.getTotalPicture()));
-        tvAudio.setText(String.valueOf(noteTotal.getTotalAudio()));
-        tvVideo.setText(String.valueOf(noteTotal.getTotalVideo()));
-        tvFood.setText(String.valueOf(noteTotal.getTotalFood()));
-        tvTravel.setText(String.valueOf(noteTotal.getTotalTravel()));
-        tvGift.setText(String.valueOf(noteTotal.getTotalGift()));
-        tvPromise.setText(String.valueOf(noteTotal.getTotalPromise()));
-        tvAngry.setText(String.valueOf(noteTotal.getTotalAngry()));
-        tvDream.setText(String.valueOf(noteTotal.getTotalDream()));
-        tvAward.setText(String.valueOf(noteTotal.getTotalAward()));
-        tvMovie.setText(String.valueOf(noteTotal.getTotalMovie()));
+        if (total == null) {
+            total = new NoteTotal();
+        }
+        tvSouvenir.setText(String.valueOf(total.getTotalSouvenir()));
+        tvTravel.setText(String.valueOf(total.getTotalTravel()));
+        tvWord.setText(String.valueOf(total.getTotalWord()));
+        tvAward.setText(String.valueOf(total.getTotalAward()));
+        tvDiary.setText(String.valueOf(total.getTotalDiary()));
+        tvDream.setText(String.valueOf(total.getTotalDream()));
+        tvMovie.setText(String.valueOf(total.getTotalMovie()));
+        tvFood.setText(String.valueOf(total.getTotalFood()));
+        tvPromise.setText(String.valueOf(total.getTotalPromise()));
+        tvGift.setText(String.valueOf(total.getTotalGift()));
+        tvAngry.setText(String.valueOf(total.getTotalAngry()));
+        tvAudio.setText(String.valueOf(total.getTotalAudio()));
+        tvVideo.setText(String.valueOf(total.getTotalVideo()));
+        tvPicture.setText(String.valueOf(total.getTotalPicture()));
     }
 
     @OnClick({R.id.cvSouvenir, R.id.cvWord, R.id.cvDiary, R.id.cvAward, R.id.cvDream, R.id.cvMovie, R.id.cvFood,
