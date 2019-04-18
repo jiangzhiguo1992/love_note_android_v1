@@ -167,7 +167,7 @@ dependencies { // 及时更新
     implementation 'com.zhihu.android:matisse:0.5.2-beta4'
     implementation 'com.github.bumptech.glide:glide:3.7.0' // 搭配matisse -> up
     implementation 'com.afollestad.material-dialogs:core:0.9.6.0' // 适配28 -> up
-    implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.14' // weather会乱 -> up
+    implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.14' // wea/pic修正 -> up
     implementation 'com.google.android.exoplayer:exoplayer:2.9.6'
     // 三方
     implementation files('libs/alipaySdk-20180601.jar') // AliPay
