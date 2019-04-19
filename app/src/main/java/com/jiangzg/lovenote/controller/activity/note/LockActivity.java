@@ -51,8 +51,6 @@ public class LockActivity extends BaseActivity<LockActivity> {
     Toolbar tb;
     @BindView(R.id.srl)
     SwipeRefreshLayout srl;
-    @BindView(R.id.llContent)
-    LinearLayout llContent;
     @BindView(R.id.ivLockClose)
     ImageView ivLockClose;
     @BindView(R.id.ivLockOpen)
@@ -201,7 +199,6 @@ public class LockActivity extends BaseActivity<LockActivity> {
 
     private void refreshView() {
         stopCountDownTask(); // 清空倒计时
-        llContent.setVisibility(View.VISIBLE);
         tilPwd.setVisibility(View.GONE);
         llCode.setVisibility(View.GONE);
         llOperate.setVisibility(View.GONE);
@@ -402,7 +399,7 @@ public class LockActivity extends BaseActivity<LockActivity> {
                 public void run() {
                     if (countDownGo < countDownSec) {
                         ++countDownGo;
-                        btnSendCode.setText(String.valueOf(countDownSec - countDownGo) + "s");
+                        btnSendCode.setText((countDownSec - countDownGo) + "s");
                         MyApp.get().getHandler().postDelayed(this, TimeUnit.SEC);
                     } else {
                         stopCountDownTask();

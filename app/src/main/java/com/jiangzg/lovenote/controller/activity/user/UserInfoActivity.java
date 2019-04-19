@@ -73,9 +73,9 @@ public class UserInfoActivity extends BaseActivity<UserInfoActivity> {
     protected void initView(Intent intent, Bundle state) {
         ViewHelper.initTopBar(mActivity, tb, getString(R.string.user_info), false);
         // 时间选择器
-        npYear.setFormatter(value -> String.valueOf(value) + mActivity.getString(R.string.year));
-        npMonth.setFormatter(value -> String.valueOf(value) + mActivity.getString(R.string.month));
-        npDay.setFormatter(value -> String.valueOf(value) + mActivity.getString(R.string.dayR));
+        npYear.setFormatter(value -> value + mActivity.getString(R.string.year));
+        npMonth.setFormatter(value -> value + mActivity.getString(R.string.month));
+        npDay.setFormatter(value -> value + mActivity.getString(R.string.dayR));
         setYeas();
         setMonths();
         setDays();

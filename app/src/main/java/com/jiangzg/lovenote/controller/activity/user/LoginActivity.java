@@ -213,7 +213,7 @@ public class LoginActivity extends BaseActivity<LoginActivity> {
                     if (!isGo) { // 防止跳转的时候，控件注销，空指针异常
                         if (countDownGo < countDownSec) {
                             ++countDownGo;
-                            btnSendCode.setText(String.valueOf(countDownSec - countDownGo) + "s");
+                            btnSendCode.setText((countDownSec - countDownGo) + "s");
                             MyApp.get().getHandler().postDelayed(this, TimeUnit.SEC);
                         } else {
                             stopCountDownTask();
