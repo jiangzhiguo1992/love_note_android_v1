@@ -123,40 +123,46 @@
                             app:cardMaxElevation="@dimen/elevation_huge"
                             tools:visibility="visible">
 
-                            <LinearLayout
+                            <ScrollView
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
-                                android:orientation="vertical"
-                                android:padding="10dp">
+                                android:fillViewport="true">
 
-                                <TextView
-                                    android:id="@+id/tvExtendDuration"
-                                    style="@style/FontPrimaryNormalBold"
+                                <LinearLayout
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:ellipsize="end"
-                                    android:singleLine="true"
-                                    tools:text="持续时长：10m"/>
+                                    android:orientation="vertical"
+                                    android:padding="10dp">
 
-                                <TextView
-                                    android:id="@+id/tvExtendSafe"
-                                    style="@style/FontPrimaryNormalBold"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginTop="10dp"
-                                    android:layout_marginBottom="10dp"
-                                    android:ellipsize="end"
-                                    android:singleLine="true"
-                                    tools:text="安全措施：少时诵诗书所"/>
+                                    <TextView
+                                        android:id="@+id/tvExtendDuration"
+                                        style="@style/FontPrimaryNormalBold"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:ellipsize="end"
+                                        android:singleLine="true"
+                                        tools:text="持续时长：10m"/>
 
-                                <TextView
-                                    android:id="@+id/tvExtendDesc"
-                                    style="@style/FontPrimaryNormal"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="match_parent"
-                                    android:ellipsize="end"
-                                    tools:text="啥的可是拉家带口洒了口袋开了撒啥的可是拉家带口洒了口袋开了撒啥的可是拉家带口洒了口袋开了撒啥的可是拉家带口洒了口袋开了撒"/>
-                            </LinearLayout>
+                                    <TextView
+                                        android:id="@+id/tvExtendSafe"
+                                        style="@style/FontPrimaryNormalBold"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginTop="10dp"
+                                        android:layout_marginBottom="10dp"
+                                        android:ellipsize="end"
+                                        android:singleLine="true"
+                                        tools:text="安全措施：少时诵诗书所"/>
+
+                                    <TextView
+                                        android:id="@+id/tvExtendDesc"
+                                        style="@style/FontPrimaryNormal"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:ellipsize="end"
+                                        tools:text="啥的可是拉家带口洒了口袋开了撒啥的可是拉家带口洒了口袋开了撒啥的可是拉家带口洒了口袋开了撒啥的可是拉家带口洒了口袋开了撒"/>
+                                </LinearLayout>
+                            </ScrollView>
                         </android.support.v7.widget.CardView>
                     </RelativeLayout>
 
