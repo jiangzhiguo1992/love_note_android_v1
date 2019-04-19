@@ -295,7 +295,7 @@ public class LockActivity extends BaseActivity<LockActivity> {
             String c = etCode.getText().toString().trim();
             code = !StringUtils.isEmpty(c);
         }
-        boolean pwd = etPwd.getText().toString().length() == SPHelper.getLimit().getNoteLockLength();
+        boolean pwd = etPwd.getText().toString().length() <= SPHelper.getLimit().getNoteLockLength();
         btnOk.setEnabled(code && pwd);
         if (countDownGo >= 0) {
             btnSendCode.setEnabled(false);
