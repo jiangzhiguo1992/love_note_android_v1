@@ -15,8 +15,11 @@ import com.jiangzg.base.common.DateUtils;
 import com.jiangzg.base.component.ActivityTrans;
 import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.controller.activity.base.BaseActivity;
+import com.jiangzg.lovenote.controller.activity.couple.CouplePairActivity;
 import com.jiangzg.lovenote.controller.adapter.note.TrendsAdapter;
+import com.jiangzg.lovenote.helper.common.SPHelper;
 import com.jiangzg.lovenote.helper.common.TimeHelper;
+import com.jiangzg.lovenote.helper.common.UserHelper;
 import com.jiangzg.lovenote.helper.system.RetrofitHelper;
 import com.jiangzg.lovenote.helper.view.RecyclerHelper;
 import com.jiangzg.lovenote.helper.view.ViewHelper;
@@ -41,6 +44,11 @@ public class TrendsListActivity extends BaseActivity<TrendsListActivity> {
     private int page = 0;
 
     public static void goActivity(Fragment from) {
+        if (UserHelper.isCoupleBreak(SPHelper.getCouple())) {
+            // 无效配对
+            CouplePairActivity.goActivity(from);
+            return;
+        }
         Intent intent = new Intent(from.getActivity(), TrendsListActivity.class);
         // intent.putExtra();
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
@@ -48,6 +56,11 @@ public class TrendsListActivity extends BaseActivity<TrendsListActivity> {
     }
 
     public static void goActivity(Context from) {
+        if (UserHelper.isCoupleBreak(SPHelper.getCouple())) {
+            // 无效配对
+            CouplePairActivity.goActivity(from);
+            return;
+        }
         Intent intent = new Intent(from, TrendsListActivity.class);
         // intent.putExtra();
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
@@ -88,8 +101,6 @@ public class TrendsListActivity extends BaseActivity<TrendsListActivity> {
 
     @Override
     protected void initData(Intent intent, Bundle state) {
-        createAt = TimeHelper.getGoTimeByJava(DateUtils.getCurrentLong());
-        // refresh
         recyclerHelper.dataRefresh();
     }
 
@@ -100,6 +111,9 @@ public class TrendsListActivity extends BaseActivity<TrendsListActivity> {
 
     private void getData(final boolean more) {
         page = more ? page + 1 : 0;
+        if (!more) {
+            createAt = TimeHelper.getGoTimeByJava(DateUtils.getCurrentLong());
+        }
         // api
         Call<Result> api = new RetrofitHelper().call(API.class).noteTrendsListGet(createAt, page);
         RetrofitHelper.enqueue(api, null, new RetrofitHelper.CallBack() {
