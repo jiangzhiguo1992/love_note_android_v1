@@ -130,13 +130,13 @@ public class NoteTotalActivity extends BaseActivity<NoteTotalActivity> {
     }
 
     private void refreshView(String show, NoteTotal total) {
-        tvShow.setVisibility(View.GONE);
-        llTotal.setVisibility(View.GONE);
         if (!StringUtils.isEmpty(show)) {
             tvShow.setVisibility(View.VISIBLE);
+            llTotal.setVisibility(View.GONE);
             tvShow.setText(show);
             return;
         }
+        tvShow.setVisibility(View.GONE);
         llTotal.setVisibility(View.VISIBLE);
         if (total == null) {
             total = new NoteTotal();
