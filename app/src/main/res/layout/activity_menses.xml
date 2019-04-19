@@ -135,238 +135,245 @@
                             app:cardMaxElevation="@dimen/elevation_huge"
                             tools:visibility="visible">
 
-                            <LinearLayout
+                            <ScrollView
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
-                                android:orientation="vertical">
-
-                                <RelativeLayout
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content">
-
-                                    <TextView
-                                        style="@style/FontPrimaryNormal"
-                                        android:layout_width="match_parent"
-                                        android:layout_height="wrap_content"
-                                        android:layout_centerVertical="true"
-                                        android:layout_toStartOf="@+id/sMensesStatus"
-                                        android:ellipsize="end"
-                                        android:padding="10dp"
-                                        android:singleLine="true"
-                                        android:text="@string/menses_progress"/>
-
-                                    <Switch
-                                        android:id="@+id/sMensesStatus"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_alignParentEnd="true"
-                                        android:layout_centerVertical="true"
-                                        android:layout_marginEnd="10dp"
-                                        android:background="?attr/selectableItemBackground"
-                                        android:foreground="?attr/selectableItemBackground"/>
-                                </RelativeLayout>
-
-                                <RelativeLayout
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content">
-
-                                    <TextView
-                                        style="@style/FontPrimaryNormal"
-                                        android:layout_width="match_parent"
-                                        android:layout_height="wrap_content"
-                                        android:layout_centerVertical="true"
-                                        android:layout_toStartOf="@+id/sMensesEnd"
-                                        android:ellipsize="end"
-                                        android:padding="10dp"
-                                        android:singleLine="true"
-                                        android:text="@string/menses_end"/>
-
-                                    <Switch
-                                        android:id="@+id/sMensesEnd"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_alignParentEnd="true"
-                                        android:layout_centerVertical="true"
-                                        android:layout_marginEnd="10dp"
-                                        android:background="?attr/selectableItemBackground"
-                                        android:foreground="?attr/selectableItemBackground"/>
-                                </RelativeLayout>
-
-                                <TextView
-                                    android:id="@+id/tvForecast"
-                                    style="@style/FontGreyNormal"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="match_parent"
-                                    android:gravity="center"
-                                    android:orientation="vertical"
-                                    android:text="@string/forecast_menses"
-                                    android:visibility="gone"
-                                    tools:visibility="gone"/>
+                                android:fillViewport="true">
 
                                 <LinearLayout
-                                    android:id="@+id/llDayInfo"
                                     android:layout_width="match_parent"
-                                    android:layout_height="match_parent"
-                                    android:layout_marginBottom="10dp"
-                                    android:gravity="bottom"
-                                    android:orientation="vertical"
-                                    android:visibility="gone"
-                                    tools:visibility="visible">
+                                    android:layout_height="wrap_content"
+                                    android:orientation="vertical">
 
                                     <RelativeLayout
                                         android:layout_width="match_parent"
-                                        android:layout_height="wrap_content"
-                                        android:orientation="horizontal">
+                                        android:layout_height="wrap_content">
 
                                         <TextView
-                                            style="@style/FontPrimaryNormalBold"
-                                            android:layout_width="wrap_content"
+                                            style="@style/FontPrimaryNormal"
+                                            android:layout_width="match_parent"
                                             android:layout_height="wrap_content"
                                             android:layout_centerVertical="true"
+                                            android:layout_toStartOf="@+id/sMensesStatus"
                                             android:ellipsize="end"
                                             android:padding="10dp"
                                             android:singleLine="true"
-                                            android:text="@string/blood_count"/>
+                                            android:text="@string/menses_progress"/>
 
-                                        <ImageView
-                                            android:id="@+id/ivBlood1"
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:layout_centerVertical="true"
-                                            android:layout_toStartOf="@+id/ivBlood2"
-                                            android:background="?attr/selectableItemBackground"
-                                            android:foreground="?attr/selectableItemBackground"
-                                            android:padding="5dp"
-                                            android:src="@mipmap/ic_invert_colors_grey_18dp"
-                                            tools:tint="?attr/colorPrimary"/>
-
-                                        <ImageView
-                                            android:id="@+id/ivBlood2"
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:layout_centerVertical="true"
-                                            android:layout_toStartOf="@+id/ivBlood3"
-                                            android:background="?attr/selectableItemBackground"
-                                            android:foreground="?attr/selectableItemBackground"
-                                            android:padding="5dp"
-                                            android:src="@mipmap/ic_invert_colors_grey_18dp"/>
-
-                                        <ImageView
-                                            android:id="@+id/ivBlood3"
+                                        <Switch
+                                            android:id="@+id/sMensesStatus"
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
                                             android:layout_alignParentEnd="true"
                                             android:layout_centerVertical="true"
-                                            android:layout_marginEnd="5dp"
+                                            android:layout_marginEnd="10dp"
                                             android:background="?attr/selectableItemBackground"
-                                            android:foreground="?attr/selectableItemBackground"
-                                            android:padding="5dp"
-                                            android:src="@mipmap/ic_invert_colors_grey_18dp"/>
+                                            android:foreground="?attr/selectableItemBackground"/>
                                     </RelativeLayout>
 
                                     <RelativeLayout
                                         android:layout_width="match_parent"
-                                        android:layout_height="wrap_content"
-                                        android:orientation="horizontal">
+                                        android:layout_height="wrap_content">
 
                                         <TextView
-                                            style="@style/FontPrimaryNormalBold"
-                                            android:layout_width="wrap_content"
+                                            style="@style/FontPrimaryNormal"
+                                            android:layout_width="match_parent"
                                             android:layout_height="wrap_content"
                                             android:layout_centerVertical="true"
+                                            android:layout_toStartOf="@+id/sMensesEnd"
                                             android:ellipsize="end"
                                             android:padding="10dp"
                                             android:singleLine="true"
-                                            android:text="@string/menses_pain"/>
+                                            android:text="@string/menses_end"/>
 
-                                        <ImageView
-                                            android:id="@+id/ivPain1"
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:layout_centerVertical="true"
-                                            android:layout_toStartOf="@+id/ivPain2"
-                                            android:background="?attr/selectableItemBackground"
-                                            android:foreground="?attr/selectableItemBackground"
-                                            android:padding="5dp"
-                                            android:src="@mipmap/ic_flash_on_grey_18dp"
-                                            tools:tint="?attr/colorPrimary"/>
-
-                                        <ImageView
-                                            android:id="@+id/ivPain2"
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:layout_centerVertical="true"
-                                            android:layout_toStartOf="@+id/ivPain3"
-                                            android:background="?attr/selectableItemBackground"
-                                            android:foreground="?attr/selectableItemBackground"
-                                            android:padding="5dp"
-                                            android:src="@mipmap/ic_flash_on_grey_18dp"/>
-
-                                        <ImageView
-                                            android:id="@+id/ivPain3"
+                                        <Switch
+                                            android:id="@+id/sMensesEnd"
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
                                             android:layout_alignParentEnd="true"
                                             android:layout_centerVertical="true"
-                                            android:layout_marginEnd="5dp"
+                                            android:layout_marginEnd="10dp"
                                             android:background="?attr/selectableItemBackground"
-                                            android:foreground="?attr/selectableItemBackground"
-                                            android:padding="5dp"
-                                            android:src="@mipmap/ic_flash_on_grey_18dp"/>
+                                            android:foreground="?attr/selectableItemBackground"/>
                                     </RelativeLayout>
 
-                                    <RelativeLayout
+                                    <TextView
+                                        android:id="@+id/tvForecast"
+                                        style="@style/FontGreyNormal"
                                         android:layout_width="match_parent"
-                                        android:layout_height="wrap_content"
-                                        android:orientation="horizontal">
+                                        android:layout_height="match_parent"
+                                        android:gravity="center"
+                                        android:orientation="vertical"
+                                        android:text="@string/forecast_menses"
+                                        android:visibility="gone"
+                                        tools:visibility="gone"/>
 
-                                        <TextView
-                                            style="@style/FontPrimaryNormalBold"
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:layout_centerVertical="true"
-                                            android:ellipsize="end"
-                                            android:padding="10dp"
-                                            android:singleLine="true"
-                                            android:text="@string/mood"/>
+                                    <LinearLayout
+                                        android:id="@+id/llDayInfo"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:layout_marginTop="10dp"
+                                        android:layout_marginBottom="10dp"
+                                        android:gravity="bottom"
+                                        android:orientation="vertical"
+                                        android:visibility="gone"
+                                        tools:visibility="visible">
 
-                                        <ImageView
-                                            android:id="@+id/ivMood1"
-                                            android:layout_width="wrap_content"
+                                        <RelativeLayout
+                                            android:layout_width="match_parent"
                                             android:layout_height="wrap_content"
-                                            android:layout_centerVertical="true"
-                                            android:layout_toStartOf="@+id/ivMood2"
-                                            android:background="?attr/selectableItemBackground"
-                                            android:foreground="?attr/selectableItemBackground"
-                                            android:padding="5dp"
-                                            android:src="@mipmap/ic_sentiment_very_dissatisfied_grey_18dp"
-                                            tools:tint="?attr/colorPrimary"/>
+                                            android:orientation="horizontal">
 
-                                        <ImageView
-                                            android:id="@+id/ivMood2"
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:layout_centerVertical="true"
-                                            android:layout_toStartOf="@+id/ivMood3"
-                                            android:background="?attr/selectableItemBackground"
-                                            android:foreground="?attr/selectableItemBackground"
-                                            android:padding="5dp"
-                                            android:src="@mipmap/ic_sentiment_neutral_grey_18dp"/>
+                                            <TextView
+                                                style="@style/FontPrimaryNormalBold"
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:layout_centerVertical="true"
+                                                android:ellipsize="end"
+                                                android:padding="10dp"
+                                                android:singleLine="true"
+                                                android:text="@string/blood_count"/>
 
-                                        <ImageView
-                                            android:id="@+id/ivMood3"
-                                            android:layout_width="wrap_content"
+                                            <ImageView
+                                                android:id="@+id/ivBlood1"
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:layout_centerVertical="true"
+                                                android:layout_toStartOf="@+id/ivBlood2"
+                                                android:background="?attr/selectableItemBackground"
+                                                android:foreground="?attr/selectableItemBackground"
+                                                android:padding="5dp"
+                                                android:src="@mipmap/ic_invert_colors_grey_18dp"
+                                                tools:tint="?attr/colorPrimary"/>
+
+                                            <ImageView
+                                                android:id="@+id/ivBlood2"
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:layout_centerVertical="true"
+                                                android:layout_toStartOf="@+id/ivBlood3"
+                                                android:background="?attr/selectableItemBackground"
+                                                android:foreground="?attr/selectableItemBackground"
+                                                android:padding="5dp"
+                                                android:src="@mipmap/ic_invert_colors_grey_18dp"/>
+
+                                            <ImageView
+                                                android:id="@+id/ivBlood3"
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:layout_alignParentEnd="true"
+                                                android:layout_centerVertical="true"
+                                                android:layout_marginEnd="5dp"
+                                                android:background="?attr/selectableItemBackground"
+                                                android:foreground="?attr/selectableItemBackground"
+                                                android:padding="5dp"
+                                                android:src="@mipmap/ic_invert_colors_grey_18dp"/>
+                                        </RelativeLayout>
+
+                                        <RelativeLayout
+                                            android:layout_width="match_parent"
                                             android:layout_height="wrap_content"
-                                            android:layout_alignParentEnd="true"
-                                            android:layout_centerVertical="true"
-                                            android:layout_marginEnd="5dp"
-                                            android:background="?attr/selectableItemBackground"
-                                            android:foreground="?attr/selectableItemBackground"
-                                            android:padding="5dp"
-                                            android:src="@mipmap/ic_sentiment_very_satisfied_grey_18dp"/>
-                                    </RelativeLayout>
+                                            android:orientation="horizontal">
+
+                                            <TextView
+                                                style="@style/FontPrimaryNormalBold"
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:layout_centerVertical="true"
+                                                android:ellipsize="end"
+                                                android:padding="10dp"
+                                                android:singleLine="true"
+                                                android:text="@string/menses_pain"/>
+
+                                            <ImageView
+                                                android:id="@+id/ivPain1"
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:layout_centerVertical="true"
+                                                android:layout_toStartOf="@+id/ivPain2"
+                                                android:background="?attr/selectableItemBackground"
+                                                android:foreground="?attr/selectableItemBackground"
+                                                android:padding="5dp"
+                                                android:src="@mipmap/ic_flash_on_grey_18dp"
+                                                tools:tint="?attr/colorPrimary"/>
+
+                                            <ImageView
+                                                android:id="@+id/ivPain2"
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:layout_centerVertical="true"
+                                                android:layout_toStartOf="@+id/ivPain3"
+                                                android:background="?attr/selectableItemBackground"
+                                                android:foreground="?attr/selectableItemBackground"
+                                                android:padding="5dp"
+                                                android:src="@mipmap/ic_flash_on_grey_18dp"/>
+
+                                            <ImageView
+                                                android:id="@+id/ivPain3"
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:layout_alignParentEnd="true"
+                                                android:layout_centerVertical="true"
+                                                android:layout_marginEnd="5dp"
+                                                android:background="?attr/selectableItemBackground"
+                                                android:foreground="?attr/selectableItemBackground"
+                                                android:padding="5dp"
+                                                android:src="@mipmap/ic_flash_on_grey_18dp"/>
+                                        </RelativeLayout>
+
+                                        <RelativeLayout
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:orientation="horizontal">
+
+                                            <TextView
+                                                style="@style/FontPrimaryNormalBold"
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:layout_centerVertical="true"
+                                                android:ellipsize="end"
+                                                android:padding="10dp"
+                                                android:singleLine="true"
+                                                android:text="@string/mood"/>
+
+                                            <ImageView
+                                                android:id="@+id/ivMood1"
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:layout_centerVertical="true"
+                                                android:layout_toStartOf="@+id/ivMood2"
+                                                android:background="?attr/selectableItemBackground"
+                                                android:foreground="?attr/selectableItemBackground"
+                                                android:padding="5dp"
+                                                android:src="@mipmap/ic_sentiment_very_dissatisfied_grey_18dp"
+                                                tools:tint="?attr/colorPrimary"/>
+
+                                            <ImageView
+                                                android:id="@+id/ivMood2"
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:layout_centerVertical="true"
+                                                android:layout_toStartOf="@+id/ivMood3"
+                                                android:background="?attr/selectableItemBackground"
+                                                android:foreground="?attr/selectableItemBackground"
+                                                android:padding="5dp"
+                                                android:src="@mipmap/ic_sentiment_neutral_grey_18dp"/>
+
+                                            <ImageView
+                                                android:id="@+id/ivMood3"
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:layout_alignParentEnd="true"
+                                                android:layout_centerVertical="true"
+                                                android:layout_marginEnd="5dp"
+                                                android:background="?attr/selectableItemBackground"
+                                                android:foreground="?attr/selectableItemBackground"
+                                                android:padding="5dp"
+                                                android:src="@mipmap/ic_sentiment_very_satisfied_grey_18dp"/>
+                                        </RelativeLayout>
+                                    </LinearLayout>
                                 </LinearLayout>
-                            </LinearLayout>
+                            </ScrollView>
                         </android.support.v7.widget.CardView>
                     </RelativeLayout>
 
@@ -451,8 +458,8 @@
                                 android:foreground="?attr/selectableItemBackground"
                                 android:gravity="center"
                                 android:minLines="1"
-                                android:paddingTop="20dp"
-                                android:paddingBottom="20dp"
+                                android:paddingTop="10dp"
+                                android:paddingBottom="10dp"
                                 android:singleLine="true"
                                 android:text="@string/me_de"
                                 android:textColor="@color/selector_text_check_icon_gray_primary"
@@ -473,8 +480,8 @@
                                 android:foreground="?attr/selectableItemBackground"
                                 android:gravity="center"
                                 android:minLines="1"
-                                android:paddingTop="20dp"
-                                android:paddingBottom="20dp"
+                                android:paddingTop="10dp"
+                                android:paddingBottom="10dp"
                                 android:singleLine="true"
                                 android:text="@string/ta_de"
                                 android:textColor="@color/selector_text_check_icon_gray_primary"/>
