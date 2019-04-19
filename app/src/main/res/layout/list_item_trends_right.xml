@@ -35,7 +35,7 @@
             style="@style/FontBlackNormal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:drawablePadding="5dp"
+            android:drawablePadding="10dp"
             android:gravity="center_vertical"
             android:padding="10dp"
             tools:drawableEnd="@mipmap/ic_note_diary_24dp"
