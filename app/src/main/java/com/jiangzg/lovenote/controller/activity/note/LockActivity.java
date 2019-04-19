@@ -236,6 +236,25 @@ public class LockActivity extends BaseActivity<LockActivity> {
         }
     }
 
+    private void showOperaView() {
+        tilPwd.setVisibility(View.VISIBLE);
+        if (lock == null || open) {
+            // 设置密码/开锁
+            llCode.setVisibility(View.GONE);
+        } else {
+            // 修改密码
+            llCode.setVisibility(View.VISIBLE);
+        }
+        llOperate.setVisibility(View.VISIBLE);
+        btnToggleLock.setVisibility(View.GONE);
+        btnPwd.setVisibility(View.GONE);
+        // etPwd
+        String format = getString(R.string.please_input_pwd_no_over_holder_text);
+        String hint = String.format(Locale.getDefault(), format, SPHelper.getLimit().getNoteLockLength());
+        tilPwd.setHint(hint);
+        etPwd.setText("");
+    }
+
     private void toggleLockData(String pwd) {
         if (lock == null) {
             srl.setRefreshing(false);
@@ -285,30 +304,16 @@ public class LockActivity extends BaseActivity<LockActivity> {
         }
     }
 
-    private void showOperaView() {
-        tilPwd.setVisibility(View.VISIBLE);
-        if (lock == null || open) { // 设置密码/开锁
-            llCode.setVisibility(View.GONE);
-        } else { // 修改密码
-            llCode.setVisibility(View.VISIBLE);
-        }
-        llOperate.setVisibility(View.VISIBLE);
-        btnToggleLock.setVisibility(View.GONE);
-        btnPwd.setVisibility(View.GONE);
-        // etPwd
-        String format = getString(R.string.please_input_pwd_no_over_holder_text);
-        String hint = String.format(Locale.getDefault(), format, SPHelper.getLimit().getNoteLockLength());
-        tilPwd.setHint(hint);
-        etPwd.setText("");
-    }
-
     private void push() {
         String pwd = etPwd.getText().toString();
-        if (lock == null) { // 设置密码
+        if (lock == null) {
+            // 设置密码
             addPwd(pwd);
-        } else if (!open) { // 修改密码
+        } else if (!open) {
+            // 修改密码
             modifyPwd(pwd);
-        } else { // 开锁
+        } else {
+            // 开锁
             toggleLockData(pwd);
         }
     }
