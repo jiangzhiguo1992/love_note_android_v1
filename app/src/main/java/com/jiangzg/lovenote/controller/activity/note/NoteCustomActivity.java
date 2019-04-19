@@ -163,17 +163,18 @@ public class NoteCustomActivity extends BaseActivity<NoteCustomActivity> {
     @Override
     protected void initView(Intent intent, Bundle state) {
         ViewHelper.initTopBar(mActivity, tb, getString(R.string.func_custom), true);
-        // custom
-        custom = SPHelper.getNoteCustom();
+        // color
         colorPrimary = ContextCompat.getColor(mActivity, ViewUtils.getColorPrimary(mActivity));
         colorGrey = ContextCompat.getColor(mActivity, R.color.font_grey);
         colorPrimaryStateList = ColorStateList.valueOf(colorPrimary);
         colorGreyStateList = ColorStateList.valueOf(colorGrey);
-        updateView();
     }
 
     @Override
     protected void initData(Intent intent, Bundle state) {
+        // init
+        custom = SPHelper.getNoteCustom();
+        updateView();
     }
 
     @Override

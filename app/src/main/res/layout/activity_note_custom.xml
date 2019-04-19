@@ -748,8 +748,6 @@
                             android:tint="?attr/colorPrimary"/>
                     </RelativeLayout>
                 </android.support.v7.widget.CardView>
-
-
             </LinearLayout>
 
             <LinearLayout
