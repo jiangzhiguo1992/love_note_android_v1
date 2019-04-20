@@ -37,6 +37,7 @@ import com.jiangzg.lovenote.main.MyApp;
 import com.jiangzg.lovenote.model.api.API;
 import com.jiangzg.lovenote.model.api.Result;
 import com.jiangzg.lovenote.model.engine.NoteCustom;
+import com.jiangzg.lovenote.model.entity.CommonCount;
 import com.jiangzg.lovenote.model.entity.Lock;
 import com.jiangzg.lovenote.model.entity.Souvenir;
 import com.jiangzg.lovenote.view.GSwipeRefreshLayout;
@@ -326,6 +327,12 @@ public class NoteFragment extends BasePagerFragment<NoteFragment> {
                     lock = new Lock();
                     lock.setLock(false);
                 }
+                // count
+                CommonCount newCC = data.getCommonCount();
+                CommonCount oldCC = SPHelper.getCommonCount();
+                oldCC.setNoteTrendsNewCount(newCC == null ? 0 : newCC.getNoteTrendsNewCount());
+                SPHelper.setCommonCount(oldCC);
+                // view
                 refreshMenu();
                 refreshNoteView(data.getSouvenirLatest());
             }
@@ -340,8 +347,21 @@ public class NoteFragment extends BasePagerFragment<NoteFragment> {
 
     private void refreshMenu() {
         boolean isLock = lock == null || lock.isLock();
+        boolean isTrends = SPHelper.getCommonCount().getNoteTrendsNewCount() > 0;
         tb.getMenu().clear();
-        tb.inflateMenu(isLock ? R.menu.help_lock_on_trends : R.menu.help_lock_off_trends);
+        if (isLock) {
+            if (isTrends) {
+                tb.inflateMenu(R.menu.help_lock_on_trends_point);
+            } else {
+                tb.inflateMenu(R.menu.help_lock_on_trends);
+            }
+        } else {
+            if (isTrends) {
+                tb.inflateMenu(R.menu.help_lock_off_trends_point);
+            } else {
+                tb.inflateMenu(R.menu.help_lock_off_trends);
+            }
+        }
     }
 
     private void refreshNoteView(Souvenir souvenirLatest) {

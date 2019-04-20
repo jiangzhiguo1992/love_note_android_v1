@@ -25,6 +25,7 @@ import com.jiangzg.lovenote.helper.view.RecyclerHelper;
 import com.jiangzg.lovenote.helper.view.ViewHelper;
 import com.jiangzg.lovenote.model.api.API;
 import com.jiangzg.lovenote.model.api.Result;
+import com.jiangzg.lovenote.model.entity.CommonCount;
 import com.jiangzg.lovenote.view.GSwipeRefreshLayout;
 
 import butterknife.BindView;
@@ -101,6 +102,11 @@ public class TrendsListActivity extends BaseActivity<TrendsListActivity> {
 
     @Override
     protected void initData(Intent intent, Bundle state) {
+        // count
+        CommonCount commonCount = SPHelper.getCommonCount();
+        commonCount.setNoteTrendsNewCount(0);
+        SPHelper.setCommonCount(commonCount);
+        // data
         recyclerHelper.dataRefresh();
     }
 

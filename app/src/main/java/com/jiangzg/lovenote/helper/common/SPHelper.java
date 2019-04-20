@@ -96,6 +96,8 @@ public class SPHelper {
     // commonCount
     private static final String FIELD_COMMON_COUNT_NOTICE_NEW_COUNT = "notice_new_count";
     private static final String FIELD_COMMON_COUNT_VERSION_NEW_COUNT = "version_new_count";
+    private static final String FIELD_COMMON_COUNT_NOTE_TRENDS_NEW_COUNT = "note_trends_new_count";
+    private static final String FIELD_COMMON_COUNT_TOPIC_MSG_NEW_COUNT = "topic_msg_new_count";
     // ossInfo
     private static final String FIELD_OSS_SECURITY_TOKEN = "security_token";
     private static final String FIELD_OSS_KEY_ID = "access_key_id";
@@ -507,6 +509,8 @@ public class SPHelper {
         SharedPreferences.Editor editor = SPUtils.getSharedPreferences(SHARE_COMMON_COUNT).edit();
         editor.putInt(FIELD_COMMON_COUNT_NOTICE_NEW_COUNT, commonCount.getNoticeNewCount());
         editor.putInt(FIELD_COMMON_COUNT_VERSION_NEW_COUNT, commonCount.getVersionNewCount());
+        editor.putInt(FIELD_COMMON_COUNT_NOTE_TRENDS_NEW_COUNT, commonCount.getNoteTrendsNewCount());
+        editor.putInt(FIELD_COMMON_COUNT_TOPIC_MSG_NEW_COUNT, commonCount.getTopicMsgNewCount());
         editor.apply();
     }
 
@@ -515,6 +519,8 @@ public class SPHelper {
         CommonCount commonCount = new CommonCount();
         commonCount.setNoticeNewCount(sp.getInt(FIELD_COMMON_COUNT_NOTICE_NEW_COUNT, 0));
         commonCount.setVersionNewCount(sp.getInt(FIELD_COMMON_COUNT_VERSION_NEW_COUNT, 0));
+        commonCount.setNoteTrendsNewCount(sp.getInt(FIELD_COMMON_COUNT_NOTE_TRENDS_NEW_COUNT, 0));
+        commonCount.setTopicMsgNewCount(sp.getInt(FIELD_COMMON_COUNT_TOPIC_MSG_NEW_COUNT, 0));
         return commonCount;
     }
 

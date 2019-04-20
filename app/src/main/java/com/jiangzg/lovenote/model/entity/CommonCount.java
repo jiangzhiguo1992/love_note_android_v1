@@ -8,6 +8,8 @@ public class CommonCount {
 
     private int noticeNewCount;
     private int versionNewCount;
+    private int noteTrendsNewCount;
+    private int topicMsgNewCount;
 
     public int getNoticeNewCount() {
         return noticeNewCount;
@@ -23,5 +25,21 @@ public class CommonCount {
 
     public void setVersionNewCount(int versionNewCount) {
         this.versionNewCount = versionNewCount;
+    }
+
+    public int getNoteTrendsNewCount() {
+        return noteTrendsNewCount;
+    }
+
+    public void setNoteTrendsNewCount(int noteTrendsNewCount) {
+        this.noteTrendsNewCount = noteTrendsNewCount;
+    }
+
+    public int getTopicMsgNewCount() {
+        return topicMsgNewCount;
+    }
+
+    public void setTopicMsgNewCount(int topicMsgNewCount) {
+        this.topicMsgNewCount = topicMsgNewCount;
     }
 }
