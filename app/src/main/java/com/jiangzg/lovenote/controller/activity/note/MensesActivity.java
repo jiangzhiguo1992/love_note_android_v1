@@ -25,6 +25,7 @@ import com.jiangzg.base.common.DateUtils;
 import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.base.common.TimeUnit;
 import com.jiangzg.base.component.ActivityTrans;
+import com.jiangzg.base.view.ScreenUtils;
 import com.jiangzg.base.view.ViewUtils;
 import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.controller.activity.base.BaseActivity;
@@ -152,6 +153,10 @@ public class MensesActivity extends BaseActivity<MensesActivity> {
         int colorPrimary = ContextCompat.getColor(mActivity, ViewUtils.getColorPrimary(mActivity));
         colorGreyStateList = ColorStateList.valueOf(colorGrey);
         colorPrimaryStateList = ColorStateList.valueOf(colorPrimary);
+        // calendar高度适配
+        CardView.LayoutParams layoutParams = (CardView.LayoutParams) cvMenses.getLayoutParams();
+        layoutParams.height = ScreenUtils.getScreenRealHeight(mActivity) / 8 * 3;
+        cvMenses.setLayoutParams(layoutParams);
         // calendar样式替换
         cvMenses.setWeekView(WeekView.class);
         cvMenses.setMonthView(CalendarMonthView.class);

@@ -25,6 +25,7 @@ import com.jiangzg.base.common.DateUtils;
 import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.base.common.TimeUnit;
 import com.jiangzg.base.component.ActivityTrans;
+import com.jiangzg.base.view.ScreenUtils;
 import com.jiangzg.base.view.ViewUtils;
 import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.controller.activity.base.BaseActivity;
@@ -113,6 +114,10 @@ public class ShyActivity extends BaseActivity<ShyActivity> {
     protected void initView(Intent intent, Bundle state) {
         ViewHelper.initTopBar(mActivity, tb, getString(R.string.shy), true);
         srl.setEnabled(false);
+        // calendar高度适配
+        CardView.LayoutParams layoutParams = (CardView.LayoutParams) cvShy.getLayoutParams();
+        layoutParams.height = ScreenUtils.getScreenRealHeight(mActivity) / 8 * 3;
+        cvShy.setLayoutParams(layoutParams);
         // calendar样式替换
         cvShy.setWeekView(WeekView.class);
         cvShy.setMonthView(CalendarMonthView.class);

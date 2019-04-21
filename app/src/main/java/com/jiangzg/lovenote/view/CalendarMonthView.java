@@ -39,7 +39,7 @@ public class CalendarMonthView extends MonthView {
         mRadio = ConvertUtils.dp2px(7);
         mPadding = ConvertUtils.dp2px(4);
         Paint.FontMetrics metrics = mSchemeBasicPaint.getFontMetrics();
-        mSchemeBaseLine = mRadio - metrics.descent + (metrics.bottom - metrics.top) / 2 + ConvertUtils.dp2px(1);
+        mSchemeBaseLine = (metrics.bottom - metrics.top) / 3 + ConvertUtils.dp2px(1);
     }
 
     public static com.haibin.calendarview.Calendar getCalendarView(long goTime) {
@@ -89,24 +89,15 @@ public class CalendarMonthView extends MonthView {
      */
     @Override
     protected void onDrawScheme(Canvas canvas, com.haibin.calendarview.Calendar calendar, int x, int y) {
+        float centerX = x + mItemWidth - mPadding - mRadio / 2;
+        float centerY = y + mPadding + mRadio / 2;
         // 这里绘制标记的日期样式，想怎么操作就怎么操作
         mSchemeBasicPaint.setColor(calendar.getSchemeColor());
         // 绘制圆点
-        canvas.drawCircle(x + mItemWidth - mPadding - mRadio / 2, y + mPadding + mRadio, mRadio, mSchemeBasicPaint);
+        canvas.drawCircle(centerX, centerY, mRadio, mSchemeBasicPaint);
         // 绘制文字
-        canvas.drawText(calendar.getScheme(),
-                x + mItemWidth - mPadding - mRadio / 2 - getTextWidth(calendar.getScheme()) / 2,
-                y + mPadding + mSchemeBaseLine, mTextPaint);
-    }
-
-    /**
-     * 获取字体的宽
-     *
-     * @param text text
-     * @return return
-     */
-    private float getTextWidth(String text) {
-        return mTextPaint.measureText(text);
+        canvas.drawText(calendar.getScheme(), centerX - mTextPaint.measureText(calendar.getScheme()) / 2,
+                centerY + mSchemeBaseLine, mTextPaint);
     }
 
     /**

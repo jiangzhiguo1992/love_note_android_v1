@@ -16,6 +16,7 @@ import com.haibin.calendarview.WeekView;
 import com.jiangzg.base.common.DateUtils;
 import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.base.component.ActivityTrans;
+import com.jiangzg.base.view.ScreenUtils;
 import com.jiangzg.base.view.ViewUtils;
 import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.controller.activity.base.BaseActivity;
@@ -97,6 +98,10 @@ public class SignActivity extends BaseActivity<SignActivity> {
     protected void initView(Intent intent, Bundle state) {
         ViewHelper.initTopBar(mActivity, tb, getString(R.string.sign), true);
         srl.setEnabled(false);
+        // calendar高度适配
+        CardView.LayoutParams layoutParams = (CardView.LayoutParams) cvSign.getLayoutParams();
+        layoutParams.height = ScreenUtils.getScreenRealHeight(mActivity) / 8 * 3;
+        cvSign.setLayoutParams(layoutParams);
         // calendar样式替换
         cvSign.setWeekView(WeekView.class);
         cvSign.setMonthView(CalendarMonthView.class);
