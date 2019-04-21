@@ -97,6 +97,7 @@
                     app:week_text_size="@dimen/font_small"
                     app:week_view_scrollable="true"
                     app:year_view_background="@color/white"
+                    app:year_view_current_day_text_color="@color/black"
                     app:year_view_day_text_color="?attr/colorAccent"
                     app:year_view_day_text_size="9sp"
                     app:year_view_month_text_color="?attr/colorPrimary"

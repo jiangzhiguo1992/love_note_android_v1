@@ -101,7 +101,7 @@ public class TrendsAdapter extends BaseMultiItemQuickAdapter<Trends, BaseViewHol
     @Override
     protected void convert(BaseViewHolder helper, Trends item) {
         // data
-        String createAt = TimeHelper.getTimeShowLine_HM_MDHM_YMDHM_ByGo(item.getCreateAt());
+        String createAt = TimeHelper.getTimeShowLine_HM_MDHM_YMDHM_ByGo(item.getUpdateAt());
         String avatar = UserHelper.getAvatar(couple, item.getUserId());
         // view
         helper.setText(R.id.tvCreateAt, createAt);
