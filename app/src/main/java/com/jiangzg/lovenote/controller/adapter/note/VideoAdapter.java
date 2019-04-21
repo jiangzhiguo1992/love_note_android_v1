@@ -57,10 +57,10 @@ public class VideoAdapter extends BaseQuickAdapter<Video, BaseViewHolder> {
             ivThumb.setWidthAndHeight(imgWidth, imgHeight);
             ivThumb.setData(thumb);
         }
+        helper.setVisible(R.id.ivLocation, !StringUtils.isEmpty(address));
         helper.setText(R.id.tvDuration, duration);
         helper.setText(R.id.tvTitle, title);
         helper.setText(R.id.tvHappenAt, happenAt);
-        helper.setVisible(R.id.ivLocation, !StringUtils.isEmpty(address));
         // click
         helper.addOnClickListener(R.id.ivLocation);
     }
