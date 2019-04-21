@@ -20,7 +20,7 @@
         tools:ignore="AllowBackup,GoogleAppIndexingWarning,UnusedAttribute"
         tools:replace="android:appComponentFactory">
 
-        <!-- 上线部署 1.version 2.clean 3.app_name 4.is_debug 5.api_url 6.market_publish -->
+        <!-- 上线部署 1.version 2.is_debug 3.api_url 4.clean 5.app_name 6.market_publish -->
 
         <!-- 测试模式 (上线为 false) -->
         <meta-data
