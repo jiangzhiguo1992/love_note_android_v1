@@ -321,6 +321,7 @@ public class NoteFragment extends BasePagerFragment<NoteFragment> {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 srl.setRefreshing(false);
+                // lock
                 lock = data.getLock();
                 if (lock == null) {
                     // 默认没锁

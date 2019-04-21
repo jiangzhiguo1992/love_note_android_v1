@@ -30,6 +30,7 @@ import com.jiangzg.lovenote.helper.system.PushHelper;
 import com.jiangzg.lovenote.helper.view.DialogHelper;
 import com.jiangzg.lovenote.helper.view.ViewHelper;
 import com.jiangzg.lovenote.main.MyApp;
+import com.jiangzg.lovenote.model.entity.CommonCount;
 import com.jiangzg.lovenote.model.entity.PushInfo;
 
 import java.util.Locale;
@@ -127,13 +128,14 @@ public class SettingsActivity extends BaseActivity<SettingsActivity> {
     @Override
     protected void onStart() {
         super.onStart();
-        // 推送刷新
         boolean enabled = PushUtils.isNotificationEnabled();
+        CommonCount commonCount = SPHelper.getCommonCount();
+        // 推送刷新
         tvNoticeStatus.setText(enabled ? R.string.notice_yes_open : R.string.notice_no_open);
         // 最新公告
-        ivNotice.setVisibility(SPHelper.getCommonCount().getNoticeNewCount() > 0 ? View.VISIBLE : View.GONE);
+        ivNotice.setVisibility(commonCount.getNoticeNewCount() > 0 ? View.VISIBLE : View.GONE);
         // 关于软件
-        ivAbout.setVisibility(SPHelper.getCommonCount().getVersionNewCount() > 0 ? View.VISIBLE : View.GONE);
+        ivAbout.setVisibility(commonCount.getVersionNewCount() > 0 ? View.VISIBLE : View.GONE);
     }
 
     @OnClick({R.id.tvTheme, R.id.rlCache,
