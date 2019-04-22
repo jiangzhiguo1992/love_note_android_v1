@@ -13,7 +13,6 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
-import com.afollestad.materialdialogs.MaterialDialog;
 import com.jiangzg.base.component.ActivityTrans;
 import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.controller.activity.base.BaseActivity;
@@ -139,15 +138,11 @@ public class CoinBuyActivity extends BaseActivity<CoinBuyActivity> {
     }
 
     public void payBefore(int payPlatform) {
-        final int goods;
-        if (rbGoods1.isChecked()) {
-            goods = Bill.GOODS_COIN_1;
-        } else if (rbGoods2.isChecked()) {
+        int goods = Bill.GOODS_COIN_1;
+        if (rbGoods2.isChecked()) {
             goods = Bill.GOODS_COIN_2;
         } else if (rbGoods3.isChecked()) {
             goods = Bill.GOODS_COIN_3;
-        } else {
-            return;
         }
         // api
         Call<Result> api = new RetrofitHelper().call(API.class).morePayBeforeGet(payPlatform, goods);
@@ -198,8 +193,7 @@ public class CoinBuyActivity extends BaseActivity<CoinBuyActivity> {
 
     private void checkPayResult() {
         Call<Result> api = new RetrofitHelper().call(API.class).morePayAfterCheck();
-        MaterialDialog loading = mActivity.getLoading(false);
-        RetrofitHelper.enqueue(api, loading, new RetrofitHelper.CallBack() {
+        RetrofitHelper.enqueue(api, mActivity.getLoading(false), new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 RxBus.post(new RxBus.Event<>(RxBus.EVENT_COIN_INFO_REFRESH, new Coin()));
