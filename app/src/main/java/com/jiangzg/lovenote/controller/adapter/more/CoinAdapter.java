@@ -39,11 +39,11 @@ public class CoinAdapter extends BaseMultiItemQuickAdapter<Coin, BaseViewHolder>
         String kindShow = getCoinKindShow(item.getKind());
         String change;
         if (item.getChange() >= 0) {
-            change = "+ " + String.valueOf(item.getChange());
+            change = "+ " + item.getChange();
         } else {
             change = String.valueOf(item.getChange());
         }
-        String count = "= " + String.valueOf(item.getCount());
+        String count = "= " + item.getCount();
         // view
         FrescoAvatarView ivAvatar = helper.getView(R.id.ivAvatar);
         ivAvatar.setData(avatar, item.getUserId());

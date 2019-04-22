@@ -3,6 +3,7 @@ package com.jiangzg.lovenote.controller.activity.more;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -48,6 +49,22 @@ public class CoinActivity extends BaseActivity<CoinActivity> {
     Button btnHistory;
     @BindView(R.id.btnBuy)
     Button btnBuy;
+    @BindView(R.id.cvInPay)
+    CardView cvInPay;
+    @BindView(R.id.cvInSign)
+    CardView cvInSign;
+    @BindView(R.id.cvInWife)
+    CardView cvInWife;
+    @BindView(R.id.cvInLetter)
+    CardView cvInLetter;
+    @BindView(R.id.cvOutWife)
+    CardView cvOutWife;
+    @BindView(R.id.cvOutLetter)
+    CardView cvOutLetter;
+    @BindView(R.id.cvOutWish)
+    CardView cvOutWish;
+    @BindView(R.id.cvOutCard)
+    CardView cvOutCard;
 
     private Coin coin;
 
@@ -73,6 +90,7 @@ public class CoinActivity extends BaseActivity<CoinActivity> {
         srl.setEnabled(false);
         // pay
         btnBuy.setVisibility(SPHelper.getModelShow().isMarketPay() ? View.VISIBLE : View.GONE);
+        cvInPay.setVisibility(SPHelper.getModelShow().isMarketPay() ? View.VISIBLE : View.GONE);
         // view
         refreshView();
     }
@@ -115,7 +133,9 @@ public class CoinActivity extends BaseActivity<CoinActivity> {
         return super.onOptionsItemSelected(item);
     }
 
-    @OnClick({R.id.btnHistory, R.id.btnBuy})
+    @OnClick({R.id.btnHistory, R.id.btnBuy,
+            R.id.cvInPay, R.id.cvInSign, R.id.cvInWife, R.id.cvInLetter,
+            R.id.cvOutWife, R.id.cvOutLetter, R.id.cvOutWish, R.id.cvOutCard})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.btnHistory: // 获取历史
@@ -123,6 +143,28 @@ public class CoinActivity extends BaseActivity<CoinActivity> {
                 break;
             case R.id.btnBuy: // 前往购买
                 CoinBuyActivity.goActivity(mActivity);
+                break;
+            case R.id.cvInPay:
+                CoinBuyActivity.goActivity(mActivity);
+                break;
+            case R.id.cvInSign:
+                SignActivity.goActivity(mActivity);
+                break;
+            case R.id.cvInWife:
+                MatchWifeActivity.goActivity(mActivity);
+                break;
+            case R.id.cvInLetter:
+                MatchLetterActivity.goActivity(mActivity);
+                break;
+            case R.id.cvOutWife:
+                MatchWifeActivity.goActivity(mActivity);
+                break;
+            case R.id.cvOutLetter:
+                MatchLetterActivity.goActivity(mActivity);
+                break;
+            case R.id.cvOutWish:
+                break;
+            case R.id.cvOutCard:
                 break;
         }
     }

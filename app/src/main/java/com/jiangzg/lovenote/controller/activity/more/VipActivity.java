@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -18,6 +19,17 @@ import com.jiangzg.base.component.ActivityTrans;
 import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.controller.activity.base.BaseActivity;
 import com.jiangzg.lovenote.controller.activity.couple.CouplePairActivity;
+import com.jiangzg.lovenote.controller.activity.couple.CoupleWallPaperActivity;
+import com.jiangzg.lovenote.controller.activity.note.AlbumListActivity;
+import com.jiangzg.lovenote.controller.activity.note.AudioListActivity;
+import com.jiangzg.lovenote.controller.activity.note.DiaryListActivity;
+import com.jiangzg.lovenote.controller.activity.note.FoodListActivity;
+import com.jiangzg.lovenote.controller.activity.note.GiftListActivity;
+import com.jiangzg.lovenote.controller.activity.note.MovieListActivity;
+import com.jiangzg.lovenote.controller.activity.note.NoteTotalActivity;
+import com.jiangzg.lovenote.controller.activity.note.SouvenirListActivity;
+import com.jiangzg.lovenote.controller.activity.note.VideoListActivity;
+import com.jiangzg.lovenote.controller.activity.note.WhisperListActivity;
 import com.jiangzg.lovenote.controller.activity.settings.HelpActivity;
 import com.jiangzg.lovenote.helper.common.RxBus;
 import com.jiangzg.lovenote.helper.common.SPHelper;
@@ -57,6 +69,29 @@ public class VipActivity extends BaseActivity<VipActivity> {
 
     @BindView(R.id.llLimit)
     LinearLayout llLimit;
+    @BindView(R.id.cvWall)
+    CardView cvWall;
+    @BindView(R.id.cvTotal)
+    CardView cvTotal;
+    @BindView(R.id.cvSouvenir)
+    CardView cvSouvenir;
+    @BindView(R.id.cvAudio)
+    CardView cvAudio;
+    @BindView(R.id.cvVideo)
+    CardView cvVideo;
+    @BindView(R.id.cvAlbum)
+    CardView cvAlbum;
+    @BindView(R.id.cvDiary)
+    CardView cvDiary;
+    @BindView(R.id.cvWhisper)
+    CardView cvWhisper;
+    @BindView(R.id.cvGift)
+    CardView cvGift;
+    @BindView(R.id.cvFood)
+    CardView cvFood;
+    @BindView(R.id.cvMovie)
+    CardView cvMovie;
+
     @BindView(R.id.tvAdVipYes)
     TextView tvAdVipYes;
     @BindView(R.id.tvAdVipNo)
@@ -188,7 +223,9 @@ public class VipActivity extends BaseActivity<VipActivity> {
         return super.onOptionsItemSelected(item);
     }
 
-    @OnClick({R.id.btnHistory, R.id.btnBuy})
+    @OnClick({R.id.btnHistory, R.id.btnBuy,
+            R.id.cvWall, R.id.cvTotal, R.id.cvSouvenir, R.id.cvAudio, R.id.cvVideo, R.id.cvAlbum,
+            R.id.cvDiary, R.id.cvWhisper, R.id.cvGift, R.id.cvFood, R.id.cvMovie})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.btnHistory: // 购买历史
@@ -196,6 +233,39 @@ public class VipActivity extends BaseActivity<VipActivity> {
                 break;
             case R.id.btnBuy: // 前往购买
                 VipBuyActivity.goActivity(mActivity);
+                break;
+            case R.id.cvWall:
+                CoupleWallPaperActivity.goActivity(mActivity);
+                break;
+            case R.id.cvTotal:
+                NoteTotalActivity.goActivity(mActivity);
+                break;
+            case R.id.cvSouvenir:
+                SouvenirListActivity.goActivity(mActivity);
+                break;
+            case R.id.cvAudio:
+                AudioListActivity.goActivity(mActivity);
+                break;
+            case R.id.cvVideo:
+                VideoListActivity.goActivity(mActivity);
+                break;
+            case R.id.cvAlbum:
+                AlbumListActivity.goActivity(mActivity);
+                break;
+            case R.id.cvDiary:
+                DiaryListActivity.goActivity(mActivity);
+                break;
+            case R.id.cvWhisper:
+                WhisperListActivity.goActivity(mActivity);
+                break;
+            case R.id.cvGift:
+                GiftListActivity.goActivity(mActivity);
+                break;
+            case R.id.cvFood:
+                FoodListActivity.goActivity(mActivity);
+                break;
+            case R.id.cvMovie:
+                MovieListActivity.goActivity(mActivity);
                 break;
         }
     }

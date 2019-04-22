@@ -626,6 +626,14 @@
     <string name="refuse_image_upload">禁止图片上传</string>
     <string name="single_max_holder" formatted="false">单个最大%s</string>
     <string name="every_can_upload_holder_paper" formatted="false">每个可上传%d张</string>
+    <string name="get_method">获取方式</string>
+    <string name="out_method">消耗方式</string>
+    <string name="more_pay_more_send">多买多送</string>
+    <string name="more_sign_more_get">累计签到更多</string>
+    <string name="join_just_send">参加就送</string>
+    <string name="help_you_to_top">助你登榜</string>
+    <string name="wish_more_long">祈愿更长久</string>
+    <string name="postcard_more_long">目的地更遥远</string>
     <string name="continue_sign_holder_day" formatted="false">连续签到%d天</string>
     <string name="to_month_sign_holder_count" formatted="false">本月签到%d次</string>
 
@@ -746,10 +754,10 @@
     <string name="help_more_vip_c2_a">不需要！一人购买，两人通用。</string>
     <string name="help_more_vip_c3_q">我办了会员了，但是空间还是不够，怎么办？</string>
     <string name="help_more_vip_c3_a">很多空间我们是算好了的，一般的情侣一辈子也用不完，但不排除需求特别特别特别大的情侣们。\n如果真的出现了用户的存储空间不够用的状况，我们会在后期作出相应策略，敬请期待！</string>
-    <string name="help_more_coin_c1_q">金币的来源都有哪些？</string>
-    <string name="help_more_coin_c1_a">1.用户购买。\n2.每日签到，具体给予数量规则，请移步每日签到查看相关文档。\n3.参加活动，部分活动参与会给予金币奖励哦。</string>
-    <string name="help_more_coin_c2_q">金币有什么用？</string>
-    <string name="help_more_coin_c2_a">目前的话，基本是在活动里使用，用于投币，和金币榜挂钩。\n其他的金币消费系统正在开发中，敬请期待。。。</string>
+    <string name="help_more_coin_c1_q">金币是双方共用的吗？</string>
+    <string name="help_more_coin_c1_a">是的呢！你的就是TA的，TA的就是你的。</string>
+    <string name="help_more_coin_c2_q">金币可以提现吗？</string>
+    <string name="help_more_coin_c2_a">不可以呢，金币暂时只能用于app内消耗。\n更多的玩法，我们正在开发中。。。</string>
     <string name="help_more_bill_c1_q">支付失败了怎么办？</string>
     <string name="help_more_bill_c1_a">亲，看看有没有什么提示信息，可以移步《意见反馈》中反馈给我们，或者是移步《关于我们》中，联系客服人员帮您解决问题。</string>
     <string name="help_more_bill_c2_q">支付成功了，但是买的东西没有给我？</string>

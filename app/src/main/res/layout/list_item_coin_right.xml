@@ -31,7 +31,7 @@
 
             <TextView
                 android:id="@+id/tvTime"
-                style="@style/FontGreySmall"
+                style="@style/FontGreyNormal"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
@@ -61,7 +61,7 @@
 
             <TextView
                 android:id="@+id/tvKind"
-                style="@style/FontGreyNormal"
+                style="@style/FontBlackNormal"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -73,7 +73,7 @@
 
             <TextView
                 android:id="@+id/tvChange"
-                style="@style/FontGreyNormal"
+                style="@style/FontBlackNormal"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -89,7 +89,7 @@
 
                 <TextView
                     android:id="@+id/tvCount"
-                    style="@style/FontGreyNormal"
+                    style="@style/FontBlackNormal"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"

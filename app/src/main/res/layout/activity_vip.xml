@@ -116,6 +116,8 @@
                             android:layout_marginEnd="5dp"
                             android:layout_marginBottom="5dp"
                             android:layout_weight="1"
+                            android:background="?attr/selectableItemBackground"
+                            android:foreground="?attr/selectableItemBackground"
                             app:cardBackgroundColor="@color/white"
                             app:cardCornerRadius="@dimen/radius_normal"
                             app:cardElevation="@dimen/elevation_normal"
@@ -138,24 +140,29 @@
                                 <TextView
                                     android:id="@+id/tvAdVipYes"
                                     style="@style/FontBlackSmallBold"
-                                    android:layout_width="wrap_content"
+                                    android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_alignTop="@+id/ivAd"
                                     android:layout_toEndOf="@+id/ivAd"
+                                    android:ellipsize="end"
+                                    android:singleLine="true"
                                     tools:text="无广告"/>
 
                                 <TextView
                                     android:id="@+id/tvAdVipNo"
                                     style="@style/FontGreySmall"
-                                    android:layout_width="wrap_content"
+                                    android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_alignBottom="@+id/ivAd"
                                     android:layout_toEndOf="@+id/ivAd"
+                                    android:ellipsize="end"
+                                    android:singleLine="true"
                                     tools:text="有广告(尽量少一点)"/>
                             </RelativeLayout>
                         </android.support.v7.widget.CardView>
 
                         <android.support.v7.widget.CardView
+                            android:id="@+id/cvWall"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="5dp"
@@ -163,6 +170,8 @@
                             android:layout_marginEnd="10dp"
                             android:layout_marginBottom="5dp"
                             android:layout_weight="1"
+                            android:background="?attr/selectableItemBackground"
+                            android:foreground="?attr/selectableItemBackground"
                             app:cardBackgroundColor="@color/white"
                             app:cardCornerRadius="@dimen/radius_normal"
                             app:cardElevation="@dimen/elevation_normal"
@@ -185,19 +194,23 @@
                                 <TextView
                                     android:id="@+id/tvWallVipYes"
                                     style="@style/FontBlackSmallBold"
-                                    android:layout_width="wrap_content"
+                                    android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_alignTop="@+id/ivWall"
                                     android:layout_toEndOf="@+id/ivWall"
+                                    android:ellipsize="end"
+                                    android:singleLine="true"
                                     tools:text="9张,单张限制20M"/>
 
                                 <TextView
                                     android:id="@+id/tvWallVipNo"
                                     style="@style/FontGreySmall"
-                                    android:layout_width="wrap_content"
+                                    android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_alignBottom="@+id/ivWall"
                                     android:layout_toEndOf="@+id/ivWall"
+                                    android:ellipsize="end"
+                                    android:singleLine="true"
                                     tools:text="1张,单张限制1M"/>
                             </RelativeLayout>
                         </android.support.v7.widget.CardView>
@@ -209,6 +222,7 @@
                         android:orientation="horizontal">
 
                         <android.support.v7.widget.CardView
+                            android:id="@+id/cvTotal"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="10dp"
@@ -216,6 +230,8 @@
                             android:layout_marginEnd="5dp"
                             android:layout_marginBottom="5dp"
                             android:layout_weight="1"
+                            android:background="?attr/selectableItemBackground"
+                            android:foreground="?attr/selectableItemBackground"
                             app:cardBackgroundColor="@color/white"
                             app:cardCornerRadius="@dimen/radius_normal"
                             app:cardElevation="@dimen/elevation_normal"
@@ -238,24 +254,29 @@
                                 <TextView
                                     android:id="@+id/tvTotalVipYes"
                                     style="@style/FontBlackSmallBold"
-                                    android:layout_width="wrap_content"
+                                    android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_alignTop="@+id/ivTotal"
                                     android:layout_toEndOf="@+id/ivTotal"
+                                    android:ellipsize="end"
+                                    android:singleLine="true"
                                     tools:text="开启"/>
 
                                 <TextView
                                     android:id="@+id/tvTotalVipNo"
                                     style="@style/FontGreySmall"
-                                    android:layout_width="wrap_content"
+                                    android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_alignBottom="@+id/ivTotal"
                                     android:layout_toEndOf="@+id/ivTotal"
+                                    android:ellipsize="end"
+                                    android:singleLine="true"
                                     tools:text="关闭/现阶段开启"/>
                             </RelativeLayout>
                         </android.support.v7.widget.CardView>
 
                         <android.support.v7.widget.CardView
+                            android:id="@+id/cvSouvenir"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="5dp"
@@ -263,6 +284,8 @@
                             android:layout_marginEnd="10dp"
                             android:layout_marginBottom="5dp"
                             android:layout_weight="1"
+                            android:background="?attr/selectableItemBackground"
+                            android:foreground="?attr/selectableItemBackground"
                             app:cardBackgroundColor="@color/white"
                             app:cardCornerRadius="@dimen/radius_normal"
                             app:cardElevation="@dimen/elevation_normal"
@@ -285,19 +308,23 @@
                                 <TextView
                                     android:id="@+id/tvSouvenirVipYes"
                                     style="@style/FontBlackSmallBold"
-                                    android:layout_width="wrap_content"
+                                    android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_alignTop="@+id/ivSouvenir"
                                     android:layout_toEndOf="@+id/ivSouvenir"
+                                    android:ellipsize="end"
+                                    android:singleLine="true"
                                     tools:text="可添加365个"/>
 
                                 <TextView
                                     android:id="@+id/tvSouvenirVipNo"
                                     style="@style/FontGreySmall"
-                                    android:layout_width="wrap_content"
+                                    android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_alignBottom="@+id/ivSouvenir"
                                     android:layout_toEndOf="@+id/ivSouvenir"
+                                    android:ellipsize="end"
+                                    android:singleLine="true"
                                     tools:text="可添加10个"/>
                             </RelativeLayout>
                         </android.support.v7.widget.CardView>
@@ -309,6 +336,7 @@
                         android:orientation="horizontal">
 
                         <android.support.v7.widget.CardView
+                            android:id="@+id/cvAudio"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="10dp"
@@ -316,6 +344,8 @@
                             android:layout_marginEnd="5dp"
                             android:layout_marginBottom="5dp"
                             android:layout_weight="1"
+                            android:background="?attr/selectableItemBackground"
+                            android:foreground="?attr/selectableItemBackground"
                             app:cardBackgroundColor="@color/white"
                             app:cardCornerRadius="@dimen/radius_normal"
                             app:cardElevation="@dimen/elevation_normal"
@@ -338,24 +368,29 @@
                                 <TextView
                                     android:id="@+id/tvAudioVipYes"
                                     style="@style/FontBlackSmallBold"
-                                    android:layout_width="wrap_content"
+                                    android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_alignTop="@+id/ivAudio"
                                     android:layout_toEndOf="@+id/ivAudio"
+                                    android:ellipsize="end"
+                                    android:singleLine="true"
                                     tools:text="单个最大50M"/>
 
                                 <TextView
                                     android:id="@+id/tvAudioVipNo"
                                     style="@style/FontGreySmall"
-                                    android:layout_width="wrap_content"
+                                    android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_alignBottom="@+id/ivAudio"
                                     android:layout_toEndOf="@+id/ivAudio"
+                                    android:ellipsize="end"
+                                    android:singleLine="true"
                                     tools:text="单个最大2M"/>
                             </RelativeLayout>
                         </android.support.v7.widget.CardView>
 
                         <android.support.v7.widget.CardView
+                            android:id="@+id/cvVideo"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="5dp"
@@ -363,6 +398,8 @@
                             android:layout_marginEnd="10dp"
                             android:layout_marginBottom="5dp"
                             android:layout_weight="1"
+                            android:background="?attr/selectableItemBackground"
+                            android:foreground="?attr/selectableItemBackground"
                             app:cardBackgroundColor="@color/white"
                             app:cardCornerRadius="@dimen/radius_normal"
                             app:cardElevation="@dimen/elevation_normal"
@@ -385,19 +422,23 @@
                                 <TextView
                                     android:id="@+id/tvVideoVipYes"
                                     style="@style/FontBlackSmallBold"
-                                    android:layout_width="wrap_content"
+                                    android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_alignTop="@+id/ivVideo"
                                     android:layout_toEndOf="@+id/ivVideo"
+                                    android:ellipsize="end"
+                                    android:singleLine="true"
                                     tools:text="单个最大500M"/>
 
                                 <TextView
                                     android:id="@+id/tvVideoVipNo"
                                     style="@style/FontGreySmall"
-                                    android:layout_width="wrap_content"
+                                    android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_alignBottom="@+id/ivVideo"
                                     android:layout_toEndOf="@+id/ivVideo"
+                                    android:ellipsize="end"
+                                    android:singleLine="true"
                                     tools:text="单个最大10M"/>
                             </RelativeLayout>
                         </android.support.v7.widget.CardView>
@@ -409,6 +450,7 @@
                         android:orientation="horizontal">
 
                         <android.support.v7.widget.CardView
+                            android:id="@+id/cvAlbum"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="10dp"
@@ -416,6 +458,8 @@
                             android:layout_marginEnd="5dp"
                             android:layout_marginBottom="5dp"
                             android:layout_weight="1"
+                            android:background="?attr/selectableItemBackground"
+                            android:foreground="?attr/selectableItemBackground"
                             app:cardBackgroundColor="@color/white"
                             app:cardCornerRadius="@dimen/radius_normal"
                             app:cardElevation="@dimen/elevation_normal"
@@ -438,24 +482,29 @@
                                 <TextView
                                     android:id="@+id/tvAlbumVipYes"
                                     style="@style/FontBlackSmallBold"
-                                    android:layout_width="wrap_content"
+                                    android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_alignTop="@+id/ivAlbum"
                                     android:layout_toEndOf="@+id/ivAlbum"
+                                    android:ellipsize="end"
+                                    android:singleLine="true"
                                     tools:text="原图,单张限制20M"/>
 
                                 <TextView
                                     android:id="@+id/tvAlbumVipNo"
                                     style="@style/FontGreySmall"
-                                    android:layout_width="wrap_content"
+                                    android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_alignBottom="@+id/ivAlbum"
                                     android:layout_toEndOf="@+id/ivAlbum"
+                                    android:ellipsize="end"
+                                    android:singleLine="true"
                                     tools:text="压缩(损失很小)"/>
                             </RelativeLayout>
                         </android.support.v7.widget.CardView>
 
                         <android.support.v7.widget.CardView
+                            android:id="@+id/cvDiary"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="5dp"
@@ -463,6 +512,8 @@
                             android:layout_marginEnd="10dp"
                             android:layout_marginBottom="5dp"
                             android:layout_weight="1"
+                            android:background="?attr/selectableItemBackground"
+                            android:foreground="?attr/selectableItemBackground"
                             app:cardBackgroundColor="@color/white"
                             app:cardCornerRadius="@dimen/radius_normal"
                             app:cardElevation="@dimen/elevation_normal"
@@ -485,19 +536,23 @@
                                 <TextView
                                     android:id="@+id/tvDiaryVipYes"
                                     style="@style/FontBlackSmallBold"
-                                    android:layout_width="wrap_content"
+                                    android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_alignTop="@+id/ivDiary"
                                     android:layout_toEndOf="@+id/ivDiary"
+                                    android:ellipsize="end"
+                                    android:singleLine="true"
                                     tools:text="3张,单张限制20M"/>
 
                                 <TextView
                                     android:id="@+id/tvDiaryVipNo"
                                     style="@style/FontGreySmall"
-                                    android:layout_width="wrap_content"
+                                    android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_alignBottom="@+id/ivDiary"
                                     android:layout_toEndOf="@+id/ivDiary"
+                                    android:ellipsize="end"
+                                    android:singleLine="true"
                                     tools:text="禁止图片上传"/>
                             </RelativeLayout>
                         </android.support.v7.widget.CardView>
@@ -509,6 +564,7 @@
                         android:orientation="horizontal">
 
                         <android.support.v7.widget.CardView
+                            android:id="@+id/cvWhisper"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="10dp"
@@ -516,6 +572,8 @@
                             android:layout_marginEnd="5dp"
                             android:layout_marginBottom="5dp"
                             android:layout_weight="1"
+                            android:background="?attr/selectableItemBackground"
+                            android:foreground="?attr/selectableItemBackground"
                             app:cardBackgroundColor="@color/white"
                             app:cardCornerRadius="@dimen/radius_normal"
                             app:cardElevation="@dimen/elevation_normal"
@@ -538,24 +596,29 @@
                                 <TextView
                                     android:id="@+id/tvWhisperVipYes"
                                     style="@style/FontBlackSmallBold"
-                                    android:layout_width="wrap_content"
+                                    android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_alignTop="@+id/ivWhisper"
                                     android:layout_toEndOf="@+id/ivWhisper"
+                                    android:ellipsize="end"
+                                    android:singleLine="true"
                                     tools:text="开启图片上传"/>
 
                                 <TextView
                                     android:id="@+id/tvWhisperVipNo"
                                     style="@style/FontGreySmall"
-                                    android:layout_width="wrap_content"
+                                    android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_alignBottom="@+id/ivWhisper"
                                     android:layout_toEndOf="@+id/ivWhisper"
+                                    android:ellipsize="end"
+                                    android:singleLine="true"
                                     tools:text="禁止图片上传"/>
                             </RelativeLayout>
                         </android.support.v7.widget.CardView>
 
                         <android.support.v7.widget.CardView
+                            android:id="@+id/cvGift"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="5dp"
@@ -563,6 +626,8 @@
                             android:layout_marginEnd="10dp"
                             android:layout_marginBottom="5dp"
                             android:layout_weight="1"
+                            android:background="?attr/selectableItemBackground"
+                            android:foreground="?attr/selectableItemBackground"
                             app:cardBackgroundColor="@color/white"
                             app:cardCornerRadius="@dimen/radius_normal"
                             app:cardElevation="@dimen/elevation_normal"
@@ -585,19 +650,23 @@
                                 <TextView
                                     android:id="@+id/tvGiftVipYes"
                                     style="@style/FontBlackSmallBold"
-                                    android:layout_width="wrap_content"
+                                    android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_alignTop="@+id/ivGift"
                                     android:layout_toEndOf="@+id/ivGift"
+                                    android:ellipsize="end"
+                                    android:singleLine="true"
                                     tools:text="每个9张图片"/>
 
                                 <TextView
                                     android:id="@+id/tvGiftVipNo"
                                     style="@style/FontGreySmall"
-                                    android:layout_width="wrap_content"
+                                    android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_alignBottom="@+id/ivGift"
                                     android:layout_toEndOf="@+id/ivGift"
+                                    android:ellipsize="end"
+                                    android:singleLine="true"
                                     tools:text="每个1张图片"/>
                             </RelativeLayout>
                         </android.support.v7.widget.CardView>
@@ -609,6 +678,7 @@
                         android:orientation="horizontal">
 
                         <android.support.v7.widget.CardView
+                            android:id="@+id/cvFood"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="10dp"
@@ -616,6 +686,8 @@
                             android:layout_marginEnd="5dp"
                             android:layout_marginBottom="5dp"
                             android:layout_weight="1"
+                            android:background="?attr/selectableItemBackground"
+                            android:foreground="?attr/selectableItemBackground"
                             app:cardBackgroundColor="@color/white"
                             app:cardCornerRadius="@dimen/radius_normal"
                             app:cardElevation="@dimen/elevation_normal"
@@ -638,24 +710,29 @@
                                 <TextView
                                     android:id="@+id/tvFoodVipYes"
                                     style="@style/FontBlackSmallBold"
-                                    android:layout_width="wrap_content"
+                                    android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_alignTop="@+id/ivFood"
                                     android:layout_toEndOf="@+id/ivFood"
+                                    android:ellipsize="end"
+                                    android:singleLine="true"
                                     tools:text="每个9张图片"/>
 
                                 <TextView
                                     android:id="@+id/tvFoodVipNo"
                                     style="@style/FontGreySmall"
-                                    android:layout_width="wrap_content"
+                                    android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_alignBottom="@+id/ivFood"
                                     android:layout_toEndOf="@+id/ivFood"
+                                    android:ellipsize="end"
+                                    android:singleLine="true"
                                     tools:text="每个1张图片"/>
                             </RelativeLayout>
                         </android.support.v7.widget.CardView>
 
                         <android.support.v7.widget.CardView
+                            android:id="@+id/cvMovie"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="5dp"
@@ -663,6 +740,8 @@
                             android:layout_marginEnd="10dp"
                             android:layout_marginBottom="5dp"
                             android:layout_weight="1"
+                            android:background="?attr/selectableItemBackground"
+                            android:foreground="?attr/selectableItemBackground"
                             app:cardBackgroundColor="@color/white"
                             app:cardCornerRadius="@dimen/radius_normal"
                             app:cardElevation="@dimen/elevation_normal"
@@ -685,19 +764,23 @@
                                 <TextView
                                     android:id="@+id/tvMovieVipYes"
                                     style="@style/FontBlackSmallBold"
-                                    android:layout_width="wrap_content"
+                                    android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_alignTop="@+id/ivMovie"
                                     android:layout_toEndOf="@+id/ivMovie"
+                                    android:ellipsize="end"
+                                    android:singleLine="true"
                                     tools:text="每个9张图片"/>
 
                                 <TextView
                                     android:id="@+id/tvMovieVipNo"
                                     style="@style/FontGreySmall"
-                                    android:layout_width="wrap_content"
+                                    android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_alignBottom="@+id/ivMovie"
                                     android:layout_toEndOf="@+id/ivMovie"
+                                    android:ellipsize="end"
+                                    android:singleLine="true"
                                     tools:text="每个1张图片"/>
                             </RelativeLayout>
                         </android.support.v7.widget.CardView>
