@@ -60,7 +60,7 @@
                             android:layout_toStartOf="@+id/sCenter"
                             android:layout_toEndOf="@+id/ivAvatarLeft"
                             android:background="@drawable/selector_enable_press_solid_light_primary_dark_r100"
-                            android:text="@string/buy_info"/>
+                            android:text="@string/buy_history"/>
 
                         <Space
                             android:id="@+id/sCenter"

@@ -597,8 +597,9 @@
     <string name="vip_yes">已办理</string>
     <string name="no_sign">未完成</string>
     <string name="yes_sign">已完成</string>
-    <string name="buy_info">购买信息</string>
     <string name="go_to_buy">前往购买</string>
+    <string name="buy_history">购买历史</string>
+    <string name="get_history">获取历史</string>
     <string name="pay">支付</string>
     <string name="we_chat">微信</string>
     <string name="ali_pay">支付宝</string>

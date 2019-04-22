@@ -10,7 +10,7 @@ import android.support.v7.widget.Toolbar;
 import com.jiangzg.base.component.ActivityTrans;
 import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.controller.activity.base.BaseActivity;
-import com.jiangzg.lovenote.controller.adapter.more.VipAdapter;
+import com.jiangzg.lovenote.controller.adapter.more.CoinAdapter;
 import com.jiangzg.lovenote.helper.system.RetrofitHelper;
 import com.jiangzg.lovenote.helper.view.RecyclerHelper;
 import com.jiangzg.lovenote.helper.view.ViewHelper;
@@ -21,7 +21,7 @@ import com.jiangzg.lovenote.view.GSwipeRefreshLayout;
 import butterknife.BindView;
 import retrofit2.Call;
 
-public class VipListActivity extends BaseActivity<VipListActivity> {
+public class CoinListActivity extends BaseActivity<CoinListActivity> {
 
     @BindView(R.id.tb)
     Toolbar tb;
@@ -34,7 +34,7 @@ public class VipListActivity extends BaseActivity<VipListActivity> {
     private int page = 0;
 
     public static void goActivity(Activity from) {
-        Intent intent = new Intent(from, VipListActivity.class);
+        Intent intent = new Intent(from, CoinListActivity.class);
         // intent.putExtra();
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         ActivityTrans.start(from, intent);
@@ -42,17 +42,17 @@ public class VipListActivity extends BaseActivity<VipListActivity> {
 
     @Override
     protected int getView(Intent intent) {
-        return R.layout.activity_vip_list;
+        return R.layout.activity_coin_list;
     }
 
     @Override
     protected void initView(Intent intent, Bundle state) {
-        ViewHelper.initTopBar(mActivity, tb, getString(R.string.buy_history), true);
+        ViewHelper.initTopBar(mActivity, tb, getString(R.string.get_history), true);
         // recycler
         recyclerHelper = new RecyclerHelper(rv)
                 .initLayoutManager(new LinearLayoutManager(mActivity))
                 .initRefresh(srl, true)
-                .initAdapter(new VipAdapter(mActivity))
+                .initAdapter(new CoinAdapter(mActivity))
                 .viewEmpty(mActivity, R.layout.list_empty_grey, true, true)
                 .viewLoadMore(new RecyclerHelper.MoreGreyView())
                 .viewAnim()
@@ -74,12 +74,12 @@ public class VipListActivity extends BaseActivity<VipListActivity> {
     private void getData(final boolean more) {
         page = more ? page + 1 : 0;
         // api
-        Call<Result> api = new RetrofitHelper().call(API.class).moreVipListGet(page);
+        Call<Result> api = new RetrofitHelper().call(API.class).moreCoinListGet(page);
         RetrofitHelper.enqueue(api, null, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 if (recyclerHelper == null) return;
-                recyclerHelper.dataOk(data.getShow(), data.getVipList(), more);
+                recyclerHelper.dataOk(data.getShow(), data.getCoinList(), more);
             }
 
             @Override

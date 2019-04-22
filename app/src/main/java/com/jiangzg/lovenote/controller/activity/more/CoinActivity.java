@@ -3,8 +3,6 @@ package com.jiangzg.lovenote.controller.activity.more;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -17,12 +15,10 @@ import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.controller.activity.base.BaseActivity;
 import com.jiangzg.lovenote.controller.activity.couple.CouplePairActivity;
 import com.jiangzg.lovenote.controller.activity.settings.HelpActivity;
-import com.jiangzg.lovenote.controller.adapter.more.CoinAdapter;
 import com.jiangzg.lovenote.helper.common.RxBus;
 import com.jiangzg.lovenote.helper.common.SPHelper;
 import com.jiangzg.lovenote.helper.common.UserHelper;
 import com.jiangzg.lovenote.helper.system.RetrofitHelper;
-import com.jiangzg.lovenote.helper.view.RecyclerHelper;
 import com.jiangzg.lovenote.helper.view.ViewHelper;
 import com.jiangzg.lovenote.model.api.API;
 import com.jiangzg.lovenote.model.api.Result;
@@ -48,14 +44,12 @@ public class CoinActivity extends BaseActivity<CoinActivity> {
     TextView tvCoinCount;
     @BindView(R.id.ivAvatarRight)
     FrescoAvatarView ivAvatarRight;
+    @BindView(R.id.btnHistory)
+    Button btnHistory;
     @BindView(R.id.btnBuy)
     Button btnBuy;
-    @BindView(R.id.rv)
-    RecyclerView rv;
 
     private Coin coin;
-    private RecyclerHelper recyclerHelper;
-    private int page = 0;
 
     public static void goActivity(Fragment from) {
         if (UserHelper.isCoupleBreak(SPHelper.getCouple())) {
@@ -81,19 +75,6 @@ public class CoinActivity extends BaseActivity<CoinActivity> {
         btnBuy.setVisibility(SPHelper.getModelShow().isMarketPay() ? View.VISIBLE : View.GONE);
         // view
         refreshView();
-        // data
-        refreshData();
-        // recycler
-        recyclerHelper = new RecyclerHelper(rv)
-                .initLayoutManager(new LinearLayoutManager(mActivity))
-                .initRefresh(srl, true)
-                .initAdapter(new CoinAdapter(mActivity))
-                .viewEmpty(mActivity, R.layout.list_empty_grey, true, true)
-                .viewLoadMore(new RecyclerHelper.MoreGreyView())
-                .viewAnim()
-                .setAdapter()
-                .listenerRefresh(() -> getCoinListData(false))
-                .listenerMore(currentCount -> getCoinListData(true));
     }
 
     @Override
@@ -101,7 +82,6 @@ public class CoinActivity extends BaseActivity<CoinActivity> {
         // event
         Observable<Coin> bus = RxBus.register(RxBus.EVENT_COIN_INFO_REFRESH, coin -> {
             refreshData();
-            if (recyclerHelper != null) recyclerHelper.dataRefresh();
         });
         pushBus(RxBus.EVENT_COIN_INFO_REFRESH, bus);
         // avatar
@@ -111,13 +91,12 @@ public class CoinActivity extends BaseActivity<CoinActivity> {
         String taAvatar = UserHelper.getTaAvatar(me);
         ivAvatarLeft.setData(taAvatar, ta);
         ivAvatarRight.setData(myAvatar, me);
-        // recyclerHelper
-        recyclerHelper.dataRefresh();
+        // data
+        refreshData();
     }
 
     @Override
     protected void onFinish(Bundle state) {
-        RecyclerHelper.release(recyclerHelper);
     }
 
     @Override
@@ -136,24 +115,16 @@ public class CoinActivity extends BaseActivity<CoinActivity> {
         return super.onOptionsItemSelected(item);
     }
 
-    @OnClick({R.id.btnBuy})
+    @OnClick({R.id.btnHistory, R.id.btnBuy})
     public void onViewClicked(View view) {
         switch (view.getId()) {
+            case R.id.btnHistory: // 获取历史
+                CoinListActivity.goActivity(mActivity);
+                break;
             case R.id.btnBuy: // 前往购买
                 CoinBuyActivity.goActivity(mActivity);
                 break;
         }
-    }
-
-    private void refreshView() {
-        // coin
-        String coinCount;
-        if (coin != null) {
-            coinCount = String.valueOf(coin.getCount());
-        } else {
-            coinCount = String.valueOf(0);
-        }
-        tvCoinCount.setText(coinCount);
     }
 
     private void refreshData() {
@@ -178,24 +149,15 @@ public class CoinActivity extends BaseActivity<CoinActivity> {
         pushApi(api);
     }
 
-    private void getCoinListData(final boolean more) {
-        page = more ? page + 1 : 0;
-        // api
-        Call<Result> api = new RetrofitHelper().call(API.class).moreCoinListGet(page);
-        RetrofitHelper.enqueue(api, null, new RetrofitHelper.CallBack() {
-            @Override
-            public void onResponse(int code, String message, Result.Data data) {
-                if (recyclerHelper == null) return;
-                recyclerHelper.dataOk(data.getShow(), data.getCoinList(), more);
-            }
-
-            @Override
-            public void onFailure(int code, String message, Result.Data data) {
-                if (recyclerHelper == null) return;
-                recyclerHelper.dataFail(more, message);
-            }
-        });
-        pushApi(api);
+    private void refreshView() {
+        // coin
+        String coinCount;
+        if (coin != null) {
+            coinCount = String.valueOf(coin.getCount());
+        } else {
+            coinCount = String.valueOf(0);
+        }
+        tvCoinCount.setText(coinCount);
     }
 
 }

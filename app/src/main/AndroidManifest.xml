@@ -241,11 +241,12 @@
         <!-- more -->
         <activity android:name=".controller.activity.more.BroadcastActivity"/>
         <activity android:name=".controller.activity.more.VipActivity"/>
-        <activity android:name=".controller.activity.more.VipListActivity"/>
         <activity android:name=".controller.activity.more.VipBuyActivity"/>
+        <activity android:name=".controller.activity.more.VipListActivity"/>
         <activity android:name=".controller.activity.more.CoinActivity"/>
-        <activity android:name=".controller.activity.more.SignActivity"/>
         <activity android:name=".controller.activity.more.CoinBuyActivity"/>
+        <activity android:name=".controller.activity.more.CoinListActivity"/>
+        <activity android:name=".controller.activity.more.SignActivity"/>
         <activity android:name=".controller.activity.more.MatchWifeActivity"/>
         <activity android:name=".controller.activity.more.MatchWifeListActivity"/>
         <activity android:name=".controller.activity.more.MatchLetterActivity"/>
