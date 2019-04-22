@@ -157,12 +157,10 @@
 
                                 <ImageView
                                     android:id="@+id/ivAd"
-                                    android:layout_width="40dp"
-                                    android:layout_height="40dp"
-                                    android:layout_marginStart="5dp"
-                                    android:layout_marginTop="10dp"
-                                    android:layout_marginEnd="5dp"
-                                    android:layout_marginBottom="10dp"
+                                    android:layout_width="35dp"
+                                    android:layout_height="35dp"
+                                    android:layout_margin="10dp"
+                                    android:scaleType="center"
                                     android:src="@mipmap/ic_vip_ad_24dp"/>
 
                                 <TextView
@@ -211,12 +209,10 @@
 
                                 <ImageView
                                     android:id="@+id/ivWall"
-                                    android:layout_width="40dp"
-                                    android:layout_height="40dp"
-                                    android:layout_marginStart="5dp"
-                                    android:layout_marginTop="10dp"
-                                    android:layout_marginEnd="5dp"
-                                    android:layout_marginBottom="10dp"
+                                    android:layout_width="35dp"
+                                    android:layout_height="35dp"
+                                    android:layout_margin="10dp"
+                                    android:scaleType="center"
                                     android:src="@mipmap/ic_vip_wall_24dp"/>
 
                                 <TextView
@@ -271,12 +267,10 @@
 
                                 <ImageView
                                     android:id="@+id/ivTotal"
-                                    android:layout_width="40dp"
-                                    android:layout_height="40dp"
-                                    android:layout_marginStart="5dp"
-                                    android:layout_marginTop="10dp"
-                                    android:layout_marginEnd="5dp"
-                                    android:layout_marginBottom="10dp"
+                                    android:layout_width="35dp"
+                                    android:layout_height="35dp"
+                                    android:layout_margin="10dp"
+                                    android:scaleType="center"
                                     android:src="@mipmap/ic_note_total_24dp"/>
 
                                 <TextView
@@ -325,12 +319,10 @@
 
                                 <ImageView
                                     android:id="@+id/ivSouvenir"
-                                    android:layout_width="40dp"
-                                    android:layout_height="40dp"
-                                    android:layout_marginStart="5dp"
-                                    android:layout_marginTop="10dp"
-                                    android:layout_marginEnd="5dp"
-                                    android:layout_marginBottom="10dp"
+                                    android:layout_width="35dp"
+                                    android:layout_height="35dp"
+                                    android:layout_margin="10dp"
+                                    android:scaleType="center"
                                     android:src="@mipmap/ic_note_souvenir_24dp"/>
 
                                 <TextView
@@ -385,12 +377,10 @@
 
                                 <ImageView
                                     android:id="@+id/ivAudio"
-                                    android:layout_width="40dp"
-                                    android:layout_height="40dp"
-                                    android:layout_marginStart="5dp"
-                                    android:layout_marginTop="10dp"
-                                    android:layout_marginEnd="5dp"
-                                    android:layout_marginBottom="10dp"
+                                    android:layout_width="35dp"
+                                    android:layout_height="35dp"
+                                    android:layout_margin="10dp"
+                                    android:scaleType="center"
                                     android:src="@mipmap/ic_note_audio_24dp"/>
 
                                 <TextView
@@ -439,12 +429,10 @@
 
                                 <ImageView
                                     android:id="@+id/ivVideo"
-                                    android:layout_width="40dp"
-                                    android:layout_height="40dp"
-                                    android:layout_marginStart="5dp"
-                                    android:layout_marginTop="10dp"
-                                    android:layout_marginEnd="5dp"
-                                    android:layout_marginBottom="10dp"
+                                    android:layout_width="35dp"
+                                    android:layout_height="35dp"
+                                    android:layout_margin="10dp"
+                                    android:scaleType="center"
                                     android:src="@mipmap/ic_note_video_24dp"/>
 
                                 <TextView
@@ -499,12 +487,10 @@
 
                                 <ImageView
                                     android:id="@+id/ivAlbum"
-                                    android:layout_width="40dp"
-                                    android:layout_height="40dp"
-                                    android:layout_marginStart="5dp"
-                                    android:layout_marginTop="10dp"
-                                    android:layout_marginEnd="5dp"
-                                    android:layout_marginBottom="10dp"
+                                    android:layout_width="35dp"
+                                    android:layout_height="35dp"
+                                    android:layout_margin="10dp"
+                                    android:scaleType="center"
                                     android:src="@mipmap/ic_note_album_24dp"/>
 
                                 <TextView
@@ -553,12 +539,10 @@
 
                                 <ImageView
                                     android:id="@+id/ivDiary"
-                                    android:layout_width="40dp"
-                                    android:layout_height="40dp"
-                                    android:layout_marginStart="5dp"
-                                    android:layout_marginTop="10dp"
-                                    android:layout_marginEnd="5dp"
-                                    android:layout_marginBottom="10dp"
+                                    android:layout_width="35dp"
+                                    android:layout_height="35dp"
+                                    android:layout_margin="10dp"
+                                    android:scaleType="center"
                                     android:src="@mipmap/ic_note_diary_24dp"/>
 
                                 <TextView
@@ -613,12 +597,10 @@
 
                                 <ImageView
                                     android:id="@+id/ivWhisper"
-                                    android:layout_width="40dp"
-                                    android:layout_height="40dp"
-                                    android:layout_marginStart="5dp"
-                                    android:layout_marginTop="10dp"
-                                    android:layout_marginEnd="5dp"
-                                    android:layout_marginBottom="10dp"
+                                    android:layout_width="35dp"
+                                    android:layout_height="35dp"
+                                    android:layout_margin="10dp"
+                                    android:scaleType="center"
                                     android:src="@mipmap/ic_note_whisper_24dp"/>
 
                                 <TextView
@@ -667,12 +649,10 @@
 
                                 <ImageView
                                     android:id="@+id/ivGift"
-                                    android:layout_width="40dp"
-                                    android:layout_height="40dp"
-                                    android:layout_marginStart="5dp"
-                                    android:layout_marginTop="10dp"
-                                    android:layout_marginEnd="5dp"
-                                    android:layout_marginBottom="10dp"
+                                    android:layout_width="35dp"
+                                    android:layout_height="35dp"
+                                    android:layout_margin="10dp"
+                                    android:scaleType="center"
                                     android:src="@mipmap/ic_note_gift_24dp"/>
 
                                 <TextView
@@ -727,12 +707,10 @@
 
                                 <ImageView
                                     android:id="@+id/ivFood"
-                                    android:layout_width="40dp"
-                                    android:layout_height="40dp"
-                                    android:layout_marginStart="5dp"
-                                    android:layout_marginTop="10dp"
-                                    android:layout_marginEnd="5dp"
-                                    android:layout_marginBottom="10dp"
+                                    android:layout_width="35dp"
+                                    android:layout_height="35dp"
+                                    android:layout_margin="10dp"
+                                    android:scaleType="center"
                                     android:src="@mipmap/ic_note_food_24dp"/>
 
                                 <TextView
@@ -781,12 +759,10 @@
 
                                 <ImageView
                                     android:id="@+id/ivMovie"
-                                    android:layout_width="40dp"
-                                    android:layout_height="40dp"
-                                    android:layout_marginStart="5dp"
-                                    android:layout_marginTop="10dp"
-                                    android:layout_marginEnd="5dp"
-                                    android:layout_marginBottom="10dp"
+                                    android:layout_width="35dp"
+                                    android:layout_height="35dp"
+                                    android:layout_margin="10dp"
+                                    android:scaleType="center"
                                     android:src="@mipmap/ic_note_movie_24dp"/>
 
                                 <TextView

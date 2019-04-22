@@ -165,14 +165,14 @@
 
                         <ImageView
                             android:id="@+id/ivInPay"
-                            android:layout_width="40dp"
-                            android:layout_height="40dp"
+                            android:layout_width="35dp"
+                            android:layout_height="35dp"
                             android:layout_margin="10dp"
-                            android:src="@mipmap/ic_monetization_on_grey_18dp"
-                            android:tint="?attr/colorPrimary"/>
+                            android:scaleType="center"
+                            android:src="@mipmap/ic_vip_pay_24dp"/>
 
                         <TextView
-                            style="@style/FontBlackNormalBold"
+                            style="@style/FontBlackSmallBold"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_alignTop="@+id/ivInPay"
@@ -215,13 +215,14 @@
 
                         <ImageView
                             android:id="@+id/ivInSign"
-                            android:layout_width="40dp"
-                            android:layout_height="40dp"
+                            android:layout_width="35dp"
+                            android:layout_height="35dp"
                             android:layout_margin="10dp"
+                            android:scaleType="center"
                             android:src="@mipmap/ic_more_sign_24dp"/>
 
                         <TextView
-                            style="@style/FontBlackNormalBold"
+                            style="@style/FontBlackSmallBold"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_alignTop="@+id/ivInSign"
@@ -269,13 +270,14 @@
 
                         <ImageView
                             android:id="@+id/ivInWife"
-                            android:layout_width="40dp"
-                            android:layout_height="40dp"
+                            android:layout_width="35dp"
+                            android:layout_height="35dp"
                             android:layout_margin="10dp"
+                            android:scaleType="center"
                             android:src="@mipmap/ic_more_wife_24dp"/>
 
                         <TextView
-                            style="@style/FontBlackNormalBold"
+                            style="@style/FontBlackSmallBold"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_alignTop="@+id/ivInWife"
@@ -318,13 +320,14 @@
 
                         <ImageView
                             android:id="@+id/ivInLetter"
-                            android:layout_width="40dp"
-                            android:layout_height="40dp"
+                            android:layout_width="35dp"
+                            android:layout_height="35dp"
                             android:layout_margin="10dp"
+                            android:scaleType="center"
                             android:src="@mipmap/ic_more_letter_24dp"/>
 
                         <TextView
-                            style="@style/FontBlackNormalBold"
+                            style="@style/FontBlackSmallBold"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_alignTop="@+id/ivInLetter"
@@ -402,13 +405,14 @@
 
                         <ImageView
                             android:id="@+id/ivOutWife"
-                            android:layout_width="40dp"
-                            android:layout_height="40dp"
+                            android:layout_width="35dp"
+                            android:layout_height="35dp"
                             android:layout_margin="10dp"
+                            android:scaleType="center"
                             android:src="@mipmap/ic_more_wife_24dp"/>
 
                         <TextView
-                            style="@style/FontBlackNormalBold"
+                            style="@style/FontBlackSmallBold"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_alignTop="@+id/ivOutWife"
@@ -451,13 +455,14 @@
 
                         <ImageView
                             android:id="@+id/ivOutLetter"
-                            android:layout_width="40dp"
-                            android:layout_height="40dp"
+                            android:layout_width="35dp"
+                            android:layout_height="35dp"
                             android:layout_margin="10dp"
+                            android:scaleType="center"
                             android:src="@mipmap/ic_more_letter_24dp"/>
 
                         <TextView
-                            style="@style/FontBlackNormalBold"
+                            style="@style/FontBlackSmallBold"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_alignTop="@+id/ivOutLetter"
@@ -505,13 +510,14 @@
 
                         <ImageView
                             android:id="@+id/ivOutWish"
-                            android:layout_width="40dp"
-                            android:layout_height="40dp"
+                            android:layout_width="35dp"
+                            android:layout_height="35dp"
                             android:layout_margin="10dp"
+                            android:scaleType="center"
                             android:src="@mipmap/ic_more_wish_24dp"/>
 
                         <TextView
-                            style="@style/FontBlackNormalBold"
+                            style="@style/FontBlackSmallBold"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_alignTop="@+id/ivOutWish"
@@ -554,13 +560,14 @@
 
                         <ImageView
                             android:id="@+id/ivCard"
-                            android:layout_width="40dp"
-                            android:layout_height="40dp"
+                            android:layout_width="35dp"
+                            android:layout_height="35dp"
                             android:layout_margin="10dp"
+                            android:scaleType="center"
                             android:src="@mipmap/ic_more_postcard_24dp"/>
 
                         <TextView
-                            style="@style/FontBlackNormalBold"
+                            style="@style/FontBlackSmallBold"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_alignTop="@+id/ivCard"
