@@ -62,7 +62,8 @@
                     android:alpha="0.9"
                     android:background="?attr/selectableItemBackgroundBorderless"
                     android:padding="10dp"
-                    app:srcCompat="@mipmap/ic_image_white_24dp"/>
+                    android:tint="@color/white"
+                    app:srcCompat="@mipmap/ic_vip_wall_24dp"/>
             </RelativeLayout>
 
             <!-- 中部操作条 -->

@@ -597,8 +597,8 @@
     <string name="vip_yes">已办理</string>
     <string name="no_sign">未完成</string>
     <string name="yes_sign">已完成</string>
+    <string name="buy_info">购买信息</string>
     <string name="go_to_buy">前往购买</string>
-    <string name="history_info">历史信息</string>
     <string name="pay">支付</string>
     <string name="we_chat">微信</string>
     <string name="ali_pay">支付宝</string>
@@ -612,15 +612,18 @@
     <string name="pay_coin_goods_format" formatted="false">%s\n%d 个\n\n￥ %.1f</string>
     <string name="pay_error">支付异常</string>
     <string name="pay_success_but_nothing">支付成功了，但是啥也没给？</string>
-    <string name="expire_colon_space_holder" formatted="false">到期时间: %s</string>
-    <string name="continue_colon_space_holder_space_day" formatted="false">购买时长: %d 天</string>
+    <string name="expire_colon_space_holder" formatted="false">到期: %s</string>
+    <string name="continue_colon_space_holder_space_day" formatted="false">时长: %d 天</string>
+    <string name="no_ad">无广告</string>
+    <string name="yes_ad_more_less">有广告(尽量少)</string>
+    <string name="now_stage_open">现阶段开启</string>
+    <string name="can_add_holder" formatted="false">可添加%d个</string>
+    <string name="holder_paper_single_limit_holder" formatted="false">%d张,单张限制%s</string>
+    <string name="original_single_limit_holder" formatted="false">原图,单张限制%s</string>
+    <string name="compress_loss_less">压缩(尽量减损)</string>
     <string name="open_image_upload">开启图片上传</string>
     <string name="refuse_image_upload">禁止图片上传</string>
-    <string name="can_add_holder" formatted="false">可添加%d个</string>
-    <string name="single_paper_max_holder" formatted="false">单张最大%s</string>
-    <string name="can_upload_holder_paper" formatted="false">可上传%d张</string>
     <string name="single_max_holder" formatted="false">单个最大%s</string>
-    <string name="can_upload_holder" formatted="false">可上传%d个</string>
     <string name="every_can_upload_holder_paper" formatted="false">每个可上传%d张</string>
     <string name="continue_sign_holder_day" formatted="false">连续签到%d天</string>
     <string name="to_month_sign_holder_count" formatted="false">本月签到%d次</string>

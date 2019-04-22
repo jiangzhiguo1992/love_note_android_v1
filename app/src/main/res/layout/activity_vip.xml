@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="?attr/colorPrimary"
     android:orientation="vertical"
     tools:context=".controller.activity.more.VipActivity">
 
@@ -24,588 +26,681 @@
                 android:layout_height="match_parent"
                 android:orientation="vertical">
 
-                <RelativeLayout
+                <android.support.v7.widget.CardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/shape_gradient_primary_trans"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal">
+                    android:layout_margin="10dp"
+                    app:cardBackgroundColor="@color/white"
+                    app:cardCornerRadius="@dimen/radius_big"
+                    app:cardElevation="@dimen/elevation_big"
+                    app:cardMaxElevation="@dimen/elevation_huge">
 
-                    <com.jiangzg.lovenote.view.FrescoAvatarView
-                        android:id="@+id/ivAvatarLeft"
-                        android:layout_width="60dp"
-                        android:layout_height="60dp"
-                        android:layout_margin="20dp"
-                        tools:background="@mipmap/ic_account_circle_grey_48dp"/>
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
+                    <RelativeLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_alignTop="@+id/ivAvatarLeft"
-                        android:layout_alignBottom="@+id/ivAvatarLeft"
-                        android:layout_toStartOf="@+id/ivAvatarRight"
-                        android:layout_toEndOf="@+id/ivAvatarLeft"
-                        android:gravity="center"
+                        android:gravity="center_vertical"
                         android:orientation="horizontal">
+
+                        <com.jiangzg.lovenote.view.FrescoAvatarView
+                            android:id="@+id/ivAvatarLeft"
+                            android:layout_width="60dp"
+                            android:layout_height="60dp"
+                            android:layout_marginStart="15dp"
+                            android:layout_marginTop="15dp"
+                            android:layout_marginEnd="10dp"
+                            android:layout_marginBottom="15dp"
+                            tools:background="@mipmap/ic_account_circle_grey_48dp"/>
 
                         <Button
                             android:id="@+id/btnHistory"
                             style="@style/FontWhiteSmall"
                             android:layout_width="wrap_content"
-                            android:layout_height="30dp"
-                            android:layout_marginEnd="5dp"
-                            android:layout_weight="1"
+                            android:layout_height="25dp"
+                            android:layout_alignBottom="@+id/ivAvatarLeft"
+                            android:layout_toStartOf="@+id/sCenter"
+                            android:layout_toEndOf="@+id/ivAvatarLeft"
                             android:background="@drawable/selector_enable_press_solid_light_primary_dark_r100"
-                            android:text="@string/history_info"/>
+                            android:text="@string/buy_info"/>
+
+                        <Space
+                            android:id="@+id/sCenter"
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:layout_centerInParent="true"
+                            android:layout_marginStart="5dp"
+                            android:layout_marginEnd="5dp"/>
 
                         <Button
                             android:id="@+id/btnBuy"
                             style="@style/FontWhiteSmall"
                             android:layout_width="wrap_content"
-                            android:layout_height="30dp"
-                            android:layout_marginStart="5dp"
-                            android:layout_weight="1"
+                            android:layout_height="25dp"
+                            android:layout_alignBottom="@+id/ivAvatarRight"
+                            android:layout_toStartOf="@+id/ivAvatarRight"
+                            android:layout_toEndOf="@+id/sCenter"
                             android:background="@drawable/selector_enable_press_solid_light_primary_dark_r100"
                             android:text="@string/go_to_buy"/>
-                    </LinearLayout>
 
-                    <com.jiangzg.lovenote.view.FrescoAvatarView
-                        android:id="@+id/ivAvatarRight"
-                        android:layout_width="60dp"
-                        android:layout_height="60dp"
-                        android:layout_alignParentEnd="true"
-                        android:layout_margin="20dp"
-                        tools:background="@mipmap/ic_account_circle_grey_48dp"/>
-                </RelativeLayout>
+                        <com.jiangzg.lovenote.view.FrescoAvatarView
+                            android:id="@+id/ivAvatarRight"
+                            android:layout_width="60dp"
+                            android:layout_height="60dp"
+                            android:layout_alignParentEnd="true"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginTop="15dp"
+                            android:layout_marginEnd="15dp"
+                            android:layout_marginBottom="15dp"
+                            tools:background="@mipmap/ic_account_circle_grey_48dp"/>
+                    </RelativeLayout>
+                </android.support.v7.widget.CardView>
 
                 <LinearLayout
                     android:id="@+id/llLimit"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
                     android:orientation="vertical"
-                    android:padding="10dp"
                     android:visibility="gone"
                     tools:visibility="visible">
 
                     <LinearLayout
-                        android:id="@+id/llLimitTop"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
-                        android:layout_marginBottom="5dp"
                         android:orientation="horizontal">
 
-                        <View
+                        <android.support.v7.widget.CardView
                             android:layout_width="0dp"
-                            android:layout_height="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginEnd="5dp"
+                            android:layout_marginBottom="5dp"
                             android:layout_weight="1"
-                            android:visibility="invisible"/>
+                            app:cardBackgroundColor="@color/white"
+                            app:cardCornerRadius="@dimen/radius_normal"
+                            app:cardElevation="@dimen/elevation_normal"
+                            app:cardMaxElevation="@dimen/elevation_big">
 
-                        <TextView
-                            style="@style/FontPrimaryNormal"
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content">
+
+                                <ImageView
+                                    android:id="@+id/ivAd"
+                                    android:layout_width="40dp"
+                                    android:layout_height="40dp"
+                                    android:layout_marginStart="5dp"
+                                    android:layout_marginTop="10dp"
+                                    android:layout_marginEnd="5dp"
+                                    android:layout_marginBottom="10dp"
+                                    android:src="@mipmap/ic_vip_ad_24dp"/>
+
+                                <TextView
+                                    android:id="@+id/tvAdVipYes"
+                                    style="@style/FontBlackSmallBold"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignTop="@+id/ivAd"
+                                    android:layout_toEndOf="@+id/ivAd"
+                                    tools:text="无广告"/>
+
+                                <TextView
+                                    android:id="@+id/tvAdVipNo"
+                                    style="@style/FontGreySmall"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignBottom="@+id/ivAd"
+                                    android:layout_toEndOf="@+id/ivAd"
+                                    tools:text="有广告(尽量少一点)"/>
+                            </RelativeLayout>
+                        </android.support.v7.widget.CardView>
+
+                        <android.support.v7.widget.CardView
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_weight="2"
-                            android:gravity="center"
-                            android:text="@string/no_vip"/>
+                            android:layout_marginStart="5dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginEnd="10dp"
+                            android:layout_marginBottom="5dp"
+                            android:layout_weight="1"
+                            app:cardBackgroundColor="@color/white"
+                            app:cardCornerRadius="@dimen/radius_normal"
+                            app:cardElevation="@dimen/elevation_normal"
+                            app:cardMaxElevation="@dimen/elevation_big">
 
-                        <TextView
-                            style="@style/FontPrimaryNormalBold"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="2"
-                            android:gravity="center"
-                            android:text="@string/vip"/>
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content">
+
+                                <ImageView
+                                    android:id="@+id/ivWall"
+                                    android:layout_width="40dp"
+                                    android:layout_height="40dp"
+                                    android:layout_marginStart="5dp"
+                                    android:layout_marginTop="10dp"
+                                    android:layout_marginEnd="5dp"
+                                    android:layout_marginBottom="10dp"
+                                    android:src="@mipmap/ic_vip_wall_24dp"/>
+
+                                <TextView
+                                    android:id="@+id/tvWallVipYes"
+                                    style="@style/FontBlackSmallBold"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignTop="@+id/ivWall"
+                                    android:layout_toEndOf="@+id/ivWall"
+                                    tools:text="9张,单张限制20M"/>
+
+                                <TextView
+                                    android:id="@+id/tvWallVipNo"
+                                    style="@style/FontGreySmall"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignBottom="@+id/ivWall"
+                                    android:layout_toEndOf="@+id/ivWall"
+                                    tools:text="1张,单张限制1M"/>
+                            </RelativeLayout>
+                        </android.support.v7.widget.CardView>
                     </LinearLayout>
 
                     <LinearLayout
-                        android:id="@+id/llLimitWallSize"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
-                        android:layout_marginBottom="5dp"
                         android:orientation="horizontal">
 
-                        <TextView
-                            style="@style/FontBlackNormal"
+                        <android.support.v7.widget.CardView
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginEnd="5dp"
+                            android:layout_marginBottom="5dp"
                             android:layout_weight="1"
-                            android:gravity="center"
-                            android:text="@string/wall_paper"/>
+                            app:cardBackgroundColor="@color/white"
+                            app:cardCornerRadius="@dimen/radius_normal"
+                            app:cardElevation="@dimen/elevation_normal"
+                            app:cardMaxElevation="@dimen/elevation_big">
 
-                        <TextView
-                            android:id="@+id/tvLimitLeftWallSize"
-                            style="@style/FontGreyNormal"
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content">
+
+                                <ImageView
+                                    android:id="@+id/ivTotal"
+                                    android:layout_width="40dp"
+                                    android:layout_height="40dp"
+                                    android:layout_marginStart="5dp"
+                                    android:layout_marginTop="10dp"
+                                    android:layout_marginEnd="5dp"
+                                    android:layout_marginBottom="10dp"
+                                    android:src="@mipmap/ic_note_total_24dp"/>
+
+                                <TextView
+                                    android:id="@+id/tvTotalVipYes"
+                                    style="@style/FontBlackSmallBold"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignTop="@+id/ivTotal"
+                                    android:layout_toEndOf="@+id/ivTotal"
+                                    tools:text="开启"/>
+
+                                <TextView
+                                    android:id="@+id/tvTotalVipNo"
+                                    style="@style/FontGreySmall"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignBottom="@+id/ivTotal"
+                                    android:layout_toEndOf="@+id/ivTotal"
+                                    tools:text="关闭/现阶段开启"/>
+                            </RelativeLayout>
+                        </android.support.v7.widget.CardView>
+
+                        <android.support.v7.widget.CardView
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_weight="2"
-                            android:gravity="center"
-                            tools:text="上传1张"/>
+                            android:layout_marginStart="5dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginEnd="10dp"
+                            android:layout_marginBottom="5dp"
+                            android:layout_weight="1"
+                            app:cardBackgroundColor="@color/white"
+                            app:cardCornerRadius="@dimen/radius_normal"
+                            app:cardElevation="@dimen/elevation_normal"
+                            app:cardMaxElevation="@dimen/elevation_big">
 
-                        <TextView
-                            android:id="@+id/tvLimitRightWallSize"
-                            style="@style/FontBlackNormalBold"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="2"
-                            android:gravity="center"
-                            tools:text="上传10张"/>
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content">
+
+                                <ImageView
+                                    android:id="@+id/ivSouvenir"
+                                    android:layout_width="40dp"
+                                    android:layout_height="40dp"
+                                    android:layout_marginStart="5dp"
+                                    android:layout_marginTop="10dp"
+                                    android:layout_marginEnd="5dp"
+                                    android:layout_marginBottom="10dp"
+                                    android:src="@mipmap/ic_note_souvenir_24dp"/>
+
+                                <TextView
+                                    android:id="@+id/tvSouvenirVipYes"
+                                    style="@style/FontBlackSmallBold"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignTop="@+id/ivSouvenir"
+                                    android:layout_toEndOf="@+id/ivSouvenir"
+                                    tools:text="可添加365个"/>
+
+                                <TextView
+                                    android:id="@+id/tvSouvenirVipNo"
+                                    style="@style/FontGreySmall"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignBottom="@+id/ivSouvenir"
+                                    android:layout_toEndOf="@+id/ivSouvenir"
+                                    tools:text="可添加10个"/>
+                            </RelativeLayout>
+                        </android.support.v7.widget.CardView>
                     </LinearLayout>
 
                     <LinearLayout
-                        android:id="@+id/llLimitWallCount"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
-                        android:layout_marginBottom="5dp"
                         android:orientation="horizontal">
 
-                        <TextView
-                            style="@style/FontBlackNormal"
+                        <android.support.v7.widget.CardView
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginEnd="5dp"
+                            android:layout_marginBottom="5dp"
                             android:layout_weight="1"
-                            android:gravity="center"
-                            android:text="@string/wall_paper"/>
+                            app:cardBackgroundColor="@color/white"
+                            app:cardCornerRadius="@dimen/radius_normal"
+                            app:cardElevation="@dimen/elevation_normal"
+                            app:cardMaxElevation="@dimen/elevation_big">
 
-                        <TextView
-                            android:id="@+id/tvLimitLeftWallCount"
-                            style="@style/FontGreyNormal"
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content">
+
+                                <ImageView
+                                    android:id="@+id/ivAudio"
+                                    android:layout_width="40dp"
+                                    android:layout_height="40dp"
+                                    android:layout_marginStart="5dp"
+                                    android:layout_marginTop="10dp"
+                                    android:layout_marginEnd="5dp"
+                                    android:layout_marginBottom="10dp"
+                                    android:src="@mipmap/ic_note_audio_24dp"/>
+
+                                <TextView
+                                    android:id="@+id/tvAudioVipYes"
+                                    style="@style/FontBlackSmallBold"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignTop="@+id/ivAudio"
+                                    android:layout_toEndOf="@+id/ivAudio"
+                                    tools:text="单个最大50M"/>
+
+                                <TextView
+                                    android:id="@+id/tvAudioVipNo"
+                                    style="@style/FontGreySmall"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignBottom="@+id/ivAudio"
+                                    android:layout_toEndOf="@+id/ivAudio"
+                                    tools:text="单个最大2M"/>
+                            </RelativeLayout>
+                        </android.support.v7.widget.CardView>
+
+                        <android.support.v7.widget.CardView
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_weight="2"
-                            android:gravity="center"
-                            tools:text="上传1张"/>
+                            android:layout_marginStart="5dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginEnd="10dp"
+                            android:layout_marginBottom="5dp"
+                            android:layout_weight="1"
+                            app:cardBackgroundColor="@color/white"
+                            app:cardCornerRadius="@dimen/radius_normal"
+                            app:cardElevation="@dimen/elevation_normal"
+                            app:cardMaxElevation="@dimen/elevation_big">
 
-                        <TextView
-                            android:id="@+id/tvLimitRightWallCount"
-                            style="@style/FontBlackNormalBold"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="2"
-                            android:gravity="center"
-                            tools:text="上传10张"/>
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content">
+
+                                <ImageView
+                                    android:id="@+id/ivVideo"
+                                    android:layout_width="40dp"
+                                    android:layout_height="40dp"
+                                    android:layout_marginStart="5dp"
+                                    android:layout_marginTop="10dp"
+                                    android:layout_marginEnd="5dp"
+                                    android:layout_marginBottom="10dp"
+                                    android:src="@mipmap/ic_note_video_24dp"/>
+
+                                <TextView
+                                    android:id="@+id/tvVideoVipYes"
+                                    style="@style/FontBlackSmallBold"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignTop="@+id/ivVideo"
+                                    android:layout_toEndOf="@+id/ivVideo"
+                                    tools:text="单个最大500M"/>
+
+                                <TextView
+                                    android:id="@+id/tvVideoVipNo"
+                                    style="@style/FontGreySmall"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignBottom="@+id/ivVideo"
+                                    android:layout_toEndOf="@+id/ivVideo"
+                                    tools:text="单个最大10M"/>
+                            </RelativeLayout>
+                        </android.support.v7.widget.CardView>
                     </LinearLayout>
 
                     <LinearLayout
-                        android:id="@+id/llLimitTotal"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
-                        android:layout_marginBottom="5dp"
                         android:orientation="horizontal">
 
-                        <TextView
-                            style="@style/FontBlackNormal"
+                        <android.support.v7.widget.CardView
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginEnd="5dp"
+                            android:layout_marginBottom="5dp"
                             android:layout_weight="1"
-                            android:gravity="center"
-                            android:text="@string/statistics"/>
+                            app:cardBackgroundColor="@color/white"
+                            app:cardCornerRadius="@dimen/radius_normal"
+                            app:cardElevation="@dimen/elevation_normal"
+                            app:cardMaxElevation="@dimen/elevation_big">
 
-                        <TextView
-                            android:id="@+id/tvLimitLeftTotal"
-                            style="@style/FontGreyNormal"
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content">
+
+                                <ImageView
+                                    android:id="@+id/ivAlbum"
+                                    android:layout_width="40dp"
+                                    android:layout_height="40dp"
+                                    android:layout_marginStart="5dp"
+                                    android:layout_marginTop="10dp"
+                                    android:layout_marginEnd="5dp"
+                                    android:layout_marginBottom="10dp"
+                                    android:src="@mipmap/ic_note_album_24dp"/>
+
+                                <TextView
+                                    android:id="@+id/tvAlbumVipYes"
+                                    style="@style/FontBlackSmallBold"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignTop="@+id/ivAlbum"
+                                    android:layout_toEndOf="@+id/ivAlbum"
+                                    tools:text="原图,单张限制20M"/>
+
+                                <TextView
+                                    android:id="@+id/tvAlbumVipNo"
+                                    style="@style/FontGreySmall"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignBottom="@+id/ivAlbum"
+                                    android:layout_toEndOf="@+id/ivAlbum"
+                                    tools:text="压缩(损失很小)"/>
+                            </RelativeLayout>
+                        </android.support.v7.widget.CardView>
+
+                        <android.support.v7.widget.CardView
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_weight="2"
-                            android:gravity="center"
-                            tools:text="未开启"/>
+                            android:layout_marginStart="5dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginEnd="10dp"
+                            android:layout_marginBottom="5dp"
+                            android:layout_weight="1"
+                            app:cardBackgroundColor="@color/white"
+                            app:cardCornerRadius="@dimen/radius_normal"
+                            app:cardElevation="@dimen/elevation_normal"
+                            app:cardMaxElevation="@dimen/elevation_big">
 
-                        <TextView
-                            android:id="@+id/tvLimitRightTotal"
-                            style="@style/FontBlackNormalBold"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="2"
-                            android:gravity="center"
-                            tools:text="开启"/>
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content">
+
+                                <ImageView
+                                    android:id="@+id/ivDiary"
+                                    android:layout_width="40dp"
+                                    android:layout_height="40dp"
+                                    android:layout_marginStart="5dp"
+                                    android:layout_marginTop="10dp"
+                                    android:layout_marginEnd="5dp"
+                                    android:layout_marginBottom="10dp"
+                                    android:src="@mipmap/ic_note_diary_24dp"/>
+
+                                <TextView
+                                    android:id="@+id/tvDiaryVipYes"
+                                    style="@style/FontBlackSmallBold"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignTop="@+id/ivDiary"
+                                    android:layout_toEndOf="@+id/ivDiary"
+                                    tools:text="3张,单张限制20M"/>
+
+                                <TextView
+                                    android:id="@+id/tvDiaryVipNo"
+                                    style="@style/FontGreySmall"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignBottom="@+id/ivDiary"
+                                    android:layout_toEndOf="@+id/ivDiary"
+                                    tools:text="禁止图片上传"/>
+                            </RelativeLayout>
+                        </android.support.v7.widget.CardView>
                     </LinearLayout>
 
                     <LinearLayout
-                        android:id="@+id/llLimitSouvenir"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
-                        android:layout_marginBottom="5dp"
                         android:orientation="horizontal">
 
-                        <TextView
-                            style="@style/FontBlackNormal"
+                        <android.support.v7.widget.CardView
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginEnd="5dp"
+                            android:layout_marginBottom="5dp"
                             android:layout_weight="1"
-                            android:gravity="center"
-                            android:text="@string/souvenir"/>
+                            app:cardBackgroundColor="@color/white"
+                            app:cardCornerRadius="@dimen/radius_normal"
+                            app:cardElevation="@dimen/elevation_normal"
+                            app:cardMaxElevation="@dimen/elevation_big">
 
-                        <TextView
-                            android:id="@+id/tvLimitLeftSouvenir"
-                            style="@style/FontGreyNormal"
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content">
+
+                                <ImageView
+                                    android:id="@+id/ivWhisper"
+                                    android:layout_width="40dp"
+                                    android:layout_height="40dp"
+                                    android:layout_marginStart="5dp"
+                                    android:layout_marginTop="10dp"
+                                    android:layout_marginEnd="5dp"
+                                    android:layout_marginBottom="10dp"
+                                    android:src="@mipmap/ic_note_whisper_24dp"/>
+
+                                <TextView
+                                    android:id="@+id/tvWhisperVipYes"
+                                    style="@style/FontBlackSmallBold"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignTop="@+id/ivWhisper"
+                                    android:layout_toEndOf="@+id/ivWhisper"
+                                    tools:text="开启图片上传"/>
+
+                                <TextView
+                                    android:id="@+id/tvWhisperVipNo"
+                                    style="@style/FontGreySmall"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignBottom="@+id/ivWhisper"
+                                    android:layout_toEndOf="@+id/ivWhisper"
+                                    tools:text="禁止图片上传"/>
+                            </RelativeLayout>
+                        </android.support.v7.widget.CardView>
+
+                        <android.support.v7.widget.CardView
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_weight="2"
-                            android:gravity="center"
-                            tools:text="上限10个"/>
+                            android:layout_marginStart="5dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginEnd="10dp"
+                            android:layout_marginBottom="5dp"
+                            android:layout_weight="1"
+                            app:cardBackgroundColor="@color/white"
+                            app:cardCornerRadius="@dimen/radius_normal"
+                            app:cardElevation="@dimen/elevation_normal"
+                            app:cardMaxElevation="@dimen/elevation_big">
 
-                        <TextView
-                            android:id="@+id/tvLimitRightSouvenir"
-                            style="@style/FontBlackNormalBold"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="2"
-                            android:gravity="center"
-                            tools:text="上限365个"/>
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content">
+
+                                <ImageView
+                                    android:id="@+id/ivGift"
+                                    android:layout_width="40dp"
+                                    android:layout_height="40dp"
+                                    android:layout_marginStart="5dp"
+                                    android:layout_marginTop="10dp"
+                                    android:layout_marginEnd="5dp"
+                                    android:layout_marginBottom="10dp"
+                                    android:src="@mipmap/ic_note_gift_24dp"/>
+
+                                <TextView
+                                    android:id="@+id/tvGiftVipYes"
+                                    style="@style/FontBlackSmallBold"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignTop="@+id/ivGift"
+                                    android:layout_toEndOf="@+id/ivGift"
+                                    tools:text="每个9张图片"/>
+
+                                <TextView
+                                    android:id="@+id/tvGiftVipNo"
+                                    style="@style/FontGreySmall"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignBottom="@+id/ivGift"
+                                    android:layout_toEndOf="@+id/ivGift"
+                                    tools:text="每个1张图片"/>
+                            </RelativeLayout>
+                        </android.support.v7.widget.CardView>
                     </LinearLayout>
 
                     <LinearLayout
-                        android:id="@+id/llLimitVideoSize"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
-                        android:layout_marginBottom="5dp"
                         android:orientation="horizontal">
 
-                        <TextView
-                            style="@style/FontBlackNormal"
+                        <android.support.v7.widget.CardView
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginEnd="5dp"
+                            android:layout_marginBottom="5dp"
                             android:layout_weight="1"
-                            android:gravity="center"
-                            android:text="@string/video"/>
+                            app:cardBackgroundColor="@color/white"
+                            app:cardCornerRadius="@dimen/radius_normal"
+                            app:cardElevation="@dimen/elevation_normal"
+                            app:cardMaxElevation="@dimen/elevation_big">
 
-                        <TextView
-                            android:id="@+id/tvLimitLeftVideoSize"
-                            style="@style/FontGreyNormal"
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content">
+
+                                <ImageView
+                                    android:id="@+id/ivFood"
+                                    android:layout_width="40dp"
+                                    android:layout_height="40dp"
+                                    android:layout_marginStart="5dp"
+                                    android:layout_marginTop="10dp"
+                                    android:layout_marginEnd="5dp"
+                                    android:layout_marginBottom="10dp"
+                                    android:src="@mipmap/ic_note_food_24dp"/>
+
+                                <TextView
+                                    android:id="@+id/tvFoodVipYes"
+                                    style="@style/FontBlackSmallBold"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignTop="@+id/ivFood"
+                                    android:layout_toEndOf="@+id/ivFood"
+                                    tools:text="每个9张图片"/>
+
+                                <TextView
+                                    android:id="@+id/tvFoodVipNo"
+                                    style="@style/FontGreySmall"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignBottom="@+id/ivFood"
+                                    android:layout_toEndOf="@+id/ivFood"
+                                    tools:text="每个1张图片"/>
+                            </RelativeLayout>
+                        </android.support.v7.widget.CardView>
+
+                        <android.support.v7.widget.CardView
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_weight="2"
-                            android:gravity="center"
-                            tools:text="单个大小"/>
-
-                        <TextView
-                            android:id="@+id/tvLimitRightVideoSize"
-                            style="@style/FontBlackNormalBold"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="2"
-                            android:gravity="center"
-                            tools:text="单个大小"/>
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:id="@+id/llLimitAudioSize"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
-                        android:layout_marginBottom="5dp"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            style="@style/FontBlackNormal"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
+                            android:layout_marginStart="5dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginEnd="10dp"
+                            android:layout_marginBottom="5dp"
                             android:layout_weight="1"
-                            android:gravity="center"
-                            android:text="@string/audio"/>
+                            app:cardBackgroundColor="@color/white"
+                            app:cardCornerRadius="@dimen/radius_normal"
+                            app:cardElevation="@dimen/elevation_normal"
+                            app:cardMaxElevation="@dimen/elevation_big">
 
-                        <TextView
-                            android:id="@+id/tvLimitLeftAudioSize"
-                            style="@style/FontGreyNormal"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="2"
-                            android:gravity="center"
-                            tools:text="单个大小"/>
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content">
 
-                        <TextView
-                            android:id="@+id/tvLimitRightAudioSize"
-                            style="@style/FontBlackNormalBold"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="2"
-                            android:gravity="center"
-                            tools:text="单个大小"/>
-                    </LinearLayout>
+                                <ImageView
+                                    android:id="@+id/ivMovie"
+                                    android:layout_width="40dp"
+                                    android:layout_height="40dp"
+                                    android:layout_marginStart="5dp"
+                                    android:layout_marginTop="10dp"
+                                    android:layout_marginEnd="5dp"
+                                    android:layout_marginBottom="10dp"
+                                    android:src="@mipmap/ic_note_movie_24dp"/>
 
-                    <LinearLayout
-                        android:id="@+id/llLimitPictureOriginal"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
-                        android:layout_marginBottom="5dp"
-                        android:orientation="horizontal">
+                                <TextView
+                                    android:id="@+id/tvMovieVipYes"
+                                    style="@style/FontBlackSmallBold"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignTop="@+id/ivMovie"
+                                    android:layout_toEndOf="@+id/ivMovie"
+                                    tools:text="每个9张图片"/>
 
-                        <TextView
-                            style="@style/FontBlackNormal"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:gravity="center"
-                            android:text="@string/album"/>
-
-                        <TextView
-                            android:id="@+id/tvLimitLeftPictureOriginal"
-                            style="@style/FontGreyNormal"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="2"
-                            android:gravity="center"
-                            tools:text="压缩"/>
-
-                        <TextView
-                            android:id="@+id/tvLimitRightPictureOriginal"
-                            style="@style/FontBlackNormalBold"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="2"
-                            android:gravity="center"
-                            tools:text="原图"/>
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:id="@+id/llLimitDiaryImageSize"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
-                        android:layout_marginBottom="5dp"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            style="@style/FontBlackNormal"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:gravity="center"
-                            android:text="@string/diary"/>
-
-                        <TextView
-                            android:id="@+id/tvLimitLeftDiaryImageSize"
-                            style="@style/FontGreyNormal"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="2"
-                            android:gravity="center"
-                            tools:text="单个大小"/>
-
-                        <TextView
-                            android:id="@+id/tvLimitRightDiaryImageSize"
-                            style="@style/FontBlackNormalBold"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="2"
-                            android:gravity="center"
-                            tools:text="单个大小"/>
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:id="@+id/llLimitDiaryImageCount"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
-                        android:layout_marginBottom="5dp"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            style="@style/FontBlackNormal"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:gravity="center"
-                            android:text="@string/diary"/>
-
-                        <TextView
-                            android:id="@+id/tvLimitLeftDiaryImageCount"
-                            style="@style/FontGreyNormal"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="2"
-                            android:gravity="center"
-                            tools:text="上限10个"/>
-
-                        <TextView
-                            android:id="@+id/tvLimitRightDiaryImageCount"
-                            style="@style/FontBlackNormalBold"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="2"
-                            android:gravity="center"
-                            tools:text="上限365个"/>
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:id="@+id/llLimitWhisperImage"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
-                        android:layout_marginBottom="5dp"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            style="@style/FontBlackNormal"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:gravity="center"
-                            android:text="@string/whisper"/>
-
-                        <TextView
-                            android:id="@+id/tvLimitLeftWhisperImage"
-                            style="@style/FontGreyNormal"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="2"
-                            android:gravity="center"
-                            tools:text="未开启"/>
-
-                        <TextView
-                            android:id="@+id/tvLimitRightWhisperImage"
-                            style="@style/FontBlackNormalBold"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="2"
-                            android:gravity="center"
-                            tools:text="开启"/>
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:id="@+id/llLimitGiftImageCount"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
-                        android:layout_marginBottom="5dp"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            style="@style/FontBlackNormal"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:gravity="center"
-                            android:text="@string/gift"/>
-
-                        <TextView
-                            android:id="@+id/tvLimitLeftGiftImageCount"
-                            style="@style/FontGreyNormal"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="2"
-                            android:gravity="center"
-                            tools:text="上限10个"/>
-
-                        <TextView
-                            android:id="@+id/tvLimitRightGiftImageCount"
-                            style="@style/FontBlackNormalBold"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="2"
-                            android:gravity="center"
-                            tools:text="上限365个"/>
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:id="@+id/llLimitFoodImageCount"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
-                        android:layout_marginBottom="5dp"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            style="@style/FontBlackNormal"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:gravity="center"
-                            android:text="@string/food"/>
-
-                        <TextView
-                            android:id="@+id/tvLimitLeftFoodImageCount"
-                            style="@style/FontGreyNormal"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="2"
-                            android:gravity="center"
-                            tools:text="上限10个"/>
-
-                        <TextView
-                            android:id="@+id/tvLimitRightFoodImageCount"
-                            style="@style/FontBlackNormalBold"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="2"
-                            android:gravity="center"
-                            tools:text="上限365个"/>
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:id="@+id/llLimitMovieImageCount"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
-                        android:layout_marginBottom="5dp"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            style="@style/FontBlackNormal"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:gravity="center"
-                            android:text="@string/movie"/>
-
-                        <TextView
-                            android:id="@+id/tvLimitLeftMovieImageCount"
-                            style="@style/FontGreyNormal"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="2"
-                            android:gravity="center"
-                            tools:text="上限10个"/>
-
-                        <TextView
-                            android:id="@+id/tvLimitRightMovieImageCount"
-                            style="@style/FontBlackNormalBold"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="2"
-                            android:gravity="center"
-                            tools:text="上限365个"/>
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:id="@+id/llLimitPostImageCount"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
-                        android:layout_marginBottom="5dp"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            style="@style/FontBlackNormal"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:gravity="center"
-                            android:text="@string/nav_topic"/>
-
-                        <TextView
-                            android:id="@+id/tvLimitLeftPostImageCount"
-                            style="@style/FontGreyNormal"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="2"
-                            android:gravity="center"
-                            tools:text="上限10个"/>
-
-                        <TextView
-                            android:id="@+id/tvLimitRightPostImageCount"
-                            style="@style/FontBlackNormalBold"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="2"
-                            android:gravity="center"
-                            tools:text="上限365个"/>
+                                <TextView
+                                    android:id="@+id/tvMovieVipNo"
+                                    style="@style/FontGreySmall"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignBottom="@+id/ivMovie"
+                                    android:layout_toEndOf="@+id/ivMovie"
+                                    tools:text="每个1张图片"/>
+                            </RelativeLayout>
+                        </android.support.v7.widget.CardView>
                     </LinearLayout>
                 </LinearLayout>
             </LinearLayout>

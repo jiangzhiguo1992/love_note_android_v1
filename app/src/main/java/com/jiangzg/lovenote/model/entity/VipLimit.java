@@ -6,6 +6,8 @@ package com.jiangzg.lovenote.model.entity;
  */
 public class VipLimit {
 
+    // common
+    private boolean advertiseHide;
     // couple
     private long wallPaperSize;
     private int wallPaperCount;
@@ -24,6 +26,14 @@ public class VipLimit {
     private int movieImageCount;
     // topic
     private int topicPostImageCount;
+
+    public boolean isAdvertiseHide() {
+        return advertiseHide;
+    }
+
+    public void setAdvertiseHide(boolean advertiseHide) {
+        this.advertiseHide = advertiseHide;
+    }
 
     public long getPictureSize() {
         return pictureSize;

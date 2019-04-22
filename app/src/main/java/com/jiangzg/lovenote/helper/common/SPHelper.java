@@ -220,6 +220,7 @@ public class SPHelper {
     private static final String FIELD_LIMIT_MATCH_WORK_TITLE_LENGTH = "match_work_title_length";
     private static final String FIELD_LIMIT_MATCH_WORK_CONTENT_LENGTH = "match_work_content_length";
     // vipLimit
+    private static final String FIELD_VIP_LIMIT_ADVERTISE_HIDE = "advertise_hide";
     private static final String FIELD_VIP_LIMIT_WALL_PAPER_SIZE = "wall_paper_size";
     private static final String FIELD_VIP_LIMIT_WALL_PAPER_COUNT = "wall_paper_count";
     private static final String FIELD_VIP_LIMIT_TRENDS_TOTAL_ENABLE = "note_total_enable";
@@ -825,6 +826,7 @@ public class SPHelper {
             return;
         }
         SharedPreferences.Editor editor = SPUtils.getSharedPreferences(SHARE_VIP_LIMIT).edit();
+        editor.putBoolean(FIELD_VIP_LIMIT_ADVERTISE_HIDE, vipLimit.isAdvertiseHide());
         editor.putLong(FIELD_VIP_LIMIT_WALL_PAPER_SIZE, vipLimit.getWallPaperSize());
         editor.putInt(FIELD_VIP_LIMIT_WALL_PAPER_COUNT, vipLimit.getWallPaperCount());
         editor.putBoolean(FIELD_VIP_LIMIT_TRENDS_TOTAL_ENABLE, vipLimit.isNoteTotalEnable());
@@ -846,6 +848,7 @@ public class SPHelper {
     public static VipLimit getVipLimit() {
         SharedPreferences sp = SPUtils.getSharedPreferences(SHARE_VIP_LIMIT);
         VipLimit vipLimit = new VipLimit();
+        vipLimit.setAdvertiseHide(sp.getBoolean(FIELD_VIP_LIMIT_ADVERTISE_HIDE, false));
         vipLimit.setWallPaperSize(sp.getLong(FIELD_VIP_LIMIT_WALL_PAPER_SIZE, 0));
         vipLimit.setWallPaperCount(sp.getInt(FIELD_VIP_LIMIT_WALL_PAPER_COUNT, 1));
         vipLimit.setNoteTotalEnable(sp.getBoolean(FIELD_VIP_LIMIT_TRENDS_TOTAL_ENABLE, false));
