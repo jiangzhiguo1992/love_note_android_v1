@@ -37,11 +37,11 @@
             <TextView
                 android:id="@+id/tvTime"
                 style="@style/FontGreyNormal"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
+                android:ellipsize="middle"
                 android:gravity="center"
-                android:maxLines="1"
                 android:singleLine="true"
                 tools:text="2017年 12月 31日 12:21"/>
         </RelativeLayout>
@@ -61,7 +61,9 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:ellipsize="end"
                 android:gravity="center"
+                android:singleLine="true"
                 tools:text="时长: 30天"/>
 
             <TextView
@@ -70,7 +72,9 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:ellipsize="end"
                 android:gravity="center"
+                android:singleLine="true"
                 tools:text="到期: 1992.07.12"/>
         </LinearLayout>
     </LinearLayout>

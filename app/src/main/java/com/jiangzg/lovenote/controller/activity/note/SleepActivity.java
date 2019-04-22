@@ -186,13 +186,6 @@ public class SleepActivity extends BaseActivity<SleepActivity> {
                         sleepAdapter.showDeleteDialog(position);
                     }
                 });
-        // avatar
-        User me = SPHelper.getMe();
-        User ta = SPHelper.getTa();
-        String myAvatar = UserHelper.getMyAvatar(me);
-        String taAvatar = UserHelper.getTaAvatar(me);
-        ivAvatarRight.setData(myAvatar, me);
-        ivAvatarLeft.setData(taAvatar, ta);
     }
 
     @Override
@@ -209,6 +202,13 @@ public class SleepActivity extends BaseActivity<SleepActivity> {
             refreshBottomStatusData();
         });
         pushBus(RxBus.EVENT_SLEEP_LIST_ITEM_DELETE, obListItemDelete);
+        // avatar
+        User me = SPHelper.getMe();
+        User ta = SPHelper.getTa();
+        String myAvatar = UserHelper.getMyAvatar(me);
+        String taAvatar = UserHelper.getTaAvatar(me);
+        ivAvatarRight.setData(myAvatar, me);
+        ivAvatarLeft.setData(taAvatar, ta);
         // 设置当前日期
         refreshDateToCurrent();
         // 显示当前数据

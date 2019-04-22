@@ -147,6 +147,10 @@ public class SignActivity extends BaseActivity<SignActivity> {
                 refreshCenterMonthData();
             }
         });
+    }
+
+    @Override
+    protected void initData(Intent intent, Bundle state) {
         // avatar
         User me = SPHelper.getMe();
         User ta = SPHelper.getTa();
@@ -154,10 +158,6 @@ public class SignActivity extends BaseActivity<SignActivity> {
         String taAvatar = UserHelper.getTaAvatar(me);
         ivAvatarLeft.setData(taAvatar, ta);
         ivAvatarRight.setData(myAvatar, me);
-    }
-
-    @Override
-    protected void initData(Intent intent, Bundle state) {
         // 设置当前日期
         refreshDateToCurrent();
         // 显示当前数据
@@ -257,7 +257,9 @@ public class SignActivity extends BaseActivity<SignActivity> {
             srl.setRefreshing(true);
         }
         // clear (data + view)
-        signList = null;
+        if (signList != null) {
+            signList.clear();
+        }
         refreshBottomDayView();
         // api
         Call<Result> api = new RetrofitHelper().call(API.class).moreSignDateGet(selectYear, selectMonth);
@@ -281,6 +283,7 @@ public class SignActivity extends BaseActivity<SignActivity> {
 
     private void refreshCenterMonthView() {
         if (cvSign == null) return;
+        today = null;
         // data
         User ta = SPHelper.getTa();
         String meShow = mActivity.getString(R.string.me);
@@ -312,7 +315,7 @@ public class SignActivity extends BaseActivity<SignActivity> {
                 com.haibin.calendarview.Calendar calendar = CalendarMonthView.getCalendarView(sign.getYear(), sign.getMonthOfYear(), sign.getDayOfMonth());
                 String scheme = mine ? meShow : (ta == null ? taShow : (ta.getSex() == User.SEX_BOY ? heShow : sheShow));
                 calendar.setSchemeColor(ContextCompat.getColor(mActivity, ViewUtils.getColorDark(mActivity)));
-                calendar.setScheme(String.valueOf(scheme));
+                calendar.setScheme(scheme);
                 schemeMap.put(calendar.toString(), calendar);
             }
         }
@@ -341,9 +344,7 @@ public class SignActivity extends BaseActivity<SignActivity> {
         }
         if (StringUtils.isEmpty(signShow)) {
             Calendar cal = DateUtils.getCurrentCal();
-            if (today == null || (cal.get(Calendar.YEAR) == selectYear
-                    && cal.get(Calendar.MONTH) + 1 == selectMonth
-                    && cal.get(Calendar.DAY_OF_MONTH) == selectDay)) {
+            if (today == null || (cal.get(Calendar.YEAR) == selectYear && cal.get(Calendar.MONTH) + 1 == selectMonth && cal.get(Calendar.DAY_OF_MONTH) == selectDay)) {
                 signShow = getString(R.string.sign);
             } else {
                 signShow = getString(R.string.now_no);
@@ -359,9 +360,7 @@ public class SignActivity extends BaseActivity<SignActivity> {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 today = data.getSign();
-                if (today != null) {
-                    tvContinue.setText(String.format(Locale.getDefault(), getString(R.string.continue_sign_holder_day), today.getContinueDay()));
-                }
+                // event
                 RxBus.post(new RxBus.Event<>(RxBus.EVENT_COIN_INFO_REFRESH, new Coin()));
                 // view
                 refreshBottomDayView();
