@@ -615,6 +615,7 @@
     <string name="pay_success_but_nothing">支付成功了，但是啥也没给？</string>
     <string name="expire_colon_space_holder" formatted="false">到期: %s</string>
     <string name="continue_colon_space_holder_space_day" formatted="false">时长: %d 天</string>
+    <string name="vip_desc">会员介绍</string>
     <string name="no_ad">无广告</string>
     <string name="yes_ad_more_less">有广告(尽量少)</string>
     <string name="now_stage_open">现阶段开启</string>
