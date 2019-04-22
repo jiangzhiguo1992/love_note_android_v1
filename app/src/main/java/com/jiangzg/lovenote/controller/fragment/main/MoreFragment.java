@@ -143,7 +143,7 @@ public class MoreFragment extends BasePagerFragment<MoreFragment> {
 
     protected void loadData() {
         // event
-        Observable<Vip> busVip = RxBus.register(RxBus.EVENT_VIP_INFO_REFRESH, coin -> refreshData());
+        Observable<Vip> busVip = RxBus.register(RxBus.EVENT_VIP_INFO_REFRESH, vip -> refreshData());
         pushBus(RxBus.EVENT_VIP_INFO_REFRESH, busVip);
         Observable<Coin> busCoin = RxBus.register(RxBus.EVENT_COIN_INFO_REFRESH, coin -> refreshData());
         pushBus(RxBus.EVENT_COIN_INFO_REFRESH, busCoin);
