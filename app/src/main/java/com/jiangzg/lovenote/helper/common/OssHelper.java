@@ -71,8 +71,7 @@ public class OssHelper {
         conf.setMaxErrorRetry(5); // 失败后最大重试次数，默认2次
         //OSSLog.enableLog(); // 写入日志文件, 路径SDCard_path\OSSLog\logs.csv
         // oss客户端
-        ossClient = new OSSClient(MyApp.get(), ossInfo.getDomain(), credentialProvider, conf);
-        //MyApp.get().getThread().execute(() -> ossClient = new OSSClient(MyApp.get(), ossInfo.getDomain(), credentialProvider, conf));
+        MyApp.get().getThread().execute(() -> ossClient = new OSSClient(MyApp.get(), ossInfo.getDomain(), credentialProvider, conf));
     }
 
     private static OSS getOssClient() {
@@ -91,7 +90,12 @@ public class OssHelper {
         try {
             OssInfo ossInfo = SPHelper.getOssInfo();
             // 十分钟过期时间
-            String url = getOssClient().presignConstrainedObjectURL(ossInfo.getBucket(), objKey,
+            OSS client = getOssClient();
+            if (client == null) {
+                LogUtils.w(OssHelper.class, "getUrl", "client == null");
+                return "";
+            }
+            String url = client.presignConstrainedObjectURL(ossInfo.getBucket(), objKey,
                     ossInfo.getUrlExpireSec() * 1000);
             LogUtils.d(OssHelper.class, "getUrl", url);
             return url;
