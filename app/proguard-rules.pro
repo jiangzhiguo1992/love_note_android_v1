@@ -127,6 +127,13 @@
 # ---OPPO通道
 -keep public class * extends android.app.Service
 
+# ---广点通
+-keep class com.qq.e.** {public protected *;}
+-keep class android.support.v4.**{public *;}
+-keep class android.support.v7.**{public *;}
+-keep class MTT.ThirdAppInfoNew {*;}
+-keep class com.tencent.** {*;}
+
 #---------------------------------3.与js互相调用的类------------------------
 
 #---------------------------------4.反射相关的类和方法-----------------------
