@@ -161,6 +161,7 @@ public class SignActivity extends BaseActivity<SignActivity> {
         // 设置当前日期
         refreshDateToCurrent();
         // 显示当前数据
+        today = null;
         refreshCenterMonthView();
         // 开始获取数据
         refreshCenterMonthData();
@@ -283,7 +284,6 @@ public class SignActivity extends BaseActivity<SignActivity> {
 
     private void refreshCenterMonthView() {
         if (cvSign == null) return;
-        today = null;
         // data
         User ta = SPHelper.getTa();
         String meShow = mActivity.getString(R.string.me);
@@ -344,7 +344,7 @@ public class SignActivity extends BaseActivity<SignActivity> {
         }
         if (StringUtils.isEmpty(signShow)) {
             Calendar cal = DateUtils.getCurrentCal();
-            if (today == null || (cal.get(Calendar.YEAR) == selectYear && cal.get(Calendar.MONTH) + 1 == selectMonth && cal.get(Calendar.DAY_OF_MONTH) == selectDay)) {
+            if (today == null && (cal.get(Calendar.YEAR) == selectYear && cal.get(Calendar.MONTH) + 1 == selectMonth && cal.get(Calendar.DAY_OF_MONTH) == selectDay)) {
                 signShow = getString(R.string.sign);
             } else {
                 signShow = getString(R.string.now_no);

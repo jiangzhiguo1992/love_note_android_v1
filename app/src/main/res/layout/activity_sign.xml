@@ -119,20 +119,18 @@
                     android:layout_margin="10dp"
                     android:orientation="horizontal">
 
-                    <LinearLayout
+                    <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_alignTop="@id/cvState"
                         android:layout_alignBottom="@id/cvState"
-                        android:layout_toStartOf="@+id/cvState"
-                        android:gravity="center"
-                        android:orientation="vertical">
+                        android:layout_toStartOf="@+id/cvState">
 
                         <com.jiangzg.lovenote.view.FrescoAvatarView
                             android:id="@+id/ivAvatarLeft"
                             android:layout_width="40dp"
                             android:layout_height="40dp"
-                            android:layout_marginBottom="5dp"
+                            android:layout_centerHorizontal="true"
                             tools:background="@mipmap/ic_account_circle_grey_48dp"/>
 
                         <TextView
@@ -140,12 +138,13 @@
                             style="@style/FontWhiteNormalBold"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="5dp"
+                            android:layout_alignParentBottom="true"
+                            android:layout_centerHorizontal="true"
                             android:ellipsize="middle"
                             android:gravity="center"
                             android:singleLine="true"
                             tools:text="本月签到8次"/>
-                    </LinearLayout>
+                    </RelativeLayout>
 
                     <android.support.v7.widget.CardView
                         android:id="@+id/cvState"
@@ -169,20 +168,18 @@
                             tools:text="签到"/>
                     </android.support.v7.widget.CardView>
 
-                    <LinearLayout
+                    <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_alignTop="@id/cvState"
                         android:layout_alignBottom="@id/cvState"
-                        android:layout_toEndOf="@+id/cvState"
-                        android:gravity="center"
-                        android:orientation="vertical">
+                        android:layout_toEndOf="@+id/cvState">
 
                         <com.jiangzg.lovenote.view.FrescoAvatarView
                             android:id="@+id/ivAvatarRight"
                             android:layout_width="40dp"
                             android:layout_height="40dp"
-                            android:layout_marginBottom="5dp"
+                            android:layout_centerHorizontal="true"
                             tools:background="@mipmap/ic_account_circle_grey_48dp"/>
 
                         <TextView
@@ -190,12 +187,13 @@
                             style="@style/FontWhiteNormalBold"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="5dp"
+                            android:layout_alignParentBottom="true"
+                            android:layout_centerHorizontal="true"
                             android:ellipsize="middle"
                             android:gravity="center"
                             android:singleLine="true"
                             tools:text="本月签到8次"/>
-                    </LinearLayout>
+                    </RelativeLayout>
                 </RelativeLayout>
             </RelativeLayout>
         </LinearLayout>
