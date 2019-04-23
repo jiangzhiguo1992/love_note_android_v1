@@ -137,7 +137,7 @@ public class SignActivity extends BaseActivity<SignActivity> {
                     // 只是选择的同月day
                     selectDay = calendar.getDay();
                     refreshTopDateShow();
-                    refreshBottomDayView();
+                    refreshBottomPushView();
                     return;
                 }
                 selectYear = calendar.getYear();
@@ -260,7 +260,7 @@ public class SignActivity extends BaseActivity<SignActivity> {
         if (signList != null) {
             signList.clear();
         }
-        refreshBottomDayView();
+        refreshBottomPushView();
         // api
         Call<Result> api = new RetrofitHelper().call(API.class).moreSignDateGet(selectYear, selectMonth);
         RetrofitHelper.enqueue(api, null, new RetrofitHelper.CallBack() {
@@ -270,7 +270,7 @@ public class SignActivity extends BaseActivity<SignActivity> {
                 signList = data.getSignList();
                 // view
                 refreshCenterMonthView();
-                refreshBottomDayView();
+                refreshBottomPushView();
             }
 
             @Override
@@ -330,7 +330,7 @@ public class SignActivity extends BaseActivity<SignActivity> {
     /**
      * **************************************** bottom ***********************************************
      */
-    private void refreshBottomDayView() {
+    private void refreshBottomPushView() {
         if (cvSign == null) return;
         // data
         String signShow = null;
@@ -363,7 +363,7 @@ public class SignActivity extends BaseActivity<SignActivity> {
                 // event
                 RxBus.post(new RxBus.Event<>(RxBus.EVENT_COIN_INFO_REFRESH, new Coin()));
                 // view
-                refreshBottomDayView();
+                refreshBottomPushView();
                 // data
                 refreshCenterMonthData();
             }
