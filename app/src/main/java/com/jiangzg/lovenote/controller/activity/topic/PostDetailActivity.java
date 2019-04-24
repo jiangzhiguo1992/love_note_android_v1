@@ -384,7 +384,7 @@ public class PostDetailActivity extends BaseActivity<PostDetailActivity> {
         } else {
             rlCouple.setVisibility(View.VISIBLE);
             FrescoAvatarView ivAvatar = head.findViewById(R.id.ivAvatar);
-            ivAvatar.setData(avatar, post.getUserId());
+            ivAvatar.setData(avatar);
             TextView tvName = head.findViewById(R.id.tvName);
             tvName.setText(name);
             TextView tvTime = head.findViewById(R.id.tvTime);

@@ -32,6 +32,36 @@
         app:layout_behavior="@string/behavior_linear_depend_app_bar">
 
         <LinearLayout
+            android:id="@+id/llJab"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="?attr/selectableItemBackground"
+            android:foreground="?attr/selectableItemBackground"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="10dp"
+                android:src="@mipmap/ic_account_circle_grey_18dp"/>
+
+            <TextView
+                style="@style/FontGreySmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:maxLines="1"
+                android:singleLine="true"
+                android:text="@string/jab_ta"/>
+        </LinearLayout>
+
+        <View style="@style/LineVertical"/>
+
+        <LinearLayout
             android:id="@+id/llComment"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -58,36 +88,6 @@
                 android:maxLines="1"
                 android:singleLine="true"
                 android:text="@string/comment"/>
-        </LinearLayout>
-
-        <View style="@style/LineVertical"/>
-
-        <LinearLayout
-            android:id="@+id/llJab"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="?attr/selectableItemBackground"
-            android:foreground="?attr/selectableItemBackground"
-            android:gravity="center"
-            android:orientation="horizontal"
-            android:paddingTop="10dp"
-            android:paddingBottom="10dp">
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="10dp"
-                android:src="@mipmap/ic_account_circle_grey_18dp"/>
-
-            <TextView
-                style="@style/FontGreySmall"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:maxLines="1"
-                android:singleLine="true"
-                android:text="@string/jab_ta"/>
         </LinearLayout>
     </LinearLayout>
 

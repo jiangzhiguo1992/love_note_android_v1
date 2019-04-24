@@ -7,7 +7,6 @@ import android.content.res.ColorStateList;
 import android.os.Bundle;
 import android.support.design.widget.BottomSheetBehavior;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -25,6 +24,7 @@ import com.afollestad.materialdialogs.MaterialDialog;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemChildClickListener;
 import com.chad.library.adapter.base.listener.OnItemLongClickListener;
+import com.jiangzg.base.common.DateUtils;
 import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.base.component.ActivityTrans;
 import com.jiangzg.base.system.InputUtils;
@@ -39,6 +39,7 @@ import com.jiangzg.lovenote.helper.common.CountHelper;
 import com.jiangzg.lovenote.helper.common.RxBus;
 import com.jiangzg.lovenote.helper.common.SPHelper;
 import com.jiangzg.lovenote.helper.common.TimeHelper;
+import com.jiangzg.lovenote.helper.common.UserHelper;
 import com.jiangzg.lovenote.helper.system.RetrofitHelper;
 import com.jiangzg.lovenote.helper.view.DialogHelper;
 import com.jiangzg.lovenote.helper.view.RecyclerHelper;
@@ -200,8 +201,8 @@ public class PostSubCommentListActivity extends BaseActivity<PostSubCommentListA
     public boolean onPrepareOptionsMenu(Menu menu) {
         menu.clear();
         if (postComment != null && postComment.isMine()) {
-            getMenuInflater().inflate(R.menu.del, menu);
             getMenuInflater().inflate(R.menu.help, menu);
+            getMenuInflater().inflate(R.menu.del, menu);
         }
         return super.onPrepareOptionsMenu(menu);
     }
@@ -279,93 +280,58 @@ public class PostSubCommentListActivity extends BaseActivity<PostSubCommentListA
     private void initHeadAndBottom() {
         if (postComment == null || recyclerHelper == null) return;
         // color
-        int colorFontGrey = ContextCompat.getColor(mActivity, R.color.font_grey);
+        int colorFontBlack = ContextCompat.getColor(mActivity, R.color.font_black);
         int colorIconGrey = ContextCompat.getColor(mActivity, R.color.icon_grey);
         int colorPrimary = ContextCompat.getColor(mActivity, ViewUtils.getColorPrimary(mActivity));
         ColorStateList colorStateIconGrey = ColorStateList.valueOf(colorIconGrey);
         ColorStateList colorStatePrimary = ColorStateList.valueOf(colorPrimary);
         // data
-        int kind = postComment.getKind();
         Couple couple = postComment.getCouple();
+        String avatar = UserHelper.getAvatar(couple, postComment.getUserId());
+        String name = postComment.isOfficial() ? mActivity.getString(R.string.administrators) : UserHelper.getName(couple, postComment.getUserId());
         String floor = String.format(Locale.getDefault(), mActivity.getString(R.string.holder_floor), postComment.getFloor());
-        String create = TimeHelper.getTimeShowLine_HM_MD_YMD_ByGo(postComment.getCreateAt());
-        String contentText = postComment.getContentText();
-        String pointCount = postComment.getPointCount() > 0 ? CountHelper.getShowCount2Thousand(postComment.getPointCount()) : mActivity.getString(R.string.point);
-        boolean official = postComment.isOfficial();
-        boolean our = postComment.isOur();
-        boolean subComment = postComment.isSubComment();
-        final boolean point = postComment.isPoint();
+        String time = CountHelper.getBetweenTimeGoneShow(DateUtils.getCurrentLong() - TimeHelper.getJavaTimeByGo(postComment.getCreateAt()));
+        String contentText = (postComment.getKind() == PostComment.KIND_JAB) ? mActivity.getString(R.string.jab_a_little_ta) : postComment.getContentText();
+        String pointCount = CountHelper.getShowCount2Thousand(postComment.getPointCount());
         boolean report = postComment.isReport();
+        boolean point = postComment.isPoint();
+        boolean subComment = postComment.isSubComment();
         // view
         View head = recyclerHelper.getViewHead();
         if (head == null) return;
-        TextView tvOfficial = head.findViewById(R.id.tvOfficial);
+        RelativeLayout rlTop = head.findViewById(R.id.rlTop);
+        FrescoAvatarView ivAvatar = head.findViewById(R.id.ivAvatar);
+        TextView tvName = head.findViewById(R.id.tvName);
         TextView tvFloor = head.findViewById(R.id.tvFloor);
-        FrescoAvatarView ivAvatarLeft = head.findViewById(R.id.ivAvatarLeft);
-        FrescoAvatarView ivAvatarRight = head.findViewById(R.id.ivAvatarRight);
         TextView tvTime = head.findViewById(R.id.tvTime);
         TextView tvContent = head.findViewById(R.id.tvContent);
-        LinearLayout llOperate = head.findViewById(R.id.llOperate);
+        LinearLayout llReport = head.findViewById(R.id.llReport);
+        ImageView ivReport = head.findViewById(R.id.ivReport);
         LinearLayout llPoint = head.findViewById(R.id.llPoint);
         ImageView ivPoint = head.findViewById(R.id.ivPoint);
         TextView tvPointCount = head.findViewById(R.id.tvPointCount);
-        LinearLayout llReport = head.findViewById(R.id.llReport);
-        ImageView ivReport = head.findViewById(R.id.ivReport);
-        LinearLayout llJab = head.findViewById(R.id.llJab);
-        CardView cvAvatarJabLeft = head.findViewById(R.id.cvAvatarJabLeft);
-        CardView cvAvatarJabRight = head.findViewById(R.id.cvAvatarJabRight);
-        FrescoAvatarView ivAvatarJabLeft = head.findViewById(R.id.ivAvatarJabLeft);
-        FrescoAvatarView ivAvatarJabRight = head.findViewById(R.id.ivAvatarJabRight);
         TextView tvCommentUser = head.findViewById(R.id.tvCommentUser);
         TextView tvCommentSort = head.findViewById(R.id.tvCommentSort);
-        // set
-        tvOfficial.setVisibility(official ? View.VISIBLE : View.GONE);
-        tvFloor.setText(floor);
-        tvFloor.setTextColor(our ? colorPrimary : colorFontGrey);
-        tvTime.setText(create);
-        if (kind == PostComment.KIND_JAB) {
-            ivAvatarLeft.setVisibility(View.GONE);
-            ivAvatarRight.setVisibility(View.GONE);
-            tvContent.setVisibility(View.GONE);
-            llOperate.setVisibility(View.GONE);
-            llJab.setVisibility(View.VISIBLE);
-            // 戳一戳
-            if (couple == null) {
-                cvAvatarJabLeft.setVisibility(View.GONE);
-                cvAvatarJabRight.setVisibility(View.GONE);
-            } else {
-                cvAvatarJabLeft.setVisibility(View.VISIBLE);
-                cvAvatarJabRight.setVisibility(View.VISIBLE);
-                ivAvatarJabLeft.setData(couple.getCreatorAvatar());
-                ivAvatarJabRight.setData(couple.getInviteeAvatar());
-            }
+        // top
+        if (couple == null) {
+            rlTop.setVisibility(View.GONE);
         } else {
-            // 正常文本
-            tvContent.setVisibility(View.VISIBLE);
-            llOperate.setVisibility(View.VISIBLE);
-            llJab.setVisibility(View.GONE);
-            if (couple == null) {
-                ivAvatarLeft.setVisibility(View.GONE);
-                ivAvatarRight.setVisibility(View.GONE);
-            } else {
-                ivAvatarLeft.setVisibility(View.VISIBLE);
-                ivAvatarRight.setVisibility(View.VISIBLE);
-                ivAvatarLeft.setData(couple.getCreatorAvatar());
-                ivAvatarRight.setData(couple.getInviteeAvatar());
-            }
-            tvContent.setText(contentText);
-            tvPointCount.setText(pointCount);
-            ivPoint.setImageTintList(point ? colorStatePrimary : colorStateIconGrey);
-            if (official) {
-                llReport.setVisibility(View.GONE);
-            } else {
-                llReport.setVisibility(View.VISIBLE);
-                ivReport.setImageTintList(report ? colorStatePrimary : colorStateIconGrey);
-            }
-            // listener
-            llPoint.setOnClickListener(v -> point(true));
-            llReport.setOnClickListener(v -> report(true));
+            rlTop.setVisibility(View.VISIBLE);
+            ivAvatar.setData(avatar);
+            tvName.setText(name);
+            tvFloor.setText(floor);
+            tvTime.setText(time);
         }
+        // center
+        tvContent.setText(contentText);
+        tvContent.setTextColor((postComment.getKind() == PostComment.KIND_JAB) ? colorPrimary : colorFontBlack);
+        // bottom
+        ivReport.setImageTintList(report ? colorStatePrimary : colorStateIconGrey);
+        ivPoint.setImageTintList(point ? colorStatePrimary : colorStateIconGrey);
+        tvPointCount.setText(pointCount);
+        // listener
+        llPoint.setOnClickListener(v -> point(true));
+        llReport.setOnClickListener(v -> report(true));
         // comment
         String commentUser = String.format(Locale.getDefault(), getString(R.string.all_space_brackets_holder_brackets), postComment.getSubCommentCount());
         tvCommentUser.setText(commentUser);
