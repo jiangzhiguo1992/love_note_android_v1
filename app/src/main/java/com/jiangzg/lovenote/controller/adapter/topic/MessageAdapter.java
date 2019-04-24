@@ -2,11 +2,13 @@ package com.jiangzg.lovenote.controller.adapter.topic;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
+import com.jiangzg.base.common.DateUtils;
 import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.controller.activity.base.BaseActivity;
 import com.jiangzg.lovenote.controller.activity.topic.PostDetailActivity;
 import com.jiangzg.lovenote.controller.activity.topic.PostSubCommentListActivity;
+import com.jiangzg.lovenote.helper.common.CountHelper;
 import com.jiangzg.lovenote.helper.common.TimeHelper;
 import com.jiangzg.lovenote.model.entity.Couple;
 import com.jiangzg.lovenote.model.entity.TopicMessage;
@@ -29,7 +31,7 @@ public class MessageAdapter extends BaseQuickAdapter<TopicMessage, BaseViewHolde
     protected void convert(BaseViewHolder helper, TopicMessage item) {
         // data
         Couple couple = item.getCouple();
-        String time = TimeHelper.getTimeShowLine_HM_MDHM_YMDHM_ByGo(item.getCreateAt());
+        String time = CountHelper.getBetweenTimeGoneShow(DateUtils.getCurrentLong() - TimeHelper.getJavaTimeByGo(item.getUpdateAt()));
         String contentText = StringUtils.isEmpty(item.getContentText()) ? mActivity.getString(R.string.receive_new_message) : item.getContentText();
         // view
         FrescoAvatarView ivAvatarLeft = helper.getView(R.id.ivAvatarLeft);
