@@ -283,6 +283,8 @@
     <string name="draft_save_success">草稿保存成功</string>
 
     <!-- show-format-common -->
+    <string name="before">前</string>
+    <string name="just_now">刚刚</string>
     <string name="holder_sprit_holder" formatted="false">%d/%d</string>
     <string name="holder_wave_holder" formatted="false">%s~%s</string>
     <string name="holder_space_line_space_holder" formatted="false">%s - %s</string>

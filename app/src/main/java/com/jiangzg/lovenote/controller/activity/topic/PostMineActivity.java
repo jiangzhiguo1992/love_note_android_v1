@@ -78,7 +78,7 @@ public class PostMineActivity extends BaseActivity<PostMineActivity> {
         recyclerHelper = new RecyclerHelper(rv)
                 .initLayoutManager(new LinearLayoutManager(mActivity))
                 .initRefresh(srl, true)
-                .initAdapter(new PostAdapter(mActivity, true, true))
+                .initAdapter(new PostAdapter(mActivity))
                 .viewEmpty(mActivity, R.layout.list_empty_grey, true, true)
                 .viewLoadMore(new RecyclerHelper.MoreGreyView())
                 .viewAnim()

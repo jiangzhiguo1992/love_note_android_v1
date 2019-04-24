@@ -40,7 +40,7 @@ public class CountHelper {
         if (sec < 1) {
             secShow = "00";
         } else if (sec < 10) {
-            secShow = "0" + String.valueOf(sec);
+            secShow = "0" + sec;
         } else {
             secShow = String.valueOf(sec);
         }
@@ -49,11 +49,27 @@ public class CountHelper {
         if (min < 1) {
             minShow = "00";
         } else if (min < 10) {
-            minShow = "0" + String.valueOf(min);
+            minShow = "0" + min;
         } else {
             minShow = String.valueOf(min);
         }
         return minShow + ":" + secShow;
+    }
+
+    public static String getBetweenTimeGoneShow(long between) {
+        String time = MyApp.get().getString(R.string.just_now);
+        if (between >= TimeUnit.YEAR) {
+            time = (between / TimeUnit.YEAR) + MyApp.get().getString(R.string.year) + MyApp.get().getString(R.string.before);
+        } else if (between >= TimeUnit.MONTH) {
+            time = (between / TimeUnit.MONTH) + MyApp.get().getString(R.string.month) + MyApp.get().getString(R.string.before);
+        } else if (between >= TimeUnit.DAY) {
+            time = (between / TimeUnit.DAY) + MyApp.get().getString(R.string.dayT) + MyApp.get().getString(R.string.before);
+        } else if (between >= TimeUnit.HOUR) {
+            time = (between / TimeUnit.HOUR) + MyApp.get().getString(R.string.hour) + MyApp.get().getString(R.string.before);
+        } else if (between >= TimeUnit.MIN * 5) {
+            time = (between / TimeUnit.MIN) + MyApp.get().getString(R.string.minute) + MyApp.get().getString(R.string.before);
+        }
+        return time;
     }
 
 }

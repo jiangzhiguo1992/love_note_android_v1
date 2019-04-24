@@ -1,36 +1,29 @@
 package com.jiangzg.lovenote.controller.adapter.topic;
 
-import android.content.res.ColorStateList;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.ImageView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
+import com.jiangzg.base.common.DateUtils;
 import com.jiangzg.base.common.StringUtils;
-import com.jiangzg.base.view.ViewUtils;
 import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.controller.activity.base.BaseActivity;
 import com.jiangzg.lovenote.controller.activity.topic.PostDetailActivity;
 import com.jiangzg.lovenote.controller.adapter.common.ImgSquareShowAdapter;
 import com.jiangzg.lovenote.helper.common.CountHelper;
-import com.jiangzg.lovenote.helper.common.ListHelper;
 import com.jiangzg.lovenote.helper.common.TimeHelper;
 import com.jiangzg.lovenote.helper.system.RetrofitHelper;
 import com.jiangzg.lovenote.helper.view.DialogHelper;
 import com.jiangzg.lovenote.helper.view.RecyclerHelper;
-import com.jiangzg.lovenote.helper.view.ViewHelper;
 import com.jiangzg.lovenote.model.api.API;
 import com.jiangzg.lovenote.model.api.Result;
 import com.jiangzg.lovenote.model.entity.Couple;
 import com.jiangzg.lovenote.model.entity.Post;
 import com.jiangzg.lovenote.model.entity.PostCollect;
-import com.jiangzg.lovenote.model.entity.PostKindInfo;
 import com.jiangzg.lovenote.view.FrescoAvatarView;
-import com.jiangzg.lovenote.view.GWrapView;
 
 import java.util.List;
 
@@ -42,24 +35,11 @@ import retrofit2.Call;
  */
 public class PostAdapter extends BaseQuickAdapter<Post, BaseViewHolder> {
 
-    private final ColorStateList colorPrimaryStateList, colorGreyStateList;
-    private final int colorPrimary, colorFontGrey, colorFontBlack;
     private BaseActivity mActivity;
-    private boolean kindShow, subKindShow;
 
-    public PostAdapter(BaseActivity activity, boolean kindShow, boolean subKindShow) {
+    public PostAdapter(BaseActivity activity) {
         super(R.layout.list_item_post);
         mActivity = activity;
-        this.kindShow = kindShow;
-        this.subKindShow = subKindShow;
-        // color
-        int rId = ViewUtils.getColorPrimary(activity);
-        int colorIconGrey = ContextCompat.getColor(activity, R.color.icon_grey);
-        colorPrimary = ContextCompat.getColor(activity, rId);
-        colorFontGrey = ContextCompat.getColor(activity, R.color.font_grey);
-        colorFontBlack = ContextCompat.getColor(activity, R.color.font_black);
-        colorGreyStateList = ColorStateList.valueOf(colorIconGrey);
-        colorPrimaryStateList = ColorStateList.valueOf(colorPrimary);
     }
 
     @Override
@@ -79,36 +59,14 @@ public class PostAdapter extends BaseQuickAdapter<Post, BaseViewHolder> {
         helper.setVisible(R.id.llInfo, true);
         helper.setVisible(R.id.tvCover, false);
         // data
-        boolean isOur = item.isOur();
         Couple couple = item.getCouple();
-        PostKindInfo kindInfo = ListHelper.getPostKindInfo(item.getKind());
-        List<String> tagShowList = ListHelper.getPostTagListShow(kindInfo, item, kindShow, subKindShow);
-        String update = TimeHelper.getTimeShowLine_HM_MD_YMD_ByGo(item.getUpdateAt());
         String title = item.getTitle();
         String contentText = item.getContentText();
         List<String> imageList = item.getContentImageList();
+        String time = CountHelper.getBetweenTimeGoneShow(DateUtils.getCurrentLong() - TimeHelper.getJavaTimeByGo(item.getUpdateAt()));
         String pointCount = CountHelper.getShowCount2Thousand(item.getPointCount());
         String collectCount = CountHelper.getShowCount2Thousand(item.getCollectCount());
         String commentCount = CountHelper.getShowCount2Thousand(item.getCommentCount());
-        boolean read = item.isRead();
-        boolean point = item.isPoint();
-        boolean collect = item.isCollect();
-        boolean comment = item.isComment();
-        // tag
-        GWrapView wvTag = helper.getView(R.id.wvTag);
-        if (tagShowList == null || tagShowList.size() <= 0) {
-            wvTag.setVisibility(View.GONE);
-        } else {
-            wvTag.setVisibility(View.VISIBLE);
-            wvTag.removeAllChild();
-            for (String tag : tagShowList) {
-                View tagView = ViewHelper.getWrapTextView(mActivity, tag);
-                if (tagView == null) continue;
-                wvTag.addChild(tagView);
-            }
-        }
-        // time
-        helper.setText(R.id.tvUpdateAt, update);
         // title
         helper.setVisible(R.id.tvTitle, !StringUtils.isEmpty(title));
         helper.setText(R.id.tvTitle, title);
@@ -135,40 +93,17 @@ public class PostAdapter extends BaseQuickAdapter<Post, BaseViewHolder> {
             helper.setVisible(R.id.llCouple, false);
         } else {
             helper.setVisible(R.id.llCouple, true);
-            helper.setVisible(R.id.llCoupleName, false);
-            String creatorName = couple.getCreatorName();
-            String inviteeName = couple.getInviteeName();
-            if (!StringUtils.isEmpty(creatorName) || !StringUtils.isEmpty(inviteeName)) {
-                helper.setVisible(R.id.llCoupleName, true);
-                helper.setText(R.id.tvNameLeft, creatorName);
-                helper.setText(R.id.tvNameRight, inviteeName);
-                if (isOur) {
-                    if (item.getUserId() == couple.getCreatorId()) {
-                        helper.setTextColor(R.id.tvNameLeft, colorPrimary);
-                        helper.setTextColor(R.id.tvNameRight, colorFontGrey);
-                    } else {
-                        helper.setTextColor(R.id.tvNameLeft, colorFontGrey);
-                        helper.setTextColor(R.id.tvNameRight, colorPrimary);
-                    }
-                }
-            }
             FrescoAvatarView ivAvatarLeft = helper.getView(R.id.ivAvatarLeft);
             FrescoAvatarView ivAvatarRight = helper.getView(R.id.ivAvatarRight);
             ivAvatarLeft.setData(couple.getCreatorAvatar());
             ivAvatarRight.setData(couple.getInviteeAvatar());
         }
+        // time
+        helper.setText(R.id.tvUpdateAt, time);
         // count
         helper.setText(R.id.tvPoint, pointCount);
         helper.setText(R.id.tvCollect, collectCount);
         helper.setText(R.id.tvComment, commentCount);
-        // user
-        helper.setTextColor(R.id.tvTitle, read ? colorFontGrey : colorFontBlack);
-        ImageView ivPoint = helper.getView(R.id.ivPoint);
-        ivPoint.setImageTintList(point ? colorPrimaryStateList : colorGreyStateList);
-        ImageView ivCollect = helper.getView(R.id.ivCollect);
-        ivCollect.setImageTintList(collect ? colorPrimaryStateList : colorGreyStateList);
-        ImageView ivComment = helper.getView(R.id.ivComment);
-        ivComment.setImageTintList(comment ? colorPrimaryStateList : colorGreyStateList);
         // listener 不要了，点击区域有bug
         //if (!item.isScreen() && !item.isDelete()) helper.addOnClickListener(R.id.rvImage);
     }
