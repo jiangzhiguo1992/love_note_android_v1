@@ -260,11 +260,15 @@ public class PostDetailActivity extends BaseActivity<PostDetailActivity> {
             return super.onPrepareOptionsMenu(menu);
         }
         if (post.isOfficial()) {
-            getMenuInflater().inflate(R.menu.help, menu);
+            if (post.isMine()) { // 帮助 + 删除
+                getMenuInflater().inflate(R.menu.help_del, menu);
+            } else { // 帮助
+                getMenuInflater().inflate(R.menu.help, menu);
+            }
         } else {
-            if (post.isMine()) { // 举报 + 删除 + 帮助
+            if (post.isMine()) { // 帮助 + 举报 + 删除
                 getMenuInflater().inflate(R.menu.help_report_del, menu);
-            } else { // 举报
+            } else { // 帮助 + 举报
                 getMenuInflater().inflate(R.menu.help_report, menu);
             }
         }

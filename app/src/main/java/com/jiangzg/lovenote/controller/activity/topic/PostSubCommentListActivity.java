@@ -192,16 +192,9 @@ public class PostSubCommentListActivity extends BaseActivity<PostSubCommentListA
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.help, menu);
-        return super.onCreateOptionsMenu(menu);
-    }
-
-    @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
         menu.clear();
         if (postComment != null && postComment.isMine()) {
-            getMenuInflater().inflate(R.menu.help, menu);
             getMenuInflater().inflate(R.menu.del, menu);
         }
         return super.onPrepareOptionsMenu(menu);
