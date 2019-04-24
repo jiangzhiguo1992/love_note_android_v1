@@ -1,5 +1,6 @@
 package com.jiangzg.lovenote.controller.adapter.topic;
 
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -36,10 +37,14 @@ import retrofit2.Call;
 public class PostAdapter extends BaseQuickAdapter<Post, BaseViewHolder> {
 
     private BaseActivity mActivity;
+    private final int colorFontGrey, colorFontBlack;
 
     public PostAdapter(BaseActivity activity) {
         super(R.layout.list_item_post);
         mActivity = activity;
+        // color
+        colorFontGrey = ContextCompat.getColor(activity, R.color.font_grey);
+        colorFontBlack = ContextCompat.getColor(activity, R.color.font_black);
     }
 
     @Override
@@ -61,6 +66,7 @@ public class PostAdapter extends BaseQuickAdapter<Post, BaseViewHolder> {
         // data
         Couple couple = item.getCouple();
         String title = item.getTitle();
+        boolean read = item.isRead();
         String contentText = item.getContentText();
         List<String> imageList = item.getContentImageList();
         String time = CountHelper.getBetweenTimeGoneShow(DateUtils.getCurrentLong() - TimeHelper.getJavaTimeByGo(item.getUpdateAt()));
@@ -70,6 +76,7 @@ public class PostAdapter extends BaseQuickAdapter<Post, BaseViewHolder> {
         // title
         helper.setVisible(R.id.tvTitle, !StringUtils.isEmpty(title));
         helper.setText(R.id.tvTitle, title);
+        helper.setTextColor(R.id.tvTitle, read ? colorFontGrey : colorFontBlack);
         // content
         helper.setVisible(R.id.tvContent, !StringUtils.isEmpty(contentText));
         helper.setText(R.id.tvContent, contentText);

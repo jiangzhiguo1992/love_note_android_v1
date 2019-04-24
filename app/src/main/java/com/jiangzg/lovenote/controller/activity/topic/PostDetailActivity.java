@@ -25,6 +25,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemChildClickListener;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.chad.library.adapter.base.listener.OnItemLongClickListener;
+import com.jiangzg.base.common.DateUtils;
 import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.base.component.ActivityTrans;
 import com.jiangzg.base.system.InputUtils;
@@ -42,6 +43,7 @@ import com.jiangzg.lovenote.helper.common.ListHelper;
 import com.jiangzg.lovenote.helper.common.RxBus;
 import com.jiangzg.lovenote.helper.common.SPHelper;
 import com.jiangzg.lovenote.helper.common.TimeHelper;
+import com.jiangzg.lovenote.helper.common.UserHelper;
 import com.jiangzg.lovenote.helper.system.RetrofitHelper;
 import com.jiangzg.lovenote.helper.view.DialogHelper;
 import com.jiangzg.lovenote.helper.view.RecyclerHelper;
@@ -362,46 +364,39 @@ public class PostDetailActivity extends BaseActivity<PostDetailActivity> {
         } else {
             postRead(post.getId());
         }
-        int colorPrimary = ContextCompat.getColor(mActivity, ViewUtils.getColorPrimary(mActivity));
-        int colorFontGrey = ContextCompat.getColor(mActivity, R.color.font_grey);
         // data
-        boolean isOur = post.isOur();
         Couple couple = post.getCouple();
+        String avatar = UserHelper.getAvatar(couple, post.getUserId());
+        String name = UserHelper.getName(couple, post.getUserId());
+        String time = DateUtils.getStr(TimeHelper.getJavaTimeByGo(post.getCreateAt()), DateUtils.FORMAT_LINE_M_D_H_M);
         PostKindInfo kindInfo = ListHelper.getPostKindInfo(post.getKind());
         List<String> tagShowList = ListHelper.getPostTagListShow(kindInfo, post, true, true);
         String title = post.getTitle();
         String contentText = post.getContentText();
         List<String> imageList = post.getContentImageList();
-        String create = TimeHelper.getTimeShowLine_HM_MD_YMD_ByGo(post.getCreateAt());
-        String createShow = String.format(Locale.getDefault(), mActivity.getString(R.string.create_at_colon_space_holder), create);
-        String update = TimeHelper.getTimeShowLine_HM_MD_YMD_ByGo(post.getUpdateAt());
-        String updatedShow = String.format(Locale.getDefault(), mActivity.getString(R.string.update_at_colon_space_holder), update);
         // view
         View head = recyclerHelper.getViewHead();
         if (head == null) return;
         // couple
-        LinearLayout llCouple = head.findViewById(R.id.llCouple);
+        RelativeLayout rlCouple = head.findViewById(R.id.rlCouple);
         if (couple == null) {
-            llCouple.setVisibility(View.GONE);
+            rlCouple.setVisibility(View.GONE);
         } else {
-            llCouple.setVisibility(View.VISIBLE);
-            TextView tvNameLeft = head.findViewById(R.id.tvNameLeft);
-            TextView tvNameRight = head.findViewById(R.id.tvNameRight);
-            FrescoAvatarView ivAvatarLeft = head.findViewById(R.id.ivAvatarLeft);
-            FrescoAvatarView ivAvatarRight = head.findViewById(R.id.ivAvatarRight);
-            tvNameLeft.setText(couple.getCreatorName());
-            tvNameRight.setText(couple.getInviteeName());
-            if (isOur) {
-                if (post.getUserId() == couple.getCreatorId()) {
-                    tvNameLeft.setTextColor(colorPrimary);
-                    tvNameRight.setTextColor(colorFontGrey);
-                } else {
-                    tvNameLeft.setTextColor(colorFontGrey);
-                    tvNameRight.setTextColor(colorPrimary);
-                }
-            }
-            ivAvatarLeft.setData(couple.getCreatorAvatar());
-            ivAvatarRight.setData(couple.getInviteeAvatar());
+            rlCouple.setVisibility(View.VISIBLE);
+            FrescoAvatarView ivAvatar = head.findViewById(R.id.ivAvatar);
+            ivAvatar.setData(avatar, post.getUserId());
+            TextView tvName = head.findViewById(R.id.tvName);
+            tvName.setText(name);
+            TextView tvTime = head.findViewById(R.id.tvTime);
+            tvTime.setText(time);
+        }
+        // title
+        TextView tvTitle = head.findViewById(R.id.tvTitle);
+        if (StringUtils.isEmpty(title)) {
+            tvTitle.setVisibility(View.GONE);
+        } else {
+            tvTitle.setVisibility(View.VISIBLE);
+            tvTitle.setText(title);
         }
         // tag
         GWrapView wvTag = head.findViewById(R.id.wvTag);
@@ -415,14 +410,6 @@ public class PostDetailActivity extends BaseActivity<PostDetailActivity> {
                 if (tagView == null) continue;
                 wvTag.addChild(tagView);
             }
-        }
-        // title
-        TextView tvTitle = head.findViewById(R.id.tvTitle);
-        if (StringUtils.isEmpty(title)) {
-            tvTitle.setVisibility(View.GONE);
-        } else {
-            tvTitle.setVisibility(View.VISIBLE);
-            tvTitle.setText(title);
         }
         // content
         TextView tvContent = head.findViewById(R.id.tvContent);
@@ -454,11 +441,6 @@ public class PostDetailActivity extends BaseActivity<PostDetailActivity> {
                     .setAdapter()
                     .dataNew(imageList, 0);
         }
-        // time
-        TextView tvCreateAt = head.findViewById(R.id.tvCreateAt);
-        TextView tvUpdateAt = head.findViewById(R.id.tvUpdateAt);
-        tvCreateAt.setText(createShow);
-        tvUpdateAt.setText(updatedShow);
         // comment
         TextView tvCommentUser = head.findViewById(R.id.tvCommentUser);
         TextView tvCommentSort = head.findViewById(R.id.tvCommentSort);
