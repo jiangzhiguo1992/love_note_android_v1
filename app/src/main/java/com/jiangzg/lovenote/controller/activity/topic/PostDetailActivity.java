@@ -190,7 +190,7 @@ public class PostDetailActivity extends BaseActivity<PostDetailActivity> {
                                 commentAdapter.pointPush(position, true);
                                 break;
                             case R.id.llReport: // 举报
-                                commentAdapter.reportPush(position, true);
+                                commentAdapter.showReportDialog(position, true);
                                 break;
                         }
                     }
@@ -284,7 +284,7 @@ public class PostDetailActivity extends BaseActivity<PostDetailActivity> {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menuReport: // 举报
-                report();
+                showReportDialog();
                 return true;
             case R.id.menuDel: // 删除
                 showPostDelDialog();
@@ -775,7 +775,7 @@ public class PostDetailActivity extends BaseActivity<PostDetailActivity> {
             return;
         }
         MaterialDialog dialog = DialogHelper.getBuild(mActivity)
-                .content(R.string.confirm_delete_this_post)
+                .content(R.string.confirm_del_this_post)
                 .cancelable(true)
                 .canceledOnTouchOutside(true)
                 .positiveText(R.string.confirm_no_wrong)
@@ -801,6 +801,18 @@ public class PostDetailActivity extends BaseActivity<PostDetailActivity> {
             }
         });
         pushApi(api);
+    }
+
+    private void showReportDialog() {
+        MaterialDialog dialog = DialogHelper.getBuild(mActivity)
+                .content(R.string.confirm_report_this_post)
+                .cancelable(true)
+                .canceledOnTouchOutside(true)
+                .positiveText(R.string.confirm_no_wrong)
+                .negativeText(R.string.i_think_again)
+                .onPositive((dialog1, which) -> report())
+                .build();
+        DialogHelper.showWithAnim(dialog);
     }
 
     private void report() {

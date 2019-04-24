@@ -266,17 +266,20 @@
     <string name="album_colon_space_holder" formatted="false">相册: %s</string>
     <string name="duration_colon_space_holder" formatted="false">时长: %s</string>
     <string name="rule_colon_space_holder" formatted="false">约定: %s</string>
-    <string name="confirm_delete_this_image">确定要删除这张图片吗</string>
+    <string name="confirm_delete_this_image">确定要删除这张图片吗？</string>
     <string name="confirm_delete_this_note">确定删除这个记录？</string>
     <string name="confirm_remove_this_note">确定移除这个记录？</string>
-    <string name="confirm_del_suggest">确定删除意见吗？</string>
-    <string name="confirm_del_comment">确定要删除评论吗？</string>
-    <string name="confirm_del_collect">确定要删除收藏吗？</string>
-    <string name="confirm_delete_this_post">确定删除这个帖子？</string>
-    <string name="confirm_del_this_work">确定要删除这个作品吗？</string>
-    <string name="can_delete_self_create_post">只能删除自己创建的帖子哦</string>
-    <string name="can_delete_self_create_comment">只能删除自己创建的评论哦</string>
-    <string name="can_operation_self_create_note">只能操作自己创建的记录哦！</string>
+    <string name="confirm_del_this_suggest">确定删除这个意见吗？</string>
+    <string name="confirm_del_this_collect">确定删除这个收藏吗？</string>
+    <string name="confirm_del_this_comment">确定删除这个评论吗？</string>
+    <string name="confirm_del_this_post">确定删除这个帖子？</string>
+    <string name="confirm_del_this_work">确定删除这个作品吗？</string>
+    <string name="confirm_report_this_comment">确定举报这个评论吗？</string>
+    <string name="confirm_report_this_post">确定举报这个帖子？</string>
+    <string name="confirm_report_this_work">确定举报这个作品吗？</string>
+    <string name="can_operation_self_create_note">只能操作自己创建的记录哦？</string>
+    <string name="can_delete_self_create_post">只能删除自己创建的帖子哦？</string>
+    <string name="can_delete_self_create_comment">只能删除自己创建的评论哦？</string>
     <string name="picture_where">照片呢？</string>
     <string name="save_draft">保存草稿</string>
     <string name="is_save_draft">是否保存草稿</string>

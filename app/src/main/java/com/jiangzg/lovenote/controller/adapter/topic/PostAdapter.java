@@ -129,7 +129,7 @@ public class PostAdapter extends BaseQuickAdapter<Post, BaseViewHolder> {
         MaterialDialog dialog = DialogHelper.getBuild(mActivity)
                 .cancelable(true)
                 .canceledOnTouchOutside(true)
-                .content(R.string.confirm_del_collect)
+                .content(R.string.confirm_del_this_collect)
                 .positiveText(R.string.confirm_no_wrong)
                 .negativeText(R.string.i_think_again)
                 .onPositive((dialog1, which) -> delCollect(position))

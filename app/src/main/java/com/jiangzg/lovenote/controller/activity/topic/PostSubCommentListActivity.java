@@ -153,7 +153,7 @@ public class PostSubCommentListActivity extends BaseActivity<PostSubCommentListA
                                 commentAdapter.pointPush(position, true);
                                 break;
                             case R.id.llReport: // 举报
-                                commentAdapter.reportPush(position, true);
+                                commentAdapter.showReportDialog(position, true);
                                 break;
                         }
                     }
@@ -573,7 +573,7 @@ public class PostSubCommentListActivity extends BaseActivity<PostSubCommentListA
     private void showPostCommentDelDialog() {
         if (postComment == null || !postComment.isMine()) return;
         MaterialDialog dialog = DialogHelper.getBuild(mActivity)
-                .content(R.string.confirm_delete_this_post)
+                .content(R.string.confirm_del_this_post)
                 .cancelable(true)
                 .canceledOnTouchOutside(true)
                 .positiveText(R.string.confirm_no_wrong)

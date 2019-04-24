@@ -439,7 +439,7 @@ public class SuggestDetailActivity extends BaseActivity<SuggestDetailActivity> {
 
     private void showDelDialog() {
         MaterialDialog dialog = DialogHelper.getBuild(mActivity)
-                .content(R.string.confirm_del_suggest)
+                .content(R.string.confirm_del_this_suggest)
                 .cancelable(true)
                 .canceledOnTouchOutside(true)
                 .positiveText(R.string.confirm_no_wrong)

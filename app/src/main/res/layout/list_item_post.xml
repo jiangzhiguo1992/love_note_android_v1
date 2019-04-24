@@ -174,34 +174,6 @@
                 android:orientation="horizontal">
 
                 <LinearLayout
-                    android:id="@+id/llComment"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:orientation="horizontal"
-                    android:padding="5dp">
-
-                    <ImageView
-                        android:id="@+id/ivComment"
-                        android:layout_width="15dp"
-                        android:layout_height="15dp"
-                        android:layout_marginEnd="5dp"
-                        android:src="@mipmap/ic_insert_comment_grey_18dp"
-                        android:tint="@color/font_hint"/>
-
-                    <TextView
-                        android:id="@+id/tvComment"
-                        style="@style/FontGreySmall"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:maxLines="1"
-                        android:singleLine="true"
-                        android:textColor="@color/font_hint"
-                        tools:text="11万"/>
-                </LinearLayout>
-
-                <LinearLayout
                     android:id="@+id/llCollect"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -247,6 +219,34 @@
 
                     <TextView
                         android:id="@+id/tvPoint"
+                        style="@style/FontGreySmall"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:maxLines="1"
+                        android:singleLine="true"
+                        android:textColor="@color/font_hint"
+                        tools:text="11万"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/llComment"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:padding="5dp">
+
+                    <ImageView
+                        android:id="@+id/ivComment"
+                        android:layout_width="15dp"
+                        android:layout_height="15dp"
+                        android:layout_marginEnd="5dp"
+                        android:src="@mipmap/ic_insert_comment_grey_18dp"
+                        android:tint="@color/font_hint"/>
+
+                    <TextView
+                        android:id="@+id/tvComment"
                         style="@style/FontGreySmall"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"

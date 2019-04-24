@@ -113,44 +113,6 @@ public class PostCommentAdapter extends BaseMultiItemQuickAdapter<PostComment, B
         }
     }
 
-    // 删除评论
-    public void showDeleteDialog(final int position) {
-        PostComment item = getItem(position);
-        if (!item.isMine()) {
-            return;
-        }
-        MaterialDialog dialog = DialogHelper.getBuild(mActivity)
-                .cancelable(true)
-                .canceledOnTouchOutside(true)
-                .content(R.string.confirm_del_comment)
-                .positiveText(R.string.confirm_no_wrong)
-                .negativeText(R.string.i_think_again)
-                .onPositive((dialog1, which) -> delCommentApi(position))
-                .build();
-        DialogHelper.showWithAnim(dialog);
-    }
-
-    private void delCommentApi(final int position) {
-        final PostComment item = getItem(position);
-        Call<Result> api = new RetrofitHelper().call(API.class).topicPostCommentDel(item.getId());
-        RetrofitHelper.enqueue(api, mActivity.getLoading(true), new RetrofitHelper.CallBack() {
-            @Override
-            public void onResponse(int code, String message, Result.Data data) {
-                remove(position);
-                // event
-                RxBus.post(new RxBus.Event<>(RxBus.EVENT_POST_DETAIL_REFRESH, item.getPostId()));
-                if (subComment) {
-                    RxBus.post(new RxBus.Event<>(RxBus.EVENT_POST_COMMENT_DETAIL_REFRESH, item.getToCommentId()));
-                }
-            }
-
-            @Override
-            public void onFailure(int code, String message, Result.Data data) {
-            }
-        });
-        mActivity.pushApi(api);
-    }
-
     public void pointPush(final int position, boolean isApi) {
         final PostComment item = getItem(position);
         boolean newPoint = !item.isPoint();
@@ -179,6 +141,18 @@ public class PostCommentAdapter extends BaseMultiItemQuickAdapter<PostComment, B
         mActivity.pushApi(api);
     }
 
+    public void showReportDialog(final int position, boolean isApi) {
+        MaterialDialog dialog = DialogHelper.getBuild(mActivity)
+                .content(R.string.confirm_report_this_comment)
+                .cancelable(true)
+                .canceledOnTouchOutside(true)
+                .positiveText(R.string.confirm_no_wrong)
+                .negativeText(R.string.i_think_again)
+                .onPositive((dialog1, which) -> reportPush(position, isApi))
+                .build();
+        DialogHelper.showWithAnim(dialog);
+    }
+
     public void reportPush(final int position, boolean isApi) {
         final PostComment item = getItem(position);
         if (item.isReport() || item.isOfficial()) return;
@@ -197,6 +171,44 @@ public class PostCommentAdapter extends BaseMultiItemQuickAdapter<PostComment, B
             @Override
             public void onFailure(int code, String message, Result.Data data) {
                 reportPush(position, false);
+            }
+        });
+        mActivity.pushApi(api);
+    }
+
+    // 删除评论
+    public void showDeleteDialog(final int position) {
+        PostComment item = getItem(position);
+        if (!item.isMine()) {
+            return;
+        }
+        MaterialDialog dialog = DialogHelper.getBuild(mActivity)
+                .cancelable(true)
+                .canceledOnTouchOutside(true)
+                .content(R.string.confirm_del_this_comment)
+                .positiveText(R.string.confirm_no_wrong)
+                .negativeText(R.string.i_think_again)
+                .onPositive((dialog1, which) -> delCommentApi(position))
+                .build();
+        DialogHelper.showWithAnim(dialog);
+    }
+
+    private void delCommentApi(final int position) {
+        final PostComment item = getItem(position);
+        Call<Result> api = new RetrofitHelper().call(API.class).topicPostCommentDel(item.getId());
+        RetrofitHelper.enqueue(api, mActivity.getLoading(true), new RetrofitHelper.CallBack() {
+            @Override
+            public void onResponse(int code, String message, Result.Data data) {
+                remove(position);
+                // event
+                RxBus.post(new RxBus.Event<>(RxBus.EVENT_POST_DETAIL_REFRESH, item.getPostId()));
+                if (subComment) {
+                    RxBus.post(new RxBus.Event<>(RxBus.EVENT_POST_COMMENT_DETAIL_REFRESH, item.getToCommentId()));
+                }
+            }
+
+            @Override
+            public void onFailure(int code, String message, Result.Data data) {
             }
         });
         mActivity.pushApi(api);
