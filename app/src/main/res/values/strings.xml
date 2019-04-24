@@ -559,7 +559,7 @@
     <string name="report">举报</string>
     <string name="already_report">已举报</string>
     <string name="floor_master">楼主</string>
-    <string name="jab_a_little">戳了一下</string>
+    <string name="jab_a_little_ta">戳了一下TA</string>
     <string name="all_space_brackets_holder_brackets" formatted="false">全部 (%d)</string>
     <string name="post_already_be_screen">帖子已被屏蔽</string>
     <string name="post_already_be_delete">帖子已被删除</string>

@@ -5,8 +5,9 @@ import android.support.v4.content.ContextCompat;
 import android.widget.ImageView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
-import com.chad.library.adapter.base.BaseMultiItemQuickAdapter;
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
+import com.jiangzg.base.common.DateUtils;
 import com.jiangzg.base.view.ViewUtils;
 import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.controller.activity.base.BaseActivity;
@@ -14,6 +15,7 @@ import com.jiangzg.lovenote.controller.activity.topic.PostSubCommentListActivity
 import com.jiangzg.lovenote.helper.common.CountHelper;
 import com.jiangzg.lovenote.helper.common.RxBus;
 import com.jiangzg.lovenote.helper.common.TimeHelper;
+import com.jiangzg.lovenote.helper.common.UserHelper;
 import com.jiangzg.lovenote.helper.system.RetrofitHelper;
 import com.jiangzg.lovenote.helper.view.DialogHelper;
 import com.jiangzg.lovenote.model.api.API;
@@ -32,25 +34,21 @@ import retrofit2.Call;
  * Created by JZG on 2018/7/26.
  * 帖子评论适配器
  */
-public class PostCommentAdapter extends BaseMultiItemQuickAdapter<PostComment, BaseViewHolder> {
+public class PostCommentAdapter extends BaseQuickAdapter<PostComment, BaseViewHolder> {
 
-    private final String formatFloor;
-    private final int colorPrimary, colorFontGrey;
+    private final int colorPrimary, colorFontBlack;
     private final ColorStateList colorStatePrimary, colorStateIconGrey;
     private BaseActivity mActivity;
-    private boolean subComment;
+    private boolean isSubComment;
 
     public PostCommentAdapter(BaseActivity activity, boolean subComment) {
-        super(null);
-        addItemType(PostComment.KIND_TEXT, R.layout.list_item_post_comment_text);
-        addItemType(PostComment.KIND_JAB, R.layout.list_item_post_comment_jab);
+        super(R.layout.list_item_post_comment);
         mActivity = activity;
-        this.subComment = subComment;
-        formatFloor = mActivity.getString(R.string.holder_floor);
+        this.isSubComment = subComment;
         // color
         colorPrimary = ContextCompat.getColor(mActivity, ViewUtils.getColorPrimary(mActivity));
         int colorGrey = ContextCompat.getColor(mActivity, R.color.icon_grey);
-        colorFontGrey = ContextCompat.getColor(mActivity, R.color.font_grey);
+        colorFontBlack = ContextCompat.getColor(mActivity, R.color.font_black);
         colorStatePrimary = ColorStateList.valueOf(colorPrimary);
         colorStateIconGrey = ColorStateList.valueOf(colorGrey);
     }
@@ -63,54 +61,44 @@ public class PostCommentAdapter extends BaseMultiItemQuickAdapter<PostComment, B
         }
         helper.setVisible(R.id.root, true);
         // data
-        String floor = String.format(Locale.getDefault(), formatFloor, item.getFloor());
-        String create = TimeHelper.getTimeShowLine_HM_MD_YMD_ByGo(item.getCreateAt());
-        // 官方 我的 ta的
         Couple couple = item.getCouple();
-        String contentText = item.getContentText();
+        String avatar = UserHelper.getAvatar(couple, item.getUserId());
+        String name = item.isOfficial() ? mActivity.getString(R.string.administrators) : UserHelper.getName(couple, item.getUserId());
+        String floor = String.format(Locale.getDefault(), mActivity.getString(R.string.holder_floor), item.getFloor());
+        String time = CountHelper.getBetweenTimeGoneShow(DateUtils.getCurrentLong() - TimeHelper.getJavaTimeByGo(item.getCreateAt()));
+        String contentText = (item.getKind() == PostComment.KIND_JAB) ? mActivity.getString(R.string.jab_a_little_ta) : item.getContentText();
         String commentCount = CountHelper.getShowCount2Thousand(item.getSubCommentCount());
         String pointCount = CountHelper.getShowCount2Thousand(item.getPointCount());
-        boolean official = item.isOfficial();
-        boolean our = item.isOur();
-        boolean subComment = item.isSubComment();
-        boolean point = item.isPoint();
         boolean report = item.isReport();
-        // view
-        helper.setVisible(R.id.tvOfficial, official);
-        helper.setText(R.id.tvFloor, floor);
-        helper.setTextColor(R.id.tvFloor, our ? colorPrimary : colorFontGrey);
-        helper.setText(R.id.tvTime, create);
-        if (item.getItemType() == PostComment.KIND_TEXT) {
-            // text
-            FrescoAvatarView ivAvatarLeft = helper.getView(R.id.ivAvatarLeft);
-            FrescoAvatarView ivAvatarRight = helper.getView(R.id.ivAvatarRight);
-            ivAvatarLeft.setData(couple == null ? "" : couple.getCreatorAvatar());
-            ivAvatarRight.setData(couple == null ? "" : couple.getInviteeAvatar());
-            helper.setText(R.id.tvContent, contentText);
-            helper.setVisible(R.id.llComment, !this.subComment);
-            helper.setText(R.id.tvCommentCount, commentCount);
-            helper.setText(R.id.tvPointCount, pointCount);
-            ImageView ivComment = helper.getView(R.id.ivComment);
-            ivComment.setImageTintList(subComment ? colorStatePrimary : colorStateIconGrey);
-            ImageView ivPoint = helper.getView(R.id.ivPoint);
-            ivPoint.setImageTintList(point ? colorStatePrimary : colorStateIconGrey);
-            if (official) {
-                helper.setVisible(R.id.llReport, false);
-            } else {
-                helper.setVisible(R.id.llReport, true);
-                ImageView ivReport = helper.getView(R.id.ivReport);
-                ivReport.setImageTintList(report ? colorStatePrimary : colorStateIconGrey);
-            }
-            // listener
-            helper.addOnClickListener(R.id.llPoint);
-            helper.addOnClickListener(R.id.llReport);
-        } else if (item.getItemType() == PostComment.KIND_JAB) {
-            // jab
-            FrescoAvatarView ivAvatarLeft = helper.getView(R.id.ivAvatarLeft);
-            FrescoAvatarView ivAvatarRight = helper.getView(R.id.ivAvatarRight);
-            ivAvatarLeft.setData(couple == null ? "" : couple.getCreatorAvatar());
-            ivAvatarRight.setData(couple == null ? "" : couple.getInviteeAvatar());
+        boolean point = item.isPoint();
+        boolean subComment = item.isSubComment();
+        // top
+        if (couple == null) {
+            helper.setVisible(R.id.rlTop, false);
+        } else {
+            helper.setVisible(R.id.rlTop, true);
+            FrescoAvatarView ivAvatar = helper.getView(R.id.ivAvatar);
+            ivAvatar.setData(avatar);
+            helper.setText(R.id.tvName, name);
+            helper.setText(R.id.tvFloor, floor);
+            helper.setText(R.id.tvTime, time);
         }
+        // center
+        helper.setText(R.id.tvContent, contentText);
+        helper.setTextColor(R.id.tvContent, (item.getKind() == PostComment.KIND_JAB) ? colorPrimary : colorFontBlack);
+        // bottom
+        ImageView ivReport = helper.getView(R.id.ivReport);
+        ivReport.setImageTintList(report ? colorStatePrimary : colorStateIconGrey);
+        ImageView ivPoint = helper.getView(R.id.ivPoint);
+        ivPoint.setImageTintList(point ? colorStatePrimary : colorStateIconGrey);
+        ImageView ivComment = helper.getView(R.id.ivComment);
+        ivComment.setImageTintList(subComment ? colorStatePrimary : colorStateIconGrey);
+        helper.setText(R.id.tvCommentCount, commentCount);
+        helper.setText(R.id.tvPointCount, pointCount);
+        helper.setVisible(R.id.llComment, !this.isSubComment);
+        // listener
+        helper.addOnClickListener(R.id.llPoint);
+        helper.addOnClickListener(R.id.llReport);
     }
 
     public void pointPush(final int position, boolean isApi) {
@@ -202,7 +190,7 @@ public class PostCommentAdapter extends BaseMultiItemQuickAdapter<PostComment, B
                 remove(position);
                 // event
                 RxBus.post(new RxBus.Event<>(RxBus.EVENT_POST_DETAIL_REFRESH, item.getPostId()));
-                if (subComment) {
+                if (isSubComment) {
                     RxBus.post(new RxBus.Event<>(RxBus.EVENT_POST_COMMENT_DETAIL_REFRESH, item.getToCommentId()));
                 }
             }
@@ -215,7 +203,7 @@ public class PostCommentAdapter extends BaseMultiItemQuickAdapter<PostComment, B
     }
 
     public void goSubCommentDetail(int position) {
-        if (subComment) return;
+        if (isSubComment) return;
         PostComment item = getItem(position);
         PostSubCommentListActivity.goActivity(mActivity, item);
     }

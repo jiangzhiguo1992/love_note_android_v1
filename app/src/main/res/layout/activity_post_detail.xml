@@ -19,7 +19,7 @@
             android:id="@+id/rv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            tools:listitem="@layout/list_item_post_comment_text"/>
+            tools:listitem="@layout/list_item_post_comment"/>
     </com.jiangzg.lovenote.view.GSwipeRefreshLayout>
 
     <LinearLayout
