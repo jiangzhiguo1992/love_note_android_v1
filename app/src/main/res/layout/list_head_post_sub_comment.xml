@@ -19,14 +19,14 @@
 
         <com.jiangzg.lovenote.view.FrescoAvatarView
             android:id="@+id/ivAvatar"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:layout_marginEnd="10dp"
             tools:background="@mipmap/ic_account_circle_grey_48dp"/>
 
         <TextView
             android:id="@+id/tvName"
-            style="@style/FontBlackSmall"
+            style="@style/FontBlackNormal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignTop="@+id/ivAvatar"
@@ -62,7 +62,7 @@
 
     <TextView
         android:id="@+id/tvContent"
-        style="@style/FontBlackNormal"
+        style="@style/FontBlackBig"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
