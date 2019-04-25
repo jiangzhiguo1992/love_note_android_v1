@@ -239,7 +239,6 @@ public class SettingsActivity extends BaseActivity<SettingsActivity> {
     }
 
     private void goNoticeSettings() {
-        PermUtils.requestPermissions(mActivity, REQUEST_DEVICE_INFO, PermUtils.deviceInfo, null);
         //boolean enabled = PushUtils.isNotificationEnabled();
         //if (enabled) return;
         Intent notice = IntentFactory.getNotificationSettings();

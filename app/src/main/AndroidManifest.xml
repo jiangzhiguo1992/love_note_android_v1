@@ -135,6 +135,25 @@
             </intent-filter>
         </receiver>
 
+        <!-- 广点通 -->
+        <service
+            android:name="com.qq.e.comm.DownloadService"
+            android:exported="false"/>
+
+        <activity
+            android:name="com.qq.e.ads.ADActivity"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenSize"/>
+
+        <activity
+            android:name="com.qq.e.ads.PortraitADActivity"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenSize"
+            android:screenOrientation="portrait"/>
+
+        <activity
+            android:name="com.qq.e.ads.LandscapeADActivity"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenSize"
+            android:screenOrientation="landscape"/>
+
         <!-- main -->
         <activity android:name=".controller.activity.main.WelcomeActivity">
             <intent-filter>
@@ -231,7 +250,6 @@
         <activity android:name=".controller.activity.note.MovieListActivity"/>
         <!-- topic -->
         <activity android:name=".controller.activity.topic.TopicMessageActivity"/>
-        <activity android:name=".controller.activity.topic.PostMineActivity"/>
         <activity android:name=".controller.activity.topic.PostMyRelationActivity"/>
         <activity android:name=".controller.activity.topic.PostKindListActivity"/>
         <activity android:name=".controller.activity.topic.PostAddActivity"/>

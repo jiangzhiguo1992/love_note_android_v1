@@ -6,12 +6,9 @@ import com.alipay.sdk.app.PayTask;
 import com.jiangzg.base.application.AppUtils;
 import com.jiangzg.base.common.LogUtils;
 import com.jiangzg.base.common.StringUtils;
-import com.jiangzg.base.system.PermUtils;
 import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.lovenote.R;
-import com.jiangzg.lovenote.controller.activity.base.BaseActivity;
 import com.jiangzg.lovenote.helper.common.RxBus;
-import com.jiangzg.lovenote.helper.view.DialogHelper;
 import com.jiangzg.lovenote.main.MyApp;
 import com.jiangzg.lovenote.model.engine.PayAliResult;
 import com.jiangzg.lovenote.model.engine.PayWxResult;
@@ -41,20 +38,6 @@ public class PayHelper {
     }
 
     public static void payByAli(final Activity activity, final String orderInfo, final AliCallBack callBack) {
-        PermUtils.requestPermissions(activity, BaseActivity.REQUEST_DEVICE_INFO, PermUtils.deviceInfo, new PermUtils.OnPermissionListener() {
-            @Override
-            public void onPermissionGranted(int requestCode, String[] permissions) {
-                payByAliNoPermission(activity, orderInfo, callBack);
-            }
-
-            @Override
-            public void onPermissionDenied(int requestCode, String[] permissions) {
-                DialogHelper.showGoPermDialog(activity);
-            }
-        });
-    }
-
-    private static void payByAliNoPermission(final Activity activity, final String orderInfo, final AliCallBack callBack) {
         if (StringUtils.isEmpty(orderInfo)) return;
         // 必须异步调用
         MyApp.get().getThread().execute(() -> {

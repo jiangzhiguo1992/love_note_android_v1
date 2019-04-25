@@ -14,6 +14,7 @@ import com.jiangzg.base.common.FileUtils;
 import com.jiangzg.base.common.LogUtils;
 import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.base.common.TimeUnit;
+import com.jiangzg.base.system.PermUtils;
 import com.jiangzg.base.view.BarUtils;
 import com.jiangzg.base.view.ScreenUtils;
 import com.jiangzg.lovenote.R;
@@ -83,8 +84,19 @@ public class WelcomeActivity extends BaseActivity<WelcomeActivity> {
             ivBg.setDataFile(wallPaper);
             startAnim(); // 渐变动画
         }
-        // ...非网络性init操作
-        checkUser();
+        // 必要权限
+        PermUtils.requestPermissions(mActivity, BaseActivity.REQUEST_DEVICE_INFO, PermUtils.deviceInfo, new PermUtils.OnPermissionListener() {
+            @Override
+            public void onPermissionGranted(int requestCode, String[] permissions) {
+                // ...非网络性init操作
+                checkUser();
+            }
+
+            @Override
+            public void onPermissionDenied(int requestCode, String[] permissions) {
+                AppUtils.appExit();
+            }
+        });
     }
 
     @Override

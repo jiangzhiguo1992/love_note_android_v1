@@ -99,8 +99,6 @@ public class HomeActivity extends BaseActivity<HomeActivity> {
             list.add(version);
             UpdateService.showUpdateDialog(list);
         }
-        // 推送权限
-        PermUtils.requestPermissions(mActivity, REQUEST_DEVICE_INFO, PermUtils.deviceInfo, null);
     }
 
     @Override
