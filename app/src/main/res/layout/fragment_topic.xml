@@ -1,9 +1,9 @@
-<LinearLayout
+<android.support.design.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     tools:context=".controller.fragment.main.TopicFragment">
 
     <include layout="@layout/view_top_bar"/>
@@ -11,17 +11,28 @@
     <com.jiangzg.lovenote.view.GSwipeRefreshLayout
         android:id="@+id/srl"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <RelativeLayout
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/rv"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                tools:listitem="@layout/list_item_post"/>
-        </RelativeLayout>
+            android:layout_height="wrap_content"
+            tools:listitem="@layout/list_item_post"/>
     </com.jiangzg.lovenote.view.GSwipeRefreshLayout>
-</LinearLayout>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fabAdd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="@dimen/fab_margin"
+        android:src="@mipmap/ic_add_white_24dp"
+        app:backgroundTint="?attr/colorAccent"
+        app:borderWidth="0dp"
+        app:elevation="@dimen/elevation_normal"
+        app:fabSize="auto"
+        app:layout_behavior="@string/behavior_fab_depend_app_bar"
+        app:pressedTranslationZ="@dimen/elevation_big"
+        app:rippleColor="?attr/colorPrimaryDark"/>
+</android.support.design.widget.CoordinatorLayout>

@@ -3,6 +3,7 @@ package com.jiangzg.lovenote.controller.fragment.main;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -16,6 +17,7 @@ import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.jiangzg.base.common.DateUtils;
 import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.controller.activity.settings.HelpActivity;
+import com.jiangzg.lovenote.controller.activity.topic.PostAddActivity;
 import com.jiangzg.lovenote.controller.activity.topic.PostMyRelationActivity;
 import com.jiangzg.lovenote.controller.activity.topic.PostSearchActivity;
 import com.jiangzg.lovenote.controller.activity.topic.TopicMessageActivity;
@@ -37,6 +39,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 import retrofit2.Call;
 
 public class TopicFragment extends BasePagerFragment<TopicFragment> {
@@ -49,6 +52,8 @@ public class TopicFragment extends BasePagerFragment<TopicFragment> {
     GSwipeRefreshLayout srl;
     @BindView(R.id.rv)
     RecyclerView rv;
+    @BindView(R.id.fabAdd)
+    FloatingActionButton fabAdd;
 
     private RecyclerHelper postRecyclerHelper, kindRecyclerHelper;
     private long create;
@@ -134,6 +139,24 @@ public class TopicFragment extends BasePagerFragment<TopicFragment> {
                 return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @OnClick({R.id.fabAdd})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.fabAdd: // 添加
+                if (postKindInfoList == null || postKindInfoList.size() <= 0) {
+                    return;
+                }
+                PostKindInfo kindInfo = postKindInfoList.get(0);
+                List<PostSubKindInfo> subKindInfoList = kindInfo.getPostSubKindInfoList();
+                if (subKindInfoList == null || subKindInfoList.size() <= 0) {
+                    return;
+                }
+                PostSubKindInfo subKindInfo = subKindInfoList.get(0);
+                PostAddActivity.goActivity(mActivity, kindInfo, subKindInfo.getKind());
+                break;
+        }
     }
 
     private void initHead() {
