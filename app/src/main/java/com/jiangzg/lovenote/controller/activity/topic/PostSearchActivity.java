@@ -12,7 +12,6 @@ import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
-import com.jiangzg.base.common.DateUtils;
 import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.base.component.ActivityTrans;
 import com.jiangzg.base.view.ToastUtils;
@@ -21,15 +20,12 @@ import com.jiangzg.lovenote.controller.activity.base.BaseActivity;
 import com.jiangzg.lovenote.controller.adapter.topic.PostAdapter;
 import com.jiangzg.lovenote.helper.common.ListHelper;
 import com.jiangzg.lovenote.helper.common.RxBus;
-import com.jiangzg.lovenote.helper.common.TimeHelper;
 import com.jiangzg.lovenote.helper.system.RetrofitHelper;
 import com.jiangzg.lovenote.helper.view.RecyclerHelper;
 import com.jiangzg.lovenote.helper.view.ViewHelper;
 import com.jiangzg.lovenote.model.api.API;
 import com.jiangzg.lovenote.model.api.Result;
 import com.jiangzg.lovenote.model.entity.Post;
-import com.jiangzg.lovenote.model.entity.PostKindInfo;
-import com.jiangzg.lovenote.model.entity.PostSubKindInfo;
 import com.jiangzg.lovenote.view.GSwipeRefreshLayout;
 
 import butterknife.BindView;
@@ -50,24 +46,17 @@ public class PostSearchActivity extends BaseActivity<PostSearchActivity> {
     @BindView(R.id.rv)
     RecyclerView rv;
 
-    private PostKindInfo kindInfo;
-    private PostSubKindInfo subKindInfo;
     private RecyclerHelper recyclerHelper;
     private int page = 0;
-    private long create;
 
-    public static void goActivity(Activity from, PostKindInfo kindInfo, PostSubKindInfo subKindInfo) {
+    public static void goActivity(Activity from) {
         Intent intent = new Intent(from, PostSearchActivity.class);
-        intent.putExtra("kindInfo", kindInfo);
-        intent.putExtra("subKindInfo", subKindInfo);
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         ActivityTrans.start(from, intent);
     }
 
     @Override
     protected int getView(Intent intent) {
-        kindInfo = intent.getParcelableExtra("kindInfo");
-        subKindInfo = intent.getParcelableExtra("subKindInfo");
         return R.layout.activity_post_search;
     }
 
@@ -132,18 +121,7 @@ public class PostSearchActivity extends BaseActivity<PostSearchActivity> {
             return;
         }
         page = more ? page + 1 : 0;
-        if (!more || create <= 0) {
-            create = TimeHelper.getGoTimeByJava(DateUtils.getCurrentLong());
-        }
-        // api
-        int kindId = 0, subKindId = 0;
-        if (kindInfo != null) {
-            kindId = kindInfo.getKind();
-            if (subKindInfo != null) {
-                subKindId = subKindInfo.getKind();
-            }
-        }
-        Call<Result> api = new RetrofitHelper().call(API.class).topicPostListGet(create, kindId, subKindId, title, false, false, page);
+        Call<Result> api = new RetrofitHelper().call(API.class).topicPostListSearchGet(title, page);
         RetrofitHelper.enqueue(api, null, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {

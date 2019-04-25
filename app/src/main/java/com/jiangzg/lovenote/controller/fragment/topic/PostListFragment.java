@@ -158,7 +158,7 @@ public class PostListFragment extends BasePagerFragment<PostListFragment> {
             create = TimeHelper.getGoTimeByJava(DateUtils.getCurrentLong());
         }
         // api
-        Call<Result> api = new RetrofitHelper().call(API.class).topicPostListGet(create, kindInfo.getKind(), subKindInfo.getKind(), "", official, well, page);
+        Call<Result> api = new RetrofitHelper().call(API.class).topicPostListGet(create, kindInfo.getKind(), subKindInfo.getKind(), official, well, page);
         RetrofitHelper.enqueue(api, null, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {

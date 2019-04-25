@@ -49,7 +49,6 @@ public class PostListActivity extends BaseActivity<PostListActivity> {
     LinearLayout llAdd;
 
     private PostKindInfo kindInfo;
-    private PostSubKindInfo subKindInfo;
     private int searchIndex;
 
     public static void goActivity(Fragment from, PostKindInfo kindInfo) {
@@ -66,9 +65,6 @@ public class PostListActivity extends BaseActivity<PostListActivity> {
     @Override
     protected int getView(Intent intent) {
         kindInfo = intent.getParcelableExtra("kindInfo");
-        if (kindInfo != null && kindInfo.getPostSubKindInfoList() != null && kindInfo.getPostSubKindInfoList().size() > 0) {
-            subKindInfo = kindInfo.getPostSubKindInfoList().get(0);
-        }
         return R.layout.activity_post_list;
     }
 
@@ -115,7 +111,6 @@ public class PostListActivity extends BaseActivity<PostListActivity> {
                         break;
                     }
                 }
-                subKindInfo = fragment.getSubKindInfo();
                 tvSearch.setText(ApiHelper.LIST_TOPIC_TYPE_SHOW[searchIndex]);
             }
 
@@ -143,7 +138,7 @@ public class PostListActivity extends BaseActivity<PostListActivity> {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menuSearch: // 搜索
-                PostSearchActivity.goActivity(mActivity, kindInfo, subKindInfo);
+                PostSearchActivity.goActivity(mActivity);
                 return true;
             case R.id.menuTop: // 置顶
                 RxBus.post(new RxBus.Event<>(RxBus.EVENT_POST_GO_TOP, true));

@@ -582,11 +582,17 @@ public interface API {
     Call<Result> topicPostDel(@Query("pid") long pid);
 
     //  postList获取
+    @GET("topic/post?list=1&create=0&kind=0&sub_kind=0")
+    Call<Result> topicPostListSearchGet(@Query("search") String search, @Query("page") int page);
+
+    //  postList获取
+    @GET("topic/post?list=1&kind=0&sub_kind=0")
+    Call<Result> topicPostListHomeGet(@Query("create") long create, @Query("page") int page);
+
+    //  postList获取
     @GET("topic/post?list=1")
-    Call<Result> topicPostListGet(@Query("create") long create, @Query("kind") int kind,
-                                  @Query("sub_kind") int subKind, @Query("search") String search,
-                                  @Query("official") boolean official, @Query("well") boolean well,
-                                  @Query("page") int page);
+    Call<Result> topicPostListGet(@Query("create") long create, @Query("kind") int kind, @Query("sub_kind") int subKind,
+                                  @Query("official") boolean official, @Query("well") boolean well, @Query("page") int page);
 
     // postCollectList获取
     @GET("topic/post?collect=1")
