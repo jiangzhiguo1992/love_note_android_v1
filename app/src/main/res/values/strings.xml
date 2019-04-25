@@ -278,9 +278,9 @@
     <string name="confirm_report_this_comment">确定举报这个评论吗？</string>
     <string name="confirm_report_this_post">确定举报这个帖子？</string>
     <string name="confirm_report_this_work">确定举报这个作品吗？</string>
-    <string name="can_operation_self_create_note">只能操作自己创建的记录哦？</string>
-    <string name="can_delete_self_create_post">只能删除自己创建的帖子哦？</string>
-    <string name="can_delete_self_create_comment">只能删除自己创建的评论哦？</string>
+    <string name="can_operation_self_create_note">只能操作自己创建的记录哦</string>
+    <string name="can_delete_self_create_post">只能删除自己创建的帖子哦</string>
+    <string name="can_delete_self_create_comment">只能删除自己创建的评论哦</string>
     <string name="picture_where">照片呢？</string>
     <string name="save_draft">保存草稿</string>
     <string name="is_save_draft">是否保存草稿</string>
@@ -556,8 +556,8 @@
     <string name="ta_collect">TA的收藏</string>
     <string name="my_relation">我的相关</string>
     <string name="my_message">我的消息</string>
-    <string name="report">举报</string>
     <string name="original_post">原帖</string>
+    <string name="report">举报</string>
     <string name="already_report">已举报</string>
     <string name="floor_master">楼主</string>
     <string name="jab_a_little_ta">戳了一下TA</string>
