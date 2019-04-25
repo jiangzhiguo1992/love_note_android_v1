@@ -192,10 +192,18 @@ public class PostCommentDetailActivity extends BaseActivity<PostCommentDetailAct
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.original, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
         menu.clear();
         if (postComment != null && postComment.isMine()) {
-            getMenuInflater().inflate(R.menu.del, menu);
+            getMenuInflater().inflate(R.menu.del_original, menu);
+        } else {
+            getMenuInflater().inflate(R.menu.original, menu);
         }
         return super.onPrepareOptionsMenu(menu);
     }
@@ -212,6 +220,9 @@ public class PostCommentDetailActivity extends BaseActivity<PostCommentDetailAct
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
+            case R.id.menuOriginal: // 原帖
+                goOriginalPost();
+                return true;
             case R.id.menuDel: // 删除
                 showPostCommentDelDialog();
                 return true;
@@ -559,6 +570,11 @@ public class PostCommentDetailActivity extends BaseActivity<PostCommentDetailAct
             }
         });
         pushApi(api);
+    }
+
+    private void goOriginalPost() {
+        if (postComment == null || postComment.getPostId() == 0) return;
+        PostDetailActivity.goActivity(mActivity, postComment.getPostId());
     }
 
 }
