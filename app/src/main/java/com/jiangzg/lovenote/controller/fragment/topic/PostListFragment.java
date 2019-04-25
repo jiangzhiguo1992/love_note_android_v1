@@ -106,8 +106,10 @@ public class PostListFragment extends BasePagerFragment<PostListFragment> {
             recyclerHelper.dataRefresh();
         });
         pushBus(RxBus.EVENT_POST_SEARCH_WELL, obSearchWell);
-        Observable<Integer> obListRefresh = RxBus.register(RxBus.EVENT_POST_LIST_REFRESH, subKind -> {
-            if (recyclerHelper == null || subKindInfo == null || (subKind > 0 && subKindInfo.getKind() != subKind)) {
+        Observable<Post> obListRefresh = RxBus.register(RxBus.EVENT_POST_LIST_REFRESH, post -> {
+            if (recyclerHelper == null || post == null
+                    || subKindInfo == null || subKindInfo.getKind() == 0
+                    || (post.getSubKind() > 0 && subKindInfo.getKind() != post.getSubKind())) {
                 // 全部是可以更新的
                 return;
             }

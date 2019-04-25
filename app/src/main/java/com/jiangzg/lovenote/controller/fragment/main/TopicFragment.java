@@ -25,12 +25,15 @@ import com.jiangzg.lovenote.controller.adapter.topic.HomeKindAdapter;
 import com.jiangzg.lovenote.controller.adapter.topic.PostAdapter;
 import com.jiangzg.lovenote.controller.fragment.base.BaseFragment;
 import com.jiangzg.lovenote.controller.fragment.base.BasePagerFragment;
+import com.jiangzg.lovenote.helper.common.ListHelper;
+import com.jiangzg.lovenote.helper.common.RxBus;
 import com.jiangzg.lovenote.helper.common.TimeHelper;
 import com.jiangzg.lovenote.helper.system.RetrofitHelper;
 import com.jiangzg.lovenote.helper.view.RecyclerHelper;
 import com.jiangzg.lovenote.helper.view.ViewHelper;
 import com.jiangzg.lovenote.model.api.API;
 import com.jiangzg.lovenote.model.api.Result;
+import com.jiangzg.lovenote.model.entity.Post;
 import com.jiangzg.lovenote.model.entity.PostKindInfo;
 import com.jiangzg.lovenote.model.entity.PostSubKindInfo;
 import com.jiangzg.lovenote.view.GSwipeRefreshLayout;
@@ -41,6 +44,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.OnClick;
 import retrofit2.Call;
+import rx.Observable;
 
 public class TopicFragment extends BasePagerFragment<TopicFragment> {
 
@@ -115,6 +119,23 @@ public class TopicFragment extends BasePagerFragment<TopicFragment> {
     }
 
     protected void loadData() {
+        // event
+        Observable<Post> obListRefresh = RxBus.register(RxBus.EVENT_POST_LIST_REFRESH, post -> {
+            if (postRecyclerHelper == null) return;
+            postRecyclerHelper.dataRefresh();
+        });
+        pushBus(RxBus.EVENT_POST_LIST_REFRESH, obListRefresh);
+        Observable<Post> obListItemDelete = RxBus.register(RxBus.EVENT_POST_LIST_ITEM_DELETE, post -> {
+            if (postRecyclerHelper == null) return;
+            ListHelper.removeObjInAdapter(postRecyclerHelper.getAdapter(), post);
+        });
+        pushBus(RxBus.EVENT_POST_LIST_ITEM_DELETE, obListItemDelete);
+        Observable<Post> obListItemRefresh = RxBus.register(RxBus.EVENT_POST_LIST_ITEM_REFRESH, post -> {
+            if (postRecyclerHelper == null) return;
+            ListHelper.refreshObjInAdapter(postRecyclerHelper.getAdapter(), post);
+        });
+        pushBus(RxBus.EVENT_POST_LIST_ITEM_REFRESH, obListItemRefresh);
+        // data
         refreshPostKindData();
         postRecyclerHelper.dataRefresh();
     }

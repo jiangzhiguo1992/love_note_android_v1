@@ -25,6 +25,7 @@ import com.jiangzg.lovenote.controller.activity.couple.CouplePairActivity;
 import com.jiangzg.lovenote.controller.adapter.common.ImgSquareEditAdapter;
 import com.jiangzg.lovenote.helper.common.ListHelper;
 import com.jiangzg.lovenote.helper.common.OssHelper;
+import com.jiangzg.lovenote.helper.common.RxBus;
 import com.jiangzg.lovenote.helper.common.SPHelper;
 import com.jiangzg.lovenote.helper.common.UserHelper;
 import com.jiangzg.lovenote.helper.media.PickHelper;
@@ -348,8 +349,8 @@ public class PostAddActivity extends BaseActivity<PostAddActivity> {
         RetrofitHelper.enqueue(api, getLoading(true), new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
-                // event 先不刷新
-                //RxBus.post(new Event<>(ConsHelper.EVENT_POST_LIST_REFRESH, post.getSubKind()));
+                // event
+                RxBus.post(new RxBus.Event<>(RxBus.EVENT_POST_LIST_REFRESH, post));
                 // finish
                 mActivity.finish();
             }
