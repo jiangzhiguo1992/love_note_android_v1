@@ -17,6 +17,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppThemeGrey"
+        android:usesCleartextTraffic="true"
         tools:ignore="AllowBackup,GoogleAppIndexingWarning,UnusedAttribute"
         tools:replace="android:appComponentFactory">
 
@@ -135,7 +136,11 @@
             </intent-filter>
         </receiver>
 
-        <!-- 广点通 -->
+        <!-- 广点通  -  android:usesCleartextTraffic="true" -->
+        <uses-library
+            android:name="org.apache.http.legacy"
+            android:required="false"/>
+
         <service
             android:name="com.qq.e.comm.DownloadService"
             android:exported="false"/>

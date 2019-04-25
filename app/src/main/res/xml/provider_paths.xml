@@ -15,9 +15,9 @@
         name="oss-path"
         path="oss"/>
     <!-- out -->
-    <external-path
-        name="external-path"
-        path="path"/>
+    <!--<external-path-->
+    <!--name="external-path"-->
+    <!--path="path"/>-->
     <external-cache-path
         name="external-cache-path"
         path="cache"/>
@@ -33,4 +33,9 @@
     <external-files-path
         name="apk-path"
         path="apk"/>
+
+    <!-- 广点通 -->
+    <external-path
+        name="gdt_sdk_download_path"
+        path="GDTDOWNLOAD"/>
 </paths>

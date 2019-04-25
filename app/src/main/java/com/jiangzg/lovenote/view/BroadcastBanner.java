@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
-import android.widget.ImageView;
 
 import com.jiangzg.base.common.ConvertUtils;
 import com.jiangzg.base.view.ScreenUtils;
@@ -15,7 +14,7 @@ import com.jiangzg.lovenote.model.entity.Broadcast;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
 import com.youth.banner.Transformer;
-import com.youth.banner.loader.ImageLoader;
+import com.youth.banner.loader.ImageLoaderInterface;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -50,7 +49,7 @@ public class BroadcastBanner extends Banner {
 
     public void initView(Activity activity) {
         this.activity = activity;
-        this.setImageLoader(new FrescoImageLoader()); // 图片加载
+        this.setImageLoader(new BroadcastLoader()); // 图片加载
         this.setBannerStyle(BannerConfig.CIRCLE_INDICATOR); // 标题 下标
         //this.setIndicatorGravity(BannerConfig.RIGHT); // 下标右
         this.setBannerAnimation(Transformer.Accordion); // 动画
@@ -97,17 +96,17 @@ public class BroadcastBanner extends Banner {
         }
     }
 
-    // FrescoImageLoader
-    private static class FrescoImageLoader extends ImageLoader {
+    // BroadcastLoader
+    private static class BroadcastLoader implements ImageLoaderInterface<FrescoView> {
+
         @Override
-        public void displayImage(Context context, Object path, ImageView imageView) {
+        public void displayImage(Context context, Object path, FrescoView view) {
             String url = (String) path;
-            FrescoView view = (FrescoView) imageView;
             view.setWidthAndHeight(ScreenUtils.getScreenWidth(context), ConvertUtils.dp2px(160));
             view.setData(url);
         }
 
-        //提供createImageView 方法，如果不用可以不重写这个方法，主要是方便自定义ImageView的创建
+        // 提供createImageView 方法，如果不用可以不重写这个方法，主要是方便自定义ImageView的创建
         @Override
         public FrescoView createImageView(Context context) {
             FrescoView view = new FrescoView(context);

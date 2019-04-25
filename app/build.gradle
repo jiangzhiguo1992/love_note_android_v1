@@ -14,7 +14,8 @@ android {
         flavorDimensions "release" // 多渠道打包分支
         ndk {
             // ali_push/fresco 选择要添加的对应cpu类型的.so库。
-            abiFilters 'armeabi', "armeabi-v7a", "arm64-v8a", 'x86', "x86_64", "mips", "mips64"
+            abiFilters 'armeabi', "armeabi-v7a"
+            //, "arm64-v8a", 'x86', "x86_64", "mips", "mips64"
         }
     }
     signingConfigs { // 签名信息
@@ -171,7 +172,7 @@ dependencies { // 及时更新
     implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.14' // wea/pic -> up
     implementation 'com.google.android.exoplayer:exoplayer:2.9.6'
     // 三方
-    implementation files('libs/GDTUnionSDK.TBS.4.28.902.min.jar') // ad
+    implementation files('libs/GDTUnionSDK.4.28.902.min.jar') // ad
     implementation files('libs/alipaySdk-20180601.jar') // AliPay
     implementation 'com.tencent.mm.opensdk:wechat-sdk-android-with-mta:5.3.1' // WXPay
     implementation 'com.aliyun.dpa:oss-android-sdk:2.9.2' // OSS
