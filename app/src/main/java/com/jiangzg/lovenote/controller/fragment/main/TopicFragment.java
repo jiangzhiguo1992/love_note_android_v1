@@ -1,7 +1,10 @@
 package com.jiangzg.lovenote.controller.fragment.main;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.CardView;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -10,13 +13,17 @@ import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
+import com.jiangzg.base.common.DateUtils;
 import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.controller.activity.settings.HelpActivity;
 import com.jiangzg.lovenote.controller.activity.topic.PostMyRelationActivity;
+import com.jiangzg.lovenote.controller.activity.topic.PostSearchActivity;
 import com.jiangzg.lovenote.controller.activity.topic.TopicMessageActivity;
 import com.jiangzg.lovenote.controller.adapter.topic.HomeKindAdapter;
+import com.jiangzg.lovenote.controller.adapter.topic.PostAdapter;
 import com.jiangzg.lovenote.controller.fragment.base.BaseFragment;
 import com.jiangzg.lovenote.controller.fragment.base.BasePagerFragment;
+import com.jiangzg.lovenote.helper.common.TimeHelper;
 import com.jiangzg.lovenote.helper.system.RetrofitHelper;
 import com.jiangzg.lovenote.helper.view.RecyclerHelper;
 import com.jiangzg.lovenote.helper.view.ViewHelper;
@@ -43,7 +50,9 @@ public class TopicFragment extends BasePagerFragment<TopicFragment> {
     @BindView(R.id.rv)
     RecyclerView rv;
 
-    private RecyclerHelper recyclerHelper;
+    private RecyclerHelper postRecyclerHelper, kindRecyclerHelper;
+    private long create;
+    private int page = 0;
 
     public static TopicFragment newFragment() {
         Bundle bundle = new Bundle();
@@ -63,29 +72,52 @@ public class TopicFragment extends BasePagerFragment<TopicFragment> {
         // menu
         tb.inflateMenu(R.menu.help_mine_notice);
         // recycler
-        recyclerHelper = new RecyclerHelper(rv)
-                .initLayoutManager(new LinearLayoutManager(mActivity))
+        LinearLayoutManager layoutManager = new LinearLayoutManager(mActivity);
+        postRecyclerHelper = new RecyclerHelper(rv)
+                .initLayoutManager(layoutManager)
                 .initRefresh(srl, true)
-                .initAdapter(new HomeKindAdapter(mActivity, mFragment))
-                .viewEmpty(mActivity, R.layout.list_empty_grey, false, false)
+                .initAdapter(new PostAdapter(mActivity))
+                .viewHeader(mActivity, R.layout.list_head_topic_home)
+                .viewEmpty(mActivity, R.layout.list_empty_grey, true, true)
+                .viewLoadMore(new RecyclerHelper.MoreGreyView())
                 .viewAnim()
                 .setAdapter()
-                .listenerRefresh(this::refreshData)
+                .listenerRefresh(() -> refreshPostListData(false))
+                .listenerMore(currentCount -> refreshPostListData(true))
                 .listenerClick(new OnItemClickListener() {
                     @Override
                     public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
-                        HomeKindAdapter homeKindAdapter = (HomeKindAdapter) adapter;
-                        homeKindAdapter.goPostList(position);
+                        PostAdapter postAdapter = (PostAdapter) adapter;
+                        postAdapter.goPostDetail(position);
                     }
                 });
+        rv.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+            }
+
+            @Override
+            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                // 防止postItem里的rv抢焦点，触发srl下拉事件
+                int position = layoutManager.findFirstCompletelyVisibleItemPosition();
+                srl.setEnabled(position <= 0);
+            }
+        });
+        // head
+        initHead();
     }
 
     protected void loadData() {
-        refreshData();
+        refreshPostKindData();
+        postRecyclerHelper.dataRefresh();
     }
 
     @Override
     protected void onFinish(Bundle state) {
+        RecyclerHelper.release(kindRecyclerHelper);
+        RecyclerHelper.release(postRecyclerHelper);
     }
 
     @Override
@@ -104,25 +136,69 @@ public class TopicFragment extends BasePagerFragment<TopicFragment> {
         return super.onOptionsItemSelected(item);
     }
 
-    private void refreshData() {
-        if (!srl.isRefreshing()) {
-            srl.setRefreshing(true);
-        }
+    private void initHead() {
+        // view
+        View head = postRecyclerHelper.getViewHead();
+        if (head == null) return;
+        // couple
+        CardView cvSearch = head.findViewById(R.id.cvSearch);
+        RecyclerView rvKind = head.findViewById(R.id.rv);
+        // kind
+        kindRecyclerHelper = new RecyclerHelper(rvKind)
+                .initLayoutManager(new GridLayoutManager(mActivity, 4) {
+                    @Override
+                    public boolean canScrollVertically() {
+                        return false;
+                    }
+                })
+                .initAdapter(new HomeKindAdapter(mActivity, mFragment))
+                .viewAnim()
+                .setAdapter()
+                .listenerClick(new OnItemClickListener() {
+                    @Override
+                    public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
+                        HomeKindAdapter homeKindAdapter = (HomeKindAdapter) adapter;
+                        homeKindAdapter.goPostList(position);
+                    }
+                });
+        // search
+        cvSearch.setOnClickListener(v -> PostSearchActivity.goActivity(mActivity));
+    }
+
+    private void refreshPostKindData() {
         Call<Result> api = new RetrofitHelper().call(API.class).topicHomeGet();
         RetrofitHelper.enqueue(api, null, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
-                if (recyclerHelper == null) return;
-                srl.setRefreshing(false);
+                if (kindRecyclerHelper == null) return;
                 postKindInfoList = getPostKindInfoEnableList(data.getPostKindInfoList());
-                recyclerHelper.dataNew(postKindInfoList, 0);
+                kindRecyclerHelper.dataNew(postKindInfoList, 0);
             }
 
             @Override
             public void onFailure(int code, String message, Result.Data data) {
-                if (recyclerHelper == null) return;
-                srl.setRefreshing(false);
-                recyclerHelper.viewEmptyShow(message);
+            }
+        });
+        pushApi(api);
+    }
+
+    private void refreshPostListData(final boolean more) {
+        page = more ? page + 1 : 0;
+        if (!more || create <= 0) {
+            create = TimeHelper.getGoTimeByJava(DateUtils.getCurrentLong());
+        }
+        Call<Result> api = new RetrofitHelper().call(API.class).topicPostListHomeGet(create, page);
+        RetrofitHelper.enqueue(api, null, new RetrofitHelper.CallBack() {
+            @Override
+            public void onResponse(int code, String message, Result.Data data) {
+                if (postRecyclerHelper == null) return;
+                postRecyclerHelper.dataOk(data.getShow(), data.getPostList(), more);
+            }
+
+            @Override
+            public void onFailure(int code, String message, Result.Data data) {
+                if (postRecyclerHelper == null) return;
+                postRecyclerHelper.dataFail(more, message);
             }
         });
         pushApi(api);

@@ -108,6 +108,7 @@
     <string name="screen">屏蔽</string>
     <string name="normal">普通</string>
     <string name="time">时间</string>
+    <string name="classify">分类</string>
     <string name="top">置顶</string>
     <string name="all">全部</string>
     <string name="commit">提交</string>
@@ -552,6 +553,7 @@
     <string name="official">官方</string>
     <string name="well">精华</string>
     <string name="hot">热门</string>
+    <string name="most_new">最新</string>
     <string name="my_collect">我的收藏</string>
     <string name="ta_collect">TA的收藏</string>
     <string name="my_relation">我的相关</string>
