@@ -85,7 +85,7 @@ public class TopicFragment extends BasePagerFragment<TopicFragment> {
         postRecyclerHelper = new RecyclerHelper(rv)
                 .initLayoutManager(layoutManager)
                 .initRefresh(srl, true)
-                .initAdapter(new PostAdapter(mActivity))
+                .initAdapter(new PostAdapter(mActivity, true))
                 .viewHeader(mActivity, R.layout.list_head_topic_home)
                 .viewEmpty(mActivity, R.layout.list_empty_grey, true, true)
                 .viewLoadMore(new RecyclerHelper.MoreGreyView())
