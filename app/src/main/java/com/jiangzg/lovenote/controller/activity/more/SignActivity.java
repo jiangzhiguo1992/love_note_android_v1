@@ -360,6 +360,10 @@ public class SignActivity extends BaseActivity<SignActivity> {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 today = data.getSign();
+                if (today != null) {
+                    // 上面不是null，不会set
+                    tvContinue.setText(String.format(Locale.getDefault(), getString(R.string.continue_sign_holder_day), today.getContinueDay()));
+                }
                 // event
                 RxBus.post(new RxBus.Event<>(RxBus.EVENT_COIN_INFO_REFRESH, new Coin()));
                 // view
