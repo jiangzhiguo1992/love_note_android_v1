@@ -6,8 +6,8 @@ import com.jiangzg.base.common.DateUtils;
 import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.controller.activity.base.BaseActivity;
+import com.jiangzg.lovenote.controller.activity.topic.PostCommentDetailActivity;
 import com.jiangzg.lovenote.controller.activity.topic.PostDetailActivity;
-import com.jiangzg.lovenote.controller.activity.topic.PostSubCommentListActivity;
 import com.jiangzg.lovenote.helper.common.CountHelper;
 import com.jiangzg.lovenote.helper.common.TimeHelper;
 import com.jiangzg.lovenote.model.entity.Couple;
@@ -59,7 +59,7 @@ public class MessageAdapter extends BaseQuickAdapter<TopicMessage, BaseViewHolde
             case TopicMessage.KIND_COMMENT_BE_REPLY: // 回复
             case TopicMessage.KIND_COMMENT_BE_REPORT: // 举报
             case TopicMessage.KIND_COMMENT_BE_POINT: // 点赞
-                PostSubCommentListActivity.goActivity(mActivity, contentId);
+                PostCommentDetailActivity.goActivity(mActivity, contentId);
         }
     }
 

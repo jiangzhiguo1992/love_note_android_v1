@@ -11,7 +11,7 @@ import com.jiangzg.base.common.DateUtils;
 import com.jiangzg.base.view.ViewUtils;
 import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.controller.activity.base.BaseActivity;
-import com.jiangzg.lovenote.controller.activity.topic.PostSubCommentListActivity;
+import com.jiangzg.lovenote.controller.activity.topic.PostCommentDetailActivity;
 import com.jiangzg.lovenote.helper.common.CountHelper;
 import com.jiangzg.lovenote.helper.common.RxBus;
 import com.jiangzg.lovenote.helper.common.TimeHelper;
@@ -205,7 +205,7 @@ public class PostCommentAdapter extends BaseQuickAdapter<PostComment, BaseViewHo
     public void goSubCommentDetail(int position) {
         if (isSubComment) return;
         PostComment item = getItem(position);
-        PostSubCommentListActivity.goActivity(mActivity, item);
+        PostCommentDetailActivity.goActivity(mActivity, item);
     }
 
 }

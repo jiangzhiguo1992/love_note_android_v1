@@ -33,7 +33,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.OnClick;
 
-public class PostListActivity extends BaseActivity<PostListActivity> {
+public class PostKindListActivity extends BaseActivity<PostKindListActivity> {
 
     @BindView(R.id.tb)
     Toolbar tb;
@@ -53,10 +53,10 @@ public class PostListActivity extends BaseActivity<PostListActivity> {
 
     public static void goActivity(Fragment from, PostKindInfo kindInfo) {
         if (kindInfo == null) {
-            LogUtils.w(PostListActivity.class, "goActivity", "kindInfo == null");
+            LogUtils.w(PostKindListActivity.class, "goActivity", "kindInfo == null");
             return;
         }
-        Intent intent = new Intent(from.getActivity(), PostListActivity.class);
+        Intent intent = new Intent(from.getActivity(), PostKindListActivity.class);
         intent.putExtra("kindInfo", kindInfo);
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         ActivityTrans.start(from, intent);
@@ -65,7 +65,7 @@ public class PostListActivity extends BaseActivity<PostListActivity> {
     @Override
     protected int getView(Intent intent) {
         kindInfo = intent.getParcelableExtra("kindInfo");
-        return R.layout.activity_post_list;
+        return R.layout.activity_post_kind_list;
     }
 
     @Override

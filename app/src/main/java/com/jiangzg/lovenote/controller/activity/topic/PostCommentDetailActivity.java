@@ -61,7 +61,7 @@ import butterknife.OnTextChanged;
 import retrofit2.Call;
 import rx.Observable;
 
-public class PostSubCommentListActivity extends BaseActivity<PostSubCommentListActivity> {
+public class PostCommentDetailActivity extends BaseActivity<PostCommentDetailActivity> {
 
     @BindView(R.id.tb)
     Toolbar tb;
@@ -93,7 +93,7 @@ public class PostSubCommentListActivity extends BaseActivity<PostSubCommentListA
 
     public static void goActivity(Activity from, PostComment postComment) {
         if (postComment == null) return;
-        Intent intent = new Intent(from, PostSubCommentListActivity.class);
+        Intent intent = new Intent(from, PostCommentDetailActivity.class);
         intent.putExtra("from", BaseActivity.ACT_DETAIL_FROM_OBJ);
         intent.putExtra("postComment", postComment);
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
@@ -102,7 +102,7 @@ public class PostSubCommentListActivity extends BaseActivity<PostSubCommentListA
 
     public static void goActivity(Activity from, long pcid) {
         if (pcid == 0) return;
-        Intent intent = new Intent(from, PostSubCommentListActivity.class);
+        Intent intent = new Intent(from, PostCommentDetailActivity.class);
         intent.putExtra("from", BaseActivity.ACT_DETAIL_FROM_ID);
         intent.putExtra("pcid", pcid);
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
@@ -111,7 +111,7 @@ public class PostSubCommentListActivity extends BaseActivity<PostSubCommentListA
 
     public static void goActivity(Context from, long pcid) {
         if (pcid == 0) return;
-        Intent intent = new Intent(from, PostSubCommentListActivity.class);
+        Intent intent = new Intent(from, PostCommentDetailActivity.class);
         intent.putExtra("from", BaseActivity.ACT_DETAIL_FROM_ID);
         intent.putExtra("pcid", pcid);
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
@@ -120,7 +120,7 @@ public class PostSubCommentListActivity extends BaseActivity<PostSubCommentListA
 
     @Override
     protected int getView(Intent intent) {
-        return R.layout.activity_post_sub_comment_list;
+        return R.layout.activity_post_comment_detail;
     }
 
     @Override

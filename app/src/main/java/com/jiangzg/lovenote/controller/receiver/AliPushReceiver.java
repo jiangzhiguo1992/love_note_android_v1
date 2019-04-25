@@ -33,9 +33,9 @@ import com.jiangzg.lovenote.controller.activity.note.TrendsListActivity;
 import com.jiangzg.lovenote.controller.activity.note.VideoListActivity;
 import com.jiangzg.lovenote.controller.activity.note.WordListActivity;
 import com.jiangzg.lovenote.controller.activity.settings.SuggestDetailActivity;
+import com.jiangzg.lovenote.controller.activity.topic.PostCommentDetailActivity;
 import com.jiangzg.lovenote.controller.activity.topic.PostDetailActivity;
 import com.jiangzg.lovenote.controller.activity.topic.PostMyRelationActivity;
-import com.jiangzg.lovenote.controller.activity.topic.PostSubCommentListActivity;
 import com.jiangzg.lovenote.controller.activity.topic.TopicMessageActivity;
 import com.jiangzg.lovenote.helper.common.GsonHelper;
 import com.jiangzg.lovenote.model.engine.PushExtra;
@@ -169,7 +169,7 @@ public class AliPushReceiver extends MessageReceiver {
                 PostDetailActivity.goActivity(context, contentId);
                 break;
             case PushExtra.TYPE_TOPIC_COMMENT: // 评论
-                PostSubCommentListActivity.goActivity(context, contentId);
+                PostCommentDetailActivity.goActivity(context, contentId);
                 break;
         }
     }
