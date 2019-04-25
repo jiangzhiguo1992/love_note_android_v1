@@ -319,8 +319,6 @@
     <string name="comment_colon_holder" formatted="false">评论: %d</string>
     <string name="point_colon_space_holder" formatted="false">点赞: %s</string>
     <string name="collect_colon_space_holder" formatted="false">收藏: %s</string>
-    <string name="today_post_colon_space_holder" formatted="false">今日帖子: %s</string>
-    <string name="today_comment_colon_space_holder" formatted="false">今日评论: %s</string>
     <string name="go_in_award_colon_holder_coin" formatted="false">参与奖励: %d金币</string>
     <string name="total_works_count_colon_holder" formatted="false">总作品数: %s</string>
     <string name="total_coin_count_colon_holder" formatted="false">总金币数: %s</string>

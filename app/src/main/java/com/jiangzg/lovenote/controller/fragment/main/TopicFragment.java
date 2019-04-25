@@ -151,7 +151,7 @@ public class TopicFragment extends BasePagerFragment<TopicFragment> {
                         return false;
                     }
                 })
-                .initAdapter(new HomeKindAdapter(mActivity, mFragment))
+                .initAdapter(new HomeKindAdapter(mFragment))
                 .viewAnim()
                 .setAdapter()
                 .listenerClick(new OnItemClickListener() {

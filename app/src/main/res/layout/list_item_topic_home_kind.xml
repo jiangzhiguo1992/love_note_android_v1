@@ -5,61 +5,39 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/root"
     android:layout_width="match_parent"
-    android:layout_height="80dp"
-    android:layout_margin="10dp"
+    android:layout_height="wrap_content"
+    android:layout_margin="2.5dp"
     android:background="?attr/selectableItemBackground"
     android:foreground="?attr/selectableItemBackground"
     app:cardBackgroundColor="@color/white"
-    app:cardCornerRadius="40dp"
-    app:cardElevation="@dimen/elevation_normal"
-    app:cardMaxElevation="@dimen/elevation_big">
+    app:cardCornerRadius="@dimen/radius_big"
+    app:cardElevation="0dp"
+    app:cardMaxElevation="@dimen/elevation_small">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="center_vertical"
-        android:orientation="horizontal">
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="5dp">
 
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
-            android:layout_weight="1"
-            android:gravity="center_vertical"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/tvPostCount"
-                style="@style/FontGreySmallBold"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="3dp"
-                android:gravity="center"
-                tools:text="帖子:XXX"/>
-
-            <TextView
-                android:id="@+id/tvCommentCount"
-                style="@style/FontGreySmallBold"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="3dp"
-                android:gravity="center"
-                tools:text="评论:XXX"/>
-        </LinearLayout>
+        <ImageView
+            android:id="@+id/ivKind"
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:layout_marginBottom="2.5dp"
+            android:scaleType="fitCenter"
+            tools:src="@mipmap/ic_launcher"/>
 
         <TextView
             android:id="@+id/tvName"
-            style="@style/FontPrimaryHugeBold"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
-            android:layout_weight="2"
+            style="@style/FontGreyNormalBold"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2.5dp"
+            android:ellipsize="middle"
             android:gravity="center"
-            android:maxLines="1"
             android:singleLine="true"
-            android:textSize="30sp"
             tools:text="右侧名称"/>
     </LinearLayout>
 </android.support.v7.widget.CardView>

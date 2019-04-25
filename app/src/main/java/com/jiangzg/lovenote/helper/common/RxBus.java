@@ -99,7 +99,6 @@ public class RxBus {
     public static final int EVENT_MOVIE_LIST_ITEM_DELETE = 4211;
     public static final int EVENT_MOVIE_LIST_ITEM_REFRESH = 4212;
     // topic
-    public static final int EVENT_POST_GO_TOP = 5100;
     public static final int EVENT_POST_SEARCH_ALL = 5101;
     public static final int EVENT_POST_SEARCH_OFFICIAL = 5102;
     public static final int EVENT_POST_SEARCH_WELL = 5103;

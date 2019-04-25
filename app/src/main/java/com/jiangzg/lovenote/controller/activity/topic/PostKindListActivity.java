@@ -6,8 +6,6 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -126,25 +124,6 @@ public class PostKindListActivity extends BaseActivity<PostKindListActivity> {
 
     @Override
     protected void onFinish(Bundle state) {
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.search_top, menu);
-        return super.onCreateOptionsMenu(menu);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.menuSearch: // 搜索
-                PostSearchActivity.goActivity(mActivity);
-                return true;
-            case R.id.menuTop: // 置顶
-                RxBus.post(new RxBus.Event<>(RxBus.EVENT_POST_GO_TOP, true));
-                break;
-        }
-        return super.onOptionsItemSelected(item);
     }
 
     @OnClick({R.id.llSearch, R.id.llAdd})

@@ -85,11 +85,6 @@ public class PostListFragment extends BasePagerFragment<PostListFragment> {
         official = false;
         well = false;
         // event
-        Observable<Boolean> obGoTop = RxBus.register(RxBus.EVENT_POST_GO_TOP, isTrue -> {
-            if (!mFragment.getUserVisibleHint() || !isTrue || rv == null) return;
-            rv.smoothScrollToPosition(0);
-        });
-        pushBus(RxBus.EVENT_POST_GO_TOP, obGoTop);
         Observable<Boolean> obSearchNormal = RxBus.register(RxBus.EVENT_POST_SEARCH_ALL, isTrue -> {
             if (!mFragment.getUserVisibleHint() || !isTrue) return;
             official = false;
