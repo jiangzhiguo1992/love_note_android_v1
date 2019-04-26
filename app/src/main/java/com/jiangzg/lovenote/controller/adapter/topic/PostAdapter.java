@@ -1,12 +1,14 @@
 package com.jiangzg.lovenote.controller.adapter.topic;
 
+import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.widget.CardView;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.SparseBooleanArray;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewParent;
+import android.widget.RelativeLayout;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -46,8 +48,9 @@ public class PostAdapter extends BaseQuickAdapter<Post, BaseViewHolder> {
     private BaseActivity mActivity;
     private final int colorFontGrey, colorFontBlack;
     private boolean adShow;
+    private int adJumpCount = 10;
+    private SparseBooleanArray adCloseMap;
     private List<NativeExpressADView> adViewList;
-    // TODO close
 
     public PostAdapter(BaseActivity activity, boolean ad) {
         super(R.layout.list_item_post);
@@ -57,13 +60,35 @@ public class PostAdapter extends BaseQuickAdapter<Post, BaseViewHolder> {
         colorFontBlack = ContextCompat.getColor(activity, R.color.font_black);
         // ad
         adShow = ad && AdHelper.canAd(activity) && !SPHelper.getVipLimit().isAdvertiseHide();
+    }
+
+    @Override
+    public void setNewData(@Nullable List<Post> data) {
+        super.setNewData(data);
         if (adShow) {
-            AdHelper.createAd(activity, ADSize.FULL_WIDTH, ADSize.AUTO_HEIGHT, 5, viewList -> {
-                PostAdapter.this.adDestroy();
-                adViewList = viewList;
-                for (int i = 0; i < PostAdapter.this.getData().size(); i++) {
-                    if (isAdPosition(i)) {
-                        PostAdapter.this.notifyItemChanged(i + getHeaderLayoutCount());
+            // 刷新数据的时候，也刷新广告(包括屏蔽记录)
+            AdHelper.createAd(mActivity, ADSize.FULL_WIDTH, ADSize.AUTO_HEIGHT, 10, new AdHelper.OnAdCallBack() {
+                @Override
+                public void onADLoaded(List<NativeExpressADView> viewList) {
+                    PostAdapter.this.adDestroy();
+                    adViewList = viewList;
+                    for (int i = 0; i < PostAdapter.this.getData().size(); i++) {
+                        if (isAdPosition(i)) {
+                            PostAdapter.this.notifyItemChanged(i + getHeaderLayoutCount());
+                        }
+                    }
+                }
+
+                @Override
+                public void onADClose(NativeExpressADView view) {
+                    if (adCloseMap == null) {
+                        adCloseMap = new SparseBooleanArray();
+                    }
+                    int position = (int) view.getTag();
+                    if (position >= 0 && position < PostAdapter.this.getData().size()) {
+                        int adIndex = getAdIndex(position);
+                        adCloseMap.put(adIndex, true);
+                        notifyItemChanged(position + getHeaderLayoutCount());
                     }
                 }
             });
@@ -75,62 +100,69 @@ public class PostAdapter extends BaseQuickAdapter<Post, BaseViewHolder> {
         for (NativeExpressADView view : adViewList) {
             AdHelper.destroy(view);
         }
+        if (adCloseMap != null) {
+            adCloseMap.clear();
+        }
     }
 
     private boolean isAdPosition(int position) {
         if (position <= 1) {
             return false;
         }
-        return (position + 6) % 10 == 0; // 5 - 15 - 25
+        return (position + 6) % adJumpCount == 0; // 5 - 15 - 25
     }
 
     private int getAdIndex(int position) {
         if (adViewList == null || adViewList.size() <= 0) return -1;
-        int index = position / 10;
-        while (index >= adViewList.size()) {
-            position = position - adViewList.size();
+        int index = position / adJumpCount;
+        if (index >= adViewList.size()) {
+            // 后面的不展示了
+            return -1;
+        }
+        if (adCloseMap != null && adCloseMap.get(index)) {
+            // 用户关闭
+            return -1;
         }
         return index;
     }
 
     @Override
     protected void convert(BaseViewHolder helper, Post item) {
-        CardView root = helper.getView(R.id.root);
-        int tagAd = 111;
         int position = helper.getLayoutPosition() - getHeaderLayoutCount();
         int adIndex = getAdIndex(position);
         if (adShow && isAdPosition(position) && adIndex >= 0) {
+            helper.setVisible(R.id.rlAd, true);
             helper.setVisible(R.id.llInfo, false);
             helper.setVisible(R.id.tvCover, false);
+            RelativeLayout rlAd = helper.getView(R.id.rlAd);
+            rlAd.removeAllViews();
             NativeExpressADView adView = adViewList.get(adIndex);
             if (adView != null) {
                 ViewParent parent = adView.getParent();
                 if (parent != null) {
                     ((ViewGroup) parent).removeView(adView);
                 }
-                adView.setTag(tagAd);
-                root.addView(adView);
+                adView.setTag(position);
+                rlAd.addView(adView);
                 adView.render();
             }
             return;
-        }
-        NativeExpressADView adView = root.findViewWithTag(tagAd);
-        if (adView != null) {
-            root.removeView(adView);
-        }
-        if (item.isScreen()) {
-            helper.setVisible(R.id.llInfo, false);
+        } else if (item.isScreen()) {
+            helper.setVisible(R.id.rlAd, false);
             helper.setVisible(R.id.tvCover, true);
+            helper.setVisible(R.id.llInfo, false);
             helper.setText(R.id.tvCover, R.string.post_already_be_screen);
             return;
         } else if (item.isDelete()) {
-            helper.setVisible(R.id.llInfo, false);
+            helper.setVisible(R.id.rlAd, false);
             helper.setVisible(R.id.tvCover, true);
+            helper.setVisible(R.id.llInfo, false);
             helper.setText(R.id.tvCover, R.string.post_already_be_delete);
             return;
         }
-        helper.setVisible(R.id.llInfo, true);
+        helper.setVisible(R.id.rlAd, false);
         helper.setVisible(R.id.tvCover, false);
+        helper.setVisible(R.id.llInfo, true);
         // data
         Couple couple = item.getCouple();
         String title = item.getTitle();
@@ -184,7 +216,8 @@ public class PostAdapter extends BaseQuickAdapter<Post, BaseViewHolder> {
     }
 
     public void goPostDetail(int position) {
-        if (isAdPosition(position)) {
+        if (adShow && isAdPosition(position) && getAdIndex(position) >= 0) {
+            // 没关闭的广告位
             return;
         }
         Post item = getItem(position);

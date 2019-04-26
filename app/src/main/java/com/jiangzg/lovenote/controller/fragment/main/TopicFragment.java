@@ -89,7 +89,7 @@ public class TopicFragment extends BasePagerFragment<TopicFragment> {
                 .viewHeader(mActivity, R.layout.list_head_topic_home)
                 .viewEmpty(mActivity, R.layout.list_empty_grey, true, true)
                 .viewLoadMore(new RecyclerHelper.MoreGreyView())
-                .viewAnim()
+                //.viewAnim() // 有广告会卡
                 .setAdapter()
                 .listenerRefresh(() -> refreshPostListData(false))
                 .listenerMore(currentCount -> refreshPostListData(true))

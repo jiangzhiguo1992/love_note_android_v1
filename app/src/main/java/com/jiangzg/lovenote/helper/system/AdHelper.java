@@ -21,10 +21,12 @@ import java.util.List;
 public class AdHelper {
 
     public static final String appID = "1108762293"; // TODO
-    public static final String posID = "5070266090930337"; // TODO
+    public static final String posID = "8030762043251507"; // TODO
 
     public interface OnAdCallBack {
         void onADLoaded(List<NativeExpressADView> viewList);
+
+        void onADClose(NativeExpressADView view);
     }
 
     public static boolean canAd(Context context) {
@@ -38,6 +40,7 @@ public class AdHelper {
                 new NativeExpressAD.NativeExpressADListener() {
                     @Override
                     public void onADLoaded(List<NativeExpressADView> viewList) {
+                        LogUtils.d(AdHelper.class, "onADLoaded", "onADLoaded");
                         if (viewList == null || viewList.size() <= 0) {
                             return;
                         }
@@ -119,6 +122,9 @@ public class AdHelper {
                     @Override
                     public void onADClosed(NativeExpressADView nativeExpressADView) {
                         LogUtils.d(AdHelper.class, "onADClosed", nativeExpressADView.toString());
+                        if (callBack != null) {
+                            callBack.onADClose(nativeExpressADView);
+                        }
                     }
 
                     @Override
