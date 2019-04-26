@@ -8,8 +8,8 @@ android {
         targetSdkVersion 28 // 最高效果版本
         minSdkVersion 21 // 最低运行版本
         multiDexEnabled true // 允许分包
-        versionCode 22
-        versionName "1.2.2"
+        versionCode 23
+        versionName "1.2.3"
         vectorDrawables.useSupportLibrary = true // 用于支持vectorDrawables
         flavorDimensions "release" // 多渠道打包分支
         ndk {
@@ -172,7 +172,7 @@ dependencies { // 及时更新
     implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.14' // wea/pic -> up
     implementation 'com.google.android.exoplayer:exoplayer:2.9.6'
     // 三方
-    implementation files('libs/GDTUnionSDK.4.28.902.min.jar') // ad
+    implementation files('libs/GDTUnionSDK.TBS.4.28.902.min.jar') // ad
     implementation files('libs/alipaySdk-20180601.jar') // AliPay
     implementation 'com.tencent.mm.opensdk:wechat-sdk-android-with-mta:5.3.1' // WXPay
     implementation 'com.aliyun.dpa:oss-android-sdk:2.9.2' // OSS
