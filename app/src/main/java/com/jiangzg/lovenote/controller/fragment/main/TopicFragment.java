@@ -142,6 +142,9 @@ public class TopicFragment extends BasePagerFragment<TopicFragment> {
 
     @Override
     protected void onFinish(Bundle state) {
+        if (postRecyclerHelper != null && postRecyclerHelper.getAdapter() != null) {
+            ((PostAdapter) postRecyclerHelper.getAdapter()).adDestroy();
+        }
         RecyclerHelper.release(kindRecyclerHelper);
         RecyclerHelper.release(postRecyclerHelper);
     }

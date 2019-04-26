@@ -1,9 +1,12 @@
 package com.jiangzg.lovenote.controller.adapter.topic;
 
 import android.support.v4.content.ContextCompat;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.ViewParent;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -15,7 +18,9 @@ import com.jiangzg.lovenote.controller.activity.base.BaseActivity;
 import com.jiangzg.lovenote.controller.activity.topic.PostDetailActivity;
 import com.jiangzg.lovenote.controller.adapter.common.ImgSquareShowAdapter;
 import com.jiangzg.lovenote.helper.common.CountHelper;
+import com.jiangzg.lovenote.helper.common.SPHelper;
 import com.jiangzg.lovenote.helper.common.TimeHelper;
+import com.jiangzg.lovenote.helper.system.AdHelper;
 import com.jiangzg.lovenote.helper.system.RetrofitHelper;
 import com.jiangzg.lovenote.helper.view.DialogHelper;
 import com.jiangzg.lovenote.helper.view.RecyclerHelper;
@@ -25,6 +30,8 @@ import com.jiangzg.lovenote.model.entity.Couple;
 import com.jiangzg.lovenote.model.entity.Post;
 import com.jiangzg.lovenote.model.entity.PostCollect;
 import com.jiangzg.lovenote.view.FrescoAvatarView;
+import com.qq.e.ads.nativ.ADSize;
+import com.qq.e.ads.nativ.NativeExpressADView;
 
 import java.util.List;
 
@@ -38,18 +45,79 @@ public class PostAdapter extends BaseQuickAdapter<Post, BaseViewHolder> {
 
     private BaseActivity mActivity;
     private final int colorFontGrey, colorFontBlack;
+    private boolean adShow;
+    private List<NativeExpressADView> adViewList;
+    // TODO close
 
-    public PostAdapter(BaseActivity activity) {
+    public PostAdapter(BaseActivity activity, boolean ad) {
         super(R.layout.list_item_post);
         mActivity = activity;
         // color
         colorFontGrey = ContextCompat.getColor(activity, R.color.font_grey);
         colorFontBlack = ContextCompat.getColor(activity, R.color.font_black);
+        // ad
+        adShow = ad && AdHelper.canAd(activity) && !SPHelper.getVipLimit().isAdvertiseHide();
+        if (adShow) {
+            AdHelper.createAd(activity, ADSize.FULL_WIDTH, ADSize.AUTO_HEIGHT, 5, viewList -> {
+                PostAdapter.this.adDestroy();
+                adViewList = viewList;
+                for (int i = 0; i < PostAdapter.this.getData().size(); i++) {
+                    if (isAdPosition(i)) {
+                        PostAdapter.this.notifyItemChanged(i + getHeaderLayoutCount());
+                    }
+                }
+            });
+        }
+    }
+
+    public void adDestroy() {
+        if (adViewList == null || adViewList.size() <= 0) return;
+        for (NativeExpressADView view : adViewList) {
+            AdHelper.destroy(view);
+        }
+    }
+
+    private boolean isAdPosition(int position) {
+        if (position <= 1) {
+            return false;
+        }
+        return (position + 6) % 10 == 0; // 5 - 15 - 25
+    }
+
+    private int getAdIndex(int position) {
+        if (adViewList == null || adViewList.size() <= 0) return -1;
+        int index = position / 10;
+        while (index >= adViewList.size()) {
+            position = position - adViewList.size();
+        }
+        return index;
     }
 
     @Override
     protected void convert(BaseViewHolder helper, Post item) {
-        helper.setVisible(R.id.tvCover, item.isScreen() || item.isDelete());
+        CardView root = helper.getView(R.id.root);
+        int tagAd = 111;
+        int position = helper.getLayoutPosition() - getHeaderLayoutCount();
+        int adIndex = getAdIndex(position);
+        if (adShow && isAdPosition(position) && adIndex >= 0) {
+            helper.setVisible(R.id.llInfo, false);
+            helper.setVisible(R.id.tvCover, false);
+            NativeExpressADView adView = adViewList.get(adIndex);
+            if (adView != null) {
+                ViewParent parent = adView.getParent();
+                if (parent != null) {
+                    ((ViewGroup) parent).removeView(adView);
+                }
+                adView.setTag(tagAd);
+                root.addView(adView);
+                adView.render();
+            }
+            return;
+        }
+        NativeExpressADView adView = root.findViewWithTag(tagAd);
+        if (adView != null) {
+            root.removeView(adView);
+        }
         if (item.isScreen()) {
             helper.setVisible(R.id.llInfo, false);
             helper.setVisible(R.id.tvCover, true);
@@ -116,6 +184,9 @@ public class PostAdapter extends BaseQuickAdapter<Post, BaseViewHolder> {
     }
 
     public void goPostDetail(int position) {
+        if (isAdPosition(position)) {
+            return;
+        }
         Post item = getItem(position);
         if (item == null || item.isScreen() || item.isDelete()) return;
         if (!item.isRead()) {

@@ -132,6 +132,9 @@ public class PostListFragment extends BasePagerFragment<PostListFragment> {
 
     @Override
     protected void onFinish(Bundle state) {
+        if (recyclerHelper != null && recyclerHelper.getAdapter() != null) {
+            ((PostAdapter) recyclerHelper.getAdapter()).adDestroy();
+        }
         RecyclerHelper.release(recyclerHelper);
     }
 
