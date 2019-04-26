@@ -1,7 +1,7 @@
 <resources>
-    <!--<string name="app_name">鱼笙</string>-->
+    <string name="app_name">鱼笙</string>
     <!--<string name="app_name">鱼笙情侣记录</string>-->
-    <string name="app_name">鱼笙情侣恋爱记录</string>
+    <!--<string name="app_name">鱼笙情侣恋爱记录</string>-->
 
     <!-- base -->
     <string name="day1">一</string>
