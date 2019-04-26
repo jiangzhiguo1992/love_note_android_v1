@@ -8,6 +8,7 @@ import com.jiangzg.base.common.SPUtils;
 import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.lovenote.helper.view.ThemeHelper;
 import com.jiangzg.lovenote.model.engine.NoteCustom;
+import com.jiangzg.lovenote.model.entity.AdInfo;
 import com.jiangzg.lovenote.model.entity.CommonConst;
 import com.jiangzg.lovenote.model.entity.CommonCount;
 import com.jiangzg.lovenote.model.entity.Couple;
@@ -35,7 +36,8 @@ public class SPHelper {
     private static final String SHARE_NOTE_CUSTOM = "note_custom";
     private static final String SHARE_OSS_INFO = "share_oss_info";
     private static final String SHARE_PUSH_INFO = "share_push_info";
-    private static final String SHARE_MODEL_SHOW = "model_show";
+    private static final String SHARE_AD_INFO = "share_ad_info";
+    private static final String SHARE_MODEL_SHOW = "share_model_show";
     private static final String SHARE_LIMIT = "share_limit";
     private static final String SHARE_VIP_LIMIT = "share_vip_limit";
     private static final String SHARE_COMMON_CONST = "share_common_const";
@@ -137,6 +139,10 @@ public class SPHelper {
     private static final String FIELD_PUSH_NOTICE_VIBRATE = "notice_vibrate";
     private static final String FIELD_PUSH_NO_START_HOUR = "no_start_hour";
     private static final String FIELD_PUSH_NO_END_HOUR = "no_end_hour";
+    // adInfo
+    private static final String FIELD_AD_APP_ID = "app_id";
+    private static final String FIELD_AD_TOPIC_POST_POS_ID = "topic_post_pos_id";
+    private static final String FIELD_AD_TOPIC_POST_JUMP = "topic_post_jump";
     // limit
     private static final String FIELD_LIMIT_SMS_CODE_LENGTH = "sms_code_length";
     private static final String FIELD_LIMIT_SMS_BETWEEN = "sms_between";
@@ -267,9 +273,7 @@ public class SPHelper {
     // wallPaper
     private static final String FIELD_WALL_PAPER_JSON = "json";
     // draft
-    private static final String FIELD_DRAFT_DIARY_HAPPEN = "diary_happen";
     private static final String FIELD_DRAFT_DIARY_CONTENT_TEXT = "diary_content_text";
-    private static final String FIELD_DRAFT_DREAM_HAPPEN = "dream_happen";
     private static final String FIELD_DRAFT_DREAM_CONTENT_TEXT = "dream_content_text";
     private static final String FIELD_DRAFT_POST_KIND = "post_kind";
     private static final String FIELD_DRAFT_POST_SUB_KIND = "post_sub_kind";
@@ -634,6 +638,30 @@ public class SPHelper {
         pushInfo.setNoStartHour(sp.getInt(FIELD_PUSH_NO_START_HOUR, 22));
         pushInfo.setNoEndHour(sp.getInt(FIELD_PUSH_NO_END_HOUR, 8));
         return pushInfo;
+    }
+
+    /**
+     * ***********************************AdInfo***********************************
+     */
+    public static void setAdInfo(AdInfo adInfo) {
+        if (adInfo == null) {
+            LogUtils.i(SPHelper.class, "setAdInfo", "adInfo == null");
+            return;
+        }
+        SharedPreferences.Editor editor = SPUtils.getSharedPreferences(SHARE_AD_INFO).edit();
+        editor.putString(FIELD_AD_APP_ID, adInfo.getAppId());
+        editor.putString(FIELD_AD_TOPIC_POST_POS_ID, adInfo.getTopicPostPosId());
+        editor.putInt(FIELD_AD_TOPIC_POST_JUMP, adInfo.getTopicPostJump());
+        editor.apply();
+    }
+
+    public static AdInfo getAdInfo() {
+        SharedPreferences sp = SPUtils.getSharedPreferences(SHARE_AD_INFO);
+        AdInfo adInfo = new AdInfo();
+        adInfo.setAppId(sp.getString(FIELD_AD_APP_ID, "1108744619"));
+        adInfo.setTopicPostPosId(sp.getString(FIELD_AD_TOPIC_POST_POS_ID, "1030468073055469"));
+        adInfo.setTopicPostJump(sp.getInt(FIELD_AD_TOPIC_POST_JUMP, 10));
+        return adInfo;
     }
 
     /**

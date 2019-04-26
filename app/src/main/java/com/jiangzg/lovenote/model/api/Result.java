@@ -1,5 +1,6 @@
 package com.jiangzg.lovenote.model.api;
 
+import com.jiangzg.lovenote.model.entity.AdInfo;
 import com.jiangzg.lovenote.model.entity.Album;
 import com.jiangzg.lovenote.model.entity.Angry;
 import com.jiangzg.lovenote.model.entity.Audio;
@@ -123,6 +124,7 @@ public class Result implements Serializable {
         private VipLimit vipNoLimit;
         private OssInfo ossInfo;
         private PushInfo pushInfo;
+        private AdInfo adInfo;
         private User user;
         private Notice notice;
         private List<Notice> noticeList;
@@ -225,6 +227,14 @@ public class Result implements Serializable {
         private MatchReport matchReport;
         private MatchPoint matchPoint;
         private MatchCoin matchCoin;
+
+        public AdInfo getAdInfo() {
+            return adInfo;
+        }
+
+        public void setAdInfo(AdInfo adInfo) {
+            this.adInfo = adInfo;
+        }
 
         public List<CoupleState> getCoupleStateList() {
             return coupleStateList;

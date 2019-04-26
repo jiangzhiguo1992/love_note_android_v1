@@ -4,6 +4,8 @@ import android.content.Context;
 
 import com.jiangzg.base.common.LogUtils;
 import com.jiangzg.base.system.PermUtils;
+import com.jiangzg.lovenote.helper.common.SPHelper;
+import com.jiangzg.lovenote.model.entity.AdInfo;
 import com.qq.e.ads.cfg.VideoOption;
 import com.qq.e.ads.nativ.ADSize;
 import com.qq.e.ads.nativ.NativeExpressAD;
@@ -20,9 +22,6 @@ import java.util.List;
  */
 public class AdHelper {
 
-    public static final String appID = "1108762293"; // TODO
-    public static final String posID = "8030762043251507"; // TODO
-
     public interface OnAdCallBack {
         void onADLoaded(List<NativeExpressADView> viewList);
 
@@ -35,124 +34,128 @@ public class AdHelper {
         return deviceOk && appOk;
     }
 
-    public static NativeExpressAD createAd(Context context, int width, int height, int count, OnAdCallBack callBack) {
-        NativeExpressAD ad = new NativeExpressAD(context, new ADSize(width, height), appID, posID,
-                new NativeExpressAD.NativeExpressADListener() {
-                    @Override
-                    public void onADLoaded(List<NativeExpressADView> viewList) {
-                        LogUtils.d(AdHelper.class, "onADLoaded", "onADLoaded");
-                        if (viewList == null || viewList.size() <= 0) {
-                            return;
-                        }
-                        for (NativeExpressADView view : viewList) {
-                            if (view.getBoundData().getAdPatternType() == AdPatternType.NATIVE_VIDEO) {
-                                view.setMediaListener(new NativeExpressMediaListener() {
-                                    @Override
-                                    public void onVideoInit(NativeExpressADView nativeExpressADView) {
-                                        LogUtils.i(AdHelper.class, "onVideoInit", getVideoInfo(nativeExpressADView.getBoundData().getProperty(AdData.VideoPlayer.class)));
-                                    }
-
-                                    @Override
-                                    public void onVideoLoading(NativeExpressADView nativeExpressADView) {
-                                        LogUtils.i(AdHelper.class, "onVideoLoading", getVideoInfo(nativeExpressADView.getBoundData().getProperty(AdData.VideoPlayer.class)));
-                                    }
-
-                                    @Override
-                                    public void onVideoReady(NativeExpressADView nativeExpressADView, long l) {
-                                        LogUtils.i(AdHelper.class, "onVideoReady", getVideoInfo(nativeExpressADView.getBoundData().getProperty(AdData.VideoPlayer.class)));
-                                    }
-
-                                    @Override
-                                    public void onVideoStart(NativeExpressADView nativeExpressADView) {
-                                        LogUtils.i(AdHelper.class, "onVideoStart", getVideoInfo(nativeExpressADView.getBoundData().getProperty(AdData.VideoPlayer.class)));
-                                    }
-
-                                    @Override
-                                    public void onVideoPause(NativeExpressADView nativeExpressADView) {
-                                        LogUtils.i(AdHelper.class, "onVideoPause", getVideoInfo(nativeExpressADView.getBoundData().getProperty(AdData.VideoPlayer.class)));
-                                    }
-
-                                    @Override
-                                    public void onVideoComplete(NativeExpressADView nativeExpressADView) {
-                                        LogUtils.i(AdHelper.class, "onVideoComplete", getVideoInfo(nativeExpressADView.getBoundData().getProperty(AdData.VideoPlayer.class)));
-                                    }
-
-                                    @Override
-                                    public void onVideoError(NativeExpressADView nativeExpressADView, AdError error) {
-                                        LogUtils.w(AdHelper.class, "onVideoError", error.getErrorCode() + "\n" + error.getErrorMsg());
-                                    }
-
-                                    @Override
-                                    public void onVideoPageOpen(NativeExpressADView nativeExpressADView) {
-                                        LogUtils.i(AdHelper.class, "onVideoPageOpen", getVideoInfo(nativeExpressADView.getBoundData().getProperty(AdData.VideoPlayer.class)));
-                                    }
-
-                                    @Override
-                                    public void onVideoPageClose(NativeExpressADView nativeExpressADView) {
-                                        LogUtils.i(AdHelper.class, "onVideoPageClose", getVideoInfo(nativeExpressADView.getBoundData().getProperty(AdData.VideoPlayer.class)));
-                                    }
-                                });
+    public static void createAd(Context context, int width, int height, int count, OnAdCallBack callBack) {
+        if (!canAd(context)) {
+            return;
+        }
+        AdInfo adInfo = SPHelper.getAdInfo();
+        String appId = adInfo.getAppId();
+        String posId = adInfo.getTopicPostPosId();
+        NativeExpressAD ad = new NativeExpressAD(context, new ADSize(width, height), appId, posId, new NativeExpressAD.NativeExpressADListener() {
+            @Override
+            public void onADLoaded(List<NativeExpressADView> viewList) {
+                LogUtils.d(AdHelper.class, "onADLoaded", "onADLoaded");
+                if (viewList == null || viewList.size() <= 0) {
+                    return;
+                }
+                for (NativeExpressADView view : viewList) {
+                    if (view.getBoundData().getAdPatternType() == AdPatternType.NATIVE_VIDEO) {
+                        view.setMediaListener(new NativeExpressMediaListener() {
+                            @Override
+                            public void onVideoInit(NativeExpressADView nativeExpressADView) {
+                                LogUtils.i(AdHelper.class, "onVideoInit", getVideoInfo(nativeExpressADView.getBoundData().getProperty(AdData.VideoPlayer.class)));
                             }
-                        }
-                        if (callBack != null) {
-                            callBack.onADLoaded(viewList);
-                        }
-                    }
 
-                    @Override
-                    public void onRenderFail(NativeExpressADView nativeExpressADView) {
-                        LogUtils.w(AdHelper.class, "onRenderFail", nativeExpressADView.toString());
-                    }
+                            @Override
+                            public void onVideoLoading(NativeExpressADView nativeExpressADView) {
+                                LogUtils.i(AdHelper.class, "onVideoLoading", getVideoInfo(nativeExpressADView.getBoundData().getProperty(AdData.VideoPlayer.class)));
+                            }
 
-                    @Override
-                    public void onRenderSuccess(NativeExpressADView nativeExpressADView) {
-                        LogUtils.d(AdHelper.class, "onRenderSuccess", nativeExpressADView.toString() + "\n" + getAdInfo(nativeExpressADView));
-                    }
+                            @Override
+                            public void onVideoReady(NativeExpressADView nativeExpressADView, long l) {
+                                LogUtils.i(AdHelper.class, "onVideoReady", getVideoInfo(nativeExpressADView.getBoundData().getProperty(AdData.VideoPlayer.class)));
+                            }
 
-                    @Override
-                    public void onADExposure(NativeExpressADView nativeExpressADView) {
-                        LogUtils.d(AdHelper.class, "onADExposure", nativeExpressADView.toString());
-                    }
+                            @Override
+                            public void onVideoStart(NativeExpressADView nativeExpressADView) {
+                                LogUtils.i(AdHelper.class, "onVideoStart", getVideoInfo(nativeExpressADView.getBoundData().getProperty(AdData.VideoPlayer.class)));
+                            }
 
-                    @Override
-                    public void onADClicked(NativeExpressADView nativeExpressADView) {
-                        LogUtils.i(AdHelper.class, "onADClicked", nativeExpressADView.toString());
-                    }
+                            @Override
+                            public void onVideoPause(NativeExpressADView nativeExpressADView) {
+                                LogUtils.i(AdHelper.class, "onVideoPause", getVideoInfo(nativeExpressADView.getBoundData().getProperty(AdData.VideoPlayer.class)));
+                            }
 
-                    @Override
-                    public void onADClosed(NativeExpressADView nativeExpressADView) {
-                        LogUtils.d(AdHelper.class, "onADClosed", nativeExpressADView.toString());
-                        if (callBack != null) {
-                            callBack.onADClose(nativeExpressADView);
-                        }
-                    }
+                            @Override
+                            public void onVideoComplete(NativeExpressADView nativeExpressADView) {
+                                LogUtils.i(AdHelper.class, "onVideoComplete", getVideoInfo(nativeExpressADView.getBoundData().getProperty(AdData.VideoPlayer.class)));
+                            }
 
-                    @Override
-                    public void onADLeftApplication(NativeExpressADView nativeExpressADView) {
-                        LogUtils.d(AdHelper.class, "onADLeftApplication", nativeExpressADView.toString());
-                    }
+                            @Override
+                            public void onVideoError(NativeExpressADView nativeExpressADView, AdError error) {
+                                LogUtils.w(AdHelper.class, "onVideoError", error.getErrorCode() + "\n" + error.getErrorMsg());
+                            }
 
-                    @Override
-                    public void onADOpenOverlay(NativeExpressADView nativeExpressADView) {
-                        LogUtils.d(AdHelper.class, "onADOpenOverlay", nativeExpressADView.toString());
-                    }
+                            @Override
+                            public void onVideoPageOpen(NativeExpressADView nativeExpressADView) {
+                                LogUtils.i(AdHelper.class, "onVideoPageOpen", getVideoInfo(nativeExpressADView.getBoundData().getProperty(AdData.VideoPlayer.class)));
+                            }
 
-                    @Override
-                    public void onADCloseOverlay(NativeExpressADView nativeExpressADView) {
-                        LogUtils.d(AdHelper.class, "onADCloseOverlay", nativeExpressADView.toString());
+                            @Override
+                            public void onVideoPageClose(NativeExpressADView nativeExpressADView) {
+                                LogUtils.i(AdHelper.class, "onVideoPageClose", getVideoInfo(nativeExpressADView.getBoundData().getProperty(AdData.VideoPlayer.class)));
+                            }
+                        });
                     }
+                }
+                if (callBack != null) {
+                    callBack.onADLoaded(viewList);
+                }
+            }
 
-                    @Override
-                    public void onNoAD(AdError error) {
-                        LogUtils.w(AdHelper.class, "onNoAD", error.getErrorCode() + "\n" + error.getErrorMsg());
-                    }
-                });
+            @Override
+            public void onRenderFail(NativeExpressADView nativeExpressADView) {
+                LogUtils.w(AdHelper.class, "onRenderFail", nativeExpressADView.toString());
+            }
+
+            @Override
+            public void onRenderSuccess(NativeExpressADView nativeExpressADView) {
+                LogUtils.d(AdHelper.class, "onRenderSuccess", nativeExpressADView.toString() + "\n" + getAdInfo(nativeExpressADView));
+            }
+
+            @Override
+            public void onADExposure(NativeExpressADView nativeExpressADView) {
+                LogUtils.d(AdHelper.class, "onADExposure", nativeExpressADView.toString());
+            }
+
+            @Override
+            public void onADClicked(NativeExpressADView nativeExpressADView) {
+                LogUtils.i(AdHelper.class, "onADClicked", nativeExpressADView.toString());
+            }
+
+            @Override
+            public void onADClosed(NativeExpressADView nativeExpressADView) {
+                LogUtils.d(AdHelper.class, "onADClosed", nativeExpressADView.toString());
+                if (callBack != null) {
+                    callBack.onADClose(nativeExpressADView);
+                }
+            }
+
+            @Override
+            public void onADLeftApplication(NativeExpressADView nativeExpressADView) {
+                LogUtils.d(AdHelper.class, "onADLeftApplication", nativeExpressADView.toString());
+            }
+
+            @Override
+            public void onADOpenOverlay(NativeExpressADView nativeExpressADView) {
+                LogUtils.d(AdHelper.class, "onADOpenOverlay", nativeExpressADView.toString());
+            }
+
+            @Override
+            public void onADCloseOverlay(NativeExpressADView nativeExpressADView) {
+                LogUtils.d(AdHelper.class, "onADCloseOverlay", nativeExpressADView.toString());
+            }
+
+            @Override
+            public void onNoAD(AdError error) {
+                LogUtils.w(AdHelper.class, "onNoAD", error.getErrorCode() + "\n" + error.getErrorMsg());
+            }
+        });
         ad.setVideoOption(new VideoOption.Builder()
                 .setAutoPlayPolicy(VideoOption.AutoPlayPolicy.WIFI) // WIFI 环境下可以自动播放视频
                 .setAutoPlayMuted(true) // 自动播放时为静音
                 .build());
         ad.loadAD(count);
-        return ad;
     }
 
     public static void destroy(NativeExpressADView view) {

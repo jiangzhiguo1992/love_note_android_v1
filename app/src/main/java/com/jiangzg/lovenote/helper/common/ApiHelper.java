@@ -260,6 +260,8 @@ public class ApiHelper {
         PushHelper.checkAccountBind();
         PushHelper.checkTagBind();
         PushHelper.checkDisturb();
+        // adInfo
+        SPHelper.setAdInfo(data.getAdInfo());
         // commonCount
         SPHelper.setCommonCount(data.getCommonCount());
         // version

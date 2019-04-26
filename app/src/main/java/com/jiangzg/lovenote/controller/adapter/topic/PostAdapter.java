@@ -48,7 +48,7 @@ public class PostAdapter extends BaseQuickAdapter<Post, BaseViewHolder> {
     private BaseActivity mActivity;
     private final int colorFontGrey, colorFontBlack;
     private boolean adShow;
-    private int adJumpCount = 10;
+    private int adJumpCount;
     private SparseBooleanArray adCloseMap;
     private List<NativeExpressADView> adViewList;
 
@@ -60,6 +60,7 @@ public class PostAdapter extends BaseQuickAdapter<Post, BaseViewHolder> {
         colorFontBlack = ContextCompat.getColor(activity, R.color.font_black);
         // ad
         adShow = ad && AdHelper.canAd(activity) && !SPHelper.getVipLimit().isAdvertiseHide();
+        adJumpCount = SPHelper.getAdInfo().getTopicPostJump();
     }
 
     @Override
