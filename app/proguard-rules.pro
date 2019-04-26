@@ -127,10 +127,10 @@
 # ---OPPO通道
 -keep public class * extends android.app.Service
 
-# ---广点通
--keep class com.qq.e.** {public protected *;}
--keep class android.support.v4.**{public *;}
--keep class android.support.v7.**{public *;}
+# ---广点通(和文档不一样哦)
+-keep class com.qq.e.** {*;}
+-keep class android.support.v4.**{*;}
+-keep class android.support.v7.**{*;}
 -keep class MTT.ThirdAppInfoNew {*;}
 -keep class com.tencent.** {*;}
 
