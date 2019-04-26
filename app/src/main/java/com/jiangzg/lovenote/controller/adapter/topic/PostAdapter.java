@@ -132,13 +132,13 @@ public class PostAdapter extends BaseQuickAdapter<Post, BaseViewHolder> {
         int position = helper.getLayoutPosition() - getHeaderLayoutCount();
         int adIndex = getAdIndex(position);
         if (adShow && isAdPosition(position) && adIndex >= 0) {
-            helper.setVisible(R.id.rlAd, true);
-            helper.setVisible(R.id.llInfo, false);
-            helper.setVisible(R.id.tvCover, false);
             RelativeLayout rlAd = helper.getView(R.id.rlAd);
             rlAd.removeAllViews();
             NativeExpressADView adView = adViewList.get(adIndex);
             if (adView != null) {
+                helper.setVisible(R.id.rlAd, true);
+                helper.setVisible(R.id.llInfo, false);
+                helper.setVisible(R.id.tvCover, false);
                 ViewParent parent = adView.getParent();
                 if (parent != null) {
                     ((ViewGroup) parent).removeView(adView);
@@ -146,9 +146,10 @@ public class PostAdapter extends BaseQuickAdapter<Post, BaseViewHolder> {
                 adView.setTag(position);
                 rlAd.addView(adView);
                 adView.render();
+                return;
             }
-            return;
-        } else if (item.isScreen()) {
+        }
+        if (item.isScreen()) {
             helper.setVisible(R.id.rlAd, false);
             helper.setVisible(R.id.tvCover, true);
             helper.setVisible(R.id.llInfo, false);
