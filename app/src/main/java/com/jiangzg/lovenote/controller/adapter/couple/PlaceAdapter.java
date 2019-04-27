@@ -9,7 +9,7 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.controller.activity.common.MapShowActivity;
-import com.jiangzg.lovenote.helper.common.CountHelper;
+import com.jiangzg.lovenote.helper.common.ShowHelper;
 import com.jiangzg.lovenote.helper.common.SPHelper;
 import com.jiangzg.lovenote.helper.common.TimeHelper;
 import com.jiangzg.lovenote.helper.common.UserHelper;
@@ -91,7 +91,7 @@ public class PlaceAdapter extends BaseQuickAdapter<Place, BaseViewHolder> {
             } else {
                 helper.setVisible(R.id.llDistance, true);
                 float distance = LocationHelper.distance(item.getLongitude(), item.getLatitude(), next.getLongitude(), next.getLatitude());
-                String distanceShow = CountHelper.getShowDistance(distance);
+                String distanceShow = ShowHelper.getShowDistance(distance);
                 String format = String.format(Locale.getDefault(), formatDistance, distanceShow);
                 helper.setText(R.id.tvDistance, format);
             }

@@ -30,7 +30,7 @@ import com.jiangzg.lovenote.controller.adapter.couple.HomeWallPagerAdapter;
 import com.jiangzg.lovenote.controller.fragment.base.BaseFragment;
 import com.jiangzg.lovenote.controller.fragment.base.BasePagerFragment;
 import com.jiangzg.lovenote.helper.common.ApiHelper;
-import com.jiangzg.lovenote.helper.common.CountHelper;
+import com.jiangzg.lovenote.helper.common.ShowHelper;
 import com.jiangzg.lovenote.helper.common.ResHelper;
 import com.jiangzg.lovenote.helper.common.RxBus;
 import com.jiangzg.lovenote.helper.common.SPHelper;
@@ -399,7 +399,7 @@ public class CoupleFragment extends BasePagerFragment<CoupleFragment> {
         if (myPlace != null && taPlace != null) {
             distance = LocationHelper.distance(myPlace.getLongitude(), myPlace.getLatitude(), taPlace.getLongitude(), taPlace.getLatitude());
         }
-        String distanceShow = CountHelper.getShowDistance(distance);
+        String distanceShow = ShowHelper.getShowDistance(distance);
         String format = String.format(Locale.getDefault(), mActivity.getString(R.string.distance_space_holder), distanceShow);
         // view
         if (tvPlaceRight != null) {

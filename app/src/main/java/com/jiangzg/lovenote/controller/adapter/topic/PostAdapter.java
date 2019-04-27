@@ -19,7 +19,7 @@ import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.controller.activity.base.BaseActivity;
 import com.jiangzg.lovenote.controller.activity.topic.PostDetailActivity;
 import com.jiangzg.lovenote.controller.adapter.common.ImgSquareShowAdapter;
-import com.jiangzg.lovenote.helper.common.CountHelper;
+import com.jiangzg.lovenote.helper.common.ShowHelper;
 import com.jiangzg.lovenote.helper.common.SPHelper;
 import com.jiangzg.lovenote.helper.common.TimeHelper;
 import com.jiangzg.lovenote.helper.system.AdHelper;
@@ -174,10 +174,10 @@ public class PostAdapter extends BaseQuickAdapter<Post, BaseViewHolder> {
         boolean read = item.isRead();
         String contentText = item.getContentText();
         List<String> imageList = item.getContentImageList();
-        String time = CountHelper.getBetweenTimeGoneShow(DateUtils.getCurrentLong() - TimeHelper.getJavaTimeByGo(item.getUpdateAt()));
-        String pointCount = CountHelper.getShowCount2Thousand(item.getPointCount());
-        String collectCount = CountHelper.getShowCount2Thousand(item.getCollectCount());
-        String commentCount = CountHelper.getShowCount2Thousand(item.getCommentCount());
+        String time = ShowHelper.getBetweenTimeGoneShow(DateUtils.getCurrentLong() - TimeHelper.getJavaTimeByGo(item.getUpdateAt()));
+        String pointCount = ShowHelper.getShowCount2Thousand(item.getPointCount());
+        String collectCount = ShowHelper.getShowCount2Thousand(item.getCollectCount());
+        String commentCount = ShowHelper.getShowCount2Thousand(item.getCommentCount());
         // title
         helper.setVisible(R.id.tvTitle, !StringUtils.isEmpty(title));
         helper.setText(R.id.tvTitle, title);

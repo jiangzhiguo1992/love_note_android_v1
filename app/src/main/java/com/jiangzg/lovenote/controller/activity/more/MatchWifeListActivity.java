@@ -30,7 +30,7 @@ import com.jiangzg.lovenote.controller.activity.couple.CouplePairActivity;
 import com.jiangzg.lovenote.controller.activity.settings.HelpActivity;
 import com.jiangzg.lovenote.controller.adapter.more.MatchWifeAdapter;
 import com.jiangzg.lovenote.helper.common.ApiHelper;
-import com.jiangzg.lovenote.helper.common.CountHelper;
+import com.jiangzg.lovenote.helper.common.ShowHelper;
 import com.jiangzg.lovenote.helper.common.OssHelper;
 import com.jiangzg.lovenote.helper.common.SPHelper;
 import com.jiangzg.lovenote.helper.common.TimeHelper;
@@ -231,9 +231,9 @@ public class MatchWifeListActivity extends BaseActivity<MatchWifeListActivity> {
         String time = String.format(Locale.getDefault(), getString(R.string.holder_space_line_space_holder), start, end);
         String periodShow = String.format(Locale.getDefault(), getString(R.string.the_holder_period), this.period.getPeriod());
         String coinChange = String.format(Locale.getDefault(), getString(R.string.go_in_award_colon_holder_coin), period.getCoinChange());
-        String workCount = String.format(Locale.getDefault(), getString(R.string.total_works_count_colon_holder), CountHelper.getShowCount2Thousand(period.getWorksCount()));
-        String coinCount = String.format(Locale.getDefault(), getString(R.string.total_coin_count_colon_holder), CountHelper.getShowCount2Thousand(period.getCoinCount()));
-        String pointCount = String.format(Locale.getDefault(), getString(R.string.total_point_count_colon_holder), CountHelper.getShowCount2Thousand(period.getPointCount()));
+        String workCount = String.format(Locale.getDefault(), getString(R.string.total_works_count_colon_holder), ShowHelper.getShowCount2Thousand(period.getWorksCount()));
+        String coinCount = String.format(Locale.getDefault(), getString(R.string.total_coin_count_colon_holder), ShowHelper.getShowCount2Thousand(period.getCoinCount()));
+        String pointCount = String.format(Locale.getDefault(), getString(R.string.total_point_count_colon_holder), ShowHelper.getShowCount2Thousand(period.getPointCount()));
         // set
         tvTitle.setText(title);
         tvTime.setText(time);

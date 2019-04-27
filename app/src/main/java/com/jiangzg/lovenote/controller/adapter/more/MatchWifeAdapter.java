@@ -12,7 +12,7 @@ import com.jiangzg.base.view.ScreenUtils;
 import com.jiangzg.base.view.ViewUtils;
 import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.controller.activity.common.BigImageActivity;
-import com.jiangzg.lovenote.helper.common.CountHelper;
+import com.jiangzg.lovenote.helper.common.ShowHelper;
 import com.jiangzg.lovenote.model.entity.MatchWork;
 import com.jiangzg.lovenote.view.FrescoView;
 
@@ -57,9 +57,9 @@ public class MatchWifeAdapter extends BaseQuickAdapter<MatchWork, BaseViewHolder
         helper.setVisible(R.id.tvCover, false);
         // data
         String contentImage = item.getContentImage();
-        String reportCount = CountHelper.getShowCount2Thousand(item.getReportCount());
-        String pointCount = CountHelper.getShowCount2Thousand(item.getPointCount());
-        String coinCount = CountHelper.getShowCount2Thousand(item.getCoinCount());
+        String reportCount = ShowHelper.getShowCount2Thousand(item.getReportCount());
+        String pointCount = ShowHelper.getShowCount2Thousand(item.getPointCount());
+        String coinCount = ShowHelper.getShowCount2Thousand(item.getCoinCount());
         boolean report = item.isReport();
         boolean point = item.isPoint();
         boolean coin = item.isCoin();

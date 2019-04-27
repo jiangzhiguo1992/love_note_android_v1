@@ -10,7 +10,7 @@ import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.controller.activity.base.BaseActivity;
 import com.jiangzg.lovenote.helper.common.ApiHelper;
-import com.jiangzg.lovenote.helper.common.CountHelper;
+import com.jiangzg.lovenote.helper.common.ShowHelper;
 import com.jiangzg.lovenote.helper.common.RxBus;
 import com.jiangzg.lovenote.helper.common.SPHelper;
 import com.jiangzg.lovenote.helper.common.TimeHelper;
@@ -57,7 +57,7 @@ public class AudioAdapter extends BaseMultiItemQuickAdapter<Audio, BaseViewHolde
         // data
         String avatar = UserHelper.getAvatar(couple, item.getUserId());
         int playIcon = (playingIndex == helper.getLayoutPosition()) ? R.mipmap.ic_pause_circle_outline_white_48dp : R.mipmap.ic_play_circle_outline_white_48dp;
-        String duration = CountHelper.getDurationShow(item.getDuration());
+        String duration = ShowHelper.getDurationShow(item.getDuration());
         String happenAt = TimeHelper.getTimeShowLine_HM_MDHM_YMDHM_ByGo(item.getHappenAt());
         String title = item.getTitle();
         // view

@@ -12,7 +12,7 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.jiangzg.base.view.ViewUtils;
 import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.controller.activity.settings.SuggestDetailActivity;
-import com.jiangzg.lovenote.helper.common.CountHelper;
+import com.jiangzg.lovenote.helper.common.ShowHelper;
 import com.jiangzg.lovenote.helper.common.TimeHelper;
 import com.jiangzg.lovenote.helper.view.ViewHelper;
 import com.jiangzg.lovenote.model.engine.SuggestInfo;
@@ -77,14 +77,14 @@ public class SuggestAdapter extends BaseQuickAdapter<Suggest, BaseViewHolder> {
         if (followCount <= 0) {
             followShow = formatFollow;
         } else {
-            followShow = CountHelper.getShowCount2Thousand(followCount);
+            followShow = ShowHelper.getShowCount2Thousand(followCount);
         }
         int commentCount = item.getCommentCount();
         String commentShow;
         if (commentCount <= 0) {
             commentShow = formatComment;
         } else {
-            commentShow = CountHelper.getShowCount2Thousand(commentCount);
+            commentShow = ShowHelper.getShowCount2Thousand(commentCount);
         }
         final boolean follow = item.isFollow();
         boolean comment = item.isComment();

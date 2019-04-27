@@ -38,7 +38,7 @@ import com.jiangzg.lovenote.controller.activity.settings.HelpActivity;
 import com.jiangzg.lovenote.controller.adapter.common.ImgSquareShowAdapter;
 import com.jiangzg.lovenote.controller.adapter.topic.PostCommentAdapter;
 import com.jiangzg.lovenote.helper.common.ApiHelper;
-import com.jiangzg.lovenote.helper.common.CountHelper;
+import com.jiangzg.lovenote.helper.common.ShowHelper;
 import com.jiangzg.lovenote.helper.common.ListHelper;
 import com.jiangzg.lovenote.helper.common.RxBus;
 import com.jiangzg.lovenote.helper.common.SPHelper;
@@ -585,7 +585,7 @@ public class PostDetailActivity extends BaseActivity<PostDetailActivity> {
         if (post == null) return;
         // data
         boolean point = post.isPoint();
-        String pointCount = post.getPointCount() > 0 ? CountHelper.getShowCount2Thousand(post.getPointCount()) : mActivity.getString(R.string.point);
+        String pointCount = post.getPointCount() > 0 ? ShowHelper.getShowCount2Thousand(post.getPointCount()) : mActivity.getString(R.string.point);
         // view
         tvPoint.setText(pointCount);
         if (point) {
@@ -601,7 +601,7 @@ public class PostDetailActivity extends BaseActivity<PostDetailActivity> {
         if (post == null) return;
         // data
         boolean collect = post.isCollect();
-        String collectCount = post.getCollectCount() > 0 ? CountHelper.getShowCount2Thousand(post.getCollectCount()) : mActivity.getString(R.string.collect);
+        String collectCount = post.getCollectCount() > 0 ? ShowHelper.getShowCount2Thousand(post.getCollectCount()) : mActivity.getString(R.string.collect);
         // view
         tvCollect.setText(collectCount);
         if (collect) {
@@ -619,7 +619,7 @@ public class PostDetailActivity extends BaseActivity<PostDetailActivity> {
         initCommentUserView();
         // data
         boolean comment = post.isComment();
-        String commentCount = post.getCommentCount() > 0 ? CountHelper.getShowCount2Thousand(post.getCommentCount()) : mActivity.getString(R.string.comment);
+        String commentCount = post.getCommentCount() > 0 ? ShowHelper.getShowCount2Thousand(post.getCommentCount()) : mActivity.getString(R.string.comment);
         // view
         tvComment.setText(commentCount);
         if (comment) {

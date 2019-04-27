@@ -8,7 +8,7 @@ import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.controller.activity.base.BaseActivity;
 import com.jiangzg.lovenote.controller.activity.topic.PostCommentDetailActivity;
 import com.jiangzg.lovenote.controller.activity.topic.PostDetailActivity;
-import com.jiangzg.lovenote.helper.common.CountHelper;
+import com.jiangzg.lovenote.helper.common.ShowHelper;
 import com.jiangzg.lovenote.helper.common.TimeHelper;
 import com.jiangzg.lovenote.model.entity.Couple;
 import com.jiangzg.lovenote.model.entity.TopicMessage;
@@ -31,7 +31,7 @@ public class MessageAdapter extends BaseQuickAdapter<TopicMessage, BaseViewHolde
     protected void convert(BaseViewHolder helper, TopicMessage item) {
         // data
         Couple couple = item.getCouple();
-        String time = CountHelper.getBetweenTimeGoneShow(DateUtils.getCurrentLong() - TimeHelper.getJavaTimeByGo(item.getUpdateAt()));
+        String time = ShowHelper.getBetweenTimeGoneShow(DateUtils.getCurrentLong() - TimeHelper.getJavaTimeByGo(item.getUpdateAt()));
         String contentText = StringUtils.isEmpty(item.getContentText()) ? mActivity.getString(R.string.receive_new_message) : item.getContentText();
         // view
         FrescoAvatarView ivAvatarLeft = helper.getView(R.id.ivAvatarLeft);

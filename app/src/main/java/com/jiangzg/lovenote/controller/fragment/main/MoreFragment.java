@@ -24,7 +24,7 @@ import com.jiangzg.lovenote.controller.activity.settings.HelpActivity;
 import com.jiangzg.lovenote.controller.activity.settings.SettingsActivity;
 import com.jiangzg.lovenote.controller.fragment.base.BaseFragment;
 import com.jiangzg.lovenote.controller.fragment.base.BasePagerFragment;
-import com.jiangzg.lovenote.helper.common.CountHelper;
+import com.jiangzg.lovenote.helper.common.ShowHelper;
 import com.jiangzg.lovenote.helper.common.RxBus;
 import com.jiangzg.lovenote.helper.common.SPHelper;
 import com.jiangzg.lovenote.helper.common.TimeHelper;
@@ -264,7 +264,7 @@ public class MoreFragment extends BasePagerFragment<MoreFragment> {
         boolean isVip = (vip != null) && TimeHelper.getJavaTimeByGo(vip.getExpireAt()) >= DateUtils.getCurrentLong();
         tvVip.setText(mActivity.getString(isVip ? R.string.vip_yes : R.string.vip_no));
         // coin
-        String coinShow = coin == null ? String.valueOf(0) : CountHelper.getShowCount2Thousand(coin.getCount());
+        String coinShow = coin == null ? String.valueOf(0) : ShowHelper.getShowCount2Thousand(coin.getCount());
         tvCoin.setText(coinShow);
         // sign
         tvSign.setText(mActivity.getString(sign == null ? R.string.no_sign : R.string.yes_sign));

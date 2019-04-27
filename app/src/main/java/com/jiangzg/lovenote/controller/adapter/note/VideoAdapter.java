@@ -12,7 +12,7 @@ import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.controller.activity.base.BaseActivity;
 import com.jiangzg.lovenote.controller.activity.common.MapShowActivity;
 import com.jiangzg.lovenote.controller.activity.common.VideoPlayActivity;
-import com.jiangzg.lovenote.helper.common.CountHelper;
+import com.jiangzg.lovenote.helper.common.ShowHelper;
 import com.jiangzg.lovenote.helper.common.RxBus;
 import com.jiangzg.lovenote.helper.common.TimeHelper;
 import com.jiangzg.lovenote.helper.system.RetrofitHelper;
@@ -44,7 +44,7 @@ public class VideoAdapter extends BaseQuickAdapter<Video, BaseViewHolder> {
         // data
         String thumb = item.getContentThumb();
         String title = item.getTitle();
-        String duration = CountHelper.getDurationShow(item.getDuration());
+        String duration = ShowHelper.getDurationShow(item.getDuration());
         String happenAt = TimeHelper.getTimeShowLine_HM_MDHM_YMDHM_ByGo(item.getHappenAt());
         String address = item.getAddress();
         // view

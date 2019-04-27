@@ -8,9 +8,9 @@ import java.util.Locale;
 
 /**
  * Created by JZG on 2018/8/6.
- * CountHelper
+ * ShowHelper
  */
-public class CountHelper {
+public class ShowHelper {
 
     public static String getShowCount2Thousand(int count) {
         int unit = 10000; // 万

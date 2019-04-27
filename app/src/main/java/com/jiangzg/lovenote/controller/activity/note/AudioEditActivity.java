@@ -24,7 +24,7 @@ import com.jiangzg.base.system.PermUtils;
 import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.controller.activity.base.BaseActivity;
-import com.jiangzg.lovenote.helper.common.CountHelper;
+import com.jiangzg.lovenote.helper.common.ShowHelper;
 import com.jiangzg.lovenote.helper.common.OssHelper;
 import com.jiangzg.lovenote.helper.common.RxBus;
 import com.jiangzg.lovenote.helper.common.SPHelper;
@@ -191,7 +191,7 @@ public class AudioEditActivity extends BaseActivity<AudioEditActivity> {
             tvDuration.setText(String.format(Locale.getDefault(), getString(R.string.duration_colon_space_holder), getString(R.string.please_select_audio)));
             return;
         }
-        String duration = CountHelper.getDurationShow(audio.getDuration());
+        String duration = ShowHelper.getDurationShow(audio.getDuration());
         tvDuration.setText(String.format(Locale.getDefault(), getString(R.string.duration_colon_space_holder), duration));
     }
 

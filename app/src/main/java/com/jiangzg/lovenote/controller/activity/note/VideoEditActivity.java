@@ -27,7 +27,7 @@ import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.controller.activity.base.BaseActivity;
 import com.jiangzg.lovenote.controller.activity.common.MapSelectActivity;
-import com.jiangzg.lovenote.helper.common.CountHelper;
+import com.jiangzg.lovenote.helper.common.ShowHelper;
 import com.jiangzg.lovenote.helper.common.OssHelper;
 import com.jiangzg.lovenote.helper.common.ResHelper;
 import com.jiangzg.lovenote.helper.common.RxBus;
@@ -230,7 +230,7 @@ public class VideoEditActivity extends BaseActivity<VideoEditActivity> {
             tvDuration.setText(String.format(Locale.getDefault(), getString(R.string.duration_colon_space_holder), getString(R.string.please_select_video)));
             return;
         }
-        String duration = CountHelper.getDurationShow(video.getDuration());
+        String duration = ShowHelper.getDurationShow(video.getDuration());
         tvDuration.setText(String.format(Locale.getDefault(), getString(R.string.duration_colon_space_holder), duration));
     }
 
