@@ -292,7 +292,7 @@ public class PostCommentDetailActivity extends BaseActivity<PostCommentDetailAct
         // data
         Couple couple = postComment.getCouple();
         String avatar = UserHelper.getAvatar(couple, postComment.getUserId());
-        String name = postComment.isOfficial() ? mActivity.getString(R.string.administrators) : UserHelper.getName(couple, postComment.getUserId());
+        String name = postComment.isOfficial() ? mActivity.getString(R.string.administrators) : UserHelper.getName(couple, postComment.getUserId(), true);
         String floor = String.format(Locale.getDefault(), mActivity.getString(R.string.holder_floor), postComment.getFloor());
         String time = CountHelper.getBetweenTimeGoneShow(DateUtils.getCurrentLong() - TimeHelper.getJavaTimeByGo(postComment.getCreateAt()));
         String contentText = (postComment.getKind() == PostComment.KIND_JAB) ? mActivity.getString(R.string.jab_a_little_ta) : postComment.getContentText();

@@ -70,13 +70,21 @@ public class UserHelper {
     }
 
     public static String getName(Couple couple, long uid) {
-        if (isEmpty(couple)) return MyApp.get().getString(R.string.now_null_nickname);
+        return getName(couple, uid, false);
+    }
+
+    public static String getName(Couple couple, long uid, boolean empty) {
+        String emptyName = "";
+        if (!empty) {
+            emptyName = MyApp.get().getString(R.string.now_null_nickname);
+        }
+        if (isEmpty(couple)) return emptyName;
         if (uid == couple.getCreatorId()) {
             String creatorName = couple.getCreatorName();
-            return StringUtils.isEmpty(creatorName) ? MyApp.get().getString(R.string.now_null_nickname) : creatorName;
+            return StringUtils.isEmpty(creatorName) ? emptyName : creatorName;
         }
         String inviteeName = couple.getInviteeName();
-        return StringUtils.isEmpty(inviteeName) ? MyApp.get().getString(R.string.now_null_nickname) : inviteeName;
+        return StringUtils.isEmpty(inviteeName) ? emptyName : inviteeName;
     }
 
     // 头像

@@ -63,7 +63,7 @@ public class PostCommentAdapter extends BaseQuickAdapter<PostComment, BaseViewHo
         // data
         Couple couple = item.getCouple();
         String avatar = UserHelper.getAvatar(couple, item.getUserId());
-        String name = item.isOfficial() ? mActivity.getString(R.string.administrators) : UserHelper.getName(couple, item.getUserId());
+        String name = item.isOfficial() ? mActivity.getString(R.string.administrators) : UserHelper.getName(couple, item.getUserId(), true);
         String floor = String.format(Locale.getDefault(), mActivity.getString(R.string.holder_floor), item.getFloor());
         String time = CountHelper.getBetweenTimeGoneShow(DateUtils.getCurrentLong() - TimeHelper.getJavaTimeByGo(item.getCreateAt()));
         String contentText = (item.getKind() == PostComment.KIND_JAB) ? mActivity.getString(R.string.jab_a_little_ta) : item.getContentText();
