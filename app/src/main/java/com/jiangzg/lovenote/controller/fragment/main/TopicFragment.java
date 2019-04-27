@@ -35,10 +35,8 @@ import com.jiangzg.lovenote.model.api.API;
 import com.jiangzg.lovenote.model.api.Result;
 import com.jiangzg.lovenote.model.entity.Post;
 import com.jiangzg.lovenote.model.entity.PostKindInfo;
-import com.jiangzg.lovenote.model.entity.PostSubKindInfo;
 import com.jiangzg.lovenote.view.GSwipeRefreshLayout;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -47,8 +45,6 @@ import retrofit2.Call;
 import rx.Observable;
 
 public class TopicFragment extends BasePagerFragment<TopicFragment> {
-
-    public static List<PostKindInfo> postKindInfoList;
 
     @BindView(R.id.tb)
     Toolbar tb;
@@ -67,6 +63,12 @@ public class TopicFragment extends BasePagerFragment<TopicFragment> {
         Bundle bundle = new Bundle();
         // bundle.putData();
         return BaseFragment.newInstance(TopicFragment.class, bundle);
+    }
+
+    private static List<PostKindInfo> postKindInfoList;
+
+    public static List<PostKindInfo> getPostKindInfoList() {
+        return postKindInfoList;
     }
 
     @Override
@@ -169,16 +171,7 @@ public class TopicFragment extends BasePagerFragment<TopicFragment> {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.fabAdd: // 添加
-                if (postKindInfoList == null || postKindInfoList.size() <= 0) {
-                    return;
-                }
-                PostKindInfo kindInfo = postKindInfoList.get(0);
-                List<PostSubKindInfo> subKindInfoList = kindInfo.getPostSubKindInfoList();
-                if (subKindInfoList == null || subKindInfoList.size() <= 0) {
-                    return;
-                }
-                PostSubKindInfo subKindInfo = subKindInfoList.get(0);
-                PostAddActivity.goActivity(mActivity, kindInfo, subKindInfo.getKind());
+                PostAddActivity.goActivity(mFragment);
                 break;
         }
     }
@@ -218,8 +211,8 @@ public class TopicFragment extends BasePagerFragment<TopicFragment> {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 if (kindRecyclerHelper == null) return;
-                postKindInfoList = getPostKindInfoEnableList(data.getPostKindInfoList());
-                kindRecyclerHelper.dataNew(postKindInfoList, 0);
+                postKindInfoList = data.getPostKindInfoList();
+                kindRecyclerHelper.dataNew(ListHelper.getPostKindInfoListEnable(), 0);
             }
 
             @Override
@@ -249,30 +242,6 @@ public class TopicFragment extends BasePagerFragment<TopicFragment> {
             }
         });
         pushApi(api);
-    }
-
-    // getPostKindInfoEnableList 获取可以显示的kind
-    public ArrayList<PostKindInfo> getPostKindInfoEnableList(List<PostKindInfo> infoList) {
-        ArrayList<PostKindInfo> returnList = new ArrayList<>();
-        if (infoList == null || infoList.size() <= 0) {
-            return returnList;
-        }
-        for (PostKindInfo info : infoList) {
-            if (info != null && info.isEnable()) {
-                ArrayList<PostSubKindInfo> returnSubList = new ArrayList<>();
-                List<PostSubKindInfo> subKindInfoList = info.getPostSubKindInfoList();
-                if (subKindInfoList != null && subKindInfoList.size() > 0) {
-                    for (PostSubKindInfo subInfo : subKindInfoList) {
-                        if (subInfo != null && subInfo.isEnable()) {
-                            returnSubList.add(subInfo);
-                        }
-                    }
-                }
-                info.setPostSubKindInfoList(returnSubList);
-                returnList.add(info);
-            }
-        }
-        return returnList;
     }
 
 }

@@ -275,8 +275,6 @@ public class SPHelper {
     // draft
     private static final String FIELD_DRAFT_DIARY_CONTENT_TEXT = "diary_content_text";
     private static final String FIELD_DRAFT_DREAM_CONTENT_TEXT = "dream_content_text";
-    private static final String FIELD_DRAFT_POST_KIND = "post_kind";
-    private static final String FIELD_DRAFT_POST_SUB_KIND = "post_sub_kind";
     private static final String FIELD_DRAFT_POST_TITLE = "post_title";
     private static final String FIELD_DRAFT_POST_CONTENT_TEXT = "post_content_text";
 
@@ -1131,8 +1129,6 @@ public class SPHelper {
             post = new Post();
         }
         SharedPreferences.Editor editor = SPUtils.getSharedPreferences(SHARE_DRAFT).edit();
-        editor.putInt(FIELD_DRAFT_POST_KIND, post.getKind());
-        editor.putInt(FIELD_DRAFT_POST_SUB_KIND, post.getSubKind());
         editor.putString(FIELD_DRAFT_POST_TITLE, post.getTitle());
         editor.putString(FIELD_DRAFT_POST_CONTENT_TEXT, post.getContentText());
         editor.apply();
@@ -1141,8 +1137,6 @@ public class SPHelper {
     public static Post getDraftPost() {
         SharedPreferences sp = SPUtils.getSharedPreferences(SHARE_DRAFT);
         Post post = new Post();
-        post.setKind(sp.getInt(FIELD_DRAFT_POST_KIND, 0));
-        post.setSubKind(sp.getInt(FIELD_DRAFT_POST_SUB_KIND, 0));
         post.setTitle(sp.getString(FIELD_DRAFT_POST_TITLE, ""));
         post.setContentText(sp.getString(FIELD_DRAFT_POST_CONTENT_TEXT, ""));
         if (post.getKind() == 0 && StringUtils.isEmpty(post.getContentText())) {

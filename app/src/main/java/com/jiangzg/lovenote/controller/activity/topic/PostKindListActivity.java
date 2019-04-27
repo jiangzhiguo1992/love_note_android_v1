@@ -133,14 +133,7 @@ public class PostKindListActivity extends BaseActivity<PostKindListActivity> {
                 showSearchDialog();
                 break;
             case R.id.llAdd: // 添加
-                if (vpFragment == null || kindInfo == null) return;
-                int currentItem = vpFragment.getCurrentItem();
-                List<PostSubKindInfo> postSubKindInfoList = kindInfo.getPostSubKindInfoList();
-                if (postSubKindInfoList != null && currentItem >= 0 && currentItem < postSubKindInfoList.size()) {
-                    PostSubKindInfo subKindInfo = postSubKindInfoList.get(currentItem);
-                    if (subKindInfo == null) return;
-                    PostAddActivity.goActivity(mActivity, kindInfo, subKindInfo.getKind());
-                }
+                goAdd();
                 break;
         }
     }
@@ -172,6 +165,25 @@ public class PostKindListActivity extends BaseActivity<PostKindListActivity> {
                 })
                 .build();
         DialogHelper.showWithAnim(dialog);
+    }
+
+    private void goAdd() {
+        if (kindInfo != null) {
+            if (vpFragment == null) {
+                PostAddActivity.goActivity(mActivity, kindInfo.getKind(), 0);
+                return;
+            }
+            int currentItem = vpFragment.getCurrentItem();
+            List<PostSubKindInfo> postSubKindInfoList = kindInfo.getPostSubKindInfoList();
+            if (postSubKindInfoList != null && currentItem >= 0 && currentItem < postSubKindInfoList.size()) {
+                PostSubKindInfo subKindInfo = postSubKindInfoList.get(currentItem);
+                if (subKindInfo != null) {
+                    PostAddActivity.goActivity(mActivity, kindInfo.getKind(), subKindInfo.getKind());
+                    return;
+                }
+            }
+        }
+        PostAddActivity.goActivity(mActivity);
     }
 
 }

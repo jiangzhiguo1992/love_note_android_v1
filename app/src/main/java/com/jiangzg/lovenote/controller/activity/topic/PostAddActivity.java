@@ -3,6 +3,7 @@ package com.jiangzg.lovenote.controller.activity.topic;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -68,17 +69,36 @@ public class PostAddActivity extends BaseActivity<PostAddActivity> {
     TextView tvKind;
 
     private Post post;
-    private PostKindInfo kindInfo;
     private RecyclerHelper recyclerHelper;
     private int limitContentLength;
 
-    public static void goActivity(Activity from, PostKindInfo kindInfo, int subKind) {
+    public static void goActivity(Fragment from) {
+        if (UserHelper.isCoupleBreak(SPHelper.getCouple())) {
+            CouplePairActivity.goActivity(from);
+            return;
+        }
+        Intent intent = new Intent(from.getActivity(), PostAddActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        ActivityTrans.start(from, intent);
+    }
+
+    public static void goActivity(Activity from) {
         if (UserHelper.isCoupleBreak(SPHelper.getCouple())) {
             CouplePairActivity.goActivity(from);
             return;
         }
         Intent intent = new Intent(from, PostAddActivity.class);
-        intent.putExtra("kindInfo", kindInfo);
+        intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        ActivityTrans.start(from, intent);
+    }
+
+    public static void goActivity(Activity from, int kind, int subKind) {
+        if (UserHelper.isCoupleBreak(SPHelper.getCouple())) {
+            CouplePairActivity.goActivity(from);
+            return;
+        }
+        Intent intent = new Intent(from, PostAddActivity.class);
+        intent.putExtra("kind", kind);
         intent.putExtra("subKind", subKind);
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         ActivityTrans.start(from, intent);
@@ -123,13 +143,14 @@ public class PostAddActivity extends BaseActivity<PostAddActivity> {
                         .setAdapter();
             }
         }
-        // kindInfo
-        kindInfo = intent.getParcelableExtra("kindInfo");
-        refreshPostKind(intent.getIntExtra("subKind", 0));
     }
 
     @Override
     protected void initData(Intent intent, Bundle state) {
+        // kind
+        int kind = intent.getIntExtra("kind", 0);
+        int subKind = intent.getIntExtra("subKind", 0);
+        refreshPostKind(kind, subKind);
     }
 
     @Override
@@ -209,7 +230,7 @@ public class PostAddActivity extends BaseActivity<PostAddActivity> {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.llKind: // 分类
-                showSelectSubKindDialog();
+                showSelectKindDialog();
                 break;
         }
     }
@@ -232,23 +253,28 @@ public class PostAddActivity extends BaseActivity<PostAddActivity> {
         post.setContentText(etContent.getText().toString());
     }
 
-    private void showSelectSubKindDialog() {
+    private void showSelectKindDialog() {
         if (post == null) return;
-        List<String> subKindPushShowList = ListHelper.getPostSubKindInfoListPushShow(kindInfo);
-        int selectIndex = ListHelper.getIndexInPostSubKindInfoListPush(kindInfo, post.getSubKind());
-        if (selectIndex < 0) return;
+        List<String> nameList = ListHelper.getPostKindInfoListEnableShow();
+        int selectIndex = ListHelper.getIndexInPostKindInfoListEnable(post.getKind());
+        if (selectIndex < 0) {
+            selectIndex = 0;
+        }
         MaterialDialog dialog = DialogHelper.getBuild(mActivity)
                 .cancelable(true)
                 .canceledOnTouchOutside(true)
                 .title(R.string.please_select_classify)
-                .items(subKindPushShowList)
+                .items(nameList)
                 .itemsCallbackSingleChoice(selectIndex, (dialog1, view, which, text) -> {
-                    if (post == null) return true;
-                    List<PostSubKindInfo> subKindPushList = ListHelper.getPostSubKindInfoListPush(kindInfo);
-                    PostSubKindInfo subKindInfo = subKindPushList.get(which);
-                    if (subKindInfo != null) {
-                        refreshPostKind(subKindInfo.getKind());
+                    List<PostKindInfo> kindList = ListHelper.getPostKindInfoListEnable();
+                    if (which < 0 || which >= kindList.size()) {
+                        return true;
                     }
+                    PostKindInfo postKindInfo = kindList.get(which);
+                    if (postKindInfo == null) {
+                        return true;
+                    }
+                    showSelectSubKindDialog(postKindInfo);
                     DialogUtils.dismiss(dialog1);
                     return true;
                 })
@@ -256,34 +282,82 @@ public class PostAddActivity extends BaseActivity<PostAddActivity> {
         DialogHelper.showWithAnim(dialog);
     }
 
-    private void refreshPostKind(int subKind) {
+    private void showSelectSubKindDialog(PostKindInfo kindInfo) {
+        if (post == null || kindInfo == null) return;
+        List<String> subKindPushShowList = ListHelper.getPostSubKindInfoListPushShow(kindInfo);
+        int selectIndex = ListHelper.getIndexInPostSubKindInfoListPush(kindInfo, post.getSubKind());
+        if (selectIndex < 0) {
+            selectIndex = 0;
+        }
+        MaterialDialog dialog = DialogHelper.getBuild(mActivity)
+                .cancelable(true)
+                .canceledOnTouchOutside(true)
+                .title(R.string.please_select_classify)
+                .items(subKindPushShowList)
+                .itemsCallbackSingleChoice(selectIndex, (dialog1, view, which, text) -> {
+                    List<PostSubKindInfo> subKindPushList = ListHelper.getPostSubKindInfoListPush(kindInfo);
+                    if (which < 0 || which >= subKindPushList.size()) {
+                        return true;
+                    }
+                    PostSubKindInfo subKindInfo = subKindPushList.get(which);
+                    if (subKindInfo == null) {
+                        return true;
+                    }
+                    refreshPostKind(kindInfo.getKind(), subKindInfo.getKind());
+                    DialogUtils.dismiss(dialog1);
+                    return true;
+                })
+                .build();
+        DialogHelper.showWithAnim(dialog);
+    }
+
+    private void refreshPostKind(int kind, int subKind) {
+        PostKindInfo kindInfo = ListHelper.getPostKindInfo(kind);
+        PostSubKindInfo subKindInfo = ListHelper.getPostSubKindInfo(kindInfo, subKind);
         // kind
         if (kindInfo == null) {
-            mActivity.finish();
-            return;
+            List<PostKindInfo> kindList = ListHelper.getPostKindInfoListEnable();
+            if (kindList != null && kindList.size() > 0) {
+                for (PostKindInfo kf : kindList) {
+                    if (kf != null) {
+                        // 默认第一个
+                        kindInfo = kf;
+                        break;
+                    }
+                }
+            }
+            if (kindInfo == null) {
+                mActivity.finish();
+                // 没有就退出
+                return;
+            }
+            kind = kindInfo.getKind();
         }
         // subKind
-        if (!ListHelper.isPostSubKindInfoPush(kindInfo, subKind)) {
+        if (subKindInfo == null || !subKindInfo.isPush()) {
             List<PostSubKindInfo> subKindPushList = ListHelper.getPostSubKindInfoListPush(kindInfo);
-            PostSubKindInfo subKindInfo = null;
-            for (PostSubKindInfo subInfo : subKindPushList) {
-                if (subInfo != null) {
-                    subKindInfo = subInfo;
-                    break;
+            if (subKindPushList != null && subKindPushList.size() > 0) {
+                for (PostSubKindInfo subInfo : subKindPushList) {
+                    if (subInfo != null) {
+                        // 默认第一个
+                        subKindInfo = subInfo;
+                        break;
+                    }
                 }
             }
             if (subKindInfo == null) {
+                // 没有就退出
                 mActivity.finish();
                 return;
             }
             subKind = subKindInfo.getKind();
         }
-        post.setKind(kindInfo.getKind());
+        // data
+        post.setKind(kind);
         post.setSubKind(subKind);
         // view
-        PostSubKindInfo subKindInfo = ListHelper.getPostSubKindInfo(kindInfo, post.getSubKind());
-        String subKindShow = (subKindInfo == null || StringUtils.isEmpty(subKindInfo.getName())) ? getString(R.string.please_select_classify) : subKindInfo.getName();
-        tvKind.setText(String.format(Locale.getDefault(), getString(R.string.type_colon_space_holder), subKindShow));
+        String kindShow = String.format(Locale.getDefault(), getString(R.string.holder_space_line_space_holder), kindInfo.getName(), subKindInfo.getName());
+        tvKind.setText(String.format(Locale.getDefault(), getString(R.string.type_colon_space_holder), kindShow));
     }
 
     private void saveDraft(boolean exit) {

@@ -1046,12 +1046,54 @@ public class ListHelper {
     /**
      * **************************************topic转换**************************************
      */
+    // getPostKindInfoListEnable
+    public static List<PostKindInfo> getPostKindInfoListEnable() {
+        ArrayList<PostKindInfo> returnList = new ArrayList<>();
+        List<PostKindInfo> kindList = TopicFragment.getPostKindInfoList();
+        if (kindList == null || kindList.size() <= 0) {
+            return returnList;
+        }
+        for (PostKindInfo info : kindList) {
+            if (info != null && info.isEnable()) {
+                ArrayList<PostSubKindInfo> returnSubList = new ArrayList<>();
+                List<PostSubKindInfo> subKindInfoList = info.getPostSubKindInfoList();
+                if (subKindInfoList != null && subKindInfoList.size() > 0) {
+                    for (PostSubKindInfo subInfo : subKindInfoList) {
+                        if (subInfo != null && subInfo.isEnable()) {
+                            returnSubList.add(subInfo);
+                        }
+                    }
+                }
+                info.setPostSubKindInfoList(returnSubList);
+                returnList.add(info);
+            }
+        }
+        return returnList;
+    }
+
+    // getPostSubKindInfoListPush 获取可发表的subKindList
+    public static List<PostSubKindInfo> getPostSubKindInfoListPush(PostKindInfo kindInfo) {
+        List<PostSubKindInfo> returnList = new ArrayList<>();
+        if (kindInfo == null || kindInfo.getPostSubKindInfoList() == null || kindInfo.getPostSubKindInfoList().size() <= 0) {
+            return returnList;
+        }
+        List<PostSubKindInfo> subKindInfoList = kindInfo.getPostSubKindInfoList();
+        for (PostSubKindInfo subKindInfo : subKindInfoList) {
+            if (subKindInfo == null) continue;
+            if (subKindInfo.isPush()) {
+                returnList.add(subKindInfo);
+            }
+        }
+        return returnList;
+    }
+
     // getPostKindInfo
     public static PostKindInfo getPostKindInfo(int kind) {
-        if (TopicFragment.postKindInfoList == null || TopicFragment.postKindInfoList.size() <= 0) {
+        List<PostKindInfo> kindList = getPostKindInfoListEnable();
+        if (kindList == null || kindList.size() <= 0) {
             return null;
         }
-        for (PostKindInfo info : TopicFragment.postKindInfoList) {
+        for (PostKindInfo info : kindList) {
             if (info == null) continue;
             if (info.getKind() == kind) {
                 return info;
@@ -1074,35 +1116,20 @@ public class ListHelper {
         return null;
     }
 
-    // getPostSubKindInfoListPush 获取可发表的subKindList
-    public static List<PostSubKindInfo> getPostSubKindInfoListPush(PostKindInfo kindInfo) {
-        List<PostSubKindInfo> returnList = new ArrayList<>();
-        if (kindInfo == null || kindInfo.getPostSubKindInfoList() == null || kindInfo.getPostSubKindInfoList().size() <= 0) {
-            return returnList;
+    // getIndexInPostKindInfoListEnable
+    public static int getIndexInPostKindInfoListEnable(int kind) {
+        List<PostKindInfo> kindList = getPostKindInfoListEnable();
+        if (kindList == null || kindList.size() <= 0) {
+            return -1;
         }
-        List<PostSubKindInfo> subKindInfoList = kindInfo.getPostSubKindInfoList();
-        for (PostSubKindInfo subKindInfo : subKindInfoList) {
-            if (subKindInfo == null) continue;
-            if (subKindInfo.isPush()) {
-                returnList.add(subKindInfo);
+        for (int i = 0; i < kindList.size(); i++) {
+            PostKindInfo kindInfo = kindList.get(i);
+            if (kindInfo == null) continue;
+            if (kindInfo.getKind() == kind) {
+                return i;
             }
         }
-        return returnList;
-    }
-
-    // isPostSubKindInfoPush kind是否可以发表
-    public static boolean isPostSubKindInfoPush(PostKindInfo kindInfo, int subKind) {
-        List<PostSubKindInfo> pushList = getPostSubKindInfoListPush(kindInfo);
-        if (pushList == null || pushList.size() <= 0) {
-            return false;
-        }
-        for (PostSubKindInfo subKindInfo : pushList) {
-            if (subKindInfo == null) continue;
-            if (subKindInfo.getKind() == subKind) {
-                return subKindInfo.isPush();
-            }
-        }
-        return false;
+        return -1;
     }
 
     // getIndexInPostSubKindInfoListPush
@@ -1118,7 +1145,21 @@ public class ListHelper {
                 return i;
             }
         }
-        return 0;
+        return -1;
+    }
+
+    // getPostKindInfoListEnableShow 获取kind的显示list
+    public static List<String> getPostKindInfoListEnableShow() {
+        List<String> returnList = new ArrayList<>();
+        List<PostKindInfo> kindList = getPostKindInfoListEnable();
+        if (kindList == null || kindList.size() <= 0) {
+            return returnList;
+        }
+        for (PostKindInfo info : kindList) {
+            if (info == null) continue;
+            returnList.add(info.getName());
+        }
+        return returnList;
     }
 
     // getPostSubKindInfoListPushShow 获取subKind的显示list
