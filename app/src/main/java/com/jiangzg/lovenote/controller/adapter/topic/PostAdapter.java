@@ -141,11 +141,14 @@ public class PostAdapter extends BaseQuickAdapter<Post, BaseViewHolder> {
                 helper.setVisible(R.id.tvCover, false);
                 ViewParent parent = adView.getParent();
                 if (parent != null) {
-                    ((ViewGroup) parent).removeView(adView);
+                    ViewGroup group = (ViewGroup) parent;
+                    if (group.getChildCount() > 0) {
+                        group.removeView(adView);
+                    }
                 }
                 adView.setTag(position);
-                rlAd.addView(adView);
                 adView.render();
+                rlAd.addView(adView);
                 return;
             }
         }
