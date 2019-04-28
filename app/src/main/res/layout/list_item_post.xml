@@ -153,7 +153,7 @@
                         android:layout_width="15dp"
                         android:layout_height="15dp"
                         android:layout_centerInParent="true"
-                        android:elevation="@dimen/elevation_huge"
+                        android:elevation="@dimen/elevation_big"
                         android:src="@mipmap/ic_favorite_border_grey_18dp"
                         android:tint="?attr/colorPrimary"/>
                 </RelativeLayout>

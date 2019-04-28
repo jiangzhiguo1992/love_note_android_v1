@@ -13,13 +13,17 @@ import com.jiangzg.lovenote.controller.activity.base.BaseActivity;
 import com.jiangzg.lovenote.controller.activity.common.MapShowActivity;
 import com.jiangzg.lovenote.controller.activity.common.VideoPlayActivity;
 import com.jiangzg.lovenote.helper.common.RxBus;
+import com.jiangzg.lovenote.helper.common.SPHelper;
 import com.jiangzg.lovenote.helper.common.ShowHelper;
 import com.jiangzg.lovenote.helper.common.TimeHelper;
+import com.jiangzg.lovenote.helper.common.UserHelper;
 import com.jiangzg.lovenote.helper.system.RetrofitHelper;
 import com.jiangzg.lovenote.helper.view.DialogHelper;
 import com.jiangzg.lovenote.model.api.API;
 import com.jiangzg.lovenote.model.api.Result;
+import com.jiangzg.lovenote.model.entity.Couple;
 import com.jiangzg.lovenote.model.entity.Video;
+import com.jiangzg.lovenote.view.FrescoAvatarView;
 import com.jiangzg.lovenote.view.FrescoView;
 
 import retrofit2.Call;
@@ -30,12 +34,14 @@ import retrofit2.Call;
  */
 public class VideoAdapter extends BaseQuickAdapter<Video, BaseViewHolder> {
 
+    private final Couple couple;
     private final int imgWidth, imgHeight;
     private BaseActivity mActivity;
 
     public VideoAdapter(BaseActivity activity) {
         super(R.layout.list_item_video);
         mActivity = activity;
+        couple = SPHelper.getCouple();
         imgWidth = imgHeight = ScreenUtils.getScreenRealWidth(activity) / 2;
     }
 
@@ -45,6 +51,7 @@ public class VideoAdapter extends BaseQuickAdapter<Video, BaseViewHolder> {
         String thumb = item.getContentThumb();
         String title = item.getTitle();
         String duration = ShowHelper.getDurationShow(item.getDuration());
+        String avatar = UserHelper.getAvatar(couple, item.getUserId());
         String happenAt = TimeHelper.getTimeShowLine_HM_MDHM_YMDHM_ByGo(item.getHappenAt());
         String address = item.getAddress();
         // view
@@ -57,6 +64,8 @@ public class VideoAdapter extends BaseQuickAdapter<Video, BaseViewHolder> {
             ivThumb.setWidthAndHeight(imgWidth, imgHeight);
             ivThumb.setData(thumb);
         }
+        FrescoAvatarView ivAvatar = helper.getView(R.id.ivAvatar);
+        ivAvatar.setData(avatar, item.getUserId());
         helper.setVisible(R.id.ivLocation, !StringUtils.isEmpty(address));
         helper.setText(R.id.tvDuration, duration);
         helper.setText(R.id.tvTitle, title);

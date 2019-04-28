@@ -15,7 +15,7 @@
     app:cardBackgroundColor="@color/alpha_00"
     app:cardCornerRadius="@dimen/radius_normal"
     app:cardElevation="0dp"
-    app:cardMaxElevation="@dimen/elevation_small">
+    app:cardMaxElevation="0dp">
 
     <LinearLayout
         android:layout_width="match_parent"

@@ -100,7 +100,7 @@
                 app:cardBackgroundColor="@color/white"
                 app:cardCornerRadius="20dp"
                 app:cardElevation="@dimen/elevation_normal"
-                app:cardMaxElevation="@dimen/elevation_huge">
+                app:cardMaxElevation="@dimen/elevation_big">
 
                 <TextView
                     android:id="@+id/tvScoreTa"
@@ -128,7 +128,7 @@
                 app:cardBackgroundColor="@color/white"
                 app:cardCornerRadius="20dp"
                 app:cardElevation="@dimen/elevation_normal"
-                app:cardMaxElevation="@dimen/elevation_huge">
+                app:cardMaxElevation="@dimen/elevation_big">
 
                 <TextView
                     android:id="@+id/tvScoreMe"

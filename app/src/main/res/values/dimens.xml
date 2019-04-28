@@ -5,7 +5,7 @@
     <dimen name="font_normal">14sp</dimen>
     <dimen name="font_big">17sp</dimen>
     <dimen name="font_huge">20sp</dimen>
-    <!-- cardView阴影 -->
+    <!-- cardView圆角 -->
     <dimen name="radius_small">1dp</dimen>
     <dimen name="radius_normal">3dp</dimen>
     <dimen name="radius_big">5dp</dimen>

@@ -36,8 +36,8 @@
                 android:layout_marginEnd="30dp"
                 android:layout_marginBottom="10dp"
                 app:cardCornerRadius="30dp"
-                app:cardElevation="@dimen/elevation_normal"
-                app:cardMaxElevation="@dimen/elevation_big">
+                app:cardElevation="0dp"
+                app:cardMaxElevation="0dp">
 
                 <com.jiangzg.lovenote.view.FrescoAvatarView
                     android:id="@+id/ivAvatar"
