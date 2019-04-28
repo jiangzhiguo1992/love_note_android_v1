@@ -313,9 +313,9 @@ public class PictureListActivity extends BaseActivity<PictureListActivity> {
         String cover = album.getCover();
         String title = album.getTitle();
         String count = String.format(Locale.getDefault(), mActivity.getString(R.string.holder_paper), album.getPictureCount() < 0 ? 0 : album.getPictureCount());
-        String createAt = TimeHelper.getTimeShowLocal_HM_MD_YMD_ByGo(album.getCreateAt());
+        String createAt = TimeHelper.getTimeShowLine_HM_MD_YMD_ByGo(album.getCreateAt());
         String createShow = String.format(Locale.getDefault(), getString(R.string.create_at_colon_space_holder), createAt);
-        String updateAt = TimeHelper.getTimeShowLocal_HM_MD_YMD_ByGo(album.getUpdateAt());
+        String updateAt = TimeHelper.getTimeShowLine_HM_MD_YMD_ByGo(album.getUpdateAt());
         String updateShow = String.format(Locale.getDefault(), getString(R.string.update_at_colon_space_holder), updateAt);
         // view
         if (StringUtils.isEmpty(cover)) {

@@ -172,7 +172,7 @@ public class DiaryDetailActivity extends BaseActivity<DiaryDetailActivity> {
         if (diary == null) return;
         User user = SPHelper.getMe();
         // happen
-        String happenAt = TimeHelper.getTimeShowLocal_HM_MD_YMD_ByGo(diary.getHappenAt());
+        String happenAt = TimeHelper.getTimeShowLine_HM_MD_YMD_ByGo(diary.getHappenAt());
         tvHappenAt.setText(happenAt);
         // avatar
         String avatar = UserHelper.getAvatar(user, diary.getUserId());

@@ -277,7 +277,7 @@ public class TravelDetailActivity extends BaseActivity<TravelDetailActivity> {
         // headData
         Couple couple = SPHelper.getCouple();
         String title = travel.getTitle();
-        String happenAt = TimeHelper.getTimeShowLocal_HM_MD_YMD_ByGo(travel.getHappenAt());
+        String happenAt = TimeHelper.getTimeShowLine_HM_MD_YMD_ByGo(travel.getHappenAt());
         String creator = UserHelper.getName(couple, travel.getUserId());
         // headView
         tvTitle.setText(title);

@@ -40,7 +40,7 @@ public class GiftAdapter extends BaseQuickAdapter<Gift, BaseViewHolder> {
     protected void convert(BaseViewHolder helper, Gift item) {
         String avatar = UserHelper.getAvatar(couple, item.getReceiveId());
         String title = item.getTitle();
-        String happen = TimeHelper.getTimeShowLocal_HM_MD_YMD_ByGo(item.getHappenAt());
+        String happen = TimeHelper.getTimeShowLine_HM_MD_YMD_ByGo(item.getHappenAt());
         List<String> imageList = item.getContentImageList();
         // view
         FrescoAvatarView ivAvatar = helper.getView(R.id.ivAvatar);

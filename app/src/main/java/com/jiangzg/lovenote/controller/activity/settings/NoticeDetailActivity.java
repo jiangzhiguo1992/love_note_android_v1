@@ -46,7 +46,7 @@ public class NoticeDetailActivity extends BaseActivity<NoticeDetailActivity> {
         if (notice == null) return;
         // view
         tvTitle.setText(notice.getTitle());
-        tvTime.setText(TimeHelper.getTimeShowLocal_HM_MD_YMD_ByGo(notice.getCreateAt()));
+        tvTime.setText(TimeHelper.getTimeShowLine_HM_MD_YMD_ByGo(notice.getCreateAt()));
         String content = notice.getContentText().replace("\\n", "\n"); // 换行问题
         tvContent.setText(content);
     }

@@ -50,9 +50,9 @@ public class BroadcastActivity extends BaseActivity<BroadcastActivity> {
         if (broadcast == null) return;
         // data
         String title = broadcast.getTitle();
-        String start = broadcast.getStartAt() == 0 ? getString(R.string.nil) : TimeHelper.getTimeShowLocal_HM_MD_YMD_ByGo(broadcast.getStartAt());
+        String start = broadcast.getStartAt() == 0 ? getString(R.string.nil) : TimeHelper.getTimeShowLine_HM_MD_YMD_ByGo(broadcast.getStartAt());
         String startShow = String.format(Locale.getDefault(), getString(R.string.start_time_colon_holder), start);
-        String end = broadcast.getEndAt() == 0 ? getString(R.string.nil) : TimeHelper.getTimeShowLocal_HM_MD_YMD_ByGo(broadcast.getEndAt());
+        String end = broadcast.getEndAt() == 0 ? getString(R.string.nil) : TimeHelper.getTimeShowLine_HM_MD_YMD_ByGo(broadcast.getEndAt());
         String endShow = String.format(Locale.getDefault(), getString(R.string.end_time_colon_holder), end);
         String content = broadcast.getContentText().replace("\\n", "\n"); // 换行问题
         // view

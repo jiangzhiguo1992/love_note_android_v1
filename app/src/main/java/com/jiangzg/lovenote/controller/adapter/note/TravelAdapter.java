@@ -32,7 +32,7 @@ public class TravelAdapter extends BaseQuickAdapter<Travel, BaseViewHolder> {
     protected void convert(BaseViewHolder helper, Travel item) {
         String avatar = UserHelper.getAvatar(couple, item.getUserId());
         String title = item.getTitle();
-        String happen = TimeHelper.getTimeShowLocal_HM_MD_YMD_ByGo(item.getHappenAt());
+        String happen = TimeHelper.getTimeShowLine_HM_MD_YMD_ByGo(item.getHappenAt());
         //List<TravelPlace> placeList = item.getTravelPlaceList();
         // view
         FrescoAvatarView ivAvatar = helper.getView(R.id.ivAvatar);

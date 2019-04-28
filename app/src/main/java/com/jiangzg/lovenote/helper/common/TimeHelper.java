@@ -52,25 +52,6 @@ public class TimeHelper {
         return DateUtils.getStr(jTime, format);
     }
 
-    public static String getTimeShowLocal_HM_MD_YMD_ByGo(long time) {
-        long jTime = getJavaTimeByGo(time);
-        String year = MyApp.get().getString(R.string.year);
-        String month = MyApp.get().getString(R.string.month);
-        String day = MyApp.get().getString(R.string.dayR);
-        String format;
-        if (DateUtils.isSameDay(DateUtils.getCurrentLong(), jTime)) {
-            // 同一天
-            format = DateUtils.FORMAT_H_M;
-        } else if (DateUtils.isSameYear(DateUtils.getCurrentLong(), jTime)) {
-            // 同一年
-            format = "MM" + month + " dd" + day;
-        } else {
-            // 不同年
-            format = "yyyy" + year + " MM" + month + " dd" + day;
-        }
-        return DateUtils.getStr(jTime, format);
-    }
-
     public static String getTimeShowLine_HM_MDHM_YMDHM_ByGo(long time) {
         long jTime = getJavaTimeByGo(time);
         String format;

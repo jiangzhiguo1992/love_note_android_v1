@@ -608,7 +608,7 @@ public class TravelEditActivity extends BaseActivity<TravelEditActivity> {
 
     private void refreshDateView() {
         if (travel == null) return;
-        String happen = TimeHelper.getTimeShowLocal_HM_MD_YMD_ByGo(travel.getHappenAt());
+        String happen = TimeHelper.getTimeShowLine_HM_MD_YMD_ByGo(travel.getHappenAt());
         tvHappenAt.setText(String.format(Locale.getDefault(), getString(R.string.time_colon_space_holder), happen));
     }
 

@@ -35,7 +35,7 @@ public class DreamAdapter extends BaseQuickAdapter<Dream, BaseViewHolder> {
     @Override
     protected void convert(BaseViewHolder helper, Dream item) {
         String avatar = UserHelper.getAvatar(couple, item.getUserId());
-        String happen = TimeHelper.getTimeShowLocal_HM_MD_YMD_ByGo(item.getHappenAt());
+        String happen = TimeHelper.getTimeShowLine_HM_MD_YMD_ByGo(item.getHappenAt());
         String content = item.getContentText();
         if (content == null) content = "";
         String countShow = String.format(Locale.getDefault(), formatNumber, content.length());

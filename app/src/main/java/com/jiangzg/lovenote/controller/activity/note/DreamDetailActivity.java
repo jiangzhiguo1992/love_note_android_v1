@@ -160,7 +160,7 @@ public class DreamDetailActivity extends BaseActivity<DreamDetailActivity> {
         if (dream == null) return;
         User user = SPHelper.getMe();
         // happen
-        String happenAt = TimeHelper.getTimeShowLocal_HM_MD_YMD_ByGo(dream.getHappenAt());
+        String happenAt = TimeHelper.getTimeShowLine_HM_MD_YMD_ByGo(dream.getHappenAt());
         tvHappenAt.setText(happenAt);
         // author
         String authorName = UserHelper.getName(user, dream.getUserId());

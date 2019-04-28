@@ -200,7 +200,7 @@ public class PromiseDetailActivity extends BaseActivity<PromiseDetailActivity> {
         User me = SPHelper.getMe();
         String name = UserHelper.getName(me, promise.getHappenId());
         String creator = String.format(Locale.getDefault(), getString(R.string.creator_colon_space_holder), name);
-        String happen = TimeHelper.getTimeShowLocal_HM_MD_YMD_ByGo(promise.getHappenAt());
+        String happen = TimeHelper.getTimeShowLine_HM_MD_YMD_ByGo(promise.getHappenAt());
         String happenAt = String.format(Locale.getDefault(), getString(R.string.create_at_colon_space_holder), happen);
         String content = promise.getContentText();
         String breakCount = String.format(Locale.getDefault(), getString(R.string.break_space_holder_space_time), promise.getBreakCount());
