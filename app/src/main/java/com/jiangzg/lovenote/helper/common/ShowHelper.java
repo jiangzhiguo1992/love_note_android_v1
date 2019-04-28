@@ -3,7 +3,12 @@ package com.jiangzg.lovenote.helper.common;
 import com.jiangzg.base.common.TimeUnit;
 import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.main.MyApp;
+import com.jiangzg.lovenote.model.entity.Post;
+import com.jiangzg.lovenote.model.entity.PostKindInfo;
+import com.jiangzg.lovenote.model.entity.PostSubKindInfo;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 
 /**
@@ -72,4 +77,26 @@ public class ShowHelper {
         return time;
     }
 
+    public static List<String> getPostTagListShow(Post post, boolean kind, boolean subKind) {
+        List<String> showList = new ArrayList<>();
+        if (post == null) return showList;
+        if (post.isTop()) showList.add(MyApp.get().getString(R.string.top));
+        if (kind || subKind) {
+            PostKindInfo kindInfo = ListHelper.getPostKindInfo(post.getKind());
+            PostSubKindInfo subKindInfo = ListHelper.getPostSubKindInfo(kindInfo, post.getSubKind());
+            if (kind && kindInfo != null) {
+                showList.add(kindInfo.getName());
+            }
+            if (subKind && subKindInfo != null) {
+                showList.add(subKindInfo.getName());
+            }
+        }
+        if (post.isOfficial()) showList.add(MyApp.get().getString(R.string.administrators));
+        if (post.isWell()) showList.add(MyApp.get().getString(R.string.well));
+        if (post.isHot()) showList.add(MyApp.get().getString(R.string.hot));
+        if (post.isMine()) showList.add(MyApp.get().getString(R.string.me_de));
+        if (post.isOur() && !post.isMine()) showList.add(MyApp.get().getString(R.string.ta_de));
+        if (post.isReport()) showList.add(MyApp.get().getString(R.string.already_report));
+        return showList;
+    }
 }
