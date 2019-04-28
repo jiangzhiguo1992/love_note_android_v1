@@ -63,15 +63,14 @@ public class PostKindListActivity extends BaseActivity<PostKindListActivity> {
     @Override
     protected int getView(Intent intent) {
         kindInfo = intent.getParcelableExtra("kindInfo");
+        if (kindInfo == null) {
+            mActivity.finish();
+        }
         return R.layout.activity_post_kind_list;
     }
 
     @Override
     protected void initView(Intent intent, Bundle state) {
-        if (kindInfo == null) {
-            mActivity.finish();
-            return;
-        }
         ViewHelper.initTopBar(mActivity, tb, kindInfo.getName(), true);
         // search
         searchIndex = 0;
