@@ -66,7 +66,8 @@ public class PostCommentAdapter extends BaseQuickAdapter<PostComment, BaseViewHo
         String name = item.isOfficial() ? mActivity.getString(R.string.administrators) : UserHelper.getName(couple, item.getUserId(), true);
         String floor = String.format(Locale.getDefault(), mActivity.getString(R.string.holder_floor), item.getFloor());
         String time = ShowHelper.getBetweenTimeGoneShow(DateUtils.getCurrentLong() - TimeHelper.getJavaTimeByGo(item.getCreateAt()));
-        String contentText = (item.getKind() == PostComment.KIND_JAB) ? mActivity.getString(R.string.jab_a_little_ta) : item.getContentText();
+        String contentText = item.getContentText();
+        String jabAvatar;
         String commentCount = ShowHelper.getShowCount2Thousand(item.getSubCommentCount());
         String pointCount = ShowHelper.getShowCount2Thousand(item.getPointCount());
         boolean report = item.isReport();
@@ -75,8 +76,11 @@ public class PostCommentAdapter extends BaseQuickAdapter<PostComment, BaseViewHo
         // top
         if (couple == null) {
             helper.setVisible(R.id.rlTop, false);
+            jabAvatar = "";
         } else {
             helper.setVisible(R.id.rlTop, true);
+            long jabId = (couple.getCreatorId() == item.getUserId()) ? couple.getInviteeId() : couple.getCreatorId();
+            jabAvatar = UserHelper.getAvatar(couple, jabId);
             FrescoAvatarView ivAvatar = helper.getView(R.id.ivAvatar);
             ivAvatar.setData(avatar);
             helper.setText(R.id.tvName, name);
@@ -84,8 +88,17 @@ public class PostCommentAdapter extends BaseQuickAdapter<PostComment, BaseViewHo
             helper.setText(R.id.tvTime, time);
         }
         // center
-        helper.setText(R.id.tvContent, contentText);
-        helper.setTextColor(R.id.tvContent, (item.getKind() == PostComment.KIND_JAB) ? colorPrimary : colorFontBlack);
+        if (item.getKind() != PostComment.KIND_JAB) {
+            helper.setText(R.id.tvContent, contentText);
+            helper.setTextColor(R.id.tvContent, colorFontBlack);
+            helper.setVisible(R.id.ivJab, false);
+        } else {
+            helper.setText(R.id.tvContent, mActivity.getString(R.string.jab_a_little));
+            helper.setTextColor(R.id.tvContent, colorPrimary);
+            helper.setVisible(R.id.ivJab, true);
+            FrescoAvatarView ivJab = helper.getView(R.id.ivJab);
+            ivJab.setData(jabAvatar);
+        }
         // bottom
         ImageView ivReport = helper.getView(R.id.ivReport);
         ivReport.setImageTintList(report ? colorStatePrimary : colorStateIconGrey);

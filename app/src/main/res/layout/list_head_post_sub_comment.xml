@@ -60,15 +60,31 @@
             tools:text="2015-06-09"/>
     </RelativeLayout>
 
-    <TextView
-        android:id="@+id/tvContent"
-        style="@style/FontBlackBig"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="10dp"
-        tools:text="我觉得14楼说的对我觉得14楼说的对我觉得14楼说的对我觉得14楼说的对我觉得"/>
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/tvContent"
+            style="@style/FontBlackBig"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="我觉得14楼说的对我觉得14楼说的"/>
+
+        <com.jiangzg.lovenote.view.FrescoAvatarView
+            android:id="@+id/ivJab"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginStart="5dp"
+            android:visibility="gone"
+            tools:background="@mipmap/ic_account_circle_grey_48dp"
+            tools:visibility="visible"/>
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"

@@ -295,7 +295,8 @@ public class PostCommentDetailActivity extends BaseActivity<PostCommentDetailAct
         String name = postComment.isOfficial() ? mActivity.getString(R.string.administrators) : UserHelper.getName(couple, postComment.getUserId(), true);
         String floor = String.format(Locale.getDefault(), mActivity.getString(R.string.holder_floor), postComment.getFloor());
         String time = ShowHelper.getBetweenTimeGoneShow(DateUtils.getCurrentLong() - TimeHelper.getJavaTimeByGo(postComment.getCreateAt()));
-        String contentText = (postComment.getKind() == PostComment.KIND_JAB) ? mActivity.getString(R.string.jab_a_little_ta) : postComment.getContentText();
+        String contentText = postComment.getContentText();
+        String jabAvatar;
         String pointCount = ShowHelper.getShowCount2Thousand(postComment.getPointCount());
         boolean report = postComment.isReport();
         boolean point = postComment.isPoint();
@@ -309,6 +310,7 @@ public class PostCommentDetailActivity extends BaseActivity<PostCommentDetailAct
         TextView tvFloor = head.findViewById(R.id.tvFloor);
         TextView tvTime = head.findViewById(R.id.tvTime);
         TextView tvContent = head.findViewById(R.id.tvContent);
+        FrescoAvatarView ivJab = head.findViewById(R.id.ivJab);
         LinearLayout llReport = head.findViewById(R.id.llReport);
         ImageView ivReport = head.findViewById(R.id.ivReport);
         LinearLayout llPoint = head.findViewById(R.id.llPoint);
@@ -319,16 +321,27 @@ public class PostCommentDetailActivity extends BaseActivity<PostCommentDetailAct
         // top
         if (couple == null) {
             rlTop.setVisibility(View.GONE);
+            jabAvatar = "";
         } else {
             rlTop.setVisibility(View.VISIBLE);
+            long jabId = (couple.getCreatorId() == postComment.getUserId()) ? couple.getInviteeId() : couple.getCreatorId();
+            jabAvatar = UserHelper.getAvatar(couple, jabId);
             ivAvatar.setData(avatar);
             tvName.setText(name);
             tvFloor.setText(floor);
             tvTime.setText(time);
         }
         // center
-        tvContent.setText(contentText);
-        tvContent.setTextColor((postComment.getKind() == PostComment.KIND_JAB) ? colorPrimary : colorFontBlack);
+        if (postComment.getKind() != PostComment.KIND_JAB) {
+            tvContent.setText(contentText);
+            tvContent.setTextColor(colorFontBlack);
+            ivJab.setVisibility(View.GONE);
+        } else {
+            tvContent.setText(mActivity.getString(R.string.jab_a_little));
+            tvContent.setTextColor(colorPrimary);
+            ivJab.setVisibility(View.VISIBLE);
+            ivJab.setData(jabAvatar);
+        }
         // bottom
         ivReport.setImageTintList(report ? colorStatePrimary : colorStateIconGrey);
         ivPoint.setImageTintList(point ? colorStatePrimary : colorStateIconGrey);
