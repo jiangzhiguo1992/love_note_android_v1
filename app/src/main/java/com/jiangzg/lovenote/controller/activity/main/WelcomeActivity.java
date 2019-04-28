@@ -24,6 +24,7 @@ import com.jiangzg.lovenote.helper.common.ResHelper;
 import com.jiangzg.lovenote.helper.common.SPHelper;
 import com.jiangzg.lovenote.helper.common.UserHelper;
 import com.jiangzg.lovenote.helper.system.RetrofitHelper;
+import com.jiangzg.lovenote.helper.view.DialogHelper;
 import com.jiangzg.lovenote.main.MyApp;
 import com.jiangzg.lovenote.model.api.API;
 import com.jiangzg.lovenote.model.api.Result;
@@ -94,7 +95,7 @@ public class WelcomeActivity extends BaseActivity<WelcomeActivity> {
 
             @Override
             public void onPermissionDenied(int requestCode, String[] permissions) {
-                AppUtils.appExit();
+                DialogHelper.showGoPermDialog(mActivity, true);
             }
         });
     }

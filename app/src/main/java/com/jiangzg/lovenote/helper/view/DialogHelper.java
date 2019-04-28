@@ -10,6 +10,7 @@ import android.content.Intent;
 import com.afollestad.materialdialogs.GravityEnum;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.afollestad.materialdialogs.Theme;
+import com.jiangzg.base.application.AppUtils;
 import com.jiangzg.base.common.DateUtils;
 import com.jiangzg.base.component.ActivityTrans;
 import com.jiangzg.base.component.IntentFactory;
@@ -62,7 +63,12 @@ public class DialogHelper {
     }
 
     // 跳转权限dialog
-    public static void showGoPermDialog(final Activity activity) {
+    public static void showGoPermDialog(Activity activity) {
+        showGoPermDialog(activity, false);
+    }
+
+    // 跳转权限dialog
+    public static void showGoPermDialog(final Activity activity, boolean exit) {
         MaterialDialog dialog = DialogHelper.getBuild(activity)
                 .cancelable(false)
                 .canceledOnTouchOutside(false)
@@ -72,6 +78,11 @@ public class DialogHelper {
                 .onPositive((dialog1, which) -> {
                     Intent permission = IntentFactory.getPermission();
                     ActivityTrans.start(activity, permission);
+                })
+                .onNegative((dialog12, which) -> {
+                    if (exit) {
+                        AppUtils.appExit();
+                    }
                 })
                 .build();
         DialogHelper.showWithAnim(dialog);
