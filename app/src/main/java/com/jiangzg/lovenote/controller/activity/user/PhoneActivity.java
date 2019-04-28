@@ -4,7 +4,7 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.TextInputEditText;
+import android.support.v7.widget.AppCompatEditText;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.view.View;
@@ -34,9 +34,9 @@ public class PhoneActivity extends BaseActivity<PhoneActivity> {
     @BindView(R.id.tb)
     Toolbar tb;
     @BindView(R.id.etPhone)
-    TextInputEditText etPhone;
+    AppCompatEditText etPhone;
     @BindView(R.id.etCode)
-    TextInputEditText etCode;
+    AppCompatEditText etCode;
     @BindView(R.id.btnSendCode)
     Button btnSendCode;
     @BindView(R.id.btnChange)

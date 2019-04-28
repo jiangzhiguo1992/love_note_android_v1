@@ -4,8 +4,8 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.TextInputEditText;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.AppCompatEditText;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
@@ -54,7 +54,7 @@ public class CouplePairActivity extends BaseActivity<CouplePairActivity> {
     @BindView(R.id.llInput)
     LinearLayout llInput;
     @BindView(R.id.etPhone)
-    TextInputEditText etPhone;
+    AppCompatEditText etPhone;
     @BindView(R.id.ivContact)
     ImageView ivContact;
     @BindView(R.id.btnInvitee)

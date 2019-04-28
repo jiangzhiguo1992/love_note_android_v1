@@ -3,7 +3,7 @@ package com.jiangzg.lovenote.controller.activity.user;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.TextInputEditText;
+import android.support.v7.widget.AppCompatEditText;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.view.View;
@@ -32,11 +32,11 @@ public class PasswordActivity extends BaseActivity<PasswordActivity> {
     @BindView(R.id.tb)
     Toolbar tb;
     @BindView(R.id.etOldPwd)
-    TextInputEditText etOldPwd;
+    AppCompatEditText etOldPwd;
     @BindView(R.id.etNewPwd)
-    TextInputEditText etNewPwd;
+    AppCompatEditText etNewPwd;
     @BindView(R.id.etNewPwdConfirm)
-    TextInputEditText etNewPwdConfirm;
+    AppCompatEditText etNewPwdConfirm;
     @BindView(R.id.btnModify)
     Button btnModify;
 

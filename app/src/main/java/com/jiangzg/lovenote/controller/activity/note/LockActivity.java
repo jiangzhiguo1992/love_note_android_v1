@@ -4,10 +4,10 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.TextInputEditText;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.AppCompatEditText;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.view.Menu;
@@ -59,11 +59,11 @@ public class LockActivity extends BaseActivity<LockActivity> {
     @BindView(R.id.tilPwd)
     TextInputLayout tilPwd;
     @BindView(R.id.etPwd)
-    TextInputEditText etPwd;
+    AppCompatEditText etPwd;
     @BindView(R.id.llCode)
     LinearLayout llCode;
     @BindView(R.id.etCode)
-    TextInputEditText etCode;
+    AppCompatEditText etCode;
     @BindView(R.id.btnSendCode)
     Button btnSendCode;
     @BindView(R.id.llOperate)
