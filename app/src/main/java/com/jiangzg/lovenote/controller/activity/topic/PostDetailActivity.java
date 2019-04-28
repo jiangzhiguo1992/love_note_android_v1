@@ -373,8 +373,7 @@ public class PostDetailActivity extends BaseActivity<PostDetailActivity> {
         String avatar = UserHelper.getAvatar(couple, post.getUserId());
         String name = UserHelper.getName(couple, post.getUserId(), true);
         String time = DateUtils.getStr(TimeHelper.getJavaTimeByGo(post.getCreateAt()), DateUtils.FORMAT_LINE_M_D_H_M);
-        PostKindInfo kindInfo = ListHelper.getPostKindInfo(post.getKind());
-        List<String> tagShowList = ListHelper.getPostTagListShow(kindInfo, post, true, true);
+        List<String> tagShowList = ListHelper.getPostTagListShow(post, true, true);
         String title = post.getTitle();
         String contentText = post.getContentText();
         List<String> imageList = post.getContentImageList();

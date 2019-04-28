@@ -1179,7 +1179,7 @@ public class ListHelper {
     }
 
     // getPostTagListShow 获取post的tagList
-    public static List<String> getPostTagListShow(PostKindInfo kindInfo, Post post, boolean kind, boolean subKind) {
+    public static List<String> getPostTagListShow(Post post, boolean kind, boolean subKind) {
         List<String> showList = new ArrayList<>();
         if (post == null) return showList;
         boolean top = post.isTop();
@@ -1190,16 +1190,17 @@ public class ListHelper {
         boolean isTa = post.isOur() && !post.isMine();
         boolean report = post.isReport();
         // show
+        if (top) showList.add(MyApp.get().getString(R.string.top));
         if (kind || subKind) {
+            PostKindInfo kindInfo = ListHelper.getPostKindInfo(post.getKind());
+            PostSubKindInfo subKindInfo = ListHelper.getPostSubKindInfo(kindInfo, post.getSubKind());
             if (kind && kindInfo != null) {
                 showList.add(kindInfo.getName());
             }
-            PostSubKindInfo subKindInfo = ListHelper.getPostSubKindInfo(kindInfo, post.getSubKind());
             if (subKind && subKindInfo != null) {
                 showList.add(subKindInfo.getName());
             }
         }
-        if (top) showList.add(MyApp.get().getString(R.string.top));
         if (official) showList.add(MyApp.get().getString(R.string.administrators));
         if (well) showList.add(MyApp.get().getString(R.string.well));
         if (hot) showList.add(MyApp.get().getString(R.string.hot));
