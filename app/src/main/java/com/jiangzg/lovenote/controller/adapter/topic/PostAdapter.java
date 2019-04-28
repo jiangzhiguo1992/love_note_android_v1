@@ -229,7 +229,7 @@ public class PostAdapter extends BaseQuickAdapter<Post, BaseViewHolder> {
         if (item == null || item.isScreen() || item.isDelete()) return;
         if (!item.isRead()) {
             item.setRead(true);
-            notifyItemChanged(position);
+            notifyItemChanged(position + getHeaderLayoutCount());
         }
         PostDetailActivity.goActivity(mActivity, item);
     }
