@@ -73,6 +73,13 @@ public class PostAdapter extends BaseQuickAdapter<Post, BaseViewHolder> {
                 public void onADLoaded(List<NativeExpressADView> viewList) {
                     PostAdapter.this.adDestroy();
                     adViewList = viewList;
+                    if (adViewList != null && adViewList.size() > 0) {
+                        for (NativeExpressADView adView : adViewList) {
+                            if (adView != null) {
+                                adView.render();
+                            }
+                        }
+                    }
                     for (int i = 0; i < PostAdapter.this.getData().size(); i++) {
                         if (isAdPosition(i)) {
                             PostAdapter.this.notifyItemChanged(i + getHeaderLayoutCount());
@@ -147,7 +154,6 @@ public class PostAdapter extends BaseQuickAdapter<Post, BaseViewHolder> {
                     }
                 }
                 adView.setTag(position);
-                adView.render();
                 rlAd.addView(adView);
                 return;
             }

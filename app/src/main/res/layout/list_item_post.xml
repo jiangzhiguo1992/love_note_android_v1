@@ -110,7 +110,7 @@
                     android:layout_marginEnd="2.5dp"
                     android:layout_marginBottom="5dp"
                     app:cardBackgroundColor="@color/white"
-                    app:cardCornerRadius="10dp"
+                    app:cardCornerRadius="7.5dp"
                     app:cardElevation="@dimen/elevation_small"
                     app:cardMaxElevation="@dimen/elevation_normal">
 
@@ -131,7 +131,7 @@
                     android:layout_marginBottom="5dp"
                     android:layout_toEndOf="@+id/cvAvatarLeft"
                     app:cardBackgroundColor="@color/white"
-                    app:cardCornerRadius="10dp"
+                    app:cardCornerRadius="7.5dp"
                     app:cardElevation="@dimen/elevation_small"
                     app:cardMaxElevation="@dimen/elevation_normal">
 
