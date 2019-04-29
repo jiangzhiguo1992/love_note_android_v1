@@ -158,17 +158,17 @@ public class PostAdapter extends BaseQuickAdapter<Post, BaseViewHolder> {
                 return;
             }
         }
-        if (item.isScreen()) {
-            helper.setVisible(R.id.rlAd, false);
-            helper.setVisible(R.id.tvCover, true);
-            helper.setVisible(R.id.llInfo, false);
-            helper.setText(R.id.tvCover, R.string.post_already_be_screen);
-            return;
-        } else if (item.isDelete()) {
+        if (item.isDelete()) {
             helper.setVisible(R.id.rlAd, false);
             helper.setVisible(R.id.tvCover, true);
             helper.setVisible(R.id.llInfo, false);
             helper.setText(R.id.tvCover, R.string.post_already_be_delete);
+            return;
+        } else if (item.isScreen()) {
+            helper.setVisible(R.id.rlAd, false);
+            helper.setVisible(R.id.tvCover, true);
+            helper.setVisible(R.id.llInfo, false);
+            helper.setText(R.id.tvCover, R.string.post_already_be_screen);
             return;
         }
         helper.setVisible(R.id.rlAd, false);
