@@ -94,70 +94,62 @@
             android:paddingStart="5dp"
             android:paddingEnd="5dp">
 
-            <LinearLayout
-                android:id="@+id/llCouple"
+            <RelativeLayout
+                android:id="@+id/rlCouple"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
                 android:visibility="gone"
                 tools:visibility="visible">
 
-                <RelativeLayout
-                    android:id="@+id/rlCoupleAvatar"
+                <android.support.v7.widget.CardView
+                    android:id="@+id/cvAvatarLeft"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginEnd="2.5dp"
+                    android:layout_marginBottom="5dp"
+                    app:cardBackgroundColor="@color/white"
+                    app:cardCornerRadius="10dp"
+                    app:cardElevation="@dimen/elevation_small"
+                    app:cardMaxElevation="@dimen/elevation_normal">
 
-                    <android.support.v7.widget.CardView
-                        android:id="@+id/cvAvatarLeft"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="5dp"
-                        android:layout_marginTop="5dp"
-                        android:layout_marginEnd="2.5dp"
-                        android:layout_marginBottom="5dp"
-                        app:cardBackgroundColor="@color/white"
-                        app:cardCornerRadius="10dp"
-                        app:cardElevation="@dimen/elevation_small"
-                        app:cardMaxElevation="@dimen/elevation_normal">
-
-                        <com.jiangzg.lovenote.view.FrescoAvatarView
-                            android:id="@+id/ivAvatarLeft"
-                            android:layout_width="15dp"
-                            android:layout_height="15dp"
-                            tools:background="@mipmap/ic_account_circle_grey_48dp"/>
-                    </android.support.v7.widget.CardView>
-
-                    <android.support.v7.widget.CardView
-                        android:id="@+id/cvAvatarRight"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="2.5dp"
-                        android:layout_marginTop="5dp"
-                        android:layout_marginEnd="5dp"
-                        android:layout_marginBottom="5dp"
-                        android:layout_toEndOf="@+id/cvAvatarLeft"
-                        app:cardBackgroundColor="@color/white"
-                        app:cardCornerRadius="10dp"
-                        app:cardElevation="@dimen/elevation_small"
-                        app:cardMaxElevation="@dimen/elevation_normal">
-
-                        <com.jiangzg.lovenote.view.FrescoAvatarView
-                            android:id="@+id/ivAvatarRight"
-                            android:layout_width="15dp"
-                            android:layout_height="15dp"
-                            tools:background="@mipmap/ic_account_circle_grey_48dp"/>
-                    </android.support.v7.widget.CardView>
-
-                    <ImageView
+                    <com.jiangzg.lovenote.view.FrescoAvatarView
+                        android:id="@+id/ivAvatarLeft"
                         android:layout_width="15dp"
                         android:layout_height="15dp"
-                        android:layout_centerInParent="true"
-                        android:elevation="@dimen/elevation_big"
-                        android:src="@mipmap/ic_favorite_border_grey_18dp"
-                        android:tint="?attr/colorPrimary"/>
-                </RelativeLayout>
-            </LinearLayout>
+                        tools:background="@mipmap/ic_account_circle_grey_48dp"/>
+                </android.support.v7.widget.CardView>
+
+                <android.support.v7.widget.CardView
+                    android:id="@+id/cvAvatarRight"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="2.5dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginEnd="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:layout_toEndOf="@+id/cvAvatarLeft"
+                    app:cardBackgroundColor="@color/white"
+                    app:cardCornerRadius="10dp"
+                    app:cardElevation="@dimen/elevation_small"
+                    app:cardMaxElevation="@dimen/elevation_normal">
+
+                    <com.jiangzg.lovenote.view.FrescoAvatarView
+                        android:id="@+id/ivAvatarRight"
+                        android:layout_width="15dp"
+                        android:layout_height="15dp"
+                        tools:background="@mipmap/ic_account_circle_grey_48dp"/>
+                </android.support.v7.widget.CardView>
+
+                <ImageView
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:layout_centerInParent="true"
+                    android:elevation="@dimen/elevation_big"
+                    android:src="@mipmap/ic_favorite_border_grey_18dp"
+                    android:tint="?attr/colorPrimary"/>
+            </RelativeLayout>
 
             <TextView
                 android:id="@+id/tvUpdateAt"

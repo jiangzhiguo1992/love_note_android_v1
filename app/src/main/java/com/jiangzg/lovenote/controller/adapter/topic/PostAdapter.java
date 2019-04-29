@@ -202,9 +202,9 @@ public class PostAdapter extends BaseQuickAdapter<Post, BaseViewHolder> {
         }
         // couple
         if (couple == null) {
-            helper.setVisible(R.id.llCouple, false);
+            helper.setVisible(R.id.rlCouple, false);
         } else {
-            helper.setVisible(R.id.llCouple, true);
+            helper.setVisible(R.id.rlCouple, true);
             FrescoAvatarView ivAvatarLeft = helper.getView(R.id.ivAvatarLeft);
             FrescoAvatarView ivAvatarRight = helper.getView(R.id.ivAvatarRight);
             ivAvatarLeft.setData(couple.getCreatorAvatar());
