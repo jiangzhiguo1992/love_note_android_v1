@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               xmlns:app="http://schemas.android.com/apk/res-auto"
+              xmlns:tools="http://schemas.android.com/tools"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
-              android:orientation="vertical">
+              android:orientation="vertical"
+              tools:background="@color/theme_blue_accent">
 
     <android.support.v7.widget.CardView
         android:id="@+id/cvSearch"
@@ -17,29 +19,28 @@
         app:cardElevation="0dp"
         app:cardMaxElevation="0dp">
 
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:padding="10dp">
+            android:gravity="center"
+            android:orientation="horizontal">
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
                 android:layout_marginEnd="5dp"
-                android:layout_toStartOf="@+id/tvSearch"
-                android:src="@mipmap/ic_search_grey_18dp"/>
+                android:src="@mipmap/ic_search_grey_18dp"
+                android:tint="@color/font_hint"/>
 
             <TextView
                 android:id="@+id/tvSearch"
                 style="@style/FontGreyNormal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
                 android:layout_marginStart="5dp"
                 android:text="@string/please_input_search_content"
                 android:textColor="@color/font_hint"/>
-        </RelativeLayout>
+        </LinearLayout>
     </android.support.v7.widget.CardView>
 
     <LinearLayout
