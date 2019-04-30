@@ -37,6 +37,7 @@ public class PostListFragment extends BasePagerFragment<PostListFragment> {
     @BindView(R.id.rv)
     RecyclerView rv;
 
+    private int pageItem;
     private PostKindInfo kindInfo;
     private PostSubKindInfo subKindInfo;
     private RecyclerHelper recyclerHelper;
@@ -44,8 +45,9 @@ public class PostListFragment extends BasePagerFragment<PostListFragment> {
     private boolean official, well;
     private int page = 0;
 
-    public static PostListFragment newFragment(PostKindInfo kindInfo, PostSubKindInfo subKindInfo) {
+    public static PostListFragment newFragment(int pageItem, PostKindInfo kindInfo, PostSubKindInfo subKindInfo) {
         Bundle bundle = new Bundle();
+        bundle.putInt("pageItem", pageItem);
         bundle.putParcelable("kindInfo", kindInfo);
         bundle.putParcelable("subKindInfo", subKindInfo);
         return BaseFragment.newInstance(PostListFragment.class, bundle);
@@ -53,6 +55,7 @@ public class PostListFragment extends BasePagerFragment<PostListFragment> {
 
     @Override
     protected int getView(Bundle data) {
+        pageItem = data.getInt("pageItem", 0);
         kindInfo = data.getParcelable("kindInfo");
         subKindInfo = data.getParcelable("subKindInfo");
         return R.layout.fragment_post_list;
@@ -85,22 +88,22 @@ public class PostListFragment extends BasePagerFragment<PostListFragment> {
         official = false;
         well = false;
         // event
-        Observable<Boolean> obSearchNormal = RxBus.register(RxBus.EVENT_POST_SEARCH_ALL, isTrue -> {
-            if (!mFragment.getUserVisibleHint() || !isTrue) return;
+        Observable<Integer> obSearchNormal = RxBus.register(RxBus.EVENT_POST_SEARCH_ALL, index -> {
+            if (!mFragment.getUserVisibleHint() || pageItem != index) return;
             official = false;
             well = false;
             recyclerHelper.dataRefresh();
         });
         pushBus(RxBus.EVENT_POST_SEARCH_ALL, obSearchNormal);
-        Observable<Boolean> obSearchOfficial = RxBus.register(RxBus.EVENT_POST_SEARCH_OFFICIAL, isTrue -> {
-            if (!mFragment.getUserVisibleHint() || !isTrue) return;
+        Observable<Integer> obSearchOfficial = RxBus.register(RxBus.EVENT_POST_SEARCH_OFFICIAL, index -> {
+            if (!mFragment.getUserVisibleHint() || pageItem != index) return;
             official = true;
             well = false;
             recyclerHelper.dataRefresh();
         });
         pushBus(RxBus.EVENT_POST_SEARCH_OFFICIAL, obSearchOfficial);
-        Observable<Boolean> obSearchWell = RxBus.register(RxBus.EVENT_POST_SEARCH_WELL, isTrue -> {
-            if (!mFragment.getUserVisibleHint() || !isTrue) return;
+        Observable<Integer> obSearchWell = RxBus.register(RxBus.EVENT_POST_SEARCH_WELL, index -> {
+            if (!mFragment.getUserVisibleHint() || pageItem != index) return;
             official = false;
             well = true;
             recyclerHelper.dataRefresh();

@@ -77,13 +77,15 @@ public class PostKindListActivity extends BaseActivity<PostKindListActivity> {
         tvSearch.setText(ApiHelper.LIST_TOPIC_TYPE_SHOW[searchIndex]);
         // fragment
         List<PostSubKindInfo> postSubKindInfoList = kindInfo.getPostSubKindInfoList();
+        int pageItem = 0;
         List<String> titleList = new ArrayList<>();
         final List<PostListFragment> fragmentList = new ArrayList<>();
         if (postSubKindInfoList != null && postSubKindInfoList.size() > 0) {
             for (PostSubKindInfo subKindInfo : postSubKindInfoList) {
                 if (subKindInfo == null || !subKindInfo.isEnable()) continue;
-                fragmentList.add(PostListFragment.newFragment(kindInfo, subKindInfo));
+                fragmentList.add(PostListFragment.newFragment(pageItem, kindInfo, subKindInfo));
                 titleList.add(subKindInfo.getName());
+                ++pageItem;
             }
         }
         // adapter
@@ -146,19 +148,22 @@ public class PostKindListActivity extends BaseActivity<PostKindListActivity> {
                 .itemsCallbackSingleChoice(searchIndex, (dialog1, view, which, text) -> {
                     searchIndex = which;
                     tvSearch.setText(ApiHelper.LIST_TOPIC_TYPE_SHOW[searchIndex]);
-                    RxBus.Event<Boolean> event;
-                    switch (ApiHelper.LIST_TOPIC_TYPE_TYPE[searchIndex]) {
-                        case ApiHelper.LIST_TOPIC_TYPE_OFFICIAL: // 官方
-                            event = new RxBus.Event<>(RxBus.EVENT_POST_SEARCH_OFFICIAL, true);
-                            break;
-                        case ApiHelper.LIST_TOPIC_TYPE_WELL: // 精华
-                            event = new RxBus.Event<>(RxBus.EVENT_POST_SEARCH_WELL, true);
-                            break;
-                        default: // 普通
-                            event = new RxBus.Event<>(RxBus.EVENT_POST_SEARCH_ALL, true);
-                            break;
+                    if (vpFragment != null) {
+                        RxBus.Event<Integer> event;
+                        int currentItem = vpFragment.getCurrentItem();
+                        switch (ApiHelper.LIST_TOPIC_TYPE_TYPE[searchIndex]) {
+                            case ApiHelper.LIST_TOPIC_TYPE_OFFICIAL: // 官方
+                                event = new RxBus.Event<>(RxBus.EVENT_POST_SEARCH_OFFICIAL, currentItem);
+                                break;
+                            case ApiHelper.LIST_TOPIC_TYPE_WELL: // 精华
+                                event = new RxBus.Event<>(RxBus.EVENT_POST_SEARCH_WELL, currentItem);
+                                break;
+                            default: // 普通
+                                event = new RxBus.Event<>(RxBus.EVENT_POST_SEARCH_ALL, currentItem);
+                                break;
+                        }
+                        RxBus.post(event);
                     }
-                    RxBus.post(event);
                     DialogUtils.dismiss(dialog1);
                     return true;
                 })
