@@ -6,6 +6,8 @@ import com.jiangzg.base.common.LogUtils;
 import com.jiangzg.base.system.PermUtils;
 import com.jiangzg.lovenote.helper.common.SPHelper;
 import com.jiangzg.lovenote.model.entity.AdInfo;
+import com.qq.e.ads.cfg.BrowserType;
+import com.qq.e.ads.cfg.DownAPPConfirmPolicy;
 import com.qq.e.ads.cfg.VideoOption;
 import com.qq.e.ads.nativ.ADSize;
 import com.qq.e.ads.nativ.NativeExpressAD;
@@ -151,9 +153,11 @@ public class AdHelper {
                 LogUtils.w(AdHelper.class, "onNoAD", error.getErrorCode() + "\n" + error.getErrorMsg());
             }
         });
+        ad.setBrowserType(BrowserType.Inner); // app内打开
+        ad.setDownAPPConfirmPolicy(DownAPPConfirmPolicy.Default); // 非wifi确认框
         ad.setVideoOption(new VideoOption.Builder()
-                .setAutoPlayPolicy(VideoOption.AutoPlayPolicy.WIFI) // WIFI 环境下可以自动播放视频
-                .setAutoPlayMuted(true) // 自动播放时为静音
+                .setAutoPlayPolicy(VideoOption.AutoPlayPolicy.WIFI) // wifi自动播放
+                .setAutoPlayMuted(true) // 自动播放时静音
                 .build());
         ad.loadAD(count);
     }

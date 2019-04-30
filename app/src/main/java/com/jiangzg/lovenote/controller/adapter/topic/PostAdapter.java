@@ -140,7 +140,9 @@ public class PostAdapter extends BaseQuickAdapter<Post, BaseViewHolder> {
         int adIndex = getAdIndex(position);
         if (adShow && isAdPosition(position) && adIndex >= 0) {
             RelativeLayout rlAd = helper.getView(R.id.rlAd);
-            rlAd.removeAllViews();
+            if (rlAd.getChildCount() > 0) {
+                rlAd.removeAllViews();
+            }
             NativeExpressADView adView = adViewList.get(adIndex);
             if (adView != null) {
                 helper.setVisible(R.id.rlAd, true);
