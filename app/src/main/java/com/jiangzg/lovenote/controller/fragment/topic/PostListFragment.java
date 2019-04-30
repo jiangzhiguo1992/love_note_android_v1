@@ -149,7 +149,7 @@ public class PostListFragment extends BasePagerFragment<PostListFragment> {
     }
 
     private void getData(final boolean more) {
-        if (subKindInfo == null) {
+        if (kindInfo == null || subKindInfo == null) {
             if (srl.isRefreshing()) srl.setRefreshing(false);
             return;
         }

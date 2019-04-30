@@ -137,7 +137,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:tabIndicatorColor="?attr/colorPrimaryDark"
-                app:tabIndicatorHeight="2dp"
+                app:tabIndicatorHeight="3dp"
                 app:tabMode="scrollable"
                 app:tabSelectedTextColor="?attr/colorPrimaryDark"
                 app:tabTextAppearance="@style/FontPrimaryNormal"

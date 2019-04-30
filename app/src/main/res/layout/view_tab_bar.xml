@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     app:tabIndicatorColor="@color/white_alpha_75"
-    app:tabIndicatorHeight="2dp"
+    app:tabIndicatorHeight="3dp"
     app:tabMode="scrollable"
     app:tabSelectedTextColor="@color/font_white"
     app:tabTextAppearance="@style/FontWhiteNormal"
