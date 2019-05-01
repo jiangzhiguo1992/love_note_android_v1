@@ -165,7 +165,7 @@
 
                                 <TextView
                                     android:id="@+id/tvAdVipYes"
-                                    style="@style/FontBlackSmallBold"
+                                    style="@style/FontBlackSmall"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_alignTop="@+id/ivAd"
@@ -217,7 +217,7 @@
 
                                 <TextView
                                     android:id="@+id/tvWallVipYes"
-                                    style="@style/FontBlackSmallBold"
+                                    style="@style/FontBlackSmall"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_alignTop="@+id/ivWall"
@@ -275,7 +275,7 @@
 
                                 <TextView
                                     android:id="@+id/tvTotalVipYes"
-                                    style="@style/FontBlackSmallBold"
+                                    style="@style/FontBlackSmall"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_alignTop="@+id/ivTotal"
@@ -327,7 +327,7 @@
 
                                 <TextView
                                     android:id="@+id/tvSouvenirVipYes"
-                                    style="@style/FontBlackSmallBold"
+                                    style="@style/FontBlackSmall"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_alignTop="@+id/ivSouvenir"
@@ -385,7 +385,7 @@
 
                                 <TextView
                                     android:id="@+id/tvAudioVipYes"
-                                    style="@style/FontBlackSmallBold"
+                                    style="@style/FontBlackSmall"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_alignTop="@+id/ivAudio"
@@ -437,7 +437,7 @@
 
                                 <TextView
                                     android:id="@+id/tvVideoVipYes"
-                                    style="@style/FontBlackSmallBold"
+                                    style="@style/FontBlackSmall"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_alignTop="@+id/ivVideo"
@@ -495,7 +495,7 @@
 
                                 <TextView
                                     android:id="@+id/tvAlbumVipYes"
-                                    style="@style/FontBlackSmallBold"
+                                    style="@style/FontBlackSmall"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_alignTop="@+id/ivAlbum"
@@ -547,7 +547,7 @@
 
                                 <TextView
                                     android:id="@+id/tvDiaryVipYes"
-                                    style="@style/FontBlackSmallBold"
+                                    style="@style/FontBlackSmall"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_alignTop="@+id/ivDiary"
@@ -605,7 +605,7 @@
 
                                 <TextView
                                     android:id="@+id/tvWhisperVipYes"
-                                    style="@style/FontBlackSmallBold"
+                                    style="@style/FontBlackSmall"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_alignTop="@+id/ivWhisper"
@@ -657,7 +657,7 @@
 
                                 <TextView
                                     android:id="@+id/tvGiftVipYes"
-                                    style="@style/FontBlackSmallBold"
+                                    style="@style/FontBlackSmall"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_alignTop="@+id/ivGift"
@@ -715,7 +715,7 @@
 
                                 <TextView
                                     android:id="@+id/tvFoodVipYes"
-                                    style="@style/FontBlackSmallBold"
+                                    style="@style/FontBlackSmall"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_alignTop="@+id/ivFood"
@@ -767,7 +767,7 @@
 
                                 <TextView
                                     android:id="@+id/tvMovieVipYes"
-                                    style="@style/FontBlackSmallBold"
+                                    style="@style/FontBlackSmall"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_alignTop="@+id/ivMovie"
