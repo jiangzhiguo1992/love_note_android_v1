@@ -109,7 +109,8 @@
                 android:id="@+id/ivReport"
                 android:layout_width="15dp"
                 android:layout_height="15dp"
-                android:src="@mipmap/ic_report_grey_18dp"/>
+                android:src="@mipmap/ic_report_grey_18dp"
+                android:tint="@color/font_hint"/>
 
             <TextView
                 style="@style/FontGreySmall"
@@ -117,7 +118,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
                 android:gravity="center_vertical"
-                android:text="@string/report"/>
+                android:text="@string/report"
+                android:textColor="@color/font_hint"/>
         </LinearLayout>
 
         <LinearLayout
@@ -137,7 +139,8 @@
                 android:id="@+id/ivPoint"
                 android:layout_width="15dp"
                 android:layout_height="15dp"
-                android:src="@mipmap/ic_thumb_up_grey_18dp"/>
+                android:src="@mipmap/ic_thumb_up_grey_18dp"
+                android:tint="@color/font_hint"/>
 
             <TextView
                 android:id="@+id/tvPointCount"
@@ -146,6 +149,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:gravity="center_vertical"
+                android:textColor="@color/font_hint"
                 tools:text="点赞"/>
         </LinearLayout>
     </LinearLayout>
