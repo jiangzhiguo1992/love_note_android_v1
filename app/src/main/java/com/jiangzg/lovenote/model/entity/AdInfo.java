@@ -8,6 +8,15 @@ public class AdInfo {
     private String appId;
     private String topicPostPosId;
     private int topicPostJump;
+    private int topicPostStart;
+
+    public int getTopicPostStart() {
+        return topicPostStart;
+    }
+
+    public void setTopicPostStart(int topicPostStart) {
+        this.topicPostStart = topicPostStart;
+    }
 
     public int getTopicPostJump() {
         return topicPostJump;

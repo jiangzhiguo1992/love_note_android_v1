@@ -48,7 +48,7 @@ public class PostAdapter extends BaseQuickAdapter<Post, BaseViewHolder> {
     private BaseActivity mActivity;
     private final int colorFontGrey, colorFontBlack;
     private boolean adShow;
-    private int adJumpCount;
+    private int adStartCount, adJumpCount;
     private SparseBooleanArray adCloseMap;
     private List<NativeExpressADView> adViewList;
 
@@ -60,6 +60,7 @@ public class PostAdapter extends BaseQuickAdapter<Post, BaseViewHolder> {
         colorFontBlack = ContextCompat.getColor(activity, R.color.font_black);
         // ad
         adShow = ad && AdHelper.canAd(activity) && !SPHelper.getVipLimit().isAdvertiseHide();
+        adStartCount = SPHelper.getAdInfo().getTopicPostStart();
         adJumpCount = SPHelper.getAdInfo().getTopicPostJump();
     }
 
@@ -68,7 +69,7 @@ public class PostAdapter extends BaseQuickAdapter<Post, BaseViewHolder> {
         super.setNewData(data);
         if (adShow) {
             // 刷新数据的时候，也刷新广告(包括屏蔽记录)
-            AdHelper.createAd(mActivity, ADSize.FULL_WIDTH, ADSize.AUTO_HEIGHT, 10, new AdHelper.OnAdCallBack() {
+            AdHelper.createAd(mActivity, ADSize.FULL_WIDTH, ADSize.AUTO_HEIGHT, 5, new AdHelper.OnAdCallBack() {
                 @Override
                 public void onADLoaded(List<NativeExpressADView> viewList) {
                     PostAdapter.this.adDestroy();
@@ -114,15 +115,17 @@ public class PostAdapter extends BaseQuickAdapter<Post, BaseViewHolder> {
     }
 
     private boolean isAdPosition(int position) {
-        if (position <= 1) {
+        if (position + 1 < adStartCount) {
             return false;
+        } else if (position + 1 == adStartCount) {
+            return true;
         }
-        return (position + 6) % adJumpCount == 0; // 5 - 15 - 25
+        return (position + 1 - adStartCount) % adJumpCount == 0; // 5 - 25 - 45
     }
 
     private int getAdIndex(int position) {
         if (adViewList == null || adViewList.size() <= 0) return -1;
-        int index = position / adJumpCount;
+        int index = position / adJumpCount; // 4/20=0
         if (index >= adViewList.size()) {
             // 后面的不展示了
             return -1;
@@ -140,7 +143,14 @@ public class PostAdapter extends BaseQuickAdapter<Post, BaseViewHolder> {
         int adIndex = getAdIndex(position);
         if (adShow && isAdPosition(position) && adIndex >= 0) {
             RelativeLayout rlAd = helper.getView(R.id.rlAd);
-            if (rlAd.getChildCount() > 0) {
+            if (rlAd.getChildCount() == 1) {
+                if (rlAd.findViewWithTag(position) != null && rlAd.findViewWithTag(position) instanceof NativeExpressADView) {
+                    helper.setVisible(R.id.rlAd, true);
+                    helper.setVisible(R.id.llInfo, false);
+                    helper.setVisible(R.id.tvCover, false);
+                    return;
+                }
+            } else if (rlAd.getChildCount() > 1) {
                 rlAd.removeAllViews();
             }
             NativeExpressADView adView = adViewList.get(adIndex);

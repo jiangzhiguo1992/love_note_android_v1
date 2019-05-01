@@ -143,6 +143,7 @@ public class SPHelper {
     private static final String FIELD_AD_APP_ID = "app_id";
     private static final String FIELD_AD_TOPIC_POST_POS_ID = "topic_post_pos_id";
     private static final String FIELD_AD_TOPIC_POST_JUMP = "topic_post_jump";
+    private static final String FIELD_AD_TOPIC_POST_START = "topic_post_start";
     // limit
     private static final String FIELD_LIMIT_SMS_CODE_LENGTH = "sms_code_length";
     private static final String FIELD_LIMIT_SMS_BETWEEN = "sms_between";
@@ -650,6 +651,7 @@ public class SPHelper {
         editor.putString(FIELD_AD_APP_ID, adInfo.getAppId());
         editor.putString(FIELD_AD_TOPIC_POST_POS_ID, adInfo.getTopicPostPosId());
         editor.putInt(FIELD_AD_TOPIC_POST_JUMP, adInfo.getTopicPostJump());
+        editor.putInt(FIELD_AD_TOPIC_POST_START, adInfo.getTopicPostStart());
         editor.apply();
     }
 
@@ -658,7 +660,8 @@ public class SPHelper {
         AdInfo adInfo = new AdInfo();
         adInfo.setAppId(sp.getString(FIELD_AD_APP_ID, "1108744619"));
         adInfo.setTopicPostPosId(sp.getString(FIELD_AD_TOPIC_POST_POS_ID, "1030468073055469"));
-        adInfo.setTopicPostJump(sp.getInt(FIELD_AD_TOPIC_POST_JUMP, 10));
+        adInfo.setTopicPostJump(sp.getInt(FIELD_AD_TOPIC_POST_JUMP, 20));
+        adInfo.setTopicPostStart(sp.getInt(FIELD_AD_TOPIC_POST_START, 5));
         return adInfo;
     }
 
