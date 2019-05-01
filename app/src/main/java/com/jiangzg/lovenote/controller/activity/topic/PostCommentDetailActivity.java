@@ -285,9 +285,9 @@ public class PostCommentDetailActivity extends BaseActivity<PostCommentDetailAct
         if (postComment == null || recyclerHelper == null) return;
         // color
         int colorFontBlack = ContextCompat.getColor(mActivity, R.color.font_black);
-        int colorIconGrey = ContextCompat.getColor(mActivity, R.color.icon_grey);
+        int colorHint = ContextCompat.getColor(mActivity, R.color.font_hint);
         int colorPrimary = ContextCompat.getColor(mActivity, ViewUtils.getColorPrimary(mActivity));
-        ColorStateList colorStateIconGrey = ColorStateList.valueOf(colorIconGrey);
+        ColorStateList colorStateHint = ColorStateList.valueOf(colorHint);
         ColorStateList colorStatePrimary = ColorStateList.valueOf(colorPrimary);
         // data
         Couple couple = postComment.getCouple();
@@ -343,8 +343,8 @@ public class PostCommentDetailActivity extends BaseActivity<PostCommentDetailAct
             ivJab.setData(jabAvatar);
         }
         // bottom
-        ivReport.setImageTintList(report ? colorStatePrimary : colorStateIconGrey);
-        ivPoint.setImageTintList(point ? colorStatePrimary : colorStateIconGrey);
+        ivReport.setImageTintList(report ? colorStatePrimary : colorStateHint);
+        ivPoint.setImageTintList(point ? colorStatePrimary : colorStateHint);
         tvPointCount.setText(pointCount);
         // listener
         llPoint.setOnClickListener(v -> point(true));
@@ -354,8 +354,8 @@ public class PostCommentDetailActivity extends BaseActivity<PostCommentDetailAct
         tvCommentUser.setText(commentUser);
         initCommentOrderView();
         tvCommentSort.setOnClickListener(v -> showCommentSortDialog());
-        // bottom
-        ivComment.setImageTintList(subComment ? colorStatePrimary : colorStateIconGrey);
+        // root-bottom
+        ivComment.setImageTintList(subComment ? colorStatePrimary : colorStateHint);
     }
 
     private void showCommentSortDialog() {

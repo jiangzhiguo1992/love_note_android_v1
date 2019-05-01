@@ -37,7 +37,7 @@ import retrofit2.Call;
 public class PostCommentAdapter extends BaseQuickAdapter<PostComment, BaseViewHolder> {
 
     private final int colorPrimary, colorFontBlack;
-    private final ColorStateList colorStatePrimary, colorStateIconGrey;
+    private final ColorStateList colorStatePrimary, colorStateHint;
     private BaseActivity mActivity;
     private boolean isSubComment;
 
@@ -47,15 +47,15 @@ public class PostCommentAdapter extends BaseQuickAdapter<PostComment, BaseViewHo
         this.isSubComment = subComment;
         // color
         colorPrimary = ContextCompat.getColor(mActivity, ViewUtils.getColorPrimary(mActivity));
-        int colorGrey = ContextCompat.getColor(mActivity, R.color.icon_grey);
+        int colorHint = ContextCompat.getColor(mActivity, R.color.font_hint);
         colorFontBlack = ContextCompat.getColor(mActivity, R.color.font_black);
         colorStatePrimary = ColorStateList.valueOf(colorPrimary);
-        colorStateIconGrey = ColorStateList.valueOf(colorGrey);
+        colorStateHint = ColorStateList.valueOf(colorHint);
     }
 
     @Override
     protected void convert(BaseViewHolder helper, PostComment item) {
-        if (item.isScreen()) {
+        if (item.isDelete() || item.isScreen()) {
             helper.setVisible(R.id.root, false);
             return;
         }
@@ -101,11 +101,11 @@ public class PostCommentAdapter extends BaseQuickAdapter<PostComment, BaseViewHo
         }
         // bottom
         ImageView ivReport = helper.getView(R.id.ivReport);
-        ivReport.setImageTintList(report ? colorStatePrimary : colorStateIconGrey);
+        ivReport.setImageTintList(report ? colorStatePrimary : colorStateHint);
         ImageView ivPoint = helper.getView(R.id.ivPoint);
-        ivPoint.setImageTintList(point ? colorStatePrimary : colorStateIconGrey);
+        ivPoint.setImageTintList(point ? colorStatePrimary : colorStateHint);
         ImageView ivComment = helper.getView(R.id.ivComment);
-        ivComment.setImageTintList(subComment ? colorStatePrimary : colorStateIconGrey);
+        ivComment.setImageTintList(subComment ? colorStatePrimary : colorStateHint);
         helper.setText(R.id.tvCommentCount, commentCount);
         helper.setText(R.id.tvPointCount, pointCount);
         helper.setVisible(R.id.llComment, !this.isSubComment);
