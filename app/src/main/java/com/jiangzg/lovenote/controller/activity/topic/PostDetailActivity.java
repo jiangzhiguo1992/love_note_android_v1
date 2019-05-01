@@ -5,16 +5,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.os.Bundle;
-import android.support.design.widget.BottomSheetBehavior;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.text.Editable;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -28,7 +25,6 @@ import com.chad.library.adapter.base.listener.OnItemLongClickListener;
 import com.jiangzg.base.common.DateUtils;
 import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.base.component.ActivityTrans;
-import com.jiangzg.base.system.InputUtils;
 import com.jiangzg.base.view.DialogUtils;
 import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.base.view.ViewUtils;
@@ -69,7 +65,6 @@ import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.OnClick;
-import butterknife.OnTextChanged;
 import retrofit2.Call;
 import rx.Observable;
 
@@ -82,6 +77,8 @@ public class PostDetailActivity extends BaseActivity<PostDetailActivity> {
     @BindView(R.id.rv)
     RecyclerView rv;
 
+    @BindView(R.id.llJab)
+    LinearLayout llJab;
     @BindView(R.id.llPoint)
     LinearLayout llPoint;
     @BindView(R.id.ivPoint)
@@ -100,24 +97,11 @@ public class PostDetailActivity extends BaseActivity<PostDetailActivity> {
     ImageView ivComment;
     @BindView(R.id.tvComment)
     TextView tvComment;
-    @BindView(R.id.llJab)
-    LinearLayout llJab;
-
-    @BindView(R.id.rlComment)
-    RelativeLayout rlComment;
-    @BindView(R.id.ivCommentClose)
-    ImageView ivCommentClose;
-    @BindView(R.id.tvCommentLimit)
-    TextView tvCommentLimit;
-    @BindView(R.id.ivAddCommit)
-    ImageView ivAddCommit;
-    @BindView(R.id.etComment)
-    EditText etComment;
 
     private Post post;
     private RecyclerHelper recyclerHelper;
-    private BottomSheetBehavior behaviorComment;
-    private int page = 0, orderIndex, limitCommentContentLength;
+    private int page = 0;
+    private int orderIndex;
     private long searchUserId;
 
     public static void goActivity(Activity from, Post post) {
@@ -165,8 +149,8 @@ public class PostDetailActivity extends BaseActivity<PostDetailActivity> {
                 .viewLoadMore(new RecyclerHelper.MoreGreyView())
                 .viewAnim()
                 .setAdapter()
-                .listenerRefresh(() -> getCommentData(false))
-                .listenerMore(currentCount -> getCommentData(true))
+                .listenerRefresh(() -> refreshCommentData(false))
+                .listenerMore(currentCount -> refreshCommentData(true))
                 .listenerClick(new OnItemClickListener() {
                     @Override
                     public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
@@ -190,7 +174,7 @@ public class PostDetailActivity extends BaseActivity<PostDetailActivity> {
                                 commentAdapter.pointPush(position, true);
                                 break;
                             case R.id.llReport: // 举报
-                                commentAdapter.showReportDialog(position, true);
+                                commentAdapter.showReportDialog(position);
                                 break;
                         }
                     }
@@ -202,13 +186,17 @@ public class PostDetailActivity extends BaseActivity<PostDetailActivity> {
             // view
             initHead();
             if (post != null) {
-                refreshPost(post.getId(), true);
-            } else {
-                recyclerHelper.dataRefresh();
+                refreshPostData(post.getId(), true);
+                // read
+                postRead(post.getId());
             }
         } else if (from == BaseActivity.ACT_DETAIL_FROM_ID) {
             long pid = intent.getLongExtra("pid", 0);
-            refreshPost(pid, true);
+            refreshPostData(pid, true);
+            // read
+            postRead(pid);
+        } else {
+            mActivity.finish();
         }
         // point
         initPointView();
@@ -216,10 +204,6 @@ public class PostDetailActivity extends BaseActivity<PostDetailActivity> {
         initCollectView();
         // comment
         initCommentView();
-        // comment
-        commentShow(false);
-        // content 防止开始显示错误
-        etComment.setText("");
     }
 
     @Override
@@ -227,7 +211,7 @@ public class PostDetailActivity extends BaseActivity<PostDetailActivity> {
         orderIndex = 0;
         searchUserId = 0;
         // event
-        Observable<Long> obPostDetailRefresh = RxBus.register(RxBus.EVENT_POST_DETAIL_REFRESH, pid -> refreshPost(pid, false));
+        Observable<Long> obPostDetailRefresh = RxBus.register(RxBus.EVENT_POST_DETAIL_REFRESH, pid -> refreshPostData(pid, false));
         pushBus(RxBus.EVENT_POST_DETAIL_REFRESH, obPostDetailRefresh);
         Observable<PostComment> obPostCommentListRefresh = RxBus.register(RxBus.EVENT_POST_COMMENT_LIST_REFRESH, postComment -> {
             if (recyclerHelper == null) return;
@@ -244,8 +228,6 @@ public class PostDetailActivity extends BaseActivity<PostDetailActivity> {
             ListHelper.refreshObjInAdapter(recyclerHelper.getAdapter(), postComment);
         });
         pushBus(RxBus.EVENT_POST_COMMENT_LIST_ITEM_REFRESH, obPostCommentListItemRefresh);
-        // refresh 上面做过了
-        //recyclerHelper.dataRefresh();
     }
 
     @Override
@@ -276,15 +258,6 @@ public class PostDetailActivity extends BaseActivity<PostDetailActivity> {
     }
 
     @Override
-    public void onBackPressed() {
-        if (behaviorComment.getState() != BottomSheetBehavior.STATE_HIDDEN) {
-            behaviorComment.setState(BottomSheetBehavior.STATE_HIDDEN);
-        } else {
-            super.onBackPressed();
-        }
-    }
-
-    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menuReport: // 举报
@@ -300,37 +273,26 @@ public class PostDetailActivity extends BaseActivity<PostDetailActivity> {
         return super.onOptionsItemSelected(item);
     }
 
-    @OnTextChanged({R.id.etComment})
-    public void afterTextChanged(Editable s) {
-        onCommentInput(s.toString());
-    }
-
-    @OnClick({R.id.llPoint, R.id.llCollect, R.id.llComment, R.id.llJab,
-            R.id.ivCommentClose, R.id.ivAddCommit})
+    @OnClick({R.id.llJab, R.id.llPoint, R.id.llCollect, R.id.llComment})
     public void onViewClicked(View view) {
         switch (view.getId()) {
+            case R.id.llJab: // 戳ta
+                jab();
+                break;
             case R.id.llPoint: // 点赞
                 point(true);
                 break;
             case R.id.llCollect: // 收藏
                 collect(true);
                 break;
-            case R.id.llJab: // 戳ta
-                jab();
-                break;
             case R.id.llComment: // 评论打开
-                commentShow(true);
-                break;
-            case R.id.ivCommentClose: // 评论关闭
-                commentShow(false);
-                break;
-            case R.id.ivAddCommit: // 评论提交
-                commentPush();
+                if (post == null) return;
+                PostCommentAddActivity.goActivity(mActivity, post.getId(), 0);
                 break;
         }
     }
 
-    private void refreshPost(long pid, final boolean comment) {
+    private void refreshPostData(long pid, final boolean comment) {
         if (!srl.isRefreshing()) {
             srl.setRefreshing(true);
         }
@@ -365,8 +327,6 @@ public class PostDetailActivity extends BaseActivity<PostDetailActivity> {
         if (post == null || post.isScreen() || post.isDelete() || recyclerHelper == null) {
             mActivity.finish();
             return;
-        } else {
-            postRead(post.getId());
         }
         // data
         Couple couple = post.getCouple();
@@ -445,10 +405,10 @@ public class PostDetailActivity extends BaseActivity<PostDetailActivity> {
                     .dataNew(imageList, 0);
         }
         // comment
-        TextView tvCommentUser = head.findViewById(R.id.tvCommentUser);
-        TextView tvCommentSort = head.findViewById(R.id.tvCommentSort);
         initCommentUserView();
         initCommentOrderView();
+        TextView tvCommentUser = head.findViewById(R.id.tvCommentUser);
+        TextView tvCommentSort = head.findViewById(R.id.tvCommentSort);
         tvCommentUser.setOnClickListener(v -> showCommentUserDialog());
         tvCommentSort.setOnClickListener(v -> showCommentSortDialog());
     }
@@ -461,7 +421,7 @@ public class PostDetailActivity extends BaseActivity<PostDetailActivity> {
         if (!post.isMine()) {
             PostKindInfo kindInfo = ListHelper.getPostKindInfo(post.getKind());
             PostSubKindInfo subKindInfo = ListHelper.getPostSubKindInfo(kindInfo, post.getSubKind());
-            if (subKindInfo == null || !subKindInfo.isAnonymous()) {
+            if (subKindInfo != null && !subKindInfo.isAnonymous()) {
                 showList.add(getString(R.string.me_de));
             }
         }
@@ -553,7 +513,7 @@ public class PostDetailActivity extends BaseActivity<PostDetailActivity> {
         }
     }
 
-    private void getCommentData(final boolean more) {
+    private void refreshCommentData(final boolean more) {
         if (post == null) return;
         page = more ? page + 1 : 0;
         int orderType = ApiHelper.LIST_COMMENT_ORDER_TYPE[orderIndex];
@@ -630,6 +590,64 @@ public class PostDetailActivity extends BaseActivity<PostDetailActivity> {
         }
     }
 
+    private void showReportDialog() {
+        MaterialDialog dialog = DialogHelper.getBuild(mActivity)
+                .content(R.string.confirm_report_this_post)
+                .cancelable(true)
+                .canceledOnTouchOutside(true)
+                .positiveText(R.string.confirm_no_wrong)
+                .negativeText(R.string.i_think_again)
+                .onPositive((dialog1, which) -> report())
+                .build();
+        DialogHelper.showWithAnim(dialog);
+    }
+
+    private void report() {
+        if (post == null) return;
+        PostReport postReport = new PostReport();
+        postReport.setPostId(post.getId());
+        // api
+        Call<Result> api = new RetrofitHelper().call(API.class).topicPostReportAdd(postReport);
+        RetrofitHelper.enqueue(api, getLoading(true), new RetrofitHelper.CallBack() {
+            @Override
+            public void onResponse(int code, String message, Result.Data data) {
+                // event
+                post.setReport(true);
+                RxBus.post(new RxBus.Event<>(RxBus.EVENT_POST_LIST_ITEM_REFRESH, post));
+            }
+
+            @Override
+            public void onFailure(int code, String message, Result.Data data) {
+            }
+        });
+        pushApi(api);
+    }
+
+    private void jab() {
+        if (post == null) return;
+        PostComment postComment = ApiHelper.getPostCommentJabBody(post.getId(), 0);
+        // api
+        Call<Result> api = new RetrofitHelper().call(API.class).topicPostCommentAdd(postComment);
+        RetrofitHelper.enqueue(api, getLoading(true), new RetrofitHelper.CallBack() {
+            @Override
+            public void onResponse(int code, String message, Result.Data data) {
+                if (recyclerHelper == null) return;
+                post.setComment(true);
+                post.setCommentCount(post.getCommentCount() + 1);
+                initCommentView();
+                // refresh
+                recyclerHelper.dataRefresh();
+                // event
+                RxBus.post(new RxBus.Event<>(RxBus.EVENT_POST_LIST_ITEM_REFRESH, post));
+            }
+
+            @Override
+            public void onFailure(int code, String message, Result.Data data) {
+            }
+        });
+        pushApi(api);
+    }
+
     private void point(boolean isApi) {
         if (post == null) return;
         boolean newPoint = !post.isPoint();
@@ -690,88 +708,6 @@ public class PostDetailActivity extends BaseActivity<PostDetailActivity> {
         pushApi(api);
     }
 
-    private void jab() {
-        if (post == null) return;
-        PostComment postComment = ApiHelper.getPostCommentJabBody(post.getId(), 0);
-        // api
-        Call<Result> api = new RetrofitHelper().call(API.class).topicPostCommentAdd(postComment);
-        RetrofitHelper.enqueue(api, getLoading(true), new RetrofitHelper.CallBack() {
-            @Override
-            public void onResponse(int code, String message, Result.Data data) {
-                if (recyclerHelper == null) return;
-                post.setComment(true);
-                post.setCommentCount(post.getCommentCount() + 1);
-                initCommentView();
-                // refresh
-                recyclerHelper.dataRefresh();
-                // event
-                RxBus.post(new RxBus.Event<>(RxBus.EVENT_POST_LIST_ITEM_REFRESH, post));
-            }
-
-            @Override
-            public void onFailure(int code, String message, Result.Data data) {
-            }
-        });
-        pushApi(api);
-    }
-
-    private void commentShow(boolean show) {
-        //if (!show) InputUtils.hideSoftInput(etComment);
-        if (behaviorComment == null) {
-            behaviorComment = BottomSheetBehavior.from(rlComment);
-        }
-        int state = show ? BottomSheetBehavior.STATE_COLLAPSED : BottomSheetBehavior.STATE_HIDDEN;
-        behaviorComment.setState(state);
-    }
-
-    private void onCommentInput(String input) {
-        if (limitCommentContentLength <= 0) {
-            limitCommentContentLength = SPHelper.getLimit().getPostCommentContentLength();
-        }
-        int length = input.length();
-        if (length > limitCommentContentLength) {
-            CharSequence charSequence = input.subSequence(0, limitCommentContentLength);
-            etComment.setText(charSequence);
-            etComment.setSelection(charSequence.length());
-            length = charSequence.length();
-        }
-        String limitShow = String.format(Locale.getDefault(), getString(R.string.holder_sprit_holder), length, limitCommentContentLength);
-        tvCommentLimit.setText(limitShow);
-    }
-
-    private void commentPush() {
-        if (post == null) return;
-        String content = etComment.getText().toString().trim();
-        if (StringUtils.isEmpty(content)) {
-            ToastUtils.show(etComment.getHint());
-            return;
-        }
-        InputUtils.hideSoftInput(etComment);
-        PostComment postComment = ApiHelper.getPostCommentTextBody(post.getId(), 0, content);
-        // api
-        Call<Result> api = new RetrofitHelper().call(API.class).topicPostCommentAdd(postComment);
-        RetrofitHelper.enqueue(api, getLoading(true), new RetrofitHelper.CallBack() {
-            @Override
-            public void onResponse(int code, String message, Result.Data data) {
-                if (recyclerHelper == null) return;
-                etComment.setText("");
-                commentShow(false);
-                post.setComment(true);
-                post.setCommentCount(post.getCommentCount() + 1);
-                initCommentView();
-                // refresh
-                recyclerHelper.dataRefresh();
-                // event
-                RxBus.post(new RxBus.Event<>(RxBus.EVENT_POST_LIST_ITEM_REFRESH, post));
-            }
-
-            @Override
-            public void onFailure(int code, String message, Result.Data data) {
-            }
-        });
-        pushApi(api);
-    }
-
     private void showPostDelDialog() {
         if (post == null || !post.isMine()) {
             ToastUtils.show(mActivity.getString(R.string.can_delete_self_create_post));
@@ -797,39 +733,6 @@ public class PostDetailActivity extends BaseActivity<PostDetailActivity> {
                 // event
                 RxBus.post(new RxBus.Event<>(RxBus.EVENT_POST_LIST_ITEM_DELETE, post));
                 mActivity.finish();
-            }
-
-            @Override
-            public void onFailure(int code, String message, Result.Data data) {
-            }
-        });
-        pushApi(api);
-    }
-
-    private void showReportDialog() {
-        MaterialDialog dialog = DialogHelper.getBuild(mActivity)
-                .content(R.string.confirm_report_this_post)
-                .cancelable(true)
-                .canceledOnTouchOutside(true)
-                .positiveText(R.string.confirm_no_wrong)
-                .negativeText(R.string.i_think_again)
-                .onPositive((dialog1, which) -> report())
-                .build();
-        DialogHelper.showWithAnim(dialog);
-    }
-
-    private void report() {
-        if (post == null) return;
-        PostReport postReport = new PostReport();
-        postReport.setPostId(post.getId());
-        // api
-        Call<Result> api = new RetrofitHelper().call(API.class).topicPostReportAdd(postReport);
-        RetrofitHelper.enqueue(api, getLoading(true), new RetrofitHelper.CallBack() {
-            @Override
-            public void onResponse(int code, String message, Result.Data data) {
-                // event
-                post.setReport(true);
-                RxBus.post(new RxBus.Event<>(RxBus.EVENT_POST_LIST_ITEM_REFRESH, post));
             }
 
             @Override

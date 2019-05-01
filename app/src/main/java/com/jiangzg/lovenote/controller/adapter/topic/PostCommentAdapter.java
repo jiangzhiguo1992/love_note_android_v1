@@ -142,19 +142,19 @@ public class PostCommentAdapter extends BaseQuickAdapter<PostComment, BaseViewHo
         mActivity.pushApi(api);
     }
 
-    public void showReportDialog(final int position, boolean isApi) {
+    public void showReportDialog(final int position) {
         MaterialDialog dialog = DialogHelper.getBuild(mActivity)
                 .content(R.string.confirm_report_this_comment)
                 .cancelable(true)
                 .canceledOnTouchOutside(true)
                 .positiveText(R.string.confirm_no_wrong)
                 .negativeText(R.string.i_think_again)
-                .onPositive((dialog1, which) -> reportPush(position, isApi))
+                .onPositive((dialog1, which) -> reportPush(position, true))
                 .build();
         DialogHelper.showWithAnim(dialog);
     }
 
-    public void reportPush(final int position, boolean isApi) {
+    private void reportPush(final int position, boolean isApi) {
         final PostComment item = getItem(position);
         if (item.isReport() || item.isOfficial()) return;
         item.setReport(true);

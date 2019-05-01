@@ -254,13 +254,14 @@
         <activity android:name=".controller.activity.note.MovieEditActivity"/>
         <activity android:name=".controller.activity.note.MovieListActivity"/>
         <!-- topic -->
-        <activity android:name=".controller.activity.topic.TopicMessageActivity"/>
         <activity android:name=".controller.activity.topic.PostMyRelationActivity"/>
-        <activity android:name=".controller.activity.topic.PostKindListActivity"/>
-        <activity android:name=".controller.activity.topic.PostAddActivity"/>
+        <activity android:name=".controller.activity.topic.TopicMessageActivity"/>
         <activity android:name=".controller.activity.topic.PostSearchActivity"/>
+        <activity android:name=".controller.activity.topic.PostKindListActivity"/>
         <activity android:name=".controller.activity.topic.PostDetailActivity"/>
         <activity android:name=".controller.activity.topic.PostCommentDetailActivity"/>
+        <activity android:name=".controller.activity.topic.PostCommentAddActivity"/>
+        <activity android:name=".controller.activity.topic.PostAddActivity"/>
         <!-- more -->
         <activity android:name=".controller.activity.more.BroadcastActivity"/>
         <activity android:name=".controller.activity.more.VipActivity"/>
