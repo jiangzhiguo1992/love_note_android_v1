@@ -43,12 +43,6 @@
             android:paddingTop="10dp"
             android:paddingBottom="10dp">
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="10dp"
-                android:src="@mipmap/ic_account_circle_grey_18dp"/>
-
             <TextView
                 style="@style/FontGreySmall"
                 android:layout_width="wrap_content"

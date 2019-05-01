@@ -181,7 +181,7 @@
             android:foreground="?attr/selectableItemBackground"
             android:paddingStart="10dp"
             android:paddingTop="15dp"
-            android:paddingEnd="20dp"
+            android:paddingEnd="10dp"
             android:paddingBottom="15dp"
             android:singleLine="true"
             tools:text="全部"/>
@@ -196,7 +196,7 @@
             android:background="?attr/selectableItemBackground"
             android:ellipsize="middle"
             android:foreground="?attr/selectableItemBackground"
-            android:paddingStart="20dp"
+            android:paddingStart="10dp"
             android:paddingTop="15dp"
             android:paddingEnd="10dp"
             android:paddingBottom="15dp"

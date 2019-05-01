@@ -114,34 +114,6 @@ public class PostCommentAdapter extends BaseQuickAdapter<PostComment, BaseViewHo
         helper.addOnClickListener(R.id.llReport);
     }
 
-    public void pointPush(final int position, boolean isApi) {
-        final PostComment item = getItem(position);
-        boolean newPoint = !item.isPoint();
-        int newPointCount = newPoint ? item.getPointCount() + 1 : item.getPointCount() - 1;
-        if (newPointCount < 0) {
-            newPointCount = 0;
-        }
-        item.setPoint(newPoint);
-        item.setPointCount(newPointCount);
-        notifyItemChanged(position + getHeaderLayoutCount());
-        if (!isApi) return;
-        PostCommentPoint body = new PostCommentPoint();
-        body.setPostCommentId(item.getId());
-        // api
-        Call<Result> api = new RetrofitHelper().call(API.class).topicPostCommentPointToggle(body);
-        RetrofitHelper.enqueue(api, null, new RetrofitHelper.CallBack() {
-            @Override
-            public void onResponse(int code, String message, Result.Data data) {
-            }
-
-            @Override
-            public void onFailure(int code, String message, Result.Data data) {
-                pointPush(position, false);
-            }
-        });
-        mActivity.pushApi(api);
-    }
-
     public void showReportDialog(final int position) {
         MaterialDialog dialog = DialogHelper.getBuild(mActivity)
                 .content(R.string.confirm_report_this_comment)
@@ -172,6 +144,34 @@ public class PostCommentAdapter extends BaseQuickAdapter<PostComment, BaseViewHo
             @Override
             public void onFailure(int code, String message, Result.Data data) {
                 reportPush(position, false);
+            }
+        });
+        mActivity.pushApi(api);
+    }
+
+    public void pointPush(final int position, boolean isApi) {
+        final PostComment item = getItem(position);
+        boolean newPoint = !item.isPoint();
+        int newPointCount = newPoint ? item.getPointCount() + 1 : item.getPointCount() - 1;
+        if (newPointCount < 0) {
+            newPointCount = 0;
+        }
+        item.setPoint(newPoint);
+        item.setPointCount(newPointCount);
+        notifyItemChanged(position + getHeaderLayoutCount());
+        if (!isApi) return;
+        PostCommentPoint body = new PostCommentPoint();
+        body.setPostCommentId(item.getId());
+        // api
+        Call<Result> api = new RetrofitHelper().call(API.class).topicPostCommentPointToggle(body);
+        RetrofitHelper.enqueue(api, null, new RetrofitHelper.CallBack() {
+            @Override
+            public void onResponse(int code, String message, Result.Data data) {
+            }
+
+            @Override
+            public void onFailure(int code, String message, Result.Data data) {
+                pointPush(position, false);
             }
         });
         mActivity.pushApi(api);
