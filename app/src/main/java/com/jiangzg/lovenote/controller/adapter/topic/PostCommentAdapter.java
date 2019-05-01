@@ -68,11 +68,11 @@ public class PostCommentAdapter extends BaseQuickAdapter<PostComment, BaseViewHo
         String time = ShowHelper.getBetweenTimeGoneShow(DateUtils.getCurrentLong() - TimeHelper.getJavaTimeByGo(item.getCreateAt()));
         String contentText = item.getContentText();
         String jabAvatar;
-        String commentCount = ShowHelper.getShowCount2Thousand(item.getSubCommentCount());
-        String pointCount = ShowHelper.getShowCount2Thousand(item.getPointCount());
         boolean report = item.isReport();
         boolean point = item.isPoint();
         boolean subComment = item.isSubComment();
+        String pointCount = ShowHelper.getShowCount2Thousand(item.getPointCount());
+        String commentCount = ShowHelper.getShowCount2Thousand(item.getSubCommentCount());
         // top
         if (couple == null) {
             helper.setVisible(R.id.rlTop, false);
@@ -100,15 +100,15 @@ public class PostCommentAdapter extends BaseQuickAdapter<PostComment, BaseViewHo
             ivJab.setData(jabAvatar);
         }
         // bottom
+        helper.setText(R.id.tvPointCount, pointCount);
+        helper.setText(R.id.tvCommentCount, commentCount);
+        helper.setVisible(R.id.llComment, !this.isSubComment);
         ImageView ivReport = helper.getView(R.id.ivReport);
         ivReport.setImageTintList(report ? colorStatePrimary : colorStateHint);
         ImageView ivPoint = helper.getView(R.id.ivPoint);
         ivPoint.setImageTintList(point ? colorStatePrimary : colorStateHint);
         ImageView ivComment = helper.getView(R.id.ivComment);
         ivComment.setImageTintList(subComment ? colorStatePrimary : colorStateHint);
-        helper.setText(R.id.tvCommentCount, commentCount);
-        helper.setText(R.id.tvPointCount, pointCount);
-        helper.setVisible(R.id.llComment, !this.isSubComment);
         // listener
         helper.addOnClickListener(R.id.llPoint);
         helper.addOnClickListener(R.id.llReport);
