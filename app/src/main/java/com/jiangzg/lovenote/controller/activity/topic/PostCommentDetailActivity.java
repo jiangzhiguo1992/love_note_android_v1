@@ -312,46 +312,14 @@ public class PostCommentDetailActivity extends BaseActivity<PostCommentDetailAct
         ivReport.setImageTintList(report ? colorStatePrimary : colorStateHint);
         ivPoint.setImageTintList(point ? colorStatePrimary : colorStateHint);
         tvPointCount.setText(pointCount);
-        // listener
-        llPoint.setOnClickListener(v -> point(true));
-        llReport.setOnClickListener(v -> showReportDialog());
         // comment
         String commentUser = String.format(Locale.getDefault(), getString(R.string.all_space_brackets_holder_brackets), postComment.getSubCommentCount());
         tvCommentUser.setText(commentUser);
         initCommentOrderView();
+        // listener
+        llReport.setOnClickListener(v -> showReportDialog());
+        llPoint.setOnClickListener(v -> point(true));
         tvCommentSort.setOnClickListener(v -> showCommentSortDialog());
-    }
-
-    private void initCommentView() {
-        if (postComment == null) return;
-        boolean subComment = postComment.isSubComment();
-        // view
-        int colorHint = ContextCompat.getColor(mActivity, R.color.font_hint);
-        int colorPrimary = ContextCompat.getColor(mActivity, ViewUtils.getColorPrimary(mActivity));
-        ColorStateList colorStateHint = ColorStateList.valueOf(colorHint);
-        ColorStateList colorStatePrimary = ColorStateList.valueOf(colorPrimary);
-        ivComment.setImageTintList(subComment ? colorStatePrimary : colorStateHint);
-    }
-
-    private void showCommentSortDialog() {
-        MaterialDialog dialog = DialogHelper.getBuild(mActivity)
-                .cancelable(true)
-                .canceledOnTouchOutside(true)
-                .title(R.string.select_order_type)
-                .items(ApiHelper.LIST_COMMENT_ORDER_SHOW)
-                .itemsCallbackSingleChoice(orderIndex, (dialog1, view, which, text) -> {
-                    if (recyclerHelper == null) return true;
-                    if (which < 0 || which >= ApiHelper.LIST_COMMENT_ORDER_TYPE.length) {
-                        return true;
-                    }
-                    orderIndex = which;
-                    initCommentOrderView();
-                    recyclerHelper.dataRefresh();
-                    DialogUtils.dismiss(dialog1);
-                    return true;
-                })
-                .build();
-        DialogHelper.showWithAnim(dialog);
     }
 
     private void initCommentOrderView() {
@@ -386,6 +354,15 @@ public class PostCommentDetailActivity extends BaseActivity<PostCommentDetailAct
             }
         });
         pushApi(api);
+    }
+
+    private void initCommentView() {
+        if (postComment == null) return;
+        int colorIconGrey = ContextCompat.getColor(mActivity, R.color.icon_grey);
+        int colorPrimary = ContextCompat.getColor(mActivity, ViewUtils.getColorPrimary(mActivity));
+        ColorStateList colorStateIconGrey = ColorStateList.valueOf(colorIconGrey);
+        ColorStateList colorStatePrimary = ColorStateList.valueOf(colorPrimary);
+        ivComment.setImageTintList(postComment.isSubComment() ? colorStatePrimary : colorStateIconGrey);
     }
 
     private void showReportDialog() {
@@ -456,6 +433,27 @@ public class PostCommentDetailActivity extends BaseActivity<PostCommentDetailAct
         pushApi(api);
     }
 
+    private void showCommentSortDialog() {
+        MaterialDialog dialog = DialogHelper.getBuild(mActivity)
+                .cancelable(true)
+                .canceledOnTouchOutside(true)
+                .title(R.string.select_order_type)
+                .items(ApiHelper.LIST_COMMENT_ORDER_SHOW)
+                .itemsCallbackSingleChoice(orderIndex, (dialog1, view, which, text) -> {
+                    if (recyclerHelper == null) return true;
+                    if (which < 0 || which >= ApiHelper.LIST_COMMENT_ORDER_TYPE.length) {
+                        return true;
+                    }
+                    orderIndex = which;
+                    initCommentOrderView();
+                    recyclerHelper.dataRefresh();
+                    DialogUtils.dismiss(dialog1);
+                    return true;
+                })
+                .build();
+        DialogHelper.showWithAnim(dialog);
+    }
+
     private void jab() {
         if (postComment == null) return;
         PostComment body = ApiHelper.getPostCommentJabBody(postComment.getPostId(), postComment.getId());
@@ -490,7 +488,7 @@ public class PostCommentDetailActivity extends BaseActivity<PostCommentDetailAct
     private void showPostCommentDelDialog() {
         if (postComment == null || !postComment.isMine()) return;
         MaterialDialog dialog = DialogHelper.getBuild(mActivity)
-                .content(R.string.confirm_del_this_post)
+                .content(R.string.confirm_del_this_comment)
                 .cancelable(true)
                 .canceledOnTouchOutside(true)
                 .positiveText(R.string.confirm_no_wrong)

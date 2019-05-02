@@ -332,7 +332,7 @@ public class PostDetailActivity extends BaseActivity<PostDetailActivity> {
         // data
         Couple couple = post.getCouple();
         String avatar = UserHelper.getAvatar(couple, post.getUserId());
-        String name = UserHelper.getName(couple, post.getUserId(), true);
+        String name = post.isOfficial() ? mActivity.getString(R.string.administrators) : UserHelper.getName(couple, post.getUserId(), true);
         String time = DateUtils.getStr(TimeHelper.getJavaTimeByGo(post.getCreateAt()), DateUtils.FORMAT_LINE_M_D_H_M);
         List<String> tagShowList = ShowHelper.getPostTagListShow(post, true, true);
         String title = post.getTitle();

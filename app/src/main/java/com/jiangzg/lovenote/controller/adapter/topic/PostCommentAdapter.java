@@ -177,7 +177,6 @@ public class PostCommentAdapter extends BaseQuickAdapter<PostComment, BaseViewHo
         mActivity.pushApi(api);
     }
 
-    // 删除评论
     public void showDeleteDialog(final int position) {
         PostComment item = getItem(position);
         if (!item.isMine()) {
