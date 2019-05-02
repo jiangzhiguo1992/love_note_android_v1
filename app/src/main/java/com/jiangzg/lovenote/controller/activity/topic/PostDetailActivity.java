@@ -312,6 +312,7 @@ public class PostDetailActivity extends BaseActivity<PostDetailActivity> {
                 // comment
                 if (comment) recyclerHelper.dataRefresh();
                 // event
+                if (post != null) post.setRead(true);
                 RxBus.post(new RxBus.Event<>(RxBus.EVENT_POST_LIST_ITEM_REFRESH, post));
             }
 
