@@ -413,75 +413,8 @@ public class PostDetailActivity extends BaseActivity<PostDetailActivity> {
         tvCommentSort.setOnClickListener(v -> showCommentSortDialog());
     }
 
-    private void showCommentUserDialog() {
-        if (post == null) return;
-        List<String> showList = new ArrayList<>();
-        showList.add(getString(R.string.all));
-        showList.add(getString(R.string.floor_master));
-        if (!post.isMine()) {
-            PostKindInfo kindInfo = ListHelper.getPostKindInfo(post.getKind());
-            PostSubKindInfo subKindInfo = ListHelper.getPostSubKindInfo(kindInfo, post.getSubKind());
-            if (subKindInfo != null && !subKindInfo.isAnonymous()) {
-                showList.add(getString(R.string.me_de));
-            }
-        }
-        int selectIndex = 0;
-        final User me = SPHelper.getMe();
-        if (searchUserId == post.getUserId()) {
-            selectIndex = 1;
-        } else if (!post.isMine() && me != null && searchUserId == me.getId()) {
-            selectIndex = 2;
-        }
-        MaterialDialog dialog = DialogHelper.getBuild(mActivity)
-                .cancelable(true)
-                .canceledOnTouchOutside(true)
-                .title(R.string.select_search_type)
-                .items(showList)
-                .itemsCallbackSingleChoice(selectIndex, (dialog1, view, which, text) -> {
-                    if (post == null || recyclerHelper == null) return true;
-                    switch (which) {
-                        case 1: // 楼主
-                            searchUserId = post.getUserId();
-                            break;
-                        case 2: // 我的
-                            searchUserId = me == null ? 0 : me.getId();
-                            break;
-                        default: // 全部
-                            searchUserId = 0;
-                            break;
-                    }
-                    initCommentUserView();
-                    recyclerHelper.dataRefresh();
-                    DialogUtils.dismiss(dialog1);
-                    return true;
-                })
-                .build();
-        DialogHelper.showWithAnim(dialog);
-    }
-
-    private void showCommentSortDialog() {
-        MaterialDialog dialog = DialogHelper.getBuild(mActivity)
-                .cancelable(true)
-                .canceledOnTouchOutside(true)
-                .title(R.string.select_order_type)
-                .items(ApiHelper.LIST_COMMENT_ORDER_SHOW)
-                .itemsCallbackSingleChoice(orderIndex, (dialog1, view, which, text) -> {
-                    if (recyclerHelper == null) return true;
-                    if (which < 0 || which >= ApiHelper.LIST_COMMENT_ORDER_TYPE.length) {
-                        return true;
-                    }
-                    orderIndex = which;
-                    initCommentOrderView();
-                    recyclerHelper.dataRefresh();
-                    DialogUtils.dismiss(dialog1);
-                    return true;
-                })
-                .build();
-        DialogHelper.showWithAnim(dialog);
-    }
-
     private void initCommentUserView() {
-        if (recyclerHelper == null) return;
+        if (post == null || recyclerHelper == null) return;
         User me = SPHelper.getMe();
         View head = recyclerHelper.getViewHead();
         if (head == null) return;
@@ -491,18 +424,13 @@ public class PostDetailActivity extends BaseActivity<PostDetailActivity> {
         } else if (me != null && searchUserId == me.getId()) {
             tvCommentUser.setText(R.string.me_de);
         } else {
-            String commentAll;
-            if (post == null) {
-                commentAll = getString(R.string.all);
-            } else {
-                commentAll = String.format(Locale.getDefault(), getString(R.string.all_space_brackets_holder_brackets), post.getCommentCount());
-            }
+            String commentAll = String.format(Locale.getDefault(), getString(R.string.all_space_brackets_holder_brackets), post.getCommentCount());
             tvCommentUser.setText(commentAll);
         }
     }
 
     private void initCommentOrderView() {
-        if (recyclerHelper == null) return;
+        if (post == null || recyclerHelper == null) return;
         View head = recyclerHelper.getViewHead();
         if (head == null) return;
         TextView tvCommentSort = head.findViewById(R.id.tvCommentSort);
@@ -578,6 +506,73 @@ public class PostDetailActivity extends BaseActivity<PostDetailActivity> {
             int colorGrey = ContextCompat.getColor(mActivity, R.color.icon_grey);
             ivComment.setImageTintList(ColorStateList.valueOf(colorGrey));
         }
+    }
+
+    private void showCommentUserDialog() {
+        if (post == null) return;
+        List<String> showList = new ArrayList<>();
+        showList.add(getString(R.string.all));
+        showList.add(getString(R.string.floor_master));
+        if (!post.isMine()) {
+            PostKindInfo kindInfo = ListHelper.getPostKindInfo(post.getKind());
+            PostSubKindInfo subKindInfo = ListHelper.getPostSubKindInfo(kindInfo, post.getSubKind());
+            if (subKindInfo != null && !subKindInfo.isAnonymous()) {
+                showList.add(getString(R.string.me_de));
+            }
+        }
+        int selectIndex = 0;
+        final User me = SPHelper.getMe();
+        if (searchUserId == post.getUserId()) {
+            selectIndex = 1;
+        } else if (!post.isMine() && me != null && searchUserId == me.getId()) {
+            selectIndex = 2;
+        }
+        MaterialDialog dialog = DialogHelper.getBuild(mActivity)
+                .cancelable(true)
+                .canceledOnTouchOutside(true)
+                .title(R.string.select_search_type)
+                .items(showList)
+                .itemsCallbackSingleChoice(selectIndex, (dialog1, view, which, text) -> {
+                    if (post == null || recyclerHelper == null) return true;
+                    switch (which) {
+                        case 1: // 楼主
+                            searchUserId = post.getUserId();
+                            break;
+                        case 2: // 我的
+                            searchUserId = me == null ? 0 : me.getId();
+                            break;
+                        default: // 全部
+                            searchUserId = 0;
+                            break;
+                    }
+                    initCommentUserView();
+                    recyclerHelper.dataRefresh();
+                    DialogUtils.dismiss(dialog1);
+                    return true;
+                })
+                .build();
+        DialogHelper.showWithAnim(dialog);
+    }
+
+    private void showCommentSortDialog() {
+        MaterialDialog dialog = DialogHelper.getBuild(mActivity)
+                .cancelable(true)
+                .canceledOnTouchOutside(true)
+                .title(R.string.select_order_type)
+                .items(ApiHelper.LIST_COMMENT_ORDER_SHOW)
+                .itemsCallbackSingleChoice(orderIndex, (dialog1, view, which, text) -> {
+                    if (recyclerHelper == null) return true;
+                    if (which < 0 || which >= ApiHelper.LIST_COMMENT_ORDER_TYPE.length) {
+                        return true;
+                    }
+                    orderIndex = which;
+                    initCommentOrderView();
+                    recyclerHelper.dataRefresh();
+                    DialogUtils.dismiss(dialog1);
+                    return true;
+                })
+                .build();
+        DialogHelper.showWithAnim(dialog);
     }
 
     private void showReportDialog() {

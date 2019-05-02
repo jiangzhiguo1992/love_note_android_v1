@@ -261,7 +261,7 @@ public class PostCommentDetailActivity extends BaseActivity<PostCommentDetailAct
         String avatar = UserHelper.getAvatar(couple, postComment.getUserId());
         String name = postComment.isOfficial() ? mActivity.getString(R.string.administrators) : UserHelper.getName(couple, postComment.getUserId(), true);
         String floor = String.format(Locale.getDefault(), mActivity.getString(R.string.holder_floor), postComment.getFloor());
-        String time = ShowHelper.getBetweenTimeGoneShow(DateUtils.getCurrentLong() - TimeHelper.getJavaTimeByGo(postComment.getCreateAt()));
+        String time = DateUtils.getStr(TimeHelper.getJavaTimeByGo(postComment.getCreateAt()), DateUtils.FORMAT_LINE_M_D_H_M);
         String contentText = postComment.getContentText();
         String jabAvatar;
         String pointCount = ShowHelper.getShowCount2Thousand(postComment.getPointCount());
