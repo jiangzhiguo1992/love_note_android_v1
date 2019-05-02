@@ -465,6 +465,7 @@ public class PostCommentDetailActivity extends BaseActivity<PostCommentDetailAct
                 if (recyclerHelper == null) return;
                 postComment.setSubComment(true);
                 postComment.setSubCommentCount(postComment.getSubCommentCount() + 1);
+                initHead();
                 initCommentView();
                 // refresh
                 recyclerHelper.dataRefresh();
