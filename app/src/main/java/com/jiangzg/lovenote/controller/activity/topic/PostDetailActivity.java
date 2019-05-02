@@ -198,10 +198,10 @@ public class PostDetailActivity extends BaseActivity<PostDetailActivity> {
         } else {
             mActivity.finish();
         }
-        // point
-        initPointView();
         // collect
         initCollectView();
+        // point
+        initPointView();
         // comment
         initCommentView();
     }
@@ -305,8 +305,8 @@ public class PostDetailActivity extends BaseActivity<PostDetailActivity> {
                 post = data.getPost();
                 // view
                 initHead();
-                initPointView();
                 initCollectView();
+                initPointView();
                 initCommentView();
                 mActivity.invalidateOptionsMenu();
                 // comment
@@ -540,30 +540,11 @@ public class PostDetailActivity extends BaseActivity<PostDetailActivity> {
         pushApi(api);
     }
 
-    private void initPointView() {
-        if (post == null) return;
-        // data
-        boolean point = post.isPoint();
-        String pointCount = post.getPointCount() > 0 ? ShowHelper.getShowCount2Thousand(post.getPointCount()) : mActivity.getString(R.string.point);
-        // view
-        tvPoint.setText(pointCount);
-        if (point) {
-            int colorPrimary = ContextCompat.getColor(mActivity, ViewUtils.getColorPrimary(mActivity));
-            ivPoint.setImageTintList(ColorStateList.valueOf(colorPrimary));
-        } else {
-            int colorGrey = ContextCompat.getColor(mActivity, R.color.icon_grey);
-            ivPoint.setImageTintList(ColorStateList.valueOf(colorGrey));
-        }
-    }
-
     private void initCollectView() {
         if (post == null) return;
-        // data
-        boolean collect = post.isCollect();
         String collectCount = post.getCollectCount() > 0 ? ShowHelper.getShowCount2Thousand(post.getCollectCount()) : mActivity.getString(R.string.collect);
-        // view
         tvCollect.setText(collectCount);
-        if (collect) {
+        if (post.isCollect()) {
             int colorPrimary = ContextCompat.getColor(mActivity, ViewUtils.getColorPrimary(mActivity));
             ivCollect.setImageTintList(ColorStateList.valueOf(colorPrimary));
         } else {
@@ -572,16 +553,25 @@ public class PostDetailActivity extends BaseActivity<PostDetailActivity> {
         }
     }
 
+    private void initPointView() {
+        if (post == null) return;
+        String pointCount = post.getPointCount() > 0 ? ShowHelper.getShowCount2Thousand(post.getPointCount()) : mActivity.getString(R.string.point);
+        tvPoint.setText(pointCount);
+        if (post.isPoint()) {
+            int colorPrimary = ContextCompat.getColor(mActivity, ViewUtils.getColorPrimary(mActivity));
+            ivPoint.setImageTintList(ColorStateList.valueOf(colorPrimary));
+        } else {
+            int colorGrey = ContextCompat.getColor(mActivity, R.color.icon_grey);
+            ivPoint.setImageTintList(ColorStateList.valueOf(colorGrey));
+        }
+    }
+
     private void initCommentView() {
         if (post == null) return;
-        // head
         initCommentUserView();
-        // data
-        boolean comment = post.isComment();
         String commentCount = post.getCommentCount() > 0 ? ShowHelper.getShowCount2Thousand(post.getCommentCount()) : mActivity.getString(R.string.comment);
-        // view
         tvComment.setText(commentCount);
-        if (comment) {
+        if (post.isComment()) {
             int colorPrimary = ContextCompat.getColor(mActivity, ViewUtils.getColorPrimary(mActivity));
             ivComment.setImageTintList(ColorStateList.valueOf(colorPrimary));
         } else {

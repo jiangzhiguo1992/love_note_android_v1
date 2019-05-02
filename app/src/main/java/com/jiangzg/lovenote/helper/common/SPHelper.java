@@ -658,8 +658,8 @@ public class SPHelper {
     public static AdInfo getAdInfo() {
         SharedPreferences sp = SPUtils.getSharedPreferences(SHARE_AD_INFO);
         AdInfo adInfo = new AdInfo();
-        adInfo.setAppId(sp.getString(FIELD_AD_APP_ID, "1108744619"));
-        adInfo.setTopicPostPosId(sp.getString(FIELD_AD_TOPIC_POST_POS_ID, "1030468073055469"));
+        adInfo.setAppId(sp.getString(FIELD_AD_APP_ID, ""));
+        adInfo.setTopicPostPosId(sp.getString(FIELD_AD_TOPIC_POST_POS_ID, ""));
         adInfo.setTopicPostJump(sp.getInt(FIELD_AD_TOPIC_POST_JUMP, 20));
         adInfo.setTopicPostStart(sp.getInt(FIELD_AD_TOPIC_POST_START, 5));
         return adInfo;
