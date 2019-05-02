@@ -482,6 +482,11 @@ public class PostCommentDetailActivity extends BaseActivity<PostCommentDetailAct
         pushApi(api);
     }
 
+    private void goOriginalPost() {
+        if (postComment == null || postComment.getPostId() == 0) return;
+        PostDetailActivity.goActivity(mActivity, postComment.getPostId());
+    }
+
     private void showPostCommentDelDialog() {
         if (postComment == null || !postComment.isMine()) return;
         MaterialDialog dialog = DialogHelper.getBuild(mActivity)
@@ -512,11 +517,6 @@ public class PostCommentDetailActivity extends BaseActivity<PostCommentDetailAct
             }
         });
         pushApi(api);
-    }
-
-    private void goOriginalPost() {
-        if (postComment == null || postComment.getPostId() == 0) return;
-        PostDetailActivity.goActivity(mActivity, postComment.getPostId());
     }
 
 }

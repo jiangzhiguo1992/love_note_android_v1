@@ -575,39 +575,6 @@ public class PostDetailActivity extends BaseActivity<PostDetailActivity> {
         DialogHelper.showWithAnim(dialog);
     }
 
-    private void showReportDialog() {
-        MaterialDialog dialog = DialogHelper.getBuild(mActivity)
-                .content(R.string.confirm_report_this_post)
-                .cancelable(true)
-                .canceledOnTouchOutside(true)
-                .positiveText(R.string.confirm_no_wrong)
-                .negativeText(R.string.i_think_again)
-                .onPositive((dialog1, which) -> report())
-                .build();
-        DialogHelper.showWithAnim(dialog);
-    }
-
-    private void report() {
-        if (post == null) return;
-        PostReport postReport = new PostReport();
-        postReport.setPostId(post.getId());
-        // api
-        Call<Result> api = new RetrofitHelper().call(API.class).topicPostReportAdd(postReport);
-        RetrofitHelper.enqueue(api, getLoading(true), new RetrofitHelper.CallBack() {
-            @Override
-            public void onResponse(int code, String message, Result.Data data) {
-                // event
-                post.setReport(true);
-                RxBus.post(new RxBus.Event<>(RxBus.EVENT_POST_LIST_ITEM_REFRESH, post));
-            }
-
-            @Override
-            public void onFailure(int code, String message, Result.Data data) {
-            }
-        });
-        pushApi(api);
-    }
-
     private void jab() {
         if (post == null) return;
         PostComment postComment = ApiHelper.getPostCommentJabBody(post.getId(), 0);
@@ -688,6 +655,39 @@ public class PostDetailActivity extends BaseActivity<PostDetailActivity> {
             @Override
             public void onFailure(int code, String message, Result.Data data) {
                 collect(false);
+            }
+        });
+        pushApi(api);
+    }
+
+    private void showReportDialog() {
+        MaterialDialog dialog = DialogHelper.getBuild(mActivity)
+                .content(R.string.confirm_report_this_post)
+                .cancelable(true)
+                .canceledOnTouchOutside(true)
+                .positiveText(R.string.confirm_no_wrong)
+                .negativeText(R.string.i_think_again)
+                .onPositive((dialog1, which) -> report())
+                .build();
+        DialogHelper.showWithAnim(dialog);
+    }
+
+    private void report() {
+        if (post == null) return;
+        PostReport postReport = new PostReport();
+        postReport.setPostId(post.getId());
+        // api
+        Call<Result> api = new RetrofitHelper().call(API.class).topicPostReportAdd(postReport);
+        RetrofitHelper.enqueue(api, getLoading(true), new RetrofitHelper.CallBack() {
+            @Override
+            public void onResponse(int code, String message, Result.Data data) {
+                // event
+                post.setReport(true);
+                RxBus.post(new RxBus.Event<>(RxBus.EVENT_POST_LIST_ITEM_REFRESH, post));
+            }
+
+            @Override
+            public void onFailure(int code, String message, Result.Data data) {
             }
         });
         pushApi(api);
