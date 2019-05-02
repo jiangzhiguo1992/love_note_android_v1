@@ -18,7 +18,7 @@ import com.jiangzg.base.common.DateUtils;
 import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.controller.activity.settings.HelpActivity;
 import com.jiangzg.lovenote.controller.activity.topic.PostAddActivity;
-import com.jiangzg.lovenote.controller.activity.topic.PostMyRelationActivity;
+import com.jiangzg.lovenote.controller.activity.topic.PostMineActivity;
 import com.jiangzg.lovenote.controller.activity.topic.PostSearchActivity;
 import com.jiangzg.lovenote.controller.activity.topic.TopicMessageActivity;
 import com.jiangzg.lovenote.controller.adapter.topic.HomeKindAdapter;
@@ -158,7 +158,7 @@ public class TopicFragment extends BasePagerFragment<TopicFragment> {
                 HelpActivity.goActivity(mFragment, HelpActivity.INDEX_TOPIC_HOME);
                 return true;
             case R.id.menuMine: // 我的
-                PostMyRelationActivity.goActivity(mFragment);
+                PostMineActivity.goActivity(mFragment);
                 return true;
             case R.id.menuNotice: // 消息
                 TopicMessageActivity.goActivity(mFragment);

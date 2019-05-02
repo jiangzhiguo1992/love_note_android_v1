@@ -25,7 +25,7 @@ import java.util.List;
 
 import butterknife.BindView;
 
-public class PostMyRelationActivity extends BaseActivity<PostMyRelationActivity> {
+public class PostMineActivity extends BaseActivity<PostMineActivity> {
 
     @BindView(R.id.tb)
     Toolbar tb;
@@ -39,7 +39,7 @@ public class PostMyRelationActivity extends BaseActivity<PostMyRelationActivity>
             CouplePairActivity.goActivity(from);
             return;
         }
-        Intent intent = new Intent(from.getActivity(), PostMyRelationActivity.class);
+        Intent intent = new Intent(from.getActivity(), PostMineActivity.class);
         // intent.putExtra();
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         ActivityTrans.start(from, intent);
@@ -50,7 +50,7 @@ public class PostMyRelationActivity extends BaseActivity<PostMyRelationActivity>
             CouplePairActivity.goActivity(from);
             return;
         }
-        Intent intent = new Intent(from, PostMyRelationActivity.class);
+        Intent intent = new Intent(from, PostMineActivity.class);
         // intent.putExtra();
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         ActivityTrans.start(from, intent);
@@ -58,7 +58,7 @@ public class PostMyRelationActivity extends BaseActivity<PostMyRelationActivity>
 
     @Override
     protected int getView(Intent intent) {
-        return R.layout.activity_post_my_relation;
+        return R.layout.activity_post_mine;
     }
 
     @Override

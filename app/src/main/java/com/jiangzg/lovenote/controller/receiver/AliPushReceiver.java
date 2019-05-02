@@ -35,7 +35,7 @@ import com.jiangzg.lovenote.controller.activity.note.WordListActivity;
 import com.jiangzg.lovenote.controller.activity.settings.SuggestDetailActivity;
 import com.jiangzg.lovenote.controller.activity.topic.PostCommentDetailActivity;
 import com.jiangzg.lovenote.controller.activity.topic.PostDetailActivity;
-import com.jiangzg.lovenote.controller.activity.topic.PostMyRelationActivity;
+import com.jiangzg.lovenote.controller.activity.topic.PostMineActivity;
 import com.jiangzg.lovenote.controller.activity.topic.TopicMessageActivity;
 import com.jiangzg.lovenote.helper.common.GsonHelper;
 import com.jiangzg.lovenote.model.engine.PushExtra;
@@ -157,10 +157,10 @@ public class AliPushReceiver extends MessageReceiver {
                 FoodListActivity.goActivity(context);
                 break;
             case PushExtra.TYPE_TOPIC_MINE: // 话题我的
-                PostMyRelationActivity.goActivity(context);
+                PostMineActivity.goActivity(context);
                 break;
             case PushExtra.TYPE_TOPIC_COLLECT: // 话题收藏
-                PostMyRelationActivity.goActivity(context);
+                PostMineActivity.goActivity(context);
                 break;
             case PushExtra.TYPE_TOPIC_MESSAGE: // 话题消息
                 TopicMessageActivity.goActivity(context);
