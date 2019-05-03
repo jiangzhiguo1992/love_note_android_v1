@@ -4,11 +4,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.SparseBooleanArray;
 import android.view.View;
-import android.view.ViewGroup;
-import android.view.ViewParent;
-import android.widget.RelativeLayout;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -19,10 +15,8 @@ import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.controller.activity.base.BaseActivity;
 import com.jiangzg.lovenote.controller.activity.topic.PostDetailActivity;
 import com.jiangzg.lovenote.controller.adapter.common.ImgSquareShowAdapter;
-import com.jiangzg.lovenote.helper.common.SPHelper;
 import com.jiangzg.lovenote.helper.common.ShowHelper;
 import com.jiangzg.lovenote.helper.common.TimeHelper;
-import com.jiangzg.lovenote.helper.system.AdHelper;
 import com.jiangzg.lovenote.helper.system.RetrofitHelper;
 import com.jiangzg.lovenote.helper.view.DialogHelper;
 import com.jiangzg.lovenote.helper.view.RecyclerHelper;
@@ -32,8 +26,6 @@ import com.jiangzg.lovenote.model.entity.Couple;
 import com.jiangzg.lovenote.model.entity.Post;
 import com.jiangzg.lovenote.model.entity.PostCollect;
 import com.jiangzg.lovenote.view.FrescoAvatarView;
-import com.qq.e.ads.nativ.ADSize;
-import com.qq.e.ads.nativ.NativeExpressADView;
 
 import java.util.List;
 
@@ -47,10 +39,10 @@ public class PostAdapter extends BaseQuickAdapter<Post, BaseViewHolder> {
 
     private BaseActivity mActivity;
     private final int colorFontGrey, colorFontBlack;
-    private boolean adShow;
-    private int adStartCount, adJumpCount;
-    private SparseBooleanArray adCloseMap;
-    private List<NativeExpressADView> adViewList;
+    //private boolean adShow;
+    //private int adStartCount, adJumpCount;
+    //private SparseBooleanArray adCloseMap;
+    //private List<NativeExpressADView> adViewList;
 
     public PostAdapter(BaseActivity activity, boolean ad) {
         super(R.layout.list_item_post);
@@ -59,117 +51,117 @@ public class PostAdapter extends BaseQuickAdapter<Post, BaseViewHolder> {
         colorFontGrey = ContextCompat.getColor(activity, R.color.font_grey);
         colorFontBlack = ContextCompat.getColor(activity, R.color.font_black);
         // ad
-        adShow = ad && AdHelper.canAd(activity) && !SPHelper.getVipLimit().isAdvertiseHide();
-        adStartCount = SPHelper.getAdInfo().getTopicPostStart();
-        adJumpCount = SPHelper.getAdInfo().getTopicPostJump();
+        //adShow = ad && AdHelper.canAd(activity) && !SPHelper.getVipLimit().isAdvertiseHide();
+        //adStartCount = SPHelper.getAdInfo().getTopicPostStart();
+        //adJumpCount = SPHelper.getAdInfo().getTopicPostJump();
     }
 
     @Override
     public void setNewData(@Nullable List<Post> data) {
         super.setNewData(data);
-        if (adShow) {
-            // 刷新数据的时候，也刷新广告(包括屏蔽记录)
-            AdHelper.createAd(mActivity, ADSize.FULL_WIDTH, ADSize.AUTO_HEIGHT, 5, new AdHelper.OnAdCallBack() {
-                @Override
-                public void onADLoaded(List<NativeExpressADView> viewList) {
-                    PostAdapter.this.adDestroy();
-                    adViewList = viewList;
-                    if (adViewList != null && adViewList.size() > 0) {
-                        for (NativeExpressADView adView : adViewList) {
-                            if (adView != null) {
-                                adView.render();
-                            }
-                        }
-                    }
-                    for (int i = 0; i < PostAdapter.this.getData().size(); i++) {
-                        if (isAdPosition(i)) {
-                            PostAdapter.this.notifyItemChanged(i + getHeaderLayoutCount());
-                        }
-                    }
-                }
-
-                @Override
-                public void onADClose(NativeExpressADView view) {
-                    if (adCloseMap == null) {
-                        adCloseMap = new SparseBooleanArray();
-                    }
-                    int position = (int) view.getTag();
-                    if (position >= 0 && position < PostAdapter.this.getData().size()) {
-                        int adIndex = getAdIndex(position);
-                        adCloseMap.put(adIndex, true);
-                        notifyItemChanged(position + getHeaderLayoutCount());
-                    }
-                }
-            });
-        }
+        //if (adShow) {
+        //    // 刷新数据的时候，也刷新广告(包括屏蔽记录)
+        //    AdHelper.createAd(mActivity, ADSize.FULL_WIDTH, ADSize.AUTO_HEIGHT, 5, new AdHelper.OnAdCallBack() {
+        //        @Override
+        //        public void onADLoaded(List<NativeExpressADView> viewList) {
+        //            PostAdapter.this.adDestroy();
+        //            adViewList = viewList;
+        //            if (adViewList != null && adViewList.size() > 0) {
+        //                for (NativeExpressADView adView : adViewList) {
+        //                    if (adView != null) {
+        //                        adView.render();
+        //                    }
+        //                }
+        //            }
+        //            for (int i = 0; i < PostAdapter.this.getData().size(); i++) {
+        //                if (isAdPosition(i)) {
+        //                    PostAdapter.this.notifyItemChanged(i + getHeaderLayoutCount());
+        //                }
+        //            }
+        //        }
+        //
+        //        @Override
+        //        public void onADClose(NativeExpressADView view) {
+        //            if (adCloseMap == null) {
+        //                adCloseMap = new SparseBooleanArray();
+        //            }
+        //            int position = (int) view.getTag();
+        //            if (position >= 0 && position < PostAdapter.this.getData().size()) {
+        //                int adIndex = getAdIndex(position);
+        //                adCloseMap.put(adIndex, true);
+        //                notifyItemChanged(position + getHeaderLayoutCount());
+        //            }
+        //        }
+        //    });
+        //}
     }
 
     public void adDestroy() {
-        if (adViewList == null || adViewList.size() <= 0) return;
-        for (NativeExpressADView view : adViewList) {
-            AdHelper.destroy(view);
-        }
-        if (adCloseMap != null) {
-            adCloseMap.clear();
-        }
+        //if (adViewList == null || adViewList.size() <= 0) return;
+        //for (NativeExpressADView view : adViewList) {
+        //    AdHelper.destroy(view);
+        //}
+        //if (adCloseMap != null) {
+        //    adCloseMap.clear();
+        //}
     }
 
-    private boolean isAdPosition(int position) {
-        if (position + 1 < adStartCount) {
-            return false;
-        } else if (position + 1 == adStartCount) {
-            return true;
-        }
-        return (position + 1 - adStartCount) % adJumpCount == 0; // 5 - 25 - 45
-    }
+    //private boolean isAdPosition(int position) {
+    //    if (position + 1 < adStartCount) {
+    //        return false;
+    //    } else if (position + 1 == adStartCount) {
+    //        return true;
+    //    }
+    //    return (position + 1 - adStartCount) % adJumpCount == 0; // 5 - 25 - 45
+    //}
 
-    private int getAdIndex(int position) {
-        if (adViewList == null || adViewList.size() <= 0) return -1;
-        int index = position / adJumpCount; // 4/20=0
-        if (index >= adViewList.size()) {
-            // 后面的不展示了
-            return -1;
-        }
-        if (adCloseMap != null && adCloseMap.get(index)) {
-            // 用户关闭
-            return -1;
-        }
-        return index;
-    }
+    //private int getAdIndex(int position) {
+    //    if (adViewList == null || adViewList.size() <= 0) return -1;
+    //    int index = position / adJumpCount; // 4/20=0
+    //    if (index >= adViewList.size()) {
+    //        // 后面的不展示了
+    //        return -1;
+    //    }
+    //    if (adCloseMap != null && adCloseMap.get(index)) {
+    //        // 用户关闭
+    //        return -1;
+    //    }
+    //    return index;
+    //}
 
     @Override
     protected void convert(BaseViewHolder helper, Post item) {
-        int position = helper.getLayoutPosition() - getHeaderLayoutCount();
-        int adIndex = getAdIndex(position);
-        if (adShow && isAdPosition(position) && adIndex >= 0) {
-            RelativeLayout rlAd = helper.getView(R.id.rlAd);
-            if (rlAd.getChildCount() == 1) {
-                if (rlAd.findViewWithTag(position) != null && rlAd.findViewWithTag(position) instanceof NativeExpressADView) {
-                    helper.setVisible(R.id.rlAd, true);
-                    helper.setVisible(R.id.llInfo, false);
-                    helper.setVisible(R.id.tvCover, false);
-                    return;
-                }
-            } else if (rlAd.getChildCount() > 1) {
-                rlAd.removeAllViews();
-            }
-            NativeExpressADView adView = adViewList.get(adIndex);
-            if (adView != null) {
-                helper.setVisible(R.id.rlAd, true);
-                helper.setVisible(R.id.llInfo, false);
-                helper.setVisible(R.id.tvCover, false);
-                ViewParent parent = adView.getParent();
-                if (parent != null) {
-                    ViewGroup group = (ViewGroup) parent;
-                    if (group.getChildCount() > 0) {
-                        group.removeView(adView);
-                    }
-                }
-                adView.setTag(position);
-                rlAd.addView(adView);
-                return;
-            }
-        }
+        //int position = helper.getLayoutPosition() - getHeaderLayoutCount();
+        //int adIndex = getAdIndex(position);
+        //if (adShow && isAdPosition(position) && adIndex >= 0) {
+        //    RelativeLayout rlAd = helper.getView(R.id.rlAd);
+        //    if (rlAd.getChildCount() == 1) {
+        //        if (rlAd.findViewWithTag(position) != null && rlAd.findViewWithTag(position) instanceof NativeExpressADView) {
+        //            helper.setVisible(R.id.rlAd, true);
+        //            helper.setVisible(R.id.llInfo, false);
+        //            helper.setVisible(R.id.tvCover, false);
+        //            return;
+        //        }
+        //    } else if (rlAd.getChildCount() > 1) {
+        //        rlAd.removeAllViews();
+        //    }
+        //    NativeExpressADView adView = adViewList.get(adIndex);
+        //    if (adView != null) {
+        //        helper.setVisible(R.id.rlAd, true);
+        //        helper.setVisible(R.id.llInfo, false);
+        //        helper.setVisible(R.id.tvCover, false);
+        //        ViewParent parent = adView.getParent();
+        //        if (parent != null) {
+        //            ViewGroup group = (ViewGroup) parent;
+        //            if (group.getChildCount() > 0) {
+        //                group.removeView(adView);
+        //            }
+        //        }
+        //        adView.setTag(position);
+        //        rlAd.addView(adView);
+        //        return;
+        //    }
+        //}
         if (item.isDelete()) {
             helper.setVisible(R.id.rlAd, false);
             helper.setVisible(R.id.tvCover, true);
@@ -239,10 +231,10 @@ public class PostAdapter extends BaseQuickAdapter<Post, BaseViewHolder> {
     }
 
     public void goPostDetail(int position) {
-        if (adShow && isAdPosition(position) && getAdIndex(position) >= 0) {
-            // 没关闭的广告位
-            return;
-        }
+        //if (adShow && isAdPosition(position) && getAdIndex(position) >= 0) {
+        //    // 没关闭的广告位
+        //    return;
+        //}
         Post item = getItem(position);
         if (item == null || item.isScreen() || item.isDelete()) return;
         PostDetailActivity.goActivity(mActivity, item);
