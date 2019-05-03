@@ -68,14 +68,16 @@ public class PostCollectFragment extends BasePagerFragment<PostCollectFragment> 
                         PostAdapter postAdapter = (PostAdapter) adapter;
                         postAdapter.goPostDetail(position);
                     }
-                })
-                .listenerClick(new OnItemLongClickListener() {
-                    @Override
-                    public void onSimpleItemLongClick(BaseQuickAdapter adapter, View view, int position) {
-                        PostAdapter postAdapter = (PostAdapter) adapter;
-                        postAdapter.showCollectDeleteDialog(position);
-                    }
                 });
+        if (me) {
+            recyclerHelper.listenerClick(new OnItemLongClickListener() {
+                @Override
+                public void onSimpleItemLongClick(BaseQuickAdapter adapter, View view, int position) {
+                    PostAdapter postAdapter = (PostAdapter) adapter;
+                    postAdapter.showCollectDeleteDialog(position);
+                }
+            });
+        }
     }
 
     @Override
