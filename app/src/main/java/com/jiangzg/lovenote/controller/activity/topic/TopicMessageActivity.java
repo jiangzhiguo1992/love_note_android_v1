@@ -92,7 +92,6 @@ public class TopicMessageActivity extends BaseActivity<TopicMessageActivity> {
 
     @Override
     protected void initData(Intent intent, Bundle state) {
-
     }
 
     @Override
