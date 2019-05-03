@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:gravity="center_horizontal"
-    android:orientation="vertical">
+    android:layout_height="wrap_content">
 
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
@@ -13,7 +11,7 @@
         android:layout_marginStart="10dp"
         android:layout_marginTop="20dp"
         android:layout_marginEnd="10dp"
-        android:layout_marginBottom="10dp"
+        android:layout_marginBottom="20dp"
         app:cardBackgroundColor="?attr/colorPrimary"
         app:cardCornerRadius="20dp"
         app:cardElevation="@dimen/elevation_normal"
@@ -31,9 +29,10 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:background="?attr/selectableItemBackground"
+                android:ellipsize="middle"
                 android:foreground="?attr/selectableItemBackground"
                 android:gravity="center"
-                android:padding="10dp"
+                android:singleLine="true"
                 android:text="@string/my_push"/>
 
             <TextView
@@ -43,9 +42,10 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:background="@color/white"
+                android:ellipsize="middle"
                 android:foreground="?attr/selectableItemBackground"
                 android:gravity="center"
-                android:padding="10dp"
+                android:singleLine="true"
                 android:text="@string/my_follow"/>
 
             <TextView
@@ -55,86 +55,11 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:background="?attr/selectableItemBackground"
+                android:ellipsize="middle"
                 android:foreground="?attr/selectableItemBackground"
                 android:gravity="center"
-                android:padding="10dp"
+                android:singleLine="true"
                 android:text="@string/i_want_feedback"/>
         </LinearLayout>
     </android.support.v7.widget.CardView>
-
-    <TextView
-        style="@style/FontGreySmall"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="5dp"
-        android:gravity="center"
-        android:maxLines="1"
-        android:singleLine="true"
-        android:text="@string/search_condition_line"/>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_vertical"
-        android:orientation="horizontal">
-
-        <TextView
-            style="@style/FontGreyNormal"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="5dp"
-            android:text="@string/type_colon"/>
-
-        <HorizontalScrollView
-            android:id="@+id/hsvKind"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <RadioGroup
-                android:id="@+id/rgKind"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-            </RadioGroup>
-        </HorizontalScrollView>
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_vertical"
-        android:orientation="horizontal">
-
-        <TextView
-            style="@style/FontGreyNormal"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="5dp"
-            android:text="@string/status_colon"/>
-
-        <HorizontalScrollView
-            android:id="@+id/hsvStatus"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <RadioGroup
-                android:id="@+id/rgStatus"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-            </RadioGroup>
-        </HorizontalScrollView>
-    </LinearLayout>
-
-    <Button
-        android:id="@+id/btnSearch"
-        style="@style/FontWhiteNormal"
-        android:layout_width="wrap_content"
-        android:layout_height="32dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginBottom="10dp"
-        android:background="@drawable/selector_enable_press_solid_light_primary_dark_r100"
-        android:text="@string/start_search"/>
-</LinearLayout>
+</RelativeLayout>

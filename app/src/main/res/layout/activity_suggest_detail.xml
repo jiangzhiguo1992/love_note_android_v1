@@ -47,7 +47,7 @@
                 android:id="@+id/ivFollow"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="6dp"
+                android:layout_marginEnd="5dp"
                 tools:src="@mipmap/ic_visibility_off_grey_18dp"/>
 
             <TextView
@@ -55,7 +55,9 @@
                 style="@style/FontGreyNormal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="center"
+                android:layout_marginStart="5dp"
+                android:ellipsize="end"
+                android:singleLine="true"
                 tools:text="11"/>
         </LinearLayout>
 
@@ -77,7 +79,7 @@
                 android:id="@+id/ivComment"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="6dp"
+                android:layout_marginEnd="5dp"
                 android:src="@mipmap/ic_insert_comment_grey_18dp"/>
 
             <TextView
@@ -85,66 +87,10 @@
                 style="@style/FontGreyNormal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="center"
+                android:layout_marginStart="5dp"
+                android:ellipsize="end"
+                android:singleLine="true"
                 tools:text="11"/>
         </LinearLayout>
     </LinearLayout>
-
-    <RelativeLayout
-        android:id="@+id/rlComment"
-        android:layout_width="match_parent"
-        android:layout_height="400dp"
-        android:background="@drawable/layer_line_border_grey_in_white"
-        app:behavior_hideable="true"
-        app:behavior_peekHeight="200dp"
-        app:elevation="@dimen/elevation_normal"
-        app:layout_behavior="@string/bottom_sheet_behavior"
-        tools:visibility="gone">
-
-        <RelativeLayout
-            android:id="@+id/rlCommentTop"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <ImageView
-                android:id="@+id/ivCommentClose"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:padding="10dp"
-                android:src="@mipmap/ic_close_grey_24dp"/>
-
-            <TextView
-                android:id="@+id/tvCommentLimit"
-                style="@style/FontGreySmall"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                tools:text="0/200"/>
-
-            <ImageView
-                android:id="@+id/ivAddCommit"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_centerVertical="true"
-                android:padding="10dp"
-                android:src="@mipmap/ic_near_me_grey_24dp"/>
-        </RelativeLayout>
-
-        <EditText
-            android:id="@+id/etComment"
-            style="@style/FontGreyNormal"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_below="@+id/rlCommentTop"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
-            android:layout_marginBottom="10dp"
-            android:background="@drawable/shape_stroke_primary_r3"
-            android:gravity="start"
-            android:hint="@string/please_input_comment_content"
-            android:inputType="textMultiLine"
-            android:padding="8dp"/>
-    </RelativeLayout>
 </android.support.design.widget.CoordinatorLayout>

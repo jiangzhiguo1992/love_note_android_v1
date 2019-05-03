@@ -15,7 +15,8 @@
     app:cardBackgroundColor="@color/white"
     app:cardCornerRadius="@dimen/radius_normal"
     app:cardElevation="@dimen/elevation_normal"
-    app:cardMaxElevation="@dimen/elevation_big">
+    app:cardMaxElevation="@dimen/elevation_big"
+    tools:cardBackgroundColor="?attr/colorPrimary">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -23,25 +24,16 @@
         android:gravity="center_horizontal"
         android:orientation="vertical">
 
-        <com.jiangzg.lovenote.view.GWrapView
-            android:id="@+id/wvTag"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingStart="10dp"
-            android:paddingTop="10dp"
-            android:paddingEnd="10dp"/>
-
         <TextView
             android:id="@+id/tvTitle"
             style="@style/FontBlackNormalBold"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="10dp"
             android:ellipsize="end"
             android:maxLines="1"
-            android:paddingStart="10dp"
-            android:paddingTop="5dp"
-            android:paddingEnd="10dp"
-            android:paddingBottom="2dp"
             android:singleLine="true"
             tools:text="建议内容建议内容建议内容建议内容建议内容建议内容建"/>
 
@@ -50,45 +42,16 @@
             style="@style/FontGreyNormal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="2dp"
-            android:layout_marginBottom="3dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="10dp"
             android:ellipsize="end"
             android:maxLines="3"
-            android:paddingStart="10dp"
-            android:paddingEnd="10dp"
             tools:text="建议内容建议内容建议内容建议内容建议内容建议内容建建议内容建议内容建议内容建议内容建议内容建议内容建建议内容建议内容建议内容建议内容建议内容建议内容建建议内容建议内容建议内容建议内容建议内容建议内容建建议内容建议内容建议内容建议内容建议内容建议内容建建议内容建议内容建议内容建议内容建议内容建议内容建"/>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:paddingStart="10dp"
-            android:paddingEnd="10dp"
-            android:paddingBottom="5dp">
-
-            <TextView
-                android:id="@+id/tvCreateAt"
-                style="@style/FontGreySmall"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:maxLines="1"
-                android:singleLine="true"
-                tools:text="发表于:2017-12-31"/>
-
-            <TextView
-                android:id="@+id/tvUpdateAt"
-                style="@style/FontGreySmall"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="end"
-                android:maxLines="1"
-                android:singleLine="true"
-                tools:text="更新于:2017-12-31"/>
-        </LinearLayout>
-
-        <View style="@style/LineHorizontal"/>
+        <View
+            style="@style/LineHorizontal"
+            android:layout_marginTop="10dp"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -102,22 +65,25 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:orientation="horizontal"
-                android:paddingTop="8dp"
-                android:paddingBottom="8dp">
+                android:padding="10dp">
 
                 <ImageView
                     android:id="@+id/ivFollow"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="6dp"
-                    tools:src="@mipmap/ic_visibility_off_grey_18dp"/>
+                    android:layout_marginEnd="5dp"
+                    android:src="@mipmap/ic_visibility_off_grey_18dp"
+                    android:tint="@color/font_hint"/>
 
                 <TextView
                     android:id="@+id/tvFollow"
                     style="@style/FontGreyNormal"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
+                    android:layout_marginStart="5dp"
+                    android:ellipsize="end"
+                    android:singleLine="true"
+                    android:textColor="@color/font_hint"
                     tools:text="11"/>
             </LinearLayout>
 
@@ -129,22 +95,25 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:orientation="horizontal"
-                android:paddingTop="8dp"
-                android:paddingBottom="8dp">
+                android:padding="10dp">
 
                 <ImageView
                     android:id="@+id/ivComment"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="6dp"
-                    android:src="@mipmap/ic_insert_comment_grey_18dp"/>
+                    android:layout_marginEnd="5dp"
+                    android:src="@mipmap/ic_insert_comment_grey_18dp"
+                    android:tint="@color/font_hint"/>
 
                 <TextView
                     android:id="@+id/tvComment"
                     style="@style/FontGreyNormal"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
+                    android:layout_marginStart="5dp"
+                    android:ellipsize="end"
+                    android:singleLine="true"
+                    android:textColor="@color/font_hint"
                     tools:text="11"/>
             </LinearLayout>
         </LinearLayout>

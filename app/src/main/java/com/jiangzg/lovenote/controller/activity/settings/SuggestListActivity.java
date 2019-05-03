@@ -21,7 +21,6 @@ import com.jiangzg.lovenote.helper.view.RecyclerHelper;
 import com.jiangzg.lovenote.helper.view.ViewHelper;
 import com.jiangzg.lovenote.model.api.API;
 import com.jiangzg.lovenote.model.api.Result;
-import com.jiangzg.lovenote.model.engine.SuggestInfo;
 import com.jiangzg.lovenote.model.entity.Suggest;
 import com.jiangzg.lovenote.view.GSwipeRefreshLayout;
 
@@ -61,7 +60,12 @@ public class SuggestListActivity extends BaseActivity<SuggestListActivity> {
 
     @Override
     protected void initView(Intent intent, Bundle state) {
-        ViewHelper.initTopBar(mActivity, tb, getString(R.string.suggest_feedback), true);
+        entry = intent.getIntExtra("entry", ENTRY_MINE);
+        if (entry == ENTRY_FOLLOW) {
+            ViewHelper.initTopBar(mActivity, tb, getString(R.string.my_follow), true);
+        } else if (entry == ENTRY_MINE) {
+            ViewHelper.initTopBar(mActivity, tb, getString(R.string.my_push), true);
+        }
         // recycler
         recyclerHelper = new RecyclerHelper(rv)
                 .initLayoutManager(new LinearLayoutManager(mActivity))
@@ -84,13 +88,6 @@ public class SuggestListActivity extends BaseActivity<SuggestListActivity> {
 
     @Override
     protected void initData(Intent intent, Bundle state) {
-        // tb
-        entry = intent.getIntExtra("entry", ENTRY_MINE);
-        if (entry == ENTRY_FOLLOW) {
-            ViewHelper.initTopBar(mActivity, tb, getString(R.string.my_follow), true);
-        } else if (entry == ENTRY_MINE) {
-            ViewHelper.initTopBar(mActivity, tb, getString(R.string.my_push), true);
-        }
         // event
         Observable<List<Suggest>> obListRefresh = RxBus.register(RxBus.EVENT_SUGGEST_LIST_REFRESH, suggests -> {
             if (recyclerHelper == null) return;
@@ -125,10 +122,7 @@ public class SuggestListActivity extends BaseActivity<SuggestListActivity> {
         } else if (entry == ENTRY_FOLLOW) {
             api = new RetrofitHelper().call(API.class).setSuggestListFollowGet(page);
         } else {
-            SuggestInfo suggestInfo = SuggestInfo.getInstance();
-            int status = suggestInfo.getStatusList().get(0).getStatus();
-            int kind = suggestInfo.getKindList().get(0).getKind();
-            api = new RetrofitHelper().call(API.class).setSuggestListGet(status, kind, page);
+            api = new RetrofitHelper().call(API.class).setSuggestListGet(Suggest.STATUS_REPLY_NO, Suggest.KIND_ALL, page);
         }
         RetrofitHelper.enqueue(api, null, new RetrofitHelper.CallBack() {
             @Override

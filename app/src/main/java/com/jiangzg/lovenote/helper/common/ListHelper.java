@@ -4,7 +4,10 @@ import android.net.Uri;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.jiangzg.base.common.StringUtils;
+import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.controller.fragment.main.TopicFragment;
+import com.jiangzg.lovenote.main.MyApp;
+import com.jiangzg.lovenote.model.engine.SuggestInfo;
 import com.jiangzg.lovenote.model.entity.Album;
 import com.jiangzg.lovenote.model.entity.BaseObj;
 import com.jiangzg.lovenote.model.entity.Diary;
@@ -20,6 +23,7 @@ import com.jiangzg.lovenote.model.entity.SouvenirGift;
 import com.jiangzg.lovenote.model.entity.SouvenirMovie;
 import com.jiangzg.lovenote.model.entity.SouvenirTravel;
 import com.jiangzg.lovenote.model.entity.SouvenirVideo;
+import com.jiangzg.lovenote.model.entity.Suggest;
 import com.jiangzg.lovenote.model.entity.Travel;
 import com.jiangzg.lovenote.model.entity.TravelAlbum;
 import com.jiangzg.lovenote.model.entity.TravelDiary;
@@ -101,6 +105,63 @@ public class ListHelper {
             uriList.add(Uri.parse(s));
         }
         return uriList;
+    }
+
+    /**
+     * **************************************suggest转换**************************************
+     */
+    public static SuggestInfo getSuggestInfo() {
+        SuggestInfo info = new SuggestInfo();
+        // status
+        List<SuggestInfo.SuggestStatus> statusList = new ArrayList<>();
+        statusList.add(new SuggestInfo.SuggestStatus(BaseObj.STATUS_VISIBLE, MyApp.get().getString(R.string.all)));
+        statusList.add(new SuggestInfo.SuggestStatus(Suggest.STATUS_REPLY_NO, MyApp.get().getString(R.string.no_reply)));
+        statusList.add(new SuggestInfo.SuggestStatus(Suggest.STATUS_REPLY_YES, MyApp.get().getString(R.string.already_reply)));
+        statusList.add(new SuggestInfo.SuggestStatus(Suggest.STATUS_ACCEPT_NO, MyApp.get().getString(R.string.no_accept)));
+        statusList.add(new SuggestInfo.SuggestStatus(Suggest.STATUS_ACCEPT_YES, MyApp.get().getString(R.string.already_accept)));
+        statusList.add(new SuggestInfo.SuggestStatus(Suggest.STATUS_HANDLE_ING, MyApp.get().getString(R.string.handle_ing)));
+        statusList.add(new SuggestInfo.SuggestStatus(Suggest.STATUS_HANDLE_OVER, MyApp.get().getString(R.string.handle_over)));
+        info.setStatusList(statusList);
+        // kind
+        List<SuggestInfo.SuggestKind> kindList = new ArrayList<>();
+        kindList.add(new SuggestInfo.SuggestKind(Suggest.KIND_ALL, MyApp.get().getString(R.string.all)));
+        kindList.add(new SuggestInfo.SuggestKind(Suggest.KIND_ERROR, MyApp.get().getString(R.string.program_error)));
+        kindList.add(new SuggestInfo.SuggestKind(Suggest.KIND_FUNCTION, MyApp.get().getString(R.string.function_add)));
+        kindList.add(new SuggestInfo.SuggestKind(Suggest.KIND_OPTIMIZE, MyApp.get().getString(R.string.experience_optimize)));
+        kindList.add(new SuggestInfo.SuggestKind(Suggest.KIND_DEBUNK, MyApp.get().getString(R.string.just_debunk)));
+        info.setKindList(kindList);
+        return info;
+    }
+
+    public static String getSuggestStatusShow(int status) {
+        SuggestInfo info = getSuggestInfo();
+        List<SuggestInfo.SuggestStatus> statusList = info.getStatusList();
+        // 不要全部，加上未回复
+        statusList.remove(0);
+        statusList.add(0, new SuggestInfo.SuggestStatus(Suggest.STATUS_REPLY_NO, MyApp.get().getString(R.string.no_reply)));
+        // 开始遍历
+        for (int i = 0; i < statusList.size(); i++) {
+            SuggestInfo.SuggestStatus s = statusList.get(i);
+            if (s.getStatus() == status) {
+                return s.getShow();
+            }
+        }
+        return "";
+    }
+
+    public static String getSuggestKindShow(int kind) {
+        SuggestInfo info = getSuggestInfo();
+        List<SuggestInfo.SuggestKind> kindList = info.getKindList();
+        // 不要全部
+        kindList.remove(0);
+        // 开始遍历
+        for (int i = 0; i < kindList.size(); i++) {
+            SuggestInfo.SuggestKind s = kindList.get(i);
+            if (s.getKind() == kind) {
+                return s.getShow();
+            }
+        }
+        return "";
     }
 
     /**

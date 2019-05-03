@@ -17,9 +17,7 @@
         style="@style/FontGreySmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="10dp"
         tools:text="%d楼 时间"/>
 
     <TextView
@@ -28,8 +26,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/tvTop"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginEnd="10dp"
+        android:layout_marginTop="10dp"
         tools:text="我觉得14楼说的对我觉得14楼说的对我觉得14楼说的对"/>
 </RelativeLayout>

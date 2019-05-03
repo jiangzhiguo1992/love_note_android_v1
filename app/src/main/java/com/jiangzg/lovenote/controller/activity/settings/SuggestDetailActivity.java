@@ -6,36 +6,31 @@ import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.support.design.widget.BottomSheetBehavior;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.text.Editable;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemLongClickListener;
+import com.jiangzg.base.common.DateUtils;
 import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.base.component.ActivityTrans;
-import com.jiangzg.base.system.InputUtils;
 import com.jiangzg.base.view.ScreenUtils;
-import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.base.view.ViewUtils;
 import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.controller.activity.base.BaseActivity;
 import com.jiangzg.lovenote.controller.activity.common.BigImageActivity;
 import com.jiangzg.lovenote.controller.adapter.settings.SuggestCommentAdapter;
+import com.jiangzg.lovenote.helper.common.ListHelper;
 import com.jiangzg.lovenote.helper.common.RxBus;
-import com.jiangzg.lovenote.helper.common.SPHelper;
 import com.jiangzg.lovenote.helper.common.TimeHelper;
 import com.jiangzg.lovenote.helper.system.RetrofitHelper;
 import com.jiangzg.lovenote.helper.view.DialogHelper;
@@ -43,19 +38,14 @@ import com.jiangzg.lovenote.helper.view.RecyclerHelper;
 import com.jiangzg.lovenote.helper.view.ViewHelper;
 import com.jiangzg.lovenote.model.api.API;
 import com.jiangzg.lovenote.model.api.Result;
-import com.jiangzg.lovenote.model.engine.SuggestInfo;
 import com.jiangzg.lovenote.model.entity.Suggest;
-import com.jiangzg.lovenote.model.entity.SuggestComment;
 import com.jiangzg.lovenote.model.entity.SuggestFollow;
 import com.jiangzg.lovenote.view.FrescoView;
 import com.jiangzg.lovenote.view.GSwipeRefreshLayout;
 import com.jiangzg.lovenote.view.GWrapView;
 
-import java.util.Locale;
-
 import butterknife.BindView;
 import butterknife.OnClick;
-import butterknife.OnTextChanged;
 import retrofit2.Call;
 import rx.Observable;
 
@@ -73,19 +63,12 @@ public class SuggestDetailActivity extends BaseActivity<SuggestDetailActivity> {
     TextView tvFollow;
     @BindView(R.id.ivComment)
     ImageView ivComment;
-    @BindView(R.id.tvCommentLimit)
-    TextView tvCommentLimit;
     @BindView(R.id.tvComment)
     TextView tvComment;
-    @BindView(R.id.rlComment)
-    RelativeLayout rlComment;
-    @BindView(R.id.etComment)
-    EditText etComment;
 
     private Suggest suggest;
     private RecyclerHelper recyclerHelper;
-    private BottomSheetBehavior behaviorComment;
-    private int page = 0, limitCommentContentLength;
+    private int page = 0;
 
     public static void goActivity(Activity from, Suggest suggest) {
         Intent intent = new Intent(from, SuggestDetailActivity.class);
@@ -139,10 +122,6 @@ public class SuggestDetailActivity extends BaseActivity<SuggestDetailActivity> {
         initFollowView();
         // comment
         initCommentView();
-        // comment
-        commentShow(false);
-        // comment 防止开始显示错误
-        etComment.setText("");
     }
 
     @Override
@@ -170,15 +149,6 @@ public class SuggestDetailActivity extends BaseActivity<SuggestDetailActivity> {
     }
 
     @Override
-    public void onBackPressed() {
-        if (behaviorComment.getState() != BottomSheetBehavior.STATE_HIDDEN) {
-            behaviorComment.setState(BottomSheetBehavior.STATE_HIDDEN);
-        } else {
-            super.onBackPressed();
-        }
-    }
-
-    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menuDel: // 删除
@@ -188,25 +158,15 @@ public class SuggestDetailActivity extends BaseActivity<SuggestDetailActivity> {
         return super.onOptionsItemSelected(item);
     }
 
-    @OnTextChanged({R.id.etComment})
-    public void afterTextChanged(Editable s) {
-        onCommentInput(s.toString());
-    }
-
-    @OnClick({R.id.llFollow, R.id.llComment, R.id.ivCommentClose, R.id.ivAddCommit})
+    @OnClick({R.id.llFollow, R.id.llComment})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.llFollow: // 关注
                 follow(true);
                 break;
-            case R.id.llComment: // 评论打开
-                commentShow(true);
-                break;
-            case R.id.ivCommentClose: // 评论关闭
-                commentShow(false);
-                break;
-            case R.id.ivAddCommit: // 评论提交
-                comment();
+            case R.id.llComment: // 评论
+                if (suggest == null || suggest.getId() == 0) return;
+                SuggestCommentAddActivity.goActivity(mActivity, suggest.getId());
                 break;
         }
     }
@@ -247,11 +207,10 @@ public class SuggestDetailActivity extends BaseActivity<SuggestDetailActivity> {
         boolean top = suggest.isTop();
         boolean official = suggest.isOfficial();
         boolean mine = suggest.isMine();
-        String statusShow = SuggestInfo.getStatusShow(suggest.getStatus());
-        String kindShow = SuggestInfo.getKindShow(suggest.getKind());
+        String statusShow = ListHelper.getSuggestStatusShow(suggest.getStatus());
+        String kindShow = ListHelper.getSuggestKindShow(suggest.getKind());
         String title = suggest.getTitle();
-        String create = TimeHelper.getTimeShowLine_HM_MD_YMD_ByGo(suggest.getCreateAt());
-        String createShow = String.format(Locale.getDefault(), getString(R.string.create_at_colon_space_holder), create);
+        String create = DateUtils.getStr(TimeHelper.getJavaTimeByGo(suggest.getCreateAt()), DateUtils.FORMAT_LINE_M_D_H_M);
         final String contentImgUrl = suggest.getContentImage();
         String contentText = suggest.getContentText();
         // view
@@ -261,11 +220,10 @@ public class SuggestDetailActivity extends BaseActivity<SuggestDetailActivity> {
         TextView tvCreateAt = head.findViewById(R.id.tvCreateAt);
         GWrapView wvTag = head.findViewById(R.id.wvTag);
         TextView tvContent = head.findViewById(R.id.tvContent);
-        // imageView
         FrescoView ivContent = head.findViewById(R.id.ivContent);
         ViewGroup.LayoutParams layoutParams = ivContent.getLayoutParams();
         ivContent.setWidthAndHeight(ScreenUtils.getScreenWidth(mActivity), layoutParams.height);
-        // tagView
+        // data
         wvTag.removeAllChild();
         if (top) {
             View tagTop = ViewHelper.getWrapTextView(mActivity, mActivity.getString(R.string.top));
@@ -283,9 +241,8 @@ public class SuggestDetailActivity extends BaseActivity<SuggestDetailActivity> {
             View tagMine = ViewHelper.getWrapTextView(mActivity, mActivity.getString(R.string.me_de));
             wvTag.addChild(tagMine);
         }
-        // otherView
         tvTitle.setText(title);
-        tvCreateAt.setText(createShow);
+        tvCreateAt.setText(create);
         tvContent.setText(contentText);
         if (StringUtils.isEmpty(contentImgUrl)) {
             ivContent.setVisibility(View.GONE);
@@ -320,12 +277,8 @@ public class SuggestDetailActivity extends BaseActivity<SuggestDetailActivity> {
 
     private void initFollowView() {
         if (suggest == null) return;
-        // data
-        boolean follow = suggest.isFollow();
-        String followCount = String.valueOf(suggest.getFollowCount());
-        // view
-        tvFollow.setText(followCount);
-        if (follow) {
+        tvFollow.setText(String.valueOf(suggest.getFollowCount()));
+        if (suggest.isFollow()) {
             Drawable visibility = ContextCompat.getDrawable(mActivity, R.mipmap.ic_visibility_grey_18dp);
             if (visibility != null) {
                 visibility.setTint(ContextCompat.getColor(mActivity, ViewUtils.getColorPrimary(mActivity)));
@@ -338,44 +291,14 @@ public class SuggestDetailActivity extends BaseActivity<SuggestDetailActivity> {
 
     private void initCommentView() {
         if (suggest == null) return;
-        // data
-        boolean isComment = suggest.isComment();
-        String commentCount = String.valueOf(suggest.getCommentCount());
-        // view
-        tvComment.setText(commentCount);
-        if (isComment) {
+        tvComment.setText(String.valueOf(suggest.getCommentCount()));
+        if (suggest.isComment()) {
             int colorPrimary = ContextCompat.getColor(mActivity, ViewUtils.getColorPrimary(mActivity));
             ivComment.setImageTintList(ColorStateList.valueOf(colorPrimary));
         } else {
             int colorGrey = ContextCompat.getColor(mActivity, R.color.icon_grey);
             ivComment.setImageTintList(ColorStateList.valueOf(colorGrey));
         }
-    }
-
-    private void onCommentInput(String input) {
-        if (input == null) return;
-        if (limitCommentContentLength <= 0) {
-            limitCommentContentLength = SPHelper.getLimit().getSuggestCommentContentLength();
-        }
-        int length = input.length();
-        if (length > limitCommentContentLength) {
-            CharSequence charSequence = input.subSequence(0, limitCommentContentLength);
-            etComment.setText(charSequence);
-            etComment.setSelection(charSequence.length());
-            length = charSequence.length();
-        }
-        String limitShow = String.format(Locale.getDefault(), getString(R.string.holder_sprit_holder), length, limitCommentContentLength);
-        tvCommentLimit.setText(limitShow);
-    }
-
-    // 评论视图
-    private void commentShow(boolean show) {
-        //if (!show) InputUtils.hideSoftInput(etComment);
-        if (behaviorComment == null) {
-            behaviorComment = BottomSheetBehavior.from(rlComment);
-        }
-        int state = show ? BottomSheetBehavior.STATE_COLLAPSED : BottomSheetBehavior.STATE_HIDDEN;
-        behaviorComment.setState(state);
     }
 
     // 关注
@@ -402,36 +325,6 @@ public class SuggestDetailActivity extends BaseActivity<SuggestDetailActivity> {
             @Override
             public void onFailure(int code, String message, Result.Data data) {
                 follow(false);
-            }
-        });
-        pushApi(api);
-    }
-
-    // 评论
-    private void comment() {
-        if (suggest == null) return;
-        String content = etComment.getText().toString().trim();
-        if (StringUtils.isEmpty(content)) {
-            ToastUtils.show(etComment.getHint());
-            return;
-        }
-        InputUtils.hideSoftInput(etComment);
-        SuggestComment body = new SuggestComment();
-        body.setSuggestId(suggest.getId());
-        body.setContentText(content);
-        // api
-        Call<Result> api = new RetrofitHelper().call(API.class).setSuggestCommentAdd(body);
-        RetrofitHelper.enqueue(api, getLoading(true), new RetrofitHelper.CallBack() {
-            @Override
-            public void onResponse(int code, String message, Result.Data data) {
-                etComment.setText("");
-                commentShow(false);
-                getCommentData(false);
-                refreshSuggest();
-            }
-
-            @Override
-            public void onFailure(int code, String message, Result.Data data) {
             }
         });
         pushApi(api);

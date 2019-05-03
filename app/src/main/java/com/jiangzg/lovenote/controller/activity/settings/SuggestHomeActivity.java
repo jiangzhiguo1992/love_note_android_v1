@@ -2,27 +2,17 @@ package com.jiangzg.lovenote.controller.activity.settings;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.content.res.ColorStateList;
-import android.os.Build;
 import android.os.Bundle;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.HorizontalScrollView;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
-import com.jiangzg.base.common.ConvertUtils;
 import com.jiangzg.base.component.ActivityTrans;
 import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.controller.activity.base.BaseActivity;
@@ -34,7 +24,6 @@ import com.jiangzg.lovenote.helper.view.RecyclerHelper;
 import com.jiangzg.lovenote.helper.view.ViewHelper;
 import com.jiangzg.lovenote.model.api.API;
 import com.jiangzg.lovenote.model.api.Result;
-import com.jiangzg.lovenote.model.engine.SuggestInfo;
 import com.jiangzg.lovenote.model.entity.Suggest;
 import com.jiangzg.lovenote.view.GSwipeRefreshLayout;
 
@@ -53,15 +42,8 @@ public class SuggestHomeActivity extends BaseActivity<SuggestHomeActivity> {
     @BindView(R.id.rv)
     RecyclerView rv;
 
-    private int dp3;
-    private int dp4;
-    private int dp5;
-    private int dp14;
-
     private RecyclerHelper recyclerHelper;
-    private SuggestInfo suggestInfo;
     private int page = 0;
-    private int searchStatus, searchKind;
 
     public static void goActivity(Activity from) {
         Intent intent = new Intent(from, SuggestHomeActivity.class);
@@ -78,19 +60,13 @@ public class SuggestHomeActivity extends BaseActivity<SuggestHomeActivity> {
     @Override
     protected void initView(Intent intent, Bundle state) {
         ViewHelper.initTopBar(mActivity, tb, getString(R.string.suggest_feedback), true);
-        // init
-        suggestInfo = SuggestInfo.getInstance();
-        List<SuggestInfo.SuggestStatus> suggestStatusList = suggestInfo.getStatusList();
-        searchStatus = suggestStatusList.get(0).getStatus();
-        List<SuggestInfo.SuggestKind> suggestKindList = suggestInfo.getKindList();
-        searchKind = suggestKindList.get(0).getKind();
         // recycler
         recyclerHelper = new RecyclerHelper(rv)
                 .initLayoutManager(new LinearLayoutManager(mActivity))
                 .initRefresh(srl, true)
                 .initAdapter(new SuggestAdapter(mActivity))
-                .viewEmpty(mActivity, R.layout.list_empty_grey, true, true)
                 .viewHeader(mActivity, R.layout.list_head_suggest_home)
+                .viewEmpty(mActivity, R.layout.list_empty_grey, true, true)
                 .viewLoadMore(new RecyclerHelper.MoreGreyView())
                 .viewAnim()
                 .setAdapter()
@@ -136,7 +112,7 @@ public class SuggestHomeActivity extends BaseActivity<SuggestHomeActivity> {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.help_top, menu);
+        getMenuInflater().inflate(R.menu.help, menu);
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -145,9 +121,6 @@ public class SuggestHomeActivity extends BaseActivity<SuggestHomeActivity> {
         switch (item.getItemId()) {
             case R.id.menuHelp: // 帮助
                 HelpActivity.goActivity(mActivity, HelpActivity.INDEX_USER_SUGGEST);
-                return true;
-            case R.id.menuTop: // 返回顶部
-                rv.smoothScrollToPosition(0);
                 return true;
         }
         return super.onOptionsItemSelected(item);
@@ -161,102 +134,15 @@ public class SuggestHomeActivity extends BaseActivity<SuggestHomeActivity> {
         TextView tvMy = head.findViewById(R.id.tvMy);
         TextView tvFollow = head.findViewById(R.id.tvFollow);
         TextView tvAdd = head.findViewById(R.id.tvAdd);
-        HorizontalScrollView hsvStatus = head.findViewById(R.id.hsvStatus);
-        HorizontalScrollView hsvKind = head.findViewById(R.id.hsvKind);
-        RadioGroup rgKind = head.findViewById(R.id.rgKind);
-        RadioGroup rgStatus = head.findViewById(R.id.rgStatus);
-        Button btnSearch = head.findViewById(R.id.btnSearch);
         tvMy.setOnClickListener(v -> SuggestListActivity.goActivity(mActivity, SuggestListActivity.ENTRY_MINE));
         tvFollow.setOnClickListener(v -> SuggestListActivity.goActivity(mActivity, SuggestListActivity.ENTRY_FOLLOW));
         tvAdd.setOnClickListener(v -> SuggestAddActivity.goActivity(mActivity));
-        btnSearch.setOnClickListener(v -> recyclerHelper.dataRefresh());
-        // 动态组件拼装
-        hsvStatus.setHorizontalScrollBarEnabled(false);
-        hsvKind.setHorizontalScrollBarEnabled(false);
-        dp3 = ConvertUtils.dp2px(3);
-        dp4 = ConvertUtils.dp2px(4);
-        dp5 = ConvertUtils.dp2px(5);
-        dp14 = ConvertUtils.dp2px(14);
-        List<SuggestInfo.SuggestKind> suggestKindList = suggestInfo.getKindList();
-        List<SuggestInfo.SuggestStatus> suggestStatusList = suggestInfo.getStatusList();
-        for (int i = 0; i < suggestKindList.size(); i++) {
-            SuggestInfo.SuggestKind kind = suggestKindList.get(i);
-            RadioButton rb = getKindRadioButton(kind);
-            rgKind.addView(rb, i);
-        }
-        for (int i = 0; i < suggestStatusList.size(); i++) {
-            SuggestInfo.SuggestStatus status = suggestStatusList.get(i);
-            RadioButton rb = getStatusRadioButton(status);
-            rgStatus.addView(rb, i);
-        }
-        RadioButton child1 = (RadioButton) rgKind.getChildAt(0);
-        child1.setChecked(true);
-        RadioButton child2 = (RadioButton) rgStatus.getChildAt(0);
-        child2.setChecked(true);
-    }
-
-    private RadioButton getKindRadioButton(final SuggestInfo.SuggestKind kind) {
-        RadioButton button = new RadioButton(mActivity);
-        RadioGroup.LayoutParams layoutParams = new RadioGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        layoutParams.bottomMargin = dp5;
-        layoutParams.topMargin = dp5;
-        layoutParams.setMarginStart(dp3);
-        layoutParams.setMarginEnd(dp3);
-        button.setLayoutParams(layoutParams);
-        button.setPadding(dp14, dp4, dp14, dp4);
-        button.setBackgroundResource(R.drawable.selector_check_stroke_solid_primary_r3);
-        button.setButtonDrawable(null);
-        button.setElevation(dp3);
-        button.setGravity(Gravity.CENTER);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            button.setTextAppearance(R.style.FontWhiteNormal);
-        } else {
-            button.setTextAppearance(mActivity, R.style.FontWhiteNormal);
-        }
-        button.setText(kind.getShow());
-        ColorStateList colorStateList = ContextCompat.getColorStateList(mActivity, R.color.selector_text_check_primary_white);
-        button.setTextColor(colorStateList);
-        button.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            if (isChecked) {
-                searchKind = kind.getKind();
-            }
-        });
-        return button;
-    }
-
-    private RadioButton getStatusRadioButton(final SuggestInfo.SuggestStatus status) {
-        RadioButton button = new RadioButton(mActivity);
-        RadioGroup.LayoutParams layoutParams = new RadioGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        layoutParams.bottomMargin = dp5;
-        layoutParams.topMargin = dp5;
-        layoutParams.setMarginStart(dp3);
-        layoutParams.setMarginEnd(dp3);
-        button.setLayoutParams(layoutParams);
-        button.setPadding(dp14, dp4, dp14, dp4);
-        button.setBackgroundResource(R.drawable.selector_check_stroke_solid_primary_r3);
-        button.setButtonDrawable(null);
-        button.setElevation(dp3);
-        button.setGravity(Gravity.CENTER);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            button.setTextAppearance(R.style.FontWhiteNormal);
-        } else {
-            button.setTextAppearance(mActivity, R.style.FontWhiteNormal);
-        }
-        button.setText(status.getShow());
-        ColorStateList colorStateList = ContextCompat.getColorStateList(mActivity, R.color.selector_text_check_primary_white);
-        button.setTextColor(colorStateList);
-        button.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            if (isChecked) {
-                searchStatus = status.getStatus();
-            }
-        });
-        return button;
     }
 
     public void getData(final boolean more) {
         page = more ? page + 1 : 0;
         // api
-        Call<Result> api = new RetrofitHelper().call(API.class).setSuggestListGet(searchStatus, searchKind, page);
+        Call<Result> api = new RetrofitHelper().call(API.class).setSuggestListGet(Suggest.STATUS_REPLY_NO, Suggest.KIND_ALL, page);
         RetrofitHelper.enqueue(api, null, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {

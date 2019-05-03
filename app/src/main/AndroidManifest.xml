@@ -190,9 +190,10 @@
         <activity android:name=".controller.activity.settings.NoticeListActivity"/>
         <activity android:name=".controller.activity.settings.NoticeDetailActivity"/>
         <activity android:name=".controller.activity.settings.SuggestHomeActivity"/>
+        <activity android:name=".controller.activity.settings.SuggestListActivity"/>
         <activity android:name=".controller.activity.settings.SuggestDetailActivity"/>
         <activity android:name=".controller.activity.settings.SuggestAddActivity"/>
-        <activity android:name=".controller.activity.settings.SuggestListActivity"/>
+        <activity android:name=".controller.activity.settings.SuggestCommentAddActivity"/>
         <activity android:name=".controller.activity.settings.AboutActivity"/>
         <activity android:name=".controller.activity.settings.UserProtocolActivity"/>
         <!-- couple -->

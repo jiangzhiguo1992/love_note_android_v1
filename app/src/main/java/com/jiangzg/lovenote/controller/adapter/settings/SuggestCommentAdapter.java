@@ -1,15 +1,17 @@
 package com.jiangzg.lovenote.controller.adapter.settings;
 
 import android.support.v4.content.ContextCompat;
-import android.widget.TextView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
+import com.jiangzg.base.common.DateUtils;
+import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.base.view.ViewUtils;
 import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.controller.activity.base.BaseActivity;
 import com.jiangzg.lovenote.helper.common.RxBus;
+import com.jiangzg.lovenote.helper.common.ShowHelper;
 import com.jiangzg.lovenote.helper.common.TimeHelper;
 import com.jiangzg.lovenote.helper.system.RetrofitHelper;
 import com.jiangzg.lovenote.helper.view.DialogHelper;
@@ -28,17 +30,15 @@ import retrofit2.Call;
  */
 public class SuggestCommentAdapter extends BaseQuickAdapter<SuggestComment, BaseViewHolder> {
 
-    private final int colorGrey;
-    private final int colorDark;
-    private final int colorPrimary;
     private BaseActivity mActivity;
+    private final int colorGrey;
+    private final int colorPrimary;
 
     public SuggestCommentAdapter(BaseActivity activity) {
         super(R.layout.list_item_suggest_comment);
         mActivity = activity;
-
+        // color
         colorGrey = ContextCompat.getColor(mActivity, R.color.font_grey);
-        colorDark = ContextCompat.getColor(mActivity, ViewUtils.getColorDark(mActivity));
         colorPrimary = ContextCompat.getColor(mActivity, ViewUtils.getColorPrimary(mActivity));
     }
 
@@ -46,22 +46,14 @@ public class SuggestCommentAdapter extends BaseQuickAdapter<SuggestComment, Base
     protected void convert(BaseViewHolder helper, SuggestComment item) {
         // data
         boolean official = item.isOfficial();
-        boolean mine = item.isMine();
-        String floor = official ? mActivity.getString(R.string.administrators) : "";
-        String create = TimeHelper.getTimeShowLine_HM_MD_YMD_ByGo(item.getCreateAt());
-        String top = String.format(Locale.getDefault(), mActivity.getString(R.string.holder_space_space_holder), floor, create);
+        String admin = official ? mActivity.getString(R.string.administrators) : "";
+        String create = ShowHelper.getBetweenTimeGoneShow(DateUtils.getCurrentLong() - TimeHelper.getJavaTimeByGo(item.getCreateAt()));
+        String top = StringUtils.isEmpty(admin) ? create : String.format(Locale.getDefault(), mActivity.getString(R.string.holder_space_space_holder), admin, create);
         String contentText = item.getContentText();
         // view
         helper.setText(R.id.tvContent, contentText);
-        TextView tvFloor = helper.getView(R.id.tvTop);
-        tvFloor.setText(top);
-        if (official) {
-            tvFloor.setTextColor(colorDark);
-        } else if (mine) {
-            tvFloor.setTextColor(colorPrimary);
-        } else {
-            tvFloor.setTextColor(colorGrey);
-        }
+        helper.setText(R.id.tvTop, top);
+        helper.setTextColor(R.id.tvTop, official ? colorPrimary : colorGrey);
     }
 
     // 删除评论
@@ -98,6 +90,5 @@ public class SuggestCommentAdapter extends BaseQuickAdapter<SuggestComment, Base
         });
         mActivity.pushApi(api);
     }
-
 
 }

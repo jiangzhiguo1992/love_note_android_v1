@@ -7,7 +7,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    android:gravity="center_horizontal"
     android:orientation="vertical"
     tools:context=".controller.activity.settings.SuggestAddActivity">
 
@@ -16,7 +15,8 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1">
+        android:layout_weight="1"
+        android:fillViewport="true">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -29,10 +29,7 @@
                 style="@style/FontPrimaryNormalBold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingStart="10dp"
-                android:paddingTop="20dp"
-                android:paddingEnd="10dp"
-                android:paddingBottom="10dp"
+                android:padding="20dp"
                 android:text="@string/click_me_choose_type"
                 android:textColor="@color/selector_text_press_primary_dark"/>
 
@@ -63,12 +60,12 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/tvTitleLimit"
-                    android:layout_marginTop="3dp"
+                    android:layout_marginTop="5dp"
                     android:background="@drawable/selector_enable_press_stroke_light_primary_dark_r3"
                     android:hint="@string/please_input_title"
                     android:inputType="text"
                     android:maxLines="1"
-                    android:padding="8dp"
+                    android:padding="10dp"
                     android:singleLine="true"
                     android:textColorHint="@color/font_hint"/>
             </RelativeLayout>
@@ -100,12 +97,12 @@
                     android:layout_width="match_parent"
                     android:layout_height="150dp"
                     android:layout_below="@id/tvContentLimit"
-                    android:layout_marginTop="3dp"
+                    android:layout_marginTop="5dp"
                     android:background="@drawable/selector_enable_press_stroke_light_primary_dark_r3"
                     android:gravity="start"
                     android:hint="@string/please_input_content"
                     android:inputType="textMultiLine"
-                    android:padding="8dp"
+                    android:padding="10dp"
                     android:textColorHint="@color/font_hint"/>
             </RelativeLayout>
 
@@ -117,7 +114,6 @@
                 android:padding="10dp"
                 android:text="@string/click_me_add_image"
                 android:textColor="@color/selector_text_press_primary_dark"/>
-
 
             <com.jiangzg.lovenote.view.FrescoNativeView
                 android:id="@+id/ivImage"

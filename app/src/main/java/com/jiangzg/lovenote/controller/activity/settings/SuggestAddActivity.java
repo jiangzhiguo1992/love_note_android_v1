@@ -23,6 +23,7 @@ import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.controller.activity.base.BaseActivity;
 import com.jiangzg.lovenote.controller.activity.common.BigImageActivity;
+import com.jiangzg.lovenote.helper.common.ListHelper;
 import com.jiangzg.lovenote.helper.common.OssHelper;
 import com.jiangzg.lovenote.helper.common.RxBus;
 import com.jiangzg.lovenote.helper.common.SPHelper;
@@ -64,7 +65,7 @@ public class SuggestAddActivity extends BaseActivity<SuggestAddActivity> {
     @BindView(R.id.ivImage)
     FrescoNativeView ivImage;
 
-    private int kind = 0;
+    private int kind;
     private File pictureFile;
     private List<SuggestInfo.SuggestKind> suggestKindList;
     private int limitTitleLength;
@@ -84,7 +85,7 @@ public class SuggestAddActivity extends BaseActivity<SuggestAddActivity> {
 
     @Override
     protected void initView(Intent intent, Bundle state) {
-        ViewHelper.initTopBar(mActivity, tb, getString(R.string.i_want_feedback), true);
+        ViewHelper.initTopBar(mActivity, tb, getString(R.string.suggest_feedback), true);
         // input
         etTitle.addTextChangedListener(new TextWatcher() {
             @Override
@@ -128,7 +129,8 @@ public class SuggestAddActivity extends BaseActivity<SuggestAddActivity> {
 
     @Override
     protected void initData(Intent intent, Bundle state) {
-        SuggestInfo suggestInfo = SuggestInfo.getInstance();
+        kind = 0;
+        SuggestInfo suggestInfo = ListHelper.getSuggestInfo();
         suggestKindList = suggestInfo.getKindList();
     }
 
@@ -234,13 +236,26 @@ public class SuggestAddActivity extends BaseActivity<SuggestAddActivity> {
     }
 
     private void showKindDialog() {
+        // items
         CharSequence[] items = new CharSequence[suggestKindList.size() - 1];
         for (int i = 1; i < suggestKindList.size(); i++) {
             SuggestInfo.SuggestKind kind = suggestKindList.get(i);
             // 第一个是全部，不要
             items[i - 1] = kind.getShow();
         }
-        int kindIndex = getKindIndex(kind);
+        // index
+        int kindIndex = 0;
+        SuggestInfo info = ListHelper.getSuggestInfo();
+        List<SuggestInfo.SuggestKind> kindList = info.getKindList();
+        for (int i = 1; i < kindList.size(); i++) {
+            // 不要全部
+            SuggestInfo.SuggestKind s = kindList.get(i);
+            if (s.getKind() == kind) {
+                kindIndex = i;
+                break;
+            }
+        }
+        // dialog
         MaterialDialog dialog = DialogHelper.getBuild(mActivity)
                 .cancelable(true)
                 .canceledOnTouchOutside(true)
@@ -316,19 +331,6 @@ public class SuggestAddActivity extends BaseActivity<SuggestAddActivity> {
             }
         });
         pushApi(api);
-    }
-
-    private int getKindIndex(int kind) {
-        SuggestInfo info = SuggestInfo.getInstance();
-        List<SuggestInfo.SuggestKind> kindList = info.getKindList();
-        // 不要全部
-        for (int i = 1; i < kindList.size(); i++) {
-            SuggestInfo.SuggestKind s = kindList.get(i);
-            if (s.getKind() == kind) {
-                return i;
-            }
-        }
-        return 0;
     }
 
 }
