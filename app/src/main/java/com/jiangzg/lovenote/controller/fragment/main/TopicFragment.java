@@ -27,12 +27,14 @@ import com.jiangzg.lovenote.controller.fragment.base.BaseFragment;
 import com.jiangzg.lovenote.controller.fragment.base.BasePagerFragment;
 import com.jiangzg.lovenote.helper.common.ListHelper;
 import com.jiangzg.lovenote.helper.common.RxBus;
+import com.jiangzg.lovenote.helper.common.SPHelper;
 import com.jiangzg.lovenote.helper.common.TimeHelper;
 import com.jiangzg.lovenote.helper.system.RetrofitHelper;
 import com.jiangzg.lovenote.helper.view.RecyclerHelper;
 import com.jiangzg.lovenote.helper.view.ViewHelper;
 import com.jiangzg.lovenote.model.api.API;
 import com.jiangzg.lovenote.model.api.Result;
+import com.jiangzg.lovenote.model.entity.CommonCount;
 import com.jiangzg.lovenote.model.entity.Post;
 import com.jiangzg.lovenote.model.entity.PostKindInfo;
 import com.jiangzg.lovenote.view.GSwipeRefreshLayout;
@@ -80,8 +82,6 @@ public class TopicFragment extends BasePagerFragment<TopicFragment> {
     protected void initView(@Nullable Bundle state) {
         ViewHelper.initTopBar(mActivity, tb, mActivity.getString(R.string.nav_topic), false);
         fitToolBar(tb);
-        // menu
-        tb.inflateMenu(R.menu.help_mine_notice);
         // recycler
         LinearLayoutManager layoutManager = new LinearLayoutManager(mActivity);
         postRecyclerHelper = new RecyclerHelper(rv)
@@ -152,6 +152,13 @@ public class TopicFragment extends BasePagerFragment<TopicFragment> {
     }
 
     @Override
+    public void onStart() {
+        super.onStart();
+        // menu
+        refreshMenu();
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menuHelp: // 帮助
@@ -212,6 +219,13 @@ public class TopicFragment extends BasePagerFragment<TopicFragment> {
             public void onResponse(int code, String message, Result.Data data) {
                 if (kindRecyclerHelper == null) return;
                 postKindInfoList = data.getPostKindInfoList();
+                // count
+                CommonCount newCC = data.getCommonCount();
+                CommonCount oldCC = SPHelper.getCommonCount();
+                oldCC.setTopicMsgNewCount(newCC == null ? 0 : newCC.getTopicMsgNewCount());
+                SPHelper.setCommonCount(oldCC);
+                // view
+                refreshMenu();
                 kindRecyclerHelper.dataNew(ListHelper.getPostKindInfoListEnable(), 0);
             }
 
@@ -220,6 +234,16 @@ public class TopicFragment extends BasePagerFragment<TopicFragment> {
             }
         });
         pushApi(api);
+    }
+
+    private void refreshMenu() {
+        boolean notice = SPHelper.getCommonCount().getTopicMsgNewCount() > 0;
+        tb.getMenu().clear();
+        if (notice) {
+            tb.inflateMenu(R.menu.help_mine_notice_point);
+        } else {
+            tb.inflateMenu(R.menu.help_mine_notice);
+        }
     }
 
     private void refreshPostListData(final boolean more) {

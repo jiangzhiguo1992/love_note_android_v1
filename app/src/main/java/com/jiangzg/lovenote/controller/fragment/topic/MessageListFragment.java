@@ -13,10 +13,12 @@ import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.controller.adapter.topic.MessageAdapter;
 import com.jiangzg.lovenote.controller.fragment.base.BaseFragment;
 import com.jiangzg.lovenote.controller.fragment.base.BasePagerFragment;
+import com.jiangzg.lovenote.helper.common.SPHelper;
 import com.jiangzg.lovenote.helper.system.RetrofitHelper;
 import com.jiangzg.lovenote.helper.view.RecyclerHelper;
 import com.jiangzg.lovenote.model.api.API;
 import com.jiangzg.lovenote.model.api.Result;
+import com.jiangzg.lovenote.model.entity.CommonCount;
 import com.jiangzg.lovenote.view.GSwipeRefreshLayout;
 
 import butterknife.BindView;
@@ -69,6 +71,10 @@ public class MessageListFragment extends BasePagerFragment<MessageListFragment> 
 
     @Override
     protected void loadData() {
+        // count
+        CommonCount commonCount = SPHelper.getCommonCount();
+        commonCount.setTopicMsgNewCount(0);
+        SPHelper.setCommonCount(commonCount);
         // refresh
         recyclerHelper.dataRefresh();
     }
