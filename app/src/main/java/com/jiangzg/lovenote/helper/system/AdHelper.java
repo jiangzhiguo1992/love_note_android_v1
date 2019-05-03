@@ -3,6 +3,7 @@ package com.jiangzg.lovenote.helper.system;
 import android.content.Context;
 
 import com.jiangzg.base.common.LogUtils;
+import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.base.system.PermUtils;
 import com.jiangzg.lovenote.helper.common.SPHelper;
 import com.jiangzg.lovenote.model.entity.AdInfo;
@@ -36,13 +37,12 @@ public class AdHelper {
         return deviceOk && appOk;
     }
 
-    public static void createAd(Context context, int width, int height, int count, OnAdCallBack callBack) {
-        if (!canAd(context)) {
-            return;
-        }
+    public static void createNativeExpressAD(Context context, int width, int height, int count, OnAdCallBack callBack) {
+        if (!canAd(context)) return;
         AdInfo adInfo = SPHelper.getAdInfo();
         String appId = adInfo.getAppId();
         String posId = adInfo.getTopicPostPosId();
+        if (StringUtils.isEmpty(appId) || StringUtils.isEmpty(posId)) return;
         NativeExpressAD ad = new NativeExpressAD(context, new ADSize(width, height), appId, posId, new NativeExpressAD.NativeExpressADListener() {
             @Override
             public void onADLoaded(List<NativeExpressADView> viewList) {

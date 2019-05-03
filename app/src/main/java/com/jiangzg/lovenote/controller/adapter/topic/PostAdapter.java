@@ -61,7 +61,7 @@ public class PostAdapter extends BaseQuickAdapter<Post, BaseViewHolder> {
         super.setNewData(data);
         //if (adShow) {
         //    // 刷新数据的时候，也刷新广告(包括屏蔽记录)
-        //    AdHelper.createAd(mActivity, ADSize.FULL_WIDTH, ADSize.AUTO_HEIGHT, 5, new AdHelper.OnAdCallBack() {
+        //    AdHelper.createNativeExpressAD(mActivity, ADSize.FULL_WIDTH, ADSize.AUTO_HEIGHT, 5, new AdHelper.OnAdCallBack() {
         //        @Override
         //        public void onADLoaded(List<NativeExpressADView> viewList) {
         //            PostAdapter.this.adDestroy();
