@@ -56,6 +56,7 @@ public class SPHelper {
     private static final String FIELD_COMMON_NOTICE_DISTURB = "notice_disturb";
     // modelShow
     private static final String FIELD_MODEL_SHOW_MARKET_PAY = "market_pay";
+    private static final String FIELD_MODEL_SHOW_MARKET_COIN_AD = "market_coin_ad";
     private static final String FIELD_MODEL_SHOW_COUPLE = "couple";
     private static final String FIELD_MODEL_SHOW_COUPLE_PLACE = "couple_place";
     private static final String FIELD_MODEL_SHOW_COUPLE_WEATHER = "couple_weather";
@@ -382,6 +383,7 @@ public class SPHelper {
         }
         SharedPreferences.Editor editor = SPUtils.getSharedPreferences(SHARE_MODEL_SHOW).edit();
         editor.putBoolean(FIELD_MODEL_SHOW_MARKET_PAY, modelShow.isMarketPay());
+        editor.putBoolean(FIELD_MODEL_SHOW_MARKET_COIN_AD, modelShow.isMarketCoinAd());
         editor.putBoolean(FIELD_MODEL_SHOW_COUPLE, modelShow.isCouple());
         editor.putBoolean(FIELD_MODEL_SHOW_COUPLE_PLACE, modelShow.isCouplePlace());
         editor.putBoolean(FIELD_MODEL_SHOW_COUPLE_WEATHER, modelShow.isCoupleWeather());
@@ -399,6 +401,7 @@ public class SPHelper {
         SharedPreferences sp = SPUtils.getSharedPreferences(SHARE_MODEL_SHOW);
         ModelShow modelShow = new ModelShow();
         modelShow.setMarketPay(sp.getBoolean(FIELD_MODEL_SHOW_MARKET_PAY, true));
+        modelShow.setMarketCoinAd(sp.getBoolean(FIELD_MODEL_SHOW_MARKET_COIN_AD, true));
         modelShow.setCouple(sp.getBoolean(FIELD_MODEL_SHOW_COUPLE, true));
         modelShow.setCouplePlace(sp.getBoolean(FIELD_MODEL_SHOW_COUPLE_PLACE, true));
         modelShow.setCoupleWeather(sp.getBoolean(FIELD_MODEL_SHOW_COUPLE_WEATHER, true));

@@ -6,6 +6,7 @@ package com.jiangzg.lovenote.model.entity;
 public class ModelShow {
 
     private boolean marketPay;
+    private boolean marketCoinAd;
     private boolean couple;
     private boolean couplePlace;
     private boolean coupleWeather;
@@ -16,6 +17,14 @@ public class ModelShow {
     private boolean moreCoin;
     private boolean moreMatch;
     private boolean moreFeature;
+
+    public boolean isMarketCoinAd() {
+        return marketCoinAd;
+    }
+
+    public void setMarketCoinAd(boolean marketCoinAd) {
+        this.marketCoinAd = marketCoinAd;
+    }
 
     public boolean isMarketPay() {
         return marketPay;
