@@ -616,6 +616,8 @@
     <string name="vip_buy">会员购买</string>
     <string name="coin_buy">金币购买</string>
     <string name="sys_change">系统变更</string>
+    <string name="ad_watch">广告观看</string>
+    <string name="ad_click">广告点击</string>
     <string name="unknown_kind">未知类型</string>
     <string name="pay_vip_goods_format" formatted="false">%s\n%d 天\n\n￥ %.1f</string>
     <string name="pay_coin_goods_format" formatted="false">%s\n%d 个\n\n￥ %.1f</string>

@@ -15,9 +15,15 @@ import com.jiangzg.base.system.PermUtils;
 import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.controller.activity.base.BaseActivity;
+import com.jiangzg.lovenote.helper.common.RxBus;
 import com.jiangzg.lovenote.helper.common.SPHelper;
+import com.jiangzg.lovenote.helper.system.RetrofitHelper;
 import com.jiangzg.lovenote.helper.view.DialogHelper;
+import com.jiangzg.lovenote.model.api.API;
+import com.jiangzg.lovenote.model.api.Result;
 import com.jiangzg.lovenote.model.entity.AdInfo;
+import com.jiangzg.lovenote.model.entity.Coin;
+import com.jiangzg.lovenote.model.entity.Limit;
 import com.qq.e.ads.splash.SplashAD;
 import com.qq.e.ads.splash.SplashADListener;
 import com.qq.e.comm.util.AdError;
@@ -26,6 +32,7 @@ import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import retrofit2.Call;
 
 public class CoinAdScreenActivity extends BaseActivity<CoinAdScreenActivity> {
 
@@ -68,10 +75,11 @@ public class CoinAdScreenActivity extends BaseActivity<CoinAdScreenActivity> {
 
     @Override
     protected void initView(Intent intent, Bundle state) {
-        int browseChange = 1; // TODO
-        int clickChange = 5; // TODO
-        int coinAdLimit = 5; // TODO
-        tvDesc.setText(String.format(Locale.getDefault(), getString(R.string.coin_ad_desc), browseChange, clickChange, coinAdLimit));
+        Limit limit = SPHelper.getLimit();
+        int watchChange = limit.getCoinAdWatchCount();
+        int clickChange = limit.getCoinAdClickCount();
+        int maxCount = limit.getCoinAdMaxPerDayCount();
+        tvDesc.setText(String.format(Locale.getDefault(), getString(R.string.coin_ad_desc), watchChange, clickChange, maxCount));
     }
 
     @Override
@@ -99,14 +107,14 @@ public class CoinAdScreenActivity extends BaseActivity<CoinAdScreenActivity> {
         llDesc.setVisibility(View.VISIBLE);
         tvHolder.setVisibility(View.GONE);
         rlAd.removeAllViews();
-        adTick = 5000; // TODO
+        adTick = SPHelper.getAdInfo().getCoinFreeTickSec() * 1000;
     }
 
     private void initViewFetch() {
         llDesc.setVisibility(View.GONE);
         tvHolder.setVisibility(View.VISIBLE);
         rlAd.removeAllViews();
-        adTick = 5000; // TODO
+        adTick = SPHelper.getAdInfo().getCoinFreeTickSec() * 1000;
     }
 
     private void initViewAD() {
@@ -119,8 +127,8 @@ public class CoinAdScreenActivity extends BaseActivity<CoinAdScreenActivity> {
         // ad
         AdInfo adInfo = SPHelper.getAdInfo();
         String appId = adInfo.getAppId();
-        String posId = "6030660059353673"; // TODO
-        int screenDuration = 5000; // TODO
+        String posId = adInfo.getCoinFreePosId();
+        int screenDuration = adInfo.getCoinFreeTickSec() * 1000;
         new SplashAD(mActivity, rlAd, appId, posId, listener, screenDuration);
     }
 
@@ -163,11 +171,26 @@ public class CoinAdScreenActivity extends BaseActivity<CoinAdScreenActivity> {
         }
     };
 
-    private void getCoin(Boolean click) {
+    private void getCoin(boolean click) {
         if (!click && adTick >= 1000) return;
-        // TODO
-        ToastUtils.show("获取金币");
-        initViewStart();
+        Coin body = new Coin();
+        body.setKind(click ? Coin.KIND_ADD_BY_AD_CLICK : Coin.KIND_ADD_BY_AD_WATCH);
+        Call<Result> api = new RetrofitHelper().call(API.class).moreCoinAdd(body);
+        // api
+        RetrofitHelper.enqueue(api, mActivity.getLoading(true), new RetrofitHelper.CallBack() {
+            @Override
+            public void onResponse(int code, String message, Result.Data data) {
+                // event
+                RxBus.post(new RxBus.Event<>(RxBus.EVENT_COIN_INFO_REFRESH, new Coin()));
+                // view
+                initViewStart();
+            }
+
+            @Override
+            public void onFailure(int code, String message, Result.Data data) {
+            }
+        });
+        pushApi(api);
     }
 
 }

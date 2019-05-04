@@ -145,6 +145,8 @@ public class SPHelper {
     private static final String FIELD_AD_TOPIC_POST_POS_ID = "topic_post_pos_id";
     private static final String FIELD_AD_TOPIC_POST_JUMP = "topic_post_jump";
     private static final String FIELD_AD_TOPIC_POST_START = "topic_post_start";
+    private static final String FIELD_AD_COIN_FREE_POS_ID = "coin_free_pos_id";
+    private static final String FIELD_AD_COIN_FREE_TICK_SEC = "coin_free_tick_sec";
     // limit
     private static final String FIELD_LIMIT_SMS_CODE_LENGTH = "sms_code_length";
     private static final String FIELD_LIMIT_SMS_BETWEEN = "sms_between";
@@ -224,6 +226,9 @@ public class SPHelper {
     private static final String FIELD_LIMIT_COIN_SIGN_MIN_COUNT = "coin_sign_min_count";
     private static final String FIELD_LIMIT_COIN_SIGN_MAX_COUNT = "coin_sign_max_count";
     private static final String FIELD_LIMIT_COIN_SIGN_INCREASE_COUNT = "coin_sign_increase_count";
+    private static final String FIELD_LIMIT_COIN_AD_WATCH_COUNT = "coin_ad_watch_count";
+    private static final String FIELD_LIMIT_COIN_AD_CLICK_COUNT = "coin_ad_click_count";
+    private static final String FIELD_LIMIT_COIN_AD_MAX_PER_DAY_COUNT = "coin_ad_max_per_day_count";
     private static final String FIELD_LIMIT_MATCH_WORK_SCREEN_REPORT_COUNT = "match_work_screen_report_count";
     private static final String FIELD_LIMIT_MATCH_WORK_TITLE_LENGTH = "match_work_title_length";
     private static final String FIELD_LIMIT_MATCH_WORK_CONTENT_LENGTH = "match_work_content_length";
@@ -655,6 +660,8 @@ public class SPHelper {
         editor.putString(FIELD_AD_TOPIC_POST_POS_ID, adInfo.getTopicPostPosId());
         editor.putInt(FIELD_AD_TOPIC_POST_JUMP, adInfo.getTopicPostJump());
         editor.putInt(FIELD_AD_TOPIC_POST_START, adInfo.getTopicPostStart());
+        editor.putString(FIELD_AD_COIN_FREE_POS_ID, adInfo.getCoinFreePosId());
+        editor.putInt(FIELD_AD_COIN_FREE_TICK_SEC, adInfo.getCoinFreeTickSec());
         editor.apply();
     }
 
@@ -665,6 +672,8 @@ public class SPHelper {
         adInfo.setTopicPostPosId(sp.getString(FIELD_AD_TOPIC_POST_POS_ID, ""));
         adInfo.setTopicPostJump(sp.getInt(FIELD_AD_TOPIC_POST_JUMP, 20));
         adInfo.setTopicPostStart(sp.getInt(FIELD_AD_TOPIC_POST_START, 5));
+        adInfo.setCoinFreePosId(sp.getString(FIELD_AD_COIN_FREE_POS_ID, ""));
+        adInfo.setCoinFreeTickSec(sp.getInt(FIELD_AD_COIN_FREE_TICK_SEC, 5));
         return adInfo;
     }
 
@@ -755,6 +764,9 @@ public class SPHelper {
         editor.putInt(FIELD_LIMIT_COIN_SIGN_MIN_COUNT, limit.getCoinSignMinCount());
         editor.putInt(FIELD_LIMIT_COIN_SIGN_MAX_COUNT, limit.getCoinSignMaxCount());
         editor.putInt(FIELD_LIMIT_COIN_SIGN_INCREASE_COUNT, limit.getCoinSignIncreaseCount());
+        editor.putInt(FIELD_LIMIT_COIN_AD_WATCH_COUNT, limit.getCoinAdWatchCount());
+        editor.putInt(FIELD_LIMIT_COIN_AD_CLICK_COUNT, limit.getCoinAdClickCount());
+        editor.putInt(FIELD_LIMIT_COIN_AD_MAX_PER_DAY_COUNT, limit.getCoinAdMaxPerDayCount());
         editor.putInt(FIELD_LIMIT_MATCH_WORK_SCREEN_REPORT_COUNT, limit.getMatchWorkScreenReportCount());
         editor.putInt(FIELD_LIMIT_MATCH_WORK_TITLE_LENGTH, limit.getMatchWorkTitleLength());
         editor.putInt(FIELD_LIMIT_MATCH_WORK_CONTENT_LENGTH, limit.getMatchWorkContentLength());
@@ -842,6 +854,9 @@ public class SPHelper {
         limit.setCoinSignMinCount(sp.getInt(FIELD_LIMIT_COIN_SIGN_MIN_COUNT, 1));
         limit.setCoinSignMaxCount(sp.getInt(FIELD_LIMIT_COIN_SIGN_MAX_COUNT, 10));
         limit.setCoinSignIncreaseCount(sp.getInt(FIELD_LIMIT_COIN_SIGN_INCREASE_COUNT, 1));
+        limit.setCoinAdWatchCount(sp.getInt(FIELD_LIMIT_COIN_AD_WATCH_COUNT, 1));
+        limit.setCoinAdClickCount(sp.getInt(FIELD_LIMIT_COIN_AD_CLICK_COUNT, 2));
+        limit.setCoinAdMaxPerDayCount(sp.getInt(FIELD_LIMIT_COIN_AD_MAX_PER_DAY_COUNT, 10));
         limit.setMatchWorkScreenReportCount(sp.getInt(FIELD_LIMIT_MATCH_WORK_SCREEN_REPORT_COUNT, 10));
         limit.setMatchWorkTitleLength(sp.getInt(FIELD_LIMIT_MATCH_WORK_TITLE_LENGTH, 100));
         limit.setMatchWorkContentLength(sp.getInt(FIELD_LIMIT_MATCH_WORK_CONTENT_LENGTH, 200));

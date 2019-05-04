@@ -466,6 +466,7 @@ public class CoupleDetailActivity extends BaseActivity<CoupleDetailActivity> {
         Coin coin = new Coin();
         coin.setUserId(uid);
         coin.setCoupleId(couple.getId());
+        coin.setKind(Coin.COIN_KIND_ADD_BY_SYS);
         coin.setChange(count);
         Call<Result> call = new RetrofitHelper().call(API.class).moreCoinAdd(coin);
         RetrofitHelper.enqueue(call, getLoading(true), null);

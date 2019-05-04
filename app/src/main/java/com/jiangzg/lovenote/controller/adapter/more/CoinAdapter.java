@@ -61,6 +61,10 @@ public class CoinAdapter extends BaseMultiItemQuickAdapter<Coin, BaseViewHolder>
                 return MyApp.get().getString(R.string.pay);
             case Coin.KIND_ADD_BY_SIGN_DAY:
                 return MyApp.get().getString(R.string.sign);
+            case Coin.KIND_ADD_BY_AD_WATCH:
+                return MyApp.get().getString(R.string.ad_watch);
+            case Coin.KIND_ADD_BY_AD_CLICK:
+                return MyApp.get().getString(R.string.ad_click);
             case Coin.KIND_ADD_BY_MATCH_POST:
                 return MyApp.get().getString(R.string.nav_match);
             case Coin.KIND_SUB_BY_MATCH_UP:

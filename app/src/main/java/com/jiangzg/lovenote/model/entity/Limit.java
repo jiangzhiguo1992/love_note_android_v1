@@ -90,9 +90,36 @@ public class Limit {
     private int coinSignMinCount;
     private int coinSignMaxCount;
     private int coinSignIncreaseCount;
+    private int coinAdWatchCount;
+    private int coinAdClickCount;
+    private int coinAdMaxPerDayCount;
     private int matchWorkScreenReportCount;
     private int matchWorkTitleLength;
     private int matchWorkContentLength;
+
+    public int getCoinAdWatchCount() {
+        return coinAdWatchCount;
+    }
+
+    public void setCoinAdWatchCount(int coinAdWatchCount) {
+        this.coinAdWatchCount = coinAdWatchCount;
+    }
+
+    public int getCoinAdClickCount() {
+        return coinAdClickCount;
+    }
+
+    public void setCoinAdClickCount(int coinAdClickCount) {
+        this.coinAdClickCount = coinAdClickCount;
+    }
+
+    public int getCoinAdMaxPerDayCount() {
+        return coinAdMaxPerDayCount;
+    }
+
+    public void setCoinAdMaxPerDayCount(int coinAdMaxPerDayCount) {
+        this.coinAdMaxPerDayCount = coinAdMaxPerDayCount;
+    }
 
     public int getMensesMaxPerMonth() {
         return mensesMaxPerMonth;

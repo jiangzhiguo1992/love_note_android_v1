@@ -9,6 +9,24 @@ public class AdInfo {
     private String topicPostPosId;
     private int topicPostJump;
     private int topicPostStart;
+    private String coinFreePosId;
+    private int coinFreeTickSec;
+
+    public String getCoinFreePosId() {
+        return coinFreePosId;
+    }
+
+    public void setCoinFreePosId(String coinFreePosId) {
+        this.coinFreePosId = coinFreePosId;
+    }
+
+    public int getCoinFreeTickSec() {
+        return coinFreeTickSec;
+    }
+
+    public void setCoinFreeTickSec(int coinFreeTickSec) {
+        this.coinFreeTickSec = coinFreeTickSec;
+    }
 
     public int getTopicPostStart() {
         return topicPostStart;

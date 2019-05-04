@@ -5,6 +5,7 @@ import com.jiangzg.lovenote.model.entity.Angry;
 import com.jiangzg.lovenote.model.entity.Audio;
 import com.jiangzg.lovenote.model.entity.Award;
 import com.jiangzg.lovenote.model.entity.AwardRule;
+import com.jiangzg.lovenote.model.entity.Coin;
 import com.jiangzg.lovenote.model.entity.Couple;
 import com.jiangzg.lovenote.model.entity.Diary;
 import com.jiangzg.lovenote.model.entity.Dream;
@@ -677,6 +678,10 @@ public interface API {
     // coinHome获取
     @GET("more/coin?home=1")
     Call<Result> moreCoinHomeGet();
+
+    // coin上传
+    @POST("more/coin")
+    Call<Result> moreCoinAdd(@Body Coin coin);
 
     // coinList获取
     @GET("more/coin?list=1")
