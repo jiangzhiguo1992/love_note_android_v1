@@ -271,11 +271,11 @@
         <activity android:name=".controller.activity.more.CoinActivity"/>
         <activity android:name=".controller.activity.more.CoinBuyActivity"/>
         <activity android:name=".controller.activity.more.CoinListActivity"/>
+        <activity android:name=".controller.activity.more.CoinAdScreenActivity"/>
         <activity android:name=".controller.activity.more.SignActivity"/>
         <activity android:name=".controller.activity.more.MatchWifeActivity"/>
         <activity android:name=".controller.activity.more.MatchWifeListActivity"/>
         <activity android:name=".controller.activity.more.MatchLetterActivity"/>
         <activity android:name=".controller.activity.more.MatchLetterListActivity"/>
     </application>
-
 </manifest>

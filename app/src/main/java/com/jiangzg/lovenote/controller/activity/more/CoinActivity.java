@@ -24,6 +24,7 @@ import com.jiangzg.lovenote.helper.view.ViewHelper;
 import com.jiangzg.lovenote.model.api.API;
 import com.jiangzg.lovenote.model.api.Result;
 import com.jiangzg.lovenote.model.entity.Coin;
+import com.jiangzg.lovenote.model.entity.ModelShow;
 import com.jiangzg.lovenote.model.entity.User;
 import com.jiangzg.lovenote.view.FrescoAvatarView;
 import com.jiangzg.lovenote.view.GSwipeRefreshLayout;
@@ -49,6 +50,8 @@ public class CoinActivity extends BaseActivity<CoinActivity> {
     Button btnHistory;
     @BindView(R.id.btnBuy)
     Button btnBuy;
+    @BindView(R.id.cvAd)
+    CardView cvAd;
     @BindView(R.id.cvInPay)
     CardView cvInPay;
     @BindView(R.id.cvInSign)
@@ -89,8 +92,10 @@ public class CoinActivity extends BaseActivity<CoinActivity> {
         ViewHelper.initTopBar(mActivity, tb, getString(R.string.coin), true);
         srl.setEnabled(false);
         // pay
-        btnBuy.setVisibility(SPHelper.getModelShow().isMarketPay() ? View.VISIBLE : View.GONE);
-        cvInPay.setVisibility(SPHelper.getModelShow().isMarketPay() ? View.VISIBLE : View.GONE);
+        ModelShow modelShow = SPHelper.getModelShow();
+        btnBuy.setVisibility(modelShow.isMarketPay() ? View.VISIBLE : View.GONE);
+        cvAd.setVisibility(modelShow.isMarketCoinAd() ? View.VISIBLE : View.GONE);
+        cvInPay.setVisibility(modelShow.isMarketPay() ? View.VISIBLE : View.GONE);
         // view
         refreshView();
     }
@@ -134,7 +139,7 @@ public class CoinActivity extends BaseActivity<CoinActivity> {
     }
 
     @OnClick({R.id.btnHistory, R.id.btnBuy,
-            R.id.cvInPay, R.id.cvInSign, R.id.cvInWife, R.id.cvInLetter,
+            R.id.cvAd, R.id.cvInPay, R.id.cvInSign, R.id.cvInWife, R.id.cvInLetter,
             R.id.cvOutWife, R.id.cvOutLetter, R.id.cvOutWish, R.id.cvOutCard})
     public void onViewClicked(View view) {
         switch (view.getId()) {
@@ -143,6 +148,9 @@ public class CoinActivity extends BaseActivity<CoinActivity> {
                 break;
             case R.id.btnBuy: // 前往购买
                 CoinBuyActivity.goActivity(mActivity);
+                break;
+            case R.id.cvAd:
+                CoinAdScreenActivity.goActivity(mActivity);
                 break;
             case R.id.cvInPay:
                 CoinBuyActivity.goActivity(mActivity);
