@@ -72,7 +72,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="5dp"
-                    android:src="@mipmap/ic_visibility_off_grey_18dp"
+                    android:src="@mipmap/ic_visibility_grey_18dp"
                     android:tint="@color/font_hint"/>
 
                 <TextView
