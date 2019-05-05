@@ -126,7 +126,6 @@ public class SuggestDetailActivity extends BaseActivity<SuggestDetailActivity> {
         Observable<Suggest> obDetailRefresh = RxBus.register(RxBus.EVENT_SUGGEST_DETAIL_REFRESH, suggest -> refreshSuggest());
         pushBus(RxBus.EVENT_SUGGEST_DETAIL_REFRESH, obDetailRefresh);
         // refresh
-        //recyclerHelper.dataRefresh();
         refreshSuggest();
     }
 
@@ -207,7 +206,6 @@ public class SuggestDetailActivity extends BaseActivity<SuggestDetailActivity> {
         String kindShow = ListHelper.getSuggestKindShow(suggest.getKind());
         String title = suggest.getTitle();
         String create = DateUtils.getStr(TimeHelper.getJavaTimeByGo(suggest.getCreateAt()), DateUtils.FORMAT_LINE_M_D_H_M);
-        final String contentImgUrl = suggest.getContentImage();
         String contentText = suggest.getContentText();
         // view
         View head = recyclerHelper.getViewHead();
