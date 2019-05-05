@@ -9,25 +9,19 @@ import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TextView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
-import com.jiangzg.base.common.FileUtils;
 import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.base.component.ActivityTrans;
 import com.jiangzg.base.view.DialogUtils;
-import com.jiangzg.base.view.ScreenUtils;
 import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.controller.activity.base.BaseActivity;
-import com.jiangzg.lovenote.controller.activity.common.BigImageActivity;
 import com.jiangzg.lovenote.helper.common.ListHelper;
-import com.jiangzg.lovenote.helper.common.OssHelper;
 import com.jiangzg.lovenote.helper.common.RxBus;
 import com.jiangzg.lovenote.helper.common.SPHelper;
-import com.jiangzg.lovenote.helper.media.PickHelper;
 import com.jiangzg.lovenote.helper.system.RetrofitHelper;
 import com.jiangzg.lovenote.helper.view.DialogHelper;
 import com.jiangzg.lovenote.helper.view.ViewHelper;
@@ -35,9 +29,7 @@ import com.jiangzg.lovenote.model.api.API;
 import com.jiangzg.lovenote.model.api.Result;
 import com.jiangzg.lovenote.model.engine.SuggestInfo;
 import com.jiangzg.lovenote.model.entity.Suggest;
-import com.jiangzg.lovenote.view.FrescoNativeView;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -60,13 +52,8 @@ public class SuggestAddActivity extends BaseActivity<SuggestAddActivity> {
     TextView tvContentLimit;
     @BindView(R.id.etContent)
     EditText etContent;
-    @BindView(R.id.tvImageToggle)
-    TextView tvImageToggle;
-    @BindView(R.id.ivImage)
-    FrescoNativeView ivImage;
 
     private int kindIndex = 0;
-    private File pictureFile;
     private int limitTitleLength;
     private int limitContentLength;
 
@@ -116,14 +103,6 @@ public class SuggestAddActivity extends BaseActivity<SuggestAddActivity> {
             }
         });
         etContent.setText("");
-        // imageView
-        ViewGroup.LayoutParams layoutParams = ivImage.getLayoutParams();
-        ivImage.setWidthAndHeight(ScreenUtils.getScreenWidth(mActivity), layoutParams.height);
-        ivImage.setSuccessClickListener(iv -> {
-            if (!FileUtils.isFileEmpty(pictureFile)) {
-                BigImageActivity.goActivityByFile(mActivity, pictureFile.getAbsolutePath(), iv);
-            }
-        });
     }
 
     @Override
@@ -144,62 +123,22 @@ public class SuggestAddActivity extends BaseActivity<SuggestAddActivity> {
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode != RESULT_OK) return;
-        if (requestCode == BaseActivity.REQUEST_PICTURE) {
-            // 相册
-            pictureFile = PickHelper.getResultFile(mActivity, data);
-            if (FileUtils.isFileEmpty(pictureFile)) {
-                ToastUtils.show(getString(R.string.file_no_exits));
-                pictureFile = null;
-                ivImage.setVisibility(View.GONE);
-                tvImageToggle.setText(R.string.click_me_add_image);
-            } else {
-                ivImage.setVisibility(View.VISIBLE);
-                ivImage.setDataFile(pictureFile);
-                tvImageToggle.setText(R.string.click_me_to_del_image);
-            }
-        }
-    }
-
-    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menuCommit: // 提交
-                checkPush();
+                addSuggest();
                 return true;
         }
         return super.onOptionsItemSelected(item);
     }
 
-    @OnClick({R.id.tvKind, R.id.tvImageToggle})
+    @OnClick({R.id.tvKind})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.tvKind: // 选分类
                 showKindDialog();
                 break;
-            case R.id.tvImageToggle: // 操作照片
-                toggleImage();
-                break;
         }
-    }
-
-    private void toggleImage() {
-        if (FileUtils.isFileEmpty(pictureFile)) {
-            pictureFile = null;
-            PickHelper.selectImage(mActivity, 1, true);
-        } else {
-            cancelImage();
-        }
-    }
-
-    // 取消图片
-    private void cancelImage() {
-        tvImageToggle.setText(R.string.click_me_add_image);
-        ivImage.setVisibility(View.GONE);
-        // 释放图片资源
-        pictureFile = null;
     }
 
     private void onTitleInput(String s) {
@@ -269,8 +208,7 @@ public class SuggestAddActivity extends BaseActivity<SuggestAddActivity> {
         tvKind.setText(suggestKind.getShow());
     }
 
-    // 检查格式
-    private void checkPush() {
+    private void addSuggest() {
         String title = etTitle.getText().toString();
         if (StringUtils.isEmpty(title)) {
             ToastUtils.show(getString(R.string.please_input_title));
@@ -281,38 +219,18 @@ public class SuggestAddActivity extends BaseActivity<SuggestAddActivity> {
             ToastUtils.show(getString(R.string.please_input_content));
             return;
         }
-        if (!FileUtils.isFileEmpty(pictureFile)) {
-            pushImage(pictureFile);
-        } else {
-            pushSuggest("");
-        }
-    }
-
-    private void pushImage(File imgFile) {
-        OssHelper.uploadSuggest(mActivity, imgFile, new OssHelper.OssUploadCallBack() {
-            @Override
-            public void success(File source, String ossPath) {
-                pushSuggest(ossPath);
-            }
-
-            @Override
-            public void failure(File source, String errMsg) {
-            }
-        });
-    }
-
-    // 发布
-    private void pushSuggest(String imgPath) {
-        // kind
         SuggestInfo suggestInfo = ListHelper.getSuggestInfo();
         List<SuggestInfo.SuggestKind> kindList = suggestInfo.getKindList();
+        if (kindIndex < 0 || kindIndex >= kindList.size()) {
+            ToastUtils.show(getString(R.string.please_select_classify));
+            return;
+        }
         SuggestInfo.SuggestKind suggestKind = kindList.get(kindIndex);
         // body
         Suggest body = new Suggest();
         body.setTitle(etTitle.getText().toString());
         body.setKind(suggestKind.getKind());
         body.setContentText(etContent.getText().toString());
-        body.setContentImage(imgPath);
         // api
         Call<Result> api = new RetrofitHelper().call(API.class).setSuggestAdd(body);
         RetrofitHelper.enqueue(api, getLoading(true), new RetrofitHelper.CallBack() {

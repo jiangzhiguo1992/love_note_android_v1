@@ -13,7 +13,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -21,13 +20,10 @@ import com.afollestad.materialdialogs.MaterialDialog;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemLongClickListener;
 import com.jiangzg.base.common.DateUtils;
-import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.base.component.ActivityTrans;
-import com.jiangzg.base.view.ScreenUtils;
 import com.jiangzg.base.view.ViewUtils;
 import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.controller.activity.base.BaseActivity;
-import com.jiangzg.lovenote.controller.activity.common.BigImageActivity;
 import com.jiangzg.lovenote.controller.adapter.settings.SuggestCommentAdapter;
 import com.jiangzg.lovenote.helper.common.ListHelper;
 import com.jiangzg.lovenote.helper.common.RxBus;
@@ -41,7 +37,6 @@ import com.jiangzg.lovenote.model.api.API;
 import com.jiangzg.lovenote.model.api.Result;
 import com.jiangzg.lovenote.model.entity.Suggest;
 import com.jiangzg.lovenote.model.entity.SuggestFollow;
-import com.jiangzg.lovenote.view.FrescoView;
 import com.jiangzg.lovenote.view.GSwipeRefreshLayout;
 import com.jiangzg.lovenote.view.GWrapView;
 
@@ -221,9 +216,6 @@ public class SuggestDetailActivity extends BaseActivity<SuggestDetailActivity> {
         TextView tvCreateAt = head.findViewById(R.id.tvCreateAt);
         GWrapView wvTag = head.findViewById(R.id.wvTag);
         TextView tvContent = head.findViewById(R.id.tvContent);
-        FrescoView ivContent = head.findViewById(R.id.ivContent);
-        ViewGroup.LayoutParams layoutParams = ivContent.getLayoutParams();
-        ivContent.setWidthAndHeight(ScreenUtils.getScreenWidth(mActivity), layoutParams.height);
         // data
         wvTag.removeAllChild();
         if (top) {
@@ -245,14 +237,6 @@ public class SuggestDetailActivity extends BaseActivity<SuggestDetailActivity> {
         tvTitle.setText(title);
         tvCreateAt.setText(create);
         tvContent.setText(contentText);
-        if (StringUtils.isEmpty(contentImgUrl)) {
-            ivContent.setVisibility(View.GONE);
-            ivContent.setClickListener(null);
-        } else {
-            ivContent.setVisibility(View.VISIBLE);
-            ivContent.setData(contentImgUrl);
-            ivContent.setClickListener(iv -> BigImageActivity.goActivityByOss(mActivity, contentImgUrl, iv));
-        }
     }
 
     private void getCommentData(final boolean more) {
