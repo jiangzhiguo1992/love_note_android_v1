@@ -65,9 +65,8 @@ public class SuggestAddActivity extends BaseActivity<SuggestAddActivity> {
     @BindView(R.id.ivImage)
     FrescoNativeView ivImage;
 
-    private int kind;
+    private int kindIndex = 0;
     private File pictureFile;
-    private List<SuggestInfo.SuggestKind> suggestKindList;
     private int limitTitleLength;
     private int limitContentLength;
 
@@ -129,9 +128,9 @@ public class SuggestAddActivity extends BaseActivity<SuggestAddActivity> {
 
     @Override
     protected void initData(Intent intent, Bundle state) {
-        kind = 0;
-        SuggestInfo suggestInfo = ListHelper.getSuggestInfo();
-        suggestKindList = suggestInfo.getKindList();
+        kindIndex = 0;
+        // view
+        refreshKindView();
     }
 
     @Override
@@ -236,24 +235,12 @@ public class SuggestAddActivity extends BaseActivity<SuggestAddActivity> {
     }
 
     private void showKindDialog() {
-        // items
-        CharSequence[] items = new CharSequence[suggestKindList.size() - 1];
-        for (int i = 1; i < suggestKindList.size(); i++) {
-            SuggestInfo.SuggestKind kind = suggestKindList.get(i);
-            // 第一个是全部，不要
-            items[i - 1] = kind.getShow();
-        }
-        // index
-        int kindIndex = 0;
-        SuggestInfo info = ListHelper.getSuggestInfo();
-        List<SuggestInfo.SuggestKind> kindList = info.getKindList();
-        for (int i = 1; i < kindList.size(); i++) {
-            // 不要全部
-            SuggestInfo.SuggestKind s = kindList.get(i);
-            if (s.getKind() == kind) {
-                kindIndex = i;
-                break;
-            }
+        SuggestInfo suggestInfo = ListHelper.getSuggestInfo();
+        List<SuggestInfo.SuggestKind> kindList = suggestInfo.getKindList();
+        CharSequence[] items = new CharSequence[kindList.size()];
+        for (int i = 0; i < kindList.size(); i++) {
+            SuggestInfo.SuggestKind kind = kindList.get(i);
+            items[i] = kind.getShow();
         }
         // dialog
         MaterialDialog dialog = DialogHelper.getBuild(mActivity)
@@ -261,11 +248,9 @@ public class SuggestAddActivity extends BaseActivity<SuggestAddActivity> {
                 .canceledOnTouchOutside(true)
                 .title(R.string.please_select_classify)
                 .items(items)
-                .itemsCallbackSingleChoice(kindIndex - 1, (dialog1, view, which, text) -> {
-                    // 第一个忽略
-                    SuggestInfo.SuggestKind suggestKind = suggestKindList.get(which + 1);
-                    kind = suggestKind.getKind();
-                    tvKind.setText(suggestKind.getShow());
+                .itemsCallbackSingleChoice(kindIndex, (dialog1, view, which, text) -> {
+                    kindIndex = which;
+                    refreshKindView();
                     DialogUtils.dismiss(dialog1);
                     return true;
                 })
@@ -273,13 +258,19 @@ public class SuggestAddActivity extends BaseActivity<SuggestAddActivity> {
         DialogHelper.showWithAnim(dialog);
     }
 
-    // 检查格式
-    private void checkPush() {
-        if (kind <= suggestKindList.get(0).getKind()) {
-            // 第一个是全部
-            ToastUtils.show(getString(R.string.please_select_classify));
+    private void refreshKindView() {
+        SuggestInfo suggestInfo = ListHelper.getSuggestInfo();
+        List<SuggestInfo.SuggestKind> kindList = suggestInfo.getKindList();
+        if (kindIndex < 0 || kindIndex >= kindList.size()) {
+            tvKind.setText(R.string.please_select_classify);
             return;
         }
+        SuggestInfo.SuggestKind suggestKind = kindList.get(kindIndex);
+        tvKind.setText(suggestKind.getShow());
+    }
+
+    // 检查格式
+    private void checkPush() {
         String title = etTitle.getText().toString();
         if (StringUtils.isEmpty(title)) {
             ToastUtils.show(getString(R.string.please_input_title));
@@ -312,9 +303,14 @@ public class SuggestAddActivity extends BaseActivity<SuggestAddActivity> {
 
     // 发布
     private void pushSuggest(String imgPath) {
+        // kind
+        SuggestInfo suggestInfo = ListHelper.getSuggestInfo();
+        List<SuggestInfo.SuggestKind> kindList = suggestInfo.getKindList();
+        SuggestInfo.SuggestKind suggestKind = kindList.get(kindIndex);
+        // body
         Suggest body = new Suggest();
         body.setTitle(etTitle.getText().toString());
-        body.setKind(kind);
+        body.setKind(suggestKind.getKind());
         body.setContentText(etContent.getText().toString());
         body.setContentImage(imgPath);
         // api

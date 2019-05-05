@@ -1,14 +1,12 @@
 package com.jiangzg.lovenote.model.engine;
 
-import com.jiangzg.lovenote.model.entity.BaseObj;
-
 import java.util.List;
 
 /**
  * Created by JZG on 2018/4/12.
  * suggestInfo
  */
-public class SuggestInfo extends BaseObj {
+public class SuggestInfo {
 
     private List<SuggestStatus> statusList;
     private List<SuggestKind> kindList;

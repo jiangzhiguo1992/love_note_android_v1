@@ -114,7 +114,6 @@ public class ListHelper {
         SuggestInfo info = new SuggestInfo();
         // status
         List<SuggestInfo.SuggestStatus> statusList = new ArrayList<>();
-        statusList.add(new SuggestInfo.SuggestStatus(BaseObj.STATUS_VISIBLE, MyApp.get().getString(R.string.all)));
         statusList.add(new SuggestInfo.SuggestStatus(Suggest.STATUS_REPLY_NO, MyApp.get().getString(R.string.no_reply)));
         statusList.add(new SuggestInfo.SuggestStatus(Suggest.STATUS_REPLY_YES, MyApp.get().getString(R.string.already_reply)));
         statusList.add(new SuggestInfo.SuggestStatus(Suggest.STATUS_ACCEPT_NO, MyApp.get().getString(R.string.no_accept)));
@@ -124,7 +123,6 @@ public class ListHelper {
         info.setStatusList(statusList);
         // kind
         List<SuggestInfo.SuggestKind> kindList = new ArrayList<>();
-        kindList.add(new SuggestInfo.SuggestKind(Suggest.KIND_ALL, MyApp.get().getString(R.string.all)));
         kindList.add(new SuggestInfo.SuggestKind(Suggest.KIND_ERROR, MyApp.get().getString(R.string.program_error)));
         kindList.add(new SuggestInfo.SuggestKind(Suggest.KIND_FUNCTION, MyApp.get().getString(R.string.function_add)));
         kindList.add(new SuggestInfo.SuggestKind(Suggest.KIND_OPTIMIZE, MyApp.get().getString(R.string.experience_optimize)));
@@ -136,10 +134,6 @@ public class ListHelper {
     public static String getSuggestStatusShow(int status) {
         SuggestInfo info = getSuggestInfo();
         List<SuggestInfo.SuggestStatus> statusList = info.getStatusList();
-        // 不要全部，加上未回复
-        statusList.remove(0);
-        statusList.add(0, new SuggestInfo.SuggestStatus(Suggest.STATUS_REPLY_NO, MyApp.get().getString(R.string.no_reply)));
-        // 开始遍历
         for (int i = 0; i < statusList.size(); i++) {
             SuggestInfo.SuggestStatus s = statusList.get(i);
             if (s.getStatus() == status) {
@@ -152,9 +146,6 @@ public class ListHelper {
     public static String getSuggestKindShow(int kind) {
         SuggestInfo info = getSuggestInfo();
         List<SuggestInfo.SuggestKind> kindList = info.getKindList();
-        // 不要全部
-        kindList.remove(0);
-        // 开始遍历
         for (int i = 0; i < kindList.size(); i++) {
             SuggestInfo.SuggestKind s = kindList.get(i);
             if (s.getKind() == kind) {
