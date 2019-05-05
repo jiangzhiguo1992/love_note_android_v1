@@ -61,10 +61,12 @@ public class SuggestListActivity extends BaseActivity<SuggestListActivity> {
     @Override
     protected void initView(Intent intent, Bundle state) {
         entry = intent.getIntExtra("entry", ENTRY_MINE);
-        if (entry == ENTRY_FOLLOW) {
-            ViewHelper.initTopBar(mActivity, tb, getString(R.string.my_follow), true);
-        } else if (entry == ENTRY_MINE) {
+        if (entry == ENTRY_MINE) {
             ViewHelper.initTopBar(mActivity, tb, getString(R.string.my_push), true);
+        } else if (entry == ENTRY_FOLLOW) {
+            ViewHelper.initTopBar(mActivity, tb, getString(R.string.my_follow), true);
+        } else {
+            ViewHelper.initTopBar(mActivity, tb, getString(R.string.suggest_feedback), true);
         }
         // recycler
         recyclerHelper = new RecyclerHelper(rv)
@@ -116,13 +118,11 @@ public class SuggestListActivity extends BaseActivity<SuggestListActivity> {
     private void getData(final boolean more) {
         page = more ? page + 1 : 0;
         // api
-        Call<Result> api;
+        Call<Result> api = new RetrofitHelper().call(API.class).setSuggestListGet(Suggest.STATUS_REPLY_NO, Suggest.KIND_ALL, page);
         if (entry == ENTRY_MINE) {
             api = new RetrofitHelper().call(API.class).setSuggestListMineGet(page);
         } else if (entry == ENTRY_FOLLOW) {
             api = new RetrofitHelper().call(API.class).setSuggestListFollowGet(page);
-        } else {
-            api = new RetrofitHelper().call(API.class).setSuggestListGet(Suggest.STATUS_REPLY_NO, Suggest.KIND_ALL, page);
         }
         RetrofitHelper.enqueue(api, null, new RetrofitHelper.CallBack() {
             @Override
