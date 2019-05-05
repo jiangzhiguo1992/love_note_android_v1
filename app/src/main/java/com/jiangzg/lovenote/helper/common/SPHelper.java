@@ -289,6 +289,7 @@ public class SPHelper {
      * ***********************************清除***********************************
      */
     public static void clearAll() {
+        clearCommonCount();
         clearOssInfo();
         clearVipLimit();
         clearVersion();
@@ -297,6 +298,10 @@ public class SPHelper {
         clearCouple();
         clearWallPaper();
         clearDraft();
+    }
+
+    public static void clearCommonCount() {
+        SPUtils.clear(SHARE_COMMON_COUNT);
     }
 
     public static void clearOssInfo() {
@@ -671,7 +676,7 @@ public class SPHelper {
         adInfo.setAppId(sp.getString(FIELD_AD_APP_ID, ""));
         adInfo.setTopicPostPosId(sp.getString(FIELD_AD_TOPIC_POST_POS_ID, ""));
         adInfo.setTopicPostJump(sp.getInt(FIELD_AD_TOPIC_POST_JUMP, 20));
-        adInfo.setTopicPostStart(sp.getInt(FIELD_AD_TOPIC_POST_START, 5));
+        adInfo.setTopicPostStart(sp.getInt(FIELD_AD_TOPIC_POST_START, 10));
         adInfo.setCoinFreePosId(sp.getString(FIELD_AD_COIN_FREE_POS_ID, ""));
         adInfo.setCoinFreeTickSec(sp.getInt(FIELD_AD_COIN_FREE_TICK_SEC, 5));
         return adInfo;
