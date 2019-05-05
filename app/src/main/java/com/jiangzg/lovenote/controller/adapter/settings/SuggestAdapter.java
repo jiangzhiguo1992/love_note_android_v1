@@ -27,10 +27,8 @@ public class SuggestAdapter extends BaseQuickAdapter<Suggest, BaseViewHolder> {
         // data
         String title = item.getTitle();
         String contentText = item.getContentText();
-        final int followCount = item.getFollowCount();
-        String followShow = followCount <= 0 ? mActivity.getString(R.string.follow) : ShowHelper.getShowCount2Thousand(followCount);
-        int commentCount = item.getCommentCount();
-        String commentShow = commentCount <= 0 ? mActivity.getString(R.string.comment) : ShowHelper.getShowCount2Thousand(commentCount);
+        String followShow = ShowHelper.getShowCount2Thousand(item.getFollowCount());
+        String commentShow = ShowHelper.getShowCount2Thousand(item.getCommentCount());
         // view
         helper.setText(R.id.tvTitle, title);
         helper.setText(R.id.tvContent, contentText);

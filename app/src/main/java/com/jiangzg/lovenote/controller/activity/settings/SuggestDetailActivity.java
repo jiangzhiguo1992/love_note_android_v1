@@ -31,6 +31,7 @@ import com.jiangzg.lovenote.controller.activity.common.BigImageActivity;
 import com.jiangzg.lovenote.controller.adapter.settings.SuggestCommentAdapter;
 import com.jiangzg.lovenote.helper.common.ListHelper;
 import com.jiangzg.lovenote.helper.common.RxBus;
+import com.jiangzg.lovenote.helper.common.ShowHelper;
 import com.jiangzg.lovenote.helper.common.TimeHelper;
 import com.jiangzg.lovenote.helper.system.RetrofitHelper;
 import com.jiangzg.lovenote.helper.view.DialogHelper;
@@ -277,7 +278,8 @@ public class SuggestDetailActivity extends BaseActivity<SuggestDetailActivity> {
 
     private void initFollowView() {
         if (suggest == null) return;
-        tvFollow.setText(String.valueOf(suggest.getFollowCount()));
+        String followCount = suggest.getFollowCount() <= 0 ? mActivity.getString(R.string.follow) : ShowHelper.getShowCount2Thousand(suggest.getFollowCount());
+        tvFollow.setText(followCount);
         if (suggest.isFollow()) {
             Drawable visibility = ContextCompat.getDrawable(mActivity, R.mipmap.ic_visibility_grey_18dp);
             if (visibility != null) {
@@ -291,7 +293,8 @@ public class SuggestDetailActivity extends BaseActivity<SuggestDetailActivity> {
 
     private void initCommentView() {
         if (suggest == null) return;
-        tvComment.setText(String.valueOf(suggest.getCommentCount()));
+        String commentCount = suggest.getCommentCount() <= 0 ? mActivity.getString(R.string.comment) : ShowHelper.getShowCount2Thousand(suggest.getCommentCount());
+        tvComment.setText(commentCount);
         if (suggest.isComment()) {
             int colorPrimary = ContextCompat.getColor(mActivity, ViewUtils.getColorPrimary(mActivity));
             ivComment.setImageTintList(ColorStateList.valueOf(colorPrimary));
