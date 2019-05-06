@@ -225,11 +225,10 @@ public class SuggestAddActivity extends BaseActivity<SuggestAddActivity> {
             ToastUtils.show(getString(R.string.please_select_classify));
             return;
         }
-        SuggestInfo.SuggestKind suggestKind = kindList.get(kindIndex);
         // body
         Suggest body = new Suggest();
+        body.setKind(kindList.get(kindIndex).getKind());
         body.setTitle(etTitle.getText().toString());
-        body.setKind(suggestKind.getKind());
         body.setContentText(etContent.getText().toString());
         // api
         Call<Result> api = new RetrofitHelper().call(API.class).setSuggestAdd(body);
