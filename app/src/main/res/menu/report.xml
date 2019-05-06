@@ -3,12 +3,6 @@
       xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/menuHelp"
-        android:icon="@mipmap/ic_help_outline_white_24dp"
-        android:title="@string/help_document"
-        app:showAsAction="ifRoom"/>
-
-    <item
         android:id="@+id/menuReport"
         android:title="@string/report"
         app:showAsAction="always"/>

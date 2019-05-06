@@ -30,7 +30,6 @@ import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.base.view.ViewUtils;
 import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.controller.activity.base.BaseActivity;
-import com.jiangzg.lovenote.controller.activity.settings.HelpActivity;
 import com.jiangzg.lovenote.controller.adapter.common.ImgSquareShowAdapter;
 import com.jiangzg.lovenote.controller.adapter.topic.PostCommentAdapter;
 import com.jiangzg.lovenote.helper.common.ApiHelper;
@@ -242,16 +241,14 @@ public class PostDetailActivity extends BaseActivity<PostDetailActivity> {
             return super.onPrepareOptionsMenu(menu);
         }
         if (post.isOfficial()) {
-            if (post.isMine()) { // 帮助 + 删除
-                getMenuInflater().inflate(R.menu.help_del, menu);
-            } else { // 帮助
-                getMenuInflater().inflate(R.menu.help, menu);
+            if (post.isMine()) { // 删除
+                getMenuInflater().inflate(R.menu.del, menu);
             }
         } else {
-            if (post.isMine()) { // 帮助 + 举报 + 删除
-                getMenuInflater().inflate(R.menu.help_report_del, menu);
-            } else { // 帮助 + 举报
-                getMenuInflater().inflate(R.menu.help_report, menu);
+            if (post.isMine()) { // 举报 + 删除
+                getMenuInflater().inflate(R.menu.report_del, menu);
+            } else { // 举报
+                getMenuInflater().inflate(R.menu.report, menu);
             }
         }
         return super.onPrepareOptionsMenu(menu);
@@ -265,9 +262,6 @@ public class PostDetailActivity extends BaseActivity<PostDetailActivity> {
                 return true;
             case R.id.menuDel: // 删除
                 showPostDelDialog();
-                return true;
-            case R.id.menuHelp:
-                HelpActivity.goActivity(mActivity, HelpActivity.INDEX_TOPIC_POST);
                 return true;
         }
         return super.onOptionsItemSelected(item);

@@ -55,7 +55,6 @@ public class HelpActivity extends BaseActivity<HelpActivity> {
     public static final int INDEX_NOTE_TRAVEL = 244;
     // topic
     public static final int INDEX_TOPIC_HOME = 300;
-    public static final int INDEX_TOPIC_POST = 310;
     // more
     public static final int INDEX_MORE_HOME = 400;
     public static final int INDEX_MORE_VIP = 410;
@@ -213,8 +212,6 @@ public class HelpActivity extends BaseActivity<HelpActivity> {
                 return getHelpNoteTravel(index);
             case INDEX_TOPIC_HOME:
                 return getHelpTopicHome(index);
-            case INDEX_TOPIC_POST:
-                return getHelpTopicPost(index);
             case INDEX_MORE_HOME:
                 return getHelpMoreHome(index);
             case INDEX_MORE_VIP:
@@ -724,35 +721,14 @@ public class HelpActivity extends BaseActivity<HelpActivity> {
         c2.setQuestion(getString(R.string.help_topic_home_c2_q));
         c2.setAnswer(getString(R.string.help_topic_home_c2_a));
         contentList.add(c2);
-        help.setContentList(contentList);
-        // sub
-        List<Help> subList = new ArrayList<>();
-        Help s1 = new Help();
-        s1.setIndex(INDEX_TOPIC_POST);
-        s1.setTitle(getString(R.string.post));
-        subList.add(s1);
-        help.setSubList(subList);
-        return help;
-    }
-
-    private Help getHelpTopicPost(int index) {
-        Help help = new Help();
-        help.setIndex(index);
-        help.setTitle(getString(R.string.post));
-        // content
-        List<Help.HelpContent> contentList = new ArrayList<>();
-        Help.HelpContent c1 = new Help.HelpContent();
-        c1.setQuestion(getString(R.string.help_topic_post_c1_q));
-        c1.setAnswer(getString(R.string.help_topic_post_c1_a));
-        contentList.add(c1);
-        Help.HelpContent c2 = new Help.HelpContent();
-        c2.setQuestion(getString(R.string.help_topic_post_c2_q));
-        c2.setAnswer(getString(R.string.help_topic_post_c2_a));
-        contentList.add(c2);
         Help.HelpContent c3 = new Help.HelpContent();
-        c3.setQuestion(getString(R.string.help_topic_post_c3_q));
-        c3.setAnswer(getString(R.string.help_topic_post_c3_a));
+        c3.setQuestion(getString(R.string.help_topic_home_c3_q));
+        c3.setAnswer(getString(R.string.help_topic_home_c3_a));
         contentList.add(c3);
+        Help.HelpContent c4 = new Help.HelpContent();
+        c4.setQuestion(getString(R.string.help_topic_home_c4_q));
+        c4.setAnswer(getString(R.string.help_topic_home_c4_a));
+        contentList.add(c4);
         help.setContentList(contentList);
         return help;
     }
@@ -798,10 +774,6 @@ public class HelpActivity extends BaseActivity<HelpActivity> {
         c2.setQuestion(getString(R.string.help_more_vip_c2_q));
         c2.setAnswer(getString(R.string.help_more_vip_c2_a));
         contentList.add(c2);
-        Help.HelpContent c3 = new Help.HelpContent();
-        c3.setQuestion(getString(R.string.help_more_vip_c3_q));
-        c3.setAnswer(getString(R.string.help_more_vip_c3_a));
-        contentList.add(c3);
         help.setContentList(contentList);
         // sub
         List<Help> subList = new ArrayList<>();
