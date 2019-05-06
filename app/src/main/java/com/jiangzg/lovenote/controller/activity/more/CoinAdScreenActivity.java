@@ -188,6 +188,7 @@ public class CoinAdScreenActivity extends BaseActivity<CoinAdScreenActivity> {
 
             @Override
             public void onFailure(int code, String message, Result.Data data) {
+                initViewStart();
             }
         });
         pushApi(api);
