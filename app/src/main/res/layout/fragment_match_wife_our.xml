@@ -4,11 +4,11 @@
     android:id="@+id/srl"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".controller.fragment.more.MatchLetterListFragment">
+    tools:context=".controller.fragment.more.MatchWifeOurFragment">
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rv"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:listitem="@layout/list_item_match_letter"/>
+        tools:listitem="@layout/list_item_match_wife"/>
 </com.jiangzg.lovenote.view.GSwipeRefreshLayout>

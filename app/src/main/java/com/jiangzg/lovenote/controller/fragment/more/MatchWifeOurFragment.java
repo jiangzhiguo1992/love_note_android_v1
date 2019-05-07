@@ -2,19 +2,17 @@ package com.jiangzg.lovenote.controller.fragment.more;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemChildClickListener;
-import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.chad.library.adapter.base.listener.OnItemLongClickListener;
 import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.controller.adapter.more.MatchWifeAdapter;
 import com.jiangzg.lovenote.controller.fragment.base.BaseFragment;
 import com.jiangzg.lovenote.controller.fragment.base.BasePagerFragment;
-import com.jiangzg.lovenote.helper.common.ApiHelper;
 import com.jiangzg.lovenote.helper.system.RetrofitHelper;
 import com.jiangzg.lovenote.helper.view.RecyclerHelper;
 import com.jiangzg.lovenote.model.api.API;
@@ -25,7 +23,7 @@ import com.jiangzg.lovenote.view.GSwipeRefreshLayout;
 import butterknife.BindView;
 import retrofit2.Call;
 
-public class MatchWifeListFragment extends BasePagerFragment<MatchWifeListFragment> {
+public class MatchWifeOurFragment extends BasePagerFragment<MatchWifeOurFragment> {
 
     @BindView(R.id.srl)
     GSwipeRefreshLayout srl;
@@ -35,21 +33,21 @@ public class MatchWifeListFragment extends BasePagerFragment<MatchWifeListFragme
     private RecyclerHelper recyclerHelper;
     private int page = 0;
 
-    public static MatchWifeListFragment newFragment() {
+    public static MatchWifeOurFragment newFragment() {
         Bundle bundle = new Bundle();
-        return BaseFragment.newInstance(MatchWifeListFragment.class, bundle);
+        return BaseFragment.newInstance(MatchWifeOurFragment.class, bundle);
     }
 
     @Override
     protected int getView(Bundle data) {
-        return R.layout.fragment_match_wife_list;
+        return R.layout.fragment_match_wife_our;
     }
 
     @Override
     protected void initView(@Nullable Bundle state) {
         // recycler
         recyclerHelper = new RecyclerHelper(rv)
-                .initLayoutManager(new GridLayoutManager(mActivity, 2))
+                .initLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL))
                 .initRefresh(srl, true)
                 .initAdapter(new MatchWifeAdapter(mActivity))
                 .viewEmpty(mActivity, R.layout.list_empty_grey, true, true)
@@ -58,31 +56,29 @@ public class MatchWifeListFragment extends BasePagerFragment<MatchWifeListFragme
                 .setAdapter()
                 .listenerRefresh(() -> getData(false))
                 .listenerMore(currentCount -> getData(true))
-                .listenerClick(new OnItemClickListener() {
-                    @Override
-                    public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
-                        MatchWifeAdapter wifeAdapter = (MatchWifeAdapter) adapter;
-                        wifeAdapter.goWifeDetail(position);
-                    }
-                })
                 .listenerClick(new OnItemLongClickListener() {
                     @Override
                     public void onSimpleItemLongClick(BaseQuickAdapter adapter, View view, int position) {
-                        ApiHelper.showMatchWorksDeleteDialog(mActivity, adapter, position);
+                        MatchWifeAdapter wifeAdapter = (MatchWifeAdapter) adapter;
+                        wifeAdapter.showDeleteDialog(position);
                     }
                 })
                 .listenerClick(new OnItemChildClickListener() {
                     @Override
                     public void onSimpleItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+                        MatchWifeAdapter wifeAdapter = (MatchWifeAdapter) adapter;
                         switch (view.getId()) {
-                            case R.id.llReport: // 举报
-                                ApiHelper.matchReportAdd(mActivity, adapter, position, true);
-                                break;
-                            case R.id.llPoint: // 点赞
-                                ApiHelper.matchPointToggle(mActivity, adapter, position, true);
+                            case R.id.ivWork: // 大图
+                                wifeAdapter.goWifeDetail(position);
                                 break;
                             case R.id.llCoin: // 金币
-                                ApiHelper.matchCoinAdd(mActivity, adapter, position);
+                                wifeAdapter.coinAdd(position);
+                                break;
+                            case R.id.llPoint: // 点赞
+                                wifeAdapter.pointToggle(position, true);
+                                break;
+                            case R.id.ivMore: // 举报
+                                wifeAdapter.showReportDialog(position);
                                 break;
                         }
                     }

@@ -16,7 +16,7 @@ import com.jiangzg.lovenote.controller.activity.base.BaseActivity;
 import com.jiangzg.lovenote.controller.activity.settings.HelpActivity;
 import com.jiangzg.lovenote.controller.adapter.common.CommonFragmentAdapter;
 import com.jiangzg.lovenote.controller.fragment.base.BasePagerFragment;
-import com.jiangzg.lovenote.controller.fragment.more.MatchLetterListFragment;
+import com.jiangzg.lovenote.controller.fragment.more.MatchLetterOurFragment;
 import com.jiangzg.lovenote.controller.fragment.more.MatchPeriodListFragment;
 import com.jiangzg.lovenote.helper.view.ViewHelper;
 import com.jiangzg.lovenote.model.entity.MatchPeriod;
@@ -56,7 +56,7 @@ public class MatchLetterActivity extends BaseActivity<MatchLetterActivity> {
         ViewHelper.initTopBar(mActivity, tb, getString(R.string.nav_letter), true);
         // fragment
         MatchPeriodListFragment periodListFragment = MatchPeriodListFragment.newFragment(MatchPeriod.MATCH_KIND_LETTER_SHOW);
-        MatchLetterListFragment letterListFragment = MatchLetterListFragment.newFragment();
+        MatchLetterOurFragment letterListFragment = MatchLetterOurFragment.newFragment();
         // adapter
         CommonFragmentAdapter<BasePagerFragment> adapter = new CommonFragmentAdapter<>(getSupportFragmentManager());
         adapter.addData(getString(R.string.old_period), periodListFragment);

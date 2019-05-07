@@ -5,135 +5,142 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/root"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_marginStart="2dp"
-    android:layout_marginTop="1dp"
-    android:layout_marginEnd="2dp"
-    android:layout_marginBottom="3dp"
+    android:layout_height="300dp"
+    android:layout_margin="10dp"
     android:background="?attr/selectableItemBackground"
     android:foreground="?attr/selectableItemBackground"
     app:cardBackgroundColor="@color/white"
-    app:cardCornerRadius="@dimen/radius_normal"
-    app:cardElevation="@dimen/elevation_normal"
-    app:cardMaxElevation="@dimen/elevation_big">
+    app:cardCornerRadius="@dimen/radius_huge"
+    app:cardElevation="@dimen/elevation_huge"
+    app:cardMaxElevation="@dimen/elevation_huge"
+    tools:layout_width="220dp">
 
     <RelativeLayout
-        android:id="@+id/rlInfo"
         android:layout_width="match_parent"
-        android:layout_height="250dp">
+        android:layout_height="match_parent">
 
         <com.jiangzg.lovenote.view.FrescoView
             android:id="@+id/ivWork"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_above="@+id/rlBottom"
+            android:visibility="gone"
             app:actualImageScaleType="centerCrop"
-            tools:background="@mipmap/ic_account_circle_grey_48dp"/>
+            tools:background="@mipmap/ic_account_circle_grey_48dp"
+            tools:visibility="visible"/>
 
-        <LinearLayout
+        <TextView
+            android:id="@+id/tvCover"
+            style="@style/FontBlackNormal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/rlBottom"
+            android:gravity="center"
+            android:visibility="gone"
+            tools:text="作品已被删除"
+            tools:visibility="visible"/>
+
+        <RelativeLayout
+            android:id="@+id/rlBottom"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:background="@color/black_alpha_50"
-            android:baselineAligned="false"
-            android:orientation="horizontal">
+            android:paddingStart="5dp"
+            android:paddingTop="10dp"
+            android:paddingEnd="5dp"
+            android:paddingBottom="10dp">
+
+            <com.jiangzg.lovenote.view.FrescoAvatarView
+                android:id="@+id/ivAvatar"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginEnd="10dp"
+                tools:background="@mipmap/ic_account_circle_grey_48dp"/>
+
+            <TextView
+                android:id="@+id/tvName"
+                style="@style/FontGreyNormal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@+id/ivAvatar"
+                android:layout_toEndOf="@+id/ivAvatar"
+                android:ellipsize="end"
+                android:singleLine="true"
+                tools:text="昵称昵称昵称昵称昵称昵称"/>
 
             <LinearLayout
-                android:id="@+id/llReport"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:background="?attr/selectableItemBackground"
-                android:foreground="?attr/selectableItemBackground"
-                android:gravity="center"
-                android:orientation="horizontal"
-                android:padding="5dp">
+                android:layout_alignBottom="@+id/ivAvatar"
+                android:layout_toEndOf="@+id/ivAvatar">
+
+                <LinearLayout
+                    android:id="@+id/llCoin"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:foreground="?attr/selectableItemBackgroundBorderless"
+                    android:gravity="start|center_vertical"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:id="@+id/ivCoin"
+                        android:layout_width="12dp"
+                        android:layout_height="12dp"
+                        android:src="@mipmap/ic_monetization_on_grey_18dp"
+                        android:tint="@color/font_hint"/>
+
+                    <TextView
+                        android:id="@+id/tvCoinCount"
+                        style="@style/FontGreySmall"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="5dp"
+                        android:ellipsize="end"
+                        android:singleLine="true"
+                        android:textColor="@color/font_hint"
+                        tools:text="1111"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/llPoint"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginEnd="5dp"
+                    android:layout_weight="1"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:foreground="?attr/selectableItemBackgroundBorderless"
+                    android:gravity="start|center_vertical"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:id="@+id/ivPoint"
+                        android:layout_width="12dp"
+                        android:layout_height="12dp"
+                        android:src="@mipmap/ic_thumb_up_grey_18dp"
+                        android:tint="@color/font_hint"/>
+
+                    <TextView
+                        android:id="@+id/tvPointCount"
+                        style="@style/FontGreySmall"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="5dp"
+                        android:ellipsize="end"
+                        android:singleLine="true"
+                        android:textColor="@color/font_hint"
+                        tools:text="1111"/>
+                </LinearLayout>
 
                 <ImageView
-                    android:id="@+id/ivReport"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="2dp"
-                    android:src="@mipmap/ic_report_grey_18dp"/>
-
-                <TextView
-                    android:id="@+id/tvReportCount"
-                    style="@style/FontWhiteSmall"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="2dp"
-                    android:maxLines="1"
-                    android:singleLine="true"
-                    tools:text="1111111"/>
+                    android:id="@+id/ivMore"
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:src="@mipmap/ic_more_horiz_grey_18dp"
+                    android:tint="@color/font_hint"/>
             </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/llCoin"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:background="?attr/selectableItemBackground"
-                android:foreground="?attr/selectableItemBackground"
-                android:gravity="center"
-                android:orientation="horizontal"
-                android:padding="5dp">
-
-                <ImageView
-                    android:id="@+id/ivCoin"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="2dp"
-                    android:src="@mipmap/ic_monetization_on_grey_18dp"/>
-
-                <TextView
-                    android:id="@+id/tvCoinCount"
-                    style="@style/FontWhiteSmall"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="2dp"
-                    android:maxLines="1"
-                    android:singleLine="true"
-                    tools:text="1111111"/>
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/llPoint"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:background="?attr/selectableItemBackground"
-                android:foreground="?attr/selectableItemBackground"
-                android:gravity="center"
-                android:orientation="horizontal"
-                android:padding="5dp">
-
-                <ImageView
-                    android:id="@+id/ivPoint"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="2dp"
-                    android:src="@mipmap/ic_thumb_up_grey_18dp"/>
-
-                <TextView
-                    android:id="@+id/tvPointCount"
-                    style="@style/FontWhiteSmall"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="2dp"
-                    android:maxLines="1"
-                    android:singleLine="true"
-                    tools:text="1111111"/>
-            </LinearLayout>
-        </LinearLayout>
+        </RelativeLayout>
     </RelativeLayout>
-
-    <TextView
-        android:id="@+id/tvCover"
-        style="@style/FontBlackBig"
-        android:layout_width="match_parent"
-        android:layout_height="250dp"
-        android:background="@color/white_alpha_90"
-        android:gravity="center"
-        android:visibility="gone"
-        tools:text="作品已被删除"
-        tools:visibility="gone"/>
 </android.support.v7.widget.CardView>

@@ -277,5 +277,6 @@
         <activity android:name=".controller.activity.more.MatchWifeListActivity"/>
         <activity android:name=".controller.activity.more.MatchLetterActivity"/>
         <activity android:name=".controller.activity.more.MatchLetterListActivity"/>
+        <activity android:name=".controller.activity.more.MatchLetterAddActivity"/>
     </application>
 </manifest>

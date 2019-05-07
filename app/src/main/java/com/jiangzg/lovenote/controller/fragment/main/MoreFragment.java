@@ -203,14 +203,14 @@ public class MoreFragment extends BasePagerFragment<MoreFragment> {
                 if (wifePeriod == null || wifePeriod.getId() <= 0) {
                     MatchWifeActivity.goActivity(mFragment);
                 } else {
-                    MatchWifeListActivity.goActivity(mFragment, wifePeriod);
+                    MatchWifeListActivity.goActivity(mFragment, wifePeriod.getId());
                 }
                 break;
             case R.id.cvLetter: // 情书展
                 if (letterPeriod == null || letterPeriod.getId() <= 0) {
                     MatchLetterActivity.goActivity(mFragment);
                 } else {
-                    MatchLetterListActivity.goActivity(mFragment, letterPeriod);
+                    MatchLetterListActivity.goActivity(mFragment, letterPeriod.getId());
                 }
                 break;
             case R.id.cvWish: // 许愿树

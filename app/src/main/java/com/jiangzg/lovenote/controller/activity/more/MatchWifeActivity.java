@@ -17,7 +17,7 @@ import com.jiangzg.lovenote.controller.activity.settings.HelpActivity;
 import com.jiangzg.lovenote.controller.adapter.common.CommonFragmentAdapter;
 import com.jiangzg.lovenote.controller.fragment.base.BasePagerFragment;
 import com.jiangzg.lovenote.controller.fragment.more.MatchPeriodListFragment;
-import com.jiangzg.lovenote.controller.fragment.more.MatchWifeListFragment;
+import com.jiangzg.lovenote.controller.fragment.more.MatchWifeOurFragment;
 import com.jiangzg.lovenote.helper.view.ViewHelper;
 import com.jiangzg.lovenote.model.entity.MatchPeriod;
 
@@ -56,7 +56,7 @@ public class MatchWifeActivity extends BaseActivity<MatchWifeActivity> {
         ViewHelper.initTopBar(mActivity, tb, getString(R.string.nav_wife), true);
         // fragment
         MatchPeriodListFragment periodListFragment = MatchPeriodListFragment.newFragment(MatchPeriod.MATCH_KIND_WIFE_PICTURE);
-        MatchWifeListFragment wifeListFragment = MatchWifeListFragment.newFragment();
+        MatchWifeOurFragment wifeListFragment = MatchWifeOurFragment.newFragment();
         // adapter
         CommonFragmentAdapter<BasePagerFragment> adapter = new CommonFragmentAdapter<>(getSupportFragmentManager());
         adapter.addData(getString(R.string.old_period), periodListFragment);

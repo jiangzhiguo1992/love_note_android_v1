@@ -4,9 +4,8 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.CardView;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -17,9 +16,7 @@ import android.widget.TextView;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemChildClickListener;
-import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.chad.library.adapter.base.listener.OnItemLongClickListener;
-import com.jiangzg.base.common.DateUtils;
 import com.jiangzg.base.common.FileUtils;
 import com.jiangzg.base.component.ActivityTrans;
 import com.jiangzg.base.view.DialogUtils;
@@ -32,8 +29,6 @@ import com.jiangzg.lovenote.controller.adapter.more.MatchWifeAdapter;
 import com.jiangzg.lovenote.helper.common.ApiHelper;
 import com.jiangzg.lovenote.helper.common.OssHelper;
 import com.jiangzg.lovenote.helper.common.SPHelper;
-import com.jiangzg.lovenote.helper.common.ShowHelper;
-import com.jiangzg.lovenote.helper.common.TimeHelper;
 import com.jiangzg.lovenote.helper.common.UserHelper;
 import com.jiangzg.lovenote.helper.media.PickHelper;
 import com.jiangzg.lovenote.helper.system.RetrofitHelper;
@@ -42,13 +37,11 @@ import com.jiangzg.lovenote.helper.view.RecyclerHelper;
 import com.jiangzg.lovenote.helper.view.ViewHelper;
 import com.jiangzg.lovenote.model.api.API;
 import com.jiangzg.lovenote.model.api.Result;
-import com.jiangzg.lovenote.model.entity.MatchPeriod;
 import com.jiangzg.lovenote.model.entity.MatchWork;
 import com.jiangzg.lovenote.view.GSwipeRefreshLayout;
 
 import java.io.File;
 import java.util.Arrays;
-import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -71,23 +64,25 @@ public class MatchWifeListActivity extends BaseActivity<MatchWifeListActivity> {
     @BindView(R.id.llAdd)
     LinearLayout llAdd;
 
-    private MatchPeriod period;
+    private long pid;
     private boolean showNew;
     private RecyclerHelper recyclerHelper;
     private int page = 0;
     private int orderIndex;
 
-    public static void goActivity(Fragment from, MatchPeriod period) {
+    public static void goActivity(Fragment from, long pid) {
+        if (pid <= 0) return;
         Intent intent = new Intent(from.getActivity(), MatchWifeListActivity.class);
-        intent.putExtra("period", period);
+        intent.putExtra("pid", pid);
         intent.putExtra("showNew", true);
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         ActivityTrans.start(from, intent);
     }
 
-    public static void goActivity(Activity from, MatchPeriod period) {
+    public static void goActivity(Activity from, long pid) {
+        if (pid <= 0) return;
         Intent intent = new Intent(from, MatchWifeListActivity.class);
-        intent.putExtra("period", period);
+        intent.putExtra("pid", pid);
         intent.putExtra("showNew", false);
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         ActivityTrans.start(from, intent);
@@ -106,41 +101,38 @@ public class MatchWifeListActivity extends BaseActivity<MatchWifeListActivity> {
         tvOrder.setText(ApiHelper.LIST_MATCH_ORDER_SHOW[orderIndex]);
         // recycler
         recyclerHelper = new RecyclerHelper(rv)
-                .initLayoutManager(new GridLayoutManager(mActivity, 2))
+                .initLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL))
                 .initRefresh(srl, true)
                 .initAdapter(new MatchWifeAdapter(mActivity))
-                .viewHeader(mActivity, R.layout.list_head_match_work)
                 .viewEmpty(mActivity, R.layout.list_empty_grey, true, true)
                 .viewLoadMore(new RecyclerHelper.MoreGreyView())
                 .viewAnim()
                 .setAdapter()
                 .listenerRefresh(() -> getData(false))
                 .listenerMore(currentCount -> getData(true))
-                .listenerClick(new OnItemClickListener() {
-                    @Override
-                    public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
-                        MatchWifeAdapter wifeAdapter = (MatchWifeAdapter) adapter;
-                        wifeAdapter.goWifeDetail(position);
-                    }
-                })
                 .listenerClick(new OnItemLongClickListener() {
                     @Override
                     public void onSimpleItemLongClick(BaseQuickAdapter adapter, View view, int position) {
-                        ApiHelper.showMatchWorksDeleteDialog(mActivity, adapter, position);
+                        MatchWifeAdapter wifeAdapter = (MatchWifeAdapter) adapter;
+                        wifeAdapter.showDeleteDialog(position);
                     }
                 })
                 .listenerClick(new OnItemChildClickListener() {
                     @Override
                     public void onSimpleItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+                        MatchWifeAdapter wifeAdapter = (MatchWifeAdapter) adapter;
                         switch (view.getId()) {
-                            case R.id.llReport: // 举报
-                                ApiHelper.matchReportAdd(mActivity, adapter, position, true);
-                                break;
-                            case R.id.llPoint: // 点赞
-                                ApiHelper.matchPointToggle(mActivity, adapter, position, true);
+                            case R.id.ivWork: // 大图
+                                wifeAdapter.goWifeDetail(position);
                                 break;
                             case R.id.llCoin: // 金币
-                                ApiHelper.matchCoinAdd(mActivity, adapter, position);
+                                wifeAdapter.coinAdd(position);
+                                break;
+                            case R.id.llPoint: // 点赞
+                                wifeAdapter.pointToggle(position, true);
+                                break;
+                            case R.id.ivMore: // 举报
+                                wifeAdapter.showReportDialog(position);
                                 break;
                         }
                     }
@@ -149,10 +141,8 @@ public class MatchWifeListActivity extends BaseActivity<MatchWifeListActivity> {
 
     @Override
     protected void initData(Intent intent, Bundle state) {
-        period = intent.getParcelableExtra("period");
+        pid = intent.getLongExtra("pid", 0);
         showNew = intent.getBooleanExtra("showNew", false);
-        // head
-        initHead();
         // refresh
         recyclerHelper.dataRefresh();
     }
@@ -164,7 +154,7 @@ public class MatchWifeListActivity extends BaseActivity<MatchWifeListActivity> {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.help, menu);
+        getMenuInflater().inflate(R.menu.help_menu, menu);
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -189,6 +179,9 @@ public class MatchWifeListActivity extends BaseActivity<MatchWifeListActivity> {
             case R.id.menuHelp: // 帮助
                 HelpActivity.goActivity(mActivity, HelpActivity.INDEX_MORE_MATCH);
                 return true;
+            case R.id.menuMenu: // 往期
+                MatchWifeActivity.goActivity(mActivity);
+                return true;
         }
         return super.onOptionsItemSelected(item);
     }
@@ -203,57 +196,20 @@ public class MatchWifeListActivity extends BaseActivity<MatchWifeListActivity> {
                 showSearchDialog();
                 break;
             case R.id.llAdd: // 添加
-                goPicture();
+                if (UserHelper.isCoupleBreak(SPHelper.getCouple())) {
+                    CouplePairActivity.goActivity(mActivity);
+                    return;
+                }
+                PickHelper.selectImage(mActivity, 1, true);
                 break;
         }
     }
 
-    private void initHead() {
-        if (period == null) {
-            mActivity.finish();
-            return;
-        }
-        // view
-        View head = recyclerHelper.getViewHead();
-        if (head == null) return;
-        CardView root = head.findViewById(R.id.root);
-        TextView tvTitle = head.findViewById(R.id.tvTitle);
-        TextView tvTime = head.findViewById(R.id.tvTime);
-        TextView tvPeriod = head.findViewById(R.id.tvPeriod);
-        TextView tvCoin = head.findViewById(R.id.tvCoin);
-        TextView tvWorksCount = head.findViewById(R.id.tvWorksCount);
-        TextView tvCoinCount = head.findViewById(R.id.tvCoinCount);
-        TextView tvPointCount = head.findViewById(R.id.tvPointCount);
-        // data
-        String title = period.getTitle();
-        String start = DateUtils.getStr(TimeHelper.getJavaTimeByGo(period.getStartAt()), DateUtils.FORMAT_LINE_M_D_H_M);
-        String end = DateUtils.getStr(TimeHelper.getJavaTimeByGo(period.getEndAt()), DateUtils.FORMAT_LINE_M_D_H_M);
-        String time = String.format(Locale.getDefault(), getString(R.string.holder_space_line_space_holder), start, end);
-        String periodShow = String.format(Locale.getDefault(), getString(R.string.the_holder_period), this.period.getPeriod());
-        String coinChange = String.format(Locale.getDefault(), getString(R.string.go_in_award_colon_holder_coin), period.getCoinChange());
-        String workCount = String.format(Locale.getDefault(), getString(R.string.total_works_count_colon_holder), ShowHelper.getShowCount2Thousand(period.getWorksCount()));
-        String coinCount = String.format(Locale.getDefault(), getString(R.string.total_coin_count_colon_holder), ShowHelper.getShowCount2Thousand(period.getCoinCount()));
-        String pointCount = String.format(Locale.getDefault(), getString(R.string.total_point_count_colon_holder), ShowHelper.getShowCount2Thousand(period.getPointCount()));
-        // set
-        tvTitle.setText(title);
-        tvTime.setText(time);
-        tvPeriod.setText(periodShow);
-        tvCoin.setText(coinChange);
-        tvWorksCount.setText(workCount);
-        tvCoinCount.setText(coinCount);
-        tvPointCount.setText(pointCount);
-        // listener
-        root.setOnClickListener(v -> MatchWifeActivity.goActivity(mActivity));
-    }
-
     private void getData(final boolean more) {
-        if (period == null) {
-            srl.setRefreshing(false);
-        }
         page = more ? page + 1 : 0;
         int orderType = ApiHelper.LIST_MATCH_ORDER_TYPE[orderIndex];
         // api
-        Call<Result> api = new RetrofitHelper().call(API.class).moreMatchWordListGet(period.getId(), orderType, page);
+        Call<Result> api = new RetrofitHelper().call(API.class).moreMatchWordListGet(pid, orderType, page);
         RetrofitHelper.enqueue(api, null, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
@@ -292,25 +248,11 @@ public class MatchWifeListActivity extends BaseActivity<MatchWifeListActivity> {
         DialogHelper.showWithAnim(dialog);
     }
 
-    // 图片获取
-    private void goPicture() {
-        if (UserHelper.isCoupleBreak(SPHelper.getCouple())) {
-            CouplePairActivity.goActivity(mActivity);
-            return;
-        }
-        PickHelper.selectImage(mActivity, 1, true);
-    }
-
-    // 上传
     private void ossUpload(File file) {
-        if (period == null) return;
         OssHelper.uploadMoreMatch(mActivity, file, new OssHelper.OssUploadCallBack() {
             @Override
             public void success(File source, String ossPath) {
-                MatchWork body = new MatchWork();
-                body.setMatchPeriodId(period.getId());
-                body.setContentImage(ossPath);
-                checkApi(body);
+                addApi(ossPath);
             }
 
             @Override
@@ -319,7 +261,11 @@ public class MatchWifeListActivity extends BaseActivity<MatchWifeListActivity> {
         });
     }
 
-    private void checkApi(MatchWork body) {
+    private void addApi(String ossPath) {
+        MatchWork body = new MatchWork();
+        body.setMatchPeriodId(pid);
+        body.setContentImage(ossPath);
+        // api
         Call<Result> api = new RetrofitHelper().call(API.class).moreMatchWorkAdd(body);
         RetrofitHelper.enqueue(api, getLoading(true), new RetrofitHelper.CallBack() {
             @Override

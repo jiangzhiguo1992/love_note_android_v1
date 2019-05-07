@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -13,7 +14,6 @@ import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.controller.adapter.more.MatchLetterAdapter;
 import com.jiangzg.lovenote.controller.fragment.base.BaseFragment;
 import com.jiangzg.lovenote.controller.fragment.base.BasePagerFragment;
-import com.jiangzg.lovenote.helper.common.ApiHelper;
 import com.jiangzg.lovenote.helper.system.RetrofitHelper;
 import com.jiangzg.lovenote.helper.view.RecyclerHelper;
 import com.jiangzg.lovenote.model.api.API;
@@ -24,7 +24,7 @@ import com.jiangzg.lovenote.view.GSwipeRefreshLayout;
 import butterknife.BindView;
 import retrofit2.Call;
 
-public class MatchLetterListFragment extends BasePagerFragment<MatchLetterListFragment> {
+public class MatchLetterOurFragment extends BasePagerFragment<MatchLetterOurFragment> {
 
     @BindView(R.id.srl)
     GSwipeRefreshLayout srl;
@@ -34,21 +34,21 @@ public class MatchLetterListFragment extends BasePagerFragment<MatchLetterListFr
     private RecyclerHelper recyclerHelper;
     private int page = 0;
 
-    public static MatchLetterListFragment newFragment() {
+    public static MatchLetterOurFragment newFragment() {
         Bundle bundle = new Bundle();
-        return BaseFragment.newInstance(MatchLetterListFragment.class, bundle);
+        return BaseFragment.newInstance(MatchLetterOurFragment.class, bundle);
     }
 
     @Override
     protected int getView(Bundle data) {
-        return R.layout.fragment_match_letter_list;
+        return R.layout.fragment_match_letter_our;
     }
 
     @Override
     protected void initView(@Nullable Bundle state) {
         // recycler
         recyclerHelper = new RecyclerHelper(rv)
-                .initLayoutManager(new LinearLayoutManager(mActivity))
+                .initLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL))
                 .initRefresh(srl, true)
                 .initAdapter(new MatchLetterAdapter(mActivity))
                 .viewEmpty(mActivity, R.layout.list_empty_grey, true, true)
@@ -60,21 +60,23 @@ public class MatchLetterListFragment extends BasePagerFragment<MatchLetterListFr
                 .listenerClick(new OnItemLongClickListener() {
                     @Override
                     public void onSimpleItemLongClick(BaseQuickAdapter adapter, View view, int position) {
-                        ApiHelper.showMatchWorksDeleteDialog(mActivity, adapter, position);
+                        MatchLetterAdapter letterAdapter = (MatchLetterAdapter) adapter;
+                        letterAdapter.showDeleteDialog(position);
                     }
                 })
                 .listenerClick(new OnItemChildClickListener() {
                     @Override
                     public void onSimpleItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+                        MatchLetterAdapter letterAdapter = (MatchLetterAdapter) adapter;
                         switch (view.getId()) {
-                            case R.id.llReport: // 举报
-                                ApiHelper.matchReportAdd(mActivity, adapter, position, true);
+                            case R.id.llCoin: // 金币
+                                letterAdapter.coinAdd(position);
                                 break;
                             case R.id.llPoint: // 点赞
-                                ApiHelper.matchPointToggle(mActivity, adapter, position, true);
+                                letterAdapter.pointToggle(position, true);
                                 break;
-                            case R.id.llCoin: // 金币
-                                ApiHelper.matchCoinAdd(mActivity, adapter, position);
+                            case R.id.ivMore: // 举报
+                                letterAdapter.showReportDialog(position);
                                 break;
                         }
                     }

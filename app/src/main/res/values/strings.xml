@@ -294,6 +294,7 @@
     <string name="holder_sprit_holder" formatted="false">%d/%d</string>
     <string name="holder_wave_holder" formatted="false">%s~%s</string>
     <string name="holder_space_line_space_holder" formatted="false">%s - %s</string>
+    <string name="holder_space_to_space_holder" formatted="false">%s 至 %s</string>
     <string name="holder_space_space_holder" formatted="false">%s  %s</string>
     <string name="holder_second" formatted="false">%d秒</string>
     <string name="holder_minute" formatted="false">%d分钟</string>
@@ -592,7 +593,7 @@
     <string name="old_period">往期</string>
     <string name="coin_board">金币榜</string>
     <string name="point_board">点赞榜</string>
-    <string name="new_board">新人榜</string>
+    <string name="new_board">新秀榜</string>
     <string name="work_already_be_screen">作品已被屏蔽</string>
     <string name="work_already_be_delete">作品已被删除</string>
 
@@ -787,9 +788,9 @@
     <string name="help_more_match_c3_q">怎么查看往期的活动？</string>
     <string name="help_more_match_c3_a">如果活动没有开启的话，会默认进入往期活动列表页。\n如果活动开启了，可以点击顶部本期介绍(也就是顶部那个渐变的视图)进入往期列表。</string>
     <string name="help_more_match_c4_q">怎么查看自己的发表？</string>
-    <string name="help_more_match_c4_a">如果是刚发表的，可以根据《新人榜》查看作品，毕竟是按发表时间倒叙排序的，找找看吧。\n如果新人榜里找不到，请点击顶部本期介绍进入往期列表页，里面有《我们的》相关作品。</string>
+    <string name="help_more_match_c4_a">如果是刚发表的，可以根据《新秀榜》查看作品，毕竟是按发表时间倒叙排序的，找找看吧。\n如果新秀榜里找不到，请点击顶部本期介绍进入往期列表页，里面有《我们的》相关作品。</string>
     <string name="help_more_match_c5_q">为什么往期的作品不能操作了？</string>
-    <string name="help_more_match_c5_a">往期的作品除了删除，不能进行任何操作哦，包括点赞，投币，发表等。\n另外，往期的作品是不能查看新人榜的！</string>
+    <string name="help_more_match_c5_a">往期的作品除了删除，不能进行任何操作哦，包括点赞，投币，发表等。\n另外，往期的作品是不能查看新秀榜的！</string>
     <string name="help_suggest_home_d">旨在让大家来提出app的bug和意见等，我们会在第一时间收到您的消息，并和相关负责部门商讨问题的解决方案等，并会在产出结果的第一时间以官方回复形式通知用户。(注：如果没有第一时间回复，那可能是管理员在偷懒。)</string>
     <string name="help_suggest_home_c1_q">类型和状态是什么？</string>
     <string name="help_suggest_home_c1_a">类型：意见反馈的种类，在提交意见反馈时选择，这样分类的话，可以加快管理员的审核速度和方便用户浏览。\n状态：意见反馈的处理进度，一般为管理员回复并设置。</string>

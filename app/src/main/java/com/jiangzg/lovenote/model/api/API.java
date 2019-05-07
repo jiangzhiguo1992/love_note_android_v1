@@ -195,8 +195,8 @@ public interface API {
     Call<Result> couplePlaceListGet(@Query("page") int page);
 
     // 天气预报
-    @GET("couple/weather?forecast=1")
-    Call<Result> coupleWeatherForecastListGet();
+    //@GET("couple/weather?forecast=1")
+    //Call<Result> coupleWeatherForecastListGet();
 
     // noteHome获取
     @GET("note/home")
