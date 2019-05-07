@@ -879,6 +879,10 @@ public class HelpActivity extends BaseActivity<HelpActivity> {
         c5.setQuestion(getString(R.string.help_more_match_c5_q));
         c5.setAnswer(getString(R.string.help_more_match_c5_a));
         contentList.add(c5);
+        Help.HelpContent c6 = new Help.HelpContent();
+        c6.setQuestion(getString(R.string.help_more_match_c6_q));
+        c6.setAnswer(getString(R.string.help_more_match_c6_a));
+        contentList.add(c6);
         help.setContentList(contentList);
         return help;
     }

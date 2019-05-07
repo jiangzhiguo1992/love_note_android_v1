@@ -783,14 +783,16 @@
     <string name="help_more_sign_c3_a" formatted="false">1.第一次签到或者是不连续签到，给予%d个金币。\n2.连续签到的话，根据连续天数的累计，额外给予(连续天数-1)*%d个金币。\n3.签到给予的金币有封顶，最多每天获得%d个金币。</string>
     <string name="help_more_match_c1_q">参与会得金币吗？</string>
     <string name="help_more_match_c1_a">是的呢？具体奖励额度请移步每一期活动的介绍查看。</string>
-    <string name="help_more_match_c2_q">为什么有的活动没有开启？</string>
-    <string name="help_more_match_c2_a">活动的开启视运营情况和用户需求而定，不定期开启哦！</string>
-    <string name="help_more_match_c3_q">怎么查看往期的活动？</string>
-    <string name="help_more_match_c3_a">如果活动没有开启的话，会默认进入往期活动列表页。\n如果活动开启了，可以点击右上角(菜单)进入往期列表。</string>
-    <string name="help_more_match_c4_q">怎么查看自己的发表？</string>
-    <string name="help_more_match_c4_a">如果是刚发表的，可以根据《新秀榜》查看作品，毕竟是按发表时间倒叙排序的，找找看吧。\n如果新秀榜里找不到，请点击顶部本期介绍进入往期列表页，里面有《我们的》相关作品。</string>
-    <string name="help_more_match_c5_q">为什么往期的作品不能操作了？</string>
-    <string name="help_more_match_c5_a">往期的作品除了删除，不能进行任何操作哦，包括点赞，投币，发表等。\n另外，往期的作品是不能查看新秀榜的！</string>
+    <string name="help_more_match_c2_q">为什么我的作品会被系统删除？</string>
+    <string name="help_more_match_c2_a">请在每次发表前，留意一下每期活动的标题，作品与标题相关度低或是被举报过多的话，是会被系统删除或屏蔽。</string>
+    <string name="help_more_match_c3_q">为什么有的活动没有开启？</string>
+    <string name="help_more_match_c3_a">活动的开启视运营情况和用户需求而定，不定期开启哦！</string>
+    <string name="help_more_match_c4_q">怎么查看往期的活动？</string>
+    <string name="help_more_match_c4_a">如果活动没有开启的话，会默认进入往期活动列表页。\n如果活动开启了，可以点击右上角(菜单)进入往期列表。</string>
+    <string name="help_more_match_c5_q">怎么查看自己的发表？</string>
+    <string name="help_more_match_c5_a">如果是刚发表的，可以根据《新秀榜》查看作品，毕竟是按发表时间倒叙排序的，找找看吧。\n如果新秀榜里找不到，请点击顶部本期介绍进入往期列表页，里面有《我们的》相关作品。</string>
+    <string name="help_more_match_c6_q">为什么往期的作品不能操作了？</string>
+    <string name="help_more_match_c6_a">往期的作品除了删除，不能进行任何操作哦，包括点赞，投币，发表等。\n另外，往期的作品是不能查看新秀榜的！</string>
     <string name="help_suggest_home_d">旨在让大家来提出app的bug和意见等，我们会在第一时间收到您的消息，并和相关负责部门商讨问题的解决方案等，并会在产出结果的第一时间以官方回复形式通知用户。(注：如果没有第一时间回复，那可能是管理员在偷懒。)</string>
     <string name="help_suggest_home_c1_q">类型和状态是什么？</string>
     <string name="help_suggest_home_c1_a">类型：意见反馈的种类，在提交意见反馈时选择，这样分类的话，可以加快管理员的审核速度和方便用户浏览。\n状态：意见反馈的处理进度，一般为管理员回复并设置。</string>

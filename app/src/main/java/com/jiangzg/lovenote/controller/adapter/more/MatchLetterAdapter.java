@@ -18,6 +18,7 @@ import com.jiangzg.lovenote.helper.common.ShowHelper;
 import com.jiangzg.lovenote.helper.common.UserHelper;
 import com.jiangzg.lovenote.helper.system.RetrofitHelper;
 import com.jiangzg.lovenote.helper.view.DialogHelper;
+import com.jiangzg.lovenote.helper.view.ViewHelper;
 import com.jiangzg.lovenote.model.api.API;
 import com.jiangzg.lovenote.model.api.Result;
 import com.jiangzg.lovenote.model.entity.Couple;
@@ -69,6 +70,7 @@ public class MatchLetterAdapter extends BaseQuickAdapter<MatchWork, BaseViewHold
             helper.setVisible(R.id.tvContent, true);
             helper.setVisible(R.id.tvCover, false);
             helper.setText(R.id.tvContent, content);
+            helper.setBackgroundColor(R.id.tvContent, ContextCompat.getColor(mActivity, ViewHelper.getRandomThemePrimaryRes()));
         }
         FrescoAvatarView ivAvatar = helper.getView(R.id.ivAvatar);
         ivAvatar.setData(avatar);
@@ -117,7 +119,6 @@ public class MatchLetterAdapter extends BaseQuickAdapter<MatchWork, BaseViewHold
     }
 
     public void coinAdd(final int position) {
-        // TODO coin UI
         String hint = mActivity.getString(R.string.input_coin_count);
         MaterialDialog dialogName = DialogHelper.getBuild(mActivity)
                 .cancelable(true)

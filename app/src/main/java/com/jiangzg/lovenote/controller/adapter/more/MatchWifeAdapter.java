@@ -147,7 +147,6 @@ public class MatchWifeAdapter extends BaseQuickAdapter<MatchWork, BaseViewHolder
     }
 
     public void coinAdd(final int position) {
-        // TODO coin UI
         String hint = mActivity.getString(R.string.input_coin_count);
         MaterialDialog dialogName = DialogHelper.getBuild(mActivity)
                 .cancelable(true)
