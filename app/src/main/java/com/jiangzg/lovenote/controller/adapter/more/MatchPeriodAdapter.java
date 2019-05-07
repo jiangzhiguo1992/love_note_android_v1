@@ -31,17 +31,17 @@ public class MatchPeriodAdapter extends BaseQuickAdapter<MatchPeriod, BaseViewHo
     protected void convert(BaseViewHolder helper, MatchPeriod item) {
         // data
         String title = item.getTitle();
-        String start = DateUtils.getStr(TimeHelper.getJavaTimeByGo(item.getStartAt()), DateUtils.FORMAT_LINE_M_D_H_M);
-        String end = DateUtils.getStr(TimeHelper.getJavaTimeByGo(item.getEndAt()), DateUtils.FORMAT_LINE_M_D_H_M);
-        String time = String.format(Locale.getDefault(), mActivity.getString(R.string.holder_space_line_space_holder), start, end);
-        String periodShow = String.format(Locale.getDefault(), mActivity.getString(R.string.the_holder_period), item.getPeriod());
+        String start = DateUtils.getStr(TimeHelper.getJavaTimeByGo(item.getStartAt()), DateUtils.FORMAT_LINE_M_D);
+        String end = DateUtils.getStr(TimeHelper.getJavaTimeByGo(item.getEndAt()), DateUtils.FORMAT_LINE_M_D);
+        String time = String.format(Locale.getDefault(), mActivity.getString(R.string.holder_space_to_space_holder), start, end);
+        String period = String.format(Locale.getDefault(), mActivity.getString(R.string.the_holder_period), item.getPeriod());
+        String periodShow = String.format(Locale.getDefault(), mActivity.getString(R.string.holder_space_space_holder), period, time);
         String coinChange = String.format(Locale.getDefault(), mActivity.getString(R.string.go_in_award_colon_holder_coin), item.getCoinChange());
         String workCount = String.format(Locale.getDefault(), mActivity.getString(R.string.total_works_count_colon_holder), ShowHelper.getShowCount2Thousand(item.getWorksCount()));
         String coinCount = String.format(Locale.getDefault(), mActivity.getString(R.string.total_coin_count_colon_holder), ShowHelper.getShowCount2Thousand(item.getCoinCount()));
         String pointCount = String.format(Locale.getDefault(), mActivity.getString(R.string.total_point_count_colon_holder), ShowHelper.getShowCount2Thousand(item.getPointCount()));
         // view
         helper.setText(R.id.tvTitle, title);
-        helper.setText(R.id.tvTime, time);
         helper.setText(R.id.tvPeriod, periodShow);
         helper.setText(R.id.tvCoin, coinChange);
         helper.setText(R.id.tvWorksCount, workCount);

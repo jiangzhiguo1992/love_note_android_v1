@@ -786,7 +786,7 @@
     <string name="help_more_match_c2_q">为什么有的活动没有开启？</string>
     <string name="help_more_match_c2_a">活动的开启视运营情况和用户需求而定，不定期开启哦！</string>
     <string name="help_more_match_c3_q">怎么查看往期的活动？</string>
-    <string name="help_more_match_c3_a">如果活动没有开启的话，会默认进入往期活动列表页。\n如果活动开启了，可以点击顶部本期介绍(也就是顶部那个渐变的视图)进入往期列表。</string>
+    <string name="help_more_match_c3_a">如果活动没有开启的话，会默认进入往期活动列表页。\n如果活动开启了，可以点击右上角(菜单)进入往期列表。</string>
     <string name="help_more_match_c4_q">怎么查看自己的发表？</string>
     <string name="help_more_match_c4_a">如果是刚发表的，可以根据《新秀榜》查看作品，毕竟是按发表时间倒叙排序的，找找看吧。\n如果新秀榜里找不到，请点击顶部本期介绍进入往期列表页，里面有《我们的》相关作品。</string>
     <string name="help_more_match_c5_q">为什么往期的作品不能操作了？</string>
