@@ -171,8 +171,10 @@ public class CoinActivity extends BaseActivity<CoinActivity> {
                 MatchLetterActivity.goActivity(mActivity);
                 break;
             case R.id.cvOutWish:
+                // TODO feature
                 break;
             case R.id.cvOutCard:
+                // TODO feature
                 break;
         }
     }

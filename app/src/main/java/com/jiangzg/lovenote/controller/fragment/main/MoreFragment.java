@@ -287,6 +287,7 @@ public class MoreFragment extends BasePagerFragment<MoreFragment> {
     }
 
     private void initFeature() {
+        if (mActivity == null || !mFragment.isAdded()) return; // 防止已经脱离后加载
         tvWish.setText("暂无活动");
         tvPostcard.setText("暂无活动");
     }
