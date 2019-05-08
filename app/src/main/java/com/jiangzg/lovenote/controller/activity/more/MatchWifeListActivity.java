@@ -209,7 +209,7 @@ public class MatchWifeListActivity extends BaseActivity<MatchWifeListActivity> {
         page = more ? page + 1 : 0;
         int orderType = ApiHelper.LIST_MATCH_ORDER_TYPE[orderIndex];
         // api
-        Call<Result> api = new RetrofitHelper().call(API.class).moreMatchWordListGet(pid, orderType, page);
+        Call<Result> api = new RetrofitHelper().call(API.class).moreMatchWorkListGet(pid, orderType, page);
         RetrofitHelper.enqueue(api, null, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {

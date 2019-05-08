@@ -19,8 +19,8 @@ public class MatchWork extends BaseCP implements Parcelable {
     private int coinCount;
     // 关联
     private boolean screen;
-    private boolean mine;
     private Couple couple;
+    private boolean mine;
     private boolean our;
     private boolean report;
     private boolean point;

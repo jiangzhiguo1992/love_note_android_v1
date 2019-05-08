@@ -709,11 +709,11 @@ public interface API {
 
     // matchWorkList获取
     @GET("more/match/work")
-    Call<Result> moreMatchWordListGet(@Query("mpid") long mpid, @Query("order") int order, @Query("page") int page);
+    Call<Result> moreMatchWorkListGet(@Query("mpid") long mpid, @Query("order") int order, @Query("page") int page);
 
     // matchWorkList获取
     @GET("more/match/work?our=1")
-    Call<Result> moreMatchWordOurListGet(@Query("kind") int kind, @Query("page") int page);
+    Call<Result> moreMatchWorkOurListGet(@Query("kind") int kind, @Query("page") int page);
 
     // matchReport上传
     @POST("more/match/report")

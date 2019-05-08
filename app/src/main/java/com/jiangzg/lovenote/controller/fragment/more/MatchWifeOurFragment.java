@@ -99,7 +99,7 @@ public class MatchWifeOurFragment extends BasePagerFragment<MatchWifeOurFragment
     private void getData(final boolean more) {
         page = more ? page + 1 : 0;
         // api
-        Call<Result> api = new RetrofitHelper().call(API.class).moreMatchWordOurListGet(MatchPeriod.MATCH_KIND_WIFE_PICTURE, page);
+        Call<Result> api = new RetrofitHelper().call(API.class).moreMatchWorkOurListGet(MatchPeriod.MATCH_KIND_WIFE_PICTURE, page);
         RetrofitHelper.enqueue(api, null, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
