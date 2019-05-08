@@ -75,7 +75,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignBottom="@+id/ivAvatar"
-                android:layout_toEndOf="@+id/ivAvatar">
+                android:layout_toEndOf="@+id/ivAvatar"
+                android:gravity="center_vertical">
 
                 <LinearLayout
                     android:id="@+id/llCoin"
@@ -139,8 +140,8 @@
 
                 <ImageView
                     android:id="@+id/ivMore"
-                    android:layout_width="15dp"
-                    android:layout_height="15dp"
+                    android:layout_width="12dp"
+                    android:layout_height="12dp"
                     android:src="@mipmap/ic_more_horiz_grey_18dp"
                     android:tint="@color/font_hint"/>
             </LinearLayout>
