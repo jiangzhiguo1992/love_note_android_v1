@@ -90,11 +90,21 @@ public class Limit {
     private int coinSignMinCount;
     private int coinSignMaxCount;
     private int coinSignIncreaseCount;
+    private int coinAdBetweenSec;
     private int coinAdWatchCount;
     private int coinAdClickCount;
     private int coinAdMaxPerDayCount;
     private int matchWorkScreenReportCount;
     private int matchWorkTitleLength;
+
+    public int getCoinAdBetweenSec() {
+        return coinAdBetweenSec;
+    }
+
+    public void setCoinAdBetweenSec(int coinAdBetweenSec) {
+        this.coinAdBetweenSec = coinAdBetweenSec;
+    }
+
     private int matchWorkContentLength;
 
     public int getCoinAdWatchCount() {

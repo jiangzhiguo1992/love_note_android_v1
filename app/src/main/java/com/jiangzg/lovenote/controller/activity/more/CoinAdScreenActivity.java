@@ -78,8 +78,9 @@ public class CoinAdScreenActivity extends BaseActivity<CoinAdScreenActivity> {
         Limit limit = SPHelper.getLimit();
         int watchChange = limit.getCoinAdWatchCount();
         int clickChange = limit.getCoinAdClickCount();
+        int betweenMin = limit.getCoinAdBetweenSec() / 60;
         int maxCount = limit.getCoinAdMaxPerDayCount();
-        tvDesc.setText(String.format(Locale.getDefault(), getString(R.string.coin_ad_desc), watchChange, clickChange, maxCount));
+        tvDesc.setText(String.format(Locale.getDefault(), getString(R.string.coin_ad_desc), watchChange, clickChange, betweenMin, maxCount));
     }
 
     @Override

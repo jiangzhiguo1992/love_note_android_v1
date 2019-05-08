@@ -226,6 +226,7 @@ public class SPHelper {
     private static final String FIELD_LIMIT_COIN_SIGN_MIN_COUNT = "coin_sign_min_count";
     private static final String FIELD_LIMIT_COIN_SIGN_MAX_COUNT = "coin_sign_max_count";
     private static final String FIELD_LIMIT_COIN_SIGN_INCREASE_COUNT = "coin_sign_increase_count";
+    private static final String FIELD_LIMIT_COIN_AD_BETWEEN_SEC = "coin_ad_between_sec";
     private static final String FIELD_LIMIT_COIN_AD_WATCH_COUNT = "coin_ad_watch_count";
     private static final String FIELD_LIMIT_COIN_AD_CLICK_COUNT = "coin_ad_click_count";
     private static final String FIELD_LIMIT_COIN_AD_MAX_PER_DAY_COUNT = "coin_ad_max_per_day_count";
@@ -769,6 +770,7 @@ public class SPHelper {
         editor.putInt(FIELD_LIMIT_COIN_SIGN_MIN_COUNT, limit.getCoinSignMinCount());
         editor.putInt(FIELD_LIMIT_COIN_SIGN_MAX_COUNT, limit.getCoinSignMaxCount());
         editor.putInt(FIELD_LIMIT_COIN_SIGN_INCREASE_COUNT, limit.getCoinSignIncreaseCount());
+        editor.putInt(FIELD_LIMIT_COIN_AD_BETWEEN_SEC, limit.getCoinAdBetweenSec());
         editor.putInt(FIELD_LIMIT_COIN_AD_WATCH_COUNT, limit.getCoinAdWatchCount());
         editor.putInt(FIELD_LIMIT_COIN_AD_CLICK_COUNT, limit.getCoinAdClickCount());
         editor.putInt(FIELD_LIMIT_COIN_AD_MAX_PER_DAY_COUNT, limit.getCoinAdMaxPerDayCount());
@@ -859,6 +861,7 @@ public class SPHelper {
         limit.setCoinSignMinCount(sp.getInt(FIELD_LIMIT_COIN_SIGN_MIN_COUNT, 1));
         limit.setCoinSignMaxCount(sp.getInt(FIELD_LIMIT_COIN_SIGN_MAX_COUNT, 10));
         limit.setCoinSignIncreaseCount(sp.getInt(FIELD_LIMIT_COIN_SIGN_INCREASE_COUNT, 1));
+        limit.setCoinAdBetweenSec(sp.getInt(FIELD_LIMIT_COIN_AD_BETWEEN_SEC, 60 * 10));
         limit.setCoinAdWatchCount(sp.getInt(FIELD_LIMIT_COIN_AD_WATCH_COUNT, 1));
         limit.setCoinAdClickCount(sp.getInt(FIELD_LIMIT_COIN_AD_CLICK_COUNT, 2));
         limit.setCoinAdMaxPerDayCount(sp.getInt(FIELD_LIMIT_COIN_AD_MAX_PER_DAY_COUNT, 10));
