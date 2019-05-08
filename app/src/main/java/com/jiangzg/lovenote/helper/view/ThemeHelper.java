@@ -6,6 +6,7 @@ import com.jiangzg.base.component.ActivityStack;
 import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.helper.common.SPHelper;
 
+import java.util.Random;
 import java.util.Stack;
 
 /**
@@ -79,4 +80,14 @@ public class ThemeHelper {
         //}
     }
 
+    public static int getThemePrimaryRandomRes() {
+        int[] colors = new int[]{R.color.theme_red_primary, R.color.theme_pink_primary,
+                R.color.theme_purple_primary, R.color.theme_indigo_primary, R.color.theme_blue_primary,
+                R.color.theme_teal_primary, R.color.theme_green_primary, R.color.theme_yellow_primary,
+                R.color.theme_orange_primary, R.color.theme_brown_primary, R.color.theme_grey_primary,
+        };
+        Random random = new Random();
+        int nextInt = random.nextInt(colors.length);
+        return colors[nextInt];
+    }
 }

@@ -19,8 +19,6 @@ import com.jiangzg.base.common.LogUtils;
 import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.lovenote.R;
 
-import java.util.Random;
-
 /**
  * Created by JiangZhiGuo on 2016-10-31.
  * describe 符合项目样式的View管理类
@@ -51,17 +49,6 @@ public class ViewHelper {
                 R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         dl.addDrawerListener(toggle);
         toggle.syncState();
-    }
-
-    public static int getRandomThemePrimaryRes() {
-        int[] colors = new int[]{R.color.theme_red_primary, R.color.theme_pink_primary,
-                R.color.theme_purple_primary, R.color.theme_indigo_primary, R.color.theme_blue_primary,
-                R.color.theme_teal_primary, R.color.theme_green_primary, R.color.theme_yellow_primary,
-                R.color.theme_orange_primary, R.color.theme_brown_primary, R.color.theme_grey_primary,
-        };
-        Random random = new Random();
-        int nextInt = random.nextInt(colors.length);
-        return colors[nextInt];
     }
 
     // getWrapTextView

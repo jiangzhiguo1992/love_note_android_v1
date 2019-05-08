@@ -10,7 +10,7 @@ import com.jiangzg.lovenote.controller.activity.base.BaseActivity;
 import com.jiangzg.lovenote.controller.activity.note.PictureListActivity;
 import com.jiangzg.lovenote.helper.common.RxBus;
 import com.jiangzg.lovenote.helper.common.TimeHelper;
-import com.jiangzg.lovenote.helper.view.ViewHelper;
+import com.jiangzg.lovenote.helper.view.ThemeHelper;
 import com.jiangzg.lovenote.model.entity.Album;
 import com.jiangzg.lovenote.view.FrescoView;
 
@@ -51,7 +51,7 @@ public class AlbumAdapter extends BaseQuickAdapter<Album, BaseViewHolder> {
         ivAlbum.setWidthAndHeight(imageWidth, imageHeight);
         if (StringUtils.isEmpty(cover)) {
             // 没有封面时，随机给个颜色
-            int randomColor = ViewHelper.getRandomThemePrimaryRes();
+            int randomColor = ThemeHelper.getThemePrimaryRandomRes();
             ivAlbum.setDataRes(randomColor);
         } else {
             ivAlbum.setData(cover);
