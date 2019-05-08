@@ -4,6 +4,8 @@
     android:id="@+id/srl"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_marginStart="10dp"
+    android:layout_marginEnd="10dp"
     tools:context=".controller.fragment.more.MatchLetterOurFragment">
 
     <android.support.v7.widget.RecyclerView

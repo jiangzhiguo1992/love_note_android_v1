@@ -63,8 +63,8 @@ public class MatchWifeAdapter extends BaseQuickAdapter<MatchWork, BaseViewHolder
         CardView root = helper.getView(R.id.root);
         ViewGroup.LayoutParams layoutParams = root.getLayoutParams();
         if (helper.getLayoutPosition() == 0) {
-            if (layoutParams.height != height / 2 * 3) {
-                layoutParams.height = height / 2 * 3;
+            if (layoutParams.height != height / 3 * 4) {
+                layoutParams.height = height / 3 * 4;
                 root.setLayoutParams(layoutParams);
             }
         } else {
