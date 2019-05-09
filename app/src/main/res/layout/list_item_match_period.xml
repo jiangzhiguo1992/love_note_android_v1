@@ -7,103 +7,117 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginStart="10dp"
-    android:layout_marginTop="5dp"
+    android:layout_marginTop="10dp"
     android:layout_marginEnd="10dp"
-    android:layout_marginBottom="5dp"
+    android:layout_marginBottom="10dp"
     android:background="?attr/selectableItemBackground"
     android:foreground="?attr/selectableItemBackground"
-    app:cardBackgroundColor="@color/white"
-    app:cardCornerRadius="@dimen/radius_normal"
-    app:cardElevation="@dimen/elevation_normal"
-    app:cardMaxElevation="@dimen/elevation_big">
+    app:cardBackgroundColor="?attr/colorPrimary"
+    app:cardCornerRadius="@dimen/radius_huge"
+    app:cardElevation="@dimen/elevation_big"
+    app:cardMaxElevation="@dimen/elevation_huge">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="10dp">
+        android:orientation="vertical">
 
         <TextView
             android:id="@+id/tvTitle"
-            style="@style/FontBlackBigBold"
+            style="@style/FontPrimaryBigBold"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@color/white"
             android:gravity="center"
+            android:paddingStart="10dp"
+            android:paddingTop="20dp"
+            android:paddingEnd="10dp"
+            android:paddingBottom="20dp"
             tools:text="最美海景合照"/>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:layout_marginBottom="20dp"
+            android:layout_height="100dp"
             android:orientation="horizontal">
 
-            <TextView
-                android:id="@+id/tvPeriod"
-                style="@style/FontGreyNormal"
+            <LinearLayout
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="5dp"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:ellipsize="middle"
                 android:gravity="center"
-                android:singleLine="true"
-                tools:text="第1届 20-29 至 20-48"/>
+                android:orientation="vertical"
+                android:padding="10dp">
 
-            <TextView
-                android:id="@+id/tvCoin"
-                style="@style/FontGreyNormal"
+                <TextView
+                    android:id="@+id/tvPeriod"
+                    style="@style/FontWhiteSmallBold"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:ellipsize="middle"
+                    android:gravity="center"
+                    android:singleLine="true"
+                    tools:text="第1届 20-29 至 20-48"/>
+
+                <TextView
+                    android:id="@+id/tvCoin"
+                    style="@style/FontWhiteSmallBold"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:ellipsize="middle"
+                    android:gravity="center"
+                    android:singleLine="true"
+                    tools:text="参与奖励:10金币"/>
+            </LinearLayout>
+
+            <View
+                style="@style/LineVertical"
+                android:layout_width="1dp"
+                android:background="@color/white"/>
+
+            <RelativeLayout
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="5dp"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:ellipsize="middle"
-                android:gravity="center"
-                android:singleLine="true"
-                tools:text="参与奖励:10金币"/>
-        </LinearLayout>
+                android:orientation="vertical"
+                android:padding="10dp">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
+                <TextView
+                    android:id="@+id/tvWorksCount"
+                    style="@style/FontWhiteSmallBold"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_above="@+id/tvCoinCount"
+                    android:ellipsize="middle"
+                    android:gravity="center"
+                    android:singleLine="true"
+                    tools:text="总作品数"/>
 
-            <TextView
-                android:id="@+id/tvWorksCount"
-                style="@style/FontPrimarySmall"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="5dp"
-                android:layout_weight="1"
-                android:ellipsize="middle"
-                android:gravity="center"
-                android:singleLine="true"
-                tools:text="总作品数"/>
+                <TextView
+                    android:id="@+id/tvCoinCount"
+                    style="@style/FontWhiteSmallBold"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:ellipsize="middle"
+                    android:gravity="center"
+                    android:singleLine="true"
+                    tools:text="总金币数"/>
 
-            <TextView
-                android:id="@+id/tvCoinCount"
-                style="@style/FontPrimarySmall"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="5dp"
-                android:layout_marginEnd="5dp"
-                android:layout_weight="1"
-                android:ellipsize="middle"
-                android:gravity="center"
-                android:singleLine="true"
-                tools:text="总金币数"/>
-
-            <TextView
-                android:id="@+id/tvPointCount"
-                style="@style/FontPrimarySmall"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="5dp"
-                android:layout_weight="1"
-                android:ellipsize="middle"
-                android:gravity="center"
-                android:singleLine="true"
-                tools:text="总点赞数"/>
+                <TextView
+                    android:id="@+id/tvPointCount"
+                    style="@style/FontWhiteSmallBold"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tvCoinCount"
+                    android:ellipsize="middle"
+                    android:gravity="center"
+                    android:singleLine="true"
+                    tools:text="总点赞数"/>
+            </RelativeLayout>
         </LinearLayout>
     </LinearLayout>
 </android.support.v7.widget.CardView>
