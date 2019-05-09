@@ -145,6 +145,7 @@ public class MatchLetterAdapter extends BaseQuickAdapter<MatchWork, BaseViewHold
         final MatchWork item = getItem(position);
         if (!StringUtils.isNumber(input)) return;
         final int coinCount = Integer.parseInt(input);
+        if (coinCount <= 0) return;
         MatchCoin body = new MatchCoin();
         body.setMatchWorkId(item.getId());
         body.setCoinCount(coinCount);
