@@ -122,11 +122,11 @@ public class AudioEditActivity extends BaseActivity<AudioEditActivity> {
             // duration
             Map<String, String> audioInfo = ProviderUtils.getAudioInfo(data == null ? null : data.getData());
             String duration = audioInfo.get(MediaStore.Audio.Media.DURATION);
-            if (audio != null && StringUtils.isNumber(duration)) {
+            if (audio != null && StringUtils.isNumber(duration) && duration != null) {
                 audio.setDuration((int) TimeHelper.getGoTimeByJava(Integer.parseInt(duration)));
             }
             duration = VideoUtils.getVideoDuration(audioFile.getAbsolutePath());
-            if (audio != null && StringUtils.isNumber(duration)) {
+            if (audio != null && StringUtils.isNumber(duration) && duration != null) {
                 audio.setDuration((int) TimeHelper.getGoTimeByJava(Integer.parseInt(duration)));
             }
             // view
