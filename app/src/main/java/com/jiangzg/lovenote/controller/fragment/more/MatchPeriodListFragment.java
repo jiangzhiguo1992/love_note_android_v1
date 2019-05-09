@@ -61,7 +61,7 @@ public class MatchPeriodListFragment extends BasePagerFragment<MatchPeriodListFr
                     @Override
                     public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
                         MatchPeriodAdapter periodAdapter = (MatchPeriodAdapter) adapter;
-                        periodAdapter.getMatchWorkList(position);
+                        periodAdapter.goMatchWorkList(position);
                     }
                 });
     }

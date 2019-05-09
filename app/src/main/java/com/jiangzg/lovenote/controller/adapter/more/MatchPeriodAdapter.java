@@ -49,7 +49,7 @@ public class MatchPeriodAdapter extends BaseQuickAdapter<MatchPeriod, BaseViewHo
         helper.setText(R.id.tvPointCount, pointCount);
     }
 
-    public void getMatchWorkList(int position) {
+    public void goMatchWorkList(int position) {
         MatchPeriod item = getItem(position);
         switch (item.getKind()) {
             case MatchPeriod.MATCH_KIND_WIFE_PICTURE: // 夫妻相
