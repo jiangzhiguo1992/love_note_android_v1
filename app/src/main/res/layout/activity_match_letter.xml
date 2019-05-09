@@ -26,12 +26,13 @@
             android:id="@+id/tl"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:tabIndicatorColor="@color/white_alpha_75"
-            app:tabIndicatorHeight="3dp"
+            android:background="@color/white"
+            app:tabIndicatorColor="?attr/colorPrimary"
+            app:tabIndicatorHeight="2dp"
             app:tabMode="fixed"
-            app:tabSelectedTextColor="@color/font_white"
-            app:tabTextAppearance="@style/FontWhiteNormal"
-            app:tabTextColor="@color/font_white"/>
+            app:tabSelectedTextColor="?attr/colorPrimary"
+            app:tabTextAppearance="@style/FontGreyNormal"
+            app:tabTextColor="@color/font_grey"/>
     </android.support.design.widget.AppBarLayout>
 
     <android.support.v4.view.ViewPager

@@ -136,12 +136,12 @@
                 android:id="@+id/tl"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:tabIndicatorColor="?attr/colorPrimaryDark"
-                app:tabIndicatorHeight="3dp"
+                app:tabIndicatorColor="?attr/colorPrimary"
+                app:tabIndicatorHeight="2dp"
                 app:tabMode="scrollable"
-                app:tabSelectedTextColor="?attr/colorPrimaryDark"
-                app:tabTextAppearance="@style/FontPrimaryNormal"
-                app:tabTextColor="?attr/colorPrimary"/>
+                app:tabSelectedTextColor="?attr/colorPrimary"
+                app:tabTextAppearance="@style/FontGreyNormal"
+                app:tabTextColor="@color/font_grey"/>
 
             <android.support.v4.view.ViewPager
                 android:id="@+id/vpFragment"
