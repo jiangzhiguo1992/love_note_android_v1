@@ -13,9 +13,9 @@ android {
         vectorDrawables.useSupportLibrary = true // 用于支持vectorDrawables
         flavorDimensions "release" // 多渠道打包分支
         ndk {
-            // ali_push/fresco 选择要添加的对应cpu类型的.so库。
-            abiFilters "armeabi", "armeabi-v7a", "x86"
-            // , "arm64-v8a", "x86_64", "mips", "mips64"
+            // ali_push/fresco (全部32位)
+            abiFilters("armeabi", "armeabi-v7a", "x86", "mips")
+            // , "arm64-v8a", "x86_64", "mips64"
         }
     }
     signingConfigs { // 签名信息

@@ -146,11 +146,11 @@ public class VideoEditActivity extends BaseActivity<VideoEditActivity> {
             // duration
             Map<String, String> videoInfo = ProviderUtils.getVideoInfo(data == null ? null : data.getData());
             String duration = videoInfo.get(MediaStore.Video.Media.DURATION);
-            if (video != null && StringUtils.isNumber(duration)) {
+            if (video != null && StringUtils.isNumber(duration) && duration != null) {
                 video.setDuration((int) TimeHelper.getGoTimeByJava(Integer.parseInt(duration)));
             }
             duration = VideoUtils.getVideoDuration(videoFile.getAbsolutePath());
-            if (video != null && StringUtils.isNumber(duration)) {
+            if (video != null && StringUtils.isNumber(duration) && duration != null) {
                 video.setDuration((int) TimeHelper.getGoTimeByJava(Integer.parseInt(duration)));
             }
             // thumb
