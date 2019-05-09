@@ -98,7 +98,7 @@ public class MatchLetterAddActivity extends BaseActivity<MatchLetterAddActivity>
 
     private void onContentInput(String input) {
         if (limitContentLength <= 0) {
-            limitContentLength = SPHelper.getLimit().getMatchWorkContentLength();
+            limitContentLength = SPHelper.getLimit().getMatchWorkTitleLength();
         }
         int length = input.length();
         if (length > limitContentLength) {

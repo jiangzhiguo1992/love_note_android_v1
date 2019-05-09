@@ -172,10 +172,6 @@ public class MatchLetterListActivity extends BaseActivity<MatchLetterListActivit
                 showSearchDialog();
                 break;
             case R.id.llAdd: // 添加
-                if (UserHelper.isCoupleBreak(SPHelper.getCouple())) {
-                    CouplePairActivity.goActivity(mActivity);
-                    return;
-                }
                 MatchLetterAddActivity.goActivity(mActivity, pid);
                 break;
         }

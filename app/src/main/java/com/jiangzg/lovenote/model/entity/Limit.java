@@ -96,6 +96,7 @@ public class Limit {
     private int coinAdMaxPerDayCount;
     private int matchWorkScreenReportCount;
     private int matchWorkTitleLength;
+    private int matchWorkContentLength;
 
     public int getCoinAdBetweenSec() {
         return coinAdBetweenSec;
@@ -104,8 +105,6 @@ public class Limit {
     public void setCoinAdBetweenSec(int coinAdBetweenSec) {
         this.coinAdBetweenSec = coinAdBetweenSec;
     }
-
-    private int matchWorkContentLength;
 
     public int getCoinAdWatchCount() {
         return coinAdWatchCount;
