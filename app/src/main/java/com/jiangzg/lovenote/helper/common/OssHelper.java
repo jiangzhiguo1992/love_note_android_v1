@@ -58,6 +58,9 @@ public class OssHelper {
      */
     public static void refreshOssClient() {
         OssInfo ossInfo = SPHelper.getOssInfo();
+        if (StringUtils.isEmpty(ossInfo.getAccessKeyId()) || StringUtils.isEmpty(ossInfo.getAccessKeySecret())) {
+            return;
+        }
         String expireTime = DateUtils.getStr(TimeHelper.getJavaTimeByGo(ossInfo.getStsExpireTime()), DateUtils.FORMAT_LINE_M_D_H_M);
         LogUtils.i(OssHelper.class, "refreshOssClient", "sts将在 " + expireTime + " 过期");
         // oss信息 也可用OSSFederationCredentialProvider来实现动态更新
