@@ -125,7 +125,7 @@ public class MoreFragment extends BasePagerFragment<MoreFragment> {
         boolean moreVip = modelShow.isMoreVip();
         boolean moreCoin = modelShow.isMoreCoin();
         boolean moreMatch = modelShow.isMoreMatch();
-        boolean moreFeature = modelShow.isMoreFeature();
+        boolean moreFeature = false;
         linePay.setVisibility((moreVip && moreCoin) ? View.VISIBLE : View.GONE);
         cvVip.setVisibility((moreVip && marketPay) ? View.VISIBLE : View.GONE);
         cvCoin.setVisibility(moreCoin ? View.VISIBLE : View.GONE);
