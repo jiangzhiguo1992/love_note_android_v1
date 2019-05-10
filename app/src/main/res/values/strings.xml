@@ -650,7 +650,9 @@
     <string name="postcard_more_long">目的地更遥远</string>
     <string name="ad_fetching">广告拉取中......</string>
     <string name="ad_fetch_fail">广告拉取失败</string>
-    <string name="coin_ad_desc">1.每成功观看一次获取%d金币，每成功点击一次获取%d金币，两次间隔%d分钟，每人每天最多可获取%d金币。\n\n2.在观看过程中，退出界面/关闭广告视为无效观看。\n\n3.并不是每一次广告观看/点击结束都可以获取金币，金币的获取依赖于广告平台的有效统计，具体算法不得而知。\n\n4.在观看/点击结束后，请勿关闭广告/页面，我们会帮你自动关闭广告以及获取金币，请在金币获取成功后继续观看广告或退出页面。</string>
+    <string name="coin_ad_desc_1">每成功观看一次获取%d金币，每成功点击一次获取%d金币，两次间隔%d分钟，每人每天最多可获取%d金币。</string>
+    <string name="coin_ad_desc_2">在观看过程中，退出界面/关闭广告视为放弃。</string>
+    <string name="coin_ad_desc_3">在观看/点击结束后，请勿关闭广告/页面，我们会帮你自动关闭广告以及获取金币，请在金币获取成功后继续观看广告或退出页面。</string>
     <string name="continue_sign_holder_day" formatted="false">连续签到%d天</string>
     <string name="to_month_sign_holder_count" formatted="false">本月签到%d次</string>
 

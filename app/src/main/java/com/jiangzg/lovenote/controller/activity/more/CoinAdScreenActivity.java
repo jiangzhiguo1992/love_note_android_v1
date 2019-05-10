@@ -38,8 +38,8 @@ public class CoinAdScreenActivity extends BaseActivity<CoinAdScreenActivity> {
 
     @BindView(R.id.llDesc)
     LinearLayout llDesc;
-    @BindView(R.id.tvDesc)
-    TextView tvDesc;
+    @BindView(R.id.tvDesc1)
+    TextView tvDesc1;
     @BindView(R.id.btnBack)
     Button btnBack;
     @BindView(R.id.btnStart)
@@ -80,7 +80,7 @@ public class CoinAdScreenActivity extends BaseActivity<CoinAdScreenActivity> {
         int clickChange = limit.getCoinAdClickCount();
         int betweenMin = limit.getCoinAdBetweenSec() / 60;
         int maxCount = limit.getCoinAdMaxPerDayCount();
-        tvDesc.setText(String.format(Locale.getDefault(), getString(R.string.coin_ad_desc), watchChange, clickChange, betweenMin, maxCount));
+        tvDesc1.setText(String.format(Locale.getDefault(), getString(R.string.coin_ad_desc_1), watchChange, clickChange, betweenMin, maxCount));
     }
 
     @Override
