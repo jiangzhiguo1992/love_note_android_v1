@@ -60,8 +60,12 @@ public class SignActivity extends BaseActivity<SignActivity> {
     TextView tvBackCur;
     @BindView(R.id.cvSign)
     CalendarView cvSign;
+    @BindView(R.id.cvCoinAd)
+    CardView cvCoinAd;
     @BindView(R.id.tvContinue)
     TextView tvContinue;
+    @BindView(R.id.tvCoinAd)
+    TextView tvCoinAd;
     @BindView(R.id.tvState)
     TextView tvState;
     @BindView(R.id.cvState)
@@ -147,6 +151,9 @@ public class SignActivity extends BaseActivity<SignActivity> {
                 refreshCenterMonthData();
             }
         });
+        // modelShow
+        boolean marketCoinAd = SPHelper.getModelShow().isMarketCoinAd();
+        tvCoinAd.setVisibility(marketCoinAd ? View.VISIBLE : View.GONE);
     }
 
     @Override
@@ -196,7 +203,7 @@ public class SignActivity extends BaseActivity<SignActivity> {
         return super.onOptionsItemSelected(item);
     }
 
-    @OnClick({R.id.tvDateShow, R.id.tvBackCur, R.id.cvState})
+    @OnClick({R.id.tvDateShow, R.id.tvBackCur, R.id.cvCoinAd, R.id.cvState})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.tvDateShow: // 日期显示
@@ -204,6 +211,11 @@ public class SignActivity extends BaseActivity<SignActivity> {
                 break;
             case R.id.tvBackCur: // 回到当前
                 dateBack();
+                break;
+            case R.id.cvCoinAd: // 广告
+                if (SPHelper.getModelShow().isMarketCoinAd()) {
+                    CoinAdScreenActivity.goActivity(mActivity);
+                }
                 break;
             case R.id.cvState: // 发布
                 signPush();

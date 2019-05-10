@@ -100,16 +100,54 @@
                 android:layout_height="0dp"
                 android:layout_weight="1">
 
-                <TextView
-                    android:id="@+id/tvContinue"
-                    style="@style/FontWhiteHugeBold"
+                <RelativeLayout
+                    android:id="@+id/rlCenter"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_above="@+id/rlBottom"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginEnd="10dp"
-                    android:gravity="center"
-                    tools:text="连续签到2344天"/>
+                    android:layout_above="@+id/rlBottom">
+
+                    <android.support.v7.widget.CardView
+                        android:id="@+id/cvCoinAd"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:background="?attr/selectableItemBackground"
+                        android:foreground="?attr/selectableItemBackground"
+                        app:cardBackgroundColor="@color/white"
+                        app:cardCornerRadius="@dimen/radius_huge"
+                        app:cardElevation="@dimen/elevation_big"
+                        app:cardMaxElevation="@dimen/radius_huge">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:padding="10dp">
+
+                            <TextView
+                                android:id="@+id/tvContinue"
+                                style="@style/FontPrimaryHugeBold"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="20dp"
+                                android:gravity="center"
+                                tools:text="连续签到2344天"/>
+
+                            <TextView
+                                android:id="@+id/tvCoinAd"
+                                style="@style/FontGreyNormalBold"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:gravity="center"
+                                android:text="@string/click_me_watch_ad_also_get_coin"
+                                android:visibility="gone"
+                                tools:visibility="visible"/>
+                        </LinearLayout>
+                    </android.support.v7.widget.CardView>
+                </RelativeLayout>
 
                 <RelativeLayout
                     android:id="@+id/rlBottom"

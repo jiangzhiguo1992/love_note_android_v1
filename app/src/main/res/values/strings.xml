@@ -641,6 +641,7 @@
     <string name="get_method">获取方式</string>
     <string name="out_method">消耗方式</string>
     <string name="watch_ad_get_coin">看广告，赚金币</string>
+    <string name="click_me_watch_ad_also_get_coin">点我看广告，也能赚金币</string>
     <string name="watch_ad_desc">程序猿小哥哥好辛苦的，给他的午餐加个鸡腿吧。</string>
     <string name="more_pay_more_send">多买多送</string>
     <string name="more_sign_more_get">累计签到更多</string>
