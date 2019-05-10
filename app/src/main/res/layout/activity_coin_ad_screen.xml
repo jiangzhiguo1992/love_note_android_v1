@@ -45,7 +45,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             app:cardBackgroundColor="@color/white"
-            app:cardCornerRadius="@dimen/radius_huge"
+            app:cardCornerRadius="@dimen/radius_big"
             app:cardElevation="@dimen/elevation_normal"
             app:cardMaxElevation="@dimen/elevation_big">
 
@@ -64,7 +64,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             app:cardBackgroundColor="@color/white"
-            app:cardCornerRadius="@dimen/radius_huge"
+            app:cardCornerRadius="@dimen/radius_big"
             app:cardElevation="@dimen/elevation_normal"
             app:cardMaxElevation="@dimen/elevation_big">
 
@@ -83,7 +83,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             app:cardBackgroundColor="@color/white"
-            app:cardCornerRadius="@dimen/radius_huge"
+            app:cardCornerRadius="@dimen/radius_big"
             app:cardElevation="@dimen/elevation_normal"
             app:cardMaxElevation="@dimen/elevation_big">
 

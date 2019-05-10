@@ -251,7 +251,7 @@
                     android:layout_marginEnd="10dp"
                     android:layout_marginBottom="10dp"
                     app:cardBackgroundColor="@color/white"
-                    app:cardCornerRadius="@dimen/radius_huge"
+                    app:cardCornerRadius="@dimen/radius_big"
                     app:cardElevation="@dimen/elevation_big"
                     app:cardMaxElevation="@dimen/elevation_huge">
 

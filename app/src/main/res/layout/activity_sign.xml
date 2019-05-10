@@ -117,7 +117,7 @@
                         android:background="?attr/selectableItemBackground"
                         android:foreground="?attr/selectableItemBackground"
                         app:cardBackgroundColor="@color/white"
-                        app:cardCornerRadius="@dimen/radius_huge"
+                        app:cardCornerRadius="@dimen/radius_big"
                         app:cardElevation="@dimen/elevation_big"
                         app:cardMaxElevation="@dimen/radius_huge">
 

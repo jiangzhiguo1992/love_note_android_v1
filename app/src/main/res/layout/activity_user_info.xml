@@ -43,9 +43,9 @@
                     android:layout_marginBottom="20dp"
                     android:layout_weight="1"
                     app:cardBackgroundColor="@color/white"
-                    app:cardCornerRadius="@dimen/radius_huge"
-                    app:cardElevation="@dimen/elevation_normal"
-                    app:cardMaxElevation="@dimen/elevation_big">
+                    app:cardCornerRadius="@dimen/radius_big"
+                    app:cardElevation="@dimen/elevation_big"
+                    app:cardMaxElevation="@dimen/elevation_huge">
 
                     <ImageView
                         android:layout_width="match_parent"
@@ -73,9 +73,9 @@
                     android:layout_marginBottom="20dp"
                     android:layout_weight="1"
                     app:cardBackgroundColor="@color/white"
-                    app:cardCornerRadius="@dimen/radius_huge"
-                    app:cardElevation="@dimen/elevation_normal"
-                    app:cardMaxElevation="@dimen/elevation_big">
+                    app:cardCornerRadius="@dimen/radius_big"
+                    app:cardElevation="@dimen/elevation_big"
+                    app:cardMaxElevation="@dimen/elevation_huge">
 
                     <ImageView
                         android:layout_width="match_parent"
