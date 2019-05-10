@@ -353,7 +353,7 @@
     <string name="input_hint_old_pwd">请输入旧密码</string>
     <string name="input_hint_new_pwd">请输入新密码</string>
     <string name="input_hint_pwd_confirm">请再次输入密码</string>
-    <string name="input_hint_new_pwd_confirm">请再次新输入密码</string>
+    <string name="input_hint_new_pwd_confirm">请再次输入新密码</string>
     <string name="verify_login">验证码登录</string>
     <string name="pwd_login">密码登录</string>
     <string name="forget_pwd">忘记密码</string>
