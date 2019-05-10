@@ -120,35 +120,6 @@
                     tools:text="104u374104u374"/>
             </LinearLayout>
 
-            <View
-                style="@style/LineHorizontal"
-                android:visibility="gone"/>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/white"
-                android:foreground="?attr/selectableItemBackground"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:padding="16dp"
-                android:visibility="gone">
-
-                <TextView
-                    style="@style/FontBlackNormal"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/official_group"/>
-
-                <TextView
-                    android:id="@+id/tvOfficialGroup"
-                    style="@style/FontGreyNormal"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="end"
-                    tools:text="104u374104u374\nsasasasasa\n32323232"/>
-            </LinearLayout>
-
             <View style="@style/LineHorizontal"/>
 
             <LinearLayout

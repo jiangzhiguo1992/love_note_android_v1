@@ -43,8 +43,6 @@ public class AboutActivity extends BaseActivity<AboutActivity> {
     LinearLayout llMarket;
     @BindView(R.id.tvCustomerQQ)
     TextView tvCustomerQQ;
-    @BindView(R.id.tvOfficialGroup)
-    TextView tvOfficialGroup;
     @BindView(R.id.llWeiBo)
     LinearLayout llWeiBo;
     @BindView(R.id.tvWeiBo)
@@ -95,9 +93,6 @@ public class AboutActivity extends BaseActivity<AboutActivity> {
         // 客服Q号
         String customerQQ = commonConst.getCustomerQQ();
         tvCustomerQQ.setText(StringUtils.isEmpty(customerQQ) ? getString(R.string.now_no) : customerQQ.replace("\\n", "\n"));
-        // 官方Q群
-        String officialGroup = commonConst.getOfficialGroup();
-        tvOfficialGroup.setText(StringUtils.isEmpty(officialGroup) ? getString(R.string.now_no) : officialGroup.replace("\\n", "\n"));
         // 官方微博
         String officialWeibo = commonConst.getOfficialWeibo();
         tvWeiBo.setText(StringUtils.isEmpty(officialWeibo) ? getString(R.string.now_no) : officialWeibo);
