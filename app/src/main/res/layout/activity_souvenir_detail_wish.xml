@@ -31,8 +31,8 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
                     app:cardBackgroundColor="?attr/colorPrimary"
-                    app:cardCornerRadius="@dimen/radius_big"
-                    app:cardElevation="@dimen/elevation_big"
+                    app:cardCornerRadius="@dimen/radius_huge"
+                    app:cardElevation="@dimen/elevation_huge"
                     app:cardMaxElevation="@dimen/elevation_huge">
 
                     <LinearLayout
