@@ -1,6 +1,5 @@
 package com.jiangzg.lovenote_admin.helper;
 
-import com.jiangzg.base.application.AppInfo;
 import com.jiangzg.base.common.ConvertUtils;
 import com.jiangzg.base.common.FileUtils;
 import com.jiangzg.base.system.DeviceInfo;
