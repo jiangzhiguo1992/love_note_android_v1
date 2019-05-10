@@ -11,13 +11,14 @@
 
     <include layout="@layout/view_top_bar"/>
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <LinearLayout
+            android:id="@+id/llTop"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="?attr/colorPrimary"
@@ -73,11 +74,17 @@
             </RelativeLayout>
         </LinearLayout>
 
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_below="@+id/llTop"
+            android:background="@drawable/shape_gradient_primary_trans"/>
+
         <com.jiangzg.lovenote.view.GSwipeRefreshLayout
             android:id="@+id/srl"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1">
+            android:layout_height="match_parent"
+            android:layout_below="@+id/llTop">
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/rv"
@@ -85,7 +92,7 @@
                 android:layout_height="wrap_content"
                 tools:listitem="@layout/list_item_whisper_left"/>
         </com.jiangzg.lovenote.view.GSwipeRefreshLayout>
-    </LinearLayout>
+    </RelativeLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
