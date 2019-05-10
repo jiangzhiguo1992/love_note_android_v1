@@ -401,24 +401,24 @@ public class CoupleFragment extends BaseFragment<CoupleFragment> {
         RetrofitHelper.enqueue(callWife, null, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
-                tvMatchPeriod1.setText("夫妻相(1d)：" + data.getTotal());
+                tvMatchPeriod1.setText("照片墙(1d)：" + data.getTotal());
             }
 
             @Override
             public void onFailure(int code, String message, Result.Data data) {
-                tvMatchPeriod1.setText("夫妻相(1d)：fail");
+                tvMatchPeriod1.setText("照片墙(1d)：fail");
             }
         });
         Call<Result> callLetter = new RetrofitHelper().call(API.class).moreMatchWorkTotalGet(startD1, MatchPeriod.MATCH_KIND_LETTER_SHOW);
         RetrofitHelper.enqueue(callLetter, null, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
-                tvMatchPeriod2.setText("情书展(1d)：" + data.getTotal());
+                tvMatchPeriod2.setText("情话集(1d)：" + data.getTotal());
             }
 
             @Override
             public void onFailure(int code, String message, Result.Data data) {
-                tvMatchPeriod2.setText("情书展(1d)：fail");
+                tvMatchPeriod2.setText("情话集(1d)：fail");
             }
         });
         Call<Result> callDiscuss = new RetrofitHelper().call(API.class).moreMatchWorkTotalGet(startD1, MatchPeriod.MATCH_KIND_DISCUSS_MEET);

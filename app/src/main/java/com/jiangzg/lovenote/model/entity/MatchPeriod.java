@@ -9,8 +9,8 @@ import android.os.Parcelable;
  */
 public class MatchPeriod extends BaseObj implements Parcelable {
 
-    public static final int MATCH_KIND_WIFE_PICTURE = 100; // 夫妻相
-    public static final int MATCH_KIND_LETTER_SHOW = 200; // 情书展
+    public static final int MATCH_KIND_WIFE_PICTURE = 100; // 照片墙
+    public static final int MATCH_KIND_LETTER_SHOW = 200; // 情话集
 
     private long startAt;
     private long endAt;

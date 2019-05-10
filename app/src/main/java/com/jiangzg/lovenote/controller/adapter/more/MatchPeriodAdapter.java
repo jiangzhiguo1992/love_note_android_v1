@@ -52,10 +52,10 @@ public class MatchPeriodAdapter extends BaseQuickAdapter<MatchPeriod, BaseViewHo
     public void goMatchWorkList(int position) {
         MatchPeriod item = getItem(position);
         switch (item.getKind()) {
-            case MatchPeriod.MATCH_KIND_WIFE_PICTURE: // 夫妻相
+            case MatchPeriod.MATCH_KIND_WIFE_PICTURE: // 照片墙
                 MatchWifeListActivity.goActivity(mActivity, item.getId());
                 break;
-            case MatchPeriod.MATCH_KIND_LETTER_SHOW: // 情书展
+            case MatchPeriod.MATCH_KIND_LETTER_SHOW: // 情话集
                 MatchLetterListActivity.goActivity(mActivity, item.getId());
                 break;
         }

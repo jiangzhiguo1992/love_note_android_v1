@@ -199,14 +199,14 @@ public class MoreFragment extends BasePagerFragment<MoreFragment> {
             case R.id.cvSign: // 签到
                 SignActivity.goActivity(mFragment);
                 break;
-            case R.id.cvWife: // 夫妻相
+            case R.id.cvWife: // 照片墙
                 if (wifePeriod == null || wifePeriod.getId() <= 0) {
                     MatchWifeActivity.goActivity(mFragment);
                 } else {
                     MatchWifeListActivity.goActivity(mFragment, wifePeriod.getId());
                 }
                 break;
-            case R.id.cvLetter: // 情书展
+            case R.id.cvLetter: // 情话集
                 if (letterPeriod == null || letterPeriod.getId() <= 0) {
                     MatchLetterActivity.goActivity(mFragment);
                 } else {
