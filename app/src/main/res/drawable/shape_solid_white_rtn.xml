@@ -3,8 +3,8 @@
 
     <!-- 圆角 -->
     <corners
-        android:bottomLeftRadius="5dp"
-        android:bottomRightRadius="5dp"/>
+        android:topLeftRadius="@dimen/radius_normal"
+        android:topRightRadius="@dimen/radius_normal"/>
     <!-- 填充 -->
     <solid android:color="@color/white"/>
 </shape>

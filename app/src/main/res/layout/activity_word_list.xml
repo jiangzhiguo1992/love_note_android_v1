@@ -43,7 +43,7 @@
                 android:layout_gravity="center_vertical"
                 android:layout_marginStart="10dp"
                 android:layout_toStartOf="@+id/ivSend"
-                android:background="@drawable/shape_stroke_grey_r3"
+                android:background="@drawable/shape_stroke_grey_rn"
                 android:gravity="start"
                 android:hint="@string/please_input_content"
                 android:inputType="textMultiLine"

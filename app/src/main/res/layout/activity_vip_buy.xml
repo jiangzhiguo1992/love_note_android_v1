@@ -36,7 +36,7 @@
                     android:id="@+id/rgGoods"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/shape_stroke_primary_r5"
+                    android:background="@drawable/shape_stroke_primary_rn"
                     android:gravity="center_vertical"
                     android:orientation="horizontal">
 
@@ -46,7 +46,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:background="@drawable/selector_check_solid_primary_rl5"
+                        android:background="@drawable/selector_check_solid_primary_rln"
                         android:button="@null"
                         android:foreground="?attr/selectableItemBackground"
                         android:gravity="center"
@@ -88,7 +88,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:background="@drawable/selector_check_solid_primary_rr5"
+                        android:background="@drawable/selector_check_solid_primary_rrn"
                         android:button="@null"
                         android:foreground="?attr/selectableItemBackground"
                         android:gravity="center"

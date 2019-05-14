@@ -64,7 +64,7 @@ public class ViewHelper {
         mTextLayoutParams.setMarginEnd(dp7);
         TextView textView = new TextView(context);
         textView.setLayoutParams(mTextLayoutParams);
-        textView.setBackgroundResource(R.drawable.shape_solid_primary_r2);
+        textView.setBackgroundResource(R.drawable.shape_solid_primary_rs);
         //textView.setBackgroundResource(resId);
         textView.setPadding(dp5, dp2, dp5, dp2);
         textView.setGravity(Gravity.CENTER);

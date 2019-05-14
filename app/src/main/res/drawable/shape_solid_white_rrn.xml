@@ -3,7 +3,8 @@
 
     <!-- 圆角 -->
     <corners
-        android:radius="2dp"/>
+        android:bottomRightRadius="@dimen/radius_normal"
+        android:topRightRadius="@dimen/radius_normal"/>
     <!-- 填充 -->
-    <solid android:color="?attr/colorPrimary"/>
+    <solid android:color="@color/white"/>
 </shape>
