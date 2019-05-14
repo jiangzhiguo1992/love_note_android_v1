@@ -759,12 +759,12 @@
     <string name="help_note_travel_c1_q">每个游记可以添加多少关联数据呢？</string>
     <string name="help_note_travel_c1_a" formatted="false">%d个足迹，%d个相册，%d个视频，%d个美食，%d个电影，%d个日记。</string>
     <string name="help_topic_home_d">记录与分享，这个模块更专注于分享。\n有什么想要分享给大家的、或者是探讨的话题，就来这里诉说吧，相信会有很多聆听者的。</string>
-    <string name="help_topic_home_c1_q">为什么有的类别我这里有，我的另一半没有呢？</string>
-    <string name="help_topic_home_c1_a">亲，我们这里部分模块是区分用户和地域的。\n有的模块只对男性开放，有的只对女性开放，有的只对同性恋开放，有的只对异性恋开放。\n有的模块只对区域内用户开发，类似于《附近的帖子》。</string>
+    <string name="help_topic_home_c1_q">发现了不适的内容怎么办？</string>
+    <string name="help_topic_home_c1_a">涉黄，举报！涉政，举报！广告，举报！恶言，举报！\n社区是大家的，运营也需要靠大家的一份力量。欢迎大家踊跃举报不适的内容，我们也会努力维护一个舒适的环境。</string>
     <string name="help_topic_home_c2_q">这个匿名发帖靠谱吗？</string>
     <string name="help_topic_home_c2_a">考虑到部分内容可能不想让另一半看到，我们提供了匿名发布的模块，并且提供了相应的分类。\n放心，匿名的话，发帖人的信息将会被抹除，包括在匿名下的所有评论者的信息也会被抹除。\n因为不知道用户的信息，所以帖子和评论是不能删除的，而且在帖子更新的时候不会收到消息提醒。</string>
-    <string name="help_topic_home_c3_q">发现了不适的内容怎么办？</string>
-    <string name="help_topic_home_c3_a">涉黄，举报！广告，举报！恶言，举报！\n社区是大家的，运营也需要靠大家的一份力量。欢迎大家踊跃举报不适的内容，我们也会努力维护一个舒适的环境。</string>
+    <string name="help_topic_home_c3_q">为什么有的类别我这里有，我的另一半没有呢？</string>
+    <string name="help_topic_home_c3_a">亲，我们这里部分模块是区分用户和地域的。\n有的模块只对男性开放，有的只对女性开放，有的只对同性恋开放，有的只对异性恋开放。\n有的模块只对区域内用户开发，类似于《附近的帖子》。</string>
     <string name="help_topic_home_c4_q">怎么删除？</string>
     <string name="help_topic_home_c4_a">帖子：如果是自己的帖子，右上角会有删除的图标，点击删除。\n评论：如果是自己的评论，长按即可删除哦。</string>
     <string name="help_more_home_d">这是一个类似于《更多》的模块，在关注和分享里塞不下的功能，会全放到这里哦，比如广播系统，消费系统，活动系统等等。</string>
@@ -798,11 +798,9 @@
     <string name="help_more_match_c5_a">如果是刚发表的，可以根据《新秀榜》查看作品，毕竟是按发表时间倒叙排序的，找找看吧。\n如果新秀榜里找不到，请点击顶部本期介绍进入往期列表页，里面有《我们的》相关作品。</string>
     <string name="help_more_match_c6_q">为什么往期的作品不能操作了？</string>
     <string name="help_more_match_c6_a">往期的作品除了删除，不能进行任何操作哦，包括点赞，投币，发表等。\n另外，往期的作品是不能查看新秀榜的！</string>
-    <string name="help_suggest_home_d">旨在让大家来提出app的bug和意见等，我们会在第一时间收到您的消息，并和相关负责部门商讨问题的解决方案等，并会在产出结果的第一时间以官方回复形式通知用户。(注：如果没有第一时间回复，那可能是管理员在偷懒。)</string>
-    <string name="help_suggest_home_c1_q">类型和状态是什么？</string>
-    <string name="help_suggest_home_c1_a">类型：意见反馈的种类，在提交意见反馈时选择，这样分类的话，可以加快管理员的审核速度和方便用户浏览。\n状态：意见反馈的处理进度，一般为管理员回复并设置。</string>
-    <string name="help_suggest_home_c2_q">我可以在这里发表什么内容？</string>
-    <string name="help_suggest_home_c2_a">如状态所述的几个类型的内容都可以。\n注意：如果app发生闪退等bug，记得标明手机型号等信息，以方便我们快速处理您的问题，最好截图(app崩溃但没退出去的情况下)。\n再次注意：任何在本区域捣乱者，将会被给予警告处理，情节严重者，给予封号处理。</string>
+    <string name="help_suggest_home_d">旨在让大家来提出bug和意见等，我们会在第一时间收到您的消息，并和相关负责部门商讨问题的解决方案等，最后会在产出结果的第一时间以官方回复形式通知用户。</string>
+    <string name="help_suggest_home_c1_q">我可以在这里发表什么内容？</string>
+    <string name="help_suggest_home_c1_a">任何意见和bug都可以，但请大家文明用语！\n注意：如果app发生闪退等bug，记得标明手机型号等信息，以方便我们快速处理您的问题。\n再次注意：任何在本区域捣乱/恶言攻击等，将会被给予警告处理，情节严重者，给予封号处理。</string>
 
     <!--user_protocol-->
     <string name="agreement_import_know" formatted="false">重要须知:\n%s在此特别提醒用户认真阅读、充分理解本《用户协议》（下称《协议》）--- 用户应认真阅读、充分理解本《协议》中各条款，包括免除或者限制%s的免责条款及对用户的权利限制条款。请您审慎阅读并选择接受或不接受本《协议》（未成年人应在法定监护人陪同下阅读）。除非您接受本《协议》所有条款，否则您无权注册、登录或使用本协议所涉相关服务。您的注册、登录、使用等行为将视为对本《协议》的接受，并同意接受本《协议》各项条款的约束。本《协议》描述%s与用户之间关于%s服务相关方面的权利义务。“用户”是指注册、登录、使用、浏览本服务的个人或组织。本《协议》可随时更新，更新后的协议条款一旦公布即代替原来的协议条款，恕不再另行通知，用户可在本网站查阅最新版协议条款。在修改《协议》条款后，如果用户不接受修改后的条款，请立即停止使用%s提供的服务，用户继续使用提供的服务将被视为已接受了修改后的协议。</string>

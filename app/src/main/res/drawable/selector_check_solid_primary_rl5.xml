@@ -2,7 +2,7 @@
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:drawable="@drawable/shape_solid_primary_rr3"
+        android:drawable="@drawable/shape_solid_primary_rl5"
         android:state_checked="true"/>
 
 </selector>
