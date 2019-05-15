@@ -27,7 +27,7 @@ public class MyApp extends AppBase {
         setTheme(ThemeHelper.getTheme());
         LogUtils.initApp(debug, debug, true);
         AppListener.initApp(this);
-        AdapterUtils.initApp(this, 720, 1280);
+        AdapterUtils.initApp(this, 800, 1422);
         ActivityStack.initApp();
         ResHelper.initApp();
         // 三方的
