@@ -500,7 +500,7 @@ public class ConvertUtils {
      */
     public static int sp2px(float spValue) {
         final float fontScale = AppBase.getInstance().getResources().getDisplayMetrics().scaledDensity;
-        return (int) (spValue * fontScale + 0.5f);
+        return (int) (spValue * fontScale);
     }
 
     /**
@@ -511,7 +511,7 @@ public class ConvertUtils {
      */
     public static int px2sp(float pxValue) {
         final float fontScale = AppBase.getInstance().getResources().getDisplayMetrics().scaledDensity;
-        return (int) (pxValue / fontScale + 0.5f);
+        return (int) (pxValue / fontScale);
     }
 
 }

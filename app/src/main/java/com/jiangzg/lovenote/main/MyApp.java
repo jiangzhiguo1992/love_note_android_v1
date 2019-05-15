@@ -5,6 +5,7 @@ import com.jiangzg.base.application.AppListener;
 import com.jiangzg.base.application.AppUtils;
 import com.jiangzg.base.common.LogUtils;
 import com.jiangzg.base.component.ActivityStack;
+import com.jiangzg.base.view.AdapterUtils;
 import com.jiangzg.lovenote.helper.common.ResHelper;
 import com.jiangzg.lovenote.helper.media.FrescoHelper;
 import com.jiangzg.lovenote.helper.system.PushHelper;
@@ -26,6 +27,7 @@ public class MyApp extends AppBase {
         setTheme(ThemeHelper.getTheme());
         LogUtils.initApp(debug, debug, true);
         AppListener.initApp(this);
+        AdapterUtils.initApp(this, 720, 1280);
         ActivityStack.initApp();
         ResHelper.initApp();
         // 三方的
