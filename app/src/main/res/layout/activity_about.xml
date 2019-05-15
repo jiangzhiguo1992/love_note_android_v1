@@ -147,9 +147,7 @@
                     tools:text="WeiBoName"/>
             </LinearLayout>
 
-            <View
-                style="@style/LineHorizontal"
-                android:visibility="gone"/>
+            <View style="@style/LineHorizontal"/>
 
             <LinearLayout
                 android:id="@+id/llOfficialWeb"
@@ -159,8 +157,7 @@
                 android:foreground="?attr/selectableItemBackground"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
-                android:padding="16dp"
-                android:visibility="gone">
+                android:padding="16dp">
 
                 <TextView
                     style="@style/FontBlackNormal"

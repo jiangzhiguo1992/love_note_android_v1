@@ -17,7 +17,6 @@ import com.jiangzg.base.component.ActivityTrans;
 import com.jiangzg.base.component.IntentFactory;
 import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.controller.activity.base.BaseActivity;
-import com.jiangzg.lovenote.controller.activity.common.WebActivity;
 import com.jiangzg.lovenote.controller.service.UpdateService;
 import com.jiangzg.lovenote.helper.common.SPHelper;
 import com.jiangzg.lovenote.helper.view.ViewHelper;
@@ -144,7 +143,12 @@ public class AboutActivity extends BaseActivity<AboutActivity> {
                 break;
             case R.id.llOfficialWeb: // 官网网站
                 String officialWeb = SPHelper.getCommonConst().getOfficialWeb();
-                WebActivity.goActivity(mActivity, mActivity.getString(R.string.official_web), officialWeb);
+                if (StringUtils.isEmpty(officialWeb)) return;
+                if (!officialWeb.startsWith("http")) {
+                    officialWeb = "http://" + officialWeb;
+                }
+                Intent intent = IntentFactory.getWebBrowse(officialWeb);
+                ActivityTrans.start(mActivity, intent);
                 break;
         }
     }
