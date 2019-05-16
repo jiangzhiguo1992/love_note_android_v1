@@ -18,6 +18,7 @@ public class VipLimit {
     private long audioSize;
     private long pictureSize;
     private boolean pictureOriginal;
+    private int pictureTotalCount;
     private long diaryImageSize;
     private int diaryImageCount;
     private boolean whisperImageEnable;
@@ -26,6 +27,14 @@ public class VipLimit {
     private int movieImageCount;
     // topic
     private int topicPostImageCount;
+
+    public int getPictureTotalCount() {
+        return pictureTotalCount;
+    }
+
+    public void setPictureTotalCount(int pictureTotalCount) {
+        this.pictureTotalCount = pictureTotalCount;
+    }
 
     public boolean isAdvertiseHide() {
         return advertiseHide;

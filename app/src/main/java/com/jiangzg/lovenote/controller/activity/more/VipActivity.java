@@ -305,7 +305,7 @@ public class VipActivity extends BaseActivity<VipActivity> {
             String souvenir = String.format(Locale.getDefault(), getString(R.string.can_add_holder), vipYesLimit.getSouvenirCount());
             String audio = String.format(Locale.getDefault(), getString(R.string.single_max_holder), ConvertUtils.byte2FitSize(vipYesLimit.getAudioSize()));
             String video = String.format(Locale.getDefault(), getString(R.string.single_max_holder), ConvertUtils.byte2FitSize(vipYesLimit.getVideoSize()));
-            String album = vipYesLimit.isPictureOriginal() ? String.format(Locale.getDefault(), getString(R.string.original_single_limit_holder), ConvertUtils.byte2FitSize(vipYesLimit.getPictureSize())) : getString(R.string.compress_loss_less);
+            String album = vipYesLimit.isPictureOriginal() ? String.format(Locale.getDefault(), getString(R.string.original_single_limit_holder), ConvertUtils.byte2FitSize(vipYesLimit.getPictureSize())) : String.format(Locale.getDefault(), getString(R.string.compress_max_holder_paper), vipYesLimit.getPictureTotalCount());
             String diary = (vipYesLimit.getDiaryImageCount() > 0) ? String.format(Locale.getDefault(), getString(R.string.holder_paper_single_limit_holder), vipYesLimit.getDiaryImageCount(), ConvertUtils.byte2FitSize(vipYesLimit.getDiaryImageSize())) : getString(R.string.refuse_image_upload);
             String whisper = vipYesLimit.isWhisperImageEnable() ? getString(R.string.open_image_upload) : getString(R.string.refuse_image_upload);
             String gift = String.format(Locale.getDefault(), getString(R.string.every_can_upload_holder_paper), vipYesLimit.getGiftImageCount());
@@ -333,7 +333,7 @@ public class VipActivity extends BaseActivity<VipActivity> {
             String souvenir = String.format(Locale.getDefault(), getString(R.string.can_add_holder), vipNoLimit.getSouvenirCount());
             String audio = String.format(Locale.getDefault(), getString(R.string.single_max_holder), ConvertUtils.byte2FitSize(vipNoLimit.getAudioSize()));
             String video = String.format(Locale.getDefault(), getString(R.string.single_max_holder), ConvertUtils.byte2FitSize(vipNoLimit.getVideoSize()));
-            String album = vipNoLimit.isPictureOriginal() ? String.format(Locale.getDefault(), getString(R.string.original_single_limit_holder), ConvertUtils.byte2FitSize(vipNoLimit.getPictureSize())) : getString(R.string.compress_loss_less);
+            String album = vipNoLimit.isPictureOriginal() ? String.format(Locale.getDefault(), getString(R.string.original_single_limit_holder), ConvertUtils.byte2FitSize(vipNoLimit.getPictureSize())) : String.format(Locale.getDefault(), getString(R.string.compress_max_holder_paper), vipNoLimit.getPictureTotalCount());
             String diary = (vipNoLimit.getDiaryImageCount() > 0) ? String.format(Locale.getDefault(), getString(R.string.holder_paper_single_limit_holder), vipNoLimit.getDiaryImageCount(), ConvertUtils.byte2FitSize(vipNoLimit.getDiaryImageSize())) : getString(R.string.refuse_image_upload);
             String whisper = vipNoLimit.isWhisperImageEnable() ? getString(R.string.open_image_upload) : getString(R.string.refuse_image_upload);
             String gift = String.format(Locale.getDefault(), getString(R.string.every_can_upload_holder_paper), vipNoLimit.getGiftImageCount());

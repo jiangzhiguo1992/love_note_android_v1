@@ -249,6 +249,7 @@ public class SPHelper {
     private static final String FIELD_VIP_LIMIT_VIDEO_SIZE = "video_size";
     private static final String FIELD_VIP_LIMIT_PICTURE_SIZE = "picture_size";
     private static final String FIELD_VIP_LIMIT_PICTURE_ORIGINAL = "picture_original";
+    private static final String FIELD_VIP_LIMIT_PICTURE_TOTAL_COUNT = "picture_total_count";
     private static final String FIELD_VIP_LIMIT_TOPIC_POST_IMAGE_COUNT = "topic_post_image_count";
     // version
     private static final String FIELD_VERSION_CREATE_AT = "create_at";
@@ -896,6 +897,7 @@ public class SPHelper {
         editor.putLong(FIELD_VIP_LIMIT_VIDEO_SIZE, vipLimit.getVideoSize());
         editor.putLong(FIELD_VIP_LIMIT_PICTURE_SIZE, vipLimit.getPictureSize());
         editor.putBoolean(FIELD_VIP_LIMIT_PICTURE_ORIGINAL, vipLimit.isPictureOriginal());
+        editor.putInt(FIELD_VIP_LIMIT_PICTURE_TOTAL_COUNT, vipLimit.getPictureTotalCount());
         editor.putInt(FIELD_VIP_LIMIT_TOPIC_POST_IMAGE_COUNT, vipLimit.getTopicPostImageCount());
         editor.apply();
     }
@@ -918,6 +920,7 @@ public class SPHelper {
         vipLimit.setVideoSize(sp.getLong(FIELD_VIP_LIMIT_VIDEO_SIZE, 0));
         vipLimit.setPictureSize(sp.getLong(FIELD_VIP_LIMIT_PICTURE_SIZE, 0));
         vipLimit.setPictureOriginal(sp.getBoolean(FIELD_VIP_LIMIT_PICTURE_ORIGINAL, false));
+        vipLimit.setPictureTotalCount(sp.getInt(FIELD_VIP_LIMIT_PICTURE_TOTAL_COUNT, 100));
         vipLimit.setTopicPostImageCount(sp.getInt(FIELD_VIP_LIMIT_TOPIC_POST_IMAGE_COUNT, 0));
         return vipLimit;
     }

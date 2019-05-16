@@ -583,13 +583,16 @@
     <string name="nav_pay">消费相关</string>
     <string name="nav_match">比拼活动</string>
     <string name="nav_future">许愿未来</string>
+    <string name="nav_more_play">更多玩法</string>
     <string name="nav_wife">照片墙</string>
     <string name="nav_letter">情话集</string>
     <string name="nav_wish">许愿树</string>
     <string name="nav_postcard">明信片</string>
+    <string name="nav_catch_baby">抓娃娃</string>
     <string name="now_no_broadcast">暂无广播</string>
     <string name="now_no_activity">暂无活动</string>
     <string name="the_holder_period" formatted="false">第%d期</string>
+    <string name="friend_dealer_cooperation">友商合作</string>
     <string name="old_period">往期</string>
     <string name="coin_board">金币榜</string>
     <string name="point_board">点赞榜</string>
@@ -633,7 +636,7 @@
     <string name="can_add_holder" formatted="false">可添加%d个</string>
     <string name="holder_paper_single_limit_holder" formatted="false">%d张,单张限制%s</string>
     <string name="original_single_limit_holder" formatted="false">原图,单张限制%s</string>
-    <string name="compress_loss_less">压缩(尽量减损)</string>
+    <string name="compress_max_holder_paper" formatted="false">压缩,最多%d张</string>
     <string name="open_image_upload">开启图片上传</string>
     <string name="refuse_image_upload">禁止图片上传</string>
     <string name="single_max_holder" formatted="false">单个最大%s</string>
