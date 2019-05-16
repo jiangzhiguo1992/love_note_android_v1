@@ -54,7 +54,7 @@ public class WebActivity extends BaseActivity<WebActivity> {
         String title = intent.getStringExtra("title");
         ViewHelper.initTopBar(mActivity, tb, title, true);
         // view
-        initWebView(false, false);
+        initWebView(false, true);
         wv.setWebViewClient(webViewClient);
         wv.setWebChromeClient(webChromeClient);
     }

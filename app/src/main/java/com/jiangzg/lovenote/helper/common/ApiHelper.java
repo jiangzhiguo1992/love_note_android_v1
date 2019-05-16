@@ -237,6 +237,8 @@ public class ApiHelper {
         SPHelper.setCommonConst(data.getCommonConst());
         // modelShow
         SPHelper.setModelShow(data.getModelShow());
+        // cooperation
+        SPHelper.setCooperation(data.getCooperation());
         // limit
         SPHelper.setLimit(data.getLimit());
         // vipLimit

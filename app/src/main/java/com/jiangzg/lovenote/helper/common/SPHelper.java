@@ -11,6 +11,7 @@ import com.jiangzg.lovenote.model.engine.NoteCustom;
 import com.jiangzg.lovenote.model.entity.AdInfo;
 import com.jiangzg.lovenote.model.entity.CommonConst;
 import com.jiangzg.lovenote.model.entity.CommonCount;
+import com.jiangzg.lovenote.model.entity.Cooperation;
 import com.jiangzg.lovenote.model.entity.Couple;
 import com.jiangzg.lovenote.model.entity.CoupleState;
 import com.jiangzg.lovenote.model.entity.Diary;
@@ -33,11 +34,12 @@ public class SPHelper {
 
     // 存储集合
     private static final String SHARE_COMMON = "share_common";
-    private static final String SHARE_NOTE_CUSTOM = "note_custom";
+    private static final String SHARE_NOTE_CUSTOM = "share_note_custom";
     private static final String SHARE_OSS_INFO = "share_oss_info";
     private static final String SHARE_PUSH_INFO = "share_push_info";
     private static final String SHARE_AD_INFO = "share_ad_info";
     private static final String SHARE_MODEL_SHOW = "share_model_show";
+    private static final String SHARE_COOPERATION = "share_cooperation";
     private static final String SHARE_LIMIT = "share_limit";
     private static final String SHARE_VIP_LIMIT = "share_vip_limit";
     private static final String SHARE_COMMON_CONST = "share_common_const";
@@ -67,6 +69,10 @@ public class SPHelper {
     private static final String FIELD_MODEL_SHOW_MORE_COIN = "more_coin";
     private static final String FIELD_MODEL_SHOW_MORE_MATCH = "more_match";
     private static final String FIELD_MODEL_SHOW_MORE_FEATURE = "more_feature";
+    // cooperation
+    private static final String FIELD_COOPERATION_CATCH_BABY_ENABLE = "catch_baby_enable";
+    private static final String FIELD_COOPERATION_CATCH_BABY_URL = "catch_baby_url";
+    private static final String FIELD_COOPERATION_CATCH_BABY_DESC = "catch_baby_desc";
     // noteCustom
     private static final String FIELD_NOTE_CUSTOM_SOUVENIR = "souvenir";
     private static final String FIELD_NOTE_CUSTOM_SHY = "shy";
@@ -425,6 +431,30 @@ public class SPHelper {
         modelShow.setMoreMatch(sp.getBoolean(FIELD_MODEL_SHOW_MORE_MATCH, true));
         modelShow.setMoreFeature(sp.getBoolean(FIELD_MODEL_SHOW_MORE_FEATURE, true));
         return modelShow;
+    }
+
+    /**
+     * ***********************************Cooperation***********************************
+     */
+    public static void setCooperation(Cooperation cooperation) {
+        if (cooperation == null) {
+            LogUtils.i(SPHelper.class, "setCooperation", "cooperation == null");
+            return;
+        }
+        SharedPreferences.Editor editor = SPUtils.getSharedPreferences(SHARE_COOPERATION).edit();
+        editor.putBoolean(FIELD_COOPERATION_CATCH_BABY_ENABLE, cooperation.isCatchBabyEnable());
+        editor.putString(FIELD_COOPERATION_CATCH_BABY_URL, cooperation.getCatchBabyUrl());
+        editor.putString(FIELD_COOPERATION_CATCH_BABY_DESC, cooperation.getCatchBabyDesc());
+        editor.apply();
+    }
+
+    public static Cooperation getCooperation() {
+        SharedPreferences sp = SPUtils.getSharedPreferences(SHARE_COOPERATION);
+        Cooperation cooperation = new Cooperation();
+        cooperation.setCatchBabyEnable(sp.getBoolean(FIELD_COOPERATION_CATCH_BABY_ENABLE, true));
+        cooperation.setCatchBabyUrl(sp.getString(FIELD_COOPERATION_CATCH_BABY_URL, ""));
+        cooperation.setCatchBabyDesc(sp.getString(FIELD_COOPERATION_CATCH_BABY_DESC, ""));
+        return cooperation;
     }
 
     /**

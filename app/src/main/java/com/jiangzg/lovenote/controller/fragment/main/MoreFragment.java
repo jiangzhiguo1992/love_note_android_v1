@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.jiangzg.base.common.DateUtils;
 import com.jiangzg.lovenote.R;
+import com.jiangzg.lovenote.controller.activity.common.WebActivity;
 import com.jiangzg.lovenote.controller.activity.more.CoinActivity;
 import com.jiangzg.lovenote.controller.activity.more.MatchLetterActivity;
 import com.jiangzg.lovenote.controller.activity.more.MatchLetterListActivity;
@@ -35,6 +36,7 @@ import com.jiangzg.lovenote.model.api.Result;
 import com.jiangzg.lovenote.model.entity.Broadcast;
 import com.jiangzg.lovenote.model.entity.Coin;
 import com.jiangzg.lovenote.model.entity.CommonCount;
+import com.jiangzg.lovenote.model.entity.Cooperation;
 import com.jiangzg.lovenote.model.entity.MatchPeriod;
 import com.jiangzg.lovenote.model.entity.ModelShow;
 import com.jiangzg.lovenote.model.entity.Sign;
@@ -102,6 +104,15 @@ public class MoreFragment extends BasePagerFragment<MoreFragment> {
     @BindView(R.id.tvPostcard)
     TextView tvPostcard;
 
+    @BindView(R.id.lineMore)
+    LinearLayout lineMore;
+    @BindView(R.id.llMore)
+    LinearLayout llMore;
+    @BindView(R.id.cvBaby)
+    CardView cvBaby;
+    @BindView(R.id.tvBaby)
+    TextView tvBaby;
+
     private MatchPeriod wifePeriod, letterPeriod;
 
     public static MoreFragment newFragment() {
@@ -121,11 +132,13 @@ public class MoreFragment extends BasePagerFragment<MoreFragment> {
         fitToolBar(tb);
         // show
         ModelShow modelShow = SPHelper.getModelShow();
+        Cooperation cooperation = SPHelper.getCooperation();
         boolean marketPay = modelShow.isMarketPay();
         boolean moreVip = modelShow.isMoreVip();
         boolean moreCoin = modelShow.isMoreCoin();
         boolean moreMatch = modelShow.isMoreMatch();
         boolean moreFeature = false;
+        boolean moreBaby = cooperation.isCatchBabyEnable();
         linePay.setVisibility((moreVip && moreCoin) ? View.VISIBLE : View.GONE);
         cvVip.setVisibility((moreVip && marketPay) ? View.VISIBLE : View.GONE);
         cvCoin.setVisibility(moreCoin ? View.VISIBLE : View.GONE);
@@ -134,6 +147,10 @@ public class MoreFragment extends BasePagerFragment<MoreFragment> {
         llMatch.setVisibility(moreMatch ? View.VISIBLE : View.GONE);
         lineFeature.setVisibility(moreFeature ? View.VISIBLE : View.GONE);
         llFeature.setVisibility(moreFeature ? View.VISIBLE : View.GONE);
+        lineMore.setVisibility(moreBaby ? View.VISIBLE : View.GONE);
+        llMore.setVisibility(moreBaby ? View.VISIBLE : View.GONE);
+        cvBaby.setVisibility(moreBaby ? View.VISIBLE : View.GONE);
+        tvBaby.setText(cooperation.getCatchBabyDesc());
         // srl
         srl.setOnRefreshListener(this::refreshData);
         // broadcast
@@ -187,7 +204,8 @@ public class MoreFragment extends BasePagerFragment<MoreFragment> {
 
     @OnClick({R.id.cvVip, R.id.cvCoin, R.id.cvSign,
             R.id.cvWife, R.id.cvLetter,
-            R.id.cvWish, R.id.cvPostcard})
+            R.id.cvWish, R.id.cvPostcard,
+            R.id.cvBaby})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.cvVip: // 会员
@@ -216,6 +234,11 @@ public class MoreFragment extends BasePagerFragment<MoreFragment> {
             case R.id.cvWish: // 许愿树
                 break;
             case R.id.cvPostcard: // 明信片
+                break;
+            case R.id.cvBaby: // 抓娃娃
+                String title = getString(R.string.nav_catch_baby);
+                String url = SPHelper.getCooperation().getCatchBabyUrl();
+                WebActivity.goActivity(mActivity, title, url);
                 break;
         }
     }

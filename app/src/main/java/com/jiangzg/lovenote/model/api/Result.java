@@ -11,6 +11,7 @@ import com.jiangzg.lovenote.model.entity.Broadcast;
 import com.jiangzg.lovenote.model.entity.Coin;
 import com.jiangzg.lovenote.model.entity.CommonConst;
 import com.jiangzg.lovenote.model.entity.CommonCount;
+import com.jiangzg.lovenote.model.entity.Cooperation;
 import com.jiangzg.lovenote.model.entity.Couple;
 import com.jiangzg.lovenote.model.entity.CoupleState;
 import com.jiangzg.lovenote.model.entity.Diary;
@@ -118,6 +119,7 @@ public class Result implements Serializable {
         private CommonConst commonConst;
         private CommonCount commonCount;
         private ModelShow modelShow;
+        private Cooperation cooperation;
         private Limit limit;
         private VipLimit vipLimit;
         private VipLimit vipYesLimit;
@@ -227,6 +229,14 @@ public class Result implements Serializable {
         private MatchReport matchReport;
         private MatchPoint matchPoint;
         private MatchCoin matchCoin;
+
+        public Cooperation getCooperation() {
+            return cooperation;
+        }
+
+        public void setCooperation(Cooperation cooperation) {
+            this.cooperation = cooperation;
+        }
 
         public AdInfo getAdInfo() {
             return adInfo;
