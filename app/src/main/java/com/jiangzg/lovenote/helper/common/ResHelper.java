@@ -468,6 +468,13 @@ public class ResHelper {
     /**
      * ****************************************File****************************************
      */
+    // web-=缓存目录
+    public static File createWebCacheDir() {
+        File file = new File(DeviceInfo.get().getInCacheDir(), "web_cache");
+        FileUtils.createOrExistsDir(file);
+        return file;
+    }
+
     // 图片-oss目录
     public static String getOssResDirPath() {
         String dir = DeviceInfo.get().getOutFilesDir();

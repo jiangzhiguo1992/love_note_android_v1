@@ -1,5 +1,7 @@
 package com.jiangzg.lovenote.main;
 
+import android.webkit.WebView;
+
 import com.jiangzg.base.application.AppBase;
 import com.jiangzg.base.application.AppListener;
 import com.jiangzg.base.application.AppUtils;
@@ -30,6 +32,7 @@ public class MyApp extends AppBase {
         AdapterUtils.initApp(this, 800, 1422);
         ActivityStack.initApp();
         ResHelper.initApp();
+        WebView.setWebContentsDebuggingEnabled(debug);
         // 三方的
         ButterKnife.setDebug(debug);
         FrescoHelper.initApp(this, debug);

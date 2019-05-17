@@ -4,11 +4,14 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Message;
 import android.support.annotation.RequiresApi;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
+import android.webkit.DownloadListener;
 import android.webkit.WebChromeClient;
 import android.webkit.WebResourceError;
 import android.webkit.WebResourceRequest;
@@ -16,15 +19,12 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
-import com.jiangzg.base.common.FileUtils;
 import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.base.component.ActivityTrans;
-import com.jiangzg.base.system.DeviceInfo;
 import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.controller.activity.base.BaseActivity;
+import com.jiangzg.lovenote.helper.common.ResHelper;
 import com.jiangzg.lovenote.helper.view.ViewHelper;
-
-import java.io.File;
 
 import butterknife.BindView;
 
@@ -57,6 +57,7 @@ public class WebActivity extends BaseActivity<WebActivity> {
         initWebView(false, true);
         wv.setWebViewClient(webViewClient);
         wv.setWebChromeClient(webChromeClient);
+        wv.setDownloadListener(downloadListener);
     }
 
     @Override
@@ -78,10 +79,8 @@ public class WebActivity extends BaseActivity<WebActivity> {
 
     @SuppressLint("SetJavaScriptEnabled")
     public void initWebView(boolean zoom, boolean cache) {
-        String appCacheDir = DeviceInfo.get().getInCacheDir();
-        String cacheDir = new File(appCacheDir, "web_cache").getAbsolutePath();
-        FileUtils.createOrExistsFile(cacheDir);
         wv.requestFocusFromTouch(); // 支持获取手势焦点
+        wv.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
         // JS
         WebSettings settings = wv.getSettings();
         settings.setJavaScriptEnabled(true);// 支持JS
@@ -97,7 +96,7 @@ public class WebActivity extends BaseActivity<WebActivity> {
         settings.setDatabaseEnabled(cache); // 开启database 缓存
         if (cache) { // 优先使用缓存
             settings.setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK);
-            settings.setAppCachePath(cacheDir);
+            settings.setAppCachePath(ResHelper.createWebCacheDir().getAbsolutePath());
         } else { // 不用缓存
             settings.setCacheMode(WebSettings.LOAD_NO_CACHE);
         }
@@ -132,6 +131,22 @@ public class WebActivity extends BaseActivity<WebActivity> {
 
         @Override
         public boolean shouldOverrideUrlLoading(WebView view, String url) {
+            if (StringUtils.isEmpty(url)) {
+                return true;
+            }
+            if (url.startsWith("weixin")) {
+                Intent intent = new Intent();
+                intent.setAction(Intent.ACTION_VIEW);
+                intent.setData(Uri.parse(url));
+                startActivity(intent);
+                return true;
+            } else if (url.startsWith("alipays")) {
+                Intent intent = new Intent();
+                intent.setAction(Intent.ACTION_VIEW);
+                intent.setData(Uri.parse(url));
+                startActivity(intent);
+                return true;
+            }
             wv.loadUrl(url);
             return true;
         }
@@ -140,6 +155,22 @@ public class WebActivity extends BaseActivity<WebActivity> {
         @Override
         public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
             String url = request.getUrl().toString();
+            if (StringUtils.isEmpty(url)) {
+                return true;
+            }
+            if (url.startsWith("weixin")) {
+                Intent intent = new Intent();
+                intent.setAction(Intent.ACTION_VIEW);
+                intent.setData(Uri.parse(url));
+                startActivity(intent);
+                return true;
+            } else if (url.startsWith("alipays")) {
+                Intent intent = new Intent();
+                intent.setAction(Intent.ACTION_VIEW);
+                intent.setData(Uri.parse(url));
+                startActivity(intent);
+                return true;
+            }
             wv.loadUrl(url);
             return true;
         }
@@ -174,6 +205,13 @@ public class WebActivity extends BaseActivity<WebActivity> {
         public boolean onCreateWindow(WebView view, boolean isDialog, boolean isUserGesture, Message resultMsg) {
             return super.onCreateWindow(view, isDialog, isUserGesture, resultMsg);
         }
+    };
+
+    private DownloadListener downloadListener = (url, userAgent, contentDisposition, mimetype, contentLength) -> {
+        Uri uri = Uri.parse(url); // url为你要链接的地址
+        Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        ActivityTrans.start(mActivity, intent);
     };
 
     // 回退
