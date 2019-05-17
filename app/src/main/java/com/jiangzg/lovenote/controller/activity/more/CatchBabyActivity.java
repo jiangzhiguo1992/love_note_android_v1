@@ -60,7 +60,7 @@ public class CatchBabyActivity extends BaseActivity<CatchBabyActivity> {
     protected void initView(Intent intent, Bundle state) {
         ViewHelper.initTopBar(mActivity, tb, getString(R.string.nav_catch_baby), true);
         // view
-        initWebView(false, true);
+        initWebView(false, false);
         wv.setWebViewClient(webViewClient);
         wv.setWebChromeClient(webChromeClient);
         wv.setDownloadListener(downloadListener);
@@ -126,6 +126,7 @@ public class CatchBabyActivity extends BaseActivity<CatchBabyActivity> {
         WebSettings settings = wv.getSettings();
         settings.setJavaScriptEnabled(true);// 支持JS
         settings.setJavaScriptCanOpenWindowsAutomatically(true);// 支持通过JS打开新窗口
+        settings.setDomStorageEnabled(true); // 开启DOM 缓存
         // zoom
         settings.setSupportZoom(zoom); // 支持缩放
         settings.setBuiltInZoomControls(zoom); // 手势缩放
@@ -133,7 +134,6 @@ public class CatchBabyActivity extends BaseActivity<CatchBabyActivity> {
         settings.setLoadWithOverviewMode(!zoom); // 直接调整至屏幕的大小
         // cache
         settings.setAppCacheEnabled(cache);
-        settings.setDomStorageEnabled(cache); // 开启DOM 缓存
         settings.setDatabaseEnabled(cache); // 开启database 缓存
         if (cache) { // 优先使用缓存
             settings.setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK);
