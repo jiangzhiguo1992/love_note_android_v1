@@ -13,7 +13,7 @@ import android.widget.TextView;
 
 import com.jiangzg.base.common.DateUtils;
 import com.jiangzg.lovenote.R;
-import com.jiangzg.lovenote.controller.activity.common.WebActivity;
+import com.jiangzg.lovenote.controller.activity.more.CatchBabyActivity;
 import com.jiangzg.lovenote.controller.activity.more.CoinActivity;
 import com.jiangzg.lovenote.controller.activity.more.MatchLetterActivity;
 import com.jiangzg.lovenote.controller.activity.more.MatchLetterListActivity;
@@ -236,9 +236,7 @@ public class MoreFragment extends BasePagerFragment<MoreFragment> {
             case R.id.cvPostcard: // 明信片
                 break;
             case R.id.cvBaby: // 抓娃娃
-                String title = getString(R.string.nav_catch_baby);
-                String url = SPHelper.getCooperation().getCatchBabyUrl();
-                WebActivity.goActivity(mActivity, title, url);
+                CatchBabyActivity.goActivity(mActivity);
                 break;
         }
     }

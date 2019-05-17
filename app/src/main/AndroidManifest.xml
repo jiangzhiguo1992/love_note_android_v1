@@ -278,5 +278,6 @@
         <activity android:name=".controller.activity.more.MatchLetterActivity"/>
         <activity android:name=".controller.activity.more.MatchLetterListActivity"/>
         <activity android:name=".controller.activity.more.MatchLetterAddActivity"/>
+        <activity android:name=".controller.activity.more.CatchBabyActivity"/>
     </application>
 </manifest>
