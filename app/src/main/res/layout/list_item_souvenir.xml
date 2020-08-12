@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/root"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="10dp"
+    android:layout_marginTop="5dp"
+    android:layout_marginEnd="10dp"
+    android:layout_marginBottom="5dp"
+    android:background="?attr/selectableItemBackground"
+    android:foreground="?attr/selectableItemBackground"
+    app:cardBackgroundColor="@color/white"
+    app:cardCornerRadius="@dimen/radius_big"
+    app:cardElevation="@dimen/elevation_normal"
+    app:cardMaxElevation="@dimen/elevation_big">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="10dp">
+
+        <TextView
+            android:id="@+id/tvTitle"
+            style="@style/FontBlackHugeBold"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/tvDayCount"
+            android:layout_toStartOf="@+id/tvDayCount"
+            android:ellipsize="end"
+            android:gravity="start"
+            android:singleLine="true"
+            tools:text="在一起在一起在一起"/>
+
+        <TextView
+            android:id="@+id/tvHappenAt"
+            style="@style/FontGreyNormal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/tvDayCount"
+            android:layout_toStartOf="@+id/tvDayCount"
+            android:ellipsize="end"
+            android:gravity="start"
+            android:singleLine="true"
+            tools:text="2017年12月31日 51:53"/>
+
+        <TextView
+            android:id="@+id/tvDayCount"
+            style="@style/FontPrimaryHugeBold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="10dp"
+            android:maxLines="1"
+            android:singleLine="true"
+            android:textSize="40sp"
+            tools:text="+13650"/>
+    </RelativeLayout>
+</android.support.v7.widget.CardView>

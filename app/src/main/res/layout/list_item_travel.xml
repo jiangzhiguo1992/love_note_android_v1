@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/root"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="10dp"
+    android:layout_marginTop="5dp"
+    android:layout_marginEnd="10dp"
+    android:layout_marginBottom="5dp"
+    android:background="?attr/selectableItemBackground"
+    android:foreground="?attr/selectableItemBackground"
+    app:cardBackgroundColor="@color/white"
+    app:cardCornerRadius="@dimen/radius_normal"
+    app:cardElevation="@dimen/elevation_normal"
+    app:cardMaxElevation="@dimen/elevation_big">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/cvAvatar"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_alignParentStart="true"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="30dp"
+                android:layout_marginBottom="10dp"
+                app:cardCornerRadius="30dp"
+                app:cardElevation="0dp"
+                app:cardMaxElevation="0dp">
+
+                <com.jiangzg.lovenote.view.FrescoAvatarView
+                    android:id="@+id/ivAvatar"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    tools:background="@mipmap/ic_account_circle_grey_48dp"/>
+            </android.support.v7.widget.CardView>
+
+            <TextView
+                android:id="@+id/tvTitle"
+                style="@style/FontBlackHugeBold"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@+id/cvAvatar"
+                android:layout_marginEnd="10dp"
+                android:layout_toEndOf="@+id/cvAvatar"
+                android:ellipsize="end"
+                android:singleLine="true"
+                tools:text="天津波波鱼吃饭"/>
+
+            <TextView
+                android:id="@+id/tvHappenAt"
+                style="@style/FontGreyNormal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/cvAvatar"
+                android:layout_marginEnd="10dp"
+                android:layout_toEndOf="@+id/cvAvatar"
+                android:ellipsize="end"
+                android:singleLine="true"
+                tools:text="2017年12月31日"/>
+        </RelativeLayout>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            tools:listitem="@layout/list_item_travel_place"
+            tools:visibility="gone"/>
+    </LinearLayout>
+</android.support.v7.widget.CardView>

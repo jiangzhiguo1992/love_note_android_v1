@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical"
+    tools:context=".controller.activity.note.PictureEditActivity">
+
+    <include layout="@layout/view_top_bar"/>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="7.5dp"
+                android:layout_marginTop="17.5dp"
+                android:layout_marginEnd="7.5dp"
+                android:layout_marginBottom="7.5dp"
+                android:visibility="gone"
+                tools:visibility="visible"/>
+
+            <View
+                style="@style/LineHorizontal"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="10dp"/>
+
+            <LinearLayout
+                android:id="@+id/llHappenAt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="?attr/selectableItemBackground"
+                android:foreground="?attr/selectableItemBackground"
+                android:paddingStart="10dp"
+                android:paddingTop="15dp"
+                android:paddingEnd="10dp"
+                android:paddingBottom="15dp">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="5dp"
+                    android:src="@mipmap/ic_access_time_grey_18dp"
+                    android:tint="@color/font_grey"/>
+
+                <TextView
+                    android:id="@+id/tvHappenAt"
+                    style="@style/FontGreyNormal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    tools:text="@string/time_colon_space_holder"/>
+            </LinearLayout>
+
+            <View
+                style="@style/LineHorizontal"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"/>
+
+            <LinearLayout
+                android:id="@+id/llAddress"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="?attr/selectableItemBackground"
+                android:foreground="?attr/selectableItemBackground"
+                android:paddingStart="10dp"
+                android:paddingTop="15dp"
+                android:paddingEnd="10dp"
+                android:paddingBottom="15dp">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="5dp"
+                    android:src="@mipmap/ic_location_on_grey_18dp"
+                    android:tint="@color/font_grey"/>
+
+                <TextView
+                    android:id="@+id/tvAddress"
+                    style="@style/FontGreyNormal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    tools:text="@string/address_colon_space_holder"/>
+            </LinearLayout>
+
+            <View
+                style="@style/LineHorizontal"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"/>
+
+            <LinearLayout
+                android:id="@+id/llAlbum"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="?attr/selectableItemBackground"
+                android:foreground="?attr/selectableItemBackground"
+                android:paddingStart="10dp"
+                android:paddingTop="15dp"
+                android:paddingEnd="10dp"
+                android:paddingBottom="15dp">
+
+                <ImageView
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"
+                    android:layout_marginEnd="5dp"
+                    android:src="@mipmap/ic_note_album_24dp"
+                    android:tint="@color/font_grey"/>
+
+                <TextView
+                    android:id="@+id/tvAlbum"
+                    style="@style/FontGreyNormal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    tools:text="@string/album_colon_space_holder"/>
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

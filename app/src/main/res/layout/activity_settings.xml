@@ -1,0 +1,384 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".controller.activity.settings.SettingsActivity">
+
+    <include layout="@layout/view_top_bar"/>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <TextView
+                style="@style/FontPrimaryNormalBold"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="16dp"
+                android:text="@string/base_settings"/>
+
+            <TextView
+                android:id="@+id/tvTheme"
+                style="@style/FontBlackNormal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="?attr/selectableItemBackground"
+                android:padding="16dp"
+                android:text="@string/theme"/>
+
+            <View
+                style="@style/LineHorizontal"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"/>
+
+            <RelativeLayout
+                android:id="@+id/rlTopic"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="?attr/selectableItemBackground"
+                android:padding="16dp">
+
+                <TextView
+                    android:id="@+id/tvTopicTitle"
+                    style="@style/FontBlackNormal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_toStartOf="@+id/switchTopic"
+                    android:text="@string/nav_topic"/>
+
+                <TextView
+                    android:id="@+id/tvTopicSummary"
+                    style="@style/FontGreySmall"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tvTopicTitle"
+                    android:layout_toStartOf="@+id/switchTopic"
+                    android:text="@string/no_like_can_close_model"/>
+
+                <Switch
+                    android:id="@+id/switchTopic"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:focusableInTouchMode="false"/>
+            </RelativeLayout>
+
+            <View
+                style="@style/LineHorizontal"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"/>
+
+            <RelativeLayout
+                android:id="@+id/rlCache"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="?attr/selectableItemBackground"
+                android:padding="16dp">
+
+                <TextView
+                    android:id="@+id/tvCacheTitle"
+                    style="@style/FontBlackNormal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/clear_cache"/>
+
+                <TextView
+                    android:id="@+id/tvCacheSummary"
+                    style="@style/FontGreySmall"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tvCacheTitle"
+                    tools:text="@string/contain_image_audio_video_total_colon_holder"/>
+            </RelativeLayout>
+
+            <View
+                style="@style/LineHorizontal"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"/>
+
+            <TextView
+                style="@style/FontPrimaryNormalBold"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="16dp"
+                android:text="@string/notice_settings"/>
+
+            <TextView
+                android:id="@+id/tvNoticeStatus"
+                style="@style/FontBlackNormal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="?attr/selectableItemBackground"
+                android:padding="16dp"
+                tools:text="@string/notice_no_open"/>
+
+            <View
+                style="@style/LineHorizontal"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"/>
+
+            <RelativeLayout
+                android:id="@+id/rlSystem"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="?attr/selectableItemBackground"
+                android:padding="16dp">
+
+                <TextView
+                    android:id="@+id/tvSystemTitle"
+                    style="@style/FontBlackNormal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_toStartOf="@+id/switchSystem"
+                    android:text="@string/system_notice"/>
+
+                <TextView
+                    android:id="@+id/tvSystemSummary"
+                    style="@style/FontGreySmall"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tvSystemTitle"
+                    android:layout_toStartOf="@+id/switchSystem"
+                    android:text="@string/receive_system_send_import_notice"/>
+
+                <Switch
+                    android:id="@+id/switchSystem"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:focusableInTouchMode="false"/>
+            </RelativeLayout>
+
+            <View
+                style="@style/LineHorizontal"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"/>
+
+            <RelativeLayout
+                android:id="@+id/rlSocial"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="?attr/selectableItemBackground"
+                android:padding="16dp">
+
+                <TextView
+                    android:id="@+id/tvSocialTitle"
+                    style="@style/FontBlackNormal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_toStartOf="@+id/switchSocial"
+                    android:text="@string/social_notice"/>
+
+                <TextView
+                    android:id="@+id/tvOtherSummary"
+                    style="@style/FontGreySmall"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tvSocialTitle"
+                    android:layout_toStartOf="@+id/switchSocial"
+                    android:text="@string/receive_from_social_notice"/>
+
+                <Switch
+                    android:id="@+id/switchSocial"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:focusableInTouchMode="false"/>
+            </RelativeLayout>
+
+            <View
+                style="@style/LineHorizontal"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"/>
+
+            <RelativeLayout
+                android:id="@+id/rlDisturb"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="?attr/selectableItemBackground"
+                android:padding="16dp">
+
+                <TextView
+                    android:id="@+id/tvDisturbTitle"
+                    style="@style/FontBlackNormal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_toStartOf="@+id/switchDisturb"
+                    android:text="@string/night_no_disturb"/>
+
+                <TextView
+                    android:id="@+id/tvDisturbSummary"
+                    style="@style/FontGreySmall"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tvDisturbTitle"
+                    android:layout_toStartOf="@+id/switchDisturb"
+                    tools:text="@string/receive_from_social_notice"/>
+
+                <Switch
+                    android:id="@+id/switchDisturb"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:focusableInTouchMode="false"/>
+            </RelativeLayout>
+
+            <View
+                style="@style/LineHorizontal"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"/>
+
+            <TextView
+                style="@style/FontPrimaryNormalBold"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="16dp"
+                android:text="@string/account_settings"/>
+
+            <TextView
+                android:id="@+id/tvPhone"
+                style="@style/FontBlackNormal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="?attr/selectableItemBackground"
+                android:padding="16dp"
+                android:text="@string/change_phone"/>
+
+            <View
+                style="@style/LineHorizontal"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"/>
+
+            <TextView
+                android:id="@+id/tvPassword"
+                style="@style/FontBlackNormal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="?attr/selectableItemBackground"
+                android:padding="16dp"
+                android:text="@string/modify_password"/>
+
+            <View
+                style="@style/LineHorizontal"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"/>
+
+            <TextView
+                style="@style/FontPrimaryNormalBold"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="16dp"
+                android:text="@string/about_and_help"/>
+
+            <RelativeLayout
+                android:id="@+id/rlNotice"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="?attr/selectableItemBackground"
+                android:padding="16dp">
+
+                <TextView
+                    android:id="@+id/tvNotice"
+                    style="@style/FontBlackNormal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/new_notice"/>
+
+                <ImageView
+                    android:id="@+id/ivNotice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="3dp"
+                    android:layout_toEndOf="@+id/tvNotice"
+                    android:src="@drawable/shape_point_red_r3_7"/>
+            </RelativeLayout>
+
+            <View
+                style="@style/LineHorizontal"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"/>
+
+            <TextView
+                android:id="@+id/tvHelp"
+                style="@style/FontBlackNormal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="?attr/selectableItemBackground"
+                android:padding="16dp"
+                android:text="@string/help_document"/>
+
+            <View
+                style="@style/LineHorizontal"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"/>
+
+            <TextView
+                android:id="@+id/tvSuggest"
+                style="@style/FontBlackNormal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="?attr/selectableItemBackground"
+                android:padding="16dp"
+                android:text="@string/suggest_feedback"/>
+
+            <View
+                style="@style/LineHorizontal"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"/>
+
+            <RelativeLayout
+                android:id="@+id/rlAbout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="?attr/selectableItemBackground"
+                android:padding="16dp">
+
+                <TextView
+                    android:id="@+id/tvAbout"
+                    style="@style/FontBlackNormal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/about_app"/>
+
+                <ImageView
+                    android:id="@+id/ivAbout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="3dp"
+                    android:layout_toEndOf="@+id/tvAbout"
+                    android:src="@drawable/shape_point_red_r3_7"/>
+            </RelativeLayout>
+
+            <View
+                style="@style/LineHorizontal"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"/>
+
+            <TextView
+                android:id="@+id/tvExist"
+                style="@style/FontPrimaryNormal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:background="?attr/selectableItemBackground"
+                android:gravity="center"
+                android:padding="5dp"
+                android:text="@string/exist_account"
+                android:textColor="?attr/colorPrimaryDark"/>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

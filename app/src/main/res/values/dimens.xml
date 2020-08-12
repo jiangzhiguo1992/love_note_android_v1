@@ -1,0 +1,21 @@
+<resources>
+
+    <!-- 字体大小 -->
+    <dimen name="font_small">11sp</dimen>
+    <dimen name="font_normal">14sp</dimen>
+    <dimen name="font_big">17sp</dimen>
+    <dimen name="font_huge">20sp</dimen>
+    <!-- cardView圆角 -->
+    <dimen name="radius_small">2dp</dimen>
+    <dimen name="radius_normal">5dp</dimen>
+    <dimen name="radius_big">10dp</dimen>
+    <dimen name="radius_huge">20dp</dimen>
+    <!-- cardView阴影 -->
+    <dimen name="elevation_small">1dp</dimen>
+    <dimen name="elevation_normal">3dp</dimen>
+    <dimen name="elevation_big">5dp</dimen>
+    <dimen name="elevation_huge">10dp</dimen>
+    <!-- FloatActionButton -->
+    <dimen name="fab_margin">16dp</dimen>
+
+</resources>

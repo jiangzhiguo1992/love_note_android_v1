@@ -1,0 +1,193 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:id="@+id/root"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:gravity="center_horizontal"
+              android:orientation="vertical"
+              tools:context=".controller.activity.user.LoginActivity">
+
+    <include layout="@layout/view_top_bar"/>
+
+    <ImageView
+        android:layout_width="120dp"
+        android:layout_height="80dp"
+        android:layout_marginTop="30dp"
+        android:scaleType="fitCenter"
+        android:src="@mipmap/ic_launcher_shadow"/>
+
+    <RadioGroup
+        android:id="@+id/rgLoginType"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/shape_stroke_primary_r100"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/rbLoginPwd"
+            style="@style/FontGreyNormal"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/selector_check_solid_primary_r100"
+            android:button="@null"
+            android:gravity="center"
+            android:minLines="1"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp"
+            android:singleLine="true"
+            android:text="@string/pwd_login"
+            android:textColor="@color/selector_text_check_primary_white"
+            tools:checked="true"/>
+
+        <RadioButton
+            android:id="@+id/rbLoginVerify"
+            style="@style/FontGreyNormal"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/selector_check_solid_primary_r100"
+            android:button="@null"
+            android:gravity="center"
+            android:minLines="1"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp"
+            android:singleLine="true"
+            android:text="@string/verify_login"
+            android:textColor="@color/selector_text_check_primary_white"/>
+    </RadioGroup>
+
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="30dp">
+
+        <android.support.v7.widget.AppCompatEditText
+            android:id="@+id/etPhone"
+            style="@style/FontBlackNormal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableStart="@mipmap/ic_phone_iphone_grey_24dp"
+            android:drawablePadding="15dp"
+            android:hint="@string/input_hint_phone"
+            android:inputType="phone"
+            android:maxLines="1"
+            android:singleLine="true"
+            android:textColorHint="@color/font_hint"/>
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/tilPwd"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="30dp">
+
+        <android.support.v7.widget.AppCompatEditText
+            android:id="@+id/etPwd"
+            style="@style/FontBlackNormal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableStart="@mipmap/ic_lock_grey_24dp"
+            android:drawablePadding="15dp"
+            android:hint="@string/input_hint_pwd"
+            android:inputType="textPassword"
+            android:maxLines="1"
+            android:singleLine="true"
+            android:textColorHint="@color/font_hint"/>
+    </android.support.design.widget.TextInputLayout>
+
+    <LinearLayout
+        android:id="@+id/llVerify"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="30dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:visibility="gone"
+        tools:visibility="visible">
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+
+            <android.support.v7.widget.AppCompatEditText
+                android:id="@+id/etCode"
+                style="@style/FontBlackNormal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableStart="@mipmap/ic_verified_user_grey_24dp"
+                android:drawablePadding="15dp"
+                android:hint="@string/input_hint_verify"
+                android:inputType="number"
+                android:maxLines="1"
+                android:singleLine="true"
+                android:textColorHint="@color/font_hint"/>
+        </android.support.design.widget.TextInputLayout>
+
+        <Button
+            android:id="@+id/btnSendCode"
+            style="@style/FontPrimarySmall"
+            android:layout_width="wrap_content"
+            android:layout_height="35dp"
+            android:layout_marginStart="10dp"
+            android:background="@drawable/selector_enable_press_stroke_light_primary_dark_rn"
+            android:enabled="false"
+            android:text="@string/send_validate_code"/>
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/tvForget"
+            style="@style/FontPrimarySmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:paddingStart="30dp"
+            android:paddingTop="10dp"
+            android:paddingEnd="30dp"
+            android:paddingBottom="10dp"
+            android:text="@string/forget_pwd"/>
+    </RelativeLayout>
+
+    <Button
+        android:id="@+id/btnLogin"
+        style="@style/FontWhiteBig"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="30dp"
+        android:background="@drawable/selector_enable_press_solid_light_primary_dark_r100"
+        android:enabled="false"
+        android:text="@string/login"/>
+
+    <Button
+        android:id="@+id/btnRegister"
+        style="@style/FontPrimaryNormal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="30dp"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:text="@string/register"/>
+
+    <TextView
+        style="@style/FontBlackSmall"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginBottom="20dp"
+        android:layout_weight="1"
+        android:gravity="bottom|center_horizontal"
+        android:text="@string/login_register_agree_protocol"/>
+</LinearLayout>

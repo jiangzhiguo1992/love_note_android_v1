@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/root"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="10dp"
+    android:layout_marginTop="5dp"
+    android:layout_marginEnd="10dp"
+    android:layout_marginBottom="5dp"
+    android:background="?attr/selectableItemBackground"
+    android:foreground="?attr/selectableItemBackground"
+    app:cardBackgroundColor="@color/white"
+    app:cardCornerRadius="@dimen/radius_normal"
+    app:cardElevation="@dimen/elevation_normal"
+    app:cardMaxElevation="@dimen/elevation_big"
+    tools:cardBackgroundColor="?attr/colorPrimary">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tvTitle"
+            style="@style/FontBlackNormalBold"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="10dp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:singleLine="true"
+            tools:text="建议内容建议内容建议内容建议内容建议内容建议内容建"/>
+
+        <TextView
+            android:id="@+id/tvContent"
+            style="@style/FontGreyNormal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="10dp"
+            android:ellipsize="end"
+            android:maxLines="3"
+            tools:text="建议内容建议内容建议内容建议内容建议内容建议内容建建议内容建议内容建议内容建议内容建议内容建议内容建建议内容建议内容建议内容建议内容建议内容建议内容建建议内容建议内容建议内容建议内容建议内容建议内容建建议内容建议内容建议内容建议内容建议内容建议内容建建议内容建议内容建议内容建议内容建议内容建议内容建"/>
+
+        <View
+            style="@style/LineHorizontal"
+            android:layout_marginTop="10dp"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:padding="10dp">
+
+                <ImageView
+                    android:id="@+id/ivFollow"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="5dp"
+                    android:src="@mipmap/ic_visibility_grey_18dp"
+                    android:tint="@color/font_hint"/>
+
+                <TextView
+                    android:id="@+id/tvFollow"
+                    style="@style/FontGreyNormal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:ellipsize="end"
+                    android:singleLine="true"
+                    android:textColor="@color/font_hint"
+                    tools:text="11"/>
+            </LinearLayout>
+
+            <View style="@style/LineVertical"/>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:padding="10dp">
+
+                <ImageView
+                    android:id="@+id/ivComment"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="5dp"
+                    android:src="@mipmap/ic_insert_comment_grey_18dp"
+                    android:tint="@color/font_hint"/>
+
+                <TextView
+                    android:id="@+id/tvComment"
+                    style="@style/FontGreyNormal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:ellipsize="end"
+                    android:singleLine="true"
+                    android:textColor="@color/font_hint"
+                    tools:text="11"/>
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+</android.support.v7.widget.CardView>

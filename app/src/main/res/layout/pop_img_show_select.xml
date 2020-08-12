@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/black_alpha_75"
+    android:gravity="center_horizontal">
+
+    <LinearLayout
+        android:id="@+id/llBigImage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/llPicture"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:background="@drawable/shape_solid_white_rtn"
+        android:foreground="?attr/selectableItemBackground"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:padding="10dp">
+
+        <TextView
+            style="@style/FontGreyNormal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawablePadding="10dp"
+            android:gravity="center"
+            android:text="@string/look_big_image"/>
+    </LinearLayout>
+
+    <View
+        style="@style/LineHorizontal"
+        android:layout_above="@id/llPicture"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"/>
+
+    <LinearLayout
+        android:id="@+id/llPicture"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/llCancel"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:background="@drawable/shape_solid_white_rbn"
+        android:foreground="?attr/selectableItemBackground"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:padding="10dp">
+
+        <TextView
+            style="@style/FontGreyNormal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawablePadding="10dp"
+            android:gravity="center"
+            android:text="@string/change_image"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/llCancel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="10dp"
+        android:background="@drawable/shape_solid_white_rn"
+        android:foreground="?attr/selectableItemBackground"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:paddingTop="14dp"
+        android:paddingBottom="14dp">
+
+        <TextView
+            style="@style/FontGreyNormal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/cancel"/>
+    </LinearLayout>
+</RelativeLayout>

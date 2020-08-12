@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".controller.activity.note.WhisperListActivity">
+
+    <include layout="@layout/view_top_bar"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <LinearLayout
+            android:id="@+id/llTop"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?attr/colorPrimary"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tvCurrentChannel"
+                style="@style/FontWhiteBigBold"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:ellipsize="middle"
+                android:gravity="center"
+                android:singleLine="true"
+                tools:text="当前频道：我爱你"/>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp">
+
+                <EditText
+                    android:id="@+id/etChannel"
+                    style="@style/FontGreyNormal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginEnd="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:layout_toStartOf="@+id/btnChangeChannel"
+                    android:background="@drawable/shape_solid_white_rn"
+                    android:gravity="center"
+                    android:hint="@string/in_here_input_channel"
+                    android:maxLines="1"
+                    android:padding="7dp"
+                    android:singleLine="true"
+                    android:textColorHint="@color/font_hint"/>
+
+                <Button
+                    android:id="@+id/btnChangeChannel"
+                    style="@style/FontPrimaryNormal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignTop="@+id/etChannel"
+                    android:layout_alignBottom="@+id/etChannel"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginEnd="10dp"
+                    android:background="@drawable/shape_solid_white_r100"
+                    android:text="@string/change_channel"/>
+            </RelativeLayout>
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_below="@+id/llTop"
+            android:background="@drawable/shape_gradient_primary_trans"/>
+
+        <com.jiangzg.lovenote.view.GSwipeRefreshLayout
+            android:id="@+id/srl"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/llTop">
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:listitem="@layout/list_item_whisper_left"/>
+        </com.jiangzg.lovenote.view.GSwipeRefreshLayout>
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:background="@color/white"
+        android:orientation="horizontal"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        app:layout_behavior="@string/behavior_linear_depend_app_bar">
+
+        <ImageView
+            android:id="@+id/ivImgAdd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:background="?attr/selectableItemBackground"
+            android:foreground="?attr/selectableItemBackground"
+            android:padding="10dp"
+            android:src="@mipmap/ic_image_grey_24dp"
+            android:tint="?attr/colorPrimary"/>
+
+        <EditText
+            android:id="@+id/etContent"
+            style="@style/FontGreyNormal"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            android:background="@drawable/shape_stroke_grey_rn"
+            android:gravity="start"
+            android:hint="@string/please_input_content"
+            android:inputType="textMultiLine"
+            android:minLines="1"
+            android:padding="10dp"
+            android:textColorHint="@color/font_hint"/>
+
+        <ImageView
+            android:id="@+id/ivTextAdd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:background="?attr/selectableItemBackground"
+            android:foreground="?attr/selectableItemBackground"
+            android:padding="10dp"
+            android:src="@mipmap/ic_near_me_grey_24dp"
+            android:tint="?attr/colorPrimary"/>
+    </LinearLayout>
+</android.support.design.widget.CoordinatorLayout>

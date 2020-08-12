@@ -1,0 +1,818 @@
+<resources>
+    <string name="app_name">鱼笙</string>
+    <!--<string name="app_name">鱼笙情侣记录</string>-->
+
+    <!-- base -->
+    <string name="day1">一</string>
+    <string name="day2">二</string>
+    <string name="day3">三</string>
+    <string name="day4">四</string>
+    <string name="day5">五</string>
+    <string name="day6">六</string>
+    <string name="day7">日</string>
+
+    <string name="second">秒</string>
+    <string name="minute">分钟</string>
+    <string name="minute_short">分</string>
+    <string name="hour">小时</string>
+    <string name="hour_short">时</string>
+    <string name="dayT">天</string>
+    <string name="dayR">日</string>
+    <string name="month">月</string>
+    <string name="year">年</string>
+
+    <!-- drawerLayout -->
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <!-- behavior -->
+    <string name="behavior_fab_depend_app_bar">com.jiangzg.lovenote.view.GBehaviorFABDependAppBar</string>
+    <string name="behavior_fab_depend_app_bar3">com.jiangzg.lovenote.view.GBehaviorFABDependAppBar3</string>
+    <string name="behavior_linear_depend_app_bar">com.jiangzg.lovenote.view.GBehaviorLinearDependAppBar</string>
+    <string name="behavior_linear_depend_app_bar3">com.jiangzg.lovenote.view.GBehaviorLinearDependAppBar3</string>
+
+    <!-- matisse -->
+    <plurals name="error_over_count">
+        <item quantity="one">你只能选择1个文件</item>
+        <item quantity="other">最多只能选择 %1$d 个文件</item>
+    </plurals>
+
+    <!-- weather -->
+    <string name="sunny">晴天</string>
+    <string name="cloudy">多云</string>
+    <string name="over_cast">阴</string>
+    <string name="showers">阵雨</string>
+    <string name="snow_showers">阵雪</string>
+    <string name="fog">雾</string>
+    <string name="sandstorm">沙尘暴</string>
+    <string name="dust">浮尘</string>
+    <string name="haze">霾</string>
+    <string name="thunder_shower">雷阵雨</string>
+    <string name="hail">冰雹</string>
+    <string name="sleet">雨夹雪</string>
+    <string name="light_rain">小雨</string>
+    <string name="rain">中雨</string>
+    <string name="heavy_rain">大雨</string>
+    <string name="rain_storm">暴雨</string>
+    <string name="light_snow">小雪</string>
+    <string name="snow">中雪</string>
+    <string name="heavy_snow">大雪</string>
+    <string name="blizzard">暴雪</string>
+    <string name="freezing_rain">冻雨</string>
+
+    <!-- recycler -->
+    <string name="master_there_nothing">主人，这里啥也没有啊！</string>
+    <string name="master_we_worry">主人，咱们…好像…出错了！</string>
+    <string name="master_this_is_my_bottom">主人，这已经是我的底线了！</string>
+    <string name="master_no_hurry_quick_ok">主人莫急，马上就好…</string>
+
+    <!-- perm -->
+    <string name="need_check_some_perm">需要勾选某些权限</string>
+    <string name="need_check_some_perm_can_install">需要勾选相应权限后才能安装</string>
+
+    <!-- common -->
+    <string name="symbol_add">+</string>
+    <string name="symbol_sub">-</string>
+    <string name="me">我</string>
+    <string name="he">他</string>
+    <string name="ta">ta</string>
+    <string name="she">她</string>
+    <string name="girl">女</string>
+    <string name="boy">男</string>
+    <string name="ci">次</string>
+    <string name="nil">无</string>
+    <string name="prompt">提示</string>
+    <string name="confirm">确定</string>
+    <string name="agree">同意</string>
+    <string name="cancel">取消</string>
+    <string name="back">返回</string>
+    <string name="edit">编辑</string>
+    <string name="delete">删除</string>
+    <string name="add">添加</string>
+    <string name="send">发送</string>
+    <string name="wait">等待</string>
+    <string name="no_read">未读</string>
+    <string name="title">标题</string>
+    <string name="content">内容</string>
+    <string name="search">搜索</string>
+    <string name="complete">完成</string>
+    <string name="now_no">暂无</string>
+    <string name="un_know">未知</string>
+    <string name="change">更换</string>
+    <string name="follow">关注</string>
+    <string name="modify">修改</string>
+    <string name="browse">浏览</string>
+    <string name="go_in">进入</string>
+    <string name="model">模式</string>
+    <string name="comment">评论</string>
+    <string name="screen">屏蔽</string>
+    <string name="normal">普通</string>
+    <string name="time">时间</string>
+    <string name="classify">分类</string>
+    <string name="top">置顶</string>
+    <string name="all">全部</string>
+    <string name="commit">提交</string>
+    <string name="push">发布</string>
+    <string name="message">消息</string>
+    <string name="publish">发表</string>
+    <string name="take_picture">拍照</string>
+    <string name="compress">压缩</string>
+    <string name="original_image">原图</string>
+    <string name="show">显示</string>
+    <string name="notification">通知</string>
+    <string name="other">其他</string>
+    <string name="open">开启</string>
+    <string name="start">开始</string>
+    <string name="refuse">禁止</string>
+    <string name="wait_point">等待…</string>
+    <string name="please_wait">请等待…</string>
+    <string name="we_de">我们的</string>
+    <string name="me_de">我的</string>
+    <string name="ta_de">TA的</string>
+    <string name="administrators">管理员</string>
+    <string name="brutal_refuse">残忍拒绝</string>
+    <string name="after_say">以后再说</string>
+    <string name="set_ok">设置好了</string>
+    <string name="i_know">我知道了</string>
+    <string name="go_to_setting">前往设置</string>
+    <string name="pleasure_accept">欣然接受</string>
+    <string name="go_back_top">回到顶部</string>
+    <string name="start_search">开始搜索</string>
+    <string name="are_task">正在任务</string>
+    <string name="cancel_task">取消任务</string>
+    <string name="attention_something">注意事项</string>
+    <string name="i_choose_ok">我选好了</string>
+    <string name="i_think_again">我再想想</string>
+    <string name="confirm_no_wrong">确认无误</string>
+    <string name="push_success">发布成功</string>
+    <string name="go_now">现在前往</string>
+    <string name="go_to_know">前往了解</string>
+    <string name="are_deleting">正在删除</string>
+    <string name="are_refresh">正在刷新</string>
+    <string name="loading_sending">正在发送…</string>
+    <string name="press_again_exit">再按一次退出</string>
+    <string name="exit_app">您确定要退出？</string>
+
+    <!-- network -->
+    <string name="no_network_title">网络不能访问</string>
+    <string name="server_error">服务器异常</string>
+    <string name="http_error_connect">网络连接错误</string>
+    <string name="http_error_time">网络连接超时</string>
+    <string name="http_error_time_maybe_setting_wrong">网络连接超时,是不是网络设置出错了吧</string>
+    <string name="http_error_request">网络请求异常</string>
+    <string name="err_un_know_server">服务器未知错误 (把这个bug提交给我们吧)</string>
+    <string name="err_un_know_client">客户端未知错误 (把这个bug提交给我们吧)</string>
+    <string name="err_data_null">空数据异常</string>
+    <string name="err_data_parse">数据解析异常</string>
+    <string name="http_response_error">网络响应异常</string>
+    <string name="http_response_error_403">Key错误</string>
+    <string name="http_response_error_404">资源未找到</string>
+    <string name="http_response_error_409">用户版本过低</string>
+    <string name="http_response_error_410">用户被禁用</string>
+    <string name="http_response_error_500">服务器异常</string>
+    <string name="online_can_entry">联网才可以进入哦</string>
+
+    <!-- file/image -->
+    <string name="are_upload">正在上传</string>
+    <string name="are_download">正在下载</string>
+    <string name="cancel_upload">取消上传</string>
+    <string name="cancel_download">取消下载</string>
+    <string name="already_download_to_colon_holder" formatted="false">已下载至: %s</string>
+    <string name="loading">正在加载中</string>
+    <string name="are_loading">正在加载中…</string>
+    <string name="image_load_fail">图片加载失败</string>
+    <string name="click_retry_load">点击重新加载</string>
+    <string name="image_is_compress">图片正在获取中…</string>
+    <string name="image_compress_fail">图片获取失败</string>
+    <string name="image_get_error">图片获取出错</string>
+    <string name="upload_fail_tell_we_this_bug">上传失败，可以把这个bug反馈给我们吗</string>
+    <string name="download_fail_tell_we_this_bug">下载失败，可以把这个bug反馈给我们吗</string>
+    <string name="file_resolve_fail_tell_we_this_bug">文件解析失败，可以把这个bug反馈给我们吗</string>
+    <string name="upload_fail_please_check_native_net">上传失败，请检查本地网络环境</string>
+    <string name="download_fail_please_check_native_net">下载失败，请检查本地网络环境</string>
+    <string name="file_create_fail">文件创建失败</string>
+    <string name="file_no_exits">文件不存在</string>
+    <string name="upload_file_no_exists">上传文件不存在</string>
+    <string name="download_file_no_exists">下载文件不存在</string>
+    <string name="save_file_no_exists">保存文件不存在</string>
+    <string name="access_resource_path_no_exists">访问资源路径不存在</string>
+    <string name="not_found_upload_file">没有找到要上传的文件</string>
+    <string name="now_just_can_push_holder_img" formatted="false">现在只能上传%d张图片</string>
+    <string name="index_holder_file_too_large_cant_over_holder" formatted="false">第%d个文件过大，不能超过%s</string>
+    <string name="file_too_large_cant_over_holder" formatted="false">文件过大，不能超过%s</string>
+    <string name="success_push_holder_paper_picture" formatted="false">成功上传%d张照片</string>
+    <string name="are_upload_space_holder_holder" formatted="false">正在上传 %d/%d</string>
+    <string name="are_compress_space_holder_holder" formatted="false">正在获取 %d/%d</string>
+
+    <!-- version -->
+    <string name="check_update">检查更新</string>
+    <string name="update_now">立即更新</string>
+    <string name="already_is_latest_version">已是最新版本</string>
+    <string name="have_new_version">有新版本啦！</string>
+    <string name="are_update_check">正在检查更新</string>
+    <string name="version_number_colon">版本号: </string>
+    <string name="new_version_colon_space_holder" formatted="false">新版本: %s</string>
+
+    <!-- edit -->
+    <string name="click_me_edit">点我编辑</string>
+    <string name="add_track">添加足迹</string>
+    <string name="add_gift">添加礼物</string>
+    <string name="add_travel">添加游记</string>
+    <string name="add_album">添加相册</string>
+    <string name="add_video">添加视频</string>
+    <string name="add_food">添加美食</string>
+    <string name="add_movie">添加电影</string>
+    <string name="add_diary">添加日记</string>
+    <string name="select_user">选择用户</string>
+    <string name="in_here_input_channel">在这里输入频道</string>
+    <string name="select_search_type">选择搜索类型</string>
+    <string name="select_order_type">选择排序类型</string>
+    <string name="please_select_classify">请选择分类</string>
+    <string name="please_select_address">请选择地址</string>
+    <string name="please_select_diary">请选择日记</string>
+    <string name="please_select_album">请选择相册</string>
+    <string name="please_select_audio">请选择音频</string>
+    <string name="please_select_video">请选择视频</string>
+    <string name="please_select_food">请选择美食</string>
+    <string name="please_select_movie">请选择电影</string>
+    <string name="please_select_travel">请选择游记</string>
+    <string name="please_select_gift">请选择礼物</string>
+    <string name="please_select_promise">请选择承诺</string>
+    <string name="please_select_rule">请选择约定</string>
+    <string name="please_select_score">请选择分数</string>
+    <string name="please_select_safe_method">请选择安全措施</string>
+    <string name="please_input_content_no_over_holder_text" formatted="false">请输入内容，不得超过%d个字</string>
+    <string name="please_input_title_no_over_holder_text" formatted="false">请输入标题，不得超过%d个字</string>
+    <string name="please_input_name_no_over_holder_text" formatted="false">请输入名称，不得超过%d个字</string>
+    <string name="please_input_pwd_no_over_holder_text" formatted="false">请输入密码，不得超过%d个字</string>
+    <string name="please_input_channel_no_over_holder_text" formatted="false">请输入频道，不得超过%d个字</string>
+    <string name="please_input_nickname">请输入昵称</string>
+    <string name="please_input_title">请输入标题</string>
+    <string name="please_input_content">请输入内容</string>
+    <string name="please_input_remark">请输入评价吧</string>
+    <string name="please_input_comment_content">请输入评论内容</string>
+    <string name="please_input_search_content">请输入搜索内容</string>
+    <string name="please_input_shy_desc">请输入详情，例如场景和姿势等</string>
+    <string name="please_input_dream_content">请输入梦的情节，记得多少写多少</string>
+    <string name="please_input_promise_content">请输入承诺的起因、经过和结果</string>
+    <string name="please_input_angry_content">请输入生气的原由</string>
+    <string name="please_input_rule_content">请输入约定的具体内容</string>
+    <string name="please_input_trigger_rule">请输入触犯约定的情景</string>
+    <string name="please_input_track_content">请输入足迹的介绍</string>
+    <string name="input_coin_count">输入投币数量</string>
+    <string name="start_time_colon_holder" formatted="false">开始时间: %s</string>
+    <string name="end_time_colon_holder" formatted="false">结束时间: %s</string>
+    <string name="time_colon_space_holder" formatted="false">时间: %s</string>
+    <string name="address_colon_space_holder" formatted="false">位置: %s</string>
+    <string name="type_colon_space_holder" formatted="false">类型: %s</string>
+    <string name="belong_colon_space_holder" formatted="false">所属: %s</string>
+    <string name="album_colon_space_holder" formatted="false">相册: %s</string>
+    <string name="duration_colon_space_holder" formatted="false">时长: %s</string>
+    <string name="rule_colon_space_holder" formatted="false">约定: %s</string>
+    <string name="confirm_delete_this_image">确定要删除这张图片吗？</string>
+    <string name="confirm_delete_this_note">确定删除这个记录？</string>
+    <string name="confirm_remove_this_note">确定移除这个记录？</string>
+    <string name="confirm_del_this_suggest">确定删除这个意见吗？</string>
+    <string name="confirm_del_this_collect">确定删除这个收藏吗？</string>
+    <string name="confirm_del_this_comment">确定删除这个评论吗？</string>
+    <string name="confirm_del_this_post">确定删除这个帖子？</string>
+    <string name="confirm_del_this_work">确定删除这个作品吗？</string>
+    <string name="confirm_report_this_comment">确定举报这个评论吗？</string>
+    <string name="confirm_report_this_post">确定举报这个帖子？</string>
+    <string name="confirm_report_this_work">确定举报这个作品吗？</string>
+    <string name="can_operation_self_create_note">只能操作自己创建的记录哦</string>
+    <string name="can_delete_self_create_post">只能删除自己创建的帖子哦</string>
+    <string name="can_delete_self_create_comment">只能删除自己创建的评论哦</string>
+    <string name="picture_where">照片呢？</string>
+    <string name="save_draft">保存草稿</string>
+    <string name="is_save_draft">是否保存草稿</string>
+    <string name="draft_save_success">草稿保存成功</string>
+
+    <!-- show-format-common -->
+    <string name="before">前</string>
+    <string name="just_now">刚刚</string>
+    <string name="holder_sprit_holder" formatted="false">%d/%d</string>
+    <string name="holder_wave_holder" formatted="false">%s~%s</string>
+    <string name="holder_space_line_space_holder" formatted="false">%s - %s</string>
+    <string name="holder_space_to_space_holder" formatted="false">%s 至 %s</string>
+    <string name="holder_space_space_holder" formatted="false">%s  %s</string>
+    <string name="holder_second" formatted="false">%d秒</string>
+    <string name="holder_minute" formatted="false">%d分钟</string>
+    <string name="holder_minute_short" formatted="false">%d分</string>
+    <string name="holder_hour" formatted="false">%d小时</string>
+    <string name="holder_hour_short" formatted="false">%d时</string>
+    <string name="holder_dayT" formatted="false">%d天</string>
+    <string name="holder_month_space_holder" formatted="false">%d月 %d</string>
+    <string name="create_at_colon_space_holder" formatted="false">创建于: %s</string>
+    <string name="update_at_colon_space_holder" formatted="false">更新于: %s</string>
+    <string name="creator_colon_space_holder" formatted="false">创建者: %s</string>
+    <string name="safe_method_colon_holder" formatted="false">安全措施: %s</string>
+    <string name="continue_duration_colon_holder" formatted="false">持续时长: %s</string>
+    <string name="menses_cycle_colon_holder_day" formatted="false">周期长度: %d天</string>
+    <string name="menses_duration_colon_holder_day" formatted="false">经期长度: %d天</string>
+    <string name="already_wake_space_holder" formatted="false">已醒来 %s</string>
+    <string name="already_sleep_space_holder" formatted="false">已睡眠 %s</string>
+    <string name="holder_colon_sleep" formatted="false">入睡时间: %s</string>
+    <string name="holder_colon_wake" formatted="false">醒来时间: %s</string>
+    <string name="holder_paper" formatted="false">%d张</string>
+    <string name="total_holder_paper" formatted="false">总共%d张</string>
+    <string name="holder_thousand_point1" formatted="false">%.1f万</string>
+    <string name="text_number_space_colon_holder" formatted="false">字数: %d</string>
+    <string name="read_space_colon_holder" formatted="false">阅读: %d</string>
+    <string name="comment_colon_holder" formatted="false">评论: %d</string>
+    <string name="point_colon_space_holder" formatted="false">点赞: %s</string>
+    <string name="collect_colon_space_holder" formatted="false">收藏: %s</string>
+    <string name="go_in_award_colon_holder_coin" formatted="false">参与奖励: %d金币</string>
+    <string name="works_count_colon_holder" formatted="false">作品数: %s</string>
+    <string name="coin_count_colon_holder" formatted="false">金币量: %s</string>
+    <string name="point_count_colon_holder" formatted="false">点赞量: %s</string>
+
+    <!-- Nav -->
+    <string name="nav_couple">我和TA</string>
+    <string name="nav_note">小本本</string>
+    <string name="nav_topic">恋爱吧</string>
+    <string name="nav_more">步行街</string>
+
+    <!-- splash -->
+    <string name="splash_sub_title_1">专为异地恋打造</string>
+    <string name="splash_sub_title_2">记录生活点点滴滴</string>
+    <string name="splash_sub_title_3">分享恋爱是是非非</string>
+    <string name="splash_sub_title_4">各种形式的秀恩爱</string>
+    <string name="splash_content_1">不仅可以查看双方位置，更有历史位置信息！\n\n不仅可以查看双方天气，还能看天气预报哦！\n\n更有App启动图设置，让《鱼笙》成为你的私人订制！</string>
+    <string name="splash_content_2">丰富的记录功能，满足你们所有的要求！\n\n上到生活状态，下到多媒体，中到纪念日、约会、游记、留言、日记、礼物、电影、美食、生气、承诺、梦境，我们这统统都有！\n\n更有其他新颖功能，帮助大家记录爱、发现爱！</string>
+    <string name="splash_content_3">不管是搞笑的、悲伤的，什么事都可以在这里诉说！\n\n丰富的类别划分，满足你任何方面的吐槽！\n\n保密的区域隔离，让你随时随地说个不停！</string>
+    <string name="splash_content_4">独乐乐不如众乐乐，来这里和大家一起秀恩爱吧！\n\n各种形式的比拼活动，让你在这里秀个不停！\n\n多种许愿活动，让所有人见证你的真心！</string>
+
+    <!-- user -->
+    <string name="login">登录</string>
+    <string name="register">注册</string>
+    <string name="input_hint_phone">请输入手机号</string>
+    <string name="input_hint_new_phone">请输入新手机号</string>
+    <string name="input_hint_verify">请输入验证码</string>
+    <string name="input_hint_pwd">请输入密码</string>
+    <string name="input_hint_old_pwd">请输入旧密码</string>
+    <string name="input_hint_new_pwd">请输入新密码</string>
+    <string name="input_hint_pwd_confirm">请再次输入密码</string>
+    <string name="input_hint_new_pwd_confirm">请再次输入新密码</string>
+    <string name="verify_login">验证码登录</string>
+    <string name="pwd_login">密码登录</string>
+    <string name="forget_pwd">忘记密码</string>
+    <string name="loading_logging">正在登录…</string>
+    <string name="user_protocol">用户协议</string>
+    <string name="login_register_agree_protocol">登录/注册，表示同意用户协议(页面右上角查看)</string>
+    <string name="twice_pwd_no_equals">两次密码输入不一致</string>
+    <string name="user_info">用户信息</string>
+    <string name="please_select_sex">请选择性别</string>
+    <string name="please_select_birth">请选择生日</string>
+    <string name="once_push_never_modify">一旦提交，将不允许修改！</string>
+    <string name="sex_colon_space">性别: </string>
+    <string name="birthday_colon_space">生日: </string>
+    <string name="send_validate_code">发送验证码</string>
+    <string name="are_send_validate_code">正在发送验证码…</string>
+
+    <!-- settings -->
+    <string name="settings">设置</string>
+    <string name="base_settings">基本设置</string>
+    <string name="no_like_can_close_model">不喜欢的话，可以关闭该模块哦~</string>
+    <string name="clear_cache">清除缓存</string>
+    <string name="confirm_del_cache">确认清除缓存？</string>
+    <string name="are_clear_cache_point">正在清除缓存…</string>
+    <string name="cache_clear_success">缓存清理成功</string>
+    <string name="contain_image_audio_video_total_colon_holder" formatted="false">包括图片、音频、视频缓存 (共:%s)</string>
+    <string name="notice_settings">通知设置</string>
+    <string name="system_settings">系统设置</string>
+    <string name="notice_yes_open">推送已打开</string>
+    <string name="notice_no_open">推送未打开</string>
+    <string name="system_notice">系统通知</string>
+    <string name="social_notice">社交通知</string>
+    <string name="night_no_disturb">夜间免打扰</string>
+    <string name="receive_system_send_import_notice">接受系统发送的重要通知</string>
+    <string name="receive_from_social_notice">接受来自用户的社交通知</string>
+    <string name="holder_clock_space_line_space_holder_clock" formatted="false">%d:00 - %d:00</string>
+    <string name="account_settings">账号设置</string>
+    <string name="change_phone">更换手机</string>
+    <string name="modify_password">修改密码</string>
+    <string name="set_password">设置密码</string>
+    <string name="about_and_help">关于与帮助</string>
+    <string name="new_notice">最新公告</string>
+    <string name="help_document">帮助文档</string>
+    <string name="about_app">关于鱼笙</string>
+    <string name="must_comply">一定要遵守哦！</string>
+    <string name="give_good_comment">给个好评</string>
+    <string name="good_comment_in_my_heart">您的好评，我们会铭记于心</string>
+    <string name="customer_qq">客服QQ</string>
+    <string name="official_group">官方部落</string>
+    <string name="official_weibo">官方微博</string>
+    <string name="official_web">官方网站</string>
+    <string name="contact_us">联系我们</string>
+    <string name="exist_account">退出账号</string>
+    <string name="confirm_exist_account">确定要退出账号吗？</string>
+
+    <!-- settings-theme -->
+    <string name="theme">主题</string>
+    <string name="girl_pink">少女粉</string>
+    <string name="menses_red">姨妈红</string>
+    <string name="gay_purple">基佬紫</string>
+    <string name="indigo_blue">墨水蓝</string>
+    <string name="briefs_blue">胖次蓝</string>
+    <string name="teal_green">茶叶绿</string>
+    <string name="sapling_green">草苗绿</string>
+    <string name="egg_yellow">咸蛋黄</string>
+    <string name="fruit_orange">鲜果橙</string>
+    <string name="coffee_brown">咖啡棕</string>
+    <string name="egg_grey">皮蛋灰</string>
+
+    <!-- settings-suggest -->
+    <string name="suggest_feedback">意见反馈</string>
+    <string name="i_want_feedback">朕要反馈</string>
+    <string name="my_follow">我的关注</string>
+    <string name="my_push">我的发布</string>
+    <string name="click_me_choose_type">点我选分类</string>
+    <string name="click_me_add_image">点我添加图片</string>
+    <string name="click_me_to_del_image">点我删除照片</string>
+    <string name="program_error">程序错误</string>
+    <string name="function_add">功能添加</string>
+    <string name="experience_optimize">体验优化</string>
+    <string name="just_debunk">纯粹吐槽</string>
+    <string name="no_reply">未回复</string>
+    <string name="already_reply">已回复</string>
+    <string name="no_accept">未采纳</string>
+    <string name="already_accept">已采纳</string>
+    <string name="handle_ing">处理中</string>
+    <string name="handle_over">处理完</string>
+    <string name="search_condition_line">————搜索条件————</string>
+    <string name="type_colon">类型:</string>
+    <string name="status_colon">状态:</string>
+    <string name="holder_floor" formatted="false">%d楼</string>
+
+    <!-- couple -->
+    <string name="pair">配对</string>
+    <string name="pair_info">配对信息</string>
+    <string name="wall_paper">墙纸</string>
+    <string name="place">位置</string>
+    <string name="weather">天气</string>
+    <string name="map">地图</string>
+    <string name="place_info">位置信息</string>
+    <string name="dissolve">解散</string>
+    <string name="complex">复合</string>
+    <string name="in_together">在一起</string>
+    <string name="i_want_pair_with_ta">我要和TA配对</string>
+    <string name="please_input_ta_phone">请输入TA的手机号</string>
+    <string name="un_know_ta_phone">获取不到TA的手机号</string>
+    <string name="ta_colon_space_holder" formatted="false">TA: %s</string>
+    <string name="quick_pair_deblock_more_posture">快来和TA配对，解锁更多姿势</string>
+    <string name="now_null_nickname">暂无爱称</string>
+    <string name="look_big_image">查看大图</string>
+    <string name="change_image">更换图片</string>
+    <string name="modify_ta_name">修改TA的名称</string>
+    <string name="couple_state_0_show">发出邀请</string>
+    <string name="couple_state_110_show">撤回邀请</string>
+    <string name="couple_state_120_show">拒绝邀请</string>
+    <string name="couple_state_210_show">提出分手</string>
+    <string name="couple_state_220_show">同意分手</string>
+    <string name="couple_state_520_show">成功配对</string>
+    <string name="u_confirm_break">你确定要解除关系吗？</string>
+    <string name="impulse_is_devil_3">冲动是魔鬼！冲动是魔鬼！冲动是魔鬼！</string>
+    <string name="click_right_top_add_wall_paper">点击右上角添加墙纸</string>
+    <string name="now_no_address_info">暂无地址信息</string>
+    <string name="now_no_weather_info">暂无天气信息</string>
+    <string name="distance_space_holder" formatted="false">相距 %s</string>
+    <string name="differ_space_holder" formatted="false">相差 %s</string>
+    <string name="location_error">定位失败</string>
+    <string name="distance_colon_space_holder" formatted="false">距离: %d米</string>
+    <string name="holder_wave_holder_c" formatted="false">%s~%s℃</string>
+    <string name="holder_level_holder_wind" formatted="false">%s级%s风</string>
+    <string name="no_location_info_cant_go_map">没有地址信息，无法进入地图</string>
+    <string name="lon_lat_colon">经纬度:</string>
+    <string name="search_location_no_exist">搜索位置不存在</string>
+    <string name="location_search_fail">位置搜索失败</string>
+    <string name="address_get_fail_reason_colon_holder" formatted="false">地理位置获取失败，原因:%s</string>
+    <string name="please_input_search_address_remember_get_province">请输入搜索地址，记得带上省份！</string>
+
+    <!-- note -->
+    <string name="pwd_lock">密码锁</string>
+    <string name="func_custom">定制</string>
+    <string name="trends">动态</string>
+    <string name="statistics">统计</string>
+    <string name="souvenir">纪念日</string>
+    <string name="wish_list">愿望清单</string>
+    <string name="menses">姨妈</string>
+    <string name="menses_info">姨妈设置</string>
+    <string name="shy">羞羞</string>
+    <string name="sleep">睡眠</string>
+    <string name="word">留言</string>
+    <string name="whisper">耳语</string>
+    <string name="diary">日记</string>
+    <string name="album">相册</string>
+    <string name="picture">照片</string>
+    <string name="audio">音频</string>
+    <string name="video">视频</string>
+    <string name="food">美食</string>
+    <string name="travel">游记</string>
+    <string name="track">足迹</string>
+    <string name="angry">生气</string>
+    <string name="promise">承诺</string>
+    <string name="promise_break">承诺违反</string>
+    <string name="gift">礼物</string>
+    <string name="dream">梦境</string>
+    <string name="award">打卡</string>
+    <string name="movie">电影</string>
+    <string name="award_rule">约定</string>
+    <string name="live">生活</string>
+    <string name="note">笔记</string>
+    <string name="media">多媒体</string>
+    <string name="open_lock">开锁</string>
+    <string name="close_lock">关锁</string>
+    <string name="per_day_is_souvenir">有你的每一天，都是纪念日</string>
+    <string name="count_down_space_holder" formatted="false">倒计时 %s</string>
+    <string name="holder_anniversary" formatted="false">%d周年</string>
+    <string name="add_holder" formatted="false">+%d</string>
+    <string name="sub_holder" formatted="false">-%d</string>
+    <string name="holder_space_in_space_holder_space_make_this_wish" formatted="false">%s 于 %s 许下了这个愿望~</string>
+    <string name="back_current">回到当前</string>
+    <string name="condom">避孕套</string>
+    <string name="acyeterion">避孕药</string>
+    <string name="out_shoot">体外排精</string>
+    <string name="menses_progress">姨妈期间</string>
+    <string name="menses_end">姨妈结束</string>
+    <string name="forecast_menses">预测经期</string>
+    <string name="blood_count">血量</string>
+    <string name="menses_pain">痛经</string>
+    <string name="mood">心情</string>
+    <string name="good_night">晚安</string>
+    <string name="i_am_wake">醒啦</string>
+    <string name="change_channel">切换频道</string>
+    <string name="current_channel_colon_space_holder" formatted="false">当前频道《%s》</string>
+    <string name="break_space_holder_space_time" formatted="false">违反 %d 次</string>
+    <string name="did_award_some_gift">有没有补偿什么礼物</string>
+    <string name="did_do_some_promise">有没有做出什么承诺</string>
+
+    <!-- topic -->
+    <string name="post">帖子</string>
+    <string name="point">点赞</string>
+    <string name="jab_ta">戳TA</string>
+    <string name="collect">收藏</string>
+    <string name="official">官方</string>
+    <string name="well">精华</string>
+    <string name="hot">热门</string>
+    <string name="most_new">最新</string>
+    <string name="my_collect">我的收藏</string>
+    <string name="ta_collect">TA的收藏</string>
+    <string name="my_relation">我的相关</string>
+    <string name="my_message">我的消息</string>
+    <string name="original_post">原帖</string>
+    <string name="report">举报</string>
+    <string name="already_report">已举报</string>
+    <string name="floor_master">楼主</string>
+    <string name="jab_a_little">戳了一下</string>
+    <string name="all_space_brackets_holder_brackets" formatted="false">全部 (%d)</string>
+    <string name="post_already_be_screen">帖子已被屏蔽</string>
+    <string name="post_already_be_delete">帖子已被删除</string>
+    <string name="receive_new_message">收到了一条新消息</string>
+    <string name="jab_in_post">戳帖子</string>
+    <string name="jab_in_comment">戳评论</string>
+    <string name="post_report">帖子举报</string>
+    <string name="post_point">帖子点赞</string>
+    <string name="post_collect">帖子收藏</string>
+    <string name="post_comment">帖子评论</string>
+    <string name="comment_reply">评论回复</string>
+    <string name="comment_report">评论举报</string>
+    <string name="comment_point">评论点赞</string>
+
+    <!-- more -->
+    <string name="broadcast">广播</string>
+    <string name="nav_pay">消费相关</string>
+    <string name="nav_match">比拼活动</string>
+    <string name="nav_future">许愿未来</string>
+    <string name="nav_more_play">更多玩法</string>
+    <string name="nav_wife">照片墙</string>
+    <string name="nav_letter">情话集</string>
+    <string name="nav_wish">许愿树</string>
+    <string name="nav_postcard">明信片</string>
+    <string name="nav_catch_baby">抓娃娃</string>
+    <string name="now_no_broadcast">暂无广播</string>
+    <string name="now_no_activity">暂无活动</string>
+    <string name="the_holder_period" formatted="false">第%d期</string>
+    <string name="old_period">往期</string>
+    <string name="coin_board">金币榜</string>
+    <string name="point_board">点赞榜</string>
+    <string name="new_board">新秀榜</string>
+    <string name="work_already_be_screen">作品已被屏蔽</string>
+    <string name="work_already_be_delete">作品已被删除</string>
+    <string name="catch_baby_help">本服务由“智子花开”提供。相关服务和责任将由第三方承担。\n\n客服微信:Musickinger</string>
+
+    <!-- more-pay -->
+    <string name="vip">会员</string>
+    <string name="coin">金币</string>
+    <string name="sign">签到</string>
+    <string name="no_vip">非会员</string>
+    <string name="vip_no">未办理</string>
+    <string name="vip_yes">已办理</string>
+    <string name="no_sign">未完成</string>
+    <string name="yes_sign">已完成</string>
+    <string name="go_to_buy">前往购买</string>
+    <string name="buy_history">购买历史</string>
+    <string name="get_history">获取历史</string>
+    <string name="pay">支付</string>
+    <string name="we_chat">微信</string>
+    <string name="ali_pay">支付宝</string>
+    <string name="wechat_pay">微信支付</string>
+    <string name="alipay_pay">支付宝支付</string>
+    <string name="vip_buy">会员购买</string>
+    <string name="coin_buy">金币购买</string>
+    <string name="sys_change">系统变更</string>
+    <string name="ad_watch">广告观看</string>
+    <string name="ad_click">广告点击</string>
+    <string name="unknown_kind">未知类型</string>
+    <string name="pay_vip_goods_format" formatted="false">%s\n%d 天\n\n￥ %.1f</string>
+    <string name="pay_coin_goods_format" formatted="false">%s\n%d 个\n\n￥ %.1f</string>
+    <string name="pay_error">支付异常</string>
+    <string name="pay_success_but_nothing">支付成功了，但是啥也没给？</string>
+    <string name="expire_colon_space_holder" formatted="false">到期: %s</string>
+    <string name="continue_colon_space_holder_space_day" formatted="false">时长: %d 天</string>
+    <string name="vip_desc">会员介绍</string>
+    <string name="no_ad">无广告</string>
+    <string name="yes_ad_more_less">有广告(尽量少)</string>
+    <string name="now_stage_open">现阶段开启</string>
+    <string name="can_add_holder" formatted="false">可添加%d个</string>
+    <string name="holder_paper_single_limit_holder" formatted="false">%d张,单张限制%s</string>
+    <string name="original_single_limit_holder" formatted="false">原图,单张限制%s</string>
+    <string name="compress_max_holder_paper" formatted="false">压缩,最多%d张</string>
+    <string name="open_image_upload">开启图片上传</string>
+    <string name="refuse_image_upload">禁止图片上传</string>
+    <string name="single_max_holder" formatted="false">单个最大%s</string>
+    <string name="every_can_upload_holder_paper" formatted="false">每个可上传%d张</string>
+    <string name="get_method">获取方式</string>
+    <string name="out_method">消耗方式</string>
+    <string name="watch_ad_get_coin">看广告，赚金币</string>
+    <string name="click_me_watch_ad_also_get_coin">点我看广告，也能赚金币</string>
+    <string name="watch_ad_desc">程序猿小哥哥好辛苦的，给他的午餐加个鸡腿吧。</string>
+    <string name="more_pay_more_send">多买多送</string>
+    <string name="more_sign_more_get">累计签到更多</string>
+    <string name="join_just_send">参加就送</string>
+    <string name="help_you_to_top">助你登榜</string>
+    <string name="wish_more_long">祈愿更长久</string>
+    <string name="postcard_more_long">目的地更遥远</string>
+    <string name="ad_fetching">广告拉取中......</string>
+    <string name="ad_fetch_fail">广告拉取失败</string>
+    <string name="coin_ad_desc_1">每成功观看一次获取%d金币，每成功点击一次获取%d金币，两次间隔%d分钟，每人每天最多可获取%d金币。</string>
+    <string name="coin_ad_desc_2">在观看过程中，退出界面/关闭广告视为放弃。</string>
+    <string name="coin_ad_desc_3">在观看/点击结束后，请勿关闭广告/页面，我们会帮你自动关闭广告以及获取金币，请在金币获取成功后继续观看广告或退出页面。</string>
+    <string name="continue_sign_holder_day" formatted="false">连续签到%d天</string>
+    <string name="to_month_sign_holder_count" formatted="false">本月签到%d次</string>
+
+    <!-- help -->
+    <string name="help_home_d">《帮助文档》旨在让大家快速理解这个app，如有不明白的地方，就来这里找找答案吧</string>
+    <string name="help_home_c1_q">这是一个什么样的app？</string>
+    <string name="help_home_c1_a">鱼笙是一款专为情侣们打造的记录与分享的app，旨在帮助情侣们可以更好的记录和分享生活中的点点滴滴。作为一款记录软件，我们更专业，所有能找到的记录内容，我们这里都有。作为一款情侣软件，我们更时尚，简约的界面设计，流畅的用户体验，让你用起来爱不释手。</string>
+    <string name="help_home_c2_q">我没有配对，可以玩这个app吗？</string>
+    <string name="help_home_c2_a" formatted="false">没有配对的话，大半功能会受到限制，毕竟这款app是量身为情侣们打造的。\n比如说《%s》和《%s》模块，只有在本app配对之后，才能正常使用，但是像《%s》和《%s》之类的分享模块，是可以正常浏览的。</string>
+    <string name="help_couple_home_d">这是一个记录双方信息的模块，包括但不限于头像、昵称、地理位置、天气信息。</string>
+    <string name="help_couple_home_c1_q">为什么我和TA配对了，还是显示没配对界面呢？</string>
+    <string name="help_couple_home_c1_a">亲，下拉刷试试看哦！前提是对方已经同意了邀请哦。</string>
+    <string name="help_couple_home_c2_q">怎么设置背景图？</string>
+    <string name="help_couple_home_c2_a">点击右上角，即可进入相应界面进行设置，注意会员和非会员可上传的张数是不一样的哦。\n另外，只上传一张的话，是没有动画效果的。\n一定要记得上传哦，不仅好看，而且还会被当做app的启动图来展示呢！</string>
+    <string name="help_couple_pair_c1_q">只能输手机号配对吗？</string>
+    <string name="help_couple_pair_c1_a">是的，我们摒弃了邀请码的配对方式，采用更坦诚的手机号邀请方式。</string>
+    <string name="help_couple_pair_c2_q">为什么提示我邀请过于频繁？</string>
+    <string name="help_couple_pair_c2_a" formatted="false">在被拒绝或者是配对解散后，有%d秒的冷却时间，冷却时间内不能再邀请相同的人哦。\n所以，还请大人们不要调皮了呢！</string>
+    <string name="help_couple_pair_c3_q">我和TA原来配对过，再配对会怎么样？</string>
+    <string name="help_couple_pair_c3_a">两个人有过配对经历，再次配对视为复合。配对之后，恢复解散之前的状态，数据也原封不动。</string>
+    <string name="help_couple_info_c1_q">为什么我不能修改自己的头像和昵称？</string>
+    <string name="help_couple_info_c1_a">没错！你只能修改对方的信息，不能修改自己的！\n试想一下，恋爱过程中，你的形象完全取决与你的TA，多么有意思的一件事啊。</string>
+    <string name="help_couple_info_c2_q">为什么我不能修改生日呢？</string>
+    <string name="help_couple_info_c2_a">小淘气，在你注册的时候已经告诉过你了，性别生日一旦设定，将不能修改！\n如果是手误导致设置错了，请移步《关于我们》，联系客服人员解决。</string>
+    <string name="help_couple_info_c3_q">在一起的天数为什么和其他情侣app不一致呢？</string>
+    <string name="help_couple_info_c3_a" formatted="false">在这里要着重声明一下，大家都没有错，只是概念不一样。其他app强调的是第几天，我们强调的是几天。\n举个例子：假设一对情侣是昨天早上10点在一起的话，今天早上9点看的话，其他app上当前显示的是第2天(今天加昨天)，我们这里显示的是第0天(23小时，不到一天)。懂了吗？</string>
+    <string name="help_couple_info_c4_q">《解散》是干嘛的？</string>
+    <string name="help_couple_info_c4_a" formatted="false">点击解散之后会出现两种状况:\n1.配对持续时长小于%d天时，直接解散。\n2.配对持续时长大于%d天时，会有%d小时的倒计时。倒计时内没有复合，视为单方面分手。倒计时内对方也点击解散，视为双方面分手。\n最后！注意！切记！如果是一些非原则性问题导致想不开的话，小编觉得还是多磨合一下的好。\n再一次最后，如果在感情上有什么疑问或者委屈，请移步《关于我们》，找到并联系我们，我们会尽最大的努力来帮助你。</string>
+    <string name="help_couple_place_c1_q">为什么位置不更新？</string>
+    <string name="help_couple_place_c1_a">原因有以下几点：\n1.位置的获取需要一些时间，并不是马上能返回位置信息给app的哦，一般在10秒左右。\n2.没有开启地理位置获取权限，导致不能上传位置给服务器，以及获取不到位置相关的天气信息。\n3.GPS信号差(可以试试开启GPS)，导致长时间获取不到位置信息。\n4.部分地区的位置和天气暂时无法获取，如国外(部分可以)等等。\n5.如果较上次更新的位置的移动距离过小，也是不会更新的哦。具体的距离大小随地点不同而不同。\n6.如果还是有问题，记得双方都下拉刷新试试能不能正常显示。如不能，请移步《意见反馈》中，反馈给我们。\n\n另外，为了确保用户设备的电量持久，以及为了遵守移动开发的基本准则。app不会在后台无限制的获取用户的地理位置，只有在app启动或者是下拉刷新的时候，才会获取用户的位置，进而更新天气信息。所以当位置和天气信息不准时，下拉刷新看看吧。</string>
+    <string name="help_couple_place_c2_q">超过好几天没有更新位置了，正常吗？</string>
+    <string name="help_couple_place_c2_a">完全正常！上面提到过了，如果一直在同一位置(以及相距不远的位置)登录或刷新，是不会更新位置的！</string>
+    <string name="help_couple_place_c3_q">定位准确度不高怎么办？经常误差几十米！</string>
+    <string name="help_couple_place_c3_a">影响定位的精准度的因素有很多很多，除了上面提到的GPS、所处地区外，还有附近基站数量及信号强弱、定位的方式(wifi/基站/GPS)、天气状况等等很多很多因素。\n如果因为定位偏差带来情侣之间的误会，还请多多跟对方解释，说明缘由，必要时刻可以搬出客服人员帮您解说！</string>
+    <string name="help_couple_place_c4_q">位置可以删除或隐藏吗？</string>
+    <string name="help_couple_place_c4_a">目前不可以。</string>
+    <string name="help_couple_weather_c1_q">为什么没有天气信息？</string>
+    <string name="help_couple_weather_c1_a">原因有以下几点：\n1.如果没有位置信息的话，是不会有天气信息的。\n2.如果首页还没出现位置信息，就先打开天气预报的话，也是没有数据的，还请等首页位置刷出来之后，再点进来。\n3.另外，部分地区的天气预报暂无数据或数据异常，如国外等等。</string>
+    <string name="help_note_home_d">记录与分享，这个模块更专注于记录。\n生活的点点滴滴，大小事项，都可以在这里记录哦！还不赶快动起手来？</string>
+    <string name="help_note_home_c1_q">换了手机后，数据会丢失吗？</string>
+    <string name="help_note_home_c1_a">不会的，数据全部存放在服务器，即使换了手机，还是可以获取到的。</string>
+    <string name="help_note_home_c2_q">数据放在这里安全吗？</string>
+    <string name="help_note_home_c2_a">请放心！此模块中的数据全为私有数据，除了你和TA之外无人可以访问。如果双方解除配对了，那么此配对中的记录模块的数据将不见天日，除非复合。</string>
+    <string name="help_note_lock_d">给你的小本本上个锁吧，这样就不怕别人瞎戳戳戳了。</string>
+    <string name="help_note_lock_c1_q">为什么发送了验证码，我的手机却收不到！</string>
+    <string name="help_note_lock_c1_a">前方高能！因为验证码是发到你的另一半手机上了啊。\n为了避免手机丢失后，被不法分子通过验证码重置密码锁，我们决定验证码只能发到TA的手机上。\n什么？两个人手机都丢了？还是被同一个小偷拿到？OMG！赶紧用其他手机登陆下，把那个账号顶下来吧！</string>
+    <string name="help_note_lock_c2_q">为什么我退出app再进来后，没有自动上锁？</string>
+    <string name="help_note_lock_c2_a">值得注意的是，上锁和解锁都是用户去控制的，app不做任何操作，主要是为了避免频繁的解锁。\n其实一般在出去玩耍，或者是家里还熊孩子的时候上锁就可以了，你说呢？</string>
+    <string name="help_note_souvenir_d">纪念日，最值得被记录的日子。可以关联每年当日发生的事哦。\n每年的纪念日当天，记得过来看看，有彩蛋哟！</string>
+    <string name="help_note_souvenir_c1_q">纪念日和愿望清单有什么区别？</string>
+    <string name="help_note_souvenir_c1_a">当然有了，一个是已经实现的，一个是还没有实现的。\n两种数据的展现方式也不一样，纪念日可以关联每年当天所发生的事，愿望清单就不行了。</string>
+    <string name="help_note_souvenir_c2_q">纪念日的关联数据，每年能关联几个同类型数据？</string>
+    <string name="help_note_souvenir_c2_a" formatted="false">%d个哦！</string>
+    <string name="help_note_souvenir_c3_q">愿望清单不能关联数据、也不能打勾，有什么用呢？</string>
+    <string name="help_note_souvenir_c3_a">我们把重要的日子分为《纪念日》和《愿望》两种，一种是已完成，一种是未完成。所以愿望的定义就是未完成的纪念日，当一个愿望想要打勾的时候，直接修改成纪念日即可，这样就多了一个纪念日啦！</string>
+    <string name="help_note_menses_c1_q">添加的时候，提示数量已达上限？</string>
+    <string name="help_note_menses_c1_a" formatted="false">每月记录的数量上限是 %d 个，超过这个数量后不能再提交，可以删除不必要的记录后再添加，或者是添加记录到其他月份。</string>
+    <string name="help_note_menses_c2_q">请问怎么删除记录呢？</string>
+    <string name="help_note_menses_c2_a">在具体姨妈期的第一天，关闭(姨妈期间)或者是勾选(姨妈结束)都可以删除姨妈记录哦。</string>
+    <string name="help_note_menses_c3_q">怎么修改经期和周期呢？</string>
+    <string name="help_note_menses_c3_a">点击经期/周期的视图展示界面，即可进入姨妈设置页面进行修改。</string>
+    <string name="help_note_menses_c4_q">这个模块男生可以用吗？</string>
+    <string name="help_note_menses_c4_a">男生可以帮女生记录，但不能记录自己的(而且也没有啊)。</string>
+    <string name="help_note_shy_c1_q">添加的时候，提示数量已达上限？</string>
+    <string name="help_note_shy_c1_a" formatted="false">每天记录的数量上限是 %d 个，超过这个数量后不能再提交，可以删除不必要的记录后再添加，或者是添加记录到其他日期。</string>
+    <string name="help_note_shy_c2_q">请问怎么删除记录呢？</string>
+    <string name="help_note_shy_c2_a">点击日历视图的具体日期，会在底部区域展示出当天的记录，然后长按想要删除的那个记录就可以了！\n前提是只能删除自己创建的哦！</string>
+    <string name="help_note_shy_c3_q">添加的时候加了很多描述，怎么看不到了？</string>
+    <string name="help_note_shy_c3_a">点击日历视图的具体日期，会在底部区域展示出当天的记录，然后点击一下具体的记录，就会看到了！</string>
+    <string name="help_note_sleep_c1_q">添加的时候，提示数量已达上限？</string>
+    <string name="help_note_sleep_c1_a" formatted="false">每天记录的数量上限是 %d 个，超过这个数量后不能再提交，可以删除不必要的记录后再添加。</string>
+    <string name="help_note_sleep_c2_q">请问怎么删除记录呢？</string>
+    <string name="help_note_sleep_c2_a">点击日历视图的具体日期，会在底部区域展示出当天的记录，然后长按想要删除的那个记录就可以了！\n前提是只能删除自己创建的哦！</string>
+    <string name="help_note_sleep_c3_q">为什么会提示我时长太短/长？</string>
+    <string name="help_note_sleep_c3_a" formatted="false">为了防止提交无效的数据，我们在后台做了限制。\n睡眠时长小于%d分钟、或者大于%d小时的记录，都不允许被添加。如果影响到了后续的记录添加，请删除无效的记录，即可继续操作。</string>
+    <string name="help_note_album_c1_q">为什么每次只能上传一张！打开看大图还很模糊！</string>
+    <string name="help_note_album_c1_a">亲，如果真是这样的话，说明您上传的是相册的封面！而不是照片！\n多媒体-图片里可以创建无数个相册，而相册里又可以放无数照片，这种关系懂了吗？\n点击相应的相册(就是封面图)，进入相册详情页面后，点击右下角就可以真正的上传照片了，一次能传很多张的！</string>
+    <string name="help_note_album_c2_q">请问怎么删除？</string>
+    <string name="help_note_album_c2_a">点击相册封面，进入照片列表页，然后就可以看到删除选项了。删除整个相册是点击右上角；删除单张照片的话，长按要删除的照片就可以了。</string>
+    <string name="help_note_work_c1_q">为什么我发布了留言，对方却不能收到？</string>
+    <string name="help_note_work_c1_a">这是留言板，不是聊天哦。不是实时发送的，需要下拉刷新才能看到哦。</string>
+    <string name="help_note_whisper_d">这是一个可以说悄悄话的地方。\n是不是有些话憋在心里难受，说又没地方说？这里就是你发泄的天堂！\n当然了，除了发泄，还有点点情趣呢，发表一句TA想听到的话，然后让TA使劲找吧，hiahiahia~</string>
+    <string name="help_note_whisper_c1_q">这里的内容会被别人看到吗？</string>
+    <string name="help_note_whisper_c1_a">不会的，整个小本本模块里的内容都只有你和TA可见，包括这里。\n而且就算TA要看也要输对频道才行，是不是很有意思？</string>
+    <string name="help_note_whisper_c2_q">如果不小心忘了频道，该怎么办？</string>
+    <string name="help_note_whisper_c2_a">这个小的们也没辙啊！耳语的特性就是保密再保密，不可能有任何机会获取到已发布内容的频道号。所以，如果是重要的内容，还请大人们铭记频道！</string>
+    <string name="help_note_whisper_c3_q">怎么删除？长按也不行！</string>
+    <string name="help_note_whisper_c3_a">我想告诉你的是，这里的东西一旦发布，是不能删除的！\n所以要谨慎啊，要是是怕被TA看到的话，就找个难写的频道发表内容。</string>
+    <string name="help_note_whisper_c4_q">怎么玩？</string>
+    <string name="help_note_whisper_c4_a">玩法很多哦！比如：\n1.有些话，暂时不想让TA看到，就可以来这里记录，等到时机成熟，再告诉TA频道即可。\n2.也可以把这里当做是一个\"捉迷藏\"的地方，可以说一句TA想听的话，然后告诉TA一个大概的频道范围，让TA使劲找！\n3.也可以来这里偷偷打卡，比如在某个频道每天说\"爱你\"，攒够365天，就告诉TA吧！\n4.更多玩法，等你发掘！\n注意：这里的内容在《动态》和《统计》里是没有记录的，所以尽情发挥吧！</string>
+    <string name="help_note_award_d">这里是打卡，是约定的兑现。\n可以把这里当成是一种日常打卡的地方，也可以把这里当成是一种奖善罚恶的机制。\n两个人的日常中，难免需要督促对方做一些事情，比如学习/运动等等。或是难免有人做错事，有人做对事。所以我们要来一些约定，违背了就要惩罚，做到了就要奖励。\n情侣们可以在这里定制一套自己的打卡规则，按约定来奖励与惩罚，以分数来论英雄。</string>
+    <string name="help_note_award_c1_q">怎么使用这个功能啊？</string>
+    <string name="help_note_award_c1_a">1.无规矩不成方圆。首先双方可以添加一些约定，用来告诉双方哪些事会触发打卡。\n2.一旦触发了约定，就可以过来打卡，每个打卡必须依赖某个约定，不可以乱加哦！\n3.打的卡多了，就能看出来谁分高，谁分低了。谁做的好，谁做的不好咯。</string>
+    <string name="help_note_award_c2_q">举个栗子！</string>
+    <string name="help_note_award_c2_a">1.妹子讨厌男生抽烟，于是发布了一条约定：抽烟-10分。\n2.发现男生抽烟了，进来打卡，依赖抽烟的约定，男生总分数-10。\n3.分数总是负的不行啊，然后再发布一条约定：男生一天不打游戏的话，+10分。\n4.大概就是这样子，要有扣分约定，也要有加分约定，这样分数才能平衡。</string>
+    <string name="help_note_award_c3_q">再举个栗子！</string>
+    <string name="help_note_award_c3_a">1.假如情侣双方都是学生，需要互相督促对方学习。\n2.先发布个约定：每天图书馆学习至少两小时。\n3.谁做到了就可以过来打卡，没做到的只能看着对方的分数蹭蹭的往上涨。</string>
+    <string name="help_note_award_c4_q">还能怎么玩？</string>
+    <string name="help_note_award_c4_a">相信会有很多安分守己的小乖乖分数一直居高不下，这时候可以发布一个扣分项，指使对方做件事哦！对方做到了，就可以扣掉自己的分数，比如：大街上喊爱你之类的。\n自由发挥吧，hiahiahia~</string>
+    <string name="help_note_diary_c1_q">日记能添加图片吗？</string>
+    <string name="help_note_diary_c1_a">目前只有会员可以在日记里插图片，详情可查看会员权限。</string>
+    <string name="help_note_travel_d">一次约会，一次旅游，一次散步，一次踏足，甚至是一次异地恋的相见。都可以在这里记录哦！</string>
+    <string name="help_note_travel_c1_q">每个游记可以添加多少关联数据呢？</string>
+    <string name="help_note_travel_c1_a" formatted="false">%d个足迹，%d个相册，%d个视频，%d个美食，%d个电影，%d个日记。</string>
+    <string name="help_topic_home_d">记录与分享，这个模块更专注于分享。\n有什么想要分享给大家的、或者是探讨的话题，就来这里诉说吧，相信会有很多聆听者的。</string>
+    <string name="help_topic_home_c1_q">发现了不适的内容怎么办？</string>
+    <string name="help_topic_home_c1_a">涉黄，举报！涉政，举报！广告，举报！恶言，举报！\n社区是大家的，运营也需要靠大家的一份力量。欢迎大家踊跃举报不适的内容，我们也会努力维护一个舒适的环境。</string>
+    <string name="help_topic_home_c2_q">这个匿名发帖靠谱吗？</string>
+    <string name="help_topic_home_c2_a">考虑到部分内容可能不想让另一半看到，我们提供了匿名发布的模块，并且提供了相应的分类。\n放心，匿名的话，发帖人的信息将会被抹除，包括在匿名下的所有评论者的信息也会被抹除。\n因为不知道用户的信息，所以帖子和评论是不能删除的，而且在帖子更新的时候不会收到消息提醒。</string>
+    <string name="help_topic_home_c3_q">为什么有的类别我这里有，我的另一半没有呢？</string>
+    <string name="help_topic_home_c3_a">亲，我们这里部分模块是区分用户和地域的。\n有的模块只对男性开放，有的只对女性开放，有的只对同性恋开放，有的只对异性恋开放。\n有的模块只对区域内用户开发，类似于《附近的帖子》。</string>
+    <string name="help_topic_home_c4_q">怎么删除？</string>
+    <string name="help_topic_home_c4_a">帖子：如果是自己的帖子，右上角会有删除的图标，点击删除。\n评论：如果是自己的评论，长按即可删除哦。</string>
+    <string name="help_more_home_d">这是一个类似于《更多》的模块，在关注和分享里塞不下的功能，会全放到这里哦，比如广播系统，消费系统，活动系统等等。</string>
+    <string name="help_more_vip_c1_q">TA买了会员后，我还需要再买吗？</string>
+    <string name="help_more_vip_c1_a">不需要！一人购买，两人通用。</string>
+    <string name="help_more_vip_c2_q">这个app只有办会员才能玩吗？</string>
+    <string name="help_more_vip_c2_a">并不是！！！\n相信大家可以感觉到，很多情侣app中的收费项，在我们这里都是免费的，而且即使有的功能不免费，也有很大的免费额度，供情侣们无消费正常使用。我们的会员一般是和文件大小以及存储空间挂钩的，当想要更多的额度时，才有必要办会员。\n最后，希望大家支持支持我们！</string>
+    <string name="help_more_coin_c1_q">金币是双方共用的吗？</string>
+    <string name="help_more_coin_c1_a">是的呢！你的就是TA的，TA的就是你的。</string>
+    <string name="help_more_coin_c2_q">金币可以提现吗？</string>
+    <string name="help_more_coin_c2_a">不可以呢，金币暂时只能用于app内消耗。\n更多的玩法，我们正在开发中。。。</string>
+    <string name="help_more_bill_c1_q">支付失败了怎么办？</string>
+    <string name="help_more_bill_c1_a">亲，看看有没有什么提示信息，可以移步《意见反馈》中反馈给我们，或者是移步《关于我们》中，联系客服人员帮您解决问题。</string>
+    <string name="help_more_bill_c2_q">支付成功了，但是买的东西没有给我？</string>
+    <string name="help_more_bill_c2_a">在支付按钮的下方会有文字提示，点击相关提示，可更新购买商品状况。\n如果以上办法不能解决，请大人您一定要反馈给我们，任何方式都行(首推找客服人员)，我们会第一时间为您解决问题！\n任何因我们的失误，导致用户服务购买失败的，我们会第一时间补救，请一定要相信我们的服务态度。</string>
+    <string name="help_more_sign_c1_q">签到有什么用？</string>
+    <string name="help_more_sign_c1_a">目前只有给予金币这个用途，不排除后续会开发其他的功能，如签到排行榜等！</string>
+    <string name="help_more_sign_c2_q">为什么我今天没签到，却提示我签到了？</string>
+    <string name="help_more_sign_c2_a">配对中只要有一个人签到就可以了呢。</string>
+    <string name="help_more_sign_c3_q">签到给予的金币规则是？</string>
+    <string name="help_more_sign_c3_a" formatted="false">1.第一次签到或者是不连续签到，给予%d个金币。\n2.连续签到的话，根据连续天数的累计，额外给予(连续天数-1)*%d个金币。\n3.签到给予的金币有封顶，最多每天获得%d个金币。</string>
+    <string name="help_more_match_c1_q">参与会得金币吗？</string>
+    <string name="help_more_match_c1_a">是的呢？具体奖励额度请移步每一期活动的介绍查看。</string>
+    <string name="help_more_match_c2_q">为什么我的作品会被系统删除？</string>
+    <string name="help_more_match_c2_a">请在每次发表前，留意一下每期活动的标题，作品与标题相关度低或是被举报过多的话，是会被系统删除或屏蔽。</string>
+    <string name="help_more_match_c3_q">为什么有的活动没有开启？</string>
+    <string name="help_more_match_c3_a">活动的开启视运营情况和用户需求而定，不定期开启哦！</string>
+    <string name="help_more_match_c4_q">怎么查看往期的活动？</string>
+    <string name="help_more_match_c4_a">如果活动没有开启的话，会默认进入往期活动列表页。\n如果活动开启了，可以点击右上角(菜单)进入往期列表。</string>
+    <string name="help_more_match_c5_q">怎么查看自己的发表？</string>
+    <string name="help_more_match_c5_a">如果是刚发表的，可以根据《新秀榜》查看作品，毕竟是按发表时间倒叙排序的，找找看吧。\n如果新秀榜里找不到，请点击顶部本期介绍进入往期列表页，里面有《我们的》相关作品。</string>
+    <string name="help_more_match_c6_q">为什么往期的作品不能操作了？</string>
+    <string name="help_more_match_c6_a">往期的作品除了删除，不能进行任何操作哦，包括点赞，投币，发表等。\n另外，往期的作品是不能查看新秀榜的！</string>
+    <string name="help_suggest_home_d">旨在让大家来提出bug和意见等，我们会在第一时间收到您的消息，并和相关负责部门商讨问题的解决方案等，最后会在产出结果的第一时间以官方回复形式通知用户。</string>
+    <string name="help_suggest_home_c1_q">我可以在这里发表什么内容？</string>
+    <string name="help_suggest_home_c1_a">任何意见和bug都可以，但请大家文明用语！\n注意：如果app发生闪退等bug，记得标明手机型号等信息，以方便我们快速处理您的问题。\n再次注意：任何在本区域捣乱/恶言攻击等，将会被给予警告处理，情节严重者，给予封号处理。</string>
+
+    <!--user_protocol-->
+    <string name="agreement_import_know" formatted="false">重要须知:\n%s在此特别提醒用户认真阅读、充分理解本《用户协议》（下称《协议》）--- 用户应认真阅读、充分理解本《协议》中各条款，包括免除或者限制%s的免责条款及对用户的权利限制条款。请您审慎阅读并选择接受或不接受本《协议》（未成年人应在法定监护人陪同下阅读）。除非您接受本《协议》所有条款，否则您无权注册、登录或使用本协议所涉相关服务。您的注册、登录、使用等行为将视为对本《协议》的接受，并同意接受本《协议》各项条款的约束。本《协议》描述%s与用户之间关于%s服务相关方面的权利义务。“用户”是指注册、登录、使用、浏览本服务的个人或组织。本《协议》可随时更新，更新后的协议条款一旦公布即代替原来的协议条款，恕不再另行通知，用户可在本网站查阅最新版协议条款。在修改《协议》条款后，如果用户不接受修改后的条款，请立即停止使用%s提供的服务，用户继续使用提供的服务将被视为已接受了修改后的协议。</string>
+    <string name="agreement_use_rule" formatted="false">一、使用规则\n1、用户充分了解并同意，%s仅为用户提供信息分享、传送及获取的平台，用户必须为自己注册帐号下的一切行为负责，包括您所传送的任何内容以及由此产生的任何结果。用户应对%s中的内容自行加以判断，并承担因使用内容而引起的所有风险，包括因对内容的正确性、完整性或实用性的依赖而产生的风险。%s无法且不会对因用户行为而导致的任何损失或损害承担责任。\n2、用户在%s服务中或通过%s服务所传送的任何内容并不反映%s的观点或政策，%s对此不承担任何责任。\n3、用户充分了解并同意，%s是一个基于用户关系网的点对点即时通讯产品，用户须对在%s上的注册信息的真实性、合法性、有效性承担全部责任，用户不得冒充他人；不得利用他人的名义传播任何信息；不得恶意使用注册帐号导致其他用户误认；否则%s有权立即停止提供服务，收回%s”帐号并由用户独自承担由此而产生的一切法律责任。\n4、用户须对在%s上所传送信息的真实性、合法性、无害性、有效性等全权负责，与用户所传播的信息相关的任何法律责任由用户自行承担，与%s无关。\n5、%s保留因业务发展需要，单方面对本服务的全部或部分服务内容在任何时候不经任何通知的情况下变更、暂停、限制、终止或撤销%s服务的权利，用户需承担此风险。\n6、%s提供的服务中可能包括广告，用户同意在使用过程中显示%s和第三方供应商、合作伙伴提供的广告。\n7、用户不得利用%s或%s服务制作、上载、复制、发送如下内容：\n (1) 反对宪法所确定的基本原则的；\n (2) 危害国家安全，泄露国家秘密，颠覆国家政权，破坏国家统一的；\n (3) 损害国家荣誉和利益的；\n (4) 煽动民族仇恨、民族歧视，破坏民族团结的；\n (5) 破坏国家宗教政策，宣扬邪教和封建迷信的；\n (6) 散布谣言，扰乱社会秩序，破坏社会稳定的；\n (7) 散布淫秽、色情、赌博、暴力、凶杀、恐怖或者教唆犯罪的；\n (8) 侮辱或者诽谤他人，侵害他人合法权益的；\n (9) 含有法律、行政法规禁止的其他内容的信息。\n8、%s可依其合理判断，对违反有关法律法规或本协议约定；或侵犯、妨害、威胁任何人权利或安全的内容，或者假冒他人的行为，%s有权依法停止传输任何前述内容，并有权依其自行判断对违反本条款的任何人士采取适当的法律行动，包括但不限于，从%s服务中删除具有违法性、侵权性、不当性等内容，终止违反者的成员资格，阻止其使用%s全部或部分服务，并且依据法律法规保存有关信息并向有关部门报告等。\n9、用户权利及义务：\n (1) %s帐号的所有权归%s所有，用户完成申请注册手续后，获得%s帐号的使用权，该使用权仅属于初始申请注册人，禁止赠与、借用、租用、转让或售卖。%s因经营需要，有权回收用户的%s帐号。\n (2) 用户有权更改、删除在%s上的个人资料、注册信息及传送内容等，但需注意，删除有关信息的同时也会删除任何您储存在系统中的文字和图片。用户需承担该风险。\n (3) 用户有责任妥善保管注册帐号信息及帐号密码的安全，用户需要对注册帐号以及密码下的行为承担法律责任。用户同意在任何情况下不使用其他成员的帐号或密码。在您怀疑他人在使用您的帐号或密码时，您同意立即通知%s。\n (4) 用户应遵守本协议的各项条款，正确、适当地使用本服务，如因用户违反本协议中的任何条款，%s有权依据协议终止对违约用户%s帐号提供服务。同时，%s保留在任何时候收回%s帐号、用户名的权利。\n (5) 用户注册帐号后如果长期不登录该帐号，有权回收该帐号，以免造成资源浪费，由此带来问题均由用户自行承担。</string>
+    <string name="agreement_private_protect" formatted="false">二、隐私保护\n用户同意个人隐私信息是指那些能够对用户进行个人辨识或涉及个人通信的信息，包括下列信息：用户真实姓名，身份证号，手机号码，IP地址。而非个人隐私信息是指用户对本服务的操作状态以及使用习惯等一些明确且客观反映在%s服务器端的基本记录信息和其他一切个人隐私信息范围外的普通信息；以及用户同意公开的上述隐私信息；\n尊重用户个人隐私信息的私有性是北%s的一贯制度，%s将会采取合理的措施保护用户的个人隐私信息，除法律或有法律赋予权限的政府部门要求或用户同意等原因外，%s未经用户同意不向除合作单位以外的第三方公开、 透露用户个人隐私信息。 但是，用户在注册时选择同意，或用户与%s及合作单位之间就用户个人隐私信息公开或使用另有约定的除外，同时用户应自行承担因此可能产生的任何风险，%s对此不予负责。同时，为了运营和改善%s的技术和服务，%s将可能会自行收集使用或向第三方提供用户的非个人隐私信息，这将有助于%s向用户提供更好的用户体验和提高%s的服务质量。\n用户同意，在使用%s服务时也同样受%s隐私政策的约束。当您接受本协议条款时，您同样认可并接受%s隐私政策的条款。</string>
+    <string name="agreement_icon_info" formatted="false">三、%s商标信息\n%s服务中所涉及的图形、文字或其组成，以及其他%s标志及产品、服务名称，均为%s之商标（以下简称“%s标识”）。未经%s事先书面同意，用户不得将%s标识以任何方式展示或使用或作其他处理，也不得向他人表明您有权展示、使用、或其他有权处理%s标识的行为。</string>
+    <string name="agreement_law_response" formatted="false">四、法律责任及免责\n1、用户违反本《协议》或相关的服务条款的规定，导致或产生的任何第三方主张的任何索赔、要求或损失，包括合理的律师费，用户同意赔偿%s与合作公司、关联公司，并使之免受损害。\n2、用户因第三方如电信部门的通讯线路故障、技术问题、网络、电脑故障、系统不稳定性及其他各种不可抗力原因而遭受的一切损失，%s及合作单位不承担责任。\n3、因技术故障等不可抗事件影响到服务的正常运行的，%s及合作单位承诺在第一时间内与相关单位配合，及时处理进行修复，但用户因此而遭受的一切损失，%s及合作单位不承担责任。\n4、本服务同大多数互联网服务一样，受包括但不限于用户原因、网络服务质量、社会环境等因素的差异影响，可能受到各种安全问题的侵扰，如他人利用用户的资料，造成现实生活中的骚扰；用户下载安装的其它软件或访问的其他网站中含有“特洛伊木马”等病毒，威胁到用户的计算机信息和数据的安全，继而影响本服务的正常使用等等。用户应加强信息安全及使用者资料的保护意识，要注意加强密码保护，以免遭致损失和骚扰。\n5、用户须明白，使用本服务因涉及Internet服务，可能会受到各个环节不稳定因素的影响。因此，本服务存在因不可抗力、计算机病毒或黑客攻击、系统不稳定、用户所在位置、用户关机以及其他任何技术、互联网络、通信线路原因等造成的服务中断或不能满足用户要求的风险。用户须承担以上风险，%s不作担保。对因此导致用户不能发送和接受阅读信息、或接发错信息，%s不承担任何责任。\n6、用户须明白，在使用本服务过程中存在有来自任何他人的包括威胁性的、诽谤性的、令人反感的或非法的内容或行为或对他人权利的侵犯（包括知识产权）的匿名或冒名的信息的风险，用户须承担以上风险，%s和合作公司对本服务不作任何类型的担保，不论是明确的或隐含的，包括所有有关信息真实性、适商性、适于某一特定用途、所有权和非侵权性的默示担保和条件，对因此导致任何因用户不正当或非法使用服务产生的直接、间接、偶然、特殊及后续的损害，不承担任何责任。\n7、%s定义的信息内容包括：文字、软件、声音、相片、录像、图表；在广告中全部内容；%s为用户提供的商业信息，所有这些内容受版权、商标权、和其它知识产权和所有权法律的保护。所以，用户只能在%s和广告商授权下才能使用这些内容，而不能擅自复制、修改、编纂这些内容、或创造与内容有关的衍生产品。\n8、在任何情况下，%s均不对任何间接性、后果性、惩罚性、偶然性、特殊性或刑罚性的损害，包括因用户使用%s服务而遭受的利润损失，承担责任（即使%s已被告知该等损失的可能性亦然）。尽管本协议中可能含有相悖的规定，%s对您承担的全部责任，无论因何原因或何种行为方式，始终不超过您在成员期内因使用%s服务而支付给%s的费用(如有)。</string>
+    <string name="agreement_social_manage" formatted="false">五、%s社区管理规则\n%s是和现实相关的社交产品，希望用户相互尊重，遵循和现实社会一样的社交礼仪。\n为避免遭到用户举报而被封禁设备，请您遵守以下原则：\n1、请勿发送涉嫌性骚扰的文字、图片及语音信息；\n2、请勿使用含色情、淫秽意味或其他令人不适的头像或资料；\n3、请勿在交谈中使用辱骂、恐吓、威胁等言论；\n4、请勿发布各类垃圾广告、恶意信息、诱骗信息；\n5、请勿盗用他人头像或资料，请勿伪装他人身份；\n6、请勿发布不当政治言论或者任何违反国家法规政策的言论。\n如用户违反社区管理规则，%s有权依据协议终止对违约用户%s帐号提供服务。同时，%s保留在任何时候收回%s帐号的权力。</string>
+    <string name="agreement_other_clause" formatted="false">六、其他条款\n1、%s郑重提醒用户注意本《协议》中免除%s责任和加重用户义务的条款，请用户仔细阅读，自主考虑风险。未成年人应在法定监护人的陪同下阅读本《协议》。以上各项条款内容的最终解释权及修改权归%s所有。\n2、本《协议》所定的任何条款的部分或全部无效者，不影响其它条款的效力。\n3、本《协议》的版权由%s所有，%s保留一切解释和修改权利。</string>
+    <string name="agreement_all_name" formatted="false">《%s软件许可及服务协议》</string>
+</resources>

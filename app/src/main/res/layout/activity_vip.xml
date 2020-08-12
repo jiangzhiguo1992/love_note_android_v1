@@ -1,0 +1,832 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="?attr/colorPrimary"
+    android:orientation="vertical"
+    tools:context=".controller.activity.more.VipActivity">
+
+    <include layout="@layout/view_top_bar"/>
+
+    <com.jiangzg.lovenote.view.GSwipeRefreshLayout
+        android:id="@+id/srl"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <android.support.v4.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fillViewport="true">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <android.support.v7.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    app:cardBackgroundColor="@color/white"
+                    app:cardCornerRadius="@dimen/radius_big"
+                    app:cardElevation="@dimen/elevation_big"
+                    app:cardMaxElevation="@dimen/elevation_huge">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <com.jiangzg.lovenote.view.FrescoAvatarView
+                            android:id="@+id/ivAvatarLeft"
+                            android:layout_width="60dp"
+                            android:layout_height="60dp"
+                            android:layout_marginStart="15dp"
+                            android:layout_marginTop="15dp"
+                            android:layout_marginEnd="10dp"
+                            android:layout_marginBottom="15dp"
+                            tools:background="@mipmap/ic_account_circle_grey_48dp"/>
+
+                        <Button
+                            android:id="@+id/btnHistory"
+                            style="@style/FontWhiteSmall"
+                            android:layout_width="wrap_content"
+                            android:layout_height="30dp"
+                            android:layout_alignBottom="@+id/ivAvatarLeft"
+                            android:layout_toStartOf="@+id/sCenter"
+                            android:layout_toEndOf="@+id/ivAvatarLeft"
+                            android:background="@drawable/selector_enable_press_solid_light_primary_dark_r100"
+                            android:text="@string/buy_history"/>
+
+                        <Space
+                            android:id="@+id/sCenter"
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:layout_centerInParent="true"
+                            android:layout_marginStart="5dp"
+                            android:layout_marginEnd="5dp"/>
+
+                        <Button
+                            android:id="@+id/btnBuy"
+                            style="@style/FontWhiteSmall"
+                            android:layout_width="wrap_content"
+                            android:layout_height="30dp"
+                            android:layout_alignBottom="@+id/ivAvatarRight"
+                            android:layout_toStartOf="@+id/ivAvatarRight"
+                            android:layout_toEndOf="@+id/sCenter"
+                            android:background="@drawable/selector_enable_press_solid_light_primary_dark_r100"
+                            android:text="@string/go_to_buy"/>
+
+                        <com.jiangzg.lovenote.view.FrescoAvatarView
+                            android:id="@+id/ivAvatarRight"
+                            android:layout_width="60dp"
+                            android:layout_height="60dp"
+                            android:layout_alignParentEnd="true"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginTop="15dp"
+                            android:layout_marginEnd="15dp"
+                            android:layout_marginBottom="15dp"
+                            tools:background="@mipmap/ic_account_circle_grey_48dp"/>
+                    </RelativeLayout>
+                </android.support.v7.widget.CardView>
+
+                <LinearLayout
+                    android:id="@+id/llLimit"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:visibility="gone"
+                    tools:visibility="visible">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginEnd="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <View
+                            style="@style/LineHorizontal"
+                            android:layout_weight="1"
+                            android:background="@color/white"/>
+
+                        <TextView
+                            style="@style/FontWhiteSmall"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginEnd="10dp"
+                            android:text="@string/vip_desc"/>
+
+                        <View
+                            style="@style/LineHorizontal"
+                            android:layout_weight="1"
+                            android:background="@color/white"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <android.support.v7.widget.CardView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginEnd="5dp"
+                            android:layout_marginBottom="5dp"
+                            android:layout_weight="1"
+                            android:background="?attr/selectableItemBackground"
+                            android:foreground="?attr/selectableItemBackground"
+                            app:cardBackgroundColor="@color/white"
+                            app:cardCornerRadius="@dimen/radius_normal"
+                            app:cardElevation="@dimen/elevation_normal"
+                            app:cardMaxElevation="@dimen/elevation_big">
+
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content">
+
+                                <ImageView
+                                    android:id="@+id/ivAd"
+                                    android:layout_width="35dp"
+                                    android:layout_height="35dp"
+                                    android:layout_marginStart="5dp"
+                                    android:layout_marginTop="10dp"
+                                    android:layout_marginEnd="5dp"
+                                    android:layout_marginBottom="10dp"
+                                    android:scaleType="center"
+                                    android:src="@mipmap/ic_vip_ad_24dp"/>
+
+                                <TextView
+                                    android:id="@+id/tvAdVipYes"
+                                    style="@style/FontBlackSmall"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignTop="@+id/ivAd"
+                                    android:layout_toEndOf="@+id/ivAd"
+                                    android:ellipsize="end"
+                                    android:singleLine="true"
+                                    tools:text="无广告"/>
+
+                                <TextView
+                                    android:id="@+id/tvAdVipNo"
+                                    style="@style/FontGreySmall"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignBottom="@+id/ivAd"
+                                    android:layout_toEndOf="@+id/ivAd"
+                                    android:ellipsize="end"
+                                    android:singleLine="true"
+                                    tools:text="有广告(尽量少一点)"/>
+                            </RelativeLayout>
+                        </android.support.v7.widget.CardView>
+
+                        <android.support.v7.widget.CardView
+                            android:id="@+id/cvWall"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="5dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginEnd="10dp"
+                            android:layout_marginBottom="5dp"
+                            android:layout_weight="1"
+                            android:background="?attr/selectableItemBackground"
+                            android:foreground="?attr/selectableItemBackground"
+                            app:cardBackgroundColor="@color/white"
+                            app:cardCornerRadius="@dimen/radius_normal"
+                            app:cardElevation="@dimen/elevation_normal"
+                            app:cardMaxElevation="@dimen/elevation_big">
+
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content">
+
+                                <ImageView
+                                    android:id="@+id/ivWall"
+                                    android:layout_width="35dp"
+                                    android:layout_height="35dp"
+                                    android:layout_marginStart="5dp"
+                                    android:layout_marginTop="10dp"
+                                    android:layout_marginEnd="5dp"
+                                    android:layout_marginBottom="10dp"
+                                    android:scaleType="center"
+                                    android:src="@mipmap/ic_vip_wall_24dp"/>
+
+                                <TextView
+                                    android:id="@+id/tvWallVipYes"
+                                    style="@style/FontBlackSmall"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignTop="@+id/ivWall"
+                                    android:layout_toEndOf="@+id/ivWall"
+                                    android:ellipsize="end"
+                                    android:singleLine="true"
+                                    tools:text="9张,单张限制20M"/>
+
+                                <TextView
+                                    android:id="@+id/tvWallVipNo"
+                                    style="@style/FontGreySmall"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignBottom="@+id/ivWall"
+                                    android:layout_toEndOf="@+id/ivWall"
+                                    android:ellipsize="end"
+                                    android:singleLine="true"
+                                    tools:text="1张,单张限制1M"/>
+                            </RelativeLayout>
+                        </android.support.v7.widget.CardView>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <android.support.v7.widget.CardView
+                            android:id="@+id/cvTotal"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginEnd="5dp"
+                            android:layout_marginBottom="5dp"
+                            android:layout_weight="1"
+                            android:background="?attr/selectableItemBackground"
+                            android:foreground="?attr/selectableItemBackground"
+                            app:cardBackgroundColor="@color/white"
+                            app:cardCornerRadius="@dimen/radius_normal"
+                            app:cardElevation="@dimen/elevation_normal"
+                            app:cardMaxElevation="@dimen/elevation_big">
+
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content">
+
+                                <ImageView
+                                    android:id="@+id/ivTotal"
+                                    android:layout_width="35dp"
+                                    android:layout_height="35dp"
+                                    android:layout_marginStart="5dp"
+                                    android:layout_marginTop="10dp"
+                                    android:layout_marginEnd="5dp"
+                                    android:layout_marginBottom="10dp"
+                                    android:scaleType="center"
+                                    android:src="@mipmap/ic_note_total_24dp"/>
+
+                                <TextView
+                                    android:id="@+id/tvTotalVipYes"
+                                    style="@style/FontBlackSmall"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignTop="@+id/ivTotal"
+                                    android:layout_toEndOf="@+id/ivTotal"
+                                    android:ellipsize="end"
+                                    android:singleLine="true"
+                                    tools:text="开启"/>
+
+                                <TextView
+                                    android:id="@+id/tvTotalVipNo"
+                                    style="@style/FontGreySmall"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignBottom="@+id/ivTotal"
+                                    android:layout_toEndOf="@+id/ivTotal"
+                                    android:ellipsize="end"
+                                    android:singleLine="true"
+                                    tools:text="关闭/现阶段开启"/>
+                            </RelativeLayout>
+                        </android.support.v7.widget.CardView>
+
+                        <android.support.v7.widget.CardView
+                            android:id="@+id/cvSouvenir"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="5dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginEnd="10dp"
+                            android:layout_marginBottom="5dp"
+                            android:layout_weight="1"
+                            android:background="?attr/selectableItemBackground"
+                            android:foreground="?attr/selectableItemBackground"
+                            app:cardBackgroundColor="@color/white"
+                            app:cardCornerRadius="@dimen/radius_normal"
+                            app:cardElevation="@dimen/elevation_normal"
+                            app:cardMaxElevation="@dimen/elevation_big">
+
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content">
+
+                                <ImageView
+                                    android:id="@+id/ivSouvenir"
+                                    android:layout_width="35dp"
+                                    android:layout_height="35dp"
+                                    android:layout_marginStart="5dp"
+                                    android:layout_marginTop="10dp"
+                                    android:layout_marginEnd="5dp"
+                                    android:layout_marginBottom="10dp"
+                                    android:scaleType="center"
+                                    android:src="@mipmap/ic_note_souvenir_24dp"/>
+
+                                <TextView
+                                    android:id="@+id/tvSouvenirVipYes"
+                                    style="@style/FontBlackSmall"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignTop="@+id/ivSouvenir"
+                                    android:layout_toEndOf="@+id/ivSouvenir"
+                                    android:ellipsize="end"
+                                    android:singleLine="true"
+                                    tools:text="可添加365个"/>
+
+                                <TextView
+                                    android:id="@+id/tvSouvenirVipNo"
+                                    style="@style/FontGreySmall"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignBottom="@+id/ivSouvenir"
+                                    android:layout_toEndOf="@+id/ivSouvenir"
+                                    android:ellipsize="end"
+                                    android:singleLine="true"
+                                    tools:text="可添加10个"/>
+                            </RelativeLayout>
+                        </android.support.v7.widget.CardView>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <android.support.v7.widget.CardView
+                            android:id="@+id/cvAudio"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginEnd="5dp"
+                            android:layout_marginBottom="5dp"
+                            android:layout_weight="1"
+                            android:background="?attr/selectableItemBackground"
+                            android:foreground="?attr/selectableItemBackground"
+                            app:cardBackgroundColor="@color/white"
+                            app:cardCornerRadius="@dimen/radius_normal"
+                            app:cardElevation="@dimen/elevation_normal"
+                            app:cardMaxElevation="@dimen/elevation_big">
+
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content">
+
+                                <ImageView
+                                    android:id="@+id/ivAudio"
+                                    android:layout_width="35dp"
+                                    android:layout_height="35dp"
+                                    android:layout_marginStart="5dp"
+                                    android:layout_marginTop="10dp"
+                                    android:layout_marginEnd="5dp"
+                                    android:layout_marginBottom="10dp"
+                                    android:scaleType="center"
+                                    android:src="@mipmap/ic_note_audio_24dp"/>
+
+                                <TextView
+                                    android:id="@+id/tvAudioVipYes"
+                                    style="@style/FontBlackSmall"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignTop="@+id/ivAudio"
+                                    android:layout_toEndOf="@+id/ivAudio"
+                                    android:ellipsize="end"
+                                    android:singleLine="true"
+                                    tools:text="单个最大50M"/>
+
+                                <TextView
+                                    android:id="@+id/tvAudioVipNo"
+                                    style="@style/FontGreySmall"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignBottom="@+id/ivAudio"
+                                    android:layout_toEndOf="@+id/ivAudio"
+                                    android:ellipsize="end"
+                                    android:singleLine="true"
+                                    tools:text="单个最大2M"/>
+                            </RelativeLayout>
+                        </android.support.v7.widget.CardView>
+
+                        <android.support.v7.widget.CardView
+                            android:id="@+id/cvVideo"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="5dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginEnd="10dp"
+                            android:layout_marginBottom="5dp"
+                            android:layout_weight="1"
+                            android:background="?attr/selectableItemBackground"
+                            android:foreground="?attr/selectableItemBackground"
+                            app:cardBackgroundColor="@color/white"
+                            app:cardCornerRadius="@dimen/radius_normal"
+                            app:cardElevation="@dimen/elevation_normal"
+                            app:cardMaxElevation="@dimen/elevation_big">
+
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content">
+
+                                <ImageView
+                                    android:id="@+id/ivVideo"
+                                    android:layout_width="35dp"
+                                    android:layout_height="35dp"
+                                    android:layout_marginStart="5dp"
+                                    android:layout_marginTop="10dp"
+                                    android:layout_marginEnd="5dp"
+                                    android:layout_marginBottom="10dp"
+                                    android:scaleType="center"
+                                    android:src="@mipmap/ic_note_video_24dp"/>
+
+                                <TextView
+                                    android:id="@+id/tvVideoVipYes"
+                                    style="@style/FontBlackSmall"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignTop="@+id/ivVideo"
+                                    android:layout_toEndOf="@+id/ivVideo"
+                                    android:ellipsize="end"
+                                    android:singleLine="true"
+                                    tools:text="单个最大500M"/>
+
+                                <TextView
+                                    android:id="@+id/tvVideoVipNo"
+                                    style="@style/FontGreySmall"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignBottom="@+id/ivVideo"
+                                    android:layout_toEndOf="@+id/ivVideo"
+                                    android:ellipsize="end"
+                                    android:singleLine="true"
+                                    tools:text="单个最大10M"/>
+                            </RelativeLayout>
+                        </android.support.v7.widget.CardView>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <android.support.v7.widget.CardView
+                            android:id="@+id/cvAlbum"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginEnd="5dp"
+                            android:layout_marginBottom="5dp"
+                            android:layout_weight="1"
+                            android:background="?attr/selectableItemBackground"
+                            android:foreground="?attr/selectableItemBackground"
+                            app:cardBackgroundColor="@color/white"
+                            app:cardCornerRadius="@dimen/radius_normal"
+                            app:cardElevation="@dimen/elevation_normal"
+                            app:cardMaxElevation="@dimen/elevation_big">
+
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content">
+
+                                <ImageView
+                                    android:id="@+id/ivAlbum"
+                                    android:layout_width="35dp"
+                                    android:layout_height="35dp"
+                                    android:layout_marginStart="5dp"
+                                    android:layout_marginTop="10dp"
+                                    android:layout_marginEnd="5dp"
+                                    android:layout_marginBottom="10dp"
+                                    android:scaleType="center"
+                                    android:src="@mipmap/ic_note_album_24dp"/>
+
+                                <TextView
+                                    android:id="@+id/tvAlbumVipYes"
+                                    style="@style/FontBlackSmall"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignTop="@+id/ivAlbum"
+                                    android:layout_toEndOf="@+id/ivAlbum"
+                                    android:ellipsize="end"
+                                    android:singleLine="true"
+                                    tools:text="原图,单张限制20M"/>
+
+                                <TextView
+                                    android:id="@+id/tvAlbumVipNo"
+                                    style="@style/FontGreySmall"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignBottom="@+id/ivAlbum"
+                                    android:layout_toEndOf="@+id/ivAlbum"
+                                    android:ellipsize="end"
+                                    android:singleLine="true"
+                                    tools:text="压缩(损失很小)"/>
+                            </RelativeLayout>
+                        </android.support.v7.widget.CardView>
+
+                        <android.support.v7.widget.CardView
+                            android:id="@+id/cvDiary"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="5dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginEnd="10dp"
+                            android:layout_marginBottom="5dp"
+                            android:layout_weight="1"
+                            android:background="?attr/selectableItemBackground"
+                            android:foreground="?attr/selectableItemBackground"
+                            app:cardBackgroundColor="@color/white"
+                            app:cardCornerRadius="@dimen/radius_normal"
+                            app:cardElevation="@dimen/elevation_normal"
+                            app:cardMaxElevation="@dimen/elevation_big">
+
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content">
+
+                                <ImageView
+                                    android:id="@+id/ivDiary"
+                                    android:layout_width="35dp"
+                                    android:layout_height="35dp"
+                                    android:layout_marginStart="5dp"
+                                    android:layout_marginTop="10dp"
+                                    android:layout_marginEnd="5dp"
+                                    android:layout_marginBottom="10dp"
+                                    android:scaleType="center"
+                                    android:src="@mipmap/ic_note_diary_24dp"/>
+
+                                <TextView
+                                    android:id="@+id/tvDiaryVipYes"
+                                    style="@style/FontBlackSmall"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignTop="@+id/ivDiary"
+                                    android:layout_toEndOf="@+id/ivDiary"
+                                    android:ellipsize="end"
+                                    android:singleLine="true"
+                                    tools:text="3张,单张限制20M"/>
+
+                                <TextView
+                                    android:id="@+id/tvDiaryVipNo"
+                                    style="@style/FontGreySmall"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignBottom="@+id/ivDiary"
+                                    android:layout_toEndOf="@+id/ivDiary"
+                                    android:ellipsize="end"
+                                    android:singleLine="true"
+                                    tools:text="禁止图片上传"/>
+                            </RelativeLayout>
+                        </android.support.v7.widget.CardView>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <android.support.v7.widget.CardView
+                            android:id="@+id/cvWhisper"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginEnd="5dp"
+                            android:layout_marginBottom="5dp"
+                            android:layout_weight="1"
+                            android:background="?attr/selectableItemBackground"
+                            android:foreground="?attr/selectableItemBackground"
+                            app:cardBackgroundColor="@color/white"
+                            app:cardCornerRadius="@dimen/radius_normal"
+                            app:cardElevation="@dimen/elevation_normal"
+                            app:cardMaxElevation="@dimen/elevation_big">
+
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content">
+
+                                <ImageView
+                                    android:id="@+id/ivWhisper"
+                                    android:layout_width="35dp"
+                                    android:layout_height="35dp"
+                                    android:layout_marginStart="5dp"
+                                    android:layout_marginTop="10dp"
+                                    android:layout_marginEnd="5dp"
+                                    android:layout_marginBottom="10dp"
+                                    android:scaleType="center"
+                                    android:src="@mipmap/ic_note_whisper_24dp"/>
+
+                                <TextView
+                                    android:id="@+id/tvWhisperVipYes"
+                                    style="@style/FontBlackSmall"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignTop="@+id/ivWhisper"
+                                    android:layout_toEndOf="@+id/ivWhisper"
+                                    android:ellipsize="end"
+                                    android:singleLine="true"
+                                    tools:text="开启图片上传"/>
+
+                                <TextView
+                                    android:id="@+id/tvWhisperVipNo"
+                                    style="@style/FontGreySmall"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignBottom="@+id/ivWhisper"
+                                    android:layout_toEndOf="@+id/ivWhisper"
+                                    android:ellipsize="end"
+                                    android:singleLine="true"
+                                    tools:text="禁止图片上传"/>
+                            </RelativeLayout>
+                        </android.support.v7.widget.CardView>
+
+                        <android.support.v7.widget.CardView
+                            android:id="@+id/cvGift"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="5dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginEnd="10dp"
+                            android:layout_marginBottom="5dp"
+                            android:layout_weight="1"
+                            android:background="?attr/selectableItemBackground"
+                            android:foreground="?attr/selectableItemBackground"
+                            app:cardBackgroundColor="@color/white"
+                            app:cardCornerRadius="@dimen/radius_normal"
+                            app:cardElevation="@dimen/elevation_normal"
+                            app:cardMaxElevation="@dimen/elevation_big">
+
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content">
+
+                                <ImageView
+                                    android:id="@+id/ivGift"
+                                    android:layout_width="35dp"
+                                    android:layout_height="35dp"
+                                    android:layout_marginStart="5dp"
+                                    android:layout_marginTop="10dp"
+                                    android:layout_marginEnd="5dp"
+                                    android:layout_marginBottom="10dp"
+                                    android:scaleType="center"
+                                    android:src="@mipmap/ic_note_gift_24dp"/>
+
+                                <TextView
+                                    android:id="@+id/tvGiftVipYes"
+                                    style="@style/FontBlackSmall"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignTop="@+id/ivGift"
+                                    android:layout_toEndOf="@+id/ivGift"
+                                    android:ellipsize="end"
+                                    android:singleLine="true"
+                                    tools:text="每个9张图片"/>
+
+                                <TextView
+                                    android:id="@+id/tvGiftVipNo"
+                                    style="@style/FontGreySmall"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignBottom="@+id/ivGift"
+                                    android:layout_toEndOf="@+id/ivGift"
+                                    android:ellipsize="end"
+                                    android:singleLine="true"
+                                    tools:text="每个1张图片"/>
+                            </RelativeLayout>
+                        </android.support.v7.widget.CardView>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <android.support.v7.widget.CardView
+                            android:id="@+id/cvFood"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginEnd="5dp"
+                            android:layout_marginBottom="5dp"
+                            android:layout_weight="1"
+                            android:background="?attr/selectableItemBackground"
+                            android:foreground="?attr/selectableItemBackground"
+                            app:cardBackgroundColor="@color/white"
+                            app:cardCornerRadius="@dimen/radius_normal"
+                            app:cardElevation="@dimen/elevation_normal"
+                            app:cardMaxElevation="@dimen/elevation_big">
+
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content">
+
+                                <ImageView
+                                    android:id="@+id/ivFood"
+                                    android:layout_width="35dp"
+                                    android:layout_height="35dp"
+                                    android:layout_marginStart="5dp"
+                                    android:layout_marginTop="10dp"
+                                    android:layout_marginEnd="5dp"
+                                    android:layout_marginBottom="10dp"
+                                    android:scaleType="center"
+                                    android:src="@mipmap/ic_note_food_24dp"/>
+
+                                <TextView
+                                    android:id="@+id/tvFoodVipYes"
+                                    style="@style/FontBlackSmall"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignTop="@+id/ivFood"
+                                    android:layout_toEndOf="@+id/ivFood"
+                                    android:ellipsize="end"
+                                    android:singleLine="true"
+                                    tools:text="每个9张图片"/>
+
+                                <TextView
+                                    android:id="@+id/tvFoodVipNo"
+                                    style="@style/FontGreySmall"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignBottom="@+id/ivFood"
+                                    android:layout_toEndOf="@+id/ivFood"
+                                    android:ellipsize="end"
+                                    android:singleLine="true"
+                                    tools:text="每个1张图片"/>
+                            </RelativeLayout>
+                        </android.support.v7.widget.CardView>
+
+                        <android.support.v7.widget.CardView
+                            android:id="@+id/cvMovie"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="5dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginEnd="10dp"
+                            android:layout_marginBottom="5dp"
+                            android:layout_weight="1"
+                            android:background="?attr/selectableItemBackground"
+                            android:foreground="?attr/selectableItemBackground"
+                            app:cardBackgroundColor="@color/white"
+                            app:cardCornerRadius="@dimen/radius_normal"
+                            app:cardElevation="@dimen/elevation_normal"
+                            app:cardMaxElevation="@dimen/elevation_big">
+
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content">
+
+                                <ImageView
+                                    android:id="@+id/ivMovie"
+                                    android:layout_width="35dp"
+                                    android:layout_height="35dp"
+                                    android:layout_marginStart="5dp"
+                                    android:layout_marginTop="10dp"
+                                    android:layout_marginEnd="5dp"
+                                    android:layout_marginBottom="10dp"
+                                    android:scaleType="center"
+                                    android:src="@mipmap/ic_note_movie_24dp"/>
+
+                                <TextView
+                                    android:id="@+id/tvMovieVipYes"
+                                    style="@style/FontBlackSmall"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignTop="@+id/ivMovie"
+                                    android:layout_toEndOf="@+id/ivMovie"
+                                    android:ellipsize="end"
+                                    android:singleLine="true"
+                                    tools:text="每个9张图片"/>
+
+                                <TextView
+                                    android:id="@+id/tvMovieVipNo"
+                                    style="@style/FontGreySmall"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignBottom="@+id/ivMovie"
+                                    android:layout_toEndOf="@+id/ivMovie"
+                                    android:ellipsize="end"
+                                    android:singleLine="true"
+                                    tools:text="每个1张图片"/>
+                            </RelativeLayout>
+                        </android.support.v7.widget.CardView>
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+        </android.support.v4.widget.NestedScrollView>
+    </com.jiangzg.lovenote.view.GSwipeRefreshLayout>
+</LinearLayout>

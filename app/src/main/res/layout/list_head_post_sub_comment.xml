@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/root"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:orientation="vertical"
+    android:paddingTop="10dp">
+
+    <RelativeLayout
+        android:id="@+id/rlTop"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:visibility="gone"
+        tools:visibility="visible">
+
+        <com.jiangzg.lovenote.view.FrescoAvatarView
+            android:id="@+id/ivAvatar"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginEnd="10dp"
+            tools:background="@mipmap/ic_account_circle_grey_48dp"/>
+
+        <TextView
+            android:id="@+id/tvName"
+            style="@style/FontBlackNormal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/ivAvatar"
+            android:layout_toEndOf="@+id/ivAvatar"
+            android:ellipsize="end"
+            android:singleLine="true"
+            tools:text="名字名字名字名字名字"/>
+
+        <TextView
+            android:id="@+id/tvFloor"
+            style="@style/FontGreySmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/ivAvatar"
+            android:layout_marginEnd="5dp"
+            android:layout_toEndOf="@+id/ivAvatar"
+            android:ellipsize="end"
+            android:singleLine="true"
+            tools:text="100楼"/>
+
+        <TextView
+            android:id="@+id/tvTime"
+            style="@style/FontGreySmall"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/tvFloor"
+            android:layout_marginStart="5dp"
+            android:layout_toEndOf="@+id/tvFloor"
+            android:ellipsize="end"
+            android:singleLine="true"
+            tools:text="2015-06-09"/>
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/tvContent"
+            style="@style/FontBlackBig"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="我觉得14楼说的对我觉得14楼说的"/>
+
+        <com.jiangzg.lovenote.view.FrescoAvatarView
+            android:id="@+id/ivJab"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginStart="5dp"
+            android:visibility="gone"
+            tools:background="@mipmap/ic_account_circle_grey_48dp"
+            tools:visibility="visible"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:id="@+id/llReport"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="20dp"
+            android:background="?attr/selectableItemBackground"
+            android:foreground="?attr/selectableItemBackground"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp">
+
+            <ImageView
+                android:id="@+id/ivReport"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:src="@mipmap/ic_report_grey_18dp"
+                android:tint="@color/font_hint"/>
+
+            <TextView
+                style="@style/FontGreySmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:ellipsize="end"
+                android:gravity="center_vertical"
+                android:singleLine="true"
+                android:text="@string/report"
+                android:textColor="@color/font_hint"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/llPoint"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="?attr/selectableItemBackground"
+            android:foreground="?attr/selectableItemBackground"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:paddingStart="20dp"
+            android:paddingTop="10dp"
+            android:paddingEnd="20dp"
+            android:paddingBottom="10dp">
+
+            <ImageView
+                android:id="@+id/ivPoint"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:src="@mipmap/ic_thumb_up_grey_18dp"
+                android:tint="@color/font_hint"/>
+
+            <TextView
+                android:id="@+id/tvPointCount"
+                style="@style/FontGreySmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:ellipsize="end"
+                android:gravity="center_vertical"
+                android:singleLine="true"
+                android:textColor="@color/font_hint"
+                tools:text="点赞"/>
+        </LinearLayout>
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:background="@color/background_color"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/tvCommentUser"
+            style="@style/FontGreyNormal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:background="?attr/selectableItemBackground"
+            android:ellipsize="middle"
+            android:foreground="?attr/selectableItemBackground"
+            android:paddingStart="10dp"
+            android:paddingTop="15dp"
+            android:paddingEnd="10dp"
+            android:paddingBottom="15dp"
+            android:singleLine="true"
+            tools:text="全部"/>
+
+        <TextView
+            android:id="@+id/tvCommentSort"
+            style="@style/FontPrimaryNormal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:background="?attr/selectableItemBackground"
+            android:ellipsize="middle"
+            android:foreground="?attr/selectableItemBackground"
+            android:paddingStart="10dp"
+            android:paddingTop="15dp"
+            android:paddingEnd="10dp"
+            android:paddingBottom="15dp"
+            android:singleLine="true"
+            tools:text="排序"/>
+    </RelativeLayout>
+</LinearLayout>

@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".controller.activity.more.MatchLetterListActivity">
+
+    <include layout="@layout/view_top_bar"/>
+
+    <com.jiangzg.lovenote.view.GSwipeRefreshLayout
+        android:id="@+id/srl"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:listitem="@layout/list_item_match_letter"/>
+    </com.jiangzg.lovenote.view.GSwipeRefreshLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:background="@drawable/layer_line_border_grey_in_white"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        app:layout_behavior="@string/behavior_linear_depend_app_bar">
+
+        <LinearLayout
+            android:id="@+id/llTop"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="?attr/selectableItemBackground"
+            android:foreground="?attr/selectableItemBackground"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp">
+
+            <TextView
+                style="@style/FontGreyNormal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableStart="@mipmap/ic_publish_grey_18dp"
+                android:drawablePadding="10dp"
+                android:gravity="center"
+                android:text="@string/top"/>
+        </LinearLayout>
+
+        <View style="@style/LineVertical"/>
+
+        <LinearLayout
+            android:id="@+id/llOrder"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="?attr/selectableItemBackground"
+            android:foreground="?attr/selectableItemBackground"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp">
+
+            <TextView
+                android:id="@+id/tvOrder"
+                style="@style/FontGreyNormal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableStart="@mipmap/ic_search_grey_18dp"
+                android:drawablePadding="10dp"
+                android:gravity="center"
+                tools:text="金币榜"/>
+        </LinearLayout>
+
+        <View style="@style/LineVertical"/>
+
+        <LinearLayout
+            android:id="@+id/llAdd"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="?attr/selectableItemBackground"
+            android:foreground="?attr/selectableItemBackground"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp">
+
+            <TextView
+                style="@style/FontGreyNormal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableStart="@mipmap/ic_add_circle_outline_grey_18dp"
+                android:drawablePadding="10dp"
+                android:gravity="center"
+                android:text="@string/publish"/>
+        </LinearLayout>
+    </LinearLayout>
+</android.support.design.widget.CoordinatorLayout>

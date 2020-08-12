@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+      xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/menuHelp"
+        android:icon="@mipmap/ic_help_outline_white_24dp"
+        android:title="@string/help_document"
+        app:showAsAction="ifRoom"/>
+
+    <item
+        android:id="@+id/menuMine"
+        android:icon="@mipmap/ic_perm_identity_white_24dp"
+        android:title="@string/me_de"
+        app:showAsAction="always"/>
+
+    <item
+        android:id="@+id/menuNotice"
+        android:icon="@mipmap/ic_notifications_none_white_24dp"
+        android:title="@string/message"
+        app:showAsAction="always"/>
+
+</menu>

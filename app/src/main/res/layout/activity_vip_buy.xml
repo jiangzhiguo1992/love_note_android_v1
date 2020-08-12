@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".controller.activity.more.VipBuyActivity">
+
+    <include layout="@layout/view_top_bar"/>
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="30dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="10dp"
+                app:cardBackgroundColor="@color/white"
+                app:cardCornerRadius="@dimen/radius_normal"
+                app:cardElevation="0dp">
+
+                <RadioGroup
+                    android:id="@+id/rgGoods"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/shape_stroke_primary_rn"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <RadioButton
+                        android:id="@+id/rbGoods1"
+                        style="@style/FontGreyNormal"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@drawable/selector_check_solid_primary_rln"
+                        android:button="@null"
+                        android:foreground="?attr/selectableItemBackground"
+                        android:gravity="center"
+                        android:paddingTop="10dp"
+                        android:paddingBottom="10dp"
+                        android:textColor="@color/selector_text_check_primary_white"
+                        tools:checked="true"
+                        tools:text="一月\n30RMB"/>
+
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="match_parent"
+                        android:background="?attr/colorPrimary"/>
+
+                    <RadioButton
+                        android:id="@+id/rbGoods2"
+                        style="@style/FontGreyNormal"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@drawable/selector_check_solid_primary"
+                        android:button="@null"
+                        android:foreground="?attr/selectableItemBackground"
+                        android:gravity="center"
+                        android:paddingTop="10dp"
+                        android:paddingBottom="10dp"
+                        android:textColor="@color/selector_text_check_primary_white"
+                        tools:checked="true"
+                        tools:text="一年\n300RMB"/>
+
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="match_parent"
+                        android:background="?attr/colorPrimary"/>
+
+                    <RadioButton
+                        android:id="@+id/rbGoods3"
+                        style="@style/FontGreyNormal"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@drawable/selector_check_solid_primary_rrn"
+                        android:button="@null"
+                        android:foreground="?attr/selectableItemBackground"
+                        android:gravity="center"
+                        android:paddingTop="10dp"
+                        android:paddingBottom="10dp"
+                        android:textColor="@color/selector_text_check_primary_white"
+                        tools:text="永久\n999RMB"/>
+                </RadioGroup>
+            </android.support.v7.widget.CardView>
+
+            <Button
+                android:id="@+id/btnAliPay"
+                style="@style/FontWhiteBigBold"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="50dp"
+                android:layout_marginEnd="10dp"
+                android:background="@drawable/selector_enable_press_solid_light_primary_dark_r100"
+                android:text="@string/alipay_pay"/>
+
+            <Button
+                android:id="@+id/btnWeChatPay"
+                style="@style/FontWhiteBigBold"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="10dp"
+                android:background="@drawable/selector_enable_press_solid_light_primary_dark_r100"
+                android:text="@string/wechat_pay"/>
+
+            <TextView
+                android:id="@+id/tvBillCheck"
+                style="@style/FontPrimarySmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:gravity="center"
+                android:padding="10dp"
+                android:text="@string/pay_success_but_nothing"/>
+        </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
+</LinearLayout>

@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical"
+    tools:context=".controller.activity.settings.SuggestAddActivity">
+
+    <include layout="@layout/view_top_bar"/>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tvKind"
+                style="@style/FontPrimaryNormalBold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="20dp"
+                android:text="@string/click_me_choose_type"
+                android:textColor="@color/selector_text_press_primary_dark"/>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp">
+
+                <TextView
+                    android:id="@+id/tvTitle"
+                    style="@style/FontGreyNormal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/title"/>
+
+                <TextView
+                    android:id="@+id/tvTitleLimit"
+                    style="@style/FontGreySmall"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@id/tvTitle"
+                    android:layout_alignParentEnd="true"
+                    tools:text="0/20"/>
+
+                <EditText
+                    android:id="@+id/etTitle"
+                    style="@style/FontGreyNormal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tvTitleLimit"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/shape_stroke_primary"
+                    android:hint="@string/please_input_title"
+                    android:inputType="text"
+                    android:maxLines="1"
+                    android:padding="10dp"
+                    android:singleLine="true"
+                    android:textColorHint="@color/font_hint"/>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp">
+
+                <TextView
+                    android:id="@+id/tvContent"
+                    style="@style/FontGreyNormal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/content"/>
+
+                <TextView
+                    android:id="@+id/tvContentLimit"
+                    style="@style/FontGreySmall"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@id/tvContent"
+                    android:layout_alignParentEnd="true"
+                    tools:text="0/20"/>
+
+                <EditText
+                    android:id="@+id/etContent"
+                    style="@style/FontGreyNormal"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:layout_below="@id/tvContentLimit"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/shape_stroke_primary"
+                    android:gravity="start"
+                    android:hint="@string/please_input_content"
+                    android:inputType="textMultiLine"
+                    android:padding="10dp"
+                    android:textColorHint="@color/font_hint"/>
+            </RelativeLayout>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

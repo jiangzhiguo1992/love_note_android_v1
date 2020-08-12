@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/root"
+    android:layout_width="match_parent"
+    android:layout_height="170dp"
+    android:layout_marginStart="5dp"
+    android:layout_marginTop="2.5dp"
+    android:layout_marginEnd="5dp"
+    android:layout_marginBottom="2.5dp"
+    app:cardBackgroundColor="@color/white"
+    app:cardCornerRadius="@dimen/radius_big"
+    app:cardElevation="@dimen/elevation_normal"
+    app:cardMaxElevation="@dimen/elevation_big">
+
+    <com.jiangzg.lovenote.view.FrescoView
+        android:id="@+id/ivAlbum"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="?attr/selectableItemBackground"
+        android:foreground="?attr/selectableItemBackground"
+        app:actualImageScaleType="centerCrop"
+        tools:scaleType="centerCrop"
+        tools:src="@mipmap/ic_launcher"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/black_alpha_25">
+
+        <TextView
+            android:id="@+id/tvTitle"
+            style="@style/FontWhiteHugeBold"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:padding="5dp"
+            android:textSize="25sp"
+            tools:text="相册名称"/>
+
+        <TextView
+            android:id="@+id/tvTime"
+            style="@style/FontWhiteSmall"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tvTitle"
+            android:gravity="center"
+            android:padding="5dp"
+            tools:text="2015年5月6号 - 6月13号"/>
+    </RelativeLayout>
+</android.support.v7.widget.CardView>

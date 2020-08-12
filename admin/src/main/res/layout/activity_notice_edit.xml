@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".activity.NoticeEditActivity">
+
+    <include layout="@layout/view_top_bar"/>
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="10dp">
+
+            <EditText
+                android:id="@+id/etTitle"
+                style="@style/FontGreyNormal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/selector_enable_press_stroke_light_primary_dark_r3"
+                android:hint="title"
+                android:padding="10dp"
+                android:textColorHint="@color/font_hint"/>
+
+            <RadioGroup
+                android:id="@+id/rgType"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/shape_stroke_primary"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/rbTypeText"
+                    style="@style/FontGreyNormal"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/selector_check_solid_primary"
+                    android:button="@null"
+                    android:foreground="?attr/selectableItemBackground"
+                    android:gravity="center"
+                    android:paddingBottom="10dp"
+                    android:paddingTop="10dp"
+                    android:text="文章"
+                    android:textColor="@color/selector_text_check_primary_white"
+                    tools:checked="true"/>
+
+                <RadioButton
+                    android:id="@+id/rbTypeUrl"
+                    style="@style/FontGreyNormal"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/selector_check_solid_primary"
+                    android:button="@null"
+                    android:foreground="?attr/selectableItemBackground"
+                    android:gravity="center"
+                    android:paddingBottom="10dp"
+                    android:paddingTop="10dp"
+                    android:text="网址"
+                    android:textColor="@color/selector_text_check_primary_white"/>
+
+                <RadioButton
+                    android:id="@+id/rbTypeImg"
+                    style="@style/FontGreyNormal"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/selector_check_solid_primary"
+                    android:button="@null"
+                    android:foreground="?attr/selectableItemBackground"
+                    android:gravity="center"
+                    android:paddingBottom="10dp"
+                    android:paddingTop="10dp"
+                    android:text="图片"
+                    android:textColor="@color/selector_text_check_primary_white"/>
+            </RadioGroup>
+
+            <EditText
+                android:id="@+id/etContent"
+                style="@style/FontGreyNormal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/selector_enable_press_stroke_light_primary_dark_r3"
+                android:gravity="start"
+                android:hint="content_text"
+                android:inputType="textMultiLine"
+                android:minLines="10"
+                android:padding="8dp"
+                android:textColorHint="@color/font_hint"/>
+
+            <Button
+                android:id="@+id/btnPush"
+                style="@style/FontWhiteNormalBold"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/push"/>
+        </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
+</LinearLayout>

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+          package="com.jiangzg.lovenote_admin">
+
+    <application
+        android:name=".base.MyApp"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/AppThemeGreen">
+        <activity android:name=".activity.LoginActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
+        <activity android:name=".activity.HomeActivity"/>
+        <activity android:name=".activity.VersionEditActivity"/>
+        <activity android:name=".activity.NoticeEditActivity"/>
+        <activity android:name=".activity.BroadcastEditActivity"/>
+        <activity android:name=".activity.SmsListActivity"/>
+        <activity android:name=".activity.UserListActivity"/>
+        <activity android:name=".activity.UserDetailActivity"/>
+        <activity android:name=".activity.EntryListActivity"/>
+        <activity android:name=".activity.ApiListActivity"/>
+        <activity android:name=".activity.SuggestListActivity"/>
+        <activity android:name=".activity.SuggestCommentListActivity"/>
+        <activity android:name=".activity.CoupleListActivity"/>
+        <activity android:name=".activity.CoupleDetailActivity"/>
+        <activity android:name=".activity.BillListActivity"/>
+        <activity android:name=".activity.VipListActivity"/>
+        <activity android:name=".activity.CoinListActivity"/>
+        <activity android:name=".activity.PlaceListActivity"/>
+        <activity android:name=".activity.SignListActivity"/>
+        <activity android:name=".activity.TrendsListActivity"/>
+        <activity android:name=".activity.PostListActivity"/>
+        <activity android:name=".activity.PostCommentListActivity"/>
+        <activity android:name=".activity.MatchPeriodListActivity"/>
+        <activity android:name=".activity.MatchPeriodEditActivity"/>
+        <activity android:name=".activity.MatchWorkListActivity"/>
+    </application>
+
+</manifest>

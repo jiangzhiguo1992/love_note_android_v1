@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/root"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="10dp"
+    tools:background="?attr/colorPrimary">
+
+    <com.jiangzg.lovenote.view.FrescoAvatarView
+        android:id="@+id/ivAvatar"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="10dp"
+        tools:background="@mipmap/ic_account_circle_grey_48dp"/>
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/cvContent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"
+        android:layout_toStartOf="@+id/ivAvatar"
+        android:background="?attr/selectableItemBackground"
+        android:foreground="?attr/selectableItemBackground"
+        app:cardBackgroundColor="@color/white"
+        app:cardCornerRadius="@dimen/radius_normal"
+        app:cardElevation="@dimen/elevation_normal"
+        app:cardMaxElevation="@dimen/elevation_big">
+
+        <TextView
+            android:id="@+id/tvContent"
+            style="@style/FontBlackNormal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawablePadding="10dp"
+            android:gravity="center_vertical"
+            android:padding="10dp"
+            tools:drawableEnd="@mipmap/ic_note_diary_24dp"
+            tools:text="添加"/>
+    </android.support.v7.widget.CardView>
+
+    <TextView
+        android:id="@+id/tvCreateAt"
+        style="@style/FontWhiteSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/cvContent"
+        android:layout_toStartOf="@+id/ivAvatar"
+        tools:text="2017-12-3 06:30"/>
+</RelativeLayout>

@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/root"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="10dp"
+    android:layout_marginTop="5dp"
+    android:layout_marginEnd="10dp"
+    android:layout_marginBottom="5dp"
+    app:cardBackgroundColor="@color/white"
+    app:cardCornerRadius="@dimen/radius_normal"
+    app:cardElevation="@dimen/elevation_normal"
+    app:cardMaxElevation="@dimen/elevation_big"
+    tools:cardBackgroundColor="?attr/colorPrimary">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="5dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/cvAvatar"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_alignParentStart="true"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginBottom="5dp"
+                app:cardCornerRadius="20dp"
+                app:cardElevation="@dimen/elevation_normal"
+                app:cardMaxElevation="@dimen/elevation_big">
+
+                <com.jiangzg.lovenote.view.FrescoAvatarView
+                    android:id="@+id/ivAvatar"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    tools:background="@mipmap/ic_account_circle_grey_48dp"/>
+            </android.support.v7.widget.CardView>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@+id/cvAvatar"
+                android:layout_marginEnd="5dp"
+                android:layout_toEndOf="@+id/cvAvatar"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tvTitle"
+                    style="@style/FontBlackNormalBold"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="5dp"
+                    android:layout_toStartOf="@+id/ivMore"
+                    android:ellipsize="end"
+                    android:gravity="center_vertical"
+                    android:singleLine="true"
+                    tools:text="天津波波鱼吃饭"/>
+
+                <ImageView
+                    android:id="@+id/ivMore"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="5dp"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:foreground="?attr/selectableItemBackgroundBorderless"
+                    android:src="@mipmap/ic_more_horiz_grey_18dp"/>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/cvAvatar"
+                android:layout_marginEnd="5dp"
+                android:layout_toEndOf="@+id/cvAvatar"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tvHappenAt"
+                    style="@style/FontGreySmall"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="5dp"
+                    android:ellipsize="middle"
+                    android:gravity="center"
+                    android:singleLine="true"
+                    tools:text="2017年12月31日"/>
+
+                <TextView
+                    android:id="@+id/tvAddress"
+                    style="@style/FontGreySmall"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:layout_toEndOf="@+id/tvHappenAt"
+                    android:background="?attr/selectableItemBackground"
+                    android:ellipsize="middle"
+                    android:foreground="?attr/selectableItemBackground"
+                    android:gravity="end"
+                    android:singleLine="true"
+                    android:visibility="gone"
+                    tools:text="天津师范大学"
+                    tools:visibility="visible"/>
+            </RelativeLayout>
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/tvContent"
+            style="@style/FontGreyNormal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:visibility="gone"
+            tools:text="美食评价美食评价美食评价美食评价美食评价美食评价美食评价"
+            tools:visibility="visible"/>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="2.5dp"
+            android:visibility="gone"
+            tools:visibility="visible"/>
+    </LinearLayout>
+</android.support.v7.widget.CardView>

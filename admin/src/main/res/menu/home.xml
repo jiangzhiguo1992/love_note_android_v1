@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/menuUser"
+            android:title="user"/>
+        <item
+            android:id="@+id/menuCouple"
+            android:title="social"/>
+        <item
+            android:id="@+id/menuVersion"
+            android:title="version"/>
+        <item
+            android:id="@+id/menuNotice"
+            android:title="notice"/>
+        <item
+            android:id="@+id/menuBroadcast"
+            android:title="broadcast"/>
+    </group>
+
+    <!--<item android:title="用户">-->
+    <!--<menu>-->
+    <!--<item-->
+    <!--android:id="@+id/menuSms"-->
+    <!--android:title="sms"/>-->
+    <!--<item-->
+    <!--android:id="@+id/menuUser"-->
+    <!--android:title="user"/>-->
+    <!--<item-->
+    <!--android:id="@+id/menuUserApi"-->
+    <!--android:title="user_api"/>-->
+    <!--<item-->
+    <!--android:id="@+id/menuUserEntry"-->
+    <!--android:title="user_entry"/>-->
+    <!--<item-->
+    <!--android:id="@+id/menuUserOss"-->
+    <!--android:title="user_oss"/>-->
+    <!--<item-->
+    <!--android:id="@+id/menuUserSuggest"-->
+    <!--android:title="user_suggest"/>-->
+    <!--</menu>-->
+    <!--</item>-->
+
+    <!--<item android:title="配对">-->
+    <!--<menu>-->
+    <!--<item-->
+    <!--android:id="@+id/menuCouple"-->
+    <!--android:title="couple"/>-->
+    <!--<item-->
+    <!--android:id="@+id/menuCoupleBill"-->
+    <!--android:title="couple_bill"/>-->
+    <!--<item-->
+    <!--android:id="@+id/menuCoupleOss"-->
+    <!--android:title="couple_oss"/>-->
+    <!--<item-->
+    <!--android:id="@+id/menuCoupleNote"-->
+    <!--android:title="couple_note"/>-->
+    <!--<item-->
+    <!--android:id="@+id/menuCoupleTopic"-->
+    <!--android:title="couple_topic"/>-->
+    <!--<item-->
+    <!--android:id="@+id/menuCoupleMatch"-->
+    <!--android:title="couple_match"/>-->
+    <!--</menu>-->
+    <!--</item>-->
+
+    <!--<item android:title="公共">-->
+    <!--<menu>-->
+    <!--<item-->
+    <!--android:id="@+id/menuHomeVersion"-->
+    <!--android:title="version"/>-->
+    <!--<item-->
+    <!--android:id="@+id/menuHomeNotice"-->
+    <!--android:title="notice"/>-->
+    <!--<item-->
+    <!--android:id="@+id/menuHomeBroadcast"-->
+    <!--android:title="broadcast"/>-->
+    <!--</menu>-->
+    <!--</item>-->
+
+</menu>

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/root"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="2.5dp"
+    app:cardBackgroundColor="@color/white"
+    app:cardCornerRadius="@dimen/radius_normal"
+    app:cardElevation="0dp"
+    app:cardMaxElevation="0dp">
+
+    <com.jiangzg.lovenote.view.FrescoView
+        android:id="@+id/ivShow"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="?attr/selectableItemBackground"
+        android:foreground="?attr/selectableItemBackground"
+        app:actualImageScaleType="centerCrop"
+        tools:background="@mipmap/ic_launcher"/>
+
+    <LinearLayout
+        android:id="@+id/llLimit"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="end|bottom"
+        android:visibility="gone"
+        tools:visibility="visible">
+
+        <TextView
+            android:id="@+id/tvLimit"
+            style="@style/FontWhiteSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/black_alpha_50"
+            android:paddingStart="5dp"
+            android:paddingTop="3dp"
+            android:paddingEnd="5dp"
+            android:paddingBottom="3dp"
+            tools:text="总共9张"/>
+    </LinearLayout>
+</android.support.v7.widget.CardView>

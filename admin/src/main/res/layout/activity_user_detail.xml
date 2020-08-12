@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.jiangzg.lovenote_admin.activity.UserDetailActivity">
+
+    <include layout="@layout/view_top_bar"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <EditText
+            android:id="@+id/etId"
+            style="@style/FontGreyNormal"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:layout_weight="1"
+            android:background="@drawable/selector_enable_press_stroke_light_primary_dark_r3"
+            android:hint="id"
+            android:inputType="number"
+            android:padding="10dp"
+            android:textColorHint="@color/font_hint"/>
+
+        <EditText
+            android:id="@+id/etPhone"
+            style="@style/FontGreyNormal"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:layout_weight="2"
+            android:background="@drawable/selector_enable_press_stroke_light_primary_dark_r3"
+            android:hint="phone"
+            android:inputType="phone"
+            android:padding="10dp"
+            android:textColorHint="@color/font_hint"/>
+
+        <Button
+            android:id="@+id/btnSearch"
+            style="@style/FontWhiteNormal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/search"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:id="@+id/btnSms"
+            style="@style/FontWhiteNormal"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:text="sms"/>
+
+        <Button
+            android:id="@+id/btnEntry"
+            style="@style/FontWhiteNormal"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:text="entry"/>
+
+        <Button
+            android:id="@+id/btnPlace"
+            style="@style/FontWhiteNormal"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:text="place"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:id="@+id/btnSuggest"
+            style="@style/FontWhiteNormal"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:text="suggest"/>
+
+        <Button
+            android:id="@+id/btnSuggestComment"
+            style="@style/FontWhiteSmall"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:text="suggestComment"/>
+
+        <Button
+            android:id="@+id/btnCouple"
+            style="@style/FontWhiteNormal"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:text="couple"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/tvCreate"
+            style="@style/FontGreyNormal"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:padding="5dp"
+            tools:text="create"/>
+
+        <TextView
+            android:id="@+id/tvUpdate"
+            style="@style/FontGreyNormal"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:padding="5dp"
+            tools:text="create"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:id="@+id/btnStatus"
+            style="@style/FontWhiteNormal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            tools:text="正常ing"/>
+
+        <Button
+            android:id="@+id/btnSex"
+            style="@style/FontWhiteNormal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            tools:text="性别"/>
+
+        <Button
+            android:id="@+id/btnBirthday"
+            style="@style/FontWhiteNormal"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            tools:text="生日"/>
+    </LinearLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+</LinearLayout>

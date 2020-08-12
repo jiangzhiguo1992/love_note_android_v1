@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".controller.activity.note.SouvenirListActivity">
+
+    <RelativeLayout
+        android:id="@+id/rlTop"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/colorPrimary"
+        android:elevation="@dimen/elevation_normal"
+        android:fitsSystemWindows="true">
+
+        <ImageView
+            android:id="@+id/ivBack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="?attr/selectableItemBackground"
+            android:foreground="?attr/selectableItemBackground"
+            android:padding="16dp"
+            android:src="@mipmap/ic_arrow_back_white_24dp"/>
+
+        <RadioGroup
+            android:id="@+id/rgSouvenir"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/rbSouvenir"
+                style="@style/FontGreyNormal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/selector_check_solid_primary_white_stroke_white_rl3"
+                android:button="@null"
+                android:foreground="?attr/selectableItemBackground"
+                android:gravity="center"
+                android:padding="10dp"
+                android:text="@string/souvenir"
+                android:textColor="@color/selector_text_check_white_primary"
+                tools:checked="true"/>
+
+            <RadioButton
+                android:id="@+id/rbWish"
+                style="@style/FontGreyNormal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/selector_check_solid_primary_white_stroke_white_rr3"
+                android:button="@null"
+                android:foreground="?attr/selectableItemBackground"
+                android:gravity="center"
+                android:padding="10dp"
+                android:text="@string/wish_list"
+                android:textColor="@color/selector_text_check_white_primary"/>
+        </RadioGroup>
+
+        <ImageView
+            android:id="@+id/ivHelp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:background="?attr/selectableItemBackground"
+            android:foreground="?attr/selectableItemBackground"
+            android:padding="16dp"
+            android:src="@mipmap/ic_help_outline_white_24dp"/>
+    </RelativeLayout>
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/vpFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/rlTop"/>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fabAdd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="@dimen/fab_margin"
+        android:src="@mipmap/ic_add_white_24dp"
+        app:backgroundTint="?attr/colorAccent"
+        app:borderWidth="0dp"
+        app:elevation="@dimen/elevation_normal"
+        app:fabSize="auto"
+        app:pressedTranslationZ="@dimen/elevation_big"
+        app:rippleColor="?attr/colorPrimaryDark"/>
+</RelativeLayout>

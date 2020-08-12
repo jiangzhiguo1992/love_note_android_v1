@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    tools:context=".controller.activity.user.PhoneActivity">
+
+    <include layout="@layout/view_top_bar"/>
+
+    <ImageView
+        android:layout_width="120dp"
+        android:layout_height="80dp"
+        android:layout_marginTop="30dp"
+        android:scaleType="fitCenter"
+        android:src="@mipmap/ic_launcher_shadow"/>
+
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="30dp">
+
+        <android.support.v7.widget.AppCompatEditText
+            android:id="@+id/etPhone"
+            style="@style/FontBlackNormal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableStart="@mipmap/ic_phone_iphone_grey_24dp"
+            android:drawablePadding="15dp"
+            android:hint="@string/input_hint_new_phone"
+            android:inputType="phone"
+            android:maxLines="1"
+            android:singleLine="true"
+            android:textColorHint="@color/font_hint"/>
+    </android.support.design.widget.TextInputLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="30dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+
+            <android.support.v7.widget.AppCompatEditText
+                android:id="@+id/etCode"
+                style="@style/FontBlackNormal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableStart="@mipmap/ic_verified_user_grey_24dp"
+                android:drawablePadding="15dp"
+                android:hint="@string/input_hint_verify"
+                android:inputType="number"
+                android:maxLines="1"
+                android:singleLine="true"
+                android:textColorHint="@color/font_hint"/>
+        </android.support.design.widget.TextInputLayout>
+
+        <Button
+            android:id="@+id/btnSendCode"
+            style="@style/FontPrimarySmall"
+            android:layout_width="wrap_content"
+            android:layout_height="35dp"
+            android:layout_marginStart="10dp"
+            android:background="@drawable/selector_enable_press_stroke_light_primary_dark_rn"
+            android:enabled="false"
+            android:text="@string/send_validate_code"/>
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btnChange"
+        style="@style/FontWhiteNormal"
+        android:layout_width="200dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginBottom="30dp"
+        android:background="@drawable/selector_enable_press_solid_light_primary_dark_r100"
+        android:enabled="false"
+        android:text="@string/change"/>
+</LinearLayout>

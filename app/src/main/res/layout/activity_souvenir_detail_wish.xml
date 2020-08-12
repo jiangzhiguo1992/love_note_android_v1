@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".controller.activity.note.SouvenirDetailWishActivity">
+
+    <include layout="@layout/view_top_bar"/>
+
+    <com.jiangzg.lovenote.view.GSwipeRefreshLayout
+        android:id="@+id/srl"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <android.support.v4.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fillViewport="true">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
+
+                <android.support.v7.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    app:cardBackgroundColor="?attr/colorPrimary"
+                    app:cardCornerRadius="@dimen/radius_huge"
+                    app:cardElevation="@dimen/elevation_huge"
+                    app:cardMaxElevation="@dimen/elevation_huge">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_horizontal"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/tvTitle"
+                            style="@style/FontWhiteHugeBold"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginTop="20dp"
+                            android:layout_marginEnd="10dp"
+                            android:layout_marginBottom="20dp"
+                            android:gravity="center"
+                            android:textSize="30sp"
+                            tools:text="在一起在一起在一起"/>
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginTop="20dp"
+                            android:layout_marginEnd="10dp"
+                            android:layout_marginBottom="20dp">
+
+                            <RelativeLayout
+                                android:id="@+id/rlAddress"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_alignTop="@+id/tvDayCount"
+                                android:layout_toStartOf="@+id/tvDayCount"
+                                android:background="?attr/selectableItemBackground"
+                                android:foreground="?attr/selectableItemBackground">
+
+                                <ImageView
+                                    android:id="@+id/ivAddress"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignTop="@+id/tvAddress"
+                                    android:layout_alignBottom="@id/tvAddress"
+                                    android:src="@mipmap/ic_location_on_white_18dp"/>
+
+                                <TextView
+                                    android:id="@+id/tvAddress"
+                                    style="@style/FontWhiteNormalBold"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_centerInParent="true"
+                                    android:layout_marginStart="5dp"
+                                    android:layout_toEndOf="@+id/ivAddress"
+                                    android:ellipsize="end"
+                                    android:gravity="center"
+                                    android:maxLines="1"
+                                    android:singleLine="true"
+                                    tools:text="北京市 房山区 西坪小学 5号楼 二年级 3班"/>
+                            </RelativeLayout>
+
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_alignBottom="@id/tvDayCount"
+                                android:layout_toStartOf="@+id/tvDayCount">
+
+                                <ImageView
+                                    android:id="@+id/ivHappenAt"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignTop="@+id/tvHappenAt"
+                                    android:layout_alignBottom="@id/tvHappenAt"
+                                    android:src="@mipmap/ic_access_time_white_18dp"/>
+
+                                <TextView
+                                    android:id="@+id/tvHappenAt"
+                                    style="@style/FontWhiteNormalBold"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="5dp"
+                                    android:layout_toEndOf="@+id/ivHappenAt"
+                                    android:ellipsize="end"
+                                    android:gravity="start|center_vertical"
+                                    android:maxLines="1"
+                                    android:singleLine="true"
+                                    tools:text="2017年12月31日 51:53"/>
+                            </RelativeLayout>
+
+                            <TextView
+                                android:id="@+id/tvDayCount"
+                                style="@style/FontWhiteHugeBold"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentEnd="true"
+                                android:layout_centerVertical="true"
+                                android:layout_marginStart="10dp"
+                                android:ellipsize="end"
+                                android:gravity="end"
+                                android:singleLine="true"
+                                android:textSize="40sp"
+                                tools:text="+1365"/>
+                        </RelativeLayout>
+                    </LinearLayout>
+                </android.support.v7.widget.CardView>
+
+                <TextView
+                    android:id="@+id/tvCreate"
+                    style="@style/FontPrimaryNormalBold"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center_horizontal"
+                    android:paddingTop="20dp"
+                    android:textColor="?attr/colorPrimaryDark"
+                    android:textStyle="italic"
+                    tools:text="创建者: XXX"/>
+            </LinearLayout>
+        </android.support.v4.widget.NestedScrollView>
+    </com.jiangzg.lovenote.view.GSwipeRefreshLayout>
+</android.support.design.widget.CoordinatorLayout>

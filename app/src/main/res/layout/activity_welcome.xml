@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".controller.activity.main.WelcomeActivity">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:src="@mipmap/bg_welcome_1"/>
+
+    <com.jiangzg.lovenote.view.FrescoNativeView
+        android:id="@+id/ivBg"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        app:actualImageScaleType="centerCrop"
+        tools:visibility="visible"/>
+
+    <TextView
+        android:id="@+id/tvOnline"
+        style="@style/FontPrimarySmallBold"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="10dp"
+        android:text="@string/online_can_entry"
+        android:visibility="gone"/>
+
+    <ImageView
+        android:id="@+id/ivShouFa"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerInParent="true"
+        android:layout_marginBottom="5dp"
+        android:scaleType="fitCenter"
+        android:visibility="gone"
+        tools:src="@mipmap/shoufa_huawei"
+        tools:visibility="visible"/>
+</RelativeLayout>

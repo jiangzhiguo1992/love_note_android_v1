@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".controller.activity.note.WordListActivity">
+
+    <include layout="@layout/view_top_bar"/>
+
+    <com.jiangzg.lovenote.view.GSwipeRefreshLayout
+        android:id="@+id/srl"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:listitem="@layout/list_item_word_left"/>
+    </com.jiangzg.lovenote.view.GSwipeRefreshLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        app:layout_behavior="@string/behavior_linear_depend_app_bar">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp">
+
+            <EditText
+                android:id="@+id/etContent"
+                style="@style/FontGreyNormal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="10dp"
+                android:layout_toStartOf="@+id/ivSend"
+                android:background="@drawable/shape_stroke_grey_rn"
+                android:gravity="start"
+                android:hint="@string/please_input_content"
+                android:inputType="textMultiLine"
+                android:minLines="1"
+                android:padding="10dp"
+                android:textColorHint="@color/font_hint"/>
+
+            <ImageView
+                android:id="@+id/ivSend"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@+id/etContent"
+                android:layout_alignBottom="@+id/etContent"
+                android:layout_alignParentEnd="true"
+                android:background="?attr/selectableItemBackground"
+                android:foreground="?attr/selectableItemBackground"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                android:src="@mipmap/ic_near_me_grey_24dp"
+                android:tint="?attr/colorPrimary"/>
+        </RelativeLayout>
+    </LinearLayout>
+</android.support.design.widget.CoordinatorLayout>

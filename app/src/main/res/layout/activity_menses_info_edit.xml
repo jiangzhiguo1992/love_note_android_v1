@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".controller.activity.note.MensesInfoEditActivity">
+
+    <include layout="@layout/view_top_bar"/>
+
+    <LinearLayout
+        android:id="@+id/llMe"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:visibility="gone"
+        tools:visibility="visible">
+
+        <TextView
+            style="@style/FontGreySmall"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="15dp"
+            android:text="@string/me_de"/>
+
+        <TextView
+            android:id="@+id/tvMeCycle"
+            style="@style/FontBlackNormal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?attr/selectableItemBackground"
+            android:ellipsize="end"
+            android:foreground="?attr/selectableItemBackground"
+            android:padding="15dp"
+            android:singleLine="true"
+            tools:text="周期天数: 30天"/>
+
+        <View
+            style="@style/LineHorizontal"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp"/>
+
+        <TextView
+            android:id="@+id/tvMeDuration"
+            style="@style/FontBlackNormal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?attr/selectableItemBackground"
+            android:ellipsize="end"
+            android:foreground="?attr/selectableItemBackground"
+            android:padding="15dp"
+            android:singleLine="true"
+            tools:text="经期天数: 7天"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/llTa"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:visibility="gone"
+        tools:visibility="visible">
+
+        <TextView
+            style="@style/FontGreySmall"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="15dp"
+            android:text="@string/ta_de"/>
+
+        <TextView
+            android:id="@+id/tvTaCycle"
+            style="@style/FontBlackNormal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?attr/selectableItemBackground"
+            android:ellipsize="end"
+            android:foreground="?attr/selectableItemBackground"
+            android:padding="15dp"
+            android:singleLine="true"
+            tools:text="周期天数: 30天"/>
+
+        <View
+            style="@style/LineHorizontal"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp"/>
+
+        <TextView
+            android:id="@+id/tvTaDuration"
+            style="@style/FontBlackNormal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?attr/selectableItemBackground"
+            android:ellipsize="end"
+            android:foreground="?attr/selectableItemBackground"
+            android:padding="15dp"
+            android:singleLine="true"
+            tools:text="经期天数: 30天"/>
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <com.jiangzg.lovenote.view.GNumberPicker
+            android:id="@+id/npDay"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_margin="15dp"
+            android:visibility="gone"
+            app:custom_divider_color="?attr/colorPrimary"
+            app:custom_text_color="?attr/colorPrimary"
+            tools:visibility="visible"/>
+    </RelativeLayout>
+</LinearLayout>

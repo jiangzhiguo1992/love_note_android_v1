@@ -1,0 +1,30 @@
+// Top-level build file where you can add configuration options common to all sub-projects/modules.
+
+buildscript {
+    repositories {
+        google() // 放最上面
+        maven { url 'http://maven.aliyun.com/nexus/content/groups/public/' } // 国内ali镜像库
+        maven { url 'http://maven.aliyun.com/nexus/content/repositories/jcenter' } // 国内ali镜像库
+        // mavenCentral() // 已被jcenter取代
+        jcenter() // 放最下面
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:4.0.1'
+        classpath 'com.jakewharton:butterknife-gradle-plugin:9.0.0' // butterKnife
+    }
+}
+
+allprojects {
+    repositories {
+        google() // 放最上面
+        maven { url "https://jitpack.io" } // BaseRecyclerViewAdapterHelper
+        maven { url 'http://maven.aliyun.com/nexus/content/groups/public/' } // 国内ali镜像库
+        maven { url 'http://maven.aliyun.com/nexus/content/repositories/jcenter' } // 国内ali镜像库
+        maven { url 'http://maven.aliyun.com/nexus/content/repositories/releases/' } // AliPush
+        jcenter() // 放最下面
+    }
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}

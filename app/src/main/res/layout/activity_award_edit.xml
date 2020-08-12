@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical"
+    tools:context=".controller.activity.note.AwardEditActivity">
+
+    <include layout="@layout/view_top_bar"/>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <EditText
+                android:id="@+id/etContent"
+                style="@style/FontGreyNormal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="@null"
+                android:gravity="start"
+                android:hint="@string/please_input_trigger_rule"
+                android:inputType="textMultiLine"
+                android:minLines="5"
+                android:padding="10dp"
+                android:textColorHint="@color/font_hint"/>
+
+            <TextView
+                android:id="@+id/tvContentLimit"
+                style="@style/FontGreySmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="10dp"
+                tools:text="0/2000"/>
+
+            <View
+                style="@style/LineHorizontal"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="10dp"/>
+
+            <LinearLayout
+                android:id="@+id/llHappenAt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="?attr/selectableItemBackground"
+                android:foreground="?attr/selectableItemBackground"
+                android:paddingStart="10dp"
+                android:paddingTop="15dp"
+                android:paddingEnd="10dp"
+                android:paddingBottom="15dp">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="5dp"
+                    android:src="@mipmap/ic_access_time_grey_18dp"
+                    android:tint="@color/font_grey"/>
+
+                <TextView
+                    android:id="@+id/tvHappenAt"
+                    style="@style/FontGreyNormal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    tools:text="@string/time_colon_space_holder"/>
+            </LinearLayout>
+
+            <View
+                style="@style/LineHorizontal"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"/>
+
+            <LinearLayout
+                android:id="@+id/llHappenUser"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="?attr/selectableItemBackground"
+                android:foreground="?attr/selectableItemBackground"
+                android:paddingStart="10dp"
+                android:paddingTop="15dp"
+                android:paddingEnd="10dp"
+                android:paddingBottom="15dp">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="5dp"
+                    android:src="@mipmap/ic_account_circle_grey_18dp"
+                    android:tint="@color/font_grey"/>
+
+                <TextView
+                    android:id="@+id/tvHappenUser"
+                    style="@style/FontGreyNormal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    tools:text="@string/belong_colon_space_holder"/>
+            </LinearLayout>
+
+            <View
+                style="@style/LineHorizontal"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"/>
+
+            <LinearLayout
+                android:id="@+id/llRule"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="?attr/selectableItemBackground"
+                android:foreground="?attr/selectableItemBackground"
+                android:paddingStart="10dp"
+                android:paddingTop="15dp"
+                android:paddingEnd="10dp"
+                android:paddingBottom="15dp">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="5dp"
+                    android:src="@mipmap/ic_exposure_grey_18dp"
+                    android:tint="@color/font_grey"/>
+
+                <TextView
+                    android:id="@+id/tvRule"
+                    style="@style/FontGreyNormal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    tools:text="@string/rule_colon_space_holder"/>
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

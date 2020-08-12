@@ -1,0 +1,359 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.jiangzg.lovenote_admin.activity.CoupleDetailActivity">
+
+    <include layout="@layout/view_top_bar"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <EditText
+            android:id="@+id/etId"
+            style="@style/FontGreyNormal"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:layout_weight="1"
+            android:background="@drawable/selector_enable_press_stroke_light_primary_dark_r3"
+            android:hint="id"
+            android:inputType="number"
+            android:padding="10dp"
+            android:textColorHint="@color/font_hint"/>
+
+        <EditText
+            android:id="@+id/etUid"
+            style="@style/FontGreyNormal"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:layout_weight="1"
+            android:background="@drawable/selector_enable_press_stroke_light_primary_dark_r3"
+            android:hint="uid"
+            android:inputType="number"
+            android:padding="10dp"
+            android:textColorHint="@color/font_hint"/>
+
+        <Button
+            android:id="@+id/btnSearch"
+            style="@style/FontWhiteNormal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/search"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/tvCreate"
+            style="@style/FontGreyNormal"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_weight="1"
+            android:gravity="start"
+            tools:text="创建"/>
+
+        <TextView
+            android:id="@+id/tvUpdate"
+            style="@style/FontGreyNormal"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="5dp"
+            android:layout_weight="1"
+            android:gravity="end"
+            tools:text="创建"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:id="@+id/btnBill"
+            style="@style/FontWhiteNormal"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:text="bill"/>
+
+        <Button
+            android:id="@+id/btnVip"
+            style="@style/FontWhiteNormal"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:text="vip"/>
+
+        <Button
+            android:id="@+id/btnSign"
+            style="@style/FontWhiteNormal"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:text="sign"/>
+
+        <Button
+            android:id="@+id/btnCoin"
+            style="@style/FontWhiteNormal"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:text="coin"/>
+
+        <Button
+            android:id="@+id/btnNote"
+            style="@style/FontWhiteNormal"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:text="note"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tvName1"
+                style="@style/FontGreyNormal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:maxLines="1"
+                android:singleLine="true"
+                tools:text="11"/>
+
+            <com.jiangzg.lovenote_admin.view.FrescoView
+                android:id="@+id/ivAvatar1"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginEnd="5dp"
+                android:layout_marginStart="5dp"
+                app:actualImageScaleType="centerCrop"
+                tools:background="@mipmap/ic_boy_circle"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <com.jiangzg.lovenote_admin.view.FrescoView
+                android:id="@+id/ivAvatar2"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginEnd="5dp"
+                android:layout_marginStart="5dp"
+                app:actualImageScaleType="centerCrop"
+                tools:background="@mipmap/ic_boy_circle"/>
+
+            <TextView
+                android:id="@+id/tvName2"
+                style="@style/FontGreyNormal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:maxLines="1"
+                android:singleLine="true"
+                tools:text="11"/>
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/tvPhone1"
+            style="@style/FontGreyNormal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="5dp"
+            android:layout_marginStart="5dp"
+            android:gravity="center"
+            tools:text="18600765432"/>
+
+        <TextView
+            android:id="@+id/tvSex1"
+            style="@style/FontGreyNormal"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            tools:text="18600765432"/>
+
+        <TextView
+            android:id="@+id/tvSex2"
+            style="@style/FontGreyNormal"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            tools:text="18600765432"/>
+
+        <TextView
+            android:id="@+id/tvPhone2"
+            style="@style/FontGreyNormal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="5dp"
+            android:layout_marginStart="5dp"
+            android:gravity="center"
+            tools:text="18600765432"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:id="@+id/btnUid1"
+            style="@style/FontWhiteNormal"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            tools:text="11.1.1"/>
+
+        <Button
+            android:id="@+id/btnUid2"
+            style="@style/FontWhiteNormal"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            tools:text="11.1.1"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:id="@+id/btnVipAdd1"
+            style="@style/FontWhiteNormal"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:text="赠送会员"/>
+
+        <Button
+            android:id="@+id/btnCoinAdd1"
+            style="@style/FontWhiteNormal"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:text="赠送金币"/>
+
+        <Button
+            android:id="@+id/btnVipAdd2"
+            style="@style/FontWhiteNormal"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:text="赠送会员"/>
+
+        <Button
+            android:id="@+id/btnCoinAdd2"
+            style="@style/FontWhiteNormal"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:text="赠送金币"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:id="@+id/btnPost1"
+            style="@style/FontWhiteSmall"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:text="post"/>
+
+        <Button
+            android:id="@+id/btnPostComment1"
+            style="@style/FontWhiteSmall"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:text="p_com"/>
+
+        <Button
+            android:id="@+id/btnMatchWork1"
+            style="@style/FontWhiteSmall"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:text="work"/>
+
+        <Button
+            android:id="@+id/btnPost2"
+            style="@style/FontWhiteSmall"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:text="post"/>
+
+        <Button
+            android:id="@+id/btnPostComment2"
+            style="@style/FontWhiteSmall"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:text="p_com"/>
+
+        <Button
+            android:id="@+id/btnMatchWork2"
+            style="@style/FontWhiteSmall"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:text="work"/>
+    </LinearLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+</LinearLayout>

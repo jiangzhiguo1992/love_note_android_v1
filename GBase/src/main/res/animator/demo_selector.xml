@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 在控件的xml中引入 android:stateListAnimator="@animator/XXX" -->
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:state_checked="true"
+        android:state_enabled="true"
+        android:state_pressed="true"
+        android:state_selected="true">
+        <set>
+            <objectAnimator
+                android:duration="500"
+                android:propertyName="rotationX"
+                android:valueTo="360"
+                android:valueType="floatType"/>
+            <animator/>
+            <propertyValuesHolder/>
+        </set>
+    </item>
+
+    <item
+        android:state_checked="false"
+        android:state_enabled="false"
+        android:state_pressed="false"
+        android:state_selected="false">
+        <set>
+            <objectAnimator
+                android:duration="500"
+                android:propertyName="rotationX"
+                android:valueTo="0"
+                android:valueType="floatType"/>
+            <animator/>
+            <propertyValuesHolder/>
+        </set>
+    </item>
+</selector>

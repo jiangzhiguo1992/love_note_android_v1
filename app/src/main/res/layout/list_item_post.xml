@@ -1,0 +1,269 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/root"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="10dp"
+    android:layout_marginTop="5dp"
+    android:layout_marginEnd="10dp"
+    android:layout_marginBottom="5dp"
+    android:background="?attr/selectableItemBackground"
+    android:foreground="?attr/selectableItemBackground"
+    app:cardBackgroundColor="@color/white"
+    app:cardCornerRadius="@dimen/radius_normal"
+    app:cardElevation="@dimen/elevation_normal"
+    app:cardMaxElevation="@dimen/elevation_big">
+
+    <RelativeLayout
+        android:id="@+id/rlAd"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        tools:visibility="visible"/>
+
+    <TextView
+        android:id="@+id/tvCover"
+        style="@style/FontBlackNormal"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:background="@color/white_alpha_90"
+        android:gravity="center"
+        android:visibility="gone"
+        tools:text="帖子已被删除"
+        tools:visibility="gone"/>
+
+    <LinearLayout
+        android:id="@+id/llInfo"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:visibility="gone"
+        tools:background="@color/theme_red_accent"
+        tools:visibility="visible">
+
+        <TextView
+            android:id="@+id/tvTitle"
+            style="@style/FontBlackNormalBold"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="10dp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:singleLine="true"
+            android:visibility="gone"
+            tools:text="建议内容建议内容建议内容建议内容建议内容建议内容建"
+            tools:visibility="visible"/>
+
+        <TextView
+            android:id="@+id/tvContent"
+            style="@style/FontGreyNormal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="10dp"
+            android:ellipsize="end"
+            android:maxLines="3"
+            android:visibility="gone"
+            tools:text="建议内容建议内容建议内容建议内容建议内容建议内容建建议内容建议内容建议内容建议内容建议内容建议内容建建议内容建议内容建议内容建议内容建议内容建议内容建建议内容建议内容建议内容建议内容建议内容建议内容建建议内容建议内容建议内容建议内容建议内容建议内容建建议内容建议内容建议内容建议内容建议内容建议内容建"
+            tools:visibility="visible"/>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rvImage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="7.5dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="7.5dp"
+            android:visibility="gone"
+            tools:visibility="visible"/>
+
+        <LinearLayout
+            android:id="@+id/llBottom"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:paddingStart="5dp"
+            android:paddingEnd="5dp">
+
+            <RelativeLayout
+                android:id="@+id/rlCouple"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                tools:visibility="visible">
+
+                <android.support.v7.widget.CardView
+                    android:id="@+id/cvAvatarLeft"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginEnd="2.5dp"
+                    android:layout_marginBottom="5dp"
+                    app:cardBackgroundColor="@color/white"
+                    app:cardCornerRadius="7.5dp"
+                    app:cardElevation="@dimen/elevation_small"
+                    app:cardMaxElevation="@dimen/elevation_normal">
+
+                    <com.jiangzg.lovenote.view.FrescoAvatarView
+                        android:id="@+id/ivAvatarLeft"
+                        android:layout_width="15dp"
+                        android:layout_height="15dp"
+                        tools:background="@mipmap/ic_account_circle_grey_48dp"/>
+                </android.support.v7.widget.CardView>
+
+                <android.support.v7.widget.CardView
+                    android:id="@+id/cvAvatarRight"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="2.5dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginEnd="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:layout_toEndOf="@+id/cvAvatarLeft"
+                    app:cardBackgroundColor="@color/white"
+                    app:cardCornerRadius="7.5dp"
+                    app:cardElevation="@dimen/elevation_small"
+                    app:cardMaxElevation="@dimen/elevation_normal">
+
+                    <com.jiangzg.lovenote.view.FrescoAvatarView
+                        android:id="@+id/ivAvatarRight"
+                        android:layout_width="15dp"
+                        android:layout_height="15dp"
+                        tools:background="@mipmap/ic_account_circle_grey_48dp"/>
+                </android.support.v7.widget.CardView>
+
+                <ImageView
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:layout_centerInParent="true"
+                    android:elevation="@dimen/elevation_big"
+                    android:src="@mipmap/ic_favorite_border_grey_18dp"
+                    android:tint="?attr/colorPrimary"/>
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/tvUpdateAt"
+                style="@style/FontGreySmall"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="5dp"
+                android:layout_weight="1"
+                android:ellipsize="end"
+                android:gravity="center_vertical|start"
+                android:singleLine="true"
+                android:textColor="@color/font_hint"
+                tools:text="2017-12-31"/>
+
+            <LinearLayout
+                android:id="@+id/llUserInfo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:id="@+id/llCollect"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:paddingStart="5dp"
+                    android:paddingTop="5dp"
+                    android:paddingEnd="10dp"
+                    android:paddingBottom="5dp">
+
+                    <ImageView
+                        android:id="@+id/ivCollect"
+                        android:layout_width="15dp"
+                        android:layout_height="15dp"
+                        android:layout_marginEnd="5dp"
+                        android:src="@mipmap/ic_favorite_grey_18dp"
+                        android:tint="@color/font_hint"/>
+
+                    <TextView
+                        android:id="@+id/tvCollect"
+                        style="@style/FontGreySmall"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:maxLines="1"
+                        android:singleLine="true"
+                        android:textColor="@color/font_hint"
+                        tools:text="11万"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/llPoint"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:paddingStart="10dp"
+                    android:paddingTop="5dp"
+                    android:paddingEnd="10dp"
+                    android:paddingBottom="5dp">
+
+                    <ImageView
+                        android:id="@+id/ivPoint"
+                        android:layout_width="15dp"
+                        android:layout_height="15dp"
+                        android:layout_marginEnd="5dp"
+                        android:src="@mipmap/ic_thumb_up_grey_18dp"
+                        android:tint="@color/font_hint"/>
+
+                    <TextView
+                        android:id="@+id/tvPoint"
+                        style="@style/FontGreySmall"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:maxLines="1"
+                        android:singleLine="true"
+                        android:textColor="@color/font_hint"
+                        tools:text="11万"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/llComment"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:paddingStart="10dp"
+                    android:paddingTop="5dp"
+                    android:paddingEnd="5dp"
+                    android:paddingBottom="5dp">
+
+                    <ImageView
+                        android:id="@+id/ivComment"
+                        android:layout_width="15dp"
+                        android:layout_height="15dp"
+                        android:layout_marginEnd="5dp"
+                        android:src="@mipmap/ic_insert_comment_grey_18dp"
+                        android:tint="@color/font_hint"/>
+
+                    <TextView
+                        android:id="@+id/tvComment"
+                        style="@style/FontGreySmall"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:maxLines="1"
+                        android:singleLine="true"
+                        android:textColor="@color/font_hint"
+                        tools:text="11万"/>
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+</android.support.v7.widget.CardView>
