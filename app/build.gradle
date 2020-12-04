@@ -2,16 +2,15 @@ apply plugin: 'com.android.application'
 
 android {
     buildToolsVersion '28.0.3'
-    compileSdkVersion 28 // 最高运行版本
+    compileSdkVersion 28 // 最高效果版本
     defaultConfig {
         applicationId "com.jiangzg.lovenote" // 要和manifest一致
-        targetSdkVersion 28 // 最高效果版本
+        targetSdkVersion 28 // 最高运行版本
         minSdkVersion 21 // 最低运行版本
         multiDexEnabled true // 允许分包
         versionCode 29
         versionName "1.2.9"
         vectorDrawables.useSupportLibrary = true // 用于支持vectorDrawables
-        flavorDimensions "release" // 多渠道打包分支
         ndk {
             // ali_push/fresco (全部32位)
             abiFilters("armeabi", "armeabi-v7a", "x86", "mips")
@@ -33,52 +32,110 @@ android {
     buildTypes { // 打包选项
         debug { // 测试
             signingConfig signingConfigs.jzg_01 // 设置签名信息
+            debuggable true
             minifyEnabled false // 混淆开关(测试最好关掉，否则会影响断点调试)
             zipAlignEnabled true // 内存对齐
             shrinkResources false // 移除无用的resource文件
+            crunchPngs false // 拒绝PNG转WebP
+            ext.enableCrashlytics = false // 不需要crash报告
             // 混淆规则文件
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
         release { // 正式
             signingConfig signingConfigs.jzg_01 // 可以只用一个签名信息
+            debuggable false
             minifyEnabled true
             zipAlignEnabled true
             shrinkResources true
+            crunchPngs true
+            ext.enableCrashlytics = true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
-        applicationVariants.all { variant ->
-            variant.outputs.all { output ->
-                def fileName
-                if (variant.buildType.name == 'release') {
-                    // 输出apk名称为 软件名_版本号_渠道_日期.apk
-                    def date = new Date().format("yyyy-MM-dd_HH-mm", TimeZone.default)
-                    fileName = "${android.defaultConfig.versionCode}_${variant.productFlavors[0].name}_${date}"
-                } else {
-                    fileName = "debug"
-                }
-                outputFileName = "ys_" + fileName + ".apk"
-            }
+    }
+    flavorDimensions "stage", "mode", "channel" // 多渠道打包分支
+    productFlavors { // 发布渠道
+        dev {
+            dimension "stage"
+        }
+        prod {
+            dimension "stage"
+        }
+        free {
+            dimension "mode"
+        }
+        ads {
+            dimension "mode"
+        }
+        vip {
+            dimension "mode"
+        }
+        //---------------------己方渠道----------------------
+        official { // 官方
+            dimension "channel"
+        }
+        //---------------------手机厂商----------------------
+        google { // 谷歌
+            dimension "channel"
+        }
+        huawei {// 华为
+            dimension "channel"
+        }
+        oppo { // oppo
+            dimension "channel"
+        }
+        vivo { // vivo
+            dimension "channel"
+        }
+        xiaomi { // 小米
+            dimension "channel"
+        }
+        meizu { // 魅族
+            dimension "channel"
+        }
+        //---------------------三方市场----------------------
+        tencent { // 应用宝
+            dimension "channel"
+        }
+        ali { // 阿里
+            dimension "channel"
+        }
+        baidu { // 百度
+            dimension "channel"
+        }
+        qh360 { // 360
+            dimension "channel"
+        }
+        kuan { // 酷安
+            dimension "channel"
         }
     }
-    productFlavors { // 发布渠道
-        official {} // 官方
-        //---------------------手机厂商----------------------
-//        google {} // 谷歌
-        huawei {} // 华为
-        oppo {} // oppo
-        vivo {} // vivo
-        xiaomi {} // 小米
-        meizu {} // 魅族
-        //---------------------三方市场----------------------
-        tencent {} // 应用宝
-        ali {} // 阿里
-        baidu {} // 百度
-        qh360 {} // 360
-        kuan {} // 酷安
+    productFlavors.all { flavor -> // manifest变量映射
+        flavor.manifestPlaceholders = [MARKET_CHANNEL_VALUE: name]
     }
-    productFlavors.all {
-        flavor -> flavor.manifestPlaceholders = [MARKET_CHANNEL_VALUE: name]
+//    splits { // 多APK构建
+//        density { // 针对屏幕构建
+//            enable false // 停止启用
+//            reset() // 清空默认，与exclude配合使用
+//            exclude "ldpi", "xxhdpi", "xxxhdpi" // 不兼容列表
+//            compatibleScreens 'small', 'normal', 'large', 'xlarge' // 兼容列表
+//        }
+//    }
+    applicationVariants.all { variant ->
+        variant.outputs.all { output ->
+            def fileName
+            if (variant.buildType.name == 'release') {
+                // 输出apk名称为 软件名_版本号_渠道_日期.apk
+                def date = new Date().format("yyyy-MM-dd_HH-mm", TimeZone.default)
+                fileName = "${android.defaultConfig.versionCode}_${variant.productFlavors[0].name}_${date}"
+            } else {
+                fileName = "debug"
+            }
+            outputFileName = "ys_" + fileName + ".apk" // 前缀是app缩写
+        }
     }
+//    buildFeatures {
+//        dataBinding false
+//    }
     sourceSets { // 源码设置
         main {
             java.srcDirs = ['src/main/java', 'src/main/aidl']
@@ -119,6 +176,14 @@ android {
         cruncherEnabled = false
         useNewCruncher = false
     }
+//    lintOptions {
+////        disable 'TypographyFractions','TypographyQuotes'
+////        enable 'RtlHardcoded', 'RtlCompat', 'RtlEnabled'
+////        check 'NewApi', 'InlinedApi'
+//        quiet true
+//        abortOnError false
+//        ignoreWarnings false
+//    }
 }
 
 configurations.all {
